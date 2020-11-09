@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Input;
+import com.KGC.SAUW.Textures;
 public class EditText{
     public String input = "";
 	public int X, Y, w, h;
@@ -17,14 +18,14 @@ public class EditText{
 	private boolean isTouched;
 	private Camera2D cam;
 	public boolean isKeyboardOpen = false;
-	public EditText(Texture t, int x, int y, int w, int h, Camera2D cam){
-		
+	public EditText(int x, int y, int w, int h, Camera2D cam){
+		int width = Gdx.graphics.getWidth();
+		this.backgroundTextutre = Textures.generateTexture(w / (width / 16), h / (width / 16), false);
 		this.X = x;
 		this.Y = y;
 		BF = new BitmapFont();
 		this.cam = cam;
 		setWidthAndHeight(new Vector2(w, h));
-		this.backgroundTextutre = t;
 		BF = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 		BF.setColor(Color.BLACK);
 		BF.setScale(h / 2 / BF.getData().capHeight);
@@ -76,7 +77,7 @@ public class EditText{
 		
 	}
 	public void render(SpriteBatch b){
-		b.draw(backgroundTextutre, X, Y, w, h);
+		b.draw(backgroundTextutre, X + cam.X, Y + cam.Y, w, h);
 		BF.draw(b, input, X + cam.X + (h / 2) , Y + cam.Y + (h / 4 * 3));
 	}
 }

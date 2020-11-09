@@ -110,9 +110,9 @@ public class World {
 					}
 				}
 				buffer.readBytes(playerFile.readBytes());
-				pl.readBytes(buffer.getByteArray("player"));
+				if(pl != null) pl.readBytes(buffer.getByteArray("player"));
 				buffer.readBytes(worldData.readBytes());
-				WorldTime.setTime(buffer.getInt("time"));
+				if(WorldTime != null) WorldTime.setTime(buffer.getInt("time"));
 			}
 		}
 	}

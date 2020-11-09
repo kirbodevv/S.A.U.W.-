@@ -129,7 +129,7 @@ public class GameInterface {
 				@Override
 				public void initialize() {
 					int inW = (int)(Interface.width - WIDTH / 8 - WIDTH / 32);
-					input = new EditText(Textures.generateTexture(inW / (WIDTH / 16), 1, false), (int)(Interface.x + WIDTH / 32), (int)(Interface.y + WIDTH / 32), inW, (int)WIDTH / 16, interfaceCamera);
+					input = new EditText((int)(Interface.x + WIDTH / 32), (int)(Interface.y + WIDTH / 32), inW, (int)WIDTH / 16, interfaceCamera);
 					log_bg = Textures.generateTexture((Interface.width - WIDTH / 8 + WIDTH / 16) / (WIDTH / 16), ((Interface.heigth - WIDTH / 16) - (WIDTH / 8)) / (WIDTH / 16), false);
 					nextCommand = new Button("", input.X + input.w, (int)(Interface.y + WIDTH / 16), (int)(WIDTH / 32), (int)(WIDTH / 32), Textures.button_up_0, Textures.button_up_1);
 					prevCommand = new Button("", input.X + input.w, (int)(Interface.y + WIDTH / 32), (int)(WIDTH / 32), (int)(WIDTH / 32), Textures.button_down_0, Textures.button_down_1);

@@ -14,6 +14,8 @@ import android.os.Environment;
 import org.json.JSONObject;
 import java.io.FileWriter;
 import com.KGC.SAUW.InterfaceAPI.InterfaceEvents;
+import com.KGC.SAUW.InterfaceAPI.EditText;
+import com.badlogic.gdx.files.FileHandle;
 public class MenuScreen implements Screen {
 	boolean gameStart = false;
 	MainGame game;
@@ -50,6 +52,9 @@ public class MenuScreen implements Screen {
 	private Music music;
 	public SettingsScreen SettingsScreen;
 	BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
+	
+	private int worldSelIndex = 0;
+	String[] worldNames;
 	public MenuScreen(final MainGame game) {
 		File mainDir = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W.");
 		File user = new File(mainDir.toString() + "/User");
@@ -121,12 +126,21 @@ public class MenuScreen implements Screen {
 					Gdx.app.exit();
 				}
 			});
-		/*testWorld = new button(1, w / 16 * 5, h - w / 16 * 5, w / 16 * 6, w / 16, t.BButton_0, t.BButton_1);
-		 testWorld.setTextColor(new Color(Color.BLACK));
-		 testWorld.setText("Test World");*/
+		
+		FileHandle worldsFolder = Gdx.files.external("S.A.U.W./Worlds/");
+		FileHandle[] files = worldsFolder.list();
+		int i = 0;
+		for(FileHandle file : files){
+			if(file.isDirectory()) i++;
+		}
+		worldNames = new String[i];
+		int ii = 0;
+		for(int j = 0; j < files.length; j++){
+		    if(files[j].isDirectory()) worldNames[ii] = files[j].name();
+		}
 		sel_0 = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
 		sel_0.setTextColor(Color.BLACK);
-	    sel_0.setText("World 1");
+	    sel_0.setText(worldNames[0]);
 		sel_0.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -143,19 +157,39 @@ public class MenuScreen implements Screen {
 		sel_2.setTextColor(Color.BLACK);
 	    sel_2.setText("World 3");
 
-		createWorldInterface = new Interface(Interface.InterfaceSizes.STANDART, t, b, camera, items, null);
+		createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, t, b, camera, items, null);
+		createWorldInterface.setHeaderText(langs.getString("createNewWorld"));
 		createWorldInterface.setInterfaceEvents(new InterfaceEvents(){
-
+                EditText worldName;
+				Button create;
+				BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 				@Override
 				public void initialize() {
+					worldName = new EditText((int)(Interface.x + WIDTH / 16), (int)(Interface.y + Interface.heigth - WIDTH / 16 * 3), WIDTH / 16 * 9, WIDTH / 16, camera);
+					bf.setScale(WIDTH / 16 / 2 / bf.getCapHeight());
+					bf.setColor(Color.BLACK);
+				    create = new Button("create", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 3, WIDTH / 16);
+					create.setText(langs.getString("create"));
+					create.setTextColor(Color.BLACK);
+					create.setEventListener(new Button.EventListener(){
+							@Override
+							public void onClick() {
+								SettingsScreen.dispose();
+								dispose();
+								game.setScreen(new MyGdxGame(game, t, b, music, worldName.input));
+							}
+					});
+					Interface.buttons.add(create);
 				}
 
 				@Override
 				public void tick() {
+					worldName.update();
 				}
 
 				@Override
 				public void onOpen() {
+					worldName.input = langs.getString("newWorld");
 				}
 
 				@Override
@@ -164,6 +198,8 @@ public class MenuScreen implements Screen {
 
 				@Override
 				public void render() {
+					bf.draw(b, langs.getString("WorldName"), worldName.X + camera.X, worldName.Y + worldName.h + WIDTH / 16 + camera.Y);
+					worldName.render(b);
 				}
 			});
 		createNewWorld = new Button("", WIDTH / 16 * 5, 0, WIDTH / 16 * 6, WIDTH / 16);
@@ -178,6 +214,7 @@ public class MenuScreen implements Screen {
 		
 		up = new Button("", w / 32 * 23, sel_0.Y, w / 16, w / 16, t.button_up_0, t.button_up_1);
 		down = new Button("", w / 32 * 23, sel_2.Y, w / 16, w / 16, t.button_down_0, t.button_down_1);
+		
 		blocks = new Blocks(t, langs);
 		world = new World(b, t, items, camera, blocks);
 		String lastWorld = null;
@@ -218,8 +255,10 @@ public class MenuScreen implements Screen {
 		camera.update(b);
 		//startButton.setText("" + cam.X + " " + cam.Y);
 		b.begin();
+		b.setColor(0.6f, 0.6f, 0.6f, 1);
 		world.renderLowLayer();
 		world.renderHighLayer();
+		b.setColor(1, 1, 1, 1);
 		b.draw(t.logo, camera.X + w / 16 * 5, camera.Y + h - w / 16 * 4, w / 16 * 6, w / 16 * 3);
 		if (!StartGameMenu) {
 			startButton.update(camera);

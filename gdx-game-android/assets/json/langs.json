@@ -44,7 +44,10 @@
         "iron_ingot":"Железный слиток",
         "resume":"Продолжить",
         "save":"Сохранить",
-        "createNewWorld":"Создать новый мир"
+        "createNewWorld":"Создать новый мир",
+        "WorldName":"Название мира",
+        "newWorld":"Новый мир",
+        "create":"Создать"
     },
     "de" : {
         "startGame" : "Spielen",
@@ -91,6 +94,9 @@
         "iron_ingot":"Железный слиток",
         "resume":"Продолжить",
         "save":"Сохранить",
-        "createNewWorld":"Neu erstellen"
+        "createNewWorld":"Neu erstellen",
+        "WorldName":"Название мира",
+        "newWorld":"Новый мир",
+        "create":"Создать"
     }
 }

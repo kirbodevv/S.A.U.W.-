@@ -1,0 +1,17 @@
+{
+    rarity:100,
+    layers:[
+         [
+             {
+                 id:6,
+                 rarity:25
+             }
+         ],
+         [
+             {
+                 id:1,
+                 rarity:100
+             }
+         ]
+    ]
+}    

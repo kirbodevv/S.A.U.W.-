@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:18
+-keep class com.KGC.SAUW.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:33
+-keep class com.KGC.SAUW.fileOpener { <init>(...); }
+

@@ -1,0 +1,18 @@
+{
+    "debug" : true,
+    "lang":"de",
+    "console":{
+        "textColor":{
+            "R":0,
+            "G":0,
+            "B":0
+            }
+        },
+    "game":{
+        "autopickup":false,
+        "useConsole":false
+    },
+    "sound":{
+        "music":70
+    }
+}

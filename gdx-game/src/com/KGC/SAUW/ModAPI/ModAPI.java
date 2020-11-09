@@ -1,9 +1,9 @@
 package com.KGC.SAUW.ModAPI;
-import com.KGC.SAUW.gameInterface;
+import com.KGC.SAUW.GameInterface;
 
 public class ModAPI {
     public Console Console;
-	public ModAPI(gameInterface gi){
+	public ModAPI(GameInterface gi){
 		Console = new Console(gi);
 	}
 }

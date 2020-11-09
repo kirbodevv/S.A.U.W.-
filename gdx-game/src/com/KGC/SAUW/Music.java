@@ -8,8 +8,8 @@ public class Music {
 	Music nightSoundtrack;
 	public World w;
 	float musicVolume;
-	settings settings;
-	public Music(settings settings, World w) {
+	Settings settings;
+	public Music(Settings settings, World w) {
 		this.settings = settings;
 		this.w = w;
 		main = Gdx.audio.newMusic(Gdx.files.internal("music/main.mp3"));

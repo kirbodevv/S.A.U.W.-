@@ -1,6 +1,6 @@
 package com.KGC.SAUW.commands;
 import java.util.ArrayList;
-import com.KGC.SAUW.player;
+import com.KGC.SAUW.Player;
 import com.badlogic.gdx.Gdx;
 
 public class Cmd {

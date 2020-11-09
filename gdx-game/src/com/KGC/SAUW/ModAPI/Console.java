@@ -1,11 +1,11 @@
 package com.KGC.SAUW.ModAPI;
-import com.KGC.SAUW.gameInterface;
+import com.KGC.SAUW.GameInterface;
 import java.util.ArrayList;
 
 public class Console {
-	private gameInterface gi;
+	private GameInterface gi;
 	public ArrayList<String> inputs = new ArrayList<String>();
-    public Console(gameInterface gi){
+    public Console(GameInterface gi){
 		this.gi = gi;
 	}
 	public void print(String txt){

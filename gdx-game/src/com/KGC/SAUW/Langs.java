@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 
 public class Langs {
     public JSONObject langs;
-	private settings settings;
-	public Langs(settings s) {
+	private Settings settings;
+	public Langs(Settings s) {
 		this.settings = s;
 		try {
 			langs = new JSONObject(Gdx.files.internal("json/langs.json").readString());

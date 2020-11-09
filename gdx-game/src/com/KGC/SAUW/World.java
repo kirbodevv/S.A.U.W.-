@@ -3,10 +3,10 @@ import android.os.Environment;
 import box2dLight.RayHandler;
 import com.KGC.SAUW.Camera2D;
 import com.KGC.SAUW.Textures;
-import com.KGC.SAUW.items;
-import com.KGC.SAUW.maps;
-import com.KGC.SAUW.mobs.mobs;
-import com.KGC.SAUW.player;
+import com.KGC.SAUW.Items;
+import com.KGC.SAUW.Maps;
+import com.KGC.SAUW.mobs.Mobs;
+import com.KGC.SAUW.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,13 +26,13 @@ public class World {
 	private int WIDTH = Gdx.graphics.getWidth();
 	private int HEIGHT = Gdx.graphics.getHeight();
 	//private player pl;
-	private items items;
+	private Items items;
 	private Camera2D cam;
 	private SpriteBatch b;
-	public maps maps;
-	private blocks blocks;
+	public Maps maps;
+	private Blocks blocks;
 	private Textures Textures;
-	private gameInterface GI;
+	private GameInterface GI;
 	private boolean interfaceTouched;
     private boolean isTouched;
     private Random r = new Random();
@@ -41,8 +41,8 @@ public class World {
 
 	public World world;
 	public RayHandler rh;
-	public player pl;
-	public mobs mobs;
+	public Player pl;
+	public Mobs mobs;
 
     String WorldName = null;
 	public void save(String WorldName) {
@@ -116,26 +116,26 @@ public class World {
 			}
 		}
 	}
-	public World(SpriteBatch b, Textures t, items i, Camera2D cam, blocks blocks, gameInterface GI, settings s) {
+	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks, GameInterface GI, Settings s) {
 		this.Textures = t;
 		this.b = b;
 		//this.pl = pl;
 		this.items = i;
 		this.cam = cam;
-		this.maps = new maps();
+		this.maps = new Maps();
 		this.blocks = blocks;
 		this.GI = GI;
 		this.WorldTime = new Time();
 		world = new World(new Vector2(0, 0), false);
-		mobs = new mobs(b, maps, Textures);
-		pl = new player(i, Textures, GI, mobs, maps, s);
+		mobs = new Mobs(b, maps, Textures);
+		pl = new Player(i, Textures, GI, mobs, maps, s);
 	}
-	public World(SpriteBatch b, Textures t, items i, Camera2D cam, blocks blocks) {
+	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks) {
 		this.Textures = t;
 		this.b = b;
 		this.items = i;
 		this.cam = cam;
-		this.maps = new maps();
+		this.maps = new Maps();
 		this.blocks = blocks;
 		world = new World(new Vector2(0, 0), false);
 	}
@@ -158,7 +158,7 @@ public class World {
 
 		return body;
 	}
-	public boolean setBlock(int x, int y, int z, block block) {
+	public boolean setBlock(int x, int y, int z, Block block) {
 		if (x >= 0 && x < maps.map0[0].length + 1 && y >= 0 && y < maps.map0.length + 1) {
 			Tile tile = new Tile(x, y, z, block);
 			if (maps.map0[y][x][z] != null && maps.map0[y][x][z].body != null)  world.destroyBody(maps.map0[y][x][z].body);
@@ -191,7 +191,7 @@ public class World {
 		}
 		return -1;
 	}
-	public void update(mods mods, achievements a) {
+	public void update(Mods mods, Achievements a) {
 		world.step(1 / 60f, 6, 2);
 		pl.update(this, a);
 		mobs.update();
@@ -293,7 +293,7 @@ public class World {
 			}
 		}
 	}
-	public Texture getConnectingTexture(block bl, int uID, int rID, int dID, int lID) {
+	public Texture getConnectingTexture(Block bl, int uID, int rID, int dID, int lID) {
 		if (bl.id == uID && bl.id == dID && bl.id != lID && bl.id != rID) {
 			return bl.t0;
 		} else if (bl.id != uID && bl.id != dID && bl.id == lID && bl.id == rID) {

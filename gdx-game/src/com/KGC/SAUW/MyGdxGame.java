@@ -2,13 +2,13 @@ package com.KGC.SAUW;
 
 import com.KGC.SAUW.CallbackAPI.Callbacks;
 import com.KGC.SAUW.commands.Cmd;
-import com.KGC.SAUW.mobs.mobs;
+import com.KGC.SAUW.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.KGC.SAUW.mobs.itemMob;
+import com.KGC.SAUW.mobs.ItemMob;
 import com.KGC.SAUW.ModAPI.ModAPI;
 import com.KGC.SAUW.commands.Cmd.Argument;
 import java.util.Random;
@@ -24,21 +24,21 @@ public class MyGdxGame implements Screen {
 	World World;
 	float WIDTH;
 	float HEIGHT;
-	gameInterface GI;
+	GameInterface GI;
     //player pl;
 
-	items ITEMS;
-	blocks BLOCKS;
-	settings settings;
+	Items ITEMS;
+	Blocks BLOCKS;
+	Settings settings;
 
 	Camera2D camera;
 	//mobs mobs;
 	int camX, camY;
-    achievements achievements;
+    Achievements achievements;
     Callbacks Callbacks;
     BitmapFont bf = new BitmapFont();
-	mods mods;
-	crafting crafting;
+	Mods mods;
+	Crafting crafting;
 	public ModAPI ModAPI;
 	public Langs langs;
 	MainGame game;
@@ -51,26 +51,26 @@ public class MyGdxGame implements Screen {
 		this.game = game;
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT =  Gdx.graphics.getHeight();
-        crafting = new crafting();
+        crafting = new Crafting();
 		//crafting.addCraft(new crafting.craft(new int[]{9, 1, 0}, new int[][]{{7, 2, 0}}));
-		crafting.addCraft(new crafting.craft(new int[]{10, 2, 0}, new int[][]{{8, 1, 0}}));
-		crafting.addCraft(new crafting.craft(new int[]{4, 1, 0}, new int[][]{{12, 4, 0}}));
-        crafting.addCraft(new crafting.craft(new int[]{14, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
-		crafting.addCraft(new crafting.craft(new int[]{15, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
-		crafting.addCraft(new crafting.craft(new int[]{22, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
-		crafting.addCraft(new crafting.craft(new int[]{17, 1, 0}, new int[][]{{18, 3, 0}}));
-		crafting.addCraft(new crafting.craft(new int[]{16, 1, 0}, new int[][]{{12, 10, 0}, {13, 5, 0}}));
-		settings = new settings();
+		crafting.addCraft(new Crafting.craft(new int[]{10, 2, 0}, new int[][]{{8, 1, 0}}));
+		crafting.addCraft(new Crafting.craft(new int[]{4, 1, 0}, new int[][]{{12, 4, 0}}));
+        crafting.addCraft(new Crafting.craft(new int[]{14, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
+		crafting.addCraft(new Crafting.craft(new int[]{15, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
+		crafting.addCraft(new Crafting.craft(new int[]{22, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
+		crafting.addCraft(new Crafting.craft(new int[]{17, 1, 0}, new int[][]{{18, 3, 0}}));
+		crafting.addCraft(new Crafting.craft(new int[]{16, 1, 0}, new int[][]{{12, 10, 0}, {13, 5, 0}}));
+		settings = new Settings();
 		langs = new Langs(settings);
 		camera = new Camera2D((int)(Gdx.graphics.getWidth() * 1.5f));
 	    this.batch = batch;
 		this.Textures = t;
-        achievements = new achievements(langs);
+        achievements = new Achievements(langs);
 
 		//achievements.addAchievement(new achievements.achievement("clown", "Тестовое достижение", "Ххх", Textures.clown, 10));
-		ITEMS = new items(Textures, langs);
-		GI = new gameInterface(Textures, batch, ITEMS, settings, langs);
-		BLOCKS = new blocks(Textures, langs);
+		ITEMS = new Items(Textures, langs);
+		GI = new GameInterface(Textures, batch, ITEMS, settings, langs);
+		BLOCKS = new Blocks(Textures, langs);
 		World = new World(batch, Textures, ITEMS, camera, BLOCKS , GI, settings);
 		if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
 			World.createNewWorld();
@@ -93,7 +93,7 @@ public class MyGdxGame implements Screen {
 		music.settings = settings;
 		BLOCKS.initialize(Textures, camera, ITEMS, GI, batch, World, langs);
 		ModAPI = new ModAPI(GI);
-		mods = new mods();
+		mods = new Mods();
 		GI.initilizate(crafting, ModAPI, game, langs, World);
 		mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, settings, GI, Textures);
 		//achievements.addAchievement(new achievements.achievement("SZD", "Не прячься", "Спрятаться за деревом", Textures.log, 10));
@@ -104,10 +104,10 @@ public class MyGdxGame implements Screen {
 	    for (int i = 0; i < World.maps.map0.length; i++) {
 			for (int j = 0; j < World.maps.map0[i].length; j++) {
 				if (r.nextInt(75) == 0) {
-					World.mobs.spawn(new itemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 7, 1, 0, ITEMS));
+					World.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 7, 1, 0, ITEMS));
 				}
 				if (r.nextInt(50) == 0) {
-					World.mobs.spawn(new itemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 12, 1, 0, ITEMS));
+					World.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 12, 1, 0, ITEMS));
 				}
 			}
 		}

@@ -1,8 +1,8 @@
 package com.KGC.SAUW;
 import com.KGC.SAUW.InterfaceAPI.Interface;
-import com.KGC.SAUW.InterfaceAPI.container;
-import com.KGC.SAUW.mobs.itemMob;
-import com.KGC.SAUW.mobs.mobs;
+import com.KGC.SAUW.InterfaceAPI.Container;
+import com.KGC.SAUW.mobs.ItemMob;
+import com.KGC.SAUW.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
@@ -20,20 +20,20 @@ public class Tile {
 	public int type;
 	public int damage;
 	private int instrumenType;
-	block.TileEntity TileEntity = null;
+	Block.TileEntity TileEntity = null;
 	Interface Interface = null;
 	float timer;
 	TextureRegion t;
 	Rectangle block;
 	int WIDTH = Gdx.graphics.getWidth();
 	
-	public ArrayList<extraData> extraData = new ArrayList<extraData>();
-    public ArrayList<container> containers = new ArrayList<container>();
+	public ArrayList<ExtraData> extraData = new ArrayList<ExtraData>();
+    public ArrayList<Container> containers = new ArrayList<Container>();
    
 	public PointLight PL;
 	public Body body;
 
-	public Tile(int X, int Y, int Z, block bl) {
+	public Tile(int X, int Y, int Z, Block bl) {
 		this.x = X;
 		this.y = Y;
 		this.z = Z;
@@ -49,7 +49,7 @@ public class Tile {
 			if (Interface != null)
 				for (int i = 0; i < Interface.slots.size(); i++) {
 					if (!Interface.slots.get(i).isInventorySlot) {
-						containers.add(new container(Interface.slots.get(i).ID));
+						containers.add(new Container(Interface.slots.get(i).ID));
 					}
 				}
 			this.TileEntity.initialize(this);
@@ -61,7 +61,7 @@ public class Tile {
 	public void setBody(Body body) {
 		this.body = body;
 	}
-    public void setLight(RayHandler rh, block bl) {
+    public void setLight(RayHandler rh, Block bl) {
 		if (bl.lightingRadius != -1) {
 			PL = new PointLight(rh, 100, new Color(bl.lightingColor), bl.lightingRadius * WIDTH / 16, x * WIDTH / 16 + WIDTH / 32, y * WIDTH / 16 + WIDTH / 32);
 		    PL.attachToBody(body);
@@ -83,7 +83,7 @@ public class Tile {
 		output += "}";
 		return output;
 	}
-	public container getContainer(String ID) {
+	public Container getContainer(String ID) {
 		for (int i = 0; i < containers.size(); i++) {
 			if (containers.get(i).ID.equals(ID)) {
 				return containers.get(i);
@@ -92,14 +92,14 @@ public class Tile {
 		return null;
 	}
 	public void setExtraData(String key, Object value) {
-		for (extraData ED : extraData) {
+		for (ExtraData ED : extraData) {
 			if (ED.key.equals(key)) {
 				ED.setValue(value);
 				return;
 			}
 		}
-		extraData.add(new extraData(key));
-		for (extraData ED : extraData) {
+		extraData.add(new ExtraData(key));
+		for (ExtraData ED : extraData) {
 			if (ED.key.equals(key)) {
 				ED.setValue(value);
 				return;
@@ -107,7 +107,7 @@ public class Tile {
 		}
 	}
 	public Object getExtraData(String key) {
-		for (extraData ED : extraData) {
+		for (ExtraData ED : extraData) {
 			if (ED.key.equals(key)) {
 				return ED.getValue();
 			}
@@ -122,14 +122,14 @@ public class Tile {
 			return 0;
 		}
 	}
-	public void update(Camera2D cam, gameInterface GI, player pl, World w, maps m, blocks b, mobs mobs, items items) {
+	public void update(Camera2D cam, GameInterface GI, Player pl, World w, Maps m, Blocks b, Mobs mobs, Items items) {
 		if (damage <= 0 && id != 4) {
 			w.setBlock(x, y, z, b.getBlockById(id).RBOD);
 			for (int i = 0; i < b.getBlockById(id).drop.length; i++) {
 				Random r = new Random();
 				int xx = r.nextInt(WIDTH / 16) + WIDTH / 16 * x;
 				int yy = r.nextInt(WIDTH / 16) + WIDTH / 16 * y;
-				mobs.spawn(new itemMob(xx, yy, b.getBlockById(id).drop[i][0], b.getBlockById(id).drop[i][1], 0, items));
+				mobs.spawn(new ItemMob(xx, yy, b.getBlockById(id).drop[i][0], b.getBlockById(id).drop[i][1], 0, items));
 			}
 		}
 		if (TileEntity != null) {

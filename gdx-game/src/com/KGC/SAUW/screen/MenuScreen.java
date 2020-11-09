@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.*;
 import java.util.*;
-import com.KGC.SAUW.InterfaceAPI.button;
+import com.KGC.SAUW.InterfaceAPI.Button;
 import com.KGC.SAUW.InterfaceAPI.Interface;
 import java.io.File;
 import java.io.FileReader;
@@ -23,11 +23,11 @@ public class MenuScreen implements Screen {
 	SpriteBatch b;
 	Camera2D camera;
 	int WIDTH = Gdx.graphics.getWidth();
-	button startButton;
-	button settingsButton;
-	button exitButton;
+	Button startButton;
+	Button settingsButton;
+	Button exitButton;
 	World world;
-	blocks blocks;
+	Blocks blocks;
 	Textures t;
 	Timer timer = new Timer();
 	float tmr;
@@ -36,16 +36,16 @@ public class MenuScreen implements Screen {
     //button testWorld;
 	//button createWorld;
 	int SAUW_coins = 0;
-	button sel_0;
-	button sel_1;
-	button sel_2;
-	button createNewWorld;
-	button up;
-	button down;
+	Button sel_0;
+	Button sel_1;
+	Button sel_2;
+	Button createNewWorld;
+	Button up;
+	Button down;
 	private String result = "";
 	Interface createWorldInterface;
 	JSONObject data;
-	settings settings;
+	Settings settings;
 	Langs langs;
 	private Music music;
 	public SettingsScreen SettingsScreen;
@@ -64,7 +64,7 @@ public class MenuScreen implements Screen {
 
 			}
 		}
-		this.settings = new settings();
+		this.settings = new Settings();
 		langs = new Langs(this.settings);
 		try {
 			File data = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W./User/data.json");
@@ -85,7 +85,7 @@ public class MenuScreen implements Screen {
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		t = new Textures();
-		items items = new items(t, langs);
+		Items items = new Items(t, langs);
 		t.load();
 		timer.schedule(new TimerTask(){
 				@Override
@@ -97,25 +97,25 @@ public class MenuScreen implements Screen {
 		camera = new Camera2D();
 		b = new SpriteBatch();
 		SettingsScreen = new SettingsScreen(game, t, this);
-		startButton = new button("", w / 16 * 5, h - w / 16 * 5 + w / 138, w / 16 * 6, w / 16);
+		startButton = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 138, w / 16 * 6, w / 16);
 		startButton.setTextColor(Color.BLACK);
-		startButton.setEventListener(new button.EventListener(){
+		startButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 					StartGameMenu = true;
 				}
 			});
-		settingsButton = new button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
+		settingsButton = new Button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
 		settingsButton.setTextColor(Color.BLACK);
-		settingsButton.setEventListener(new button.EventListener(){
+		settingsButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 					game.setScreen(SettingsScreen);
 				}
 			});
-		exitButton = new button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
+		exitButton = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
 		exitButton.setTextColor(Color.BLACK);
-		exitButton.setEventListener(new button.EventListener(){
+		exitButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 					Gdx.app.exit();
@@ -124,10 +124,10 @@ public class MenuScreen implements Screen {
 		/*testWorld = new button(1, w / 16 * 5, h - w / 16 * 5, w / 16 * 6, w / 16, t.BButton_0, t.BButton_1);
 		 testWorld.setTextColor(new Color(Color.BLACK));
 		 testWorld.setText("Test World");*/
-		sel_0 = new button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
+		sel_0 = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
 		sel_0.setTextColor(Color.BLACK);
 	    sel_0.setText("World 1");
-		sel_0.setEventListener(new button.EventListener(){
+		sel_0.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 			        SettingsScreen.dispose();
@@ -135,11 +135,11 @@ public class MenuScreen implements Screen {
 					game.setScreen(new MyGdxGame(game, t, b, music, "TestWorld"));
 				}
 			});
-		sel_1 = new button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
+		sel_1 = new Button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
 		sel_1.setTextColor(Color.BLACK);
 	    sel_1.setText("World 2");
 
-		sel_2 = new button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
+		sel_2 = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
 		sel_2.setTextColor(Color.BLACK);
 	    sel_2.setText("World 3");
 
@@ -166,19 +166,19 @@ public class MenuScreen implements Screen {
 				public void render() {
 				}
 			});
-		createNewWorld = new button("", WIDTH / 16 * 5, 0, WIDTH / 16 * 6, WIDTH / 16);
+		createNewWorld = new Button("", WIDTH / 16 * 5, 0, WIDTH / 16 * 6, WIDTH / 16);
 		createNewWorld.setTextColor(Color.BLACK);
 		createNewWorld.setText(langs.getString("createNewWorld"));
-        createNewWorld.setEventListener(new button.EventListener(){
+        createNewWorld.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 					createWorldInterface.open();
 				}
 		});
 		
-		up = new button("", w / 32 * 23, sel_0.Y, w / 16, w / 16, t.button_up_0, t.button_up_1);
-		down = new button("", w / 32 * 23, sel_2.Y, w / 16, w / 16, t.button_down_0, t.button_down_1);
-		blocks = new blocks(t, langs);
+		up = new Button("", w / 32 * 23, sel_0.Y, w / 16, w / 16, t.button_up_0, t.button_up_1);
+		down = new Button("", w / 32 * 23, sel_2.Y, w / 16, w / 16, t.button_down_0, t.button_down_1);
+		blocks = new Blocks(t, langs);
 		world = new World(b, t, items, camera, blocks);
 		String lastWorld = null;
 		try {

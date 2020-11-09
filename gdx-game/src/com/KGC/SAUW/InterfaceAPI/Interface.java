@@ -19,26 +19,26 @@ public class Interface {
 	public boolean isBlockInterface;
 	private Textures t;
 	private SpriteBatch b;
-	private items items;
+	private Items items;
 	private int w, h;
 	public BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 	public float width, heigth, x, y;
-	public button exitButton;
-	private final gameInterface GI;
+	public Button exitButton;
+	private final GameInterface GI;
 
-	public ArrayList<button> buttons = new ArrayList<button>();
-	public ArrayList<image> images = new ArrayList<image>();
-	public ArrayList<slot> slots = new ArrayList<slot>();
+	public ArrayList<Button> buttons = new ArrayList<Button>();
+	public ArrayList<Image> images = new ArrayList<Image>();
+	public ArrayList<Slot> slots = new ArrayList<Slot>();
 
 	//public EditText input;
 
     private int currX, currY, currZ;
-	private maps maps;
+	private Maps maps;
 	public InterfaceEvents IE = null;
 	private String headerText = "";
 	private int size = 0;
     
-	public Interface(int size, Textures t, SpriteBatch b, Camera2D cam, items items, gameInterface GI_) {
+	public Interface(int size, Textures t, SpriteBatch b, Camera2D cam, Items items, GameInterface GI_) {
 		this.t = t;
 		this.b = b;
 		this.GI = GI_;
@@ -58,8 +58,8 @@ public class Interface {
 		x = (w - width) / 2;
 		y = (h - heigth) / 2;
         this.size = size;
-		exitButton = new button("", (int)(x + width - w / 16), (int)(y + heigth - w / 16), w / 32, w / 32, t.closeButton, t.closeButton);
-		exitButton.setEventListener(new button.EventListener(){
+		exitButton = new Button("", (int)(x + width - w / 16), (int)(y + heigth - w / 16), w / 32, w / 32, t.closeButton, t.closeButton);
+		exitButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 					isOpen = false;
@@ -79,9 +79,9 @@ public class Interface {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 8; i++) {
 				if (j == 0) {
-					slots.add(new slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
+					slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
 				} else {
-					slots.add(new slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32 + w / 24 * j + w / 128), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
+					slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32 + w / 24 * j + w / 128), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
 				}
 			}
 		}
@@ -99,11 +99,11 @@ public class Interface {
 			IE.onOpen();
 		}
 	}
-	public void setMaps(maps maps) {
+	public void setMaps(Maps maps) {
 		this.maps = maps;
 	}
 
-	public void swap(slot a, slot a1, player pl) {
+	public void swap(Slot a, Slot a1, Player pl) {
 		if (a1.SF == null || a1.SF.isValid(a.id, a.count, a.data)) {
 			int temp = a.id;
 			int temp1 = a.count;
@@ -132,7 +132,7 @@ public class Interface {
 			}
 		}
 	}
-	public void sendToSlot(slot slot1, slot slot2, player pl, Camera2D cam) {
+	public void sendToSlot(Slot slot1, Slot slot2, Player pl, Camera2D cam) {
 		if (slot2.SF == null || slot2.SF.isValid(slot1.id, slot1.count, slot1.data)) {
 			swap(slot1, slot2, pl);
 		}
@@ -141,7 +141,7 @@ public class Interface {
 		slot1.isSelected = false;
 		slot2.isSelected = false;*/
 	}
-	public slot getSlot(String ID) {
+	public Slot getSlot(String ID) {
 		for (int i = 0; i < slots.size(); i++) {
 			if (slots.get(i).ID.equals(ID)) {
 				return slots.get(i);
@@ -149,7 +149,7 @@ public class Interface {
 		}
 		return null;
 	}
-	public button getButton(String ID) {
+	public Button getButton(String ID) {
 		for (int i = 0; i < buttons.size(); i++) {
 			if (buttons.get(i).ID.equals(ID)) {
 				return buttons.get(i);
@@ -157,7 +157,7 @@ public class Interface {
 		}
 		return null;
 	}
-	public slot getTouchedSlot() {
+	public Slot getTouchedSlot() {
 		for (int i = 0; i < slots.size(); i++) {
 			if (slots.get(i).isTouched()) {
 				return slots.get(i);
@@ -173,7 +173,7 @@ public class Interface {
 		}
 		return null;
 	}*/
-	public void update(player pl, Camera2D cam) {
+	public void update(Player pl, Camera2D cam) {
 		if (isOpen) {
 			if(GI != null) GI.isInterfaceOpen = true;
 			exitButton.update(cam);
@@ -211,7 +211,7 @@ public class Interface {
 		}
 	}
 
-	public void render(player pl, Camera2D cam) {
+	public void render(Player pl, Camera2D cam) {
 		if (isOpen) {
 			if (size == InterfaceSizes.FULL) {
 				b.draw(t.standartBackground_full, x + cam.X, y + cam.Y, width, heigth);

@@ -52,7 +52,7 @@ public class MenuScreen implements Screen {
 	private Music music;
 	public SettingsScreen SettingsScreen;
 	BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-	
+
 	private int worldSelIndex = 0;
 	String[] worldNames;
 	public MenuScreen(final MainGame game) {
@@ -126,17 +126,18 @@ public class MenuScreen implements Screen {
 					Gdx.app.exit();
 				}
 			});
-		
+
 		FileHandle worldsFolder = Gdx.files.external("S.A.U.W./Worlds/");
 		FileHandle[] files = worldsFolder.list();
 		int i = 0;
-		for(FileHandle file : files){
-			if(file.isDirectory()) i++;
+		for (FileHandle file : files) {
+			if (file.isDirectory()) i++;
 		}
 		worldNames = new String[i];
 		int ii = 0;
-		for(int j = 0; j < files.length; j++){
-		    if(files[j].isDirectory()) worldNames[ii] = files[j].name();
+		for (int j = 0; j < files.length; j++) {
+		    if (files[j].isDirectory()) worldNames[ii] = files[j].name();
+			ii++;
 		}
 		sel_0 = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
 		sel_0.setTextColor(Color.BLACK);
@@ -144,19 +145,27 @@ public class MenuScreen implements Screen {
 		sel_0.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
-			        SettingsScreen.dispose();
-					dispose();
-					game.setScreen(new MyGdxGame(game, t, b, music, "TestWorld"));
+			        loadGame(worldNames[worldSelIndex]);
 				}
 			});
 		sel_1 = new Button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
 		sel_1.setTextColor(Color.BLACK);
 	    sel_1.setText("World 2");
-
+        sel_1.setEventListener(new Button.EventListener(){
+				@Override
+				public void onClick() {
+			        loadGame(worldNames[worldSelIndex + 1]);
+				}
+			});
 		sel_2 = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
 		sel_2.setTextColor(Color.BLACK);
 	    sel_2.setText("World 3");
-
+		sel_2.setEventListener(new Button.EventListener(){
+				@Override
+				public void onClick() {
+			        loadGame(worldNames[worldSelIndex + 2]);
+				}
+			});
 		createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, t, b, camera, items, null);
 		createWorldInterface.setHeaderText(langs.getString("createNewWorld"));
 		createWorldInterface.setInterfaceEvents(new InterfaceEvents(){
@@ -174,11 +183,12 @@ public class MenuScreen implements Screen {
 					create.setEventListener(new Button.EventListener(){
 							@Override
 							public void onClick() {
-								SettingsScreen.dispose();
-								dispose();
-								game.setScreen(new MyGdxGame(game, t, b, music, worldName.input));
+								for (int i = 0; i < worldNames.length; i++) {
+									if (worldName.input.equals(worldNames[i])) return;
+								}
+								loadGame(worldName.input);
 							}
-					});
+						});
 					Interface.buttons.add(create);
 				}
 
@@ -202,7 +212,7 @@ public class MenuScreen implements Screen {
 					worldName.render(b);
 				}
 			});
-		createNewWorld = new Button("", WIDTH / 16 * 5, 0, WIDTH / 16 * 6, WIDTH / 16);
+		createNewWorld = new Button("", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
 		createNewWorld.setTextColor(Color.BLACK);
 		createNewWorld.setText(langs.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener(){
@@ -210,11 +220,29 @@ public class MenuScreen implements Screen {
 				public void onClick() {
 					createWorldInterface.open();
 				}
-		});
-		
+			});
+		HideButtonsIfNeed();
+		setSelectButtonsText();
 		up = new Button("", w / 32 * 23, sel_0.Y, w / 16, w / 16, t.button_up_0, t.button_up_1);
+		up.setEventListener(new Button.EventListener(){
+				@Override
+				public void onClick() {
+					worldSelIndex--;
+					if (worldSelIndex < 0) worldSelIndex = 0;
+					HideButtonsIfNeed();
+					setSelectButtonsText();
+				}
+			});
 		down = new Button("", w / 32 * 23, sel_2.Y, w / 16, w / 16, t.button_down_0, t.button_down_1);
-		
+		down.setEventListener(new Button.EventListener(){
+				@Override
+				public void onClick() {
+					worldSelIndex++;
+					if (worldSelIndex >= worldNames.length) worldSelIndex = worldNames.length - 1;
+					HideButtonsIfNeed();
+					setSelectButtonsText();
+				}
+			});
 		blocks = new Blocks(t, langs);
 		world = new World(b, t, items, camera, blocks);
 		String lastWorld = null;
@@ -235,6 +263,24 @@ public class MenuScreen implements Screen {
 		settingsButton.setText(langs.getString("settings"));
 		exitButton.setText(langs.getString("exit"));
 		music = new Music(this.settings, null);
+	}
+	public void loadGame(String worldName) {
+		SettingsScreen.dispose();
+		dispose();
+		game.setScreen(new MyGdxGame(game, t, b, music, worldName));
+	}
+	public void setSelectButtonsText() {
+		if (!sel_0.isHided() && worldSelIndex < worldNames.length) sel_0.setText(worldNames[worldSelIndex]);
+		if (!sel_1.isHided() && worldSelIndex + 1 < worldNames.length) sel_1.setText(worldNames[worldSelIndex + 1]);
+		if (!sel_2.isHided() && worldSelIndex + 2 < worldNames.length) sel_2.setText(worldNames[worldSelIndex + 2]);
+	}
+	public void HideButtonsIfNeed() {
+		if (worldSelIndex >= worldNames.length) sel_0.hide(true);
+		else sel_0.hide(false);
+		if (worldSelIndex + 1 >= worldNames.length) sel_1.hide(true);
+		else sel_1.hide(false);
+		if (worldSelIndex + 2 >= worldNames.length) sel_2.hide(true);
+		else sel_2.hide(false);
 	}
 	@Override
     public void show() {

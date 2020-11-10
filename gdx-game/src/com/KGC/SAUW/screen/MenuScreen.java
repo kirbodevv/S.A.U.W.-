@@ -319,20 +319,25 @@ public class MenuScreen implements Screen {
 		} else {
 			//testWorld.update(cam);
 			//testWorld.render(b, cam);
-			sel_0.update(camera);
-			sel_1.update(camera);
-			sel_2.update(camera);
-			createNewWorld.update(camera);
-			createWorldInterface.update(null, camera);
-			up.update(camera);
-			down.update(camera);
 
-			sel_0.render(b, camera);
-			sel_1.render(b, camera);
-			sel_2.render(b, camera);
-			createNewWorld.render(b, camera);
-			up.render(b, camera);
-			down.render(b, camera);
+			if (!createWorldInterface.isOpen) {
+				sel_0.update(camera);
+				sel_1.update(camera);
+				sel_2.update(camera);
+				createNewWorld.update(camera);
+				up.update(camera);
+				down.update(camera);
+			}
+			createWorldInterface.update(null, camera);
+
+			if (!createWorldInterface.isOpen) {
+				sel_0.render(b, camera);
+				sel_1.render(b, camera);
+				sel_2.render(b, camera);
+				createNewWorld.render(b, camera);
+				up.render(b, camera);
+				down.render(b, camera);
+			}
 			createWorldInterface.render(null, camera);
 		}
 		b.end();

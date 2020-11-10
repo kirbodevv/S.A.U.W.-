@@ -2,4 +2,5 @@ bin/
 gen/
 obj/
 libs/*/*.so
-
+gdx-game/bin/*
+gdx-game-android/bin/*

@@ -53,7 +53,7 @@ public class MyGdxGame implements Screen {
 		HEIGHT =  Gdx.graphics.getHeight();
         crafting = new Crafting();
 		//crafting.addCraft(new crafting.craft(new int[]{9, 1, 0}, new int[][]{{7, 2, 0}}));
-		crafting.addCraft(new Crafting.craft(new int[]{10, 2, 0}, new int[][]{{8, 1, 0}}));
+		//crafting.addCraft(new Crafting.craft(new int[]{10, 2, 0}, new int[][]{{8, 1, 0}}));
 		crafting.addCraft(new Crafting.craft(new int[]{4, 1, 0}, new int[][]{{12, 4, 0}}));
         crafting.addCraft(new Crafting.craft(new int[]{14, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
 		crafting.addCraft(new Crafting.craft(new int[]{15, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));

@@ -15,10 +15,7 @@ public class Crafting {
 		}
 	}
 	public Crafting(){
-		FileHandle[] crafts = Gdx.files.internal("json/Crafts").list();
-		for(FileHandle file : crafts){
-			addCrafts(file);
-		}
+		addCrafts(Gdx.files.internal("json/Crafts"));
 	}
 	public ArrayList<craft> crafts = new ArrayList<craft>();
 	public void addCraft(craft craft){

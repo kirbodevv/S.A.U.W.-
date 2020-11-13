@@ -1,0 +1,24 @@
+{
+    "result":{
+        "id":22,
+        "count":2,
+        "data":0
+    },
+    "ingredients":[
+        {
+            "id":7,
+            "count":3,
+            "data":0
+        },
+        {
+            "id":12,
+            "count":3,
+            "data":0
+        },
+        {
+            "id":17,
+            "count":2,
+            "data":0
+        }
+    ]
+}

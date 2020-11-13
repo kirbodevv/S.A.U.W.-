@@ -25,14 +25,12 @@ public class MyGdxGame implements Screen {
 	float WIDTH;
 	float HEIGHT;
 	GameInterface GI;
-    //player pl;
 
 	Items ITEMS;
 	Blocks BLOCKS;
 	Settings settings;
 
 	Camera2D camera;
-	//mobs mobs;
 	int camX, camY;
     Achievements achievements;
     Callbacks Callbacks;
@@ -52,14 +50,6 @@ public class MyGdxGame implements Screen {
 		WIDTH = Gdx.graphics.getWidth();
 		HEIGHT =  Gdx.graphics.getHeight();
         crafting = new Crafting();
-		//crafting.addCraft(new crafting.craft(new int[]{9, 1, 0}, new int[][]{{7, 2, 0}}));
-		//crafting.addCraft(new Crafting.craft(new int[]{10, 2, 0}, new int[][]{{8, 1, 0}}));
-		crafting.addCraft(new Crafting.craft(new int[]{4, 1, 0}, new int[][]{{12, 4, 0}}));
-        crafting.addCraft(new Crafting.craft(new int[]{14, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
-		crafting.addCraft(new Crafting.craft(new int[]{15, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
-		crafting.addCraft(new Crafting.craft(new int[]{22, 1, 0}, new int[][]{{7, 3, 0}, {12, 3, 0}, {17, 2, 0}}));
-		crafting.addCraft(new Crafting.craft(new int[]{17, 1, 0}, new int[][]{{18, 3, 0}}));
-		crafting.addCraft(new Crafting.craft(new int[]{16, 1, 0}, new int[][]{{12, 10, 0}, {13, 5, 0}}));
 		settings = new Settings();
 		langs = new Langs(settings);
 		camera = new Camera2D((int)(Gdx.graphics.getWidth() * 1.5f));
@@ -67,7 +57,6 @@ public class MyGdxGame implements Screen {
 		this.Textures = t;
         achievements = new Achievements(langs);
 
-		//achievements.addAchievement(new achievements.achievement("clown", "Тестовое достижение", "Ххх", Textures.clown, 10));
 		ITEMS = new Items(Textures, langs);
 		GI = new GameInterface(Textures, batch, ITEMS, settings, langs);
 		BLOCKS = new Blocks(Textures, langs);
@@ -78,10 +67,7 @@ public class MyGdxGame implements Screen {
 		} else {
 			World.load(worldName);
 		}
-		//mobs = new mobs(batch, World.maps, Textures);
 		BLOCKS.setItems(ITEMS);
-		//pl = new player(ITEMS, Textures, GI, mobs, World.maps, settings);
-		///World.pl = pl;
 		RayHandler = new RayHandler(World.world);
 		RayHandler.setAmbientLight(1, 1, 1, 1);
 		RayHandler.useDiffuseLight(true);
@@ -96,7 +82,6 @@ public class MyGdxGame implements Screen {
 		mods = new Mods();
 		GI.initilizate(crafting, ModAPI, game, langs, World);
 		mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, settings, GI, Textures);
-		//achievements.addAchievement(new achievements.achievement("SZD", "Не прячься", "Спрятаться за деревом", Textures.log, 10));
 		World.setBlock(10, 7, 0, 9);
 		World.setBlock(11, 7, 0, 10);
 
@@ -111,9 +96,6 @@ public class MyGdxGame implements Screen {
 				}
 			}
 		}
-
-		/*MS.SettingsScreen.dispose();
-		 MS.dispose();*/
 	}
 
 
@@ -133,7 +115,6 @@ public class MyGdxGame implements Screen {
 		if (GI.isInterfaceOpen) batch.setColor(0.5f, 0.5f, 0.5f, 1);
 		World.renderLowLayer();
 		
-		;
 		World.renderHighLayer();
 		if (GI.isInterfaceOpen) batch.setColor(1, 1, 1, 1);
 		batch.end();

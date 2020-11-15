@@ -30,13 +30,13 @@ public class Player implements ExtraData {
 		return buffer.toBytes();
 	}
 	@Override
-	public void readBytes(byte[] bytes) {
+	public void readBytes(byte[] bytes, int begin, int end) {
 		DataBuffer buffer = new DataBuffer();
 		buffer.readBytes(bytes);
 		player.x = buffer.getFloat("x");
 		player.y = buffer.getFloat("y");
 		for(int i = 0; i < Inventory.length; i++){
-			Inventory[i].readBytes(buffer.getByteArray("Inv_" + i));
+			Inventory[i].readBytes(buffer.getByteArray("Inv_" + i), begin, end);
 		}
 	}
 	JSONObject data;

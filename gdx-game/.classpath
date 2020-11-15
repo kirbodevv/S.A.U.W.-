@@ -7,5 +7,5 @@
 	<classpathentry kind="lib" exported="true" path="libs/rhino.jar"/>
 	<classpathentry kind="lib" exported="true" path="libs/gdx-box2d.jar"/>
 	<classpathentry kind="lib" exported="true" path="libs/box2dlights.jar"/>
-	<classpathentry kind="lib" exported="true" path="libs/bdb.jar"/>
+	<classpathentry kind="lib" exported="true" path="libs/bdb2.jar"/>
 </classpath>

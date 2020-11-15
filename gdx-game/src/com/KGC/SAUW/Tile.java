@@ -1,39 +1,81 @@
 package com.KGC.SAUW;
-import com.KGC.SAUW.InterfaceAPI.Interface;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.KGC.SAUW.InterfaceAPI.Container;
+import com.KGC.SAUW.InterfaceAPI.Interface;
 import com.KGC.SAUW.mobs.ItemMob;
 import com.KGC.SAUW.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import java.util.ArrayList;
-import java.util.Random;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.Body;
+import java.util.ArrayList;
+import java.util.Random;
+import com.intbyte.bdb.DataBuffer;
+import com.intbyte.bdb.ExtraDataFactory;
 
-public class Tile {
+public class Tile implements com.intbyte.bdb.ExtraData {
+	public static class TileEntityFactory implements ExtraDataFactory {
+		Blocks b;
+		public TileEntityFactory(Blocks b) {
+			this.b = b;
+		}
+		@Override
+		public com.intbyte.bdb.ExtraData getExtraData() {
+			return new Tile(b);
+		}
+	}
 	public int id;
 	public int x, y, z;
 	public int type;
 	public int damage;
+	public int biomId = 0;
 	private int instrumenType;
-	Block.TileEntity TileEntity = null;
+	private Blocks blocks;
+	public Block.TileEntity TileEntity = null;
 	Interface Interface = null;
 	float timer;
 	TextureRegion t;
 	Rectangle block;
 	int WIDTH = Gdx.graphics.getWidth();
-	
+
 	public ArrayList<ExtraData> extraData = new ArrayList<ExtraData>();
     public ArrayList<Container> containers = new ArrayList<Container>();
-   
+
 	public PointLight PL;
 	public Body body;
 
-	public Tile(int X, int Y, int Z, Block bl) {
+	@Override
+	public byte[] getBytes() {
+		DataBuffer buffer = new DataBuffer();
+		buffer.put("id", id);
+		buffer.put("coords", new int[]{x, y, z});
+		for (Container c : containers) {
+			buffer.put(c.ID, new int[]{c.getId(), c.getCount(), c.getData()});
+		}
+		return buffer.toBytes();
+	}
+
+	@Override
+	public void readBytes(byte[] bytes, int begin, int end) {
+	    DataBuffer buffer = new DataBuffer();
+		buffer.readBytes(bytes, begin, end);
+		this.x = buffer.getIntArray("coords")[0];
+		this.y = buffer.getIntArray("coords")[1];
+		this.z = buffer.getIntArray("coords")[2];
+		this.id = buffer.getInt("id");
+		createTile(x, y, z, blocks.getBlockById(id));
+		for (Container c : containers) {
+			c.setItem(buffer.getIntArray(c.ID)[0],
+					  buffer.getIntArray(c.ID)[1],
+					  buffer.getIntArray(c.ID)[2]);
+		}
+	}
+	public Tile(Blocks b) {
+		this.blocks = b;
+	}
+	public void createTile(int X, int Y, int Z, Block bl) {
 		this.x = X;
 		this.y = Y;
 		this.z = Z;
@@ -66,22 +108,6 @@ public class Tile {
 			PL = new PointLight(rh, 100, new Color(bl.lightingColor), bl.lightingRadius * WIDTH / 16, x * WIDTH / 16 + WIDTH / 32, y * WIDTH / 16 + WIDTH / 32);
 		    PL.attachToBody(body);
 		}
-	}
-	@Override
-	public String toString() {
-		String output = "{id:" + id + ", x:" + x + ", y:" + y + ", z:" + z;
-		if (containers.size() != 0) {
-			output += ", Ctnr:[";
-			for (int i = 0; i < containers.size(); i++) {
-				output += containers.get(i).toString();
-				if (i < containers.size() - 1) {
-					output += ", ";
-				}
-			}
-			output += "]";
-		}
-		output += "}";
-		return output;
 	}
 	public Container getContainer(String ID) {
 		for (int i = 0; i < containers.size(); i++) {

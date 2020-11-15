@@ -2,11 +2,11 @@ package com.KGC.SAUW;
 import android.os.Environment;
 import box2dLight.RayHandler;
 import com.KGC.SAUW.Camera2D;
-import com.KGC.SAUW.Textures;
 import com.KGC.SAUW.Items;
 import com.KGC.SAUW.Maps;
-import com.KGC.SAUW.mobs.Mobs;
 import com.KGC.SAUW.Player;
+import com.KGC.SAUW.Textures;
+import com.KGC.SAUW.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.intbyte.bdb.DataBuffer;
 import java.io.File;
+import java.util.List;
 import java.util.Random;
 
 public class World {
@@ -40,18 +41,21 @@ public class World {
 	public Time WorldTime;
 
 	public World world;
-	public RayHandler rh;
+	public RayHandler RayHandler;
 	public Player pl;
 	public Mobs mobs;
 
     String WorldName = null;
+	float TL = 720 / 0.6f;
+	
 	public void save(String WorldName) {
+		this.WorldName = WorldName;
 		File worldFolder = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W./Worlds/" + WorldName);
-		
+
 		File map = new File(worldFolder.toString() + "/map");
 		File mapFile = new File(map.toString() + "/map.bdb");
 		File player = new File(worldFolder.toString() + "/player.bdb");
-		
+
 		if (!worldFolder.exists()) worldFolder.mkdir();
 		if (!map.exists()) map.mkdir();
 		try {
@@ -86,7 +90,7 @@ public class World {
 			pl.data.put("lastWorld", WorldName);
 			pl.saveData();
 		} catch (Exception e) {
-			
+
 		}
 		File worldFolder = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W./Worlds/" + WorldName);
 		if (worldFolder.exists()) {
@@ -99,34 +103,46 @@ public class World {
 				buffer.readBytes(mapFile1.readBytes());
 				int[] map = buffer.getIntArray("mapIds");
 				int[] mapDmg = buffer.getIntArray("mapDamage");
+				Tile.TileEntityFactory TEF = new Tile.TileEntityFactory(blocks);
+				List<? extends com.intbyte.bdb.ExtraData> tileEntitys = null;
+				if (buffer.getInt("tileEnCount") > 0) {
+					tileEntitys = buffer.getExtraDataList("tileEntitys", TEF);
+				}
 				int i = 0;
 				for (int y = 0; y < maps.map0.length; y++) {
 					for (int x = 0; x < maps.map0[y].length; x++) {
 						for (int z = 0; z < maps.map0[y][x].length; z++) {
-							setBlock(x, y,  z, map[i]);
+							if (buffer.getInt("tileEnCount") > 0) {
+								for (int j = 0; j < tileEntitys.size(); j++) {
+									Tile tile = (Tile)tileEntitys.get(j);
+									if (x == tile.x && y == tile.y && z == tile.z) {
+										setBlock(tile);
+									}
+								}
+							}
+							if (maps.map0[y][x][z] == null)
+								setBlock(x, y, z, map[i]);
 							maps.map0[y][x][z].damage = mapDmg[i];
 							i++;
 						}
 					}
 				}
 				buffer.readBytes(playerFile.readBytes());
-				if(pl != null) pl.readBytes(buffer.getByteArray("player"));
+				if (pl != null) pl.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
 				buffer.readBytes(worldData.readBytes());
-				if(WorldTime != null) WorldTime.setTime(buffer.getInt("time"));
+				if (WorldTime != null) WorldTime.setTime(buffer.getInt("time"));
 			}
 		}
 	}
 	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks, GameInterface GI, Settings s) {
 		this.Textures = t;
 		this.b = b;
-		//this.pl = pl;
 		this.items = i;
 		this.cam = cam;
 		this.maps = new Maps();
 		this.blocks = blocks;
 		this.GI = GI;
-		this.WorldTime = new Time();
-		world = new World(new Vector2(0, 0), false);
+		createWorld();
 		mobs = new Mobs(b, maps, Textures);
 		pl = new Player(i, Textures, GI, mobs, maps, s);
 	}
@@ -137,7 +153,14 @@ public class World {
 		this.cam = cam;
 		this.maps = new Maps();
 		this.blocks = blocks;
+		createWorld();
+	}
+	public void createWorld(){
+		this.WorldTime = new Time();
 		world = new World(new Vector2(0, 0), false);
+		RayHandler = new RayHandler(world);
+		RayHandler.setAmbientLight(1, 1, 1, 1);
+		RayHandler.useDiffuseLight(true);
 	}
 	public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
 		BodyDef bodyDef = new BodyDef();
@@ -160,14 +183,25 @@ public class World {
 	}
 	public boolean setBlock(int x, int y, int z, Block block) {
 		if (x >= 0 && x < maps.map0[0].length + 1 && y >= 0 && y < maps.map0.length + 1) {
-			Tile tile = new Tile(x, y, z, block);
+			Tile tile = new Tile(blocks);
+			tile.createTile(x, y, z, block);
 			if (maps.map0[y][x][z] != null && maps.map0[y][x][z].body != null)  world.destroyBody(maps.map0[y][x][z].body);
 			maps.map0[y][x][z] = tile;
-			if (block.id != 4 && z == 0) tile.setBody(createBox(tile.block.x, tile.block.y, tile.block.width, tile.block.height, BodyDef.BodyType.StaticBody));
-			if (z == 0) tile.setLight(rh, block);
+			setBodyAndLight(x, y, z, tile, block);
 			return true;
 		}
 		return false;
+	}
+	public void setBodyAndLight(int x, int y, int z, Tile tile, Block block) {
+		if (block.id != 4 && z == 0) tile.setBody(createBox(tile.block.x, tile.block.y, tile.block.width, tile.block.height, BodyDef.BodyType.StaticBody));
+		if (z == 0) tile.setLight(RayHandler, block);
+	}
+	public boolean setBlock(Tile tile) {
+		if (maps.map0[tile.y][tile.x][tile.z] != null && maps.map0[tile.y][tile.x][tile.z].body != null)  world.destroyBody(maps.map0[tile.y][tile.x][tile.z].body);
+		//tile.createTile(tile.x, tile.y, tile.z, blocks.getBlockById(tile.id));
+		maps.map0[tile.y][tile.x][tile.z] = tile;
+		setBodyAndLight(tile.x, tile.y, tile.z, tile, blocks.getBlockById(tile.id));
+		return true;
 	}
 	public boolean setBlock(int x, int y, int id) {
 		int z;
@@ -258,6 +292,14 @@ public class World {
 	}
 	public void renderHighLayer() {
 		render(true);
+		b.end();
+		if (GI != null && !GI.isInterfaceOpen) {
+			float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
+			RayHandler.setAmbientLight(AL, AL, AL, 1);
+			RayHandler.setCombinedMatrix(cam.CAMERA.combined);
+			RayHandler.updateAndRender();
+		}
+		b.begin();
 	}
 	public void render(boolean isHighestLayer) {
 		if (pl != null && mobs != null && isHighestLayer) {

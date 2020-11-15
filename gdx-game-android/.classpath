@@ -11,4 +11,6 @@
 <classpathentry kind="lib" path="/storage/emulated/0/AppProjects/SAUW/gdx-game/libs/gdx-box2d.jar"/>
 <classpathentry kind="lib" path="/storage/emulated/0/AppProjects/SAUW/gdx-game/libs/box2dlights.jar"/>
 <classpathentry kind="lib" path="/storage/emulated/0/AppProjects/SAUW/gdx-game/libs/bdb.jar"/>
+<classpathentry kind="lib" path="/storage/emulated/0/AppProjects/S.A.U.W./gdx-game/libs/bdblll.jar"/>
+<classpathentry kind="lib" path="/storage/emulated/0/AppProjects/S.A.U.W./gdx-game/libs/bdb.jar"/>
 </classpath>

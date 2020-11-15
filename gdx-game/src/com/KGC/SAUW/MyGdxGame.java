@@ -1,22 +1,16 @@
 package com.KGC.SAUW;
 
+import box2dLight.RayHandler;
 import com.KGC.SAUW.CallbackAPI.Callbacks;
-import com.KGC.SAUW.commands.Cmd;
-import com.KGC.SAUW.mobs.Mobs;
+import com.KGC.SAUW.ModAPI.ModAPI;
+import com.KGC.SAUW.mobs.ItemMob;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.KGC.SAUW.mobs.ItemMob;
-import com.KGC.SAUW.ModAPI.ModAPI;
-import com.KGC.SAUW.commands.Cmd.Argument;
-import java.util.Random;
-import com.KGC.SAUW.screen.MenuScreen;
-import box2dLight.RayHandler;
-import box2dLight.PointLight;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import java.util.Random;
 public class MyGdxGame implements Screen {
 
 	SpriteBatch batch;
@@ -41,8 +35,7 @@ public class MyGdxGame implements Screen {
 	public Langs langs;
 	MainGame game;
 	Music music;
-	RayHandler RayHandler;
-	float TL = 720 / 0.6f;
+	
 	Box2DDebugRenderer DR;
 	@Override
 	public  MyGdxGame(MainGame game, Textures t, SpriteBatch batch, Music music, String worldName) {
@@ -61,19 +54,8 @@ public class MyGdxGame implements Screen {
 		GI = new GameInterface(Textures, batch, ITEMS, settings, langs);
 		BLOCKS = new Blocks(Textures, langs);
 		World = new World(batch, Textures, ITEMS, camera, BLOCKS , GI, settings);
-		if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
-			World.createNewWorld();
-			World.save(worldName);
-		} else {
-			World.load(worldName);
-		}
 		BLOCKS.setItems(ITEMS);
-		RayHandler = new RayHandler(World.world);
-		RayHandler.setAmbientLight(1, 1, 1, 1);
-		RayHandler.useDiffuseLight(true);
         DR = new Box2DDebugRenderer();
-
-		World.rh = RayHandler;
 		this.music = music;
 		music.w = World;
 		music.settings = settings;
@@ -82,6 +64,12 @@ public class MyGdxGame implements Screen {
 		mods = new Mods();
 		GI.initilizate(crafting, ModAPI, game, langs, World);
 		mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, settings, GI, Textures);
+		if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
+			World.createNewWorld();
+			World.save(worldName);
+		} else {
+			World.load(worldName);
+		}
 		World.setBlock(10, 7, 0, 9);
 		World.setBlock(11, 7, 0, 10);
 
@@ -118,12 +106,6 @@ public class MyGdxGame implements Screen {
 		World.renderHighLayer();
 		if (GI.isInterfaceOpen) batch.setColor(1, 1, 1, 1);
 		batch.end();
-		if (!GI.isInterfaceOpen) {
-			float AL = 1.0f - (Maths.module(720 - World.WorldTime.getTime()) / TL);
-			RayHandler.setAmbientLight(AL, AL, AL, 1);
-			RayHandler.setCombinedMatrix(camera.CAMERA.combined);
-			RayHandler.updateAndRender();
-		}
 		if (settings.debugMode) DR.render(World.world, camera.CAMERA.combined);
 		batch.begin();
 		GI.render(World.pl, (settings.debugMode) ? 

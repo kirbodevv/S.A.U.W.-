@@ -13,7 +13,7 @@ public class InventorySlot implements ExtraData {
 		return buffer.toBytes();
 	}
 	@Override
-	public void readBytes(byte[] bytes) {
+	public void readBytes(byte[] bytes, int begin, int end) {
 		DataBuffer buffer = new DataBuffer();
 		buffer.readBytes(bytes);
 		id = buffer.getInt("id");

@@ -1,5 +1,8 @@
 package com.KGC.SAUW.InterfaceAPI;
 
+import com.intbyte.bdb.ExtraData;
+import com.intbyte.bdb.DataBuffer;
+
 public class Container {
     private int id, count, data;
 	public String ID;

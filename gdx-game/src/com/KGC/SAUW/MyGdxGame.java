@@ -70,20 +70,6 @@ public class MyGdxGame implements Screen {
 		} else {
 			World.load(worldName);
 		}
-		World.setBlock(10, 7, 0, 9);
-		World.setBlock(11, 7, 0, 10);
-
-		Random r = new Random();
-	    for (int i = 0; i < World.maps.map0.length; i++) {
-			for (int j = 0; j < World.maps.map0[i].length; j++) {
-				if (r.nextInt(75) == 0) {
-					World.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 7, 1, 0, ITEMS));
-				}
-				if (r.nextInt(50) == 0) {
-					World.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 12, 1, 0, ITEMS));
-				}
-			}
-		}
 	}
 
 

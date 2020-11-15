@@ -35,8 +35,6 @@ public class MenuScreen implements Screen {
 	float tmr;
 	int camX, camY;
 	boolean StartGameMenu = false;
-    //button testWorld;
-	//button createWorld;
 	int SAUW_coins = 0;
 	Button sel_0;
 	Button sel_1;

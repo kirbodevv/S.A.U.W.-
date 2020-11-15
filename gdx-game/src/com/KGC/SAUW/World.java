@@ -22,6 +22,7 @@ import com.intbyte.bdb.DataBuffer;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
+import java.util.Date;
 
 public class World {
 	private int WIDTH = Gdx.graphics.getWidth();
@@ -71,6 +72,8 @@ public class World {
 			playerFile.writeBytes(buffer.toBytes(), false);
 			DataBuffer buffer1 = new DataBuffer();
 			buffer1.put("time", WorldTime.getTime());
+			Date date = new Date();
+			buffer1.put("saveTime", date.getTime());
 			worldData.writeBytes(buffer1.toBytes(), false);
 		} catch (Exception e) {
 			Gdx.app.log("saveError", e.toString());
@@ -82,7 +85,7 @@ public class World {
 		}
 	}
 	public void createNewWorld() {
-		maps.generateWorld(this);
+		maps.generateWorld(this, items);
 	}
 	public void load(String WorldName) {
 		this.WorldName = WorldName;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import java.util.Random;
+import com.KGC.SAUW.mobs.ItemMob;
 
 public class Maps {
 	Random r = new Random();
@@ -11,7 +12,7 @@ public class Maps {
 	public Tile[][][] map0 = new Tile[40][40][3];
 	int width = Gdx.graphics.getWidth();
 
-	public void generateWorld(World w) {
+	public void generateWorld(World w, Items ITEMS) {
 		Random r = new Random();
 		for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
@@ -26,6 +27,20 @@ public class Maps {
 
 			}
         }
+		if (w.mobs != null) {
+			Random r1 = new Random();
+			int WIDTH = Gdx.graphics.getWidth();
+			for (int i = 0; i < map0.length; i++) {
+				for (int j = 0; j < map0[i].length; j++) {
+					if (r1.nextInt(75) == 0) {
+						w.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 7, 1, 0, ITEMS));
+					}
+					if (r1.nextInt(50) == 0) {
+						w.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 12, 1, 0, ITEMS));
+					}
+				}
+			}
+		}
 	}
 	public DataBuffer toDataBuffer() {
 		DataBuffer buffer = new DataBuffer();
@@ -54,7 +69,7 @@ public class Maps {
 			for (int y = 0; y < map0.length; y++) {
 				for (int x = 0; x < map0[y].length; x++) {
 					for (int z = 0; z < map0[y][x].length; z++) {
-						if(map0[y][x][z].TileEntity != null){
+						if (map0[y][x][z].TileEntity != null) {
 							tileEntitys[j] = map0[y][x][z];
 						}
 					}

@@ -133,15 +133,16 @@ public class MenuScreen implements Screen {
 		for (FileHandle file : files) {
 			if (file.isDirectory()) i++;
 		}
-		worldNames = new String[i];
-		int ii = 0;
-		for (int j = 0; j < files.length; j++) {
-		    if (files[j].isDirectory()) worldNames[ii] = files[j].name();
-			ii++;
-		}
+
+			worldNames = new String[i];
+			int ii = 0;
+			for (int j = 0; j < files.length; j++) {
+				if (files[j].isDirectory()) worldNames[ii] = files[j].name();
+				ii++;
+			}
+
 		sel_0 = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
 		sel_0.setTextColor(Color.BLACK);
-	    sel_0.setText(worldNames[0]);
 		sel_0.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -150,7 +151,6 @@ public class MenuScreen implements Screen {
 			});
 		sel_1 = new Button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
 		sel_1.setTextColor(Color.BLACK);
-	    sel_1.setText("World 2");
         sel_1.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -159,7 +159,6 @@ public class MenuScreen implements Screen {
 			});
 		sel_2 = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
 		sel_2.setTextColor(Color.BLACK);
-	    sel_2.setText("World 3");
 		sel_2.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {

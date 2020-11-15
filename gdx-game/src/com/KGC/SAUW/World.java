@@ -198,7 +198,6 @@ public class World {
 	}
 	public boolean setBlock(Tile tile) {
 		if (maps.map0[tile.y][tile.x][tile.z] != null && maps.map0[tile.y][tile.x][tile.z].body != null)  world.destroyBody(maps.map0[tile.y][tile.x][tile.z].body);
-		//tile.createTile(tile.x, tile.y, tile.z, blocks.getBlockById(tile.id));
 		maps.map0[tile.y][tile.x][tile.z] = tile;
 		setBodyAndLight(tile.x, tile.y, tile.z, tile, blocks.getBlockById(tile.id));
 		return true;

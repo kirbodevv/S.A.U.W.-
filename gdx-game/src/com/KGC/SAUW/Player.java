@@ -22,8 +22,7 @@ public class Player implements ExtraData {
 	@Override
 	public byte[] getBytes() {
 		DataBuffer buffer = new DataBuffer();
-		buffer.put("x", player.x);
-		buffer.put("y", player.y);
+		buffer.put("coords", new int[]{(int)player.x, (int)player.y});
 		for(int i = 0; i < Inventory.length; i++){
 			buffer.put("Inv_" + i, Inventory[i]);
 		}
@@ -33,8 +32,8 @@ public class Player implements ExtraData {
 	public void readBytes(byte[] bytes, int begin, int end) {
 		DataBuffer buffer = new DataBuffer();
 		buffer.readBytes(bytes);
-		player.x = buffer.getFloat("x");
-		player.y = buffer.getFloat("y");
+		player.x = buffer.getIntArray("coords")[0];
+		player.y = buffer.getIntArray("coords")[1];
 		for(int i = 0; i < Inventory.length; i++){
 			Inventory[i].readBytes(buffer.getByteArray("Inv_" + i), begin, end);
 		}
@@ -315,7 +314,7 @@ public class Player implements ExtraData {
 				for (int i = 0; i < mobs.mobs.size(); i++) {
 					if (mobs.mobs.get(i) instanceof ItemMob && Maths.distanceD(posX, posY, mobs.mobs.get(i).posX, mobs.mobs.get(i).posY) < w / 32) {
 						ItemMob item = (ItemMob)mobs.mobs.get(i);
-						addItem(item.itemID, item.itemCount, item.itemData);
+						addItem(item.getExtraData("itemId"), item.getExtraData("itemCount"), item.getExtraData("itemCount"));
 						mobs.mobs.remove(i);
 					}
 				}

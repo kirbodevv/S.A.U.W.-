@@ -4,6 +4,9 @@ import com.KGC.SAUW.Item;
 import com.KGC.SAUW.Textures;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class Items {
 	Textures Textures;
@@ -44,11 +47,23 @@ public class Items {
 	public void createItem(int id, String name, Texture t, int type, int bi, int maxCount, int maxData) {
 		ITEMS.add(new Item(id, name, t, type, bi, maxCount, maxData));
 	}
-	public void createItem(int id, String name, String t, int type, int maxCount, int maxData) {
-		ITEMS.add(new Item(id, name, new Texture(Gdx.files.external("S.A.U.W./Mods/" + t)), type, maxCount, maxData));
-	}
-	public void createItem(int id, String name, String t, int type, int bi, int maxCount, int maxData) {
-		ITEMS.add(new Item(id, name, new Texture(Gdx.files.external("S.A.U.W./Mods/" + t)) , type, bi, maxCount, maxData));
+	public void createItems(FileHandle folder, FileHandle TexturesFolder){
+		try {
+			FileHandle[] craftFiles = folder.list();
+			for (FileHandle file : craftFiles) {
+				JSONObject item = new JSONObject(file.readString());
+				
+                int itemId = item.getInt("id");
+				String itemName = item.getString("itemName");
+				Texture texture = new Texture(Gdx.files.external(TexturesFolder + "/" + item.getString("Texture")));
+				int type = item.getInt("itemType");
+				int maxCount = item.getInt("maxCount");
+				int maxData = item.getInt("maxData");
+				createItem(itemId, itemName, texture, type, maxCount, maxData);
+			}
+		} catch (Exception e) {
+			Gdx.app.log("ModAPI_CreateItemError", e.toString());
+		}
 	}
 	public Texture getTextureById(int id) {
 		for (int i = 0; i < ITEMS.size(); i++) {

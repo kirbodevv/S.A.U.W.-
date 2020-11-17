@@ -32,8 +32,8 @@ public class Mods {
 
 					FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/main.js");
 					String result = MainJSFile.readString();
-					crafting.addCrafts(Gdx.files.external(mods[i].modPath + "/" + mods[i].manifest.getString("crafts_path")));
-
+					ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
+					crafting.addCrafts(mods[i].CraftsFolder);
 					ScriptableObject.putProperty(mods[i].sc, "Player", pl);
 					ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
 					ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
@@ -88,14 +88,21 @@ public class Mods {
 		public Scriptable sc;
 		public String modPath;
 		public JSONObject manifest;
+		public FileHandle CraftsFolder;
+		public FileHandle ItemsFolder;
+		public FileHandle resFolder;
 		public mod(String ModPath) {
 			try {
 				String manifest = Gdx.files.external(ModPath + "/manifest.json").readString();
 				this.manifest = new JSONObject(manifest);
+				this.modPath = ModPath;
+				CraftsFolder = Gdx.files.external(modPath + "/" + this.manifest.getString("crafts_path"));
+				ItemsFolder = Gdx.files.external(modPath + "/" + this.manifest.getString("items_path"));
+				resFolder = Gdx.files.external(modPath + "/" + this.manifest.getString("resources_path"));
 			} catch (Exception e) {
                 Gdx.app.log("ModAPI_CreateModError", e.toString());
 			}
-			this.modPath = ModPath;
+
 		}
 	}
 }

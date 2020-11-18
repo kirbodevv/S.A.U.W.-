@@ -13,7 +13,6 @@ import com.KGC.SAUW.Player;
 import com.KGC.SAUW.Textures;
 
 public class Slot extends InterfaceElement {
-	//public boolean isSelected = false;
 	public int id, count, data;
 	public Texture slot, selectedSlot;
 
@@ -23,7 +22,6 @@ public class Slot extends InterfaceElement {
 	private int itemX;
 	private int itemY;
 
-	//private boolean isItemMoving = false;
 	private Vector2d itemDirection;
 	public SlotFunctions SF = null;
 	public BitmapFont IC;
@@ -49,23 +47,8 @@ public class Slot extends InterfaceElement {
 		IC.scale((w / 8) / 4 / IC.getData().capHeight);
 		IC.setColor(0.3f, 0.3f, 0.3f, 1);
 	}
-    /*public void startItemMovingAnimation(slot slot) {
-	 isItemMoving = true;
-	 itemDirection.setfa(Maths.angleBetweenVectors(X, Y, slot.X, slot.Y));
-	 itemX = slot.X + slot.width / 2;
-	 itemY = slot.Y + slot.height / 2;
-	 }*/
 	public void update(ArrayList<Slot> slots, Interface Interface, Player pl, Camera2D cam) {
 		this.update(cam);
-		/*if(isTouched()){
-		 int selectedSlot = -1;
-		 for (int i = 0; i < slots.size(); i++) {
-		 if (slots.get(i).isSelected()) selectedSlot = i;
-		 }
-		 if (selectedSlot == -1 && id != 0) {
-		 isSelected = true;
-		 }
-		 }*/
 		if (isTouched()) {
 			itemX = Gdx.input.getX() + cam.X - width / 4;
 			itemY = Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4;
@@ -87,15 +70,6 @@ public class Slot extends InterfaceElement {
 		batch.draw(slot, cam.X + X, cam.Y + Y, width, height);
 	}
 	public void itemRender(SpriteBatch b, Items items) {
-		/*if (isItemMoving) {
-		 itemX += itemDirection.x * (Gdx.graphics.getWidth() / 96);
-		 itemY += itemDirection.y * (Gdx.graphics.getWidth() / 96);
-		 if (Maths.distance((int)itemX, (int)itemY, X, Y) <= width) {
-		 itemX = X + width / 4;
-		 itemY = Y + height / 4;
-		 isItemMoving = false;
-		 }
-		 }*/
 		if (id != 0) {
 			b.draw(items.getTextureById(id), itemX, itemY, width / 2, width / 2);
 			IC.drawMultiLine(b, count + "", itemX - width / 4, height + itemY - width / 4, width, BitmapFont.HAlignment.RIGHT);

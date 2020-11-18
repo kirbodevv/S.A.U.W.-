@@ -51,21 +51,20 @@ public class Button extends InterfaceElement {
 	public void setText(String text) {
 		txt = text;
 		createBitmapFont();
-		if (buttonText != null) {
-			if (buttonText.getBounds(text).width > this.width) {
-				setSize(height / 2 + (int)buttonText.getBounds(text).width, this.height);
-			}
+		if (buttonText.getBounds(text).width > this.width) {
+			setSize(height / 2 + (int)buttonText.getBounds(text).width, this.height);
 		}
 	}
-	public void createBitmapFont(){
+	public void createBitmapFont() {
 		if (buttonText == null) {
 			buttonText = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 			capHeight = buttonText.getCapHeight();
 			setTextScale();
+			buttonText.setColor(new Color(0.85f, 0.85f, 0.85f, 1));
 		}
 	}
-	public void setTextScale(){
-		if(buttonText != null){
+	public void setTextScale() {
+		if (buttonText != null) {
 			buttonText.setScale(height / 2 / capHeight);
 		}
 	}
@@ -100,8 +99,8 @@ public class Button extends InterfaceElement {
 	public void setSize(int w, int h) {
 		super.setSize(w, h);
 		if (generatedTextures) {
-			if(buttonTexture != null) buttonTexture.dispose();
-			if(buttonPressedTexture != null) buttonPressedTexture.dispose();
+			if (buttonTexture != null) buttonTexture.dispose();
+			if (buttonPressedTexture != null) buttonPressedTexture.dispose();
 			setTextures(generateBTexture(), generateBPTexture());
 		}
 	}

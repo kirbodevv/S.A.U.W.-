@@ -101,7 +101,7 @@ public class MenuScreen implements Screen {
 		b = new SpriteBatch();
 		SettingsScreen = new SettingsScreen(game, t, this);
 		startButton = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 138, w / 16 * 6, w / 16);
-		startButton.setTextColor(Color.BLACK);
+		//startButton.setTextColor(Color.BLACK);
 		startButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -109,7 +109,7 @@ public class MenuScreen implements Screen {
 				}
 			});
 		settingsButton = new Button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
-		settingsButton.setTextColor(Color.BLACK);
+		//settingsButton.setTextColor(Color.BLACK);
 		settingsButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -117,7 +117,7 @@ public class MenuScreen implements Screen {
 				}
 			});
 		exitButton = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
-		exitButton.setTextColor(Color.BLACK);
+		//exitButton.setTextColor(Color.BLACK);
 		exitButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -140,7 +140,7 @@ public class MenuScreen implements Screen {
 			}
 
 		sel_0 = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
-		sel_0.setTextColor(Color.BLACK);
+		//sel_0.setTextColor(Color.BLACK);
 		sel_0.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -148,7 +148,7 @@ public class MenuScreen implements Screen {
 				}
 			});
 		sel_1 = new Button("", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
-		sel_1.setTextColor(Color.BLACK);
+		//sel_1.setTextColor(Color.BLACK);
         sel_1.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -156,7 +156,7 @@ public class MenuScreen implements Screen {
 				}
 			});
 		sel_2 = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
-		sel_2.setTextColor(Color.BLACK);
+        //sel_2.setTextColor(Color.BLACK);
 		sel_2.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -176,7 +176,7 @@ public class MenuScreen implements Screen {
 					bf.setColor(Color.BLACK);
 				    create = new Button("create", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 3, WIDTH / 16);
 					create.setText(langs.getString("create"));
-					create.setTextColor(Color.BLACK);
+					//create.setTextColor(Color.BLACK);
 					create.setEventListener(new Button.EventListener(){
 							@Override
 							public void onClick() {
@@ -210,7 +210,7 @@ public class MenuScreen implements Screen {
 				}
 			});
 		createNewWorld = new Button("", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
-		createNewWorld.setTextColor(Color.BLACK);
+		//createNewWorld.setTextColor(Color.BLACK);
 		createNewWorld.setText(langs.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener(){
 				@Override

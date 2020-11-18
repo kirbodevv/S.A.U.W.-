@@ -261,7 +261,7 @@ public class GameInterface {
 					craftName.setScale(WIDTH / 32 / 2 / craftName.getCapHeight());
 					TB = BF.getBounds(langs.getString("craftList"));
 					craft = new Button("craftButton", (int)(WIDTH / 16 * 9 + WIDTH / 32), (int)WIDTH / 16, (int)WIDTH / 16 * 5, (int)WIDTH / 16);
-					craft.setTextColor(Color.BLACK);
+					//craft.setTextColor(Color.BLACK);
 					craft.setText(langs.getString("craft"));
 					craft.setEventListener(new Button.EventListener(){
 							@Override
@@ -386,10 +386,8 @@ public class GameInterface {
 				Button respawn;
 			    @Override
 				public void initialize() {
-					/*Texture b0 = Textures.generateTexture(6, 1, new Color(0xCCCCCCFF), new Color(0xE0E0E0FF), new Color(0xF8F8F8FF), new Color(0xA0A0A0FF));
-					 Texture b1 = Textures.generateTexture(6, 1, new Color(0xA0A0A0FF), new Color(0xE0E0E0FF), new Color(0x828282FF), new Color(0xF8F8F8FF));*/
 					respawn = new Button("respawn", (int)(WIDTH / 16 * 5), (int)(HEIGHT - WIDTH / 16 * 5), (int)(WIDTH / 16 * 6), (int)(WIDTH / 16));
-					respawn.setTextColor(Color.BLACK);
+					//respawn.setTextColor(Color.BLACK);
 					respawn.setText(langs.getString("respawn"));
 					respawn.setEventListener(new Button.EventListener(){
 							@Override
@@ -426,7 +424,7 @@ public class GameInterface {
 				@Override
 				public void initialize() {
 					resumeButton = new Button("ResumeButton", (int)(WIDTH / 16), (int)(HEIGHT - WIDTH / 16 * 4), (int)(WIDTH / 16 * 4), (int)WIDTH / 16);
-					resumeButton.setTextColor(Color.WHITE);
+					//resumeButton.setTextColor(Color.WHITE);
 					resumeButton.setText(langs.getString("resume"));
 					resumeButton.setEventListener(new Button.EventListener(){
 							@Override
@@ -435,7 +433,7 @@ public class GameInterface {
 							}
 					});
 					saveWorldButton = new Button("saveWorldButton", (int)(WIDTH / 16), (int)(resumeButton.Y - WIDTH / 16), (int)(WIDTH / 16 * 4), (int)WIDTH / 16);
-					saveWorldButton.setTextColor(Color.WHITE);
+					//saveWorldButton.setTextColor(Color.WHITE);
 					saveWorldButton.setText(langs.getString("save"));
 					saveWorldButton.setEventListener(new Button.EventListener(){
 							@Override

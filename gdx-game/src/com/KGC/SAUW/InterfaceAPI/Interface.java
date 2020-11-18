@@ -46,7 +46,7 @@ public class Interface {
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 
-		text.setColor(Color.BLACK);
+		text.setColor(64f/255, 137f/255, 154f/255, 1);
 
 		if (size == InterfaceSizes.FULL) {
 			width = w;
@@ -136,10 +136,6 @@ public class Interface {
 		if (slot2.SF == null || slot2.SF.isValid(slot1.id, slot1.count, slot1.data)) {
 			swap(slot1, slot2, pl);
 		}
-		/*slot1.this_touched = false;
-		slot2.this_touched = false;
-		slot1.isSelected = false;
-		slot2.isSelected = false;*/
 	}
 	public Slot getSlot(String ID) {
 		for (int i = 0; i < slots.size(); i++) {
@@ -165,14 +161,6 @@ public class Interface {
 		}
 		return null;
 	}
-	/*public slot getSelectedSlot() {
-		for (int i = 0; i < slots.size(); i++) {
-			if (slots.get(i).isSelected()) {
-				return slots.get(i);
-			}
-		}
-		return null;
-	}*/
 	public void update(Player pl, Camera2D cam) {
 		if (isOpen) {
 			if(GI != null) GI.isInterfaceOpen = true;
@@ -186,11 +174,6 @@ public class Interface {
 				    }
 				}
 			}
-			/*slot selectedSlot = getSelectedSlot();
-			slot touchedSlot = getTouchedSlot();
-			if (selectedSlot != null && touchedSlot != null && !selectedSlot.ID.equals(touchedSlot.ID)) {
-				sendToSlot(selectedSlot.ID, touchedSlot.ID, pl, cam);
-			}*/
 			if (maps != null) {
 				for (int i = 0; i < maps.map0[currY][currX][currZ].containers.size(); i++) {
 					getSlot(maps.map0[currY][currX][currZ].containers.get(i).ID).id = maps.map0[currY][currX][currZ].containers.get(i).getId();
@@ -234,16 +217,7 @@ public class Interface {
 			for (int i = 0; i < slots.size(); i++) {
 				slots.get(i).render(b, cam);
 			}
-			//if (input != null) input.render(b);
 			for (int i = 0; i < slots.size(); i++) {
-				/*if (slots.get(i).isSelected()) {
-					float sc = slots.get(i).width / slots.get(i).selectedSlot.getWidth();
-					float X = slots.get(i).X - ((slots.get(i).selectedSlot.getWidth() - slots.get(i).slot.getWidth()) / 2) * sc;
-					float Y = slots.get(i).Y - ((slots.get(i).selectedSlot.getWidth() - slots.get(i).slot.getWidth()) / 2) * sc;
-					float W = slots.get(i).width + (slots.get(i).selectedSlot.getWidth() - slots.get(i).slot.getWidth()) * sc;
-					float H = slots.get(i).height + (slots.get(i).selectedSlot.getWidth() - slots.get(i).slot.getWidth()) * sc;
-					b.draw(slots.get(i).selectedSlot, X, Y, W, H);
-				}*/
 				slots.get(i).itemRender(b, items);
 			}
 			if (IE != null) {

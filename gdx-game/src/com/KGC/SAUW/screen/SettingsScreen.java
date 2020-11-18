@@ -26,27 +26,27 @@ public class SettingsScreen implements Screen {
 	MenuScreen MenuScreen;
 
 	Button closeButton;
-	
+
 	Button general;
 	Button Interface;
 	Button gameSettings;
 	Button sound;
-	
+
 	private Button nextLang;
 	private Button prevLang;
 	private Checkbox debug;
 	private Checkbox AIPU;
     private Checkbox useConsole;
-	
+
 	private Slider musicVolume;
-	
+
 	public int currentSettingCot = 0;
-	
+
 	Texture background0 = Textures.generateTexture(15, (height - width / 16 * 2) / (width / 16), false);
 	Texture background1 = Textures.generateTexture(3, 1, true);
-	
+
 	BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-	
+
 	JSONObject availableLangs;
 	private Notification Notification;
 	public SettingsScreen(final MainGame game, Textures t, MenuScreen ms) {
@@ -91,12 +91,12 @@ public class SettingsScreen implements Screen {
 				public void onClick(boolean isChecked) {
 					MenuScreen.settings.useConsole = isChecked;
 					MenuScreen.settings.saveSettings();
-					if(isChecked){
+					if (isChecked) {
 						Notification.hideOnClick(true);
 						Notification.show(width / 16 * 4, (height - width / 16 * 4) / 2, width / 16 * 8, width / 16 * 4, MenuScreen.langs.getString("useConsole"), MenuScreen.langs.getString("useConsoleNotification"), 10);
 					}
 				}
-		});
+			});
 		closeButton = new Button("closeButton", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
 		closeButton.setEventListener(new Button.EventListener(){
 				@Override
@@ -156,7 +156,7 @@ public class SettingsScreen implements Screen {
 		bf.setScale(width / 16 / 2 / bf.getCapHeight());
 		bf.setColor(Color.BLACK);
 		general = new Button("", width / 16, height - width / 32 * 3, width / 32 * 5, width / 16);
-		general.setTextColor(Color.BLACK);
+		//general.setTextColor(Color.BLACK);
 		general.setText(MenuScreen.langs.getString("general"));
 		general.setEventListener(new Button.EventListener(){
 				@Override
@@ -166,7 +166,7 @@ public class SettingsScreen implements Screen {
 				}
 			});
 		Interface = new Button("", general.X + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
-	    Interface.setTextColor(Color.BLACK);
+		// Interface.setTextColor(Color.BLACK);
 		Interface.setText(MenuScreen.langs.getString("interface"));
 		Interface.setEventListener(new Button.EventListener(){
 				@Override
@@ -176,7 +176,7 @@ public class SettingsScreen implements Screen {
 				}
 			});
 		gameSettings = new Button("", Interface.X + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
-	    gameSettings.setTextColor(Color.BLACK);
+		// gameSettings.setTextColor(Color.BLACK);
 		gameSettings.setText(MenuScreen.langs.getString("game"));
 		gameSettings.setEventListener(new Button.EventListener(){
 				@Override
@@ -186,7 +186,7 @@ public class SettingsScreen implements Screen {
 				}
 			});
 		sound = new Button("", gameSettings.X + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
-		sound.setTextColor(Color.BLACK);
+		//sound.setTextColor(Color.BLACK);
 		sound.setText(MenuScreen.langs.getString("sound"));
 		sound.setEventListener(new Button.EventListener(){
 				@Override
@@ -194,7 +194,7 @@ public class SettingsScreen implements Screen {
 					currentSettingCot = 3;
 					sound.lock(true);
 				}
-		});
+			});
 		musicVolume = new Slider(width / 16 * 4, height - width / 16 * 2 - width / 64 * 3, width / 16 * 4, width / 32);
 	    musicVolume.setEventListener(new Slider.EventListener(){
 				@Override
@@ -202,19 +202,19 @@ public class SettingsScreen implements Screen {
 					MenuScreen.settings.musicVolume = v;
 					MenuScreen.settings.saveSettings();
 				}
-		});
+			});
 		musicVolume.setValue(MenuScreen.settings.musicVolume);
 	}
 	@Override
 	public void render(float p1) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		general.lock(false);
 		Interface.lock(false);
 		gameSettings.lock(false);
 		sound.lock(false);
-		
+
 		if (currentSettingCot == 0) {
 			general.lock(true);
 			nextLang.update(MenuScreen.camera);
@@ -226,7 +226,7 @@ public class SettingsScreen implements Screen {
 			gameSettings.lock(true);
 			AIPU.update(MenuScreen.camera);
 			useConsole.update(MenuScreen.camera);
-		} else if (currentSettingCot == 3){
+		} else if (currentSettingCot == 3) {
 			sound.lock(true);
 		    musicVolume.update(MenuScreen.camera);
 		}
@@ -257,13 +257,13 @@ public class SettingsScreen implements Screen {
 
 			}
 		} else if (currentSettingCot == 1) {
-			
+
 		} else if (currentSettingCot == 2) {
 			bf.drawMultiLine(batch, MenuScreen.langs.getString("autoitemspickup"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
 			AIPU.render(batch, MenuScreen.camera);
 			bf.drawMultiLine(batch, MenuScreen.langs.getString("useConsole"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
 			useConsole.render(batch, MenuScreen.camera);
-		} else if(currentSettingCot == 3){
+		} else if (currentSettingCot == 3) {
 			bf.drawMultiLine(batch, MenuScreen.langs.getString("music"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, BitmapFont.HAlignment.LEFT);
 		    musicVolume.render(MenuScreen.camera, batch);
 			bf.drawMultiLine(batch, musicVolume.getValue() + "", MenuScreen.camera.X + musicVolume.X + musicVolume.width + width / 32, MenuScreen.camera.Y + musicVolume.Y + musicVolume.height, width / 16 * 2, BitmapFont.HAlignment.LEFT);
@@ -294,6 +294,6 @@ public class SettingsScreen implements Screen {
 
 	@Override
 	public void dispose() {
-        
+
 	}
 }

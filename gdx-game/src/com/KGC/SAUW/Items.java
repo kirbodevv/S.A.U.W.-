@@ -47,13 +47,33 @@ public class Items {
 	public void createItem(int id, String name, Texture t, int type, int bi, int maxCount, int maxData) {
 		ITEMS.add(new Item(id, name, t, type, bi, maxCount, maxData));
 	}
+	public void createItem(int id, String StringId, String name, Texture t, int type, int bi, int maxCount, int maxData) {
+		ITEMS.add(new Item(id, StringId, name, t, type, bi, maxCount, maxData));
+	}
+	public void createItem(int id, String StringId, String name, Texture t, int type, int maxCount, int maxData) {
+		ITEMS.add(new Item(id, StringId, name, t, type, maxCount, maxData));
+	}
+	public void createItem(String StringId, String name, Texture t, int type, int bi, int maxCount, int maxData){
+		createItem(getFirstFreeId(), StringId, name, t, type, bi, maxCount, maxData);
+	}
+	public void createItem(String StringId, String name, Texture t, int type, int maxCount, int maxData) {
+		createItem(getFirstFreeId(), StringId, name, t, type, maxCount, maxData);
+	}
+	public int getFirstFreeId(){
+		int ii = 1;
+		for(Item i : ITEMS){
+			if(ii != i.id) return ii;
+			ii++;
+		}
+		return ITEMS.size() + 1;
+	}
 	public void createItems(FileHandle folder, FileHandle TexturesFolder){
 		try {
 			FileHandle[] craftFiles = folder.list();
 			for (FileHandle file : craftFiles) {
 				JSONObject item = new JSONObject(file.readString());
 				
-                int itemId = item.getInt("id");
+                String itemId = item.getString("id");
 				String itemName = item.getString("itemName");
 				Texture texture = new Texture(Gdx.files.external(TexturesFolder + "/" + item.getString("Texture")));
 				int type = item.getInt("itemType");

@@ -14,7 +14,6 @@ public class Interface {
 		public static int STANDART = 0;
 		public static int FULL = 1;
 	}
-    //private JSONObject interfaceObj;
 	public boolean isOpen = false;
 	public boolean isBlockInterface;
 	private Textures t;
@@ -29,8 +28,6 @@ public class Interface {
 	public ArrayList<Button> buttons = new ArrayList<Button>();
 	public ArrayList<Image> images = new ArrayList<Image>();
 	public ArrayList<Slot> slots = new ArrayList<Slot>();
-
-	//public EditText input;
 
     private int currX, currY, currZ;
 	private Maps maps;

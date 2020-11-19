@@ -37,7 +37,6 @@ public class Notification extends InterfaceElement {
 			setPosition(x, y);
 			setSize(w, h);
 			TB = BF.getBounds(txt);
-			//if(x + h - h / 8 * 2TB.width
 			int t = h / 8;
 			int tW = w - h - t;
 			BF.setScale(tW / TB.width);

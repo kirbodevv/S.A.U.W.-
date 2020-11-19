@@ -60,23 +60,3 @@ public class Cmd {
 		return "Error: invalid syntax";
 	}
 }
-/*public class commands {
-    ArrayList<command> Command = new ArrayList<command>();
-	player pl;
-	public commands(player pl) {
-		this.pl = pl;
-    }
-    public void addCommand(command command) {
-        Command.add(command);
-	}
-	public void run(String command) {
-		for (int i = 0; i < Command.size(); i++) {
-			if (command.length() > Command.get(i).CommandName.length()) {
-				Gdx.app.log("log", command.substring(0, Command.get(i).CommandName.length()));
-				if (command.substring(0, Command.get(i).CommandName.length()) == (Command.get(i).CommandName)) {
-					Command.get(i).run(command.substring(Command.get(i).CommandName.length() + 1).split("\\s+"));
-				}
-			}
-		}
-	}
-}*/

@@ -45,7 +45,7 @@ public class Slot extends InterfaceElement {
 		itemDirection = new Vector2d();
 		IC = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 		IC.scale((w / 8) / 4 / IC.getData().capHeight);
-		IC.setColor(0.3f, 0.3f, 0.3f, 1);
+		IC.setColor(Color.BLACK);
 	}
 	public void update(ArrayList<Slot> slots, Interface Interface, Player pl, Camera2D cam) {
 		this.update(cam);
@@ -57,7 +57,7 @@ public class Slot extends InterfaceElement {
 	}
 	public void onClick(ArrayList<Slot> slots, Interface Interface, Player pl, Camera2D cam) {
 		for (Slot slot : slots) {
-			if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, itemX + width / 4, itemY + height / 4)) {
+			if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, itemX + width / 2, itemY + height / 2)) {
 				Interface.sendToSlot(this, slot, pl, cam);
 			}
 		}

@@ -60,7 +60,7 @@ public class Button extends InterfaceElement {
 			buttonText = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 			capHeight = buttonText.getCapHeight();
 			setTextScale();
-			buttonText.setColor(new Color(0.85f, 0.85f, 0.85f, 1));
+			buttonText.setColor(Color.BLACK);
 		}
 	}
 	public void setTextScale() {

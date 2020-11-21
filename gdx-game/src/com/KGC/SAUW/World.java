@@ -27,7 +27,6 @@ import java.util.Date;
 public class World {
 	private int WIDTH = Gdx.graphics.getWidth();
 	private int HEIGHT = Gdx.graphics.getHeight();
-	//private player pl;
 	private Items items;
 	private Camera2D cam;
 	private SpriteBatch b;
@@ -48,7 +47,7 @@ public class World {
 
     String WorldName = null;
 	float TL = 720 / 0.6f;
-	
+
 	public void save(String WorldName) {
 		this.WorldName = WorldName;
 		File worldFolder = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W./Worlds/" + WorldName);
@@ -56,25 +55,29 @@ public class World {
 		File map = new File(worldFolder.toString() + "/map");
 		File mapFile = new File(map.toString() + "/map.bdb");
 		File player = new File(worldFolder.toString() + "/player.bdb");
-
+		File mobs = new File(worldFolder.toString() + "/mobs.bdb");
 		if (!worldFolder.exists()) worldFolder.mkdir();
 		if (!map.exists()) map.mkdir();
 		try {
 			if (!mapFile.exists()) mapFile.createNewFile();
 			if (!player.exists()) player.createNewFile();
+			if(!mobs.exists()) mobs.createNewFile();
 			FileHandle mapFile1 = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
 			FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
 			FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
-
-			mapFile1.writeBytes(maps.toDataBuffer().toBytes(), false);
-			DataBuffer buffer = new DataBuffer();
-			buffer.put("player", pl);
-			playerFile.writeBytes(buffer.toBytes(), false);
-			DataBuffer buffer1 = new DataBuffer();
-			buffer1.put("time", WorldTime.getTime());
+			FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
+			
+			DataBuffer playerBuffer = new DataBuffer();
+			DataBuffer worldDataBuffer = new DataBuffer();
+			playerBuffer.put("player", pl);
+			worldDataBuffer.put("time", WorldTime.getTime());
 			Date date = new Date();
-			buffer1.put("saveTime", date.getTime());
-			worldData.writeBytes(buffer1.toBytes(), false);
+			worldDataBuffer.put("saveTime", date.getTime());
+			
+			playerFile.writeBytes(playerBuffer.toBytes(), false);
+			mobsFile.writeBytes(this.mobs.getBytes(), false);
+			worldData.writeBytes(worldDataBuffer.toBytes(), false);
+			mapFile1.writeBytes(maps.toDataBuffer().toBytes(), false);
 		} catch (Exception e) {
 			Gdx.app.log("saveError", e.toString());
 		}
@@ -102,6 +105,7 @@ public class World {
 				FileHandle mapFile1 = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
 				FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
 				FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
+				FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
 				DataBuffer buffer = new DataBuffer();
 				buffer.readBytes(mapFile1.readBytes());
 				int[] map = buffer.getIntArray("mapIds");
@@ -132,6 +136,8 @@ public class World {
 				}
 				buffer.readBytes(playerFile.readBytes());
 				if (pl != null) pl.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
+				byte[] mobsBytes = mobsFile.readBytes();
+				if(mobs != null) mobs.readBytes(mobsBytes, 0, mobsBytes.length);
 				buffer.readBytes(worldData.readBytes());
 				if (WorldTime != null) WorldTime.setTime(buffer.getInt("time"));
 			}
@@ -146,7 +152,7 @@ public class World {
 		this.blocks = blocks;
 		this.GI = GI;
 		createWorld();
-		mobs = new Mobs(b, maps, Textures);
+		mobs = new Mobs(b, maps, Textures, items);
 		pl = new Player(i, Textures, GI, mobs, maps, s);
 	}
 	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks) {
@@ -158,7 +164,7 @@ public class World {
 		this.blocks = blocks;
 		createWorld();
 	}
-	public void createWorld(){
+	public void createWorld() {
 		this.WorldTime = new Time();
 		world = new World(new Vector2(0, 0), false);
 		RayHandler = new RayHandler(world);

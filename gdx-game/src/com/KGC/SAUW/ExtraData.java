@@ -1,4 +1,5 @@
 package com.KGC.SAUW;
+import java.util.ArrayList;
 
 public class ExtraData {
     public String key;
@@ -11,5 +12,11 @@ public class ExtraData {
 	}
 	public Object getValue(){
 		return value;
+	}
+	public static ExtraData getExtraData(ArrayList<ExtraData> data, String key){
+		for(ExtraData d : data){
+			if(d.key.equals(key)) return d;
+		}
+		return null;
 	}
 }

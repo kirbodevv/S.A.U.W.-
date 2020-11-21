@@ -1,66 +1,86 @@
 package com.KGC.SAUW.mobs;
 import com.KGC.SAUW.ExtraData;
+import com.KGC.SAUW.Items;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.intbyte.bdb.DataBuffer;
-import java.util.ArrayList;
 import com.intbyte.bdb.ExtraDataFactory;
+import java.util.ArrayList;
 
 public class Mob implements com.intbyte.bdb.ExtraData {
-	/*public static class MobFactory implements ExtraDataFactory {
+	public static class MobFactory implements ExtraDataFactory {
+		public Items items;
+		public MobFactory(Items i) {
+			this.items = i;
+		}
 		@Override
 		public com.intbyte.bdb.ExtraData getExtraData() {
-			return ;
+			return new Mob(items);
 		}
-	}*/
+	}
 	@Override
 	public byte[] getBytes() {
 		DataBuffer buffer = new DataBuffer();
 		buffer.put("coords", new int[]{posX, posY});
+		buffer.put("type", (int)type);
 		for (ExtraData data : ExtraData) {
-			buffer.put(data.key, data.getValue());
-			/*if(data.getValue() instanceof int){
-			
-			 } else if(data.getValue() instanceof float){
-
-			 } else if(data.getValue() instanceof double){
-
-			 } else if(data.getValue() instanceof String){
-
-			 } else if(data.getValue() instanceof short){
-
-			 } else if(data.getValue() instanceof long){
-
-			 } else if(data.getValue() instanceof byte){
-
-			 }*/
+			if (Integer.class.isInstance(data.getValue())) {
+				buffer.put(data.key, (int)data.getValue());
+			} else if (Float.class.isInstance(data.getValue())) {
+				buffer.put(data.key, (float)data.getValue());
+			} else if (Double.class.isInstance(data.getValue())) {
+				buffer.put(data.key, (double)data.getValue());
+			} else if (Short.class.isInstance(data.getValue())) {
+				buffer.put(data.key, (short)data.getValue());
+			} else if (Long.class.isInstance(data.getValue())) {
+				buffer.put(data.key, (long)data.getValue());
+			} else if (Byte.class.isInstance(data.getValue())) {
+				buffer.put(data.key, (byte)data.getValue());
+			}
 		}
-		return null;
+		return buffer.toBytes();
 	}
-
+    public Items items;
+	public Mob(Items items) {
+		this.items = items;
+	}
 	@Override
 	public void readBytes(byte[] bytes, int begin, int end) {
 		DataBuffer buffer = new DataBuffer();
-		buffer.readBytes(bytes);
+		buffer.readBytes(bytes, begin, end);
 		posX = buffer.getIntArray("coords")[0];
 		posY = buffer.getIntArray("coords")[1];
-		for(ExtraData data : ExtraData){
-			if(data.getValue() instanceof int){
+		type = buffer.getInt("type");
+		loadedMob = createMob(type);
+		loadedMob.loadExtraData(bytes, begin, end);
+	}
+	public void loadExtraData(byte[] bytes, int begin, int end){
+		DataBuffer buffer = new DataBuffer();
+		buffer.readBytes(bytes, begin, end);
+		for (ExtraData data : ExtraData) {
+			if (Integer.class.isInstance(data.getValue())) {
 				data.setValue(buffer.getInt(data.key));
-			 } else if(data.getValue() instanceof float){
-				 data.setValue(buffer.getFloat(data.key));
-			 } else if(data.getValue() instanceof double){
-				 data.setValue(buffer.getDouble(data.key));
-			 } else if(data.getValue() instanceof short){
-				 data.setValue(buffer.getShort(data.key));
-			 } else if(data.getValue() instanceof long){
-				 data.setValue(buffer.getLong(data.key));
-			 } else if(data.getValue() instanceof byte){
-				 data.setValue(buffer.getByte(data.key));
-			 }
+			} else if (Float.class.isInstance(data.getValue())) {
+				data.setValue(buffer.getFloat(data.key));
+			} else if (Double.class.isInstance(data.getValue())) {
+				data.setValue(buffer.getDouble(data.key));
+			} else if (Short.class.isInstance(data.getValue())) {
+				data.setValue(buffer.getShort(data.key));
+			} else if (Long.class.isInstance(data.getValue())) {
+				data.setValue(buffer.getLong(data.key));
+			} else if (Byte.class.isInstance(data.getValue())) {
+				data.setValue(buffer.getByte(data.key));
+			}
 		}
 	}
-	public String type;
+	public Mob loadedMob;
+	public Mob createMob(int type){
+		if (type == 0) {
+			return new ItemMob(posX, posY, 0, 0, 0, items);
+		}
+		return null;
+	}
+	public int type;
 	public int posX, posY;
 	public int h = Gdx.graphics.getHeight();
 	public int w = Gdx.graphics.getWidth();
@@ -70,7 +90,7 @@ public class Mob implements com.intbyte.bdb.ExtraData {
 	public int mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
     public boolean collisions = true;
 	public ArrayList<ExtraData> ExtraData = new ArrayList<ExtraData>();
-	public void setPosition(int x, int y){
+	public void setPosition(int x, int y) {
 		this.posX = x;
 		this.posY = y;
 	}

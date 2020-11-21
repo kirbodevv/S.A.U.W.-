@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import java.util.Random;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 public class MyGdxGame implements Screen {
 
 	SpriteBatch batch;
@@ -35,7 +37,7 @@ public class MyGdxGame implements Screen {
 	public Langs langs;
 	MainGame game;
 	Music music;
-	
+
 	Box2DDebugRenderer DR;
 	@Override
 	public  MyGdxGame(MainGame game, Textures t, SpriteBatch batch, Music music, String worldName) {
@@ -45,7 +47,7 @@ public class MyGdxGame implements Screen {
         crafting = new Crafting();
 		settings = new Settings();
 		langs = new Langs(settings);
-		camera = new Camera2D((int)(Gdx.graphics.getWidth() * 1.5f));
+		camera = new Camera2D((int)(Gdx.graphics.getWidth() * 1.25f));
 	    this.batch = batch;
 		this.Textures = t;
         achievements = new Achievements(langs);
@@ -71,15 +73,13 @@ public class MyGdxGame implements Screen {
 			World.load(worldName);
 		}
 	}
-
-
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		
-		
+
+
 		camera.update(batch);
 
 		BLOCKS.interfacesUpdate(World.maps, World.pl, GI.interfaceCamera);
@@ -88,7 +88,7 @@ public class MyGdxGame implements Screen {
 		batch.begin();
 		if (GI.isInterfaceOpen) batch.setColor(0.5f, 0.5f, 0.5f, 1);
 		World.renderLowLayer();
-		
+
 		World.renderHighLayer();
 		if (GI.isInterfaceOpen) batch.setColor(1, 1, 1, 1);
 		batch.end();
@@ -97,7 +97,7 @@ public class MyGdxGame implements Screen {
 		GI.render(World.pl, (settings.debugMode) ? 
 				  " FPS:" + Gdx.graphics.getFramesPerSecond() + 
 				  "\n Time:" + World.WorldTime.getTimeString() +
-				  "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" :"");
+				  "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" : "");
 		BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
 	    GI.update(World.pl);
 		World.update(mods, achievements);

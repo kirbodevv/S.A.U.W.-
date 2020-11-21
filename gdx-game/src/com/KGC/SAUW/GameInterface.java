@@ -58,13 +58,6 @@ public class GameInterface {
 	public Context cx;
 	public Scriptable sc;
 	public void consolePrint(String txt) {
-		/*String temp = "";
-		 for(int i = 0; i < txt.length(); i++){
-		 temp += txt.charAt(i);
-		 if(Log.getBounds(temp.substring(0, i)).width > consoleInterface.width - WIDTH / 8){
-		 temp = temp.substring(0, temp.length() - 1) + "\n" + txt.charAt(i);
-		 }
-		 }*/
 		this.logText = txt;
 	}
 	public void setConsoleTextColor(int r, int g, int b) {
@@ -88,7 +81,6 @@ public class GameInterface {
 		this.ITEMS = ITEMS;
 		debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 		debug.setColor(Color.BLACK);
-		//debug.setScale(interfaceCamera.W / 1536);
 		atackButton = new Button("", (int)(12 * (WIDTH / 16)), (int)(3 * (WIDTH / 16)) , (int)(WIDTH / 32 * 3), (int)(WIDTH / 32 * 3), Textures.button_0, Textures.button_1);
 		dropButton = new Button("", (int)(13 * (WIDTH / 16)), (int)(3 * (WIDTH / 32)) , (int)(WIDTH / 32 * 3), (int)(WIDTH / 32 * 3), Textures.button_0, Textures.button_1);
 		interactionButton = new Button("", (int)(14 * (WIDTH / 16)), (int)(3 * (WIDTH / 16))/*(int)(13 * (WIDTH / 16)), (int)(3 * (WIDTH / 32))*/ , (int)(WIDTH / 32 * 3), (int)(WIDTH / 32 * 3), Textures.button_0, Textures.button_1);
@@ -99,7 +91,6 @@ public class GameInterface {
 		j.setDiameters((int)WIDTH / 16 * 3, (int)WIDTH / 32 * 2);
 		inv = new Inventory(batch, interfaceCamera, Textures.inventory, Textures.selected_slot, ITEMS, (int)((WIDTH / 16) * 4), 0, Textures, this, langs);
 		health = new Health(batch, interfaceCamera, Textures.health_0, Textures.health_1);
-		//notification.show((int)(WIDTH - WIDTH / 16 * 6), (int)(HEIGHT - WIDTH / 16 * 2), (int)WIDTH / 16 * 6, (int)WIDTH / 16 * 2, "Достижение", "Ну ты рили клоун.", Textures.clown, 5);
 	    notifW = (int)WIDTH / 16 * 4;
 	}
 	public boolean isTouched() {
@@ -261,7 +252,6 @@ public class GameInterface {
 					craftName.setScale(WIDTH / 32 / 2 / craftName.getCapHeight());
 					TB = BF.getBounds(langs.getString("craftList"));
 					craft = new Button("craftButton", (int)(WIDTH / 16 * 9 + WIDTH / 32), (int)WIDTH / 16, (int)WIDTH / 16 * 5, (int)WIDTH / 16);
-					//craft.setTextColor(Color.BLACK);
 					craft.setText(langs.getString("craft"));
 					craft.setEventListener(new Button.EventListener(){
 							@Override
@@ -421,10 +411,10 @@ public class GameInterface {
 		pauseInterface.setInterfaceEvents(new InterfaceEvents(){
 				Button saveWorldButton;
 				Button resumeButton;
+				Button exitButton;
 				@Override
 				public void initialize() {
 					resumeButton = new Button("ResumeButton", (int)(WIDTH / 16), (int)(HEIGHT - WIDTH / 16 * 4), (int)(WIDTH / 16 * 4), (int)WIDTH / 16);
-					//resumeButton.setTextColor(Color.WHITE);
 					resumeButton.setText(langs.getString("resume"));
 					resumeButton.setEventListener(new Button.EventListener(){
 							@Override
@@ -433,7 +423,6 @@ public class GameInterface {
 							}
 					});
 					saveWorldButton = new Button("saveWorldButton", (int)(WIDTH / 16), (int)(resumeButton.Y - WIDTH / 16), (int)(WIDTH / 16 * 4), (int)WIDTH / 16);
-					//saveWorldButton.setTextColor(Color.WHITE);
 					saveWorldButton.setText(langs.getString("save"));
 					saveWorldButton.setEventListener(new Button.EventListener(){
 							@Override

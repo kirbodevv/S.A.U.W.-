@@ -28,17 +28,4 @@ public class MainGame extends Game {
 			Gdx.app.exit();
 		}*/
 	}
-	public void writeLogToFile(String log) {
-		FileHandle logFile = Gdx.files.external("S.A.U.W./log.txt");
-		File f = logFile.file();
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (Exception e) {
-
-			}
-		}
-		logFile.writeString(log, false);
-	}
-
 }

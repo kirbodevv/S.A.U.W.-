@@ -125,16 +125,18 @@ public class Blocks {
 					float y = w / 16.0f;
 					float width = w / 16 * (h / (w / 16.0f) - 2);
 					float heigth = w / 16 * (h / (w / 16.0f) - 2);
-	                String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
-					for (int i = 0; i < 3; i++) {
+	               // String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
+					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, Textures, batch, gi.interfaceCamera, items, gi);
+					chestInterface.createInventory().setHeaderText(langs.getString("chest")).isBlockInterface(true);
+					chestInterface.setMaps(maps);
+				   for (int i = 0; i < 3; i++) {
 						for (int j = 0; j < 8; j++) {
-							_interface += "\"chestSlot_" + (i * 8 + j) + "\" : {\"type\":\"slot\", \"Texture_0\":\"Interface/slot.png\", \"Texture_1\":\"Interface/selected_slot.png\", \"width\":" + (w / 24) + ", \"height\":" + (w / 24) + ", \"x\":" + (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)) + ", \"y\":" + (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64) + "}" + ((i * 8 + j == 23) ? "" : ",");
+							Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)), (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64), w / 24, w / 24, t.selected_slot, false, -1);
+							chestInterface.slots.add(slot);
+							//_interface += "\"chestSlot_" + (i * 8 + j) + "\" : {\"type\":\"slot\", \"Texture_0\":\"Interface/slot.png\", \"Texture_1\":\"Interface/selected_slot.png\", \"width\":" + (w / 24) + ", \"height\":" + (w / 24) + ", \"x\":" + (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)) + ", \"y\":" + (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64) + "}" + ((i * 8 + j == 23) ? "" : ",");
 						}
 					}
-					_interface += "}, \"drawing\" : []}";
-			        chestInterface = new Interface(Interface.InterfaceSizes.STANDART, Textures, batch, gi.interfaceCamera, items, gi);
-					chestInterface.setHeaderText(langs.getString("chest")).isBlockInterface(true);
-					chestInterface.setMaps(maps);
+					//_interface += "}, \"drawing\" : []}";
 				}
 				@Override
 				public void randomTick(Tile tile) {

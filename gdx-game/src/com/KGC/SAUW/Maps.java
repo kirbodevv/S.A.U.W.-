@@ -10,13 +10,31 @@ public class Maps {
 	Random r = new Random();
 	OpenSimplexNoise noise = new OpenSimplexNoise();
 	public Tile[][][] map0 = new Tile[40][40][3];
+	private int[][] biomsMap;
 	int width = Gdx.graphics.getWidth();
 
+	public int getBiomFromNoiseValue(double v) {
+		if (v < 0.3) return 1;
+		else if (v < 0.66) return 2;
+		else if (v < 0.8) return 12;
+		else return 8;
+	}
+	public double noise(OpenSimplexNoise noise, double nx, double ny) {
+		return noise.eval(nx, ny) / 2 + 0.5;
+	}
 	public void generateWorld(World w, Items ITEMS) {
 		Random r = new Random();
+		biomsMap = new int[map0.length][map0[0].length];
+		OpenSimplexNoise noise = new OpenSimplexNoise();
 		for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
-				w.setBlock(j, i, 1, 1);
+				double nx = j / 40 - 0.5;
+				double ny = i / 40 - 0.5;
+				double e = 1 * noise(noise, 1 * nx, 1 * ny)
+					+  0.5 * noise(noise, 2 * nx, 2 * ny);
+				biomsMap[j][i] = getBiomFromNoiseValue(e);
+				w.setBlock(j, i, 1, biomsMap[j][i]);
+				//w.setBlock(j, i, 1, 1);
 				w.setBlock(j, i, 2, 2);
 				w.setBlock(j, i, 0, 4);
 
@@ -24,7 +42,6 @@ public class Maps {
 				w.setBlock(i, map0[i].length - 1, 0, 14);
 				w.setBlock(0, j, 0, 14);
 				w.setBlock(map0.length - 1, j, 0, 14);
-
 			}
         }
 		if (w.mobs != null) {

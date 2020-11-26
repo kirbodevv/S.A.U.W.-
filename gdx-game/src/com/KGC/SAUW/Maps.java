@@ -28,13 +28,8 @@ public class Maps {
 		OpenSimplexNoise noise = new OpenSimplexNoise();
 		for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
-				double nx = j / 40 - 0.5;
-				double ny = i / 40 - 0.5;
-				double e = 1 * noise(noise, 1 * nx, 1 * ny)
-					+  0.5 * noise(noise, 2 * nx, 2 * ny);
-				biomsMap[j][i] = getBiomFromNoiseValue(e);
-				w.setBlock(j, i, 1, biomsMap[j][i]);
-				//w.setBlock(j, i, 1, 1);
+				biomsMap[j][i] = 1;
+				w.setBlock(j, i, 1, 1);
 				w.setBlock(j, i, 2, 2);
 				w.setBlock(j, i, 0, 4);
 

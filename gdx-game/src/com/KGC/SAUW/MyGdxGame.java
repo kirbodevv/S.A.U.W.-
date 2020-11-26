@@ -47,7 +47,7 @@ public class MyGdxGame implements Screen {
         crafting = new Crafting();
 		settings = new Settings();
 		langs = new Langs(settings);
-		camera = new Camera2D((int)(Gdx.graphics.getWidth() * 3.25f));
+		camera = new Camera2D((int)(Gdx.graphics.getWidth() * 1.25f));
 	    this.batch = batch;
 		this.Textures = t;
         achievements = new Achievements(langs);

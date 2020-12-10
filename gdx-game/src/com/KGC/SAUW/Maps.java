@@ -29,10 +29,12 @@ public class Maps {
 		for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
 				biomsMap[j][i] = 1;
-				w.setBlock(j, i, 1, 1);
+				w.setBlock(j, i, 1, 18);
 				w.setBlock(j, i, 2, 2);
 				w.setBlock(j, i, 0, 4);
-
+				if(r.nextInt(75) == 0){
+					w.setBlock(j, i, 0, 17);
+				}
 				w.setBlock(i, 0, 0, 14);
 				w.setBlock(i, map0[i].length - 1, 0, 14);
 				w.setBlock(0, j, 0, 14);

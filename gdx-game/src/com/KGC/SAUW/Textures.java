@@ -38,6 +38,8 @@ public class Textures {
 	public Texture standartBackground;
 	public Texture standartBackground_full;
 	public Texture tree;
+	public Texture christmas_tree;
+	public Texture snow;
 	public Texture button_up_0;
 	public Texture button_up_1;
 	public Texture button_down_0;
@@ -199,7 +201,7 @@ public class Textures {
 		pixmap.drawPixel(2, height - 2);
 		pixmap.drawPixel(width - 3, height - 2);
 		pixmap.drawPixel(width - 2, height - 3);
-		
+
 		Texture t = new Texture(pixmap);
 		pixmap.dispose();
 		texture.dispose();
@@ -231,11 +233,13 @@ public class Textures {
 
 		undf       = new Texture(Gdx.files.internal("Blocks/undefined.png"));
 		stone      = new Texture(Gdx.files.internal("Blocks/stone.png"));
+		snow       = new Texture(Gdx.files.internal("Blocks/snow.png"));
 		stone_1    = new Texture(Gdx.files.internal("Blocks/stone_1.png"));
 		grass0     = new Texture(Gdx.files.internal("Blocks/grass_0.png"));
 		door       = new Texture(Gdx.files.internal("Blocks/door_0.png"));
 		chest      = new Texture(Gdx.files.internal("Blocks/chest.png"));
 		tree       = new Texture(Gdx.files.internal("Blocks/tree.png"));
+		christmas_tree = new Texture(Gdx.files.internal("Blocks/christmas_tree.png"));
 		wood       = new Texture(Gdx.files.internal("Blocks/wood.png"));
 		iron_ore   = new Texture(Gdx.files.internal("Blocks/iron_ore.png"));
 		dirt       = new Texture(Gdx.files.internal("Blocks/dirt.png"));
@@ -367,5 +371,7 @@ public class Textures {
 		logo.dispose();
 		campfire.dispose();
 		campfire_animation.dispose();
+		snow.dispose();
+		christmas_tree.dispose();
 	}
 }

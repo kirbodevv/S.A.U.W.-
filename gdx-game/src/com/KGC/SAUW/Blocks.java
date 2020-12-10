@@ -45,14 +45,20 @@ public class Blocks {
 		createBlock(15, Textures.campfire);
 		//куст
 		createBlock(16, Textures.undf);
+		createBlock(17, Textures.christmas_tree);
+		createBlock(18, Textures.snow);
 		
 		getBlockById(6).setSize(1, 2);
+		getBlockById(17).setSize(1, 2);
 		getBlockById(13).setSize(1, 2);
+		
 		getBlockById(6).setMaxDamage(5);
+		getBlockById(17).setMaxDamage(5);
 		getBlockById(9).setMaxDamage(5);
 		getBlockById(10).setMaxDamage(6);
 
 		getBlockById(6).setTransparent();
+		getBlockById(17).setTransparent();
 		getBlockById(7).setTransparent();
 		getBlockById(9).setTransparent();
 		getBlockById(10).setTransparent();
@@ -62,6 +68,7 @@ public class Blocks {
 		getBlockById(16).setTransparent();
 		
 		getBlockById(6).setDrop(new int[][]{{8, 3}, {20, 1}});
+		getBlockById(17).setDrop(new int[][]{{8, 3}, {20, 1}});
 		getBlockById(9).setDrop(new int[][]{{12, 5}});
 		getBlockById(10).setDrop(new int[][]{{13, 4}});
 		getBlockById(16).setDrop(new int[][]{{18, 1}});
@@ -70,6 +77,7 @@ public class Blocks {
 		getBlockById(9).IT = 1;
 		getBlockById(10).IT = 1;
 		getBlockById(6).IT = 2;
+		getBlockById(17).IT = 2;
 		getBlockById(1).IT = 4;
 		getBlockById(2).IT = 1;
 		getBlockById(3).IT = 1;
@@ -87,6 +95,7 @@ public class Blocks {
 		//getBlockById(15).setLightingColor(0xFEBE17);
 		
 		getBlockById(6).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
+		getBlockById(17).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
         getBlockById(11).setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
 	    getBlockById(13).setCollisionsRectangleByPixels(15, 0, 4, 4, 32);
 		

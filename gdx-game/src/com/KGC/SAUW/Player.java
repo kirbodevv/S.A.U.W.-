@@ -237,10 +237,10 @@ public class Player implements ExtraData {
                 walkFrames[index++] = tmp[i][j];
             }
         }
-		walkL = new Animation(0.3f, walkFrames[0], walkFrames[1]);
-		walkR = new Animation(0.3f, walkFrames[2], walkFrames[3]);
-		walkD = new Animation(0.3f, walkFrames[4], walkFrames[5]);
-		walkU = new Animation(0.3f, walkFrames[6], walkFrames[7]);
+		walkL = new Animation(0.2f, walkFrames[0], walkFrames[1]);
+		walkR = new Animation(0.2f, walkFrames[2], walkFrames[3]);
+		walkD = new Animation(0.2f, walkFrames[4], walkFrames[5]);
+		walkU = new Animation(0.2f, walkFrames[6], walkFrames[7]);
 		currentFrame = walkFrames[4];
 		stateTime = 0f;
 		spawn();

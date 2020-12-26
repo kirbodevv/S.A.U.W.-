@@ -11,6 +11,7 @@ public class Settings {
 	private String result = "";
 	//<settings>
 	public boolean debugMode = true;
+	public boolean debugRenderer = false;
 	public String lang = "de";
 	public boolean autopickup = false;
 	public int consoleTextColorRed;
@@ -23,6 +24,7 @@ public class Settings {
 	public void saveSettings() {
 		try {
 			this.settings.put("debug", debugMode);
+			this.settings.put("debugRenderer", debugRenderer);
 			this.settings.put("lang", lang);
 			this.settings.getJSONObject("console").getJSONObject("textColor").put("R", consoleTextColorRed);
 			this.settings.getJSONObject("console").getJSONObject("textColor").put("G", consoleTextColorGreen);
@@ -51,6 +53,7 @@ public class Settings {
 
             //<settings load>
 			debugMode = this.settings.getBoolean("debug");
+			debugRenderer = this.settings.getBoolean("debugRenderer");
 			lang = this.settings.getString("lang");
 			consoleTextColorRed = this.settings.getJSONObject("console").getJSONObject("textColor").getInt("R");
 			consoleTextColorGreen = this.settings.getJSONObject("console").getJSONObject("textColor").getInt("G");

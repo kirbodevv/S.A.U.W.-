@@ -170,6 +170,7 @@ public class World {
 		RayHandler = new RayHandler(world);
 		RayHandler.setAmbientLight(1, 1, 1, 1);
 		RayHandler.useDiffuseLight(true);
+		//RayHandler.setCulling(true);
 	}
 	public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
 		BodyDef bodyDef = new BodyDef();
@@ -234,7 +235,7 @@ public class World {
 		return -1;
 	}
 	public void update(Mods mods, Achievements a) {
-		world.step(1 / 60f, 6, 2);
+		world.step(1f, 6, 2);
 		pl.update(this, a);
 		mobs.update();
 		maps.update(cam, GI, pl, this, blocks, mobs, items);

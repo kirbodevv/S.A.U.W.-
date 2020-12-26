@@ -92,7 +92,7 @@ public class MyGdxGame implements Screen {
 		World.renderHighLayer();
 		if (GI.isInterfaceOpen) batch.setColor(1, 1, 1, 1);
 		batch.end();
-		if (settings.debugMode) DR.render(World.world, camera.CAMERA.combined);
+		if (settings.debugRenderer) DR.render(World.world, camera.CAMERA.combined);
 		batch.begin();
 		GI.render(World.pl, (settings.debugMode) ? 
 				  " FPS:" + Gdx.graphics.getFramesPerSecond() + 

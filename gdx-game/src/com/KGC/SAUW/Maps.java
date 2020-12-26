@@ -10,30 +10,20 @@ public class Maps {
 	Random r = new Random();
 	OpenSimplexNoise noise = new OpenSimplexNoise();
 	public Tile[][][] map0 = new Tile[40][40][3];
-	private int[][] biomsMap;
 	int width = Gdx.graphics.getWidth();
-
-	public int getBiomFromNoiseValue(double v) {
-		if (v < 0.3) return 1;
-		else if (v < 0.66) return 2;
-		else if (v < 0.8) return 12;
-		else return 8;
-	}
-	public double noise(OpenSimplexNoise noise, double nx, double ny) {
-		return noise.eval(nx, ny) / 2 + 0.5;
-	}
 	public void generateWorld(World w, Items ITEMS) {
 		Random r = new Random();
-		biomsMap = new int[map0.length][map0[0].length];
-		OpenSimplexNoise noise = new OpenSimplexNoise();
 		for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
-				biomsMap[j][i] = 1;
 				w.setBlock(j, i, 1, 18);
 				w.setBlock(j, i, 2, 2);
 				w.setBlock(j, i, 0, 4);
 				if(r.nextInt(75) == 0){
 					w.setBlock(j, i, 0, 17);
+				} else if(r.nextInt(75) == 0){
+					w.setBlock(j, i, 0, 10);
+				} else if(r.nextInt(75) == 0){
+					w.setBlock(j, i, 0, 9);
 				}
 				w.setBlock(i, 0, 0, 14);
 				w.setBlock(i, map0[i].length - 1, 0, 14);
@@ -47,10 +37,13 @@ public class Maps {
 			for (int i = 0; i < map0.length; i++) {
 				for (int j = 0; j < map0[i].length; j++) {
 					if (r1.nextInt(75) == 0) {
-						w.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 7, 1, 0, ITEMS));
+						w.mobs.spawn(new ItemMob(j * WIDTH / 16, i * WIDTH / 16, 7, 1, 0, ITEMS));
 					}
 					if (r1.nextInt(50) == 0) {
-						w.mobs.spawn(new ItemMob(j * (int)WIDTH / 16, i * (int)WIDTH / 16, 12, 1, 0, ITEMS));
+						w.mobs.spawn(new ItemMob(j * WIDTH / 16, i * WIDTH / 16, 12, 1, 0, ITEMS));
+					}
+					if(r1.nextInt(100) == 0){
+						w.mobs.spawn(new ItemMob(j * WIDTH / 16, i * WIDTH / 16, 18, 1, 0, ITEMS));
 					}
 				}
 			}

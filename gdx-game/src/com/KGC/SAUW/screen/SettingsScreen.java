@@ -35,6 +35,7 @@ public class SettingsScreen implements Screen {
 	private Button nextLang;
 	private Button prevLang;
 	private Checkbox debug;
+	private Checkbox debugRenderer;
 	private Checkbox AIPU;
     private Checkbox useConsole;
 
@@ -62,12 +63,23 @@ public class SettingsScreen implements Screen {
 		Notification = new Notification(Textures.generateBackground(8, 4));
 		debug = new Checkbox(t.switch_0, t.switch_1);
 		debug.setSize(width / 16, width / 16);
-		debug.setPosition(ms.camera.X + width / 16 * 4 + width / 64 , ms.camera.Y + height - width / 16 * 6);
+		debug.setPosition(ms.camera.X + width / 16 * 6 + width / 64 , ms.camera.Y + height - width / 16 * 6);
 		debug.setChecked(ms.settings.debugMode);
 		debug.setEventListener(new Checkbox.Eventlistener(){
 				@Override
 				public void onClick(boolean isChecked) {
 					MenuScreen.settings.debugMode = isChecked;
+					MenuScreen.settings.saveSettings();
+				}
+			});
+		debugRenderer = new Checkbox(t.switch_0, t.switch_1);
+		debugRenderer.setSize(width / 16, width / 16);
+		debugRenderer.setPosition(ms.camera.X + width / 16 * 6 + width / 64 , ms.camera.Y + height - width / 16 * 7);
+		debugRenderer.setChecked(ms.settings.debugRenderer);
+		debugRenderer.setEventListener(new Checkbox.Eventlistener(){
+				@Override
+				public void onClick(boolean isChecked) {
+					MenuScreen.settings.debugRenderer = isChecked;
 					MenuScreen.settings.saveSettings();
 				}
 			});
@@ -220,6 +232,7 @@ public class SettingsScreen implements Screen {
 			nextLang.update(MenuScreen.camera);
 			prevLang.update(MenuScreen.camera);
 			debug.update(MenuScreen.camera);
+			debugRenderer.update(MenuScreen.camera);
 		} else if (currentSettingCot == 1) {
 			Interface.lock(true);
 		} else if (currentSettingCot == 2) {
@@ -249,10 +262,12 @@ public class SettingsScreen implements Screen {
 				batch.draw(background1, MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 4, width / 16 * 3, width / 16);
 				bf.drawMultiLine(batch, MenuScreen.langs.getString("language"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
 				bf.drawMultiLine(batch, availableLangs.getString(MenuScreen.settings.lang), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
-			    bf.drawMultiLine(batch, MenuScreen.langs.getString("debug"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
+			    bf.drawMultiLine(batch, MenuScreen.langs.getString("debug"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
+				bf.drawMultiLine(batch, MenuScreen.langs.getString("debugRenderer"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
 				nextLang.render(batch, MenuScreen.camera);
 				prevLang.render(batch, MenuScreen.camera);
 				debug.render(batch, MenuScreen.camera);
+				debugRenderer.render(batch, MenuScreen.camera);
 			} catch (Exception e) {
 
 			}

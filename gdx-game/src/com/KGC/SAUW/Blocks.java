@@ -89,9 +89,9 @@ public class Blocks {
         getBlockById(16).IT = 3;
 		
 		getBlockById(11).setLightingRadius(2);
-		getBlockById(11).setLightingColor(0xFFFFFF);
+		getBlockById(11).setLightingColor(0xd77d00);
 		getBlockById(15).setLightingRadius(4);
-		getBlockById(15).setLightingColor(0xFFFFFF);
+		getBlockById(15).setLightingColor(0xd77d00);
 		//getBlockById(15).setLightingColor(0xFEBE17);
 		
 		getBlockById(6).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);

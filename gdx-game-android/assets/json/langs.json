@@ -47,7 +47,8 @@
         "createNewWorld":"Создать новый мир",
         "WorldName":"Название мира",
         "newWorld":"Новый мир",
-        "create":"Создать"
+        "create":"Создать",
+        "debugRenderer":"Debug Renderer"
     },
     "de" : {
         "startGame" : "Spielen",
@@ -97,6 +98,7 @@
         "createNewWorld":"Neu erstellen",
         "WorldName":"Название мира",
         "newWorld":"Новый мир",
-        "create":"Создать"
+        "create":"Создать",
+        "debugRenderer":"Debug Renderer"
     }
 }

@@ -78,6 +78,7 @@ public class Maps {
 					for (int z = 0; z < map0[y][x].length; z++) {
 						if (map0[y][x][z].TileEntity != null) {
 							tileEntitys[j] = map0[y][x][z];
+							j++;
 						}
 					}
 				}

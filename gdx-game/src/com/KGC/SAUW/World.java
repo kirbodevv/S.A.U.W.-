@@ -170,7 +170,6 @@ public class World {
 		RayHandler = new RayHandler(world);
 		RayHandler.setAmbientLight(1, 1, 1, 1);
 		RayHandler.useDiffuseLight(true);
-		//RayHandler.setCulling(true);
 	}
 	public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
 		BodyDef bodyDef = new BodyDef();

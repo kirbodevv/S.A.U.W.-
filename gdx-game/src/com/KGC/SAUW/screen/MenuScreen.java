@@ -28,6 +28,7 @@ public class MenuScreen implements Screen {
 	Button startButton;
 	Button settingsButton;
 	Button exitButton;
+	Button closeButton;
 	World world;
 	Blocks blocks;
 	Textures t;
@@ -161,6 +162,13 @@ public class MenuScreen implements Screen {
 				@Override
 				public void onClick() {
 			        loadGame(worldNames[worldSelIndex + 2]);
+				}
+			});
+		closeButton = new Button("", 0, (h - w / 16), w / 16, w / 16, t.button_left_0, t.button_left_1);
+		closeButton.setEventListener(new Button.EventListener(){
+				@Override
+				public void onClick() {
+					StartGameMenu = false;
 				}
 			});
 		createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, t, b, camera, items, null);
@@ -314,13 +322,11 @@ public class MenuScreen implements Screen {
 			bf.setScale(w / 768);
 			bf.draw(b, SAUW_coins + "", camera.X + w / 16 + w / 64, camera.Y + h - w / 32);
 		} else {
-			//testWorld.update(cam);
-			//testWorld.render(b, cam);
-
 			if (!createWorldInterface.isOpen) {
 				sel_0.update(camera);
 				sel_1.update(camera);
 				sel_2.update(camera);
+				closeButton.update(camera);
 				createNewWorld.update(camera);
 				up.update(camera);
 				down.update(camera);
@@ -331,6 +337,7 @@ public class MenuScreen implements Screen {
 				sel_0.render(b, camera);
 				sel_1.render(b, camera);
 				sel_2.render(b, camera);
+				closeButton.render(b, camera);
 				createNewWorld.render(b, camera);
 				up.render(b, camera);
 				down.render(b, camera);

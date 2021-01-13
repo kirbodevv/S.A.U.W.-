@@ -12,7 +12,6 @@ public class Textures {
 	public Texture door;
 	public Texture grass0;
 	public Texture player;
-	public Texture zombie;
 	//public Texture slot;
 	public Texture selected_slot;
 	public Texture undf;
@@ -48,16 +47,13 @@ public class Textures {
 	public Texture button_left_1;
 	public Texture button_right_0;
 	public Texture button_right_1;
-	/*public Texture button1_0;
-	 public Texture button1_1;*/
-	//public Texture log_intr;
+	public Texture apple;
 	public Texture stick;
 	public Texture log;
 	public Texture crafting_button_0;
 	public Texture crafting_button_1;
 	public Texture stick_1;
 	public Texture wood;
-	//public Texture Notification_background;
 	public Texture clown;
 	public Texture SAUWCoin;
 	public Texture stone_1;
@@ -66,7 +62,6 @@ public class Textures {
 	public Texture iron_ore_item;
 	public Texture stone_pickaxe;
 	public Texture stone_axe;
-	//public Texture input_background;
 	public Texture console_button_0;
 	public Texture console_button_1;
 	public Texture rope;
@@ -216,8 +211,6 @@ public class Textures {
 		SAUWCoin = new Texture(Gdx.files.internal("SAUW_Coin.png"));
 		logo     = new Texture(Gdx.files.internal("Interface/SAUW_Logo.png"));
 		player = new Texture(Gdx.files.internal("Entity/player.png"));
-		zombie = new Texture(Gdx.files.internal("Entity/zombie.png"));
-
 
 		wall0  = new Texture(Gdx.files.internal("Blocks/walls/wall_0.png"));
 		wall1  = new Texture(Gdx.files.internal("Blocks/walls/wall_1.png"));
@@ -294,6 +287,7 @@ public class Textures {
 	    iron_ingot      = new Texture(Gdx.files.internal("Items/iron_ingot.png"));
 	    sapling_item    = new Texture(Gdx.files.internal("Items/sapling_item.png"));
 	    furnace_item    = new Texture(Gdx.files.internal("Items/furnace_item.png"));
+		apple           = new Texture(Gdx.files.internal("Items/apple.png"));
 	}
 	public void dispose() {
 		j_0.dispose();
@@ -303,7 +297,6 @@ public class Textures {
 		door.dispose();
 		grass0.dispose();
 		player.dispose();
-		zombie.dispose();
 		//slot.dispose();
 		selected_slot.dispose();
 		undf.dispose();
@@ -373,5 +366,6 @@ public class Textures {
 		campfire_animation.dispose();
 		snow.dispose();
 		christmas_tree.dispose();
+		apple.dispose();
 	}
 }

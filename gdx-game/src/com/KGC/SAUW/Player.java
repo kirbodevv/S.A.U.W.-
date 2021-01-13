@@ -45,7 +45,6 @@ public class Player implements ExtraData {
 	public int plH = w / 16;
 	public int posX = w / 2 + 16;
 	public int posY = h / 2 - 32;
-	public int hp;
 	int carriedSlot = 0;
 	Items Items;
 	//maps m;
@@ -57,11 +56,7 @@ public class Player implements ExtraData {
 
 	public int maxHealth = 20;
 	public int health = 20;
-
-	boolean cmr;
-	boolean cml;
-	boolean cmu;
-	boolean cmd;
+	public int hunger = 20;
 
 	Animation walkL;
 	Animation walkR;

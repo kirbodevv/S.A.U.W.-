@@ -259,11 +259,11 @@ public class World {
 				int bY = (cY - (cY % (WIDTH / 16))) / (WIDTH / 16);
 				mods.HookFunction("itemClick", new Object[]{bX, bY, (maps.map0[bY][bX][1].id != 4) ? 1 : 0, maps.map0[bY][bX][(maps.map0[bY][bX][1].id != 4) ? 1 : 0].id, pl.getCarriedItem()});
 				if (Maths.distanceD(pl.posX, pl.posY, bX * WIDTH / 16, bY * WIDTH / 16) <= 1.7 * WIDTH / 16) {
-					if (items.getTypeById(pl.getCarriedItem()) == 1) {
-						if (setBlock(bX, bY, items.getBlockId(pl.getCarriedItem()))) {
+					if (pl.getCarriedItem().type == 1) {
+						if (setBlock(bX, bY, pl.getCarriedItem().blockId)) {
 							pl.Inventory[pl.carriedSlot].count -= 1;
 						}
-					} else if (items.getTypeById(pl.getCarriedItem()) == 2 || pl.getCarriedItem() == 0) {
+					} else if (pl.getCarriedItem().type == 2 || pl.getCarriedItem().id == 0) {
 						if (getHighestBlock(bX, bY) != 2 && getHighestBlock(bX, bY) != -1) {
 							int z = -1;
 							if (maps.map0[bY][bX][0].id != 4) {
@@ -273,10 +273,10 @@ public class World {
 							} 
 							if (z != -1) {
 								int instrType;
-								if (pl.getCarriedItem() == 0) {
+								if (pl.getCarriedItem().id == 0) {
 									instrType = 3;
 								} else {
-									instrType = items.getItemById(pl.getCarriedItem()).intrumentType;
+									instrType = pl.getCarriedItem().intrumentType;
 								}
 
 								pl.Inventory[pl.carriedSlot].data = pl.Inventory[pl.carriedSlot].data + maps.map0[bY][bX][z].hit(instrType);

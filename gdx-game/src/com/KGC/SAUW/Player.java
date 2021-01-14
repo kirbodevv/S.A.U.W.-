@@ -22,6 +22,8 @@ public class Player implements ExtraData {
 	@Override
 	public byte[] getBytes() {
 		DataBuffer buffer = new DataBuffer();
+		buffer.put("health", health);
+		buffer.put("hunger", hunger);
 		buffer.put("coords", new int[]{(int)player.x, (int)player.y});
 		for(int i = 0; i < Inventory.length; i++){
 			buffer.put("Inv_" + i, Inventory[i]);
@@ -34,6 +36,8 @@ public class Player implements ExtraData {
 		buffer.readBytes(bytes);
 		player.x = buffer.getIntArray("coords")[0];
 		player.y = buffer.getIntArray("coords")[1];
+		health = buffer.getInt("health");
+		hunger = buffer.getInt("hunger");
 		for(int i = 0; i < Inventory.length; i++){
 			Inventory[i].readBytes(buffer.getByteArray("Inv_" + i), begin, end);
 		}
@@ -56,7 +60,7 @@ public class Player implements ExtraData {
 
 	public int maxHealth = 20;
 	public int health = 20;
-	public int hunger = 20;
+	public int hunger = 10;
 
 	Animation walkL;
 	Animation walkR;
@@ -128,8 +132,12 @@ public class Player implements ExtraData {
 		health -= damage;
 		if (health <= 0) kill();
 	}
-	public int getCarriedItem() {
-		return Inventory[carriedSlot].id;
+	public Item getCarriedItem() {
+		if(Items.getItemById(Inventory[carriedSlot].id) != null){
+		return Items.getItemById(Inventory[carriedSlot].id);
+		} else {
+			return Items.getItemById(-1);
+		}
 	}
 	public InventorySlot[] getInventory() {
 		return Inventory;
@@ -312,6 +320,13 @@ public class Player implements ExtraData {
 						addItem(item.getExtraData("itemId"), item.getExtraData("itemCount"), item.getExtraData("itemCount"));
 						mobs.mobs.remove(i);
 					}
+				}
+			}
+			if(GI.interactionButton.wasClicked){
+				if(getCarriedItem().type == Items.Type.FOOD){
+					hunger += getCarriedItem().getFoodScore();
+					if(hunger > 20) hunger = 20;
+					Inventory[carriedSlot].count -= 1;
 				}
 			}
 			if (GI.dropButton.isTouched()) {

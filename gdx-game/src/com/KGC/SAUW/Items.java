@@ -15,12 +15,14 @@ public class Items {
 		public static int INSTRUMENT = 2;
 		public static int FOOD = 3;
 	}
+	public static Type Type = new Type();
 	Textures Textures;
 	Langs l;
 	public ArrayList<Item> ITEMS = new ArrayList<Item>();
 	public Items(Textures t, Langs l) {
 		this.l = l;
 		this.Textures = t;
+		createItem(0, null, null, -1, -1, -1);
 		createItem(1, l.getString("grass"), Textures.grass0, Type.BLOCKITEM, 1, 64, 0);
 		createItem(2, l.getString("apple"), Textures.apple, Type.FOOD, 64, 0);
 		createItem(3, l.getString("stone"), Textures.stone, Type.BLOCKITEM, 2, 64, 0);
@@ -44,6 +46,8 @@ public class Items {
 		createItem(22,l.getString("stone_shovel"), Textures.undf, Type.INSTRUMENT, 1, 128);
 		createItem(23,l.getString("campfire"), Textures.campfire, Type.BLOCKITEM, 15, 64, 0);
 		
+		
+		getItemById(2).setFoodScore(4);
 		getItemById(14).setInstrumentType(1);
 		getItemById(15).setInstrumentType(2);
 		getItemById(22).setInstrumentType(4);

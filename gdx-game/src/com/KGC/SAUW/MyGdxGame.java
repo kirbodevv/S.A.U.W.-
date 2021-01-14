@@ -97,6 +97,7 @@ public class MyGdxGame implements Screen {
 		GI.render(World.pl, (settings.debugMode) ? 
 				  " FPS:" + Gdx.graphics.getFramesPerSecond() + 
 				  "\n Time:" + World.WorldTime.getTimeString() +
+				  "\n Hunger:"+ World.pl.hunger + "/20" +
 				  "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" : "");
 		BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
 	    GI.update(World.pl);

@@ -11,7 +11,7 @@ public class Item{
 	public int type;
 	public int blockId;
 	public int intrumentType;
-	
+	private int foodScore;
 	public Item(int id, String name, Texture t, int type, int maxCount, int maxData ){
 		this.id = id;
 		this.t = t;
@@ -50,5 +50,11 @@ public class Item{
 	}
 	public void setInstrumentType(int type){
 		this.intrumentType = type;
+	}
+	public void setFoodScore(int foodScore){
+		this.foodScore = foodScore;
+	}
+	public int getFoodScore(){
+		return foodScore;
 	}
 }

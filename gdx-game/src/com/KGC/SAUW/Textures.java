@@ -77,6 +77,7 @@ public class Textures {
 	public Texture logo;
 	public Texture campfire;
 	public Texture campfire_animation;
+	public Texture player_inv;
 	public Textures() {
 
 	}
@@ -210,8 +211,10 @@ public class Textures {
 		clown    = new Texture(Gdx.files.internal("clown.jpg"));
 		SAUWCoin = new Texture(Gdx.files.internal("SAUW_Coin.png"));
 		logo     = new Texture(Gdx.files.internal("Interface/SAUW_Logo.png"));
-		player = new Texture(Gdx.files.internal("Entity/player.png"));
-
+		
+		player     = new Texture(Gdx.files.internal("Entity/player.png"));
+		player_inv = new Texture(Gdx.files.internal("Entity/player_inv.png"));
+		
 		wall0  = new Texture(Gdx.files.internal("Blocks/walls/wall_0.png"));
 		wall1  = new Texture(Gdx.files.internal("Blocks/walls/wall_1.png"));
 		wall2  = new Texture(Gdx.files.internal("Blocks/walls/wall_2.png"));

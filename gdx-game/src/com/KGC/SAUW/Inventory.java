@@ -25,6 +25,11 @@ public class Inventory {
 	private int x, y;
 	private Button openButton;
 	Interface inventoryInterface;
+	TextureRegion[] playerAnimFrames;
+	TextureRegion currentFrame;
+	private float stateTime = 0.0f;
+	private float timer = 0.0f;
+	Animation playerAnim;
 	public Inventory(SpriteBatch b, Camera2D c, Texture t, Texture t2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
 		w = c.W;
 		h = c.H;
@@ -46,10 +51,23 @@ public class Inventory {
 				public void onClick() {
 					inventoryInterface.open();
 				}
-		});
-		}
-	public void init(final Player pl){
+			});
+		TextureRegion[][] tmp = TextureRegion.split(Textures.player_inv, Textures.player_inv.getWidth() / 3, Textures.player_inv.getHeight());
+		playerAnimFrames = new TextureRegion[3];
+		int index = 0;
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 3; j++) {
+                playerAnimFrames[index++] = tmp[i][j];
+            }
+        }
+		playerAnim = new Animation(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
+		currentFrame = playerAnimFrames[0];
+	}
+	public void init(final Player pl) {
+
 		inventoryInterface.setInterfaceEvents(new InterfaceEvents(){
+				int plW = w / 24 * 4 * 10 / 26;
+				int plH = w / 24 * 4;
 				@Override
 				public void initialize() {
 
@@ -57,7 +75,16 @@ public class Inventory {
 
 				@Override
 				public void tick() {
-
+					timer += Gdx.graphics.getRawDeltaTime();
+					if (timer >= 3) {
+						stateTime += Gdx.graphics.getDeltaTime();
+						currentFrame = playerAnim.getKeyFrame(stateTime, true);
+						if(playerAnim.getKeyFrameIndex(stateTime) == 4){
+							timer = 0;
+							stateTime = 0;
+							currentFrame = playerAnimFrames[0];
+						}
+					}
 				}
 
 				@Override
@@ -72,7 +99,8 @@ public class Inventory {
 
 				@Override
 				public void render() {
-					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + Interface.width - w / 16 * 3, cam.Y + Interface.y + Interface.width - w / 16 * 3, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 2, cam.Y + Interface.y + Interface.width - w / 16 * 3, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+					b.draw(currentFrame, cam.X + Interface.x + w / 16, cam.Y + Interface.y + w / 32 * 7, plW, plH);
 				}
 			});
 	}

@@ -123,7 +123,7 @@ public class Blocks {
 	public void createBlock(int id, String t0) {
 		Texture tt0 = new Texture(Gdx.files.external(Environment.getExternalStorageDirectory().toString() + "S.A.U.W./Mods/" + t0));
 		this.createBlock(id, tt0);
-		items.createItem(items.ITEMS.size(), "", tt0, 1, id, 64, 0);
+		items.createItem(items.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
 	}
 	public void initialize(final Textures t, Camera2D cam, final Items items, final GameInterface gi, final SpriteBatch  batch, final World world, final Langs langs) {
 		final Maps maps = world.maps;

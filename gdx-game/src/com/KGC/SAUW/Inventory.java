@@ -76,7 +76,7 @@ public class Inventory {
 				@Override
 				public void tick() {
 					timer += Gdx.graphics.getRawDeltaTime();
-					if (timer >= 3) {
+					if (timer >= 6) {
 						stateTime += Gdx.graphics.getDeltaTime();
 						currentFrame = playerAnim.getKeyFrame(stateTime, true);
 						if(playerAnim.getKeyFrameIndex(stateTime) == 4){
@@ -100,7 +100,7 @@ public class Inventory {
 				@Override
 				public void render() {
 					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 2, cam.Y + Interface.y + Interface.width - w / 16 * 3, w / 16 * 3, BitmapFont.HAlignment.LEFT);
-					b.draw(currentFrame, cam.X + Interface.x + w / 16, cam.Y + Interface.y + w / 32 * 7, plW, plH);
+					b.draw(currentFrame, cam.X + Interface.x + Interface.width / 2 - plW / 2, cam.Y + Interface.y + w / 32 * 7, plW, plH);
 				}
 			});
 	}

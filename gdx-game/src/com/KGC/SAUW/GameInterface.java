@@ -106,6 +106,7 @@ public class GameInterface {
 	}
 	public void initilizate(Crafting c, final ModAPI ModAPI, final MainGame game, final Langs langs, final World w) {
 		final Player pl = w.pl;
+		inv.init(w.pl);
 		crafting = c;
 		consoleInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
 		consoleInterface.setHeaderText(langs.getString("console")).isBlockInterface(false);

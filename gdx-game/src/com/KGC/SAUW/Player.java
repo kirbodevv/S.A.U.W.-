@@ -58,6 +58,10 @@ public class Player implements ExtraData {
 	public int mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
 	public int mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
 
+	public float maxWeight = 40.0f;
+	public float weight = 0.0f;
+	
+	
 	public int maxHealth = 20;
 	public int health = 20;
 	public int hunger = 10;
@@ -289,6 +293,10 @@ public class Player implements ExtraData {
 						Inventory[i].data = 0;
 					}
 				}
+			}
+			weight = 0.0f;
+			for(InventorySlot slot : Inventory){
+				weight += slot.count * Items.getItemById(slot.id).weight;
 			}
 			mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
 			mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));

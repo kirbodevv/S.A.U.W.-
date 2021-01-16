@@ -10,6 +10,7 @@ import com.KGC.SAUW.Items;
 import com.badlogic.gdx.graphics.Color;
 import com.KGC.SAUW.InterfaceAPI.Button;
 import com.KGC.SAUW.InterfaceAPI.Interface;
+import com.KGC.SAUW.InterfaceAPI.InterfaceEvents;
 
 public class Inventory {
 	private int w, h;
@@ -47,6 +48,34 @@ public class Inventory {
 				}
 		});
 		}
+	public void init(final Player pl){
+		inventoryInterface.setInterfaceEvents(new InterfaceEvents(){
+				@Override
+				public void initialize() {
+
+				}
+
+				@Override
+				public void tick() {
+
+				}
+
+				@Override
+				public void onOpen() {
+
+				}
+
+				@Override
+				public void renderBefore() {
+
+				}
+
+				@Override
+				public void render() {
+					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + Interface.width - w / 16 * 3, cam.Y + Interface.y + Interface.width - w / 16 * 3, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+				}
+			});
+	}
 	public void update(Player pl) {
 		inventoryInterface.update(pl, cam);
 		if (!hided) {

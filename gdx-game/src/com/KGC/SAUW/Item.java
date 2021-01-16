@@ -12,6 +12,7 @@ public class Item{
 	public int blockId;
 	public int intrumentType;
 	private int foodScore;
+	public float weight = 0.5f;
 	public Item(int id, String name, Texture t, int type, int maxCount, int maxData ){
 		this.id = id;
 		this.t = t;

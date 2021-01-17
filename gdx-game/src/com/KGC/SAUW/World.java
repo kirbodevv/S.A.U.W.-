@@ -261,7 +261,7 @@ public class World {
 				if (Maths.distanceD(pl.posX, pl.posY, bX * WIDTH / 16, bY * WIDTH / 16) <= 1.7 * WIDTH / 16) {
 					if (pl.getCarriedItem().type == 1) {
 						if (setBlock(bX, bY, pl.getCarriedItem().blockId)) {
-							pl.Inventory[pl.carriedSlot].count -= 1;
+							pl.Inventory.get(pl.hotbar[pl.carriedSlot]).count -= 1;
 						}
 					} else if (pl.getCarriedItem().type == 2 || pl.getCarriedItem().id == 0) {
 						if (getHighestBlock(bX, bY) != 2 && getHighestBlock(bX, bY) != -1) {
@@ -279,7 +279,7 @@ public class World {
 									instrType = pl.getCarriedItem().intrumentType;
 								}
 
-								pl.Inventory[pl.carriedSlot].data = pl.Inventory[pl.carriedSlot].data + maps.map0[bY][bX][z].hit(instrType);
+								pl.Inventory.get(pl.hotbar[pl.carriedSlot]).data = pl.Inventory.get(pl.hotbar[pl.carriedSlot]).data + maps.map0[bY][bX][z].hit(instrType);
 							}
 						}
 					}

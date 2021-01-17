@@ -140,7 +140,7 @@ public class Blocks {
 					chestInterface.setMaps(maps);
 				   for (int i = 0; i < 3; i++) {
 						for (int j = 0; j < 8; j++) {
-							Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)), (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64), w / 24, w / 24, t.selected_slot, false, -1);
+							Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)), (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64), w / 24, w / 24, t.selected_slot);
 							chestInterface.slots.add(slot);
 							//_interface += "\"chestSlot_" + (i * 8 + j) + "\" : {\"type\":\"slot\", \"Texture_0\":\"Interface/slot.png\", \"Texture_1\":\"Interface/selected_slot.png\", \"width\":" + (w / 24) + ", \"height\":" + (w / 24) + ", \"x\":" + (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)) + ", \"y\":" + (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64) + "}" + ((i * 8 + j == 23) ? "" : ",");
 						}
@@ -268,9 +268,9 @@ public class Blocks {
 					_interface.setHeaderText(langs.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);
 					int temp = (int)(_interface.width - w / 24 * 4) / 2;
-					resultSlot = new Slot("ResultSlot", (int)(_interface.x + _interface.width - temp - w / 24), (int)(_interface.y + w / 24 * 6.5), w / 24, w / 24, Textures.selected_slot, false, -1);
-					ingSlot = new Slot("IngSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 7.5), w / 24, w / 24, Textures.selected_slot, false, -1);
-					fuelSlot = new Slot("FuelSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 5.5), w / 24, w / 24, Textures.selected_slot, false, -1);
+					resultSlot = new Slot("ResultSlot", (int)(_interface.x + _interface.width - temp - w / 24), (int)(_interface.y + w / 24 * 6.5), w / 24, w / 24, Textures.selected_slot);
+					ingSlot = new Slot("IngSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 7.5), w / 24, w / 24, Textures.selected_slot);
+					fuelSlot = new Slot("FuelSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 5.5), w / 24, w / 24, Textures.selected_slot);
 					resultSlot.setSF(new Slot.SlotFunctions(){
 							@Override
 							public boolean isValid(int id, int count, int data) {

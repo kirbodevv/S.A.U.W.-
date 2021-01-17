@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.KGC.SAUW.InterfaceAPI.Button;
 import com.KGC.SAUW.InterfaceAPI.Interface;
 import com.KGC.SAUW.InterfaceAPI.InterfaceEvents;
+import com.KGC.SAUW.InterfaceAPI.Slot;
 
 public class Inventory {
 	private int w, h;
@@ -30,6 +31,7 @@ public class Inventory {
 	private float stateTime = 0.0f;
 	private float timer = 0.0f;
 	Animation playerAnim;
+	
 	public Inventory(SpriteBatch b, Camera2D c, Texture t, Texture t2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
 		w = c.W;
 		h = c.H;
@@ -43,8 +45,7 @@ public class Inventory {
 		this.y = y;
 		this.items = items;
 		openButton = new Button("", x + w / 16 * 8, y, w / 16, w / 16, Textures.extraButton_0, Textures.extraButton_1);
-		//"{\"standart\":{\"header\":{\"text\":{\"text\":\"Inventory\"}}, \"isBlockInterface\":false, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {}, \"drawing\" : []}"
-		inventoryInterface = new Interface(Interface.InterfaceSizes.STANDART, Textures, b, cam, items, gi);
+		inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, b, cam, items, gi);
         inventoryInterface.setHeaderText(langs.getString("inventory")).isBlockInterface(false).createInventory();
 		openButton.setEventListener(new Button.EventListener(){
 				@Override
@@ -63,14 +64,21 @@ public class Inventory {
 		playerAnim = new Animation(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
 		currentFrame = playerAnimFrames[0];
 	}
-	public void init(final Player pl) {
+	public void init(final Player pl, final Textures textures) {
 
 		inventoryInterface.setInterfaceEvents(new InterfaceEvents(){
 				int plW = w / 24 * 4 * 10 / 26;
 				int plH = w / 24 * 4;
+				Texture background0;
 				@Override
 				public void initialize() {
-
+					background0 = Textures.generateTexture(6f, 0.25f, true);
+					for(int i = 0; i < 8; i++){
+						Button b = new Button("hotbarbutton_" + i, w / 16 * 10 + w / 32 * i, w / 16 * 3 - w / 64 * 3, w / 32, w / 32);
+						/*b.setTextColor(Color.BLACK);
+						b.setText("" + i + 1);*/
+						this.Interface.buttons.add(b);
+					}
 				}
 
 				@Override
@@ -99,8 +107,9 @@ public class Inventory {
 
 				@Override
 				public void render() {
-					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 2, cam.Y + Interface.y + Interface.width - w / 16 * 3, w / 16 * 3, BitmapFont.HAlignment.LEFT);
-					b.draw(currentFrame, cam.X + Interface.x + Interface.width / 2 - plW / 2, cam.Y + Interface.y + w / 32 * 7, plW, plH);
+					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 9 + w / 64 , cam.Y + Interface.y + w / 32 * 7, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+					b.draw(currentFrame, cam.X + Interface.x + w / 16 * 12 - plW / 2, cam.Y + Interface.y + w / 16 * 4, plW, plH);
+					b.draw(background0, cam.X + Interface.x + w / 16 * 9, cam.Y + Interface.y + w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
 				}
 			});
 	}
@@ -130,9 +139,9 @@ public class Inventory {
 			b.setColor(1, 1, 1, 1);
 			b.draw(t2, x + cam.X + (pl.carriedSlot * (w / 16)), y + cam.Y, w / 16, w / 16);
 			for (int i = 0; i < 8; i++) {
-				if (pl.getInventory()[i].id != 0) {
-					b.draw(items.getTextureById(pl.Inventory[i].id), x + cam.X + i * (w / 16) + (w / 64) , y + cam.Y + (w / 64), w / 32/*(w / 16) - ((w / 16) / 32 * 10)*/, w / 32);
-					itemsCount.draw(b, "" + pl.Inventory[i].count, i * (w / 16) + x + cam.X, y + cam.Y + (w / 16));
+				if (pl.hotbar[i] != -1) {
+					b.draw(items.getTextureById(pl.getItemFromHotbar(i).id), x + cam.X + i * (w / 16) + (w / 64) , y + cam.Y + (w / 64), w / 32, w / 32);
+					itemsCount.draw(b, "" + pl.Inventory.get((pl.hotbar[i])).count, i * (w / 16) + x + cam.X, y + cam.Y + (w / 16));
 				}
 			}
 		}

@@ -1,7 +1,8 @@
 package com.KGC.SAUW;
 import android.os.Environment;
-import com.KGC.SAUW.Textures;
+import com.KGC.SAUW.InventorySlot;
 import com.KGC.SAUW.Maps;
+import com.KGC.SAUW.Textures;
 import com.KGC.SAUW.mobs.ItemMob;
 import com.KGC.SAUW.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
@@ -9,14 +10,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import org.json.JSONObject;
-import com.intbyte.bdb.DataBuffer;
 
 public class Player implements ExtraData {
 	@Override
@@ -25,9 +27,9 @@ public class Player implements ExtraData {
 		buffer.put("health", health);
 		buffer.put("hunger", hunger);
 		buffer.put("coords", new int[]{(int)player.x, (int)player.y});
-		for(int i = 0; i < Inventory.length; i++){
-			buffer.put("Inv_" + i, Inventory[i]);
-		}
+		/*for(int i = 0; i < Inventory.size(); i++){
+		 buffer.put("Inv_" + i, Inventory.get(i));
+		 }*/
 		return buffer.toBytes();
 	}
 	@Override
@@ -38,9 +40,9 @@ public class Player implements ExtraData {
 		player.y = buffer.getIntArray("coords")[1];
 		health = buffer.getInt("health");
 		hunger = buffer.getInt("hunger");
-		for(int i = 0; i < Inventory.length; i++){
-			Inventory[i].readBytes(buffer.getByteArray("Inv_" + i), begin, end);
-		}
+		/*for(int i = 0; i < Inventory.; i++){
+		 Inventory[i].readBytes(buffer.getByteArray("Inv_" + i), begin, end);
+		 }*/
 	}
 	JSONObject data;
 	int h = Gdx.graphics.getHeight();
@@ -54,14 +56,15 @@ public class Player implements ExtraData {
 	//maps m;
 	Textures t;
 	Collisions CWB = new Collisions();
-	public InventorySlot[] Inventory = new InventorySlot[32];
+	public int[] hotbar = new int[8];
+	public ArrayList<InventorySlot> Inventory = new ArrayList<InventorySlot>();
 	public int mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
 	public int mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
 
 	public float maxWeight = 40.0f;
 	public float weight = 0.0f;
-	
-	
+
+
 	public int maxHealth = 20;
 	public int health = 20;
 	public int hunger = 10;
@@ -71,10 +74,10 @@ public class Player implements ExtraData {
 	Animation walkU;
 	Animation walkD;
 
-	
+
 	AchievementsChecker AC = new AchievementsChecker();
 	private Maps maps;
-	
+
 	//public int acX,acY;
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
@@ -85,73 +88,76 @@ public class Player implements ExtraData {
 	Mobs mobs;
 	public boolean isDead = true;
 	private Settings settings;
-	
+
 	Rectangle player;
 	Rectangle posWithAcX = new Rectangle();
 	Rectangle posWithAcY = new Rectangle();
     Vector2i velocity = new Vector2i(0, 0);
-	public int getFirstFreeSlot() {
-		for (int i = 0; i < Inventory.length; i++) {
-			if (Inventory[i].id == 0) return i;
-		}
-		return -1;
-	}
+	/*public int getFirstFreeSlot() {
+	 for (int i = 0; i < Inventory.s; i++) {
+	 if (Inventory[i].id == 0) return i;
+	 }
+	 return -1;
+	 }*/
 	public int getCountOfItems(int id) {
 		int count = 0;
-		for (int i = 0; i < Inventory.length; i++) {
-			if (Inventory[i].id == id) {
-				count += Inventory[i].count;
+		for (int i = 0; i < Inventory.size(); i++) {
+			if (Inventory.get(i).id == id) {
+				count += Inventory.get(i).count;
 			}
 		}
 		return count;
 	}
 	public void deleteItems(int id, int count) {
 		int r = count;
-		for (int i = 0; i < Inventory.length; i++) {
-			if (Inventory[i].id == id) {
-				if (Inventory[i].count > r) {
-					Inventory[i].count = Inventory[i].count - r;
+		for (int i = 0; i < Inventory.size(); i++) {
+			if (Inventory.get(i).id == id) {
+				if (Inventory.get(i).count > r) {
+					Inventory.get(i).count = Inventory.get(i).count - r;
 					r -= r;
 				} else {
-					r -= Inventory[i].count;
+					r -= Inventory.get(i).count;
 					clearSlot(i);
 				}
 			}
 		}
 	}
 	public int getFirstSlotWithId(int id) {
-		for (int i = 0; i < Inventory.length; i++) {
-			if (Inventory[i].id == id && Inventory[i].count < Items.getItemById(Inventory[i].id).maxCount) return i;
+		for (int i = 0; i < Inventory.size(); i++) {
+			if (Inventory.get(i).id == id && Inventory.get(i).count < Items.getItemById(Inventory.get(i).id).maxCount) return i;
 		}
 		return -1;
 	}
-	public boolean isSlotFree(int slot) {
-		if (Inventory[slot].id == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	/*public boolean isSlotFree(int slot) {
+	 if (Inventory[slot].id == 0) {
+	 return true;
+	 } else {
+	 return false;
+	 }
+	 }*/
 	public void hit(int damage) {
 		health -= damage;
 		if (health <= 0) kill();
 	}
 	public Item getCarriedItem() {
-		if(Items.getItemById(Inventory[carriedSlot].id) != null){
-		return Items.getItemById(Inventory[carriedSlot].id);
+		return getItemFromHotbar(carriedSlot);
+	}
+	public Item getItemFromHotbar(int index){
+		if (hotbar[carriedSlot] != -1 && Items.getItemById(Inventory.get(hotbar[index]).id) != null) {
+			return Items.getItemById(Inventory.get(hotbar[index]).id);
 		} else {
 			return Items.getItemById(-1);
 		}
 	}
-	public InventorySlot[] getInventory() {
+	public ArrayList<InventorySlot> getInventory() {
 		return Inventory;
 	}
 	public void kill() {
 		isDead = true;
 		GI.deadInterface.open();
 	}
-	public void spawn(){
-		if(isDead){
+	public void spawn() {
+		if (isDead) {
 			Random r = new Random();
 			mY = r.nextInt(maps.map0.length - 2) + 1;
 			mX = r.nextInt(maps.map0[0].length - 2) + 1;
@@ -162,14 +168,14 @@ public class Player implements ExtraData {
 		health = maxHealth;
 	}
 	public boolean addItem(int id, int count, int data) {
-		for (int i = 0; i < Inventory.length; i++) {
-			if (Inventory[i].id == id && Inventory[i].count < Items.getItemById(Inventory[i].id).maxCount) {
-			    int canadd = Items.getItemById(Inventory[i].id).maxCount - Inventory[i].count;
+		for (int i = 0; i < Inventory.size(); i++) {
+			if (Inventory.get(i).id == id && Inventory.get(i).count < Items.getItemById(Inventory.get(i).id).maxCount) {
+			    int canadd = Items.getItemById(Inventory.get(i).id).maxCount - Inventory.get(i).count;
 				if (canadd > count) {
-					Inventory[i].count = Inventory[i].count + count;
+					Inventory.get(i).count = Inventory.get(i).count + count;
 					count -= count;
 				} else {
-					Inventory[i].count = Inventory[i].count + canadd;
+					Inventory.get(i).count = Inventory.get(i).count + canadd;
 					count -= canadd;
 				}
 			}
@@ -177,15 +183,20 @@ public class Player implements ExtraData {
 				return true;
 			}
 		}
-		for (int i = 0; i < Inventory.length; i++) {
-			if (Inventory[i].id == 0) {
+		if (count > 0) {
+			int slotsCount = (count % Items.getItemById(id).maxCount) + 1;
+			for (int i = 0; i < slotsCount; i++)
+				Inventory.add(new InventorySlot());
+		}
+		for (int i = 0; i < Inventory.size(); i++) {
+			if (Inventory.get(i).id == 0) {
 				int canadd = Items.getItemById(id).maxCount;
-				Inventory[i].id = id;
+				Inventory.get(i).id = id;
 				if (canadd > count) {
-					Inventory[i].count = Inventory[i].count + count;
+					Inventory.get(i).count = Inventory.get(i).count + count;
 					count -= count;
 				} else {
-					Inventory[i].count = Inventory[i].count + canadd;
+					Inventory.get(i).count = Inventory.get(i).count + canadd;
 					count -= canadd;
 				}
 			}
@@ -196,7 +207,7 @@ public class Player implements ExtraData {
 		return false;
 	}
 	public void clearSlot(int slot) {
-		Inventory[slot].clear();
+		Inventory.remove(slot);
 	}
 	public void saveData() {
 		File data = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W./User/data.json");
@@ -219,8 +230,8 @@ public class Player implements ExtraData {
 		this.player.setSize(plW, plH);
 		posWithAcX.setSize(plW, plH);
 		posWithAcY.setSize(plW, plH);
-		for(int i = 0; i < Inventory.length; i++){
-			this.Inventory[i] = new InventorySlot();
+		for (int i = 0; i < hotbar.length; i++) {
+			this.hotbar[i] = -1;
 		}
 		try {
 			String result = "";
@@ -285,17 +296,8 @@ public class Player implements ExtraData {
 					currentFrame = walkFrames[1];
 				}
 			}
-			for (int i = 0; i < Inventory.length; i++) {
-				if (Inventory[i].id != 0) {
-					if (Inventory[i].count <= 0) {
-						Inventory[i].id = 0;
-						Inventory[i].count = 0;
-						Inventory[i].data = 0;
-					}
-				}
-			}
 			weight = 0.0f;
-			for(InventorySlot slot : Inventory){
+			for (InventorySlot slot : Inventory) {
 				weight += slot.count * Items.getItemById(slot.id).weight;
 			}
 			mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
@@ -312,13 +314,10 @@ public class Player implements ExtraData {
 			player.setPosition(posX, posY);
 		    velocity.x = 0;
 			velocity.y = 0;
-			
-			for(int i = 0; i < Inventory.length; i++){
-				if(Inventory[i].id != 0 && Inventory[i].data >= Items.getItemById(Inventory[i].id).maxData && Items.getItemById(Inventory[i].id).maxData != 0){
-				    clearSlot(i);
-				}
-				if(Inventory[i].count <= 0){
-					clearSlot(i);
+
+			for (int i = 0; i < Inventory.size(); i++) {
+				if (Inventory.get(i).data >= Items.getItemById(Inventory.get(i).id).maxData && Items.getItemById(Inventory.get(i).id).maxData != 0) {
+				    Inventory.remove(i);
 				}
 			}
 			if ((!settings.autopickup && GI.interactionButton.isTouched()) || settings.autopickup) {
@@ -330,25 +329,25 @@ public class Player implements ExtraData {
 					}
 				}
 			}
-			if(GI.interactionButton.wasClicked){
-				if(getCarriedItem().type == Items.Type.FOOD){
-					hunger += getCarriedItem().getFoodScore();
-					if(hunger > 20) hunger = 20;
-					Inventory[carriedSlot].count -= 1;
-				}
-			}
-			if (GI.dropButton.isTouched()) {
-				if (!isSlotFree(carriedSlot)) {
-					int x = posX;
-					int y = posY;
-					if(rot == 0) y += w / 16;
-					if(rot == 1) x += w / 16;
-					if(rot == 2) y -= w / 16;
-					if(rot == 3) x -= w / 16;
-					mobs.spawn(new ItemMob(x, y, Inventory[carriedSlot].id, Inventory[carriedSlot].count, Inventory[carriedSlot].data, Items));
-					clearSlot(carriedSlot);
-				}
-			}
+			/*if (GI.interactionButton.wasClicked) {
+			 if (getCarriedItem().type == Items.Type.FOOD) {
+			 hunger += getCarriedItem().getFoodScore();
+			 if (hunger > 20) hunger = 20;
+			 Inventory[carriedSlot].count -= 1;
+			 }
+			 }*/
+			/*if (GI.dropButton.isTouched()) {
+			 if (!isSlotFree(carriedSlot)) {
+			 int x = posX;
+			 int y = posY;
+			 if (rot == 0) y += w / 16;
+			 if (rot == 1) x += w / 16;
+			 if (rot == 2) y -= w / 16;
+			 if (rot == 3) x -= w / 16;
+			 mobs.spawn(new ItemMob(x, y, Inventory[carriedSlot].id, Inventory[carriedSlot].count, Inventory[carriedSlot].data, Items));
+			 clearSlot(carriedSlot);
+			 }
+			 }*/
 		}
 		AC.update(world, this, a, GI, settings);
 	}

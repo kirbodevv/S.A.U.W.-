@@ -98,7 +98,9 @@ public class MyGdxGame implements Screen {
 				  " FPS:" + Gdx.graphics.getFramesPerSecond() + 
 				  "\n Time:" + World.WorldTime.getTimeString() +
 				  "\n Hunger:"+ World.pl.hunger + "/20" +
-				  "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" : "");
+				  "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
+				  "\n InventorySlots:" + World.pl.Inventory.size() +
+				  "\n InventoryTab:" + GI.inv.inventoryInterface.currentTabInv : "");
 		BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
 	    GI.update(World.pl);
 		World.update(mods, achievements);

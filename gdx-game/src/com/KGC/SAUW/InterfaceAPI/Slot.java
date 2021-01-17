@@ -29,7 +29,7 @@ public class Slot extends InterfaceElement {
 	public void setSF(SlotFunctions SF) {
 		this.SF = SF;
 	}
-    public Slot(String ID, int x, int y, int w, int h, Texture t1, boolean isInventorySlot, int invSlot) {
+    public Slot(String ID, int x, int y, int w, int h, Texture t1) {
 		this.X = x;
 		this.Y = y;
 		this.width = w;
@@ -38,8 +38,8 @@ public class Slot extends InterfaceElement {
 		this.slot = Textures.generateTexture(w / (W / 16), h / (W / 16), false);
 		this.ID = ID;
 		this.selectedSlot = t1;
-		this.isInventorySlot = isInventorySlot;
-		this.invSlot = invSlot;
+		/*this.isInventorySlot = isInventorySlot;
+		this.invSlot = invSlot;*/
 		itemX = x + w / 4;
 		itemY = y + h / 4;
 		itemDirection = new Vector2d();

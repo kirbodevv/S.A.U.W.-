@@ -14,6 +14,8 @@ public class Interface {
 		public static int STANDART = 0;
 		public static int FULL = 1;
 	}
+	private int WIDTH = Gdx.graphics.getWidth();
+	private int HEIGHT = Gdx.graphics.getHeight();
 	public boolean isOpen = false;
 	public boolean isBlockInterface;
 	private Textures t;
@@ -34,7 +36,16 @@ public class Interface {
 	public InterfaceEvents IE = null;
 	private String headerText = "";
 	private int size = 0;
-    
+
+    private boolean inventory = false;
+	private Texture backgroundInv0;
+	private Texture backgroundInv1;
+	private Texture backgroundInv2;
+	private Button previosTabInv;
+	private Button nextTabInv;
+	private int currentItemInv = -1;
+	public int currentTabInv = 0;
+
 	public Interface(int size, Textures t, SpriteBatch b, Camera2D cam, Items items, GameInterface GI_) {
 		this.t = t;
 		this.b = b;
@@ -43,7 +54,7 @@ public class Interface {
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 
-		text.setColor(64f/255, 137f/255, 154f/255, 1);
+		text.setColor(64f / 255, 137f / 255, 154f / 255, 1);
 
 		if (size == InterfaceSizes.FULL) {
 			width = w;
@@ -60,7 +71,7 @@ public class Interface {
 				@Override
 				public void onClick() {
 					isOpen = false;
-					if(GI != null)GI.isInterfaceOpen = false;
+					if (GI != null)GI.isInterfaceOpen = false;
 				}
 			});
 	}
@@ -72,16 +83,44 @@ public class Interface {
 		isBlockInterface = b;
 		return this;
 	}
-	public Interface createInventory(){
-		for (int j = 0; j < 4; j++) {
-			for (int i = 0; i < 8; i++) {
-				if (j == 0) {
-					slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
-				} else {
-					slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32 + w / 24 * j + w / 128), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
-				}
+	public Interface createInventory() { 
+		inventory = true;
+		float xxx = WIDTH / 16;
+		float yyy = WIDTH / 32;
+		float www = WIDTH / 16 * 8 - WIDTH / 32;
+		float hhh = HEIGHT - WIDTH / 16 * 2;
+		backgroundInv0 = Textures.generateTexture(7.5f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
+		backgroundInv2 = Textures.generateTexture(6f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
+		previosTabInv = new Button("pr", (int)(xxx + WIDTH / 32), (int)(yyy + hhh - hhh / 7 - WIDTH / 64), (int)hhh / 7, (int)hhh / 7, t.button_left_0, t.button_left_1);
+		nextTabInv = new Button("next", (int)(xxx + www - WIDTH / 32 - hhh / 7), (int)(yyy + hhh - hhh / 7 - WIDTH / 64), (int)hhh / 7, (int)hhh / 7, t.button_right_0, t.button_right_1);
+		buttons.add(previosTabInv);
+		buttons.add(nextTabInv);
+		int dist = nextTabInv.X - (previosTabInv.X + previosTabInv.width);
+		backgroundInv1 = Textures.generateTexture(dist / (WIDTH / 16), (hhh / 7) / (WIDTH / 16), true);
+		for (int y = 0; y < 5; y++) {
+			for (int x = 0; x < 6; x++) {
+				final int num = y * 6 + x;
+				String id = "InventorySlot_" + num;
+				Slot s = new Slot(id, (int)(xxx + w / 32 + hhh / 7 * x + w / 64), (int)(yyy + w / 32 + hhh / 7 * (4 - y)), (int)(hhh / 7), (int)(hhh / 7), t.selected_slot);
+				/*s.se(new Button.EventListener(){
+				 @Override
+				 public void onClick() {
+				 currentItem = currentTab * 30 + num;
+				 }
+				 });*/
+				slots.add(s);
+
 			}
 		}
+		/*for (int j = 0; j < 4; j++) {
+		 for (int i = 0; i < 8; i++) {
+		 if (j == 0) {
+		 slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
+		 } else {
+		 slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32 + w / 24 * j + w / 128), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
+		 }
+		 }
+		 }*/
 		return this;
 	}
 	public void open(int x, int y, int z) {
@@ -105,28 +144,28 @@ public class Interface {
 			int temp = a.id;
 			int temp1 = a.count;
 			int temp2 = a.data;
-			if (!a.isInventorySlot) {
-				if (maps != null) {
-					maps.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
-				} else {
-					a.id = a1.id;
-					a.count = a1.count;
-					a.data = a1.data;
-				}
+			//if (!a.isInventorySlot) {
+			if (maps != null) {
+				maps.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
 			} else {
-				pl.Inventory[a.invSlot].setItem(a1.id, a1.count, a1.data);
+				a.id = a1.id;
+				a.count = a1.count;
+				a.data = a1.data;
 			}
-			if (!a1.isInventorySlot) {
-				if (maps != null) {
-					maps.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
-				} else {
-					a1.id = temp;
-					a1.count = temp1;
-					a1.data = temp2;
-				}
+			/*} else {
+			 pl.Inventory[a.invSlot].setItem(a1.id, a1.count, a1.data);
+			 }*/
+			//if (!a1.isInventorySlot) {
+			if (maps != null) {
+				maps.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
 			} else {
-				pl.Inventory[a1.invSlot].setItem(temp, temp1, temp2);
+				a1.id = temp;
+				a1.count = temp1;
+				a1.data = temp2;
 			}
+			/*} else {
+			 pl.Inventory[a1.invSlot].setItem(temp, temp1, temp2);
+			 }*/
 		}
 	}
 	public void sendToSlot(Slot slot1, Slot slot2, Player pl, Camera2D cam) {
@@ -160,15 +199,24 @@ public class Interface {
 	}
 	public void update(Player pl, Camera2D cam) {
 		if (isOpen) {
-			if(GI != null) GI.isInterfaceOpen = true;
+			if (GI != null) GI.isInterfaceOpen = true;
 			exitButton.update(cam);
-			for (int j = 0; j < 32; j++) {
+			for(Slot slot : slots){
+				slot.id = 0;
+				slot.count = 0;
+				slot.data = 0;
+			}
+			for (int j = 0; j < pl.Inventory.size(); j++) {
 				for (int i = 0; i < slots.size(); i++) {
-				    if (slots.get(i).invSlot == j) {
-					    slots.get(i).id = pl.Inventory[i].id;
-					    slots.get(i).count = pl.Inventory[i].count;
-				    	slots.get(i).data = pl.Inventory[i].data;
-				    }
+					if (j >= currentTabInv * 30) {
+						Slot slot = getSlot("InventorySlot_" + (j - currentTabInv * 30));
+						if (slot != null) {
+							slot.id = pl.Inventory.get(j).id;
+							slot.count = pl.Inventory.get(j).count;
+							slot.data = pl.Inventory.get(j).data;
+						}
+
+					}
 				}
 			}
 			if (maps != null) {
@@ -183,14 +231,22 @@ public class Interface {
 			}
 			for (int i = 0; i < buttons.size(); i++) {
 				buttons.get(i).update(cam);
+			} 
+			if (nextTabInv.wasClicked) {
+				if (pl.Inventory.size() > (currentTabInv + 1) * 30) {
+					currentTabInv++;
+				}
 			}
-			//if (input != null) input.update();
-		} 
-		if (IE != null) {
-			IE.tick();
+			if (previosTabInv.wasClicked) {
+				if (currentTabInv - 1 >= 0) {
+					currentTabInv--;
+				}
+			}
+			if (IE != null) {
+				IE.tick();
+			}
 		}
 	}
-
 	public void render(Player pl, Camera2D cam) {
 		if (isOpen) {
 			if (size == InterfaceSizes.FULL) {
@@ -202,7 +258,11 @@ public class Interface {
 			if (IE != null) {
 				IE.renderBefore();
 			}
-
+			if (inventory) {
+				b.draw(backgroundInv2, WIDTH / 16 * 9, WIDTH / 32, WIDTH / 16 * 6, HEIGHT - WIDTH / 16 * 2);
+				b.draw(backgroundInv0, WIDTH / 16, WIDTH / 32, WIDTH / 16 * 8 - WIDTH / 32, HEIGHT - WIDTH / 16 * 2);
+				b.draw(backgroundInv1, previosTabInv.X + previosTabInv.width, previosTabInv.Y, nextTabInv.X - (previosTabInv.X + previosTabInv.width), previosTabInv.height);
+			}
 			exitButton.render(b, cam);
 
 			for (int i = 0; i < buttons.size(); i++) {

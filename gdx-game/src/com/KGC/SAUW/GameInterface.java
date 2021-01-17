@@ -106,7 +106,7 @@ public class GameInterface {
 	}
 	public void initilizate(Crafting c, final ModAPI ModAPI, final MainGame game, final Langs langs, final World w) {
 		final Player pl = w.pl;
-		inv.init(w.pl);
+		inv.init(w.pl, Textures);
 		crafting = c;
 		consoleInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
 		consoleInterface.setHeaderText(langs.getString("console")).isBlockInterface(false);
@@ -275,12 +275,12 @@ public class GameInterface {
 					int xx = (int)WIDTH / 16 * 9 + (int)WIDTH / 32 + (int)WIDTH / 16;
 					int yy = (int)WIDTH / 32 * 5;
 					int ww = (int)WIDTH / 16;
-					c2 = new Slot("c2", xx + ww * 2, yy + ww, ww, ww, Textures.selected_slot , false, -1);
-					c1 = new Slot("c1", xx + ww, yy + ww, ww, ww, Textures.selected_slot , false, -1);
-					c0 = new Slot("c0", xx, yy + ww, ww, ww, Textures.selected_slot , false, -1);
-					c5 = new Slot("c5", xx + ww * 2, yy, ww, ww, Textures.selected_slot , false, -1);
-					c4 = new Slot("c4", xx + ww, yy, ww, ww, Textures.selected_slot , false, -1);
-					c3 = new Slot("c3", xx, yy, ww, ww, Textures.selected_slot , false, -1);
+					c2 = new Slot("c2", xx + ww * 2, yy + ww, ww, ww, Textures.selected_slot);
+					c1 = new Slot("c1", xx + ww, yy + ww, ww, ww, Textures.selected_slot);
+					c0 = new Slot("c0", xx, yy + ww, ww, ww, Textures.selected_slot);
+					c5 = new Slot("c5", xx + ww * 2, yy, ww, ww, Textures.selected_slot);
+					c4 = new Slot("c4", xx + ww, yy, ww, ww, Textures.selected_slot);
+					c3 = new Slot("c3", xx, yy, ww, ww, Textures.selected_slot);
 					this.Interface.slots.add(c0);
 					this.Interface.slots.add(c1);
 					this.Interface.slots.add(c2);

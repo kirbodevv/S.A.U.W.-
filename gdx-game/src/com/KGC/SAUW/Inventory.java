@@ -31,7 +31,7 @@ public class Inventory {
 	private float stateTime = 0.0f;
 	private float timer = 0.0f;
 	Animation playerAnim;
-	
+
 	public Inventory(SpriteBatch b, Camera2D c, Texture t, Texture t2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
 		w = c.W;
 		h = c.H;
@@ -70,33 +70,42 @@ public class Inventory {
 				int plW = w / 24 * 4 * 10 / 26;
 				int plH = w / 24 * 4;
 				Texture background0;
+				Slot[] hotbarslots = new Slot[8];
 				@Override
 				public void initialize() {
 					background0 = Textures.generateTexture(6f, 0.25f, true);
-					for(int i = 0; i < 8; i++){
+					int slotW = w / 16 * 5 / 8;
+					for (int i = 0; i < 8; i++) {
 						final int ii = i;
-						Slot s = new Slot("hotbarslot_" + i, w / 16 * 10 + w / 	16 * i, w / 16 * 3 - w / 64 * 3, w / 16, w / 16, textures.selected_slot);
+						final Slot s = new Slot("hotbarslot_" + i, w / 32 * 19 + slotW * i, w / 32 * 7 - w / 64, slotW, slotW, textures.selected_slot);
 						s.setSF(new Slot.SlotFunctions(){
 								@Override
 								public boolean isValid(int id, int count, int data, String FromSlotWithId) {
-									if(FromSlotWithId.substring(0, 10).equals("hotbarslot_"))
-									pl.hotbar[ii] = Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(11));
+									if (FromSlotWithId.contains("InventorySlot_")) {
+										pl.hotbar[ii] = Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14));
+									}
+
 									return false;
 								}
-						});
-						/*b.setTextColor(Color.BLACK);
-						b.setText("" + i + 1);*/
+							});
+						hotbarslots[i] = s;
 						this.Interface.slots.add(s);
 					}
 				}
 
 				@Override
 				public void tick() {
+					for (int i = 0; i < hotbarslots.length; i++) {
+						if (pl.hotbar[i] != -1) {
+							hotbarslots[i].id = pl.getItemFromHotbar(i).id;
+							hotbarslots[i].count = pl.Inventory.get(pl.hotbar[i]).count;
+						}
+					}
 					timer += Gdx.graphics.getRawDeltaTime();
 					if (timer >= 6) {
 						stateTime += Gdx.graphics.getDeltaTime();
 						currentFrame = playerAnim.getKeyFrame(stateTime, true);
-						if(playerAnim.getKeyFrameIndex(stateTime) == 4){
+						if (playerAnim.getKeyFrameIndex(stateTime) == 4) {
 							timer = 0;
 							stateTime = 0;
 							currentFrame = playerAnimFrames[0];
@@ -116,7 +125,7 @@ public class Inventory {
 
 				@Override
 				public void render() {
-					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 9 + w / 64 , cam.Y + Interface.y + w / 32 * 7, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 9 + w / 64 , cam.Y + Interface.y + w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
 					b.draw(currentFrame, cam.X + Interface.x + w / 16 * 12 - plW / 2, cam.Y + Interface.y + w / 16 * 4, plW, plH);
 					b.draw(background0, cam.X + Interface.x + w / 16 * 9, cam.Y + Interface.y + w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
 				}

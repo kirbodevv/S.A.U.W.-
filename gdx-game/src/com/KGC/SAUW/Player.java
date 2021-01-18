@@ -143,7 +143,7 @@ public class Player implements ExtraData {
 		return getItemFromHotbar(carriedSlot);
 	}
 	public Item getItemFromHotbar(int index){
-		if (hotbar[carriedSlot] != -1 && Items.getItemById(Inventory.get(hotbar[index]).id) != null) {
+		if (hotbar[index] != -1 && Items.getItemById(Inventory.get(hotbar[index]).id) != null) {
 			return Items.getItemById(Inventory.get(hotbar[index]).id);
 		} else {
 			return Items.getItemById(-1);

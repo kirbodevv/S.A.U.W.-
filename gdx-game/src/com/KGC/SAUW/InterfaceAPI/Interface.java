@@ -112,15 +112,6 @@ public class Interface {
 
 			}
 		}
-		/*for (int j = 0; j < 4; j++) {
-		 for (int i = 0; i < 8; i++) {
-		 if (j == 0) {
-		 slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
-		 } else {
-		 slots.add(new Slot("Inventory_slot_" + (j * 8 + i), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * i)), (int)(y + w / 32 + w / 24 * j + w / 128), w / 24, w / 24, t.selected_slot, true, j * 8 + i));
-		 }
-		 }
-		 }*/
 		return this;
 	}
 	public void open(int x, int y, int z) {
@@ -201,21 +192,28 @@ public class Interface {
 		if (isOpen) {
 			if (GI != null) GI.isInterfaceOpen = true;
 			exitButton.update(cam);
-			for(Slot slot : slots){
+			for (Slot slot : slots) {
 				slot.id = 0;
 				slot.count = 0;
 				slot.data = 0;
 			}
-			for (int j = 0; j < pl.Inventory.size(); j++) {
-				for (int i = 0; i < slots.size(); i++) {
-					if (j >= currentTabInv * 30) {
+			if (inventory) {
+				for (int j = 0; j < pl.Inventory.size(); j++) {
+					if (j >= currentTabInv * 30 && j < currentTabInv * 30 + 30) {
 						Slot slot = getSlot("InventorySlot_" + (j - currentTabInv * 30));
-						if (slot != null) {
-							slot.id = pl.Inventory.get(j).id;
-							slot.count = pl.Inventory.get(j).count;
-							slot.data = pl.Inventory.get(j).data;
-						}
-
+						slot.id = pl.Inventory.get(j).id;
+						slot.count = pl.Inventory.get(j).count;
+						slot.data = pl.Inventory.get(j).data;
+					}
+				}
+				if (nextTabInv.wasClicked) {
+					if (pl.Inventory.size() > (currentTabInv + 1) * 30) {
+						currentTabInv++;
+					}
+				}
+				if (previosTabInv.wasClicked) {
+					if (currentTabInv - 1 >= 0) {
+						currentTabInv--;
 					}
 				}
 			}
@@ -232,16 +230,6 @@ public class Interface {
 			for (int i = 0; i < buttons.size(); i++) {
 				buttons.get(i).update(cam);
 			} 
-			if (nextTabInv.wasClicked) {
-				if (pl.Inventory.size() > (currentTabInv + 1) * 30) {
-					currentTabInv++;
-				}
-			}
-			if (previosTabInv.wasClicked) {
-				if (currentTabInv - 1 >= 0) {
-					currentTabInv--;
-				}
-			}
 			if (IE != null) {
 				IE.tick();
 			}

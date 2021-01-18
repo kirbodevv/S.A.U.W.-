@@ -273,7 +273,7 @@ public class Blocks {
 					fuelSlot = new Slot("FuelSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 5.5), w / 24, w / 24, Textures.selected_slot);
 					resultSlot.setSF(new Slot.SlotFunctions(){
 							@Override
-							public boolean isValid(int id, int count, int data) {
+							public boolean isValid(int id, int count, int data, String FromSlotWithId) {
 								return false;
 							}
 						});

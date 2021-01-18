@@ -140,7 +140,7 @@ public class Interface {
 	}
 
 	public void swap(Slot a, Slot a1, Player pl) {
-		if (a1.SF == null || a1.SF.isValid(a.id, a.count, a.data)) {
+		if (a1.SF == null || a1.SF.isValid(a.id, a.count, a.data, a.ID)) {
 			int temp = a.id;
 			int temp1 = a.count;
 			int temp2 = a.data;
@@ -169,7 +169,7 @@ public class Interface {
 		}
 	}
 	public void sendToSlot(Slot slot1, Slot slot2, Player pl, Camera2D cam) {
-		if (slot2.SF == null || slot2.SF.isValid(slot1.id, slot1.count, slot1.data)) {
+		if (slot2.SF == null || slot2.SF.isValid(slot1.id, slot1.count, slot1.data, slot1.ID)) {
 			swap(slot1, slot2, pl);
 		}
 	}

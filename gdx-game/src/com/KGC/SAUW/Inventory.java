@@ -74,10 +74,19 @@ public class Inventory {
 				public void initialize() {
 					background0 = Textures.generateTexture(6f, 0.25f, true);
 					for(int i = 0; i < 8; i++){
-						Button b = new Button("hotbarbutton_" + i, w / 16 * 10 + w / 32 * i, w / 16 * 3 - w / 64 * 3, w / 32, w / 32);
+						final int ii = i;
+						Slot s = new Slot("hotbarslot_" + i, w / 16 * 10 + w / 	16 * i, w / 16 * 3 - w / 64 * 3, w / 16, w / 16, textures.selected_slot);
+						s.setSF(new Slot.SlotFunctions(){
+								@Override
+								public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+									if(FromSlotWithId.substring(0, 10).equals("hotbarslot_"))
+									pl.hotbar[ii] = Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(11));
+									return false;
+								}
+						});
 						/*b.setTextColor(Color.BLACK);
 						b.setText("" + i + 1);*/
-						this.Interface.buttons.add(b);
+						this.Interface.slots.add(s);
 					}
 				}
 

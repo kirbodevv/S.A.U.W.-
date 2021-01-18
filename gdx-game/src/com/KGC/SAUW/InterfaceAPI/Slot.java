@@ -76,6 +76,6 @@ public class Slot extends InterfaceElement {
 		}
 	}
 	public static abstract class SlotFunctions {
-		public abstract boolean isValid(int id, int count, int data);
+		public abstract boolean isValid(int id, int count, int data, String FromSlotWithId);
 	}
 }

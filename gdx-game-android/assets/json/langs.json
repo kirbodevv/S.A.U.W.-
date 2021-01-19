@@ -48,7 +48,9 @@
         "WorldName":"Название мира",
         "newWorld":"Новый мир",
         "create":"Создать",
-        "debugRenderer":"Debug Renderer"
+        "debugRenderer":"Debug Renderer",
+        "apple":"Яблоко",
+        "backpack":"Рюкзак"
     },
     "de" : {
         "startGame" : "Spielen",
@@ -99,6 +101,8 @@
         "WorldName":"Название мира",
         "newWorld":"Новый мир",
         "create":"Создать",
-        "debugRenderer":"Debug Renderer"
+        "debugRenderer":"Debug Renderer",
+        "apple":"Apfel",
+        "backpack":"Rucksack"
     }
 }

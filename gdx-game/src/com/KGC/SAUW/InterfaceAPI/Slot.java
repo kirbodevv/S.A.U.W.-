@@ -59,7 +59,7 @@ public class Slot extends InterfaceElement {
 		for (Slot slot : slots) {
 			if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, itemX + width / 2, itemY + height / 2)) {
 				Interface.sendToSlot(this, slot, pl, cam);
-			}
+			} 
 		}
 		itemX = cam.X + X + width / 4;
 		itemY = cam.Y + Y + height / 4;
@@ -69,6 +69,15 @@ public class Slot extends InterfaceElement {
 	public void render(SpriteBatch batch, Camera2D cam) {
 		batch.draw(slot, cam.X + X, cam.Y + Y, width, height);
 	}
+
+	@Override
+	public void onClick(boolean onButton) {
+		super.onClick(onButton);
+		if(SF != null){
+			SF.onClick();
+		}
+	}
+	
 	public void itemRender(SpriteBatch b, Items items) {
 		if (id != 0) {
 			b.draw(items.getTextureById(id), itemX, itemY, width / 2, width / 2);
@@ -77,5 +86,6 @@ public class Slot extends InterfaceElement {
 	}
 	public static abstract class SlotFunctions {
 		public abstract boolean isValid(int id, int count, int data, String FromSlotWithId);
+		public abstract void onClick();
 	}
 }

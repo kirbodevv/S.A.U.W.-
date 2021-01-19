@@ -276,6 +276,10 @@ public class Blocks {
 							public boolean isValid(int id, int count, int data, String FromSlotWithId) {
 								return false;
 							}
+							@Override
+							public void onClick(){
+								
+							}
 						});
 					this._interface.slots.add(resultSlot);
 					this._interface.slots.add(fuelSlot);

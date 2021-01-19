@@ -37,13 +37,15 @@ public class Interface {
 	private String headerText = "";
 	private int size = 0;
 
+	private Texture actionBar;
+
     private boolean inventory = false;
 	private Texture backgroundInv0;
 	private Texture backgroundInv1;
 	private Texture backgroundInv2;
-	private Button previosTabInv;
-	private Button nextTabInv;
-	private int currentItemInv = -1;
+	public Button previosTabInv;
+	public Button nextTabInv;
+	public int currentItemInv = -1;
 	public int currentTabInv = 0;
 
 	public Interface(int size, Textures t, SpriteBatch b, Camera2D cam, Items items, GameInterface GI_) {
@@ -59,6 +61,7 @@ public class Interface {
 		if (size == InterfaceSizes.FULL) {
 			width = w;
 			heigth = h;
+			actionBar = Textures.generateTexture(16, 1, true);
 		} else if (size == InterfaceSizes.STANDART) {
 			width = w / 16 * (h / (w / 16.0f) - 2);
 			heigth = w / 16 * (h / (w / 16.0f) - 2);
@@ -66,7 +69,7 @@ public class Interface {
 		x = (w - width) / 2;
 		y = (h - heigth) / 2;
         this.size = size;
-		exitButton = new Button("", (int)(x + width - w / 16), (int)(y + heigth - w / 16), w / 32, w / 32, t.closeButton, t.closeButton);
+		exitButton = new Button("", (int)(x + width - w / 16), (int)(y + heigth - w / 16 + w / 64), w / 32, w / 32, t.closeButton, t.closeButton);
 		exitButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -102,12 +105,18 @@ public class Interface {
 				final int num = y * 6 + x;
 				String id = "InventorySlot_" + num;
 				Slot s = new Slot(id, (int)(xxx + w / 32 + hhh / 7 * x + w / 64), (int)(yyy + w / 32 + hhh / 7 * (4 - y)), (int)(hhh / 7), (int)(hhh / 7), t.selected_slot);
-				/*s.se(new Button.EventListener(){
-				 @Override
-				 public void onClick() {
-				 currentItem = currentTab * 30 + num;
-				 }
-				 });*/
+				s.setSF(new Slot.SlotFunctions(){
+
+						@Override
+						public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+							return true;
+						}
+
+						@Override
+						public void onClick() {
+							currentItemInv = currentTabInv * 30 + num;
+						}
+					});
 				slots.add(s);
 
 			}
@@ -116,12 +125,14 @@ public class Interface {
 	}
 	public void open(int x, int y, int z) {
 		isOpen = true;
+		currentItemInv = -1;
 		currX = x;
 		currY = y;
 		currZ = z;
 	}
 	public void open() {
 		isOpen = true;
+		currentItemInv = -1;
 		if (IE != null) {
 			IE.onOpen();
 		}
@@ -242,7 +253,10 @@ public class Interface {
 			} else if (size == InterfaceSizes.STANDART) {
 				b.draw(t.standartBackground, x + cam.X, y + cam.Y, width, heigth);
 			}
-			text.drawMultiLine(b, headerText, x + cam.X, (y + heigth + cam.Y) - w / 32, width, BitmapFont.HAlignment.CENTER);
+			if (size == InterfaceSizes.FULL) {
+				b.draw(actionBar, 0, HEIGHT - WIDTH / 16, WIDTH, WIDTH / 16);
+			}
+			text.drawMultiLine(b, headerText, x + cam.X, (y + heigth + cam.Y) - (w / 16 - text.getCapHeight()) / 2, width, BitmapFont.HAlignment.CENTER);
 			if (IE != null) {
 				IE.renderBefore();
 			}

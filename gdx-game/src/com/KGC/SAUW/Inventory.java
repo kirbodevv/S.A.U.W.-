@@ -64,26 +64,32 @@ public class Inventory {
 		playerAnim = new Animation(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
 		currentFrame = playerAnimFrames[0];
 	}
-	public void init(final Player pl, final Textures textures) {
+	public void init(final Player pl, final Textures textures, final Langs langs) {
 
 		inventoryInterface.setInterfaceEvents(new InterfaceEvents(){
 				int plW = w / 24 * 4 * 10 / 26;
 				int plH = w / 24 * 4;
 				Texture background0;
+				Texture background1;
 				Slot[] hotbarslots = new Slot[8];
 				@Override
 				public void initialize() {
 					background0 = Textures.generateTexture(6f, 0.25f, true);
-					int slotW = w / 16 * 5 / 8;
+					background1 = Textures.generateTexture(2f, 2f, true);
+					int slotW = w / 32 * 11 / 8;
 					for (int i = 0; i < 8; i++) {
 						final int ii = i;
-						final Slot s = new Slot("hotbarslot_" + i, w / 32 * 19 + slotW * i, w / 32 * 7 - w / 64, slotW, slotW, textures.selected_slot);
+						final Slot s = new Slot("hotbarslot_" + i, w / 16 * 9 + w / 64 + slotW * i, w / 32 * 7 - w / 64, slotW, slotW, textures.selected_slot);
 						s.setSF(new Slot.SlotFunctions(){
+								@Override
+								public void onClick() {
+									pl.hotbar[ii] = -1;
+								}
 								@Override
 								public boolean isValid(int id, int count, int data, String FromSlotWithId) {
 									if (FromSlotWithId.contains("InventorySlot_")) {
-										for(int i = 0; i < pl.hotbar.length; i++){
-											if(pl.hotbar[i] == Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14))){
+										for (int i = 0; i < pl.hotbar.length; i++) {
+											if (pl.hotbar[i] == Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14))) {
 												pl.hotbar[i] = -1;
 											}
 										}
@@ -130,9 +136,15 @@ public class Inventory {
 
 				@Override
 				public void render() {
-					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", cam.X + Interface.x + w / 16 * 9 + w / 64 , cam.Y + Interface.y + w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
-					b.draw(currentFrame, cam.X + Interface.x + w / 16 * 12 - plW / 2, cam.Y + Interface.y + w / 16 * 4, plW, plH);
-					b.draw(background0, cam.X + Interface.x + w / 16 * 9, cam.Y + Interface.y + w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
+					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", w / 16 * 9 + w / 64, w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+					Interface.text.drawMultiLine(b, langs.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
+					b.draw(currentFrame, w / 16 * 12 - plW / 2, w / 16 * 4, plW, plH);
+					b.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
+					b.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
+					if(Interface.currentItemInv != -1){
+						b.draw(items.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
+						Interface.text.drawMultiLine(b, items.getNameById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 11 + w / 64, w / 32 * 5, w / 16 * 4, BitmapFont.HAlignment.LEFT);
+					}
 				}
 			});
 	}

@@ -146,7 +146,7 @@ public class Player implements ExtraData {
 		if (hotbar[index] != -1 && Items.getItemById(Inventory.get(hotbar[index]).id) != null) {
 			return Items.getItemById(Inventory.get(hotbar[index]).id);
 		} else {
-			return Items.getItemById(-1);
+			return Items.getItemById(0);
 		}
 	}
 	public ArrayList<InventorySlot> getInventory() {

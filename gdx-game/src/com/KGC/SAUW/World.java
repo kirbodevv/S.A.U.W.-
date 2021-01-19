@@ -61,24 +61,25 @@ public class World {
 		try {
 			if (!mapFile.exists()) mapFile.createNewFile();
 			if (!player.exists()) player.createNewFile();
-			if(!mobs.exists()) mobs.createNewFile();
+			if (!mobs.exists()) mobs.createNewFile();
 			FileHandle mapFile1 = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
 			FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
 			FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
 			FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
-			
+
 			DataBuffer playerBuffer = new DataBuffer();
 			DataBuffer worldDataBuffer = new DataBuffer();
 			playerBuffer.put("player", pl);
 			worldDataBuffer.put("time", WorldTime.getTime());
 			Date date = new Date();
 			worldDataBuffer.put("saveTime", date.getTime());
-			
+
 			playerFile.writeBytes(playerBuffer.toBytes(), false);
 			mobsFile.writeBytes(this.mobs.getBytes(), false);
 			worldData.writeBytes(worldDataBuffer.toBytes(), false);
 			mapFile1.writeBytes(maps.toDataBuffer().toBytes(), false);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			Gdx.app.log("saveError", e.toString());
 		}
 	}
@@ -95,7 +96,8 @@ public class World {
 		try {
 			pl.data.put("lastWorld", WorldName);
 			pl.saveData();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 
 		}
 		File worldFolder = new File(Environment.getExternalStorageDirectory().toString() + "/S.A.U.W./Worlds/" + WorldName);
@@ -137,7 +139,7 @@ public class World {
 				buffer.readBytes(playerFile.readBytes());
 				if (pl != null) pl.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
 				byte[] mobsBytes = mobsFile.readBytes();
-				if(mobs != null) mobs.readBytes(mobsBytes, 0, mobsBytes.length);
+				if (mobs != null) mobs.readBytes(mobsBytes, 0, mobsBytes.length);
 				buffer.readBytes(worldData.readBytes());
 				if (WorldTime != null) WorldTime.setTime(buffer.getInt("time"));
 			}
@@ -278,8 +280,8 @@ public class World {
 								} else {
 									instrType = pl.getCarriedItem().intrumentType;
 								}
-
-								pl.Inventory.get(pl.hotbar[pl.carriedSlot]).data = pl.Inventory.get(pl.hotbar[pl.carriedSlot]).data + maps.map0[bY][bX][z].hit(instrType);
+								if (pl.hotbar[pl.carriedSlot] != -1)
+									pl.Inventory.get(pl.hotbar[pl.carriedSlot]).data = pl.Inventory.get(pl.hotbar[pl.carriedSlot]).data + maps.map0[bY][bX][z].hit(instrType);
 							}
 						}
 					}

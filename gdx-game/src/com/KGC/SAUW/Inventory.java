@@ -82,6 +82,11 @@ public class Inventory {
 								@Override
 								public boolean isValid(int id, int count, int data, String FromSlotWithId) {
 									if (FromSlotWithId.contains("InventorySlot_")) {
+										for(int i = 0; i < pl.hotbar.length; i++){
+											if(pl.hotbar[i] == Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14))){
+												pl.hotbar[i] = -1;
+											}
+										}
 										pl.hotbar[ii] = Interface.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14));
 									}
 

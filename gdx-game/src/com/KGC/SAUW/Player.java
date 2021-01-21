@@ -27,9 +27,10 @@ public class Player implements ExtraData {
 		buffer.put("health", health);
 		buffer.put("hunger", hunger);
 		buffer.put("coords", new int[]{(int)player.x, (int)player.y});
-		/*for(int i = 0; i < Inventory.size(); i++){
-		 buffer.put("Inv_" + i, Inventory.get(i));
-		 }*/
+		buffer.put("InvLenght", Inventory.size());
+		for (int i = 0; i < Inventory.size(); i++) {
+			buffer.put("Inv_" + i, Inventory.get(i));
+		}
 		return buffer.toBytes();
 	}
 	@Override
@@ -40,9 +41,11 @@ public class Player implements ExtraData {
 		player.y = buffer.getIntArray("coords")[1];
 		health = buffer.getInt("health");
 		hunger = buffer.getInt("hunger");
-		/*for(int i = 0; i < Inventory.; i++){
-		 Inventory[i].readBytes(buffer.getByteArray("Inv_" + i), begin, end);
-		 }*/
+		Inventory = new ArrayList<InventorySlot>(buffer.getInt("InvLenght"));
+		for (int i = 0; i < buffer.getInt("InvLenght"); i++) {
+			Inventory.add(i, new InventorySlot());
+			Inventory.get(i).readBytes(buffer.getByteArray("Inv_" + i), begin, end);
+		}
 	}
 	JSONObject data;
 	int h = Gdx.graphics.getHeight();
@@ -142,7 +145,7 @@ public class Player implements ExtraData {
 	public Item getCarriedItem() {
 		return getItemFromHotbar(carriedSlot);
 	}
-	public Item getItemFromHotbar(int index){
+	public Item getItemFromHotbar(int index) {
 		if (hotbar[index] != -1 && Items.getItemById(Inventory.get(hotbar[index]).id) != null) {
 			return Items.getItemById(Inventory.get(hotbar[index]).id);
 		} else {
@@ -215,7 +218,8 @@ public class Player implements ExtraData {
 			FileWriter s = new FileWriter(data.toString());
 			s.write(this.data.toString());
 			s.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 
 		}
 	}
@@ -243,7 +247,8 @@ public class Player implements ExtraData {
 			}
 			s.close();
 			this.data = new JSONObject(result);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			Gdx.app.log("error", e.toString());
 		}
 

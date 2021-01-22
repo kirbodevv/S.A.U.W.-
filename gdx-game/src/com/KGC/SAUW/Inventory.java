@@ -1,17 +1,20 @@
 package com.KGC.SAUW;
 
 import com.KGC.SAUW.Camera2D;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.*;
-import com.KGC.SAUW.Player;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.*;
-import com.KGC.SAUW.Items;
-import com.badlogic.gdx.graphics.Color;
 import com.KGC.SAUW.InterfaceAPI.Button;
 import com.KGC.SAUW.InterfaceAPI.Interface;
 import com.KGC.SAUW.InterfaceAPI.InterfaceEvents;
 import com.KGC.SAUW.InterfaceAPI.Slot;
+import com.KGC.SAUW.Items;
+import com.KGC.SAUW.Player;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import java.text.DecimalFormat;
 
 public class Inventory {
 	private int w, h;
@@ -72,6 +75,7 @@ public class Inventory {
 				Texture background0;
 				Texture background1;
 				Slot[] hotbarslots = new Slot[8];
+				DecimalFormat DF = new DecimalFormat("#.##");
 				@Override
 				public void initialize() {
 					background0 = Textures.generateTexture(6f, 0.25f, true);
@@ -136,13 +140,14 @@ public class Inventory {
 
 				@Override
 				public void render() {
-					Interface.text.drawMultiLine(b, pl.weight + " | " + pl.maxWeight + "Kg", w / 16 * 9 + w / 64, w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+					Interface.text.drawMultiLine(b, DF.format(pl.weight) + " | " + DF.format(pl.maxWeight) + "Kg", w / 16 * 9 + w / 64, w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
 					Interface.text.drawMultiLine(b, langs.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
 					b.draw(currentFrame, w / 16 * 12 - plW / 2, w / 16 * 4, plW, plH);
 					b.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
-					b.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
 					if(Interface.currentItemInv != -1){
+						b.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
 						b.draw(items.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
+						Interface.text.drawMultiLine(b, items.getItemById(pl.Inventory.get(Interface.currentItemInv).id).weight + " Kg", w / 16 * 11 + w / 64, w / 32 * 4, w / 16 * 4, BitmapFont.HAlignment.LEFT);
 						Interface.text.drawMultiLine(b, items.getNameById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 11 + w / 64, w / 32 * 5, w / 16 * 4, BitmapFont.HAlignment.LEFT);
 					}
 				}

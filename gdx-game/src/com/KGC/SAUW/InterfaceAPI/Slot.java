@@ -53,7 +53,7 @@ public class Slot extends InterfaceElement {
 			itemX = Gdx.input.getX() + cam.X - width / 4;
 			itemY = Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4;
 		}
-	    if (wasUp) onClick(slots, Interface, pl, cam);
+	    if (wasUp && id != 0) onClick(slots, Interface, pl, cam);
 	}
 	public void onClick(ArrayList<Slot> slots, Interface Interface, Player pl, Camera2D cam) {
 		for (Slot slot : slots) {
@@ -73,7 +73,7 @@ public class Slot extends InterfaceElement {
 	@Override
 	public void onClick(boolean onButton) {
 		super.onClick(onButton);
-		if(SF != null){
+		if(SF != null && onButton){
 			SF.onClick();
 		}
 	}

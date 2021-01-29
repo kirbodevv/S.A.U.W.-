@@ -9,8 +9,12 @@ import com.KGC.SAUW.Textures;
 import com.KGC.SAUW.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -20,9 +24,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.intbyte.bdb.DataBuffer;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.Date;
 
 public class World {
 	private int WIDTH = Gdx.graphics.getWidth();
@@ -144,6 +148,47 @@ public class World {
 				if (WorldTime != null) WorldTime.setTime(buffer.getInt("time"));
 			}
 		}
+	}
+	public void screenshot(String screenshotName) {
+		Pixmap pixmap = new Pixmap(32 * 40, 32 * 40, Pixmap.Format.RGBA8888);
+		for (int y = maps.map0.length - 1; y >= 0; y--) {
+			for (int x = 0; x < maps.map0[y].length; x++) {
+				for (int z = maps.map0[y][x].length - 3; z >= 0; z--) {
+					Tile t = maps.map0[y][x][z];
+					Block b = blocks.getBlockById(t.id);
+					if (t.t != null) {
+						Pixmap p = extractPixmapFromTextureRegion(t.t);
+						pixmap.drawPixmap(p, 0, 0, p.getWidth(), p.getHeight(), x * 32, y * 32, 32 * b.getSize().x, 32 * b.getSize().y);
+						p.dispose();
+					}
+				}
+			}
+		}
+		FileHandle png = Gdx.files.external("S.A.U.W./Screenshots/" + screenshotName + ".png");
+		PixmapIO.writePNG(png, pixmap);
+		pixmap.dispose();
+	}
+	public Pixmap extractPixmapFromTextureRegion(TextureRegion textureRegion) {
+		TextureData textureData = textureRegion.getTexture().getTextureData();
+		if (!textureData.isPrepared()) {
+			textureData.prepare();
+		}
+		textureData.disposePixmap();
+		Pixmap pixmap = new Pixmap(
+            textureRegion.getRegionWidth(),
+            textureRegion.getRegionHeight(),
+            textureData.getFormat()
+		);
+		pixmap.drawPixmap(
+            textureData.consumePixmap(), 
+            0, 
+            0, 
+            textureRegion.getRegionX(), 
+            textureRegion.getRegionY(), 
+            textureRegion.getRegionWidth(), 
+            textureRegion.getRegionHeight() 
+		);
+		return pixmap;
 	}
 	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks, GameInterface GI, Settings s) {
 		this.Textures = t;

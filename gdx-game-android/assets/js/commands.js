@@ -10,3 +10,6 @@ function print(txt){
 function saveWorld(worldName){
 	World.save(worldName);
 }
+function screenshot(screenshotName){
+	World.screenshot(screenshotName);
+}

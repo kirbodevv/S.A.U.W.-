@@ -21,6 +21,7 @@ public class MainActivity extends AndroidApplication {
 		File mods = new File(mainDir.toString() + "/Mods");
 		File Worlds = new File(mainDir.toString() + "/Worlds");
 		File user = new File(mainDir.toString() + "/User");
+		File Screenshots = new File(mainDir.toString() + "/Screenshots");
 		File data = new File(user.toString() + "/data.json");
 		if (!mainDir.exists()) {
 			mainDir.mkdir();
@@ -33,6 +34,9 @@ public class MainActivity extends AndroidApplication {
 		}
 		if (!user.exists()) {
 			user.mkdir();
+		}
+		if(!Screenshots.exists()){
+			Screenshots.mkdir();
 		}
 
 		if (!data.exists()) {

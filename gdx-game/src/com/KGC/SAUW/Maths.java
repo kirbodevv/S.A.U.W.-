@@ -3,13 +3,9 @@ package com.KGC.SAUW;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Maths{
-
-    public static boolean rectCrossing(int x1,int y1,int w1,int h1,int x2,int y2,int w2,int h2){
-        Rectangle r1=new Rectangle(x1,y1,w1,h1);
-        Rectangle r2=new Rectangle(x2,y2,w2,h2);
-        return r1.overlaps(r2);
+	public static boolean rectCrossing(int x1,int y1,int w1,int h1,int x2,int y2,int w2,int h2){
+        return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
     }
-
     public static boolean isLiesOnRect(int x,int y,int w,int h,int px,int py){
         if(px>x && px<x+w && py>y && py<y+h)
             return true;

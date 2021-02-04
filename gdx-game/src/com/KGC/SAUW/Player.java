@@ -85,7 +85,8 @@ public class Player implements ExtraData {
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
 	GameInterface GI;
-	int playerSpeed = w / 96;
+	public final float normalPlayerSpeed  = w / 96;
+	float playerSpeed = 1.0f;
 	int rot = 0;
 	float stateTime;
 	Mobs mobs;
@@ -305,10 +306,12 @@ public class Player implements ExtraData {
 			for (InventorySlot slot : Inventory) {
 				weight += slot.count * Items.getItemById(slot.id).weight;
 			}
+			playerSpeed = 1.0f - ((weight * 1.66f) / 100);
 			mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
 			mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
-			velocity.x = (int)(GI.j.normD().x * playerSpeed);
-			velocity.y = (int)(GI.j.normD().y * playerSpeed);
+			if(playerSpeed < 0) playerSpeed = 0;
+			velocity.x = (int)(GI.j.normD().x * (playerSpeed * normalPlayerSpeed));
+			velocity.y = (int)(GI.j.normD().y * (playerSpeed * normalPlayerSpeed));
 			posWithAcX.setPosition((float)(player.x + velocity.x), player.y);
 			posWithAcY.setPosition(player.x, (float)(player.y + velocity.y));
 			CWB.getCollisionWithBlocks(player, posWithAcX, posWithAcY, velocity, maps);

@@ -36,7 +36,7 @@ public class Items {
 		createItem(12,0.15f, l.getString("stone"), Textures.stone_item, Type.ITEM, 64, 0);
 		createItem(13,0.01f, l.getString("iron_ore"), Textures.iron_ore_item, Type.ITEM, 64, 0);
 		createItem(14,0.75f, l.getString("stone_pickaxe"), Textures.stone_pickaxe, Type.INSTRUMENT, 1, 128);
-		createItem(15,0.75f, l.getString("stone_axe"), Textures.stone_axe, Type.INSTRUMENT, 1, 10);
+		createItem(15,5.75f, l.getString("stone_axe"), Textures.stone_axe, Type.INSTRUMENT, 1, 10);
 		createItem(16,0.01f, l.getString("furnace"), Textures.furnace_item, Type.BLOCKITEM, 11, 64, 0);
 		createItem(17,0.1f,  l.getString("rope"), Textures.rope, Type.ITEM, 64, 0);
 		createItem(18,0.05f, l.getString("vegetable_fiber"), Textures.vegetable_fiber, Type.ITEM, 64, 0);

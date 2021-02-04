@@ -100,7 +100,8 @@ public class MyGdxGame implements Screen {
 				  "\n Hunger:"+ World.pl.hunger + "/20" +
 				  "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
 				  "\n InventorySlots:" + World.pl.Inventory.size() +
-				  "\n InventoryTab:" + GI.inv.inventoryInterface.currentTabInv +
+				  "\n InventoryTab:" + GI.inv.inventoryInterface.currentTabInv + 
+				  "\n PlayerSpeed:" + World.pl.playerSpeed * 100 + "%"+
 				  "\n PlayerHotbarSlot_0:" + World.pl.hotbar[0]: "");
 		BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
 	    GI.update(World.pl);

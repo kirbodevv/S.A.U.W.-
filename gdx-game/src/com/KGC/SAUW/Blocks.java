@@ -262,8 +262,6 @@ public class Blocks {
 				};
 				@Override
 				public void interfaceInitializate() {
-					String __interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Печка\"}}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {}}";
-
 					_interface = new Interface(Interface.InterfaceSizes.STANDART, Textures, batch, gi.interfaceCamera, items, gi);
 					_interface.setHeaderText(langs.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);

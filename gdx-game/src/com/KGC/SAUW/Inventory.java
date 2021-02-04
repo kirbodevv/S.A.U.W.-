@@ -33,7 +33,9 @@ public class Inventory {
 	TextureRegion currentFrame;
 	private float stateTime = 0.0f;
 	private float timer = 0.0f;
+
 	Animation playerAnim;
+	Animation tiredPlayerAnim;
 
 	public Inventory(SpriteBatch b, Camera2D c, Texture t, Texture t2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
 		w = c.W;
@@ -65,6 +67,8 @@ public class Inventory {
             }
         }
 		playerAnim = new Animation(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
+		tiredPlayerAnim = new Animation(0.2f, playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[1]);
+
 		currentFrame = playerAnimFrames[0];
 	}
 	public void init(final Player pl, final Textures textures, final Langs langs) {
@@ -119,12 +123,22 @@ public class Inventory {
 					timer += Gdx.graphics.getRawDeltaTime();
 					if (timer >= 6) {
 						stateTime += Gdx.graphics.getDeltaTime();
-						currentFrame = playerAnim.getKeyFrame(stateTime, true);
-						if (playerAnim.getKeyFrameIndex(stateTime) == 4) {
-							timer = 0;
-							stateTime = 0;
-							currentFrame = playerAnimFrames[0];
+						if (pl.weight < pl.maxWeight) {
+							currentFrame = playerAnim.getKeyFrame(stateTime, true);
+							if (playerAnim.getKeyFrameIndex(stateTime) == 4) {
+								timer = 0;
+								stateTime = 0;
+								currentFrame = playerAnimFrames[0];
+							}
+						} else {
+							currentFrame = tiredPlayerAnim.getKeyFrame(stateTime, true);
+							if (tiredPlayerAnim.getKeyFrameIndex(stateTime) == 4) {
+								timer = 0;
+								stateTime = 0;
+								currentFrame = playerAnimFrames[1];
+							}
 						}
+
 					}
 				}
 
@@ -144,7 +158,7 @@ public class Inventory {
 					Interface.text.drawMultiLine(b, langs.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
 					b.draw(currentFrame, w / 16 * 12 - plW / 2, w / 16 * 4, plW, plH);
 					b.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
-					if(Interface.currentItemInv != -1){
+					if (Interface.currentItemInv != -1 && Interface.currentItemInv < pl.Inventory.size()) {
 						b.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
 						b.draw(items.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
 						Interface.text.drawMultiLine(b, items.getItemById(pl.Inventory.get(Interface.currentItemInv).id).weight + " Kg", w / 16 * 11 + w / 64, w / 32 * 4, w / 16 * 4, BitmapFont.HAlignment.LEFT);

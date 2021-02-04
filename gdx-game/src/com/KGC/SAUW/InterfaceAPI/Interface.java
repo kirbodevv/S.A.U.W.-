@@ -114,7 +114,7 @@ public class Interface {
 
 						@Override
 						public void onClick() {
-							currentItemInv = currentTabInv * 30 + num;
+								currentItemInv = currentTabInv * 30 + num;
 						}
 					});
 				slots.add(s);
@@ -235,8 +235,8 @@ public class Interface {
 					getSlot(maps.map0[currY][currX][currZ].containers.get(i).ID).data = maps.map0[currY][currX][currZ].containers.get(i).getData();
 				}
 			}
-			for (int i = 0; i < slots.size(); i++) {
-				slots.get(i).update(slots, this, pl, cam);
+			for (Slot slot : slots) {
+				slot.update(slots, this, pl, cam);
 			}
 			for (int i = 0; i < buttons.size(); i++) {
 				buttons.get(i).update(cam);
@@ -273,8 +273,8 @@ public class Interface {
 			for (int i = 0; i < images.size(); i++) {
 				images.get(i).render(b, cam);
 			}
-			for (int i = 0; i < slots.size(); i++) {
-				slots.get(i).render(b, cam);
+			for (Slot slot : slots) {
+				slot.render(b, cam);
 			}
 			for (int i = 0; i < slots.size(); i++) {
 				slots.get(i).itemRender(b, items);

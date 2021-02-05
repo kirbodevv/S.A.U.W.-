@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import com.KGC.SAUW.InterfaceAPI.InterfaceEvents;
 import com.KGC.SAUW.InterfaceAPI.EditText;
 import com.badlogic.gdx.files.FileHandle;
+
 public class MenuScreen implements Screen {
 	boolean gameStart = false;
 	MainGame game;
@@ -27,7 +28,10 @@ public class MenuScreen implements Screen {
 	int WIDTH = Gdx.graphics.getWidth();
 	Button startButton;
 	Button settingsButton;
+	Button modsButton;
 	Button exitButton;
+	
+	
 	Button closeButton;
 	World world;
 	Blocks blocks;
@@ -50,6 +54,7 @@ public class MenuScreen implements Screen {
 	Langs langs;
 	private Music music;
 	public SettingsScreen SettingsScreen;
+	public ModsScreen ModsScreen;
 	BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
 	private int worldSelIndex = 0;
@@ -101,7 +106,8 @@ public class MenuScreen implements Screen {
 		camera = new Camera2D();
 		b = new SpriteBatch();
 		SettingsScreen = new SettingsScreen(game, t, this);
-		startButton = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 138, w / 16 * 6, w / 16);
+		ModsScreen = new ModsScreen(game, t, this);
+		startButton = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
 		//startButton.setTextColor(Color.BLACK);
 		startButton.setEventListener(new Button.EventListener(){
 				@Override
@@ -117,7 +123,15 @@ public class MenuScreen implements Screen {
 					game.setScreen(SettingsScreen);
 				}
 			});
-		exitButton = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
+		modsButton = new Button("", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
+		//exitButton.setTextColor(Color.BLACK);
+		modsButton.setEventListener(new Button.EventListener(){
+				@Override
+				public void onClick() {
+					game.setScreen(ModsScreen);
+				}
+			});
+		exitButton = new Button("", w / 16 * 5, h - w / 16 * 8 - w / 128 * 2, w / 16 * 6, w / 16);
 		//exitButton.setTextColor(Color.BLACK);
 		exitButton.setEventListener(new Button.EventListener(){
 				@Override
@@ -266,7 +280,10 @@ public class MenuScreen implements Screen {
 		}
 		startButton.setText(langs.getString("startGame"));
 		settingsButton.setText(langs.getString("settings"));
+		modsButton.setText(langs.getString("mods"));
 		exitButton.setText(langs.getString("exit"));
+		
+		
 		music = new Music(this.settings, null);
 	}
 	public void loadGame(String worldName) {
@@ -314,9 +331,11 @@ public class MenuScreen implements Screen {
 		if (!StartGameMenu) {
 			startButton.update(camera);
 			settingsButton.update(camera);
+			modsButton.update(camera);
 			exitButton.update(camera);
 			startButton.render(b, camera);
 			settingsButton.render(b, camera);
+			modsButton.render(b, camera);
 			exitButton.render(b, camera);
 			b.draw(t.SAUWCoin, camera.X + w / 32, camera.Y + h - w / 16, w / 32, w / 32);
 			bf.setScale(w / 768);

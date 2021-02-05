@@ -50,7 +50,8 @@
         "create":"Создать",
         "debugRenderer":"Debug Renderer",
         "apple":"Яблоко",
-        "backpack":"Рюкзак"
+        "backpack":"Рюкзак",
+        "mods":"Моды"
     },
     "de" : {
         "startGame" : "Spielen",
@@ -103,6 +104,7 @@
         "create":"Создать",
         "debugRenderer":"Debug Renderer",
         "apple":"Apfel",
-        "backpack":"Rucksack"
+        "backpack":"Rucksack",
+        "mods":"Моды"
     }
 }

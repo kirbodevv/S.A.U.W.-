@@ -13,45 +13,70 @@ public class Slider extends InterfaceElement {
 	private int value = 0;
 	private double sc;
 	private EventListener EL;
+	private boolean verticalSlider;
 	public Slider(int x, int y, int w, int h) {
+		if (w > h) verticalSlider = false; 
+		else verticalSlider = true;
 		int ww = Gdx.graphics.getWidth();
 		this.X = x;
 		this.Y = y;
 		this.width = w;
 		this.height = h;
-		sliderW = h / 2;
-		slider = Textures.generateTexture(sliderW / (ww / 16.0f), h / (ww / 16.0f), true/*, new Color(0xCCCCCCFF), new Color(0xE0E0E0FF), new Color(0xF8F8F8FF), new Color(0xA0A0A0FF)*/);
-	    background = Textures.generateTexture(w / (ww / 16.0f), h / 2 / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+		if (!verticalSlider) sliderW = h / 2;
+		else sliderW = w / 2;
+		if (!verticalSlider) {
+			slider = Textures.generateTexture(sliderW / (ww / 16.0f), h / (ww / 16.0f), true);
+			background = Textures.generateTexture(w / (ww / 16.0f), h / 2 / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+		} else {
+			slider = Textures.generateTexture(w / (ww / 16.0f), sliderW / (ww / 16.0f), true);
+			background = Textures.generateTexture(w / 2 / (ww / 16.0f), h / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+		}
 	    setMaxValue(100);
 	}
-	public void setValue(int v){
+	public void setValue(int v) {
 		this.value = v;
 	}
-	public int getValue(){
+	public int getValue() {
 		return value;
 	}
-	public void setMaxValue(int v){
+	public void setMaxValue(int v) {
 		this.maxValue = v;
-		sc = (width + 0.0) / maxValue;
+		if (!verticalSlider)
+			sc = (width + 0.0) / maxValue;
+		else sc = (height + 0.0) / maxValue;
 	}
 	@Override
 	public void update(Camera2D cam) {
-		super.update(cam);
-		if(isTouched()){
-			value = (int)((Gdx.input.getX() - X) / sc);
-			if(value < 0) value = 0;
-			if(value > maxValue) value = maxValue;
+		if (!isHided()) {
+			super.update(cam);
+			if (isTouched()) {
+				if (!verticalSlider)
+					value = (int)((Gdx.input.getX() - X) / sc);
+				else 
+					value = (int)((Gdx.input.getY() - Y) / sc);
+
+				if (value < 0) value = 0;
+				if (value > maxValue) value = maxValue;
 			}
-			if(EL != null) EL.onValueChange(value);
+			if (EL != null) EL.onValueChange(value);
+		}
 	}
-	public void render(Camera2D cam, SpriteBatch b) {
-		b.draw(background, cam.X + X, cam.Y + Y + height / 4, width, height / 2);
-		b.draw(slider, cam.X + X + (int)(sc * value) - sliderW / 2, cam.Y + Y, sliderW, height);
+	@Override
+	public void render(SpriteBatch b, Camera2D cam) {
+		if (!isHided()) {
+			if (!verticalSlider) {
+				b.draw(background, cam.X + X, cam.Y + Y + height / 4, width, height / 2);
+				b.draw(slider, cam.X + X + (int)(sc * value) - sliderW / 2, cam.Y + Y, sliderW, height);
+			} else {
+				b.draw(background, cam.X + X + width / 4, cam.Y + Y, width / 2, height);
+				b.draw(slider, cam.X + X, cam.Y + Y + (height - (int)(sc * value)) - sliderW / 2, width, sliderW);
+			}
+		}
 	}
-	public void setEventListener(EventListener EL){
+	public void setEventListener(EventListener EL) {
 		this.EL = EL;
 	}
-	public static abstract class EventListener{
+	public static abstract class EventListener {
 		public abstract void onValueChange(int v);
 	}
 }

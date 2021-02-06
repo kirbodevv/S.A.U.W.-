@@ -280,7 +280,7 @@ public class SettingsScreen implements Screen {
 			useConsole.render(batch, MenuScreen.camera);
 		} else if (currentSettingCot == 3) {
 			bf.drawMultiLine(batch, MenuScreen.langs.getString("music"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, BitmapFont.HAlignment.LEFT);
-		    musicVolume.render(MenuScreen.camera, batch);
+		    musicVolume.render(batch, MenuScreen.camera);
 			bf.drawMultiLine(batch, musicVolume.getValue() + "", MenuScreen.camera.X + musicVolume.X + musicVolume.width + width / 32, MenuScreen.camera.Y + musicVolume.Y + musicVolume.height, width / 16 * 2, BitmapFont.HAlignment.LEFT);
 		}
 		Notification.render(batch, MenuScreen.camera);

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Checkbox extends InterfaceElement{
 	private Texture t0, t1;
-	private boolean isChecked;
+	private boolean isChecked = false;
 	private Eventlistener EL;
 	public Checkbox(Texture t0, Texture t1){
 		this.t0 = t0;

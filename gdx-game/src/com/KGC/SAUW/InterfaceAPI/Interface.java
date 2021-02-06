@@ -254,7 +254,7 @@ public class Interface {
 				b.draw(t.standartBackground, x + cam.X, y + cam.Y, width, heigth);
 			}
 			if (size == InterfaceSizes.FULL) {
-				b.draw(actionBar, 0, HEIGHT - WIDTH / 16, WIDTH, WIDTH / 16);
+				b.draw(actionBar, cam.X, cam.Y + HEIGHT - WIDTH / 16, WIDTH, WIDTH / 16);
 			}
 			text.drawMultiLine(b, headerText, x + cam.X, (y + heigth + cam.Y) - (w / 16 - text.getCapHeight()) / 2, width, BitmapFont.HAlignment.CENTER);
 			if (IE != null) {

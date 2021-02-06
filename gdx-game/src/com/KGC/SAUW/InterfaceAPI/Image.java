@@ -4,35 +4,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.KGC.SAUW.Camera2D;
 import com.badlogic.gdx.math.Vector2;
 
-public class Image {
+public class Image extends InterfaceElement {
 	private float x, y, w, h;
 	private Texture t;
-    public Image(Texture t, int x, int y, int w, int h){
-		this.x = x;
-		this.y = y;
-		this.w = w;
-		this.h = h;
+    public Image(int x, int y, int w, int h){
+		setPosition(x, y);
+		setSize(w, h);
+	}
+	public void setImg(Texture t){
 		this.t = t;
 	}
-	public void render(SpriteBatch b, Camera2D cam){
-		b.draw(t, x + cam.X, y + cam.Y, w, h);
-	} 
-	public void setPosition(float x, float y){
-		this.x = x;
-		this.y = y;
-	}
-	public void setPosition(Vector2 pos){
-		this.x = pos.x;
-		this.y = pos.y;
-	}
-	public Vector2 getPosition(){
-		return new Vector2(x, y);
-	}
-	public void setSize(float w, float h){
-		this.w = w;
-		this.h = h;
-	}
-	public Vector2 getSize(){
-		return new Vector2(w, h);
+
+	@Override
+	public void render(SpriteBatch batch, Camera2D cam) {
+		super.render(batch, cam);
+		batch.draw(t, x + cam.X, y + cam.Y, w, h);
 	}
 }

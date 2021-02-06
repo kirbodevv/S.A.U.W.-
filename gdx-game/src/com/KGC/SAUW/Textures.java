@@ -56,6 +56,7 @@ public class Textures {
 	public Texture wood;
 	public Texture clown;
 	public Texture SAUWCoin;
+	public Texture SAUWIcon;
 	public Texture stone_1;
 	public Texture stone_item;
 	public Texture iron_ore;
@@ -211,6 +212,7 @@ public class Textures {
 		clown    = new Texture(Gdx.files.internal("clown.jpg"));
 		SAUWCoin = new Texture(Gdx.files.internal("SAUW_Coin.png"));
 		logo     = new Texture(Gdx.files.internal("Interface/SAUW_Logo.png"));
+		SAUWIcon = new Texture(Gdx.files.internal("SAUW_icon.png"));
 		
 		player     = new Texture(Gdx.files.internal("Entity/player.png"));
 		player_inv = new Texture(Gdx.files.internal("Entity/player_inv.png"));
@@ -370,5 +372,6 @@ public class Textures {
 		snow.dispose();
 		christmas_tree.dispose();
 		apple.dispose();
+		SAUWIcon.dispose();
 	}
 }

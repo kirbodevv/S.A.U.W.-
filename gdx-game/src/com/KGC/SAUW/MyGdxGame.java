@@ -37,7 +37,14 @@ public class MyGdxGame implements Screen {
 	public Langs langs;
 	MainGame game;
 	Music music;
-
+	
+	
+	private boolean isCameraScaling = false;
+	private float cameraScale = 0;
+	private float cameraScaleSec = 0;
+	private float timer;
+	private double cameraZoom = 1.25f;
+	private double altCameraZoom;
 	Box2DDebugRenderer DR;
 	@Override
 	public  MyGdxGame(MainGame game, Textures t, SpriteBatch batch, Music music, String worldName) {
@@ -73,13 +80,30 @@ public class MyGdxGame implements Screen {
 			World.load(worldName);
 		}
 	}
+	public void setCameraZoom(double zoom){
+		camera.resize((int)(Gdx.graphics.getWidth() * zoom));
+		cameraZoom = zoom;
+	}
+	public void setCameraZoom(float zoom, float sec){
+		isCameraScaling = true;
+		cameraScale = zoom;
+		cameraScaleSec = sec;
+		altCameraZoom = cameraZoom;
+	}
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-
+		if(isCameraScaling){
+			double temp = (cameraScale - altCameraZoom) * delta / cameraScaleSec;
+			setCameraZoom(cameraZoom + temp);
+			if((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)){
+				isCameraScaling = false;
+				setCameraZoom(cameraScale);
+			}
+		}
 		camera.update(batch);
 
 		BLOCKS.interfacesUpdate(World.maps, World.pl, GI.interfaceCamera);
@@ -102,7 +126,8 @@ public class MyGdxGame implements Screen {
 				  "\n InventorySlots:" + World.pl.Inventory.size() +
 				  "\n InventoryTab:" + GI.inv.inventoryInterface.currentTabInv + 
 				  "\n PlayerSpeed:" + World.pl.playerSpeed * 100 + "%"+
-				  "\n PlayerHotbarSlot_0:" + World.pl.hotbar[0]: "");
+				  "\n PlayerHotbarSlot_0:" + World.pl.hotbar[0] + 
+				  "\n CameraScale:" + cameraZoom: "");
 		BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
 	    GI.update(World.pl);
 		World.update(mods, achievements);

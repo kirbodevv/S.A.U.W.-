@@ -274,8 +274,16 @@ public class Player implements ExtraData {
 			b.draw(currentFrame, this.posX, this.posY, plW, plH);
 		}
 	}
-	public void update(World world, Achievements a) {
+	public void update(World world, Achievements a, Camera2D cam) {
 		if (!isDead) {
+			cam.setCameraZoom(1.25f, 2);
+			for(int y = mY - 3; y < mY + 3; y++){
+				for(int x = mX - 3; x < mX + 3; x++){
+					if(world.maps.map0[y][x][0].id == 15){
+						cam.setCameraZoom(0.75f, 2);
+					}
+				}
+			}
 			stateTime += Gdx.graphics.getDeltaTime();
 			if (GI.j.isTouched()) {
 				if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {

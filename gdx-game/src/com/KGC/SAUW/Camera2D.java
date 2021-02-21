@@ -9,8 +9,32 @@ public class Camera2D{
 
     public OrthographicCamera CAMERA;
     public int SIZE,X,Y,ANGLE,W,H;
-
+	
+	private boolean isCameraScaling = false;
+	private float cameraScale = 0;
+	private float cameraScaleSec = 0;
+	public double cameraZoom = 1f;
+	private double altCameraZoom;
+	
+	public void setCameraZoom(double zoom){
+		resize((int)(Gdx.graphics.getWidth() * zoom));
+		cameraZoom = zoom;
+	}
+	public void setCameraZoom(float zoom, float sec){
+		isCameraScaling = true;
+		cameraScale = zoom;
+		cameraScaleSec = sec;
+		altCameraZoom = cameraZoom;
+	}
     public void update(SpriteBatch b){
+		if(isCameraScaling){
+			double temp = (cameraScale - altCameraZoom) * Gdx.graphics.getRawDeltaTime() / cameraScaleSec;
+			setCameraZoom(cameraZoom + temp);
+			if((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)){
+				isCameraScaling = false;
+				setCameraZoom(cameraScale);
+			}
+		}
         CAMERA.update();
         b.setProjectionMatrix(CAMERA.combined);
     }

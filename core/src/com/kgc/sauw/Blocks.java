@@ -394,11 +394,11 @@ public class Blocks {
 		return null;
 	}
     public void interfacesUpdate(Maps maps, Player pl, Camera2D cam) {
-		for (int i = 0; i < maps.map0.length; i++) {
-			for (int j = 0; j < maps.map0[i].length; j++) {
-				for (int l=0; l < maps.map0[i][j].length; l++) {
-					if (maps.map0[i][j][l].TileEntity != null && maps.map0[i][j][l].Interface != null) {
-						maps.map0[i][j][l].Interface.update(pl, cam);
+		for (int y = 0; y < maps.map0.length; y++) {
+			for (int x = 0; x < maps.map0[y].length; x++) {
+				for (int z = 0; z < maps.map0[y][x].length; z++) {
+					if (maps.map0[y][x][z].TileEntity != null && maps.map0[y][x][z].Interface != null) {
+						maps.map0[y][x][z].Interface.update(pl, cam);
 					}
 				}
 			}

@@ -1,8 +1,5 @@
 package com.kgc.sauw;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.InventorySlot;
-import com.kgc.sauw.Maps;
-import com.kgc.sauw.Textures;
 import com.kgc.sauw.mobs.ItemMob;
 import com.kgc.sauw.mobs.Mobs;
 import com.badlogic.gdx.Gdx;

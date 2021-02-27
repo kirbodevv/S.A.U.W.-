@@ -53,21 +53,22 @@ public class World {
 	public void save(String WorldName) {
 		this.WorldName = WorldName;
 		FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds/" + WorldName);
+		FileHandle map = Gdx.files.external(worldFolder + "/map");
 
-		File map = new File(worldFolder.toString() + "/map");
-		File mapFile = new File(map.toString() + "/map.bdb");
-		File player = new File(worldFolder.toString() + "/player.bdb");
-		File mobs = new File(worldFolder.toString() + "/mobs.bdb");
 		if (!worldFolder.exists()) worldFolder.mkdirs();
-		if (!map.exists()) map.mkdir();
+		if (!map.exists()) map.mkdirs();
+
 		try {
-			if (!mapFile.exists()) mapFile.createNewFile();
-			if (!player.exists()) player.createNewFile();
-			if (!mobs.exists()) mobs.createNewFile();
-			FileHandle mapFile1 = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
+
+			FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
 			FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
 			FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
 			FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
+
+			if(!mapFile.exists()) mapFile.file().createNewFile();
+			if(!worldData.exists()) worldData.file().createNewFile();
+			if(!playerFile.exists()) playerFile.file().createNewFile();
+			if(!mapFile.exists()) mobsFile.file().createNewFile();
 
 			DataBuffer playerBuffer = new DataBuffer();
 			DataBuffer worldDataBuffer = new DataBuffer();
@@ -79,7 +80,7 @@ public class World {
 			playerFile.writeBytes(playerBuffer.toBytes(), false);
 			mobsFile.writeBytes(this.mobs.getBytes(), false);
 			worldData.writeBytes(worldDataBuffer.toBytes(), false);
-			mapFile1.writeBytes(maps.toDataBuffer().toBytes(), false);
+			mapFile.writeBytes(maps.toDataBuffer().toBytes(), false);
 		}
 		catch (Exception e) {
 			Gdx.app.log("saveError", e.toString());
@@ -98,20 +99,16 @@ public class World {
 		try {
 			pl.data.put("lastWorld", WorldName);
 			pl.saveData();
-		}
-		catch (Exception e) {
-
-		}
+		} catch (Exception e) {}
 		FileHandle worldFolder = Gdx.files.external("/S.A.U.W./Worlds/" + WorldName);
 		if (worldFolder.exists()) {
-			File mapFile = new File(worldFolder + "/map/map.bdb");
+			FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
+			FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
+			FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
+			FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
 			if (mapFile.exists()) {
-				FileHandle mapFile1 = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
-				FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
-				FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
-				FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
 				DataBuffer buffer = new DataBuffer();
-				buffer.readBytes(mapFile1.readBytes());
+				buffer.readBytes(mapFile.readBytes());
 				int[] map = buffer.getIntArray("mapIds");
 				int[] mapDmg = buffer.getIntArray("mapDamage");
 				Tile.TileEntityFactory TEF = new Tile.TileEntityFactory(blocks);

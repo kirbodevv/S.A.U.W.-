@@ -21,7 +21,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.intbyte.bdb.DataBuffer;
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -42,7 +41,7 @@ public class World {
 	private boolean worldTouched;
 	public Time WorldTime;
 
-	//public com.badlogic.gdx.physics.box2d.World world;
+	public com.badlogic.gdx.physics.box2d.World world;
 	public RayHandler RayHandler;
 	public Player pl;
 	public Mobs mobs;
@@ -91,9 +90,7 @@ public class World {
 			save(WorldName);
 		}
 	}
-	public void createNewWorld() {
-		maps.generateWorld(this, items);
-	}
+	public void createNewWorld() { maps.generateWorld(this, items);}
 	public void load(String WorldName) {
 		this.WorldName = WorldName;
 		try {
@@ -208,12 +205,12 @@ public class World {
 	}
 	public void createWorld() {
 		this.WorldTime = new Time();
-		//world = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, 0), false);
-		/*RayHandler = new RayHandler(world);
+		world = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, 0), false);
+		RayHandler = new RayHandler(world);
 		RayHandler.setAmbientLight(1, 1, 1, 1);
-		RayHandler.useDiffuseLight(true);*/
+		RayHandler.useDiffuseLight(true);
 	}
-	/*public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
+	public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = type;
 		bodyDef.position.set(posX + boxW / 2.f, posY + boxH / 2.f);
@@ -231,12 +228,12 @@ public class World {
 		shape.dispose();
 
 		return body;
-	}*/
+	}
 	public boolean setBlock(int x, int y, int z, Block block) {
 		if (x >= 0 && x < maps.map0[0].length + 1 && y >= 0 && y < maps.map0.length + 1) {
 			Tile tile = new Tile(blocks);
 			tile.createTile(x, y, z, block);
-			//if (maps.map0[y][x][z] != null && maps.map0[y][x][z].body != null)  world.destroyBody(maps.map0[y][x][z].body);
+			if (maps.map0[y][x][z] != null && maps.map0[y][x][z].body != null)  world.destroyBody(maps.map0[y][x][z].body);
 			maps.map0[y][x][z] = tile;
 			setBodyAndLight(x, y, z, tile, block);
 			return true;
@@ -244,11 +241,11 @@ public class World {
 		return false;
 	}
 	public void setBodyAndLight(int x, int y, int z, Tile tile, Block block) {
-		//if (block.id != 4 && z == 0) tile.setBody(createBox(tile.block.x, tile.block.y, tile.block.width, tile.block.height, BodyDef.BodyType.StaticBody));
+		if (block.id != 4 && z == 0) tile.setBody(createBox(tile.block.x, tile.block.y, tile.block.width, tile.block.height, BodyDef.BodyType.StaticBody));
 		if (z == 0) tile.setLight(RayHandler, block);
 	}
 	public boolean setBlock(Tile tile) {
-		//if (maps.map0[tile.y][tile.x][tile.z] != null && maps.map0[tile.y][tile.x][tile.z].body != null)  world.destroyBody(maps.map0[tile.y][tile.x][tile.z].body);
+		if (maps.map0[tile.y][tile.x][tile.z] != null && maps.map0[tile.y][tile.x][tile.z].body != null)  world.destroyBody(maps.map0[tile.y][tile.x][tile.z].body);
 		maps.map0[tile.y][tile.x][tile.z] = tile;
 		setBodyAndLight(tile.x, tile.y, tile.z, tile, blocks.getBlockById(tile.id));
 		return true;
@@ -343,12 +340,12 @@ public class World {
 	public void renderHighLayer() {
 		render(true);
 		b.end();
-		/*if (GI != null && !GI.isInterfaceOpen) {
+		if (GI != null && !GI.isInterfaceOpen) {
 			float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
 			RayHandler.setAmbientLight(AL, AL, AL, 1);
 			RayHandler.setCombinedMatrix(cam.CAMERA.combined);
 			RayHandler.updateAndRender();
-		}*/
+		}
 		b.begin();
 	}
 	public void render(boolean isHighestLayer) {

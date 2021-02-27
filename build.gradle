@@ -48,6 +48,7 @@ project(":desktop") {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         
     }
 }
@@ -74,9 +75,9 @@ project(":core") {
     dependencies {
         implementation name: 'bdb5'
         implementation name: 'rhino'
-        implementation name: 'gdx-box2d'
         implementation name: 'box2dlights'
         implementation 'org.json:json:20171018'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
     }
 }

@@ -31,7 +31,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 	public int type;
 	public int damage;
 	public int biomId = 0;
-	private int instrumenType;
+	private int instrumentType;
 	private Blocks blocks;
 	public Block.TileEntity TileEntity = null;
 	Interface Interface = null;
@@ -97,7 +97,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 			this.TileEntity.initialize(this);
 		}
 		damage = bl.getMaxDamage();
-		instrumenType = bl.IT;
+		instrumentType = bl.IT;
 
 	}
 	public void setBody(Body body) {
@@ -141,7 +141,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 		return null;
 	}
 	public int hit(int IT) {
-		if (IT == instrumenType) {
+		if (IT == instrumentType) {
 			damage -= 1;
 			return 1;
 		} else {

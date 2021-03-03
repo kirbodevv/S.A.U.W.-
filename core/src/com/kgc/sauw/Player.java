@@ -265,8 +265,10 @@ public class Player implements ExtraData {
 			cam.setCameraZoom(1.25f, 2);
 			for(int y = mY - 3; y < mY + 3; y++){
 				for(int x = mX - 3; x < mX + 3; x++){
-					if(world.maps.map0[y][x][0].id == 15){
-						cam.setCameraZoom(0.75f, 2);
+					if(y > 0 && y < maps.map0.length && x > 0 && x < maps.map0[0].length) {
+						if (world.maps.map0[y][x][0].id == 15) {
+							cam.setCameraZoom(0.75f, 10);
+						}
 					}
 				}
 			}

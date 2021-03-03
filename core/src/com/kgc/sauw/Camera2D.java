@@ -13,23 +13,26 @@ public class Camera2D{
 	private boolean isCameraScaling = false;
 	private float cameraScale = 0;
 	private float cameraScaleSec = 0;
-	public double cameraZoom = 1f;
-	private double altCameraZoom;
+	public float cameraZoom = 1f;
+	private float altCameraZoom;
 	
-	public void setCameraZoom(double zoom){
-		resize((int)(Gdx.graphics.getWidth() * zoom));
+	public void setCameraZoom(float zoom){
+		CAMERA.zoom = zoom;
 		cameraZoom = zoom;
 	}
 	public void setCameraZoom(float zoom, float sec){
-		isCameraScaling = true;
+		/*isCameraScaling = true;
 		cameraScale = zoom;
-		cameraScaleSec = sec;
-		altCameraZoom = cameraZoom;
+		cameraScaleSec = sec / 10;
+		altCameraZoom = cameraZoom;*/
+        CAMERA.zoom = zoom;
 	}
     public void update(SpriteBatch b){
 		if(isCameraScaling){
-			double temp = (cameraScale - altCameraZoom) * Gdx.graphics.getRawDeltaTime() / cameraScaleSec;
+			float temp = (cameraScale - altCameraZoom) / cameraScaleSec * Gdx.graphics.getRawDeltaTime();
 			setCameraZoom(cameraZoom + temp);
+			Gdx.app.log("temp", temp + "");
+            Gdx.app.log("d", Gdx.graphics.getRawDeltaTime() + "");
 			if((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)){
 				isCameraScaling = false;
 				setCameraZoom(cameraScale);

@@ -273,7 +273,7 @@ public class World {
 		return -1;
 	}
 	public void update(Mods mods, Achievements a) {
-		//world.step(4f, 6, 2);
+		world.step(4f, 6, 2);
 		pl.update(this, a, cam);
 		mobs.update();
 		maps.update(cam, GI, pl, this, blocks, mobs, items);

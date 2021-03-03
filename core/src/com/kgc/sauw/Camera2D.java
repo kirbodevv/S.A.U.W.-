@@ -17,15 +17,14 @@ public class Camera2D{
 	private float altCameraZoom;
 	
 	public void setCameraZoom(float zoom){
-		CAMERA.zoom = zoom;
+		resize((int)(Gdx.graphics.getWidth() * zoom));
 		cameraZoom = zoom;
 	}
 	public void setCameraZoom(float zoom, float sec){
-		/*isCameraScaling = true;
+		isCameraScaling = true;
 		cameraScale = zoom;
 		cameraScaleSec = sec / 10;
-		altCameraZoom = cameraZoom;*/
-        CAMERA.zoom = zoom;
+		altCameraZoom = cameraZoom;
 	}
     public void update(SpriteBatch b){
 		if(isCameraScaling){

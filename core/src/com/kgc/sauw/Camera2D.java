@@ -30,8 +30,6 @@ public class Camera2D{
 		if(isCameraScaling){
 			float temp = (cameraScale - altCameraZoom) / cameraScaleSec * Gdx.graphics.getRawDeltaTime();
 			setCameraZoom(cameraZoom + temp);
-			Gdx.app.log("temp", temp + "");
-            Gdx.app.log("d", Gdx.graphics.getRawDeltaTime() + "");
 			if((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)){
 				isCameraScaling = false;
 				setCameraZoom(cameraScale);

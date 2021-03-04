@@ -15,7 +15,7 @@ public class Block
 	private int w = Gdx.graphics.getWidth();
 	public Rectangle collisionsRect = new Rectangle(0, 0, w / 16, w / 16);
 	public int lightingRadius = -1;
-	public int lightingColor;
+	public Color lightingColor;
 	public static abstract class TileEntity {
 		public void interfaceInitializate(){
 			
@@ -56,7 +56,7 @@ public class Block
 	public void setLightingRadius(int r){
 		this.lightingRadius = r;
 	}
-	public void setLightingColor(int color){
+	public void setLightingColor(Color color){
 		lightingColor = color;
 	}
 	public Block(int id, Texture t0){

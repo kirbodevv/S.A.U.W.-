@@ -210,7 +210,7 @@ public class World {
 		RayHandler.setAmbientLight(1, 1, 1, 1);
 		RayHandler.useDiffuseLight(true);
 	}
-	public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
+	public Body createBox(int posX, int posY, int boxW, int boxH, BodyDef.BodyType type) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = type;
 		bodyDef.position.set(posX + boxW / 2.f, posY + boxH / 2.f);
@@ -241,7 +241,7 @@ public class World {
 		return false;
 	}
 	public void setBodyAndLight(int x, int y, int z, Tile tile, Block block) {
-		if (block.id != 4 && z == 0) tile.setBody(createBox(tile.block.x, tile.block.y, tile.block.width, tile.block.height, BodyDef.BodyType.StaticBody));
+		if (block.id != 4 && z == 0) tile.setBody(createBox((int)tile.block.x, (int)tile.block.y, (int)tile.block.width, (int)tile.block.height, BodyDef.BodyType.StaticBody));
 		if (z == 0) tile.setLight(RayHandler, block);
 	}
 	public boolean setBlock(Tile tile) {

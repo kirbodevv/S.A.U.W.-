@@ -38,7 +38,7 @@ public class MyGdxGame implements Screen {
 	MainGame game;
 	Music music;
 	
-	//Box2DDebugRenderer DR;
+	Box2DDebugRenderer DR;
 
 	public MyGdxGame(MainGame game, Textures t, SpriteBatch batch, Music music, String worldName) {
 		this.game = game;
@@ -58,7 +58,7 @@ public class MyGdxGame implements Screen {
 		BLOCKS = new Blocks(Textures, langs);
 		World = new World(batch, Textures, ITEMS, camera, BLOCKS , GI, settings);
 		BLOCKS.setItems(ITEMS);
-        //DR = new Box2DDebugRenderer();
+        DR = new Box2DDebugRenderer();
 		this.music = music;
 		music.w = World;
 		music.settings = settings;
@@ -92,7 +92,7 @@ public class MyGdxGame implements Screen {
 		World.renderHighLayer();
 		if (GI.isInterfaceOpen) batch.setColor(1, 1, 1, 1);
 		batch.end();
-		//if (settings.debugRenderer) DR.render(World.world, camera.CAMERA.combined);
+		if (settings.debugRenderer) DR.render(World.world, camera.CAMERA.combined);
 		batch.begin();
 		GI.render(World.pl, (settings.debugMode) ? 
 				  " FPS:" + Gdx.graphics.getFramesPerSecond() + 

@@ -1,4 +1,5 @@
 package com.kgc.sauw;
+import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.InterfaceAPI.Interface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -88,10 +89,9 @@ public class Blocks {
         getBlockById(16).IT = 3;
 		
 		getBlockById(11).setLightingRadius(2);
-		getBlockById(11).setLightingColor(0xd77d00);
+		getBlockById(11).setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
 		getBlockById(15).setLightingRadius(4);
-		getBlockById(15).setLightingColor(0xd77d00);
-		//getBlockById(15).setLightingColor(0xFEBE17);
+		getBlockById(15).setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
 		
 		getBlockById(6).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
 		getBlockById(17).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);

@@ -105,7 +105,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 	}
     public void setLight(RayHandler rh, Block bl) {
 		if (bl.lightingRadius != -1) {
-			PL = new PointLight(rh, 100, new Color(bl.lightingColor), bl.lightingRadius * WIDTH / 16, x * WIDTH / 16 + WIDTH / 32, y * WIDTH / 16 + WIDTH / 32);
+			PL = new PointLight(rh, 100, bl.lightingColor, bl.lightingRadius * WIDTH / 16, x * WIDTH / 16 + WIDTH / 32, y * WIDTH / 16 + WIDTH / 32);
 		    PL.attachToBody(body);
 		}
 	}

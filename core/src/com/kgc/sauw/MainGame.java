@@ -4,7 +4,6 @@ import com.kgc.sauw.screen.MenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import java.io.File;
 
 public class MainGame extends Game {
     public int keyboardHeight = 0;
@@ -22,6 +21,7 @@ public class MainGame extends Game {
 
     	FileHandle userData = Gdx.files.external("S.A.U.W./User/data.json");
 		FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
+
 		if(!ModsFolder.exists())
 			ModsFolder.mkdirs();
 		if(!ScreenshotsFolder.exists())
@@ -37,11 +37,6 @@ public class MainGame extends Game {
 	}
 	@Override
 	public void render() {
-		//try {
-			super.render();
-		/*} catch (Exception e) {
-			writeLogToFile(e.toString());
-			Gdx.app.exit();
-		}*/
+    	super.render();
 	}
 }

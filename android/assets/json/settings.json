@@ -1,5 +1,6 @@
 {
-    "debug" : true,
+    "debug":true,
+    "debugRenderer":true,
     "lang":"en",
     "console":{
         "textColor":{

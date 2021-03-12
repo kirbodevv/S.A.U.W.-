@@ -76,7 +76,6 @@ public class Player implements ExtraData {
 	AchievementsChecker AC = new AchievementsChecker();
 	private Maps maps;
 
-	//public int acX,acY;
 	TextureRegion[] walkFrames;
 	TextureRegion currentFrame;
 	GameInterface GI;
@@ -89,15 +88,8 @@ public class Player implements ExtraData {
 	private Settings settings;
 
 	Rectangle player;
-	Rectangle posWithAcX = new Rectangle();
-	Rectangle posWithAcY = new Rectangle();
     Vector2i velocity = new Vector2i(0, 0);
-	/*public int getFirstFreeSlot() {
-	 for (int i = 0; i < Inventory.s; i++) {
-	 if (Inventory[i].id == 0) return i;
-	 }
-	 return -1;
-	 }*/
+
 	public int getCountOfItems(int id) {
 		int count = 0;
 		for (int i = 0; i < Inventory.size(); i++) {
@@ -127,13 +119,6 @@ public class Player implements ExtraData {
 		}
 		return -1;
 	}
-	/*public boolean isSlotFree(int slot) {
-	 if (Inventory[slot].id == 0) {
-	 return true;
-	 } else {
-	 return false;
-	 }
-	 }*/
 	public void hit(int damage) {
 		health -= damage;
 		if (health <= 0) kill();
@@ -226,8 +211,6 @@ public class Player implements ExtraData {
 		this.settings = settings;
 	    this.player = new Rectangle();
 		this.player.setSize(plW, plH);
-		posWithAcX.setSize(plW, plH);
-		posWithAcY.setSize(plW, plH);
 		for (int i = 0; i < hotbar.length; i++) {
 			this.hotbar[i] = -1;
 		}

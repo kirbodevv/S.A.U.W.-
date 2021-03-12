@@ -1,5 +1,6 @@
 package com.kgc.sauw;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.mobs.ItemMob;
 import com.kgc.sauw.mobs.Mobs;
 import com.badlogic.gdx.Gdx;
@@ -70,6 +71,7 @@ public class Player implements ExtraData {
 	Animation walkU;
 	Animation walkD;
 
+	public Body body;
 
 	AchievementsChecker AC = new AchievementsChecker();
 	private Maps maps;
@@ -257,7 +259,7 @@ public class Player implements ExtraData {
 	}
 	public void render(SpriteBatch b, Textures t) {
 		if (!isDead) {
-			b.draw(currentFrame, this.posX, this.posY, plW, plH);
+			b.draw(currentFrame, body.getPosition().x - plW / 2, body.getPosition().y - plH / 2, plW, plH);
 		}
 	}
 	public void update(World world, Achievements a, Camera2D cam) {
@@ -303,18 +305,18 @@ public class Player implements ExtraData {
 				weight += slot.count * Items.getItemById(slot.id).weight;
 			}
 			playerSpeed = 1.0f - ((weight * 1.66f) / 100);
-			mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
-			mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
 			if(playerSpeed < 0) playerSpeed = 0;
+
 			velocity.x = (int)(GI.j.normD().x * (playerSpeed * normalPlayerSpeed));
 			velocity.y = (int)(GI.j.normD().y * (playerSpeed * normalPlayerSpeed));
-			posWithAcX.setPosition((float)(player.x + velocity.x), player.y);
-			posWithAcY.setPosition(player.x, (float)(player.y + velocity.y));
-			CWB.getCollisionWithBlocks(player, posWithAcX, posWithAcY, velocity, maps);
-			player.x += velocity.x;
-			player.y += velocity.y;
-			posX = (int)player.x;
-			posY = (int)player.y;
+
+			body.setLinearVelocity(velocity.x, velocity.y);
+
+			posX = (int)body.getPosition().x;
+			posY = (int)body.getPosition().y;
+			mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
+			mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
+
 			player.setPosition(posX, posY);
 		    velocity.x = 0;
 			velocity.y = 0;

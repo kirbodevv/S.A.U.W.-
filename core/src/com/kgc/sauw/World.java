@@ -193,6 +193,8 @@ public class World {
 		createWorld();
 		mobs = new Mobs(b, maps, Textures, items);
 		pl = new Player(i, Textures, GI, mobs, maps, s);
+		pl.body = createBox(pl.posX, pl.posY, pl.plW, pl.plH, BodyDef.BodyType.DynamicBody);
+		pl.body.setFixedRotation(true);
 	}
 	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks) {
 		this.Textures = t;

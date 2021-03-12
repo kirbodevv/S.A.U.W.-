@@ -233,7 +233,7 @@ public class Textures {
 		stone      = new Texture(Gdx.files.internal("Blocks/stone.png"));
 		snow       = new Texture(Gdx.files.internal("Blocks/snow.png"));
 		stone_1    = new Texture(Gdx.files.internal("Blocks/stone_1.png"));
-		grass0     = new Texture(Gdx.files.internal("Blocks/grass_0.png"));
+		grass0     = new Texture(Gdx.files.internal("Blocks/grass_1.png"));
 		door       = new Texture(Gdx.files.internal("Blocks/door_0.png"));
 		chest      = new Texture(Gdx.files.internal("Blocks/chest.png"));
 		tree       = new Texture(Gdx.files.internal("Blocks/tree.png"));

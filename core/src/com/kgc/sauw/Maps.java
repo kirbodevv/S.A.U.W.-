@@ -15,11 +15,11 @@ public class Maps {
 		Random r = new Random();
 		for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
-				w.setBlock(j, i, 1, 18);
+				w.setBlock(j, i, 1, 1);
 				w.setBlock(j, i, 2, 2);
 				w.setBlock(j, i, 0, 4);
 				if(r.nextInt(75) == 0){
-					w.setBlock(j, i, 0, 17);
+					w.setBlock(j, i, 0, 6);
 				} else if(r.nextInt(75) == 0){
 					w.setBlock(j, i, 0, 10);
 				} else if(r.nextInt(75) == 0){

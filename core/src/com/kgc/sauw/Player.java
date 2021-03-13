@@ -89,7 +89,7 @@ public class Player implements ExtraData {
     TextureRegion[] walkFrames;
     TextureRegion currentFrame;
     GameInterface GI;
-    public final float normalPlayerSpeed = w / 8;
+    public final float normalPlayerSpeed = w / 16;
     float playerSpeed = 1.0f;
     int rot = 0;
     float stateTime;
@@ -339,10 +339,9 @@ public class Player implements ExtraData {
                     velX = 1;
                 }
             }
-            velocity.x = (int) (velX * (playerSpeed * normalPlayerSpeed));
-            velocity.y = (int) (velY * (playerSpeed * normalPlayerSpeed));
-
-            body.setLinearVelocity(velocity.x * 1000, velocity.y * 1000);
+            velocity.x = (int) (velX * (playerSpeed));
+            velocity.y = (int) (velY * (playerSpeed));
+            body.setLinearVelocity(velocity.x * normalPlayerSpeed * 2, velocity.y * normalPlayerSpeed * 2);
 
             posX = body.getPosition().x - playerBodyW / 2;
             posY = body.getPosition().y - playerBodyH / 2;

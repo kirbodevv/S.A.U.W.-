@@ -298,7 +298,7 @@ public class World {
     }
 
     public void update(Mods mods, Achievements a) {
-        world.step(1f, 6, 2);
+        world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         pl.update(this, a, cam);
         mobs.update();
         maps.update(cam, GI, pl, this, blocks, mobs, items);

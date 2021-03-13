@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.width = 1280;
 		config.height = 720;
 		config.title = "S.A.U.W.";
+		//config.foregroundFPS = 30;
 		final MainGame game = new MainGame();
 		new LwjglApplication(game, config);
 	}

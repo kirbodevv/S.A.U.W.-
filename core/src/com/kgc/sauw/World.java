@@ -225,7 +225,7 @@ public class World {
         RayHandler.useDiffuseLight(true);
     }
 
-    public Body createBox(int posX, int posY, int boxW, int boxH, BodyDef.BodyType type) {
+    public Body createBox(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = type;
         bodyDef.position.set(posX + boxW / 2.f, posY + boxH / 2.f);
@@ -298,7 +298,7 @@ public class World {
     }
 
     public void update(Mods mods, Achievements a) {
-        world.step(4f, 6, 2);
+        world.step(1f, 6, 2);
         pl.update(this, a, cam);
         mobs.update();
         maps.update(cam, GI, pl, this, blocks, mobs, items);
@@ -322,7 +322,7 @@ public class World {
                 int bX = (cX - (cX % (WIDTH / 16))) / (WIDTH / 16);
                 int bY = (cY - (cY % (WIDTH / 16))) / (WIDTH / 16);
                 mods.HookFunction("itemClick", new Object[]{bX, bY, (maps.map0[bY][bX][1].id != 4) ? 1 : 0, maps.map0[bY][bX][(maps.map0[bY][bX][1].id != 4) ? 1 : 0].id, pl.getCarriedItem()});
-                if (Maths.distanceD(pl.posX, pl.posY, bX * WIDTH / 16, bY * WIDTH / 16) <= 1.7 * WIDTH / 16) {
+                if (Maths.distanceD((int)pl.posX, (int)pl.posY, bX * WIDTH / 16, bY * WIDTH / 16) <= 1.7 * WIDTH / 16) {
                     if (pl.getCarriedItem().type == 1) {
                         if (setBlock(bX, bY, pl.getCarriedItem().blockId)) {
                             pl.Inventory.get(pl.hotbar[pl.carriedSlot]).count -= 1;
@@ -378,18 +378,18 @@ public class World {
         b.begin();
     }
     public void renderEntitys() {
+        if (mobs != null) {
+            mobs.render(cam);
+        }
         if (pl != null) {
-            pl.render(b, Textures);
+            pl.render(b, Textures, WorldTime);
             for (int y = pl.mY; y > 0; y--) {
                 if (maps.map0[y][pl.mX][0].id != 4) {
-                    if (pl.mY - y <= blocks.getBlockById(maps.map0[y][pl.mX][0].id).getSize().y &&  pl.body.getPosition().y + pl.playerBodyH / 2 >= maps.map0[y][pl.mX][0].block.y) {
+                    if (pl.mY - y <= blocks.getBlockById(maps.map0[y][pl.mX][0].id).getSize().y && pl.body.getPosition().y + pl.playerBodyH / 2 >= maps.map0[y][pl.mX][0].block.y) {
                         renderBlock(pl.mX, y, true);
                     }
                 }
             }
-        }
-        if (mobs != null) {
-            mobs.render(cam);
         }
     }
 

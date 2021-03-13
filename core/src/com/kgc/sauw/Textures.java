@@ -79,6 +79,7 @@ public class Textures {
 	public Texture campfire;
 	public Texture campfire_animation;
 	public Texture player_inv;
+	public Texture shadow;
 	public Textures() {
 
 	}
@@ -216,7 +217,8 @@ public class Textures {
 		
 		player     = new Texture(Gdx.files.internal("Entity/player.png"));
 		player_inv = new Texture(Gdx.files.internal("Entity/player_inv.png"));
-		
+		shadow     = new Texture(Gdx.files.internal("Entity/shadow.png"));
+
 		wall0  = new Texture(Gdx.files.internal("Blocks/walls/wall_0.png"));
 		wall1  = new Texture(Gdx.files.internal("Blocks/walls/wall_1.png"));
 		wall2  = new Texture(Gdx.files.internal("Blocks/walls/wall_2.png"));
@@ -295,6 +297,7 @@ public class Textures {
 		apple           = new Texture(Gdx.files.internal("Items/apple.png"));
 	}
 	public void dispose() {
+		shadow.dispose();
 		j_0.dispose();
 		j_1.dispose();
 		button_0.dispose();

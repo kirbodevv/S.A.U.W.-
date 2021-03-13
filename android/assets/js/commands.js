@@ -13,3 +13,6 @@ function saveWorld(worldName){
 function screenshot(screenshotName){
 	World.screenshot(screenshotName);
 }
+function setTime(time){
+    World.WorldTime.setTime(time);
+}

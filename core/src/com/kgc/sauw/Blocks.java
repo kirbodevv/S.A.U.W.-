@@ -94,10 +94,11 @@ public class Blocks {
 		getBlockById(15).setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
 		
 		getBlockById(6).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
+		getBlockById(9).setCollisionsRectangleByPixels(0, 0, 32, 8, 32);
 		getBlockById(10).setCollisionsRectangleByPixels(0, 0, 32, 8, 32);
         getBlockById(11).setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
 	    getBlockById(13).setCollisionsRectangleByPixels(15, 0, 4, 4, 32);
-	    getBlockById(15).setCollisionsRectangleByPixels(6, 2, 22, 10, 32);
+	    getBlockById(15).setCollisionsRectangleByPixels(8, 2, 18, 10, 32);
 		getBlockById(17).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
 	}
 	public void setItems(Items items) {

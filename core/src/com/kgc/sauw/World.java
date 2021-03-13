@@ -193,7 +193,7 @@ public class World {
 		createWorld();
 		mobs = new Mobs(b, maps, Textures, items);
 		pl = new Player(i, Textures, GI, mobs, maps, s);
-		pl.body = createBox(pl.posX, pl.posY, pl.plW, pl.plH, BodyDef.BodyType.DynamicBody);
+		pl.body = createBox(pl.posX, pl.posY, pl.plW, pl.plH / 4, BodyDef.BodyType.DynamicBody);
 		pl.body.setFixedRotation(true);
 	}
 	public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks) {
@@ -350,39 +350,54 @@ public class World {
 		}
 		b.begin();
 	}
-	public void render(boolean isHighestLayer) {
-		if (pl != null && mobs != null && isHighestLayer) {
-			mobs.render(cam);
+	public void renderEntitys(){
+		if (pl != null) {
 			pl.render(b, Textures);
-		}
-		for (int y = maps.map0.length - 1; y >= 0; y--) {
-			for (int x = 0; x < maps.map0[y].length; x++) {
-				int z = getHighestBlock(x, y);
-				if (z != -1)
-					if (Maths.rectCrossing(cam.X, cam.Y, cam.W, cam.H, x * (WIDTH / 16), y * (WIDTH / 16), blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
-						if ((!isHighestLayer) || (isHighestLayer && z == 0)) {
-							if (z == 2 && ((GI != null) ? !GI.isInterfaceOpen : false)) {
-								b.setColor(0.7f, 0.7f, 0.7f, 1);
-							}
-							if (!isHighestLayer && z == 0 && blocks.getBlockById(maps.map0[y][x][z].id).getTranspanent()) {
-								z = z + 1;
-							}
-							if ((maps.map0[y][x][z].TileEntity == null || (maps.map0[y][x][z].TileEntity != null && maps.map0[y][x][z].TileEntity.renderIf(maps.map0[y][x][z])))) {
-								int w = blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16;
-								int h = blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16;
-								if (maps.map0[y][x][z].type == 0) {
-									b.draw(maps.map0[y][x][z].t, x * (WIDTH / 16) , y * (WIDTH / 16) , w, h);
-								} else if (maps.map0[y][x][z].type == 1) {
-									b.draw(getConnectingTexture(blocks.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16) , y * (WIDTH / 16) , w, h);
-								}
-							}
-							if (z == 2 && ((GI != null) ? !GI.isInterfaceOpen : false)) {
-								b.setColor(1, 1, 1, 1);
-							}
-						}
+			for(int y = pl.mY; y > 0; y--){
+				if(maps.map0[y][pl.mX][0].id != 4){
+					if(pl.mY - y + 1 <= blocks.getBlockById(maps.map0[y][pl.mX][0].id).getSize().y && maps.map0[y][pl.mX][0].body.getPosition().y < pl.body.getPosition().y){
+						renderBlock(pl.mX, y, true);
+						break;
 					}
+				}
 			}
 		}
+		if(mobs != null){
+			mobs.render(cam);
+		}
+	}
+	public void render(boolean isHighestLayer) {
+		for (int y = maps.map0.length - 1; y >= 0; y--) {
+			for (int x = 0; x < maps.map0[y].length; x++) {
+				renderBlock(x, y, isHighestLayer);
+			}
+		}
+	}
+	public void renderBlock(int x, int y, boolean isHighestLayer){
+		int z = getHighestBlock(x, y);
+		if (z != -1)
+			if (Maths.rectCrossing(cam.X, cam.Y, cam.W, cam.H, x * (WIDTH / 16), y * (WIDTH / 16), blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
+				if ((!isHighestLayer) || (isHighestLayer && z == 0)) {
+					if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
+						b.setColor(0.7f, 0.7f, 0.7f, 1);
+					}
+					if (!isHighestLayer && z == 0 && blocks.getBlockById(maps.map0[y][x][z].id).getTranspanent()) {
+						z = z + 1;
+					}
+					if ((maps.map0[y][x][z].TileEntity == null || (maps.map0[y][x][z].TileEntity != null && maps.map0[y][x][z].TileEntity.renderIf(maps.map0[y][x][z])))) {
+						int w = blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16;
+						int h = blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16;
+						if (maps.map0[y][x][z].type == 0) {
+							b.draw(maps.map0[y][x][z].t, x * (WIDTH / 16) , y * (WIDTH / 16) , w, h);
+						} else if (maps.map0[y][x][z].type == 1) {
+							b.draw(getConnectingTexture(blocks.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16) , y * (WIDTH / 16) , w, h);
+						}
+					}
+					if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
+						b.setColor(1, 1, 1, 1);
+					}
+				}
+			}
 	}
 	public Texture getConnectingTexture(Block bl, int uID, int rID, int dID, int lID) {
 		if (bl.id == uID && bl.id == dID && bl.id != lID && bl.id != rID) {

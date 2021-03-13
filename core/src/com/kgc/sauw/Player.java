@@ -242,7 +242,7 @@ public class Player implements ExtraData {
 	}
 	public void render(SpriteBatch b, Textures t) {
 		if (!isDead) {
-			b.draw(currentFrame, body.getPosition().x - plW / 2, body.getPosition().y - plH / 2, plW, plH);
+			b.draw(currentFrame, body.getPosition().x - plW / 2, body.getPosition().y - plH / 8, plW, plH);
 		}
 	}
 	public void update(World world, Achievements a, Camera2D cam) {
@@ -296,8 +296,9 @@ public class Player implements ExtraData {
 			body.setLinearVelocity(velocity.x, velocity.y);
 
 			posX = (int)body.getPosition().x;
-			posY = (int)body.getPosition().y;
-			mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
+			posY = (int)body.getPosition().y - plH / 8;
+			mX = (((posX + plW / 2) - ((posX
+					+ plW / 2) % (w / 16))) / (w / 16));
 			mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
 
 			player.setPosition(posX, posY);

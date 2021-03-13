@@ -88,8 +88,8 @@ public class MyGdxGame implements Screen {
 		batch.begin();
 		if (GI.isInterfaceOpen) batch.setColor(0.5f, 0.5f, 0.5f, 1);
 		World.renderLowLayer();
-
 		World.renderHighLayer();
+		World.renderEntitys();
 		if (GI.isInterfaceOpen) batch.setColor(1, 1, 1, 1);
 		batch.end();
 		if (settings.debugRenderer) DR.render(World.world, camera.CAMERA.combined);

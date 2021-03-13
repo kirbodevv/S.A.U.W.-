@@ -98,7 +98,7 @@ public class Player implements ExtraData {
     private Settings settings;
 
     Rectangle player;
-    Vector2i velocity = new Vector2i(0, 0);
+    Vector2d velocity = new Vector2d(0, 0);
 
     public int getCountOfItems(int id) {
         int count = 0;
@@ -289,21 +289,59 @@ public class Player implements ExtraData {
             if(!isCameraZooming){
                 cam.setCameraZoom(1.25f, 5);
             }
-            if (GI.j.isTouched()) {
-                if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {
-                    rot = 0;
-                    currentFrame = walkU.getKeyFrame(stateTime, true);
-                } else if (GI.j.angleI() < 225 && GI.j.angleI() > 135) {
-                    rot = 1;
-                    currentFrame = walkR.getKeyFrame(stateTime, true);
-                } else if (GI.j.angleI() > 45 && GI.j.angleI() < 135) {
-                    rot = 2;
-                    currentFrame = walkD.getKeyFrame(stateTime, true);
-                } else if (GI.j.angleI() < 45 || GI.j.angleI() > 315) {
-                    rot = 3;
-                    currentFrame = walkL.getKeyFrame(stateTime, true);
+
+            weight = 0.0f;
+            for (InventorySlot slot : Inventory) {
+                weight += slot.count * Items.getItemById(slot.id).weight;
+            }
+            playerSpeed = 1.0f - ((weight * 1.66f) / 100);
+            if (playerSpeed < 0) playerSpeed = 0;
+
+            double velX = 0;
+            double velY = 0;
+
+            if (Gdx.app.getType() == Application.ApplicationType.Android) {
+                velX = GI.j.normD().x;
+                velY = GI.j.normD().y;
+                if (GI.j.isTouched()) {
+                    if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {
+                        rot = 0;
+                    } else if (GI.j.angleI() < 225 && GI.j.angleI() > 135) {
+                        rot = 1;
+                    } else if (GI.j.angleI() > 45 && GI.j.angleI() < 135) {
+                        rot = 2;
+                    } else if (GI.j.angleI() < 45 || GI.j.angleI() > 315) {
+                        rot = 3;
+                    }
                 }
-            } else {
+            } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+                if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                    velY = 1;
+                    rot = 0;
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                    velY = -1;
+                    rot = 2;
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                    velX = -1;
+                    rot = 3;
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                    velX = 1;
+                    rot = 1;
+                }
+            }
+            if (rot == 0) {
+                currentFrame = walkU.getKeyFrame(stateTime, true);
+            } else if (rot == 1) {
+                currentFrame = walkR.getKeyFrame(stateTime, true);
+            } else if (rot == 2) {
+                currentFrame = walkD.getKeyFrame(stateTime, true);
+            } else if (rot == 3) {
+                currentFrame = walkL.getKeyFrame(stateTime, true);
+            }
+            if(velX == 0 && velY == 0){
                 if (rot == 0) {
                     currentFrame = walkFrames[9];
                 } else if (rot == 1) {
@@ -314,34 +352,9 @@ public class Player implements ExtraData {
                     currentFrame = walkFrames[1];
                 }
             }
-            weight = 0.0f;
-            for (InventorySlot slot : Inventory) {
-                weight += slot.count * Items.getItemById(slot.id).weight;
-            }
-            playerSpeed = 1.0f - ((weight * 1.66f) / 100);
-            if (playerSpeed < 0) playerSpeed = 0;
-            double velX = 0;
-            double velY = 0;
-            if (Gdx.app.getType() == Application.ApplicationType.Android) {
-                velX = GI.j.normD().x;
-                velY = GI.j.normD().y;
-            } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-                if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                    velY = 1;
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                    velY = -1;
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                    velX = -1;
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                    velX = 1;
-                }
-            }
-            velocity.x = (int) (velX * (playerSpeed));
-            velocity.y = (int) (velY * (playerSpeed));
-            body.setLinearVelocity(velocity.x * normalPlayerSpeed * 2, velocity.y * normalPlayerSpeed * 2);
+            velocity.x = (velX * (playerSpeed));
+            velocity.y = (velY * (playerSpeed));
+            body.setLinearVelocity((float)velocity.x * normalPlayerSpeed * 2, (float)velocity.y * normalPlayerSpeed * 2);
 
             posX = body.getPosition().x - playerBodyW / 2;
             posY = body.getPosition().y - playerBodyH / 2;
@@ -357,7 +370,7 @@ public class Player implements ExtraData {
                     Inventory.remove(i);
                 }
             }
-            if ((!settings.autopickup && GI.interactionButton.isTouched()) || settings.autopickup) {
+            if (settings.autopickup || (GI.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < mobs.mobs.size(); i++) {
                     if (mobs.mobs.get(i) instanceof ItemMob && Maths.distanceD((int) posX, (int) posY, mobs.mobs.get(i).posX, mobs.mobs.get(i).posY) < w / 32) {
                         ItemMob item = (ItemMob) mobs.mobs.get(i);

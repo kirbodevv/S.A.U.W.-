@@ -1,4 +1,5 @@
 package com.kgc.sauw.InterfaceAPI;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.Camera2D;
 import com.badlogic.gdx.Gdx;
@@ -18,7 +19,7 @@ public class EditText{
 	private boolean isTouched;
 	private Camera2D cam;
 	public boolean isKeyboardOpen = false;
-	public EditText(int x, int y, int w, int h, Camera2D cam){
+	public EditText(int x, int y, int w, int h, Camera2D cam, InputMultiplexer multiplexer){
 		int width = Gdx.graphics.getWidth();
 		this.backgroundTextutre = Textures.generateTexture(w / (width / 16), h / (width / 16), false);
 		this.X = x;
@@ -29,7 +30,7 @@ public class EditText{
 		BF = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 		BF.setColor(Color.BLACK);
 		BF.setScale(h / 2 / BF.getData().capHeight);
-		Gdx.input.setInputProcessor(new InputAdapter(){
+		multiplexer.addProcessor(new InputAdapter(){
 			@Override
 			public boolean keyTyped(char c){
 				//input += c;

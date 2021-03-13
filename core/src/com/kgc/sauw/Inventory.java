@@ -1,5 +1,6 @@
 package com.kgc.sauw;
 
+import com.badlogic.gdx.Application;
 import com.kgc.sauw.Camera2D;
 import com.kgc.sauw.InterfaceAPI.Button;
 import com.kgc.sauw.InterfaceAPI.Interface;
@@ -169,6 +170,9 @@ public class Inventory {
 	}
 	public void update(Player pl) {
 		inventoryInterface.update(pl, cam);
+		if(Gdx.app.getType() == Application.ApplicationType.Desktop){
+			openButton.hide(true);
+		}
 		if (!hided) {
 			openButton.update(cam);
 			if (Gdx.input.isTouched()) {

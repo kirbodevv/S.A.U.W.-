@@ -1,4 +1,5 @@
 package com.kgc.sauw;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +11,7 @@ public class Health {
 	Texture t1;
 	int w;
 	int h;
+	int x = 0;
 	boolean hided;
 	public void hide(boolean h) {
 		this.hided = h;
@@ -21,6 +23,11 @@ public class Health {
 		this.t1 = t1;
 		w = cam.W;
 		h = cam.H;
+		if(Gdx.app.getType() == Application.ApplicationType.Desktop){
+			x = 0;
+		} else if (Gdx.app.getType() == Application.ApplicationType.Android){
+			x = w / 16;
+		}
 	}
 	public void render(int currentHealth, int maxHealth) {
 		if (!hided) {
@@ -29,13 +36,13 @@ public class Health {
 			for (int i = 0; i < c1; i++) {
 				int num = (maxHealth % 10 != 0 && i == c1 - 1) ? maxHealth % 10 : 10;
 				for (int j = 0; j < num; j++) {
-					b.draw(t1, w / 16 + j * (w / 32) + cam.X, (h - (w / 32)) - i * (w / 32) + cam.Y, w / 32, w / 32);
+					b.draw(t1, x + j * (w / 32) + cam.X, (h - (w / 32)) - i * (w / 32) + cam.Y, w / 32, w / 32);
 				}
 			}
 			for (int i = 0; i < c2; i++) {
 				int num = (currentHealth % 10 != 0 && i == c2 - 1) ? currentHealth % 10 : 10;
 				for (int j = 0; j < num; j++) {
-					b.draw(t0, w / 16 + j * (w / 32) + cam.X, (h - (w / 32)) - i * (w / 32) + cam.Y, w / 32, w / 32);
+					b.draw(t0, x + j * (w / 32) + cam.X, (h - (w / 32)) - i * (w / 32) + cam.Y, w / 32, w / 32);
 				}
 			}
 		}

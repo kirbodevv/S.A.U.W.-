@@ -60,6 +60,7 @@ public class MenuScreen implements Screen {
 	String[] worldNames;
 	public MenuScreen(final MainGame game) {
 		WIDTH = Gdx.graphics.getWidth();
+		Gdx.input.setInputProcessor(game.multiplexer);
 		FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
 		if (!settings.exists()) {
             try {
@@ -183,7 +184,7 @@ public class MenuScreen implements Screen {
 				BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 				@Override
 				public void initialize() {
-					worldName = new EditText((int)(Interface.x + WIDTH / 16), (int)(Interface.y + Interface.heigth - WIDTH / 16 * 3), WIDTH / 16 * 9, WIDTH / 16, camera);
+					worldName = new EditText((int)(Interface.x + WIDTH / 16), (int)(Interface.y + Interface.heigth - WIDTH / 16 * 3), WIDTH / 16 * 9, WIDTH / 16, camera, game.multiplexer);
 					bf.setScale(WIDTH / 16 / 2 / bf.getCapHeight());
 					bf.setColor(Color.BLACK);
 				    create = new Button("create", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 3, WIDTH / 16);

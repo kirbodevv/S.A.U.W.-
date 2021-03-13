@@ -1,5 +1,6 @@
 package com.kgc.sauw;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.kgc.sauw.screen.MenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -7,10 +8,11 @@ import com.badlogic.gdx.files.FileHandle;
 
 public class MainGame extends Game {
     public int keyboardHeight = 0;
-
+	public InputMultiplexer multiplexer;
     @Override
     public void create() {
     	createFiles();
+    	multiplexer = new InputMultiplexer();
     	setScreen(new MenuScreen(this));
     }
 	public void createFiles(){

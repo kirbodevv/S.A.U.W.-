@@ -46,6 +46,10 @@ public class Player implements ExtraData {
 	int w = Gdx.graphics.getWidth();
 	public int plW = w / 16 * 10 / 26;
 	public int plH = w / 16;
+
+	public int playerBodyW = plW / 2;
+	public int playerBodyH = plH / 4;
+
 	public int posX = w / 2 + 16;
 	public int posY = h / 2 - 32;
 	int carriedSlot = 0;
@@ -55,8 +59,8 @@ public class Player implements ExtraData {
 	Collisions CWB = new Collisions();
 	public int[] hotbar = new int[8];
 	public ArrayList<InventorySlot> Inventory = new ArrayList<InventorySlot>();
-	public int mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
-	public int mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
+	public int mX;
+	public int mY;
 
 	public float maxWeight = 40.0f;
 	public float weight = 0.0f;
@@ -242,7 +246,7 @@ public class Player implements ExtraData {
 	}
 	public void render(SpriteBatch b, Textures t) {
 		if (!isDead) {
-			b.draw(currentFrame, body.getPosition().x - plW / 2, body.getPosition().y - plH / 8, plW, plH);
+			b.draw(currentFrame, body.getPosition().x - playerBodyW, body.getPosition().y - playerBodyH / 2, plW, plH);
 		}
 	}
 	public void update(World world, Achievements a, Camera2D cam) {
@@ -296,7 +300,7 @@ public class Player implements ExtraData {
 			body.setLinearVelocity(velocity.x, velocity.y);
 
 			posX = (int)body.getPosition().x;
-			posY = (int)body.getPosition().y - plH / 8;
+			posY = (int)body.getPosition().y - playerBodyH / 2;
 			mX = (((posX + plW / 2) - ((posX
 					+ plW / 2) % (w / 16))) / (w / 16));
 			mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));

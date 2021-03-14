@@ -3,7 +3,7 @@ package com.kgc.sauw;
 import com.kgc.sauw.ModAPI.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import java.io.File;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import org.json.JSONObject;
@@ -32,7 +32,7 @@ public class Mods {
 					FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/main.js");
 					String result = MainJSFile.readString();
 					ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
-					crafting.addCrafts(mods[i].CraftsFolder);
+					crafting.addCraftsFromDirectory(mods[i].CraftsFolder);
 					ScriptableObject.putProperty(mods[i].sc, "Player", pl);
 					ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
 					ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);

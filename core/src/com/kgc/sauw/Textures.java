@@ -80,6 +80,8 @@ public class Textures {
 	public Texture campfire_animation;
 	public Texture player_inv;
 	public Texture shadow;
+	public Texture stone_shovel;
+
 	public Textures() {
 
 	}
@@ -289,6 +291,7 @@ public class Textures {
 		iron_ore_item   = new Texture(Gdx.files.internal("Items/iron_ore.png"));
 		stone_pickaxe   = new Texture(Gdx.files.internal("Items/stone_pickaxe.png"));
 		stone_axe       = new Texture(Gdx.files.internal("Items/stone_axe.png"));
+		stone_shovel    = new Texture(Gdx.files.internal("Items/stone_shovel.png"));
 	    rope            = new Texture(Gdx.files.internal("Items/rope.png"));
 		vegetable_fiber = new Texture(Gdx.files.internal("Items/vegetable_fiber.png"));
 	    iron_ingot      = new Texture(Gdx.files.internal("Items/iron_ingot.png"));
@@ -297,6 +300,7 @@ public class Textures {
 		apple           = new Texture(Gdx.files.internal("Items/apple.png"));
 	}
 	public void dispose() {
+		stone_shovel.dispose();
 		shadow.dispose();
 		j_0.dispose();
 		j_1.dispose();

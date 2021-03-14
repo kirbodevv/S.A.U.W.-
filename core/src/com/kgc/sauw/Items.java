@@ -43,7 +43,7 @@ public class Items {
 		createItem(19,0.01f, l.getString("dirt"), Textures.dirt, Type.BLOCKITEM, 12, 64, 0);
 		createItem(20,0.1f, l.getString("sapling"), Textures.sapling_item, Type.BLOCKITEM, 13, 64, 0);
 		createItem(21,1f, l.getString("iron_ingot"),Textures.iron_ingot, Type.ITEM, 64, 0);
-		createItem(22,0.75f, l.getString("stone_shovel"), Textures.undf, Type.INSTRUMENT, 1, 128);
+		createItem(22,0.75f, l.getString("stone_shovel"), Textures.stone_shovel, Type.INSTRUMENT, 1, 128);
 		createItem(23,0.01f, l.getString("campfire"), Textures.campfire, Type.BLOCKITEM, 15, 64, 0);
 		
 		

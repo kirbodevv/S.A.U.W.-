@@ -43,7 +43,6 @@ public class ModsScreen implements Screen {
 	private int height = Gdx.graphics.getHeight();
 
 	private Button closeButton;
-	private Button upButton, downButton;
 	private Slider slider;
 	private ModInfo modInfo0;
 	private ModInfo modInfo1;
@@ -63,43 +62,40 @@ public class ModsScreen implements Screen {
 					game.setScreen(ms);
 				}
 			});
-		Texture ubt = Textures.generateTexture(1, 1, true, "Interface/button_up_0.png");
-		Texture ubt0 = Textures.generateTexture(1, 1, false, "Interface/button_up_0.png");
-		Texture udt = Textures.generateTexture(1, 1, true, "Interface/button_down_0.png");
-		Texture udt0 = Textures.generateTexture(1, 1, false, "Interface/button_down_0.png");
-		upButton = new Button("upButton", width / 32 * 27, height - width / 32 * 3, width / 16, width / 16, ubt, ubt0);
-		downButton = new Button("downButton", width / 32 * 27, width / 32, width / 16, width / 16, udt, udt0);
 		slider = new Slider(width / 16 * 13 + width / 64 * 3, width / 32, width / 32, height - width / 16);
-		//slider.setMaxValue(5);
 		modInfo2 = new ModInfo(width / 16, width / 32 * 2);
 		modInfo1 = new ModInfo(width / 16, width / 32 * 7);
 		modInfo0 = new ModInfo(width / 16, width / 32 * 12);
 		FileHandle modsFolder = Gdx.files.external("S.A.U.W./Mods");
-		FileHandle[] mods = modsFolder.list();
-		for (FileHandle mod : mods) {
-			if (mod.isDirectory()) {
-				if (mod.child("manifest.json").exists()) this.Mods.add(new Mod(mod.path()));
+		String[] mods = modsFolder.file().list();
+		for (String mod : mods) {
+			if (modsFolder.child(mod).isDirectory()) {
+				if (modsFolder.child(mod).child("manifest.json").exists()) this.Mods.add(new Mod(modsFolder.child(mod).path()));
 			}
 		}
+		setModsInfo(0);
 		slider.setMaxValue((Mods.size() - 1) * 40);
 		slider.setEventListener(new Slider.EventListener(){
 				@Override
 				public void onValueChange(int v1) {
 					int v = (int)Math.floor(v1 / 40);
-					modInfo0.hide(false);
-					modInfo1.hide(false);
-					modInfo2.hide(false);
-
-					modInfo0.setMod(Mods.get(v));
-					if (v + 1 < Mods.size()) modInfo1.setMod(Mods.get(v + 1));
-					else modInfo1.hide(true);
-					if (v + 2 < Mods.size()) modInfo2.setMod(Mods.get(v + 2));
-					else modInfo2.hide(true);
+					setModsInfo(v);
 				}
 			});
 		if (Mods.size() <= 3) slider.hide(true);
 	}
-
+	public void setModsInfo(int pos){
+		modInfo0.hide(false);
+		modInfo1.hide(false);
+		modInfo2.hide(false);
+		if(Mods.size() > 0) {
+			modInfo0.setMod(Mods.get(pos));
+			if (pos + 1 < Mods.size()) modInfo1.setMod(Mods.get(pos + 1));
+			else modInfo1.hide(true);
+			if (pos + 2 < Mods.size()) modInfo2.setMod(Mods.get(pos + 2));
+			else modInfo2.hide(true);
+		}
+	}
 	@Override
 	public void render(float p1) {
 		closeButton.update(cam);
@@ -150,12 +146,15 @@ public class ModsScreen implements Screen {
 		private Texture background;
 		private Checkbox modActiv;
 		private Texture modIcon;
-		private String modName;
+		private String modName = "";
 		private BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
+
+		private int ModIconHeight;
 
 		public ModInfo(int X, int Y) {
 			setPosition(X, Y);
 			setSize(WIDTH / 16 * 12, WIDTH / 16 * 2);
+			ModIconHeight = height - height / 8 * 2;
 			background = Textures.generateTexture(13, 2, true);
 			modActiv = new Checkbox(t.switch_0, t.switch_1);
 			modActiv.setSize(WIDTH / 16, WIDTH / 16);
@@ -178,8 +177,8 @@ public class ModsScreen implements Screen {
 			if (!isHided()) {
 				super.render(batch, cam);
 				batch.draw(background, cam.X + X, cam.Y + Y, width, height);
-				batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, height - height / 8 * 2, height - height / 8 * 2);
-				text.draw(batch, modName, cam.X + X, cam.Y + Y + height);
+				batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, ModIconHeight, ModIconHeight);
+				text.draw(batch, modName, cam.X + X + ModIconHeight + height / 4, cam.Y + Y + height - height / 8);
 				modActiv.render(batch, cam);
 			}
 		}

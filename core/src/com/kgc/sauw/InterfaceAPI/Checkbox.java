@@ -35,8 +35,10 @@ public class Checkbox extends InterfaceElement{
 	@Override
 	public void onClick(boolean onButton) {
 		super.onClick(onButton);
-		isChecked = !isChecked;
-		if(EL != null && onButton) EL.onClick(isChecked);
+		if(EL != null && onButton){
+			isChecked = !isChecked;
+			EL.onClick(isChecked);
+		}
 	}
 	public static abstract class Eventlistener{
 		public abstract void onClick(boolean isChecked);

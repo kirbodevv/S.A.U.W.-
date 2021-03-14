@@ -597,19 +597,25 @@ public class GameInterface implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.TAB) {
-            if (!inv.inventoryInterface.isOpen)
-                inv.inventoryInterface.open();
-            else inv.inventoryInterface.exitButton.EventListener.onClick();
-        }
         if (keycode == Input.Keys.ESCAPE) {
-            if (!pauseInterface.isOpen) pauseButton.EventListener.onClick();
+            if (!pauseInterface.isOpen && !isInterfaceOpen) pauseInterface.open();
             else pauseInterface.exitButton.EventListener.onClick();
         }
-        if (keycode == Input.Keys.F1) {
-            if (settings.useConsole) {
-                if (!consoleInterface.isOpen) consoleOpenButton.EventListener.onClick();
-                else consoleInterface.exitButton.EventListener.onClick();
+        if (!pauseInterface.isOpen) {
+            if (keycode == Input.Keys.TAB) {
+                if (!inv.inventoryInterface.isOpen)
+                    inv.inventoryInterface.open();
+                else inv.inventoryInterface.exitButton.EventListener.onClick();
+            }
+            if (keycode == Input.Keys.F1) {
+                if (settings.useConsole) {
+                    if (!consoleInterface.isOpen) consoleInterface.open();
+                    else consoleInterface.exitButton.EventListener.onClick();
+                }
+            }
+            if (keycode == Input.Keys.C) {
+                if (!craftingInterface.isOpen) craftingInterface.open();
+                else craftingInterface.exitButton.EventListener.onClick();
             }
         }
         return false;

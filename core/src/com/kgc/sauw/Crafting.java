@@ -27,9 +27,13 @@ public class Crafting {
 	}
 	public void addCrafts(FileHandle craftFolder) {
 		try {
-			FileHandle[] craftFiles = craftFolder.list();
-			for (FileHandle file : craftFiles) {
-				JSONObject craft = new JSONObject(file.readString());
+			String[] craftFiles = craftFolder.child("Crafts").readString().split("\\n");
+			for (String file : craftFiles) {
+				Gdx.app.log("FileName", file);
+				Gdx.app.log("lol", craftFolder.child(file).path());
+			}
+			for (String file : craftFiles) {
+				JSONObject craft = new JSONObject(craftFolder.child(file).readString());
 				int[] result;
 				int[][] ingr;
 				JSONObject resultA = craft.getJSONObject("result");
@@ -46,7 +50,6 @@ public class Crafting {
 					ingr[i][1] = ingrA.getJSONObject(i).getInt("count");
 					ingr[i][2] = ingrA.getJSONObject(i).getInt("data");
 				}
-
 				this.addCraft(new Crafting.craft(result, ingr));
 			}
 		} catch (Exception e) {

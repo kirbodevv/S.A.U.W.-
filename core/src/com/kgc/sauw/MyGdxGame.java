@@ -1,20 +1,12 @@
 package com.kgc.sauw;
 
-import box2dLight.RayHandler;
-import com.kgc.sauw.CallbackAPI.Callbacks;
 import com.kgc.sauw.ModAPI.ModAPI;
-import com.kgc.sauw.mobs.ItemMob;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-
-import java.util.Random;
-
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 
 public class MyGdxGame implements Screen {
 
@@ -32,7 +24,6 @@ public class MyGdxGame implements Screen {
     Camera2D camera;
     int camX, camY;
     Achievements achievements;
-    Callbacks Callbacks;
     BitmapFont bf = new BitmapFont();
     Mods mods;
     Crafting crafting;
@@ -69,13 +60,13 @@ public class MyGdxGame implements Screen {
         ModAPI = new ModAPI(GI);
         mods = new Mods();
         GI.initilizate(crafting, ModAPI, game, langs, World);
-        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, settings, GI, Textures);
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             World.createNewWorld();
             World.save(worldName);
         } else {
             World.load(worldName);
         }
+        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, settings, GI, Textures);
     }
 
     @Override

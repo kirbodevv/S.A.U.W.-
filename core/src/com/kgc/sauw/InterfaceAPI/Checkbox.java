@@ -1,19 +1,17 @@
 package com.kgc.sauw.InterfaceAPI;
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.Vector2i;
 import com.kgc.sauw.Camera2D;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Checkbox extends InterfaceElement{
 	private Texture t0, t1;
 	private boolean isChecked = false;
-	private Eventlistener EL;
+	private EventListener EL;
 	public Checkbox(Texture t0, Texture t1){
 		this.t0 = t0;
 		this.t1 = t1;
 	}
-	public void setEventListener(Eventlistener EL){
+	public void setEventListener(EventListener EL){
 		this.EL = EL;
 	}
 	public boolean isChecked(){
@@ -40,7 +38,7 @@ public class Checkbox extends InterfaceElement{
 			EL.onClick(isChecked);
 		}
 	}
-	public static abstract class Eventlistener{
+	public static abstract class EventListener {
 		public abstract void onClick(boolean isChecked);
 	}
 }

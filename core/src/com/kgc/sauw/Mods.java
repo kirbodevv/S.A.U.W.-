@@ -26,22 +26,24 @@ public class Mods {
 			if (names != null) {
 				mods = new mod[names.length];
 				for (int i = 0; i < names.length; i++) {
-					mods[i] = new mod("S.A.U.W./Mods/" + names[i]);
-					mods[i].sc = cx.initStandardObjects();
+					if(Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/manifest.json").exists()) {
+						mods[i] = new mod("S.A.U.W./Mods/" + names[i]);
+						mods[i].sc = cx.initStandardObjects();
 
-					FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/main.js");
-					String result = MainJSFile.readString();
-					ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
-					crafting.addCraftsFromDirectory(mods[i].CraftsFolder);
-					ScriptableObject.putProperty(mods[i].sc, "Player", pl);
-					ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
-					ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
-					ScriptableObject.putProperty(mods[i].sc, "ModAPI", ModAPI);
-					ScriptableObject.putProperty(mods[i].sc, "Settings", settings);
-					ScriptableObject.putProperty(mods[i].sc, "GI", GI);
-					ScriptableObject.putProperty(mods[i].sc, "Textures", T);
+						FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/main.js");
+						String result = MainJSFile.readString();
+						ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
+						crafting.addCraftsFromDirectory(mods[i].CraftsFolder);
+						ScriptableObject.putProperty(mods[i].sc, "Player", pl);
+						ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
+						ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
+						ScriptableObject.putProperty(mods[i].sc, "ModAPI", ModAPI);
+						ScriptableObject.putProperty(mods[i].sc, "Settings", settings);
+						ScriptableObject.putProperty(mods[i].sc, "GI", GI);
+						ScriptableObject.putProperty(mods[i].sc, "Textures", T);
 
-					cx.evaluateString(mods[i].sc, result, names[i], 1, null);
+						cx.evaluateString(mods[i].sc, result, names[i], 1, null);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -63,7 +65,7 @@ public class Mods {
 				}
 			}
 		} catch (Exception e) {
-			Gdx.app.log("error", e.toString());
+			Gdx.app.log("error123", e.toString());
 		} finally {
 			Context.exit();
 		}

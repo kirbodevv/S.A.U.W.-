@@ -23,7 +23,7 @@ public class MainGame extends Game {
 
     	FileHandle userData = Gdx.files.external("S.A.U.W./User/data.json");
 		FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
-
+		FileHandle modsFile = Gdx.files.external("S.A.U.W./Mods/Mods.json");
 		if(!ModsFolder.exists())
 			ModsFolder.mkdirs();
 		if(!ScreenshotsFolder.exists())
@@ -36,6 +36,9 @@ public class MainGame extends Game {
 			settings.writeString(Gdx.files.internal("json/settings.json").readString(),false);
 		if(!userData.exists())
 			userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
+		if(!modsFile.exists()){
+			modsFile.writeString("[]", false);
+		}
 	}
 	@Override
 	public void render() {

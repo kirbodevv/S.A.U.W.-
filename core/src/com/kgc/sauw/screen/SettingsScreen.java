@@ -12,9 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import org.json.JSONObject;
 import java.util.Iterator;
 import com.kgc.sauw.InterfaceAPI.Checkbox;
-import com.kgc.sauw.Vector2i;
 import com.kgc.sauw.InterfaceAPI.Slider;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.kgc.sauw.InterfaceAPI.Notification;
 
 public class SettingsScreen implements Screen {
@@ -65,7 +63,7 @@ public class SettingsScreen implements Screen {
 		debug.setSize(width / 16, width / 16);
 		debug.setPosition(ms.camera.X + width / 16 * 6 + width / 64 , ms.camera.Y + height - width / 16 * 6);
 		debug.setChecked(ms.settings.debugMode);
-		debug.setEventListener(new Checkbox.Eventlistener(){
+		debug.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
 					MenuScreen.settings.debugMode = isChecked;
@@ -76,7 +74,7 @@ public class SettingsScreen implements Screen {
 		debugRenderer.setSize(width / 16, width / 16);
 		debugRenderer.setPosition(ms.camera.X + width / 16 * 6 + width / 64 , ms.camera.Y + height - width / 16 * 7);
 		debugRenderer.setChecked(ms.settings.debugRenderer);
-		debugRenderer.setEventListener(new Checkbox.Eventlistener(){
+		debugRenderer.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
 					MenuScreen.settings.debugRenderer = isChecked;
@@ -87,7 +85,7 @@ public class SettingsScreen implements Screen {
 		AIPU.setSize(width / 16, width / 16);
 		AIPU.setPosition(MenuScreen.camera.X + width / 16 * 9, MenuScreen.camera.Y + height - width / 16 * 3);
 		AIPU.setChecked(ms.settings.autopickup);
-		AIPU.setEventListener(new Checkbox.Eventlistener(){
+		AIPU.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
 					MenuScreen.settings.autopickup = isChecked;
@@ -98,7 +96,7 @@ public class SettingsScreen implements Screen {
 		useConsole.setSize(width / 16, width / 16);
 		useConsole.setPosition(MenuScreen.camera.X + width / 16 * 9, MenuScreen.camera.Y + height - width / 16 * 4);
 		useConsole.setChecked(ms.settings.useConsole);
-		useConsole.setEventListener(new Checkbox.Eventlistener(){
+		useConsole.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
 					MenuScreen.settings.useConsole = isChecked;

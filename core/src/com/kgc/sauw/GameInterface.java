@@ -116,10 +116,9 @@ public class GameInterface implements InputProcessor {
     }
 
     public void initilizate(Crafting c, final ModAPI ModAPI, final MainGame game, final Langs langs, final World w) {
-        game.multiplexer.addProcessor(multiplexer);
-        game.multiplexer.addProcessor(this);
         final Player pl = w.pl;
         inv.init(w.pl, Textures, langs);
+        Gdx.app.log("MltplxSize", game.multiplexer.size() + "");
         crafting = c;
         consoleInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
         consoleInterface.setHeaderText(langs.getString("console")).isBlockInterface(false);
@@ -190,12 +189,10 @@ public class GameInterface implements InputProcessor {
             public void tick() {
                 Log.setColor(R / 255f, G / 255f, B / 255f, 1);
                 input.setTextColor(R / 255f, G / 255f, B / 255f);
-                if (Interface.isOpen) {
-                    input.hide(false);
-                } else {
+                if (!this.Interface.isOpen)
                     input.hide(true);
-                }
-                input.update();
+                else
+                    input.hide(false);
                 if (currCom == -1) {
                     inputTxt = input.input;
                 }
@@ -218,6 +215,7 @@ public class GameInterface implements InputProcessor {
                 sendCommandButton.Y = input.Y;
                 prevCommand.Y = input.Y;
                 nextCommand.Y = prevCommand.Y + prevCommand.height;
+                input.update();
             }
 
             @Override
@@ -237,8 +235,12 @@ public class GameInterface implements InputProcessor {
             }
 
         });
-        craftingInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
-        craftingInterface.setHeaderText(langs.getString("crafting")).isBlockInterface(false);
+        craftingInterface = new
+
+                Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
+        craftingInterface.setHeaderText(langs.getString("crafting")).
+
+                isBlockInterface(false);
         craftingInterface.setInterfaceEvents(new InterfaceEvents() {
             Button craft;
             BitmapFont craftName;
@@ -497,6 +499,8 @@ public class GameInterface implements InputProcessor {
                 pauseInterface.open();
             }
         });
+        game.multiplexer.addProcessor(this);
+        Gdx.app.log("MltplxSize", game.multiplexer.size() + "");
     }
 
     public void update(Player pl) {

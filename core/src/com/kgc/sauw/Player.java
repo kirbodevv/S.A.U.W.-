@@ -110,6 +110,19 @@ public class Player implements ExtraData {
         return count;
     }
 
+    public void deleteItems() {
+        for (int i = 0; i < Inventory.size(); i++) {
+            Inventory.remove(i);
+        }
+    }
+
+    public void deleteItems(int id) {
+        for (int i = 0; i < Inventory.size(); i++) {
+            if (Inventory.get(i).id == id)
+                Inventory.remove(i);
+        }
+    }
+
     public void deleteItems(int id, int count) {
         int r = count;
         for (int i = 0; i < Inventory.size(); i++) {
@@ -286,7 +299,7 @@ public class Player implements ExtraData {
                     }
                 }
             }
-            if(!isCameraZooming){
+            if (!isCameraZooming) {
                 cam.setCameraZoom(1.25f, 5);
             }
 
@@ -341,7 +354,7 @@ public class Player implements ExtraData {
             } else if (rot == 3) {
                 currentFrame = walkL.getKeyFrame(stateTime, true);
             }
-            if(velX == 0 && velY == 0){
+            if (velX == 0 && velY == 0) {
                 if (rot == 0) {
                     currentFrame = walkFrames[9];
                 } else if (rot == 1) {
@@ -354,7 +367,7 @@ public class Player implements ExtraData {
             }
             velocity.x = (velX * (playerSpeed));
             velocity.y = (velY * (playerSpeed));
-            body.setLinearVelocity((float)velocity.x * normalPlayerSpeed * 2, (float)velocity.y * normalPlayerSpeed * 2);
+            body.setLinearVelocity((float) velocity.x * normalPlayerSpeed * 2, (float) velocity.y * normalPlayerSpeed * 2);
 
             posX = body.getPosition().x - playerBodyW / 2;
             posY = body.getPosition().y - playerBodyH / 2;

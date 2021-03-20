@@ -65,7 +65,7 @@ public class Mods {
 				}
 			}
 		} catch (Exception e) {
-			Gdx.app.log("error123", e.toString());
+
 		} finally {
 			Context.exit();
 		}

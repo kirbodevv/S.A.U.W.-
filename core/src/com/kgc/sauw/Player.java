@@ -111,16 +111,17 @@ public class Player implements ExtraData {
     }
 
     public void deleteItems() {
-        for (int i = 0; i < Inventory.size(); i++) {
-            Inventory.remove(i);
-        }
+        ArrayList<InventorySlot> toBeRemoved = new ArrayList<InventorySlot>(Inventory);
+        Inventory.removeAll(toBeRemoved);
     }
 
     public void deleteItems(int id) {
-        for (int i = 0; i < Inventory.size(); i++) {
-            if (Inventory.get(i).id == id)
-                Inventory.remove(i);
+        ArrayList<InventorySlot> toBeRemoved = new ArrayList<InventorySlot>();
+        for (InventorySlot slot : Inventory) {
+            if (slot.id == id)
+                toBeRemoved.add(slot);
         }
+        Inventory.removeAll(toBeRemoved);
     }
 
     public void deleteItems(int id, int count) {

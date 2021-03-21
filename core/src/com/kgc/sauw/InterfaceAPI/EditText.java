@@ -18,8 +18,10 @@ public class EditText {
     private boolean isTouched;
     private Camera2D cam;
     public boolean isKeyboardOpen = false;
-
+    private InputProcessor processor;
+    private InputMultiplexer multiplexer;
     public EditText(int x, int y, int w, int h, Camera2D cam, InputMultiplexer multiplexer) {
+        this.multiplexer = multiplexer;
         int width = Gdx.graphics.getWidth();
         this.backgroundTextutre = Textures.generateTexture(w / (width / 16), h / (width / 16), false);
         this.X = x;
@@ -31,7 +33,7 @@ public class EditText {
         BF = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         BF.setColor(Color.BLACK);
         BF.setScale(h / 2 / BF.getData().capHeight);
-        InputProcessor processor = new InputProcessor() {
+        processor = new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {
                 return false;
@@ -53,8 +55,6 @@ public class EditText {
                         input += c;
                     }
                 }
-                Gdx.app.log("1", c + "");
-                Gdx.app.log("1Y", Y + "");
                 return true;
             }
 
@@ -83,7 +83,6 @@ public class EditText {
                 return false;
             }
         };
-        multiplexer.addProcessor(processor);
     }
 
     public void setWidthAndHeight(Vector2 WH) {
@@ -101,6 +100,11 @@ public class EditText {
 
     public void hide(boolean flag) {
         this.hided = flag;
+        if(flag){
+            multiplexer.removeProcessor(processor);
+        } else {
+            multiplexer.addProcessor(processor);
+        }
     }
 
     public void update() {

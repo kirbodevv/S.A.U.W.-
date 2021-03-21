@@ -11,9 +11,6 @@ import com.kgc.sauw.ModAPI.ModAPI;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -115,10 +112,9 @@ public class GameInterface implements InputProcessor {
         notifAl = 1;
     }
 
-    public void initilizate(Crafting c, final ModAPI ModAPI, final MainGame game, final Langs langs, final World w) {
+    public void initialize(Crafting c, final ModAPI ModAPI, final MainGame game, final Langs langs, final World w) {
         final Player pl = w.pl;
         inv.init(w.pl, Textures, langs);
-        Gdx.app.log("MltplxSize", game.multiplexer.size() + "");
         crafting = c;
         consoleInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
         consoleInterface.setHeaderText(langs.getString("console")).isBlockInterface(false);
@@ -134,7 +130,8 @@ public class GameInterface implements InputProcessor {
             @Override
             public void initialize() {
                 int inW = (int) (Interface.width - WIDTH / 8 - WIDTH / 32);
-                input = new EditText((int) (Interface.x + WIDTH / 32), (int) (Interface.y + WIDTH / 32), inW, (int) WIDTH / 16, interfaceCamera, game.multiplexer);
+                input = new EditText((int) (Interface.x + WIDTH / 32), (int) (Interface.y + WIDTH / 32), inW, (int) WIDTH / 16, interfaceCamera, multiplexer);
+                input.hide(true);
                 log_bg = Textures.generateTexture((Interface.width - WIDTH / 8 + WIDTH / 16) / (WIDTH / 16), ((Interface.heigth - WIDTH / 16) - (WIDTH / 8)) / (WIDTH / 16), false);
                 nextCommand = new Button("", input.X + input.w, (int) (Interface.y + WIDTH / 16), (int) (WIDTH / 32), (int) (WIDTH / 32), Textures.button_up_0, Textures.button_up_1);
                 prevCommand = new Button("", input.X + input.w, (int) (Interface.y + WIDTH / 32), (int) (WIDTH / 32), (int) (WIDTH / 32), Textures.button_down_0, Textures.button_down_1);
@@ -189,10 +186,6 @@ public class GameInterface implements InputProcessor {
             public void tick() {
                 Log.setColor(R / 255f, G / 255f, B / 255f, 1);
                 input.setTextColor(R / 255f, G / 255f, B / 255f);
-                if (!this.Interface.isOpen)
-                    input.hide(true);
-                else
-                    input.hide(false);
                 if (currCom == -1) {
                     inputTxt = input.input;
                 }
@@ -220,7 +213,12 @@ public class GameInterface implements InputProcessor {
 
             @Override
             public void onOpen() {
+                input.hide(false);
+            }
 
+            @Override
+            public void onClose() {
+                input.hide(true);
             }
 
             @Override
@@ -235,12 +233,8 @@ public class GameInterface implements InputProcessor {
             }
 
         });
-        craftingInterface = new
-
-                Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
-        craftingInterface.setHeaderText(langs.getString("crafting")).
-
-                isBlockInterface(false);
+        craftingInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, batch, interfaceCamera, ITEMS, this);
+        craftingInterface.setHeaderText(langs.getString("crafting")).isBlockInterface(false);
         craftingInterface.setInterfaceEvents(new InterfaceEvents() {
             Button craft;
             BitmapFont craftName;
@@ -355,6 +349,11 @@ public class GameInterface implements InputProcessor {
             }
 
             @Override
+            public void onClose() {
+
+            }
+
+            @Override
             public void renderBefore() {
                 batch.draw(background2, WIDTH / 16 * 9, WIDTH / 32, WIDTH / 16 * 6, HEIGHT - WIDTH / 16 * 2);
                 batch.draw(background1, WIDTH / 16, WIDTH / 32, WIDTH / 16 * 8 - WIDTH / 32, HEIGHT - WIDTH / 16 * 2);
@@ -427,6 +426,11 @@ public class GameInterface implements InputProcessor {
             }
 
             @Override
+            public void onClose() {
+
+            }
+
+            @Override
             public void renderBefore() {
             }
 
@@ -474,6 +478,11 @@ public class GameInterface implements InputProcessor {
             }
 
             @Override
+            public void onClose() {
+
+            }
+
+            @Override
             public void renderBefore() {
             }
 
@@ -500,7 +509,7 @@ public class GameInterface implements InputProcessor {
             }
         });
         game.multiplexer.addProcessor(this);
-        Gdx.app.log("MltplxSize", game.multiplexer.size() + "");
+        game.multiplexer.addProcessor(multiplexer);
     }
 
     public void update(Player pl) {
@@ -601,25 +610,31 @@ public class GameInterface implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.ESCAPE) {
-            if (!pauseInterface.isOpen && !isInterfaceOpen) pauseInterface.open();
-            else pauseInterface.exitButton.EventListener.onClick();
-        }
-        if (!pauseInterface.isOpen) {
+        if (!isInterfaceOpen) {
+            if (keycode == Input.Keys.ESCAPE) {
+                if (!pauseInterface.isOpen) pauseInterface.open();
+            }
             if (keycode == Input.Keys.TAB) {
-                if (!inv.inventoryInterface.isOpen)
-                    inv.inventoryInterface.open();
-                else inv.inventoryInterface.exitButton.EventListener.onClick();
+                if (!inv.inventoryInterface.isOpen) inv.inventoryInterface.open();
             }
             if (keycode == Input.Keys.F1) {
-                if (settings.useConsole) {
-                    if (!consoleInterface.isOpen) consoleInterface.open();
-                    else consoleInterface.exitButton.EventListener.onClick();
-                }
+                if (settings.useConsole) if (!consoleInterface.isOpen) consoleInterface.open();
             }
             if (keycode == Input.Keys.C) {
                 if (!craftingInterface.isOpen) craftingInterface.open();
-                else craftingInterface.exitButton.EventListener.onClick();
+            }
+        } else {
+            if (keycode == Input.Keys.ESCAPE) {
+                if (pauseInterface.isOpen) pauseInterface.exitButton.EventListener.onClick();
+            }
+            if (keycode == Input.Keys.TAB) {
+                if (inv.inventoryInterface.isOpen) inv.inventoryInterface.exitButton.EventListener.onClick();
+            }
+            if (keycode == Input.Keys.F1) {
+                if (settings.useConsole) if (consoleInterface.isOpen) consoleInterface.exitButton.EventListener.onClick();
+            }
+            if (keycode == Input.Keys.C) {
+                if (craftingInterface.isOpen) craftingInterface.exitButton.EventListener.onClick();
             }
         }
         return false;

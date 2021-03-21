@@ -205,14 +205,18 @@ public class MenuScreen implements Screen {
 
             @Override
             public void tick() {
-                if(!this.Interface.isOpen) worldName.hide(true);
-                else worldName.hide(false);
                 worldName.update();
             }
 
             @Override
             public void onOpen() {
+                worldName.hide(false);
                 worldName.input = langs.getString("newWorld");
+            }
+
+            @Override
+            public void onClose() {
+                worldName.hide(true);
             }
 
             @Override
@@ -226,7 +230,6 @@ public class MenuScreen implements Screen {
             }
         });
         createNewWorld = new Button("", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
-        //createNewWorld.setTextColor(Color.BLACK);
         createNewWorld.setText(langs.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener() {
             @Override

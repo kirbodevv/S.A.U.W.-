@@ -16,8 +16,6 @@ function screenshot(screenshotName){
 function setTime(time){
     World.WorldTime.setTime(time);
 }
-function clear(id, count){
-    if(id == undefined && count == undefined){
-        Player.deleteItems();
-    }
+function clear(){
+    Player.deleteItems();
 }

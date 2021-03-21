@@ -75,6 +75,8 @@ public class Interface {
 				public void onClick() {
 					isOpen = false;
 					if (GI != null)GI.isInterfaceOpen = false;
+					if(IE != null)
+						IE.onClose();
 				}
 			});
 	}
@@ -202,7 +204,6 @@ public class Interface {
 	public void update(Player pl, Camera2D cam) {
 		if (isOpen) {
 			if (GI != null) GI.isInterfaceOpen = true;
-			exitButton.update(cam);
 			for (Slot slot : slots) {
 				slot.id = 0;
 				slot.count = 0;
@@ -244,6 +245,7 @@ public class Interface {
 			if (IE != null) {
 				IE.tick();
 			}
+			exitButton.update(cam);
 		}
 	}
 	public void render(Player pl, Camera2D cam) {

@@ -59,7 +59,7 @@ public class MyGdxGame implements Screen {
         BLOCKS.initialize(Textures, camera, ITEMS, GI, batch, World, langs);
         ModAPI = new ModAPI(GI);
         mods = new Mods();
-        GI.initilizate(crafting, ModAPI, game, langs, World);
+        GI.initialize(crafting, ModAPI, game, langs, World);
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             World.createNewWorld();
             World.save(worldName);

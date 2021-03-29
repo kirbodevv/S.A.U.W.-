@@ -85,6 +85,7 @@ public class GameInterface implements InputProcessor {
         this.ITEMS = ITEMS;
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         debug.setColor(Color.BLACK);
+        debug.setScale(WIDTH / 64 / debug.getCapHeight());
         atackButton = new Button("", (int) (12 * (WIDTH / 16)), (int) (3 * (WIDTH / 16)), (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), Textures.button_0, Textures.button_1);
         dropButton = new Button("", (int) (13 * (WIDTH / 16)), (int) (3 * (WIDTH / 32)), (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), Textures.button_0, Textures.button_1);
         interactionButton = new Button("", (int) (14 * (WIDTH / 16)), (int) (3 * (WIDTH / 16))/*(int)(13 * (WIDTH / 16)), (int)(3 * (WIDTH / 32))*/, (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), Textures.button_0, Textures.button_1);
@@ -578,7 +579,7 @@ public class GameInterface implements InputProcessor {
         }
     }
 
-    public void render(Player pl, String debug) {
+    public void render(Player pl, boolean debug) {
         interfaceCamera.update(batch);
         batch.setColor(1f, 1f, 1f, 0.7f);
         interactionButton.render(batch, interfaceCamera);
@@ -595,12 +596,40 @@ public class GameInterface implements InputProcessor {
         craftingInterface.render(pl, interfaceCamera);
         deadInterface.render(pl, interfaceCamera);
         pauseInterface.render(pl, interfaceCamera);
-        if (!isInterfaceOpen)
-            this.debug.drawMultiLine(batch, debug, 3 + interfaceCamera.X, interfaceCamera.H - WIDTH / 16 + interfaceCamera.Y);
+        if (!isInterfaceOpen && debug)
+            drawDebugString();
         inv.render(pl);
         batch.setColor(1, 1, 1, notifAl);
         notification.render(batch, interfaceCamera);
         batch.setColor(1, 1, 1, 1);
+    }
+
+    public void drawDebugString() {
+        String Main = " Version : " + Version.VERSION +
+                "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
+                "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb";
+        /*" Version : " + Version.VERSION +
+                "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
+                "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
+                "\n" +
+                "\n World" +
+                "\n" +
+                "\n Time:" + World.WorldTime.getTimeString() +
+                "\n" +
+                "\n Player" +
+                "\n" +
+                "\n Hunger:" + World.pl.hunger + "/20" +
+
+                "\n InventorySlots:" + World.pl.Inventory.size() +
+                "\n InventoryTab:" + GI.inv.inventoryInterface.currentTabInv +
+                "\n PlayerSpeed:" + World.pl.playerSpeed * 100 + "%" +
+                "\n PlayerX:" + World.pl.mX +
+                "\n PlayerY:" + World.pl.mY +
+                "\n PlayerX:" + World.pl.posX +
+                "\n PlayerY:" + World.pl.posY +
+                "\n PlayerHotbarSlot_0:" + World.pl.hotbar[0] +
+                "\n CameraScale:" + camera.cameraZoom*/
+        this.debug.drawMultiLine(batch, Main, 3 + interfaceCamera.X, interfaceCamera.H - WIDTH / 16 + interfaceCamera.Y);
     }
 
     @Override
@@ -631,7 +660,8 @@ public class GameInterface implements InputProcessor {
                 if (inv.inventoryInterface.isOpen) inv.inventoryInterface.exitButton.EventListener.onClick();
             }
             if (keycode == Input.Keys.F1) {
-                if (settings.useConsole) if (consoleInterface.isOpen) consoleInterface.exitButton.EventListener.onClick();
+                if (settings.useConsole)
+                    if (consoleInterface.isOpen) consoleInterface.exitButton.EventListener.onClick();
             }
             if (keycode == Input.Keys.C) {
                 if (craftingInterface.isOpen) craftingInterface.exitButton.EventListener.onClick();

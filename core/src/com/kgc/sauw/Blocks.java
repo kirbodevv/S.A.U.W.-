@@ -130,7 +130,7 @@ public class Blocks {
 		final Maps maps = world.maps;
 		getBlockById(5).registerTileEntity(new Block.TileEntity(){
 			    @Override
-				public void interfaceInitializate() {
+				public void interfaceInitialize() {
 					float x = h / (w / 16.0f) / 2 * (w / 16.0f);
 					float y = w / 16.0f;
 					float width = w / 16 * (h / (w / 16.0f) - 2);
@@ -262,7 +262,7 @@ public class Blocks {
 					{8, 5}
 				};
 				@Override
-				public void interfaceInitializate() {
+				public void interfaceInitialize() {
 					_interface = new Interface(Interface.InterfaceSizes.STANDART, Textures, batch, gi.interfaceCamera, items, gi);
 					_interface.setHeaderText(langs.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);

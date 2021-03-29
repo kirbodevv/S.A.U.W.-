@@ -19,3 +19,6 @@ function setTime(time){
 function clear(){
     Player.deleteItems();
 }
+function clear(id){
+    Player.deleteItems(id);
+}

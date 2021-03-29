@@ -60,9 +60,8 @@ public class Player implements ExtraData {
     public float posX = w / 2 + 16;
     public float posY = h / 2 - 32;
     int carriedSlot = 0;
-    Items Items;
-    //maps m;
-    Textures t;
+    private final Items Items;
+    private Textures t;
     public int[] hotbar = new int[8];
     public ArrayList<InventorySlot> Inventory = new ArrayList<InventorySlot>();
     public int mX;
@@ -355,21 +354,20 @@ public class Player implements ExtraData {
             } else if (rot == 3) {
                 currentFrame = walkL.getKeyFrame(stateTime, true);
             }
-            if (velX == 0 && velY == 0) {
-                if (rot == 0) {
-                    currentFrame = walkFrames[9];
-                } else if (rot == 1) {
-                    currentFrame = walkFrames[3];
-                } else if (rot == 2) {
-                    currentFrame = walkFrames[8];
-                } else if (rot == 3) {
-                    currentFrame = walkFrames[1];
-                }
-            }
             velocity.x = (velX * (playerSpeed));
             velocity.y = (velY * (playerSpeed));
             body.setLinearVelocity((float) velocity.x * normalPlayerSpeed * 2, (float) velocity.y * normalPlayerSpeed * 2);
-
+            if (body.getPosition().x - playerBodyW / 2 == posX && body.getPosition().y - playerBodyH / 2 == posY) {
+                if (rot == 1) {
+                    currentFrame = walkFrames[3];
+                } else if (rot == 3) {
+                    currentFrame = walkFrames[1];
+                } else if (rot == 0) {
+                    currentFrame = walkFrames[9];
+                } else if (rot == 2) {
+                    currentFrame = walkFrames[8];
+                }
+            }
             posX = body.getPosition().x - playerBodyW / 2;
             posY = body.getPosition().y - playerBodyH / 2;
             mX = (int) (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));

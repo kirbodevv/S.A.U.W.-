@@ -17,7 +17,7 @@ import com.intbyte.bdb.ExtraDataFactory;
 
 public class Tile implements com.intbyte.bdb.ExtraData {
 	public static class TileEntityFactory implements ExtraDataFactory {
-		Blocks b;
+		private Blocks b;
 		public TileEntityFactory(Blocks b) {
 			this.b = b;
 		}

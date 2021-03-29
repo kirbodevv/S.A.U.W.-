@@ -4,7 +4,6 @@ import com.kgc.sauw.ModAPI.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
@@ -24,7 +23,6 @@ public class MyGdxGame implements Screen {
     Camera2D camera;
     int camX, camY;
     Achievements achievements;
-    BitmapFont bf = new BitmapFont();
     Mods mods;
     Crafting crafting;
     public ModAPI ModAPI;
@@ -89,27 +87,14 @@ public class MyGdxGame implements Screen {
         batch.end();
         if (settings.debugRenderer) DR.render(World.world, camera.CAMERA.combined);
         batch.begin();
-        GI.render(World.pl, (settings.debugMode) ?
-                " FPS:" + Gdx.graphics.getFramesPerSecond() +
-                        "\n Time:" + World.WorldTime.getTimeString() +
-                        "\n Hunger:" + World.pl.hunger + "/20" +
-                        "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
-                        "\n InventorySlots:" + World.pl.Inventory.size() +
-                        "\n InventoryTab:" + GI.inv.inventoryInterface.currentTabInv +
-                        "\n PlayerSpeed:" + World.pl.playerSpeed * 100 + "%" +
-                        "\n PlayerX:" + World.pl.mX +
-						"\n PlayerY:" + World.pl.mY +
-                        "\n PlayerX:" + World.pl.posX +
-                        "\n PlayerY:" + World.pl.posY +
-                        "\n PlayerHotbarSlot_0:" + World.pl.hotbar[0] +
-                        "\n CameraScale:" + camera.cameraZoom : "");
+        GI.render(World.pl, settings.debugMode);
         BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
         GI.update(World.pl);
         World.update(mods, achievements);
 
 
-        camX = (int)((World.pl.posX + (World.pl.plW / 2)) - (camera.W / 2));
-        camY = (int)(World.pl.posY + (World.pl.plH / 2) - (camera.H / 2));
+        camX = (int) ((World.pl.posX + (World.pl.plW / 2)) - (camera.W / 2));
+        camY = (int) (World.pl.posY + (World.pl.plH / 2) - (camera.H / 2));
         if (camX < WIDTH / 16) camX = (int) WIDTH / 16;
         if (camY < WIDTH / 16) camY = (int) WIDTH / 16;
         if (camX + camera.W > (World.maps.map0[0].length - 1) * (WIDTH / 16))

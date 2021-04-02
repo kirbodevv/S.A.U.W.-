@@ -1,4 +1,4 @@
-package com.kgc.sauw;
+package com.kgc.sauw.config;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ public class Settings {
 	//<settings>
 	public boolean debugMode = true;
 	public boolean debugRenderer = false;
-	public String lang = "de";
+	public String lang = "en";
 	public boolean autopickup = false;
 	public int consoleTextColorRed;
 	public int consoleTextColorGreen;

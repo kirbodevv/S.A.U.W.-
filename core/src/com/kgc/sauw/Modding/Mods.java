@@ -1,14 +1,13 @@
 package com.kgc.sauw.Modding;
 
-import com.kgc.sauw.Crafting;
-import com.kgc.sauw.Modding.ModAPI;
+import com.kgc.sauw.environment.Crafting;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.kgc.sauw.Settings;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Blocks;

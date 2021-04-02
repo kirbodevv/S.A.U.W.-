@@ -1,4 +1,4 @@
-package com.kgc.sauw;
+package com.kgc.sauw.game;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.kgc.sauw.screen.MenuScreen;

@@ -5,7 +5,7 @@ import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Elements.Checkbox;
 import com.kgc.sauw.UI.InterfaceElement;
 import com.kgc.sauw.UI.Elements.Slider;
-import com.kgc.sauw.MainGame;
+import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.resource.Textures;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

@@ -1,5 +1,6 @@
-package com.kgc.sauw;
+package com.kgc.sauw.game;
 
+import com.kgc.sauw.Achievements;
 import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,7 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.GameInterface;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.environment.Blocks;
+import com.kgc.sauw.environment.Crafting;
 import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
@@ -16,7 +19,7 @@ import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.Langs;
 
-public class MyGdxGame implements Screen {
+public class SAUW implements Screen {
 
     SpriteBatch batch;
     com.kgc.sauw.resource.Textures Textures;
@@ -41,7 +44,7 @@ public class MyGdxGame implements Screen {
 
     Box2DDebugRenderer DR;
 
-    public MyGdxGame(MainGame game, Textures t, SpriteBatch batch, Music music, String worldName) {
+    public SAUW(MainGame game, Textures t, SpriteBatch batch, Music music, String worldName) {
         this.game = game;
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();

@@ -1,7 +1,6 @@
 package com.kgc.sauw.screen;
 
 import com.badlogic.gdx.Screen;
-import com.kgc.sauw.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.*;
@@ -11,8 +10,11 @@ import java.util.*;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.environment.Blocks;
 import com.kgc.sauw.environment.Items;
+import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
 import com.kgc.sauw.resource.Textures;
@@ -289,7 +291,7 @@ public class MenuScreen implements Screen {
     public void loadGame(String worldName) {
         SettingsScreen.dispose();
         dispose();
-        game.setScreen(new MyGdxGame(game, t, b, music, worldName));
+        game.setScreen(new SAUW(game, t, b, music, worldName));
     }
 
     public void setSelectButtonsText() {

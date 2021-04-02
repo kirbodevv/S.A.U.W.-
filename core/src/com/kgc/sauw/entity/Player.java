@@ -6,6 +6,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.*;
 import com.kgc.sauw.UI.GameInterface;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.environment.Time;
 import com.kgc.sauw.map.Maps;

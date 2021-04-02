@@ -1,5 +1,5 @@
 package com.kgc.sauw.utils;
-import com.kgc.sauw.Settings;
+import com.kgc.sauw.config.Settings;
 import org.json.JSONObject;
 import com.badlogic.gdx.Gdx;
 

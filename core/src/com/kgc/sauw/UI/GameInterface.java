@@ -1,12 +1,14 @@
 package com.kgc.sauw.UI;
 
 import com.badlogic.gdx.*;
-import com.kgc.sauw.*;
 import com.kgc.sauw.UI.Elements.*;
 import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kgc.sauw.config.Settings;
+import com.kgc.sauw.environment.Crafting;
+import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.utils.Version;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Items;

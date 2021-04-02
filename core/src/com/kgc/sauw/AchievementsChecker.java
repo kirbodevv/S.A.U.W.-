@@ -1,6 +1,7 @@
 package com.kgc.sauw;
 
 import com.kgc.sauw.UI.GameInterface;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.map.World;
 

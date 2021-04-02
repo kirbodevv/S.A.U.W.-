@@ -4,6 +4,7 @@ import box2dLight.RayHandler;
 import com.kgc.sauw.*;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.GameInterface;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Blocks;
 import com.kgc.sauw.environment.Items;

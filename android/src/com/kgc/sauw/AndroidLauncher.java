@@ -2,11 +2,9 @@ package com.kgc.sauw;
 
 import android.os.Bundle;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.kgc.sauw.MyGdxGame;
-import com.kgc.sauw.screen.MenuScreen;
+import com.kgc.sauw.game.MainGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

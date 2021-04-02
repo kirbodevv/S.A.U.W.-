@@ -1,4 +1,4 @@
-package com.kgc.sauw;
+package com.kgc.sauw.environment;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import java.util.ArrayList;

@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 public class Crafting {
     public static class craft{
-		int[] result;
-		int[][] ingr;
+		public int[] result;
+		public int[][] ingr;
 		public craft(int[] result, int[][] ingr){
 			this.result = result;
 			this.ingr = ingr;

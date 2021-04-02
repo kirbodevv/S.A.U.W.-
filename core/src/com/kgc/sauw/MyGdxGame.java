@@ -1,17 +1,26 @@
 package com.kgc.sauw;
 
-import com.kgc.sauw.ModAPI.ModAPI;
+import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.kgc.sauw.Modding.Mods;
+import com.kgc.sauw.UI.GameInterface;
+import com.kgc.sauw.environment.Blocks;
+import com.kgc.sauw.environment.Items;
+import com.kgc.sauw.map.World;
+import com.kgc.sauw.resource.Music;
+import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.utils.Camera2D;
+import com.kgc.sauw.utils.Langs;
 
 public class MyGdxGame implements Screen {
 
     SpriteBatch batch;
-    Textures Textures;
-    World World;
+    com.kgc.sauw.resource.Textures Textures;
+    com.kgc.sauw.map.World World;
     float WIDTH;
     float HEIGHT;
     GameInterface GI;
@@ -53,7 +62,7 @@ public class MyGdxGame implements Screen {
         DR = new Box2DDebugRenderer();
         this.music = music;
         music.w = World;
-        music.settings = settings;
+        music.setMusicVolume(settings.musicVolume);
         BLOCKS.initialize(Textures, camera, ITEMS, GI, batch, World, langs);
         ModAPI = new ModAPI(GI);
         mods = new Mods();
@@ -87,7 +96,7 @@ public class MyGdxGame implements Screen {
         batch.end();
         if (settings.debugRenderer) DR.render(World.world, camera.CAMERA.combined);
         batch.begin();
-        GI.render(World.pl, settings.debugMode);
+        GI.render(World, World.pl, settings.debugMode);
         BLOCKS.interfacesRender(World.maps, World.pl, GI.interfaceCamera);
         GI.update(World.pl);
         World.update(mods, achievements);

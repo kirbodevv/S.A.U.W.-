@@ -8,18 +8,20 @@ import com.badlogic.gdx.*;
 
 import java.util.*;
 
-import com.kgc.sauw.InterfaceAPI.Button;
-import com.kgc.sauw.InterfaceAPI.Interface;
+import com.kgc.sauw.UI.Elements.Button;
+import com.kgc.sauw.UI.Interface;
 
-import java.io.File;
-import java.io.FileReader;
-
+import com.kgc.sauw.environment.Blocks;
+import com.kgc.sauw.environment.Items;
+import com.kgc.sauw.map.World;
+import com.kgc.sauw.resource.Music;
+import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.utils.Camera2D;
+import com.kgc.sauw.utils.Langs;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
-
-import com.kgc.sauw.InterfaceAPI.InterfaceEvents;
-import com.kgc.sauw.InterfaceAPI.EditText;
+import com.kgc.sauw.UI.InterfaceEvents;
+import com.kgc.sauw.UI.Elements.EditText;
 import com.badlogic.gdx.files.FileHandle;
 
 public class MenuScreen implements Screen {
@@ -281,7 +283,7 @@ public class MenuScreen implements Screen {
         exitButton.setText(langs.getString("exit"));
 
 
-        music = new Music(this.settings, null);
+        music = new Music(null);
     }
 
     public void loadGame(String worldName) {
@@ -312,6 +314,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        music.setMusicVolume(settings.musicVolume);
         music.update(true);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

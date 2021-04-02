@@ -1,7 +1,5 @@
 package com.kgc.sauw.commands;
 import java.util.ArrayList;
-import com.kgc.sauw.Player;
-import com.badlogic.gdx.Gdx;
 
 public class Cmd {
 	public static class Argument {

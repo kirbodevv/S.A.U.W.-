@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -26,20 +25,18 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.intbyte.bdb.DataBuffer;
-import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 
 import java.util.*;
+
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class World {
     private int WIDTH = Gdx.graphics.getWidth();
     private int HEIGHT = Gdx.graphics.getHeight();
     private Items items;
-    private Camera2D cam;
-    private SpriteBatch b;
     public Maps maps;
     private Blocks blocks;
-    private com.kgc.sauw.resource.Textures Textures;
     private GameInterface GI;
     private boolean interfaceTouched;
     private boolean isTouched;
@@ -196,26 +193,20 @@ public class World {
         return pixmap;
     }
 
-    public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks, GameInterface GI, Settings s) {
-        this.Textures = t;
-        this.b = b;
+    public World(Items i, Blocks blocks, GameInterface GI, Settings s) {
         this.items = i;
-        this.cam = cam;
         this.maps = new Maps();
         this.blocks = blocks;
         this.GI = GI;
         createWorld();
-        entities = new Entities(b, maps, Textures, items);
-        pl = new Player(i, Textures, GI, entities, maps, s);
+        entities = new Entities(BATCH, maps, TEXTURES, items);
+        pl = new Player(i, TEXTURES, GI, entities, maps, s);
         pl.body = createBox(pl.posX, pl.posY, pl.playerBodyW, pl.playerBodyH, BodyDef.BodyType.DynamicBody);
         pl.body.setFixedRotation(true);
     }
 
-    public World(SpriteBatch b, Textures t, Items i, Camera2D cam, Blocks blocks) {
-        this.Textures = t;
-        this.b = b;
+    public World(Items i, Blocks blocks) {
         this.items = i;
-        this.cam = cam;
         this.maps = new Maps();
         this.blocks = blocks;
         createWorld();
@@ -303,9 +294,9 @@ public class World {
 
     public void update(Mods mods, Achievements a) {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        pl.update(this, a, cam);
+        pl.update(this, a, GAME_CAMERA);
         entities.update();
-        maps.update(cam, GI, pl, this, blocks, entities, items);
+        maps.update(GAME_CAMERA, GI, pl, this, blocks, entities, items);
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
                 if (GI.isTouched())
@@ -320,9 +311,9 @@ public class World {
         if (!Gdx.input.isTouched() && worldTouched) {
             worldTouched = false;
             if (!interfaceTouched && !GI.isInterfaceOpen) {
-                double sc = (double) cam.W / WIDTH;
-                int cX = (int) (Gdx.input.getX() * sc + cam.X);
-                int cY = (int) (cam.H - Gdx.input.getY() * sc + cam.Y);
+                double sc = (double) GAME_CAMERA.W / WIDTH;
+                int cX = (int) (Gdx.input.getX() * sc + GAME_CAMERA.X);
+                int cY = (int) (GAME_CAMERA.H - Gdx.input.getY() * sc + GAME_CAMERA.Y);
                 int bX = (cX - (cX % (WIDTH / 16))) / (WIDTH / 16);
                 int bY = (cY - (cY % (WIDTH / 16))) / (WIDTH / 16);
                 mods.HookFunction("itemClick", new Object[]{bX, bY, (maps.map0[bY][bX][1].id != 4) ? 1 : 0, maps.map0[bY][bX][(maps.map0[bY][bX][1].id != 4) ? 1 : 0].id, pl.getCarriedItem()});
@@ -372,21 +363,21 @@ public class World {
         render(true);
     }
     public void renderLights(){
-        b.end();
+        BATCH.end();
         if (GI != null && !GI.isInterfaceOpen) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
             RayHandler.setAmbientLight(AL, AL, AL, 1);
-            RayHandler.setCombinedMatrix(cam.CAMERA.combined);
+            RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA.combined);
             RayHandler.updateAndRender();
         }
-        b.begin();
+        BATCH.begin();
     }
     public void renderEntitys() {
         if (entities != null) {
-            entities.render(cam);
+            entities.render(GAME_CAMERA);
         }
         if (pl != null) {
-            pl.render(b, Textures, WorldTime);
+            pl.render(BATCH, TEXTURES, WorldTime);
             for (int y = pl.currentTileY; y > 0; y--) {
                 if (maps.map0[y][pl.currentTileX][0].id != 4) {
                     if (pl.currentTileY - y <= blocks.getBlockById(maps.map0[y][pl.currentTileX][0].id).getSize().y && pl.body.getPosition().y + pl.playerBodyH / 2 >= maps.map0[y][pl.currentTileX][0].block.y) {
@@ -408,10 +399,10 @@ public class World {
     public void renderBlock(int x, int y, boolean isHighestLayer) {
         int z = getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(cam.X, cam.Y, cam.W, cam.H, x * (WIDTH / 16), y * (WIDTH / 16), blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (WIDTH / 16), y * (WIDTH / 16), blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
                 if ((!isHighestLayer) || (isHighestLayer && z == 0)) {
                     if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
-                        b.setColor(0.7f, 0.7f, 0.7f, 1);
+                        BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
                     }
                     if (!isHighestLayer && z == 0 && blocks.getBlockById(maps.map0[y][x][z].id).getTranspanent()) {
                         z = z + 1;
@@ -420,13 +411,13 @@ public class World {
                         int w = blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16;
                         int h = blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16;
                         if (maps.map0[y][x][z].type == 0) {
-                            b.draw(maps.map0[y][x][z].t, x * (WIDTH / 16), y * (WIDTH / 16), w, h);
+                            BATCH.draw(maps.map0[y][x][z].t, x * (WIDTH / 16), y * (WIDTH / 16), w, h);
                         } else if (maps.map0[y][x][z].type == 1) {
-                            b.draw(getConnectingTexture(blocks.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16), y * (WIDTH / 16), w, h);
+                            BATCH.draw(getConnectingTexture(blocks.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16), y * (WIDTH / 16), w, h);
                         }
                     }
                     if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
-                        b.setColor(1, 1, 1, 1);
+                        BATCH.setColor(1, 1, 1, 1);
                     }
                 }
             }
@@ -466,7 +457,7 @@ public class World {
         } else if (bl.id != uID && bl.id != dID && bl.id != lID && bl.id != rID) {
             return bl.t15;
         }
-        return Textures.undf;
+        return TEXTURES.undf;
     }
 
 }

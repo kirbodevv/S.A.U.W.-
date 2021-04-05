@@ -12,18 +12,19 @@ import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Blocks;
 import com.kgc.sauw.environment.Items;
-import com.kgc.sauw.resource.Textures;
 import org.json.JSONObject;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+
 public class Mods {
 	Context cx;
 	mod mods[] = null;
 
-    public void load(Player pl, Blocks BLOCKS, Items ITEMS, ModAPI ModAPI, Crafting crafting, Settings settings, GameInterface GI, Textures T) {
+    public void load(Player pl, Blocks BLOCKS, Items ITEMS, ModAPI ModAPI, Crafting crafting, Settings settings, GameInterface GI) {
 		cx = Context.enter();
 		cx.setOptimizationLevel(-1);
 		try {
@@ -47,7 +48,7 @@ public class Mods {
 						ScriptableObject.putProperty(mods[i].sc, "ModAPI", ModAPI);
 						ScriptableObject.putProperty(mods[i].sc, "Settings", settings);
 						ScriptableObject.putProperty(mods[i].sc, "GI", GI);
-						ScriptableObject.putProperty(mods[i].sc, "Textures", T);
+						ScriptableObject.putProperty(mods[i].sc, "Textures", TEXTURES);
 
 						cx.evaluateString(mods[i].sc, result, names[i], 1, null);
 					}

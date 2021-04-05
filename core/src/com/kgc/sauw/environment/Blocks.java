@@ -7,7 +7,7 @@ import com.kgc.sauw.utils.Langs;
 import com.kgc.sauw.UI.Interface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.ArrayList;
 import com.kgc.sauw.UI.Elements.Slot;
 import com.kgc.sauw.UI.Container;
@@ -18,12 +18,12 @@ import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.math.Vector2i;
-import com.kgc.sauw.resource.Textures;
+
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class Blocks {
 	public ArrayList<Block> BLOCKS = new ArrayList<Block>();
 	Items items;
-	com.kgc.sauw.resource.Textures Textures;
 	int w = Gdx.graphics.getWidth();
 	int h = Gdx.graphics.getHeight();
 	TextureRegion[][] saplingTextures;
@@ -34,29 +34,28 @@ public class Blocks {
 	Animation campfireAnimation;
 	Animation furnaceAnimation;
 	private Langs l;
-	public Blocks(Textures t, Langs l) {
+	public Blocks(Langs l) {
 		this.l = l;
-		this.Textures = t;
-		createBlock(1, Textures.grass0);
-		createBlock(2, Textures.stone);
-		createBlock(3, Textures.wall0, t.wall1, t.wall2, t.wall3, t.wall4, t.wall5, t.wall6, t.wall7, t.wall8, t.wall9, t.wall10, t.wall0, t.wall1, t.wall0, t.wall1, t.wall0);
+		createBlock(1, TEXTURES.grass0);
+		createBlock(2, TEXTURES.stone);
+		createBlock(3, TEXTURES.wall0, TEXTURES.wall1, TEXTURES.wall2, TEXTURES.wall3, TEXTURES.wall4, TEXTURES.wall5, TEXTURES.wall6, TEXTURES.wall7, TEXTURES.wall8, TEXTURES.wall9, TEXTURES.wall10, TEXTURES.wall0, TEXTURES.wall1, TEXTURES.wall0, TEXTURES.wall1, TEXTURES.wall0);
 		createBlock(4, (Texture)null);
-		createBlock(5, Textures.chest);
-		createBlock(6, Textures.tree);
-		createBlock(7, Textures.door);
-		createBlock(8, Textures.wood);
-		createBlock(9, Textures.stone_1);
-        createBlock(10, Textures.iron_ore);
-		createBlock(11, Textures.furnace);
-		createBlock(12, Textures.dirt);
-        createBlock(13, Textures.sapling);
+		createBlock(5, TEXTURES.chest);
+		createBlock(6, TEXTURES.tree);
+		createBlock(7, TEXTURES.door);
+		createBlock(8, TEXTURES.wood);
+		createBlock(9, TEXTURES.stone_1);
+        createBlock(10, TEXTURES.iron_ore);
+		createBlock(11, TEXTURES.furnace);
+		createBlock(12, TEXTURES.dirt);
+        createBlock(13, TEXTURES.sapling);
 		//препятствие
-        createBlock(14, Textures.undf);
-		createBlock(15, Textures.campfire);
+        createBlock(14, TEXTURES.undf);
+		createBlock(15, TEXTURES.campfire);
 		//куст
-		createBlock(16, Textures.undf);
-		createBlock(17, Textures.christmas_tree);
-		createBlock(18, Textures.snow);
+		createBlock(16, TEXTURES.undf);
+		createBlock(17, TEXTURES.christmas_tree);
+		createBlock(18, TEXTURES.snow);
 		
 		getBlockById(6).setSize(1, 2);
 		getBlockById(17).setSize(1, 2);
@@ -136,7 +135,7 @@ public class Blocks {
 		this.createBlock(id, tt0);
 		items.createItem(items.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
 	}
-	public void initialize(final Textures t, Camera2D cam, final Items items, final GameInterface gi, final SpriteBatch  batch, final World world, final Langs langs) {
+	public void initialize(final Items items, final GameInterface gi, final World world, final Langs langs) {
 		final Maps maps = world.maps;
 		getBlockById(5).registerTileEntity(new Tile.TileEntity(){
 			    @Override
@@ -146,12 +145,12 @@ public class Blocks {
 					float width = w / 16 * (h / (w / 16.0f) - 2);
 					float heigth = w / 16 * (h / (w / 16.0f) - 2);
 	               // String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
-					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, Textures, batch, gi.interfaceCamera, items, gi);
+					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, items, gi);
 					chestInterface.createInventory().setHeaderText(langs.getString("chest")).isBlockInterface(true);
 					chestInterface.setMaps(maps);
 				   for (int i = 0; i < 3; i++) {
 						for (int j = 0; j < 8; j++) {
-							Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)), (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64), w / 24, w / 24, t.selected_slot);
+							Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)), (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64), w / 24, w / 24, TEXTURES.selected_slot);
 							chestInterface.slots.add(slot);
 							//_interface += "\"chestSlot_" + (i * 8 + j) + "\" : {\"type\":\"slot\", \"Texture_0\":\"Interface/slot.png\", \"Texture_1\":\"Interface/selected_slot.png\", \"width\":" + (w / 24) + ", \"height\":" + (w / 24) + ", \"x\":" + (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)) + ", \"y\":" + (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64) + "}" + ((i * 8 + j == 23) ? "" : ",");
 						}
@@ -231,7 +230,7 @@ public class Blocks {
 				}
 			});
 		campfireTexture = TextureRegion.split(getBlockById(15).t0, getBlockById(15).t0.getWidth(), getBlockById(15).t0.getHeight())[0][0];
-		campfireTextures = TextureRegion.split(Textures.campfire_animation, Textures.campfire_animation.getWidth() / 4, Textures.campfire_animation.getHeight());
+		campfireTextures = TextureRegion.split(TEXTURES.campfire_animation, TEXTURES.campfire_animation.getWidth() / 4, TEXTURES.campfire_animation.getHeight());
 		campfireAnimation = new Animation(0.05f, campfireTextures[0][0], campfireTextures[0][1], campfireTextures[0][2], campfireTextures[0][3]);
 		getBlockById(15).registerTileEntity(new Tile.TileEntity(){
                 float stateTime = 0.0f;
@@ -273,13 +272,13 @@ public class Blocks {
 				};
 				@Override
 				public void interfaceInitialize() {
-					_interface = new Interface(Interface.InterfaceSizes.STANDART, Textures, batch, gi.interfaceCamera, items, gi);
+					_interface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, items, gi);
 					_interface.setHeaderText(langs.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);
 					int temp = (int)(_interface.width - w / 24 * 4) / 2;
-					resultSlot = new Slot("ResultSlot", (int)(_interface.x + _interface.width - temp - w / 24), (int)(_interface.y + w / 24 * 6.5), w / 24, w / 24, Textures.selected_slot);
-					ingSlot = new Slot("IngSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 7.5), w / 24, w / 24, Textures.selected_slot);
-					fuelSlot = new Slot("FuelSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 5.5), w / 24, w / 24, Textures.selected_slot);
+					resultSlot = new Slot("ResultSlot", (int)(_interface.x + _interface.width - temp - w / 24), (int)(_interface.y + w / 24 * 6.5), w / 24, w / 24, TEXTURES.selected_slot);
+					ingSlot = new Slot("IngSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 7.5), w / 24, w / 24, TEXTURES.selected_slot);
+					fuelSlot = new Slot("FuelSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 5.5), w / 24, w / 24, TEXTURES.selected_slot);
 					resultSlot.setSF(new Slot.SlotFunctions(){
 							@Override
 							public boolean isValid(int id, int count, int data, String FromSlotWithId) {

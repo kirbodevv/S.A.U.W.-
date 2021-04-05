@@ -19,6 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import static com.kgc.sauw.graphic.Graphic.*;
+
 public class ModsScreen implements Screen {
     private class Mod {
         public Texture modIcon;
@@ -39,8 +41,6 @@ public class ModsScreen implements Screen {
     }
 
     private ArrayList<Mod> Mods = new ArrayList<Mod>();
-    private SpriteBatch batch;
-    private Camera2D cam;
     private Textures t;
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
@@ -56,8 +56,6 @@ public class ModsScreen implements Screen {
     private JSONArray modsList;
 
     public ModsScreen(final MainGame game, Textures t, final MenuScreen ms) {
-        this.batch = ms.b;
-        this.cam = ms.camera;
         this.t = t;
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
         background1 = Textures.generateTexture(13, height / (width / 16) - 1, false);
@@ -136,21 +134,21 @@ public class ModsScreen implements Screen {
 
     @Override
     public void render(float p1) {
-        closeButton.update(cam);
-        slider.update(cam);
-        modInfo0.update(cam);
-        modInfo1.update(cam);
-        modInfo2.update(cam);
-        batch.begin();
-        batch.draw(t.standartBackground_full, cam.X, cam.Y, width, height);
-        batch.draw(background1, cam.X + width / 32, cam.Y + width / 32, width / 16 * 13, height - (width / 16));
-        closeButton.render(batch, cam);
-        modInfo0.render(batch, cam);
-        modInfo1.render(batch, cam);
-        modInfo2.render(batch, cam);
-        slider.render(batch, cam);
+        closeButton.update(GAME_CAMERA);
+        slider.update(GAME_CAMERA);
+        modInfo0.update(GAME_CAMERA);
+        modInfo1.update(GAME_CAMERA);
+        modInfo2.update(GAME_CAMERA);
+        BATCH.begin();
+        BATCH.draw(t.standartBackground_full, GAME_CAMERA.X, GAME_CAMERA.Y, width, height);
+        BATCH.draw(background1, GAME_CAMERA.X + width / 32, GAME_CAMERA.Y + width / 32, width / 16 * 13, height - (width / 16));
+        closeButton.render(BATCH, GAME_CAMERA);
+        modInfo0.render(BATCH, GAME_CAMERA);
+        modInfo1.render(BATCH, GAME_CAMERA);
+        modInfo2.render(BATCH, GAME_CAMERA);
+        slider.render(BATCH, GAME_CAMERA);
 
-        batch.end();
+        BATCH.end();
     }
 
     @Override

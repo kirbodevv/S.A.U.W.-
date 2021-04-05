@@ -1,11 +1,12 @@
 package com.kgc.sauw.environment;
 import com.badlogic.gdx.graphics.*;
 import com.kgc.sauw.utils.Langs;
-import com.kgc.sauw.resource.Textures;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import org.json.JSONObject;
+
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Items {
 	public static class Type{
@@ -15,35 +16,33 @@ public class Items {
 		public static final byte FOOD = 3;
 	}
 	public static Type Type = new Type();
-	Textures Textures;
 	Langs l;
 	public ArrayList<Item> ITEMS = new ArrayList<Item>();
-	public Items(Textures t, Langs l) {
+	public Items(Langs l) {
 		this.l = l;
-		this.Textures = t;
 		createItem(0, 0f, null, null, -1, -1, -1);
-		createItem(1, 0.01f, l.getString("grass"), Textures.grass0, Type.BLOCKITEM, 1, 64, 0);
-		createItem(2, 0.2f, l.getString("apple"), Textures.apple, Type.FOOD, 64, 0);
-		createItem(3, 0.01f, l.getString("stone"), Textures.stone, Type.BLOCKITEM, 2, 64, 0);
-		createItem(4, 0.01f, l.getString("wall"), Textures.wall0, Type.BLOCKITEM, 3, 64, 0);
-		createItem(5, 0.01f, l.getString("door"), Textures.door, Type.BLOCKITEM, 7,  64, 0);
-		createItem(6, 0.01f, l.getString("chest"), Textures.chest, Type.BLOCKITEM, 5, 64, 0);
-		createItem(7, 0.05f, l.getString("stick"), Textures.stick, Type.ITEM, 64, 0);
-		createItem(8, 1.25f, l.getString("log"), Textures.log, Type.ITEM, 64, 0);
-		createItem(10,0.01f, l.getString("wood"), Textures.wood, Type.BLOCKITEM, 8, 64, 0);
-		createItem(11,0.01f, l.getString("stone"), Textures.stone_1, Type.BLOCKITEM, 9, 64, 0);
-		createItem(12,0.15f, l.getString("stone"), Textures.stone_item, Type.ITEM, 64, 0);
-		createItem(13,0.01f, l.getString("iron_ore"), Textures.iron_ore_item, Type.ITEM, 64, 0);
-		createItem(14,0.75f, l.getString("stone_pickaxe"), Textures.stone_pickaxe, Type.INSTRUMENT, 1, 128);
-		createItem(15,5.75f, l.getString("stone_axe"), Textures.stone_axe, Type.INSTRUMENT, 1, 10);
-		createItem(16,0.01f, l.getString("furnace"), Textures.furnace_item, Type.BLOCKITEM, 11, 64, 0);
-		createItem(17,0.1f,  l.getString("rope"), Textures.rope, Type.ITEM, 64, 0);
-		createItem(18,0.05f, l.getString("vegetable_fiber"), Textures.vegetable_fiber, Type.ITEM, 64, 0);
-		createItem(19,0.01f, l.getString("dirt"), Textures.dirt, Type.BLOCKITEM, 12, 64, 0);
-		createItem(20,0.1f, l.getString("sapling"), Textures.sapling_item, Type.BLOCKITEM, 13, 64, 0);
-		createItem(21,1f, l.getString("iron_ingot"),Textures.iron_ingot, Type.ITEM, 64, 0);
-		createItem(22,0.75f, l.getString("stone_shovel"), Textures.stone_shovel, Type.INSTRUMENT, 1, 128);
-		createItem(23,0.01f, l.getString("campfire"), Textures.campfire, Type.BLOCKITEM, 15, 64, 0);
+		createItem(1, 0.01f, l.getString("grass"), TEXTURES.grass0, Type.BLOCKITEM, 1, 64, 0);
+		createItem(2, 0.2f, l.getString("apple"), TEXTURES.apple, Type.FOOD, 64, 0);
+		createItem(3, 0.01f, l.getString("stone"), TEXTURES.stone, Type.BLOCKITEM, 2, 64, 0);
+		createItem(4, 0.01f, l.getString("wall"), TEXTURES.wall0, Type.BLOCKITEM, 3, 64, 0);
+		createItem(5, 0.01f, l.getString("door"), TEXTURES.door, Type.BLOCKITEM, 7,  64, 0);
+		createItem(6, 0.01f, l.getString("chest"), TEXTURES.chest, Type.BLOCKITEM, 5, 64, 0);
+		createItem(7, 0.05f, l.getString("stick"), TEXTURES.stick, Type.ITEM, 64, 0);
+		createItem(8, 1.25f, l.getString("log"), TEXTURES.log, Type.ITEM, 64, 0);
+		createItem(10,0.01f, l.getString("wood"), TEXTURES.wood, Type.BLOCKITEM, 8, 64, 0);
+		createItem(11,0.01f, l.getString("stone"), TEXTURES.stone_1, Type.BLOCKITEM, 9, 64, 0);
+		createItem(12,0.15f, l.getString("stone"), TEXTURES.stone_item, Type.ITEM, 64, 0);
+		createItem(13,0.01f, l.getString("iron_ore"), TEXTURES.iron_ore_item, Type.ITEM, 64, 0);
+		createItem(14,0.75f, l.getString("stone_pickaxe"), TEXTURES.stone_pickaxe, Type.INSTRUMENT, 1, 128);
+		createItem(15,5.75f, l.getString("stone_axe"), TEXTURES.stone_axe, Type.INSTRUMENT, 1, 10);
+		createItem(16,0.01f, l.getString("furnace"), TEXTURES.furnace_item, Type.BLOCKITEM, 11, 64, 0);
+		createItem(17,0.1f,  l.getString("rope"), TEXTURES.rope, Type.ITEM, 64, 0);
+		createItem(18,0.05f, l.getString("vegetable_fiber"), TEXTURES.vegetable_fiber, Type.ITEM, 64, 0);
+		createItem(19,0.01f, l.getString("dirt"), TEXTURES.dirt, Type.BLOCKITEM, 12, 64, 0);
+		createItem(20,0.1f, l.getString("sapling"), TEXTURES.sapling_item, Type.BLOCKITEM, 13, 64, 0);
+		createItem(21,1f, l.getString("iron_ingot"), TEXTURES.iron_ingot, Type.ITEM, 64, 0);
+		createItem(22,0.75f, l.getString("stone_shovel"), TEXTURES.stone_shovel, Type.INSTRUMENT, 1, 128);
+		createItem(23,0.01f, l.getString("campfire"), TEXTURES.campfire, Type.BLOCKITEM, 15, 64, 0);
 		
 		
 		getItemById(2).setFoodScore(4);
@@ -106,7 +105,7 @@ public class Items {
 				return ITEMS.get(i).t;
 			}
 		}
-		return Textures.undf;
+		return TEXTURES.undf;
 	}
 	public int getMaxCountById(int id) {
 		for (int i = 0; i < ITEMS.size(); i++) {

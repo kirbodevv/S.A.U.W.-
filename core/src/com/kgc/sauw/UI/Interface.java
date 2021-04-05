@@ -1,6 +1,5 @@
 package com.kgc.sauw.UI;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import java.util.ArrayList;
@@ -10,10 +9,12 @@ import com.kgc.sauw.UI.Elements.Image;
 import com.kgc.sauw.UI.Elements.Slot;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Items;
+import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.Maps;
-import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 public class Interface {
 	public static class InterfaceSizes {
 		public static int STANDART = 0;
@@ -23,8 +24,6 @@ public class Interface {
 	private int HEIGHT = Gdx.graphics.getHeight();
 	public boolean isOpen = false;
 	public boolean isBlockInterface;
-	private Textures t;
-	private SpriteBatch b;
 	private Items items;
 	private int w, h;
 	public BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
@@ -53,9 +52,7 @@ public class Interface {
 	public int currentItemInv = -1;
 	public int currentTabInv = 0;
 
-	public Interface(int size, Textures t, SpriteBatch b, Camera2D cam, Items items, GameInterface GI_) {
-		this.t = t;
-		this.b = b;
+	public Interface(int size, Camera2D cam, Items items, GameInterface GI_) {
 		this.GI = GI_;
 		this.items = items;
 		w = Gdx.graphics.getWidth();
@@ -66,7 +63,7 @@ public class Interface {
 		if (size == InterfaceSizes.FULL) {
 			width = w;
 			heigth = h;
-			actionBar = Textures.generateTexture(16, 1, true);
+			actionBar = Graphic.TEXTURES.generateTexture(16, 1, true);
 		} else if (size == InterfaceSizes.STANDART) {
 			width = w / 16 * (h / (w / 16.0f) - 2);
 			heigth = w / 16 * (h / (w / 16.0f) - 2);
@@ -74,7 +71,7 @@ public class Interface {
 		x = (w - width) / 2;
 		y = (h - heigth) / 2;
         this.size = size;
-		exitButton = new Button("", (int)(x + width - w / 16), (int)(y + heigth - w / 16 + w / 64), w / 32, w / 32, t.closeButton, t.closeButton);
+		exitButton = new Button("", (int)(x + width - w / 16), (int)(y + heigth - w / 16 + w / 64), w / 32, w / 32, Graphic.TEXTURES.closeButton, Graphic.TEXTURES.closeButton);
 		exitButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -99,19 +96,19 @@ public class Interface {
 		float yyy = WIDTH / 32;
 		float www = WIDTH / 16 * 8 - WIDTH / 32;
 		float hhh = HEIGHT - WIDTH / 16 * 2;
-		backgroundInv0 = Textures.generateTexture(7.5f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
-		backgroundInv2 = Textures.generateTexture(6f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
-		previosTabInv = new Button("pr", (int)(xxx + WIDTH / 32), (int)(yyy + hhh - hhh / 7 - WIDTH / 64), (int)hhh / 7, (int)hhh / 7, t.button_left_0, t.button_left_1);
-		nextTabInv = new Button("next", (int)(xxx + www - WIDTH / 32 - hhh / 7), (int)(yyy + hhh - hhh / 7 - WIDTH / 64), (int)hhh / 7, (int)hhh / 7, t.button_right_0, t.button_right_1);
+		backgroundInv0 = Graphic.TEXTURES.generateTexture(7.5f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
+		backgroundInv2 = Graphic.TEXTURES.generateTexture(6f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
+		previosTabInv = new Button("pr", (int)(xxx + WIDTH / 32), (int)(yyy + hhh - hhh / 7 - WIDTH / 64), (int)hhh / 7, (int)hhh / 7, Graphic.TEXTURES.button_left_0, Graphic.TEXTURES.button_left_1);
+		nextTabInv = new Button("next", (int)(xxx + www - WIDTH / 32 - hhh / 7), (int)(yyy + hhh - hhh / 7 - WIDTH / 64), (int)hhh / 7, (int)hhh / 7, Graphic.TEXTURES.button_right_0, Graphic.TEXTURES.button_right_1);
 		buttons.add(previosTabInv);
 		buttons.add(nextTabInv);
 		int dist = nextTabInv.X - (previosTabInv.X + previosTabInv.width);
-		backgroundInv1 = Textures.generateTexture(dist / (WIDTH / 16), (hhh / 7) / (WIDTH / 16), true);
+		backgroundInv1 = Graphic.TEXTURES.generateTexture(dist / (WIDTH / 16), (hhh / 7) / (WIDTH / 16), true);
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 6; x++) {
 				final int num = y * 6 + x;
 				String id = "InventorySlot_" + num;
-				Slot s = new Slot(id, (int)(xxx + w / 32 + hhh / 7 * x + w / 64), (int)(yyy + w / 32 + hhh / 7 * (4 - y)), (int)(hhh / 7), (int)(hhh / 7), t.selected_slot);
+				Slot s = new Slot(id, (int)(xxx + w / 32 + hhh / 7 * x + w / 64), (int)(yyy + w / 32 + hhh / 7 * (4 - y)), (int)(hhh / 7), (int)(hhh / 7), Graphic.TEXTURES.selected_slot);
 				s.setSF(new Slot.SlotFunctions(){
 
 						@Override
@@ -256,35 +253,35 @@ public class Interface {
 	public void render(Player pl, Camera2D cam) {
 		if (isOpen) {
 			if (size == InterfaceSizes.FULL) {
-				b.draw(t.standartBackground_full, x + cam.X, y + cam.Y, width, heigth);
+				BATCH.draw(TEXTURES.standartBackground_full, x + cam.X, y + cam.Y, width, heigth);
 			} else if (size == InterfaceSizes.STANDART) {
-				b.draw(t.standartBackground, x + cam.X, y + cam.Y, width, heigth);
+				BATCH.draw(TEXTURES.standartBackground, x + cam.X, y + cam.Y, width, heigth);
 			}
 			if (size == InterfaceSizes.FULL) {
-				b.draw(actionBar, cam.X, cam.Y + HEIGHT - WIDTH / 16, WIDTH, WIDTH / 16);
+				BATCH.draw(actionBar, cam.X, cam.Y + HEIGHT - WIDTH / 16, WIDTH, WIDTH / 16);
 			}
-			text.drawMultiLine(b, headerText, x + cam.X, (y + heigth + cam.Y) - (w / 16 - text.getCapHeight()) / 2, width, BitmapFont.HAlignment.CENTER);
+			text.drawMultiLine(BATCH, headerText, x + cam.X, (y + heigth + cam.Y) - (w / 16 - text.getCapHeight()) / 2, width, BitmapFont.HAlignment.CENTER);
 			if (IE != null) {
 				IE.renderBefore();
 			}
 			if (inventory) {
-				b.draw(backgroundInv2, WIDTH / 16 * 9, WIDTH / 32, WIDTH / 16 * 6, HEIGHT - WIDTH / 16 * 2);
-				b.draw(backgroundInv0, WIDTH / 16, WIDTH / 32, WIDTH / 16 * 8 - WIDTH / 32, HEIGHT - WIDTH / 16 * 2);
-				b.draw(backgroundInv1, previosTabInv.X + previosTabInv.width, previosTabInv.Y, nextTabInv.X - (previosTabInv.X + previosTabInv.width), previosTabInv.height);
+				BATCH.draw(backgroundInv2, WIDTH / 16 * 9, WIDTH / 32, WIDTH / 16 * 6, HEIGHT - WIDTH / 16 * 2);
+				BATCH.draw(backgroundInv0, WIDTH / 16, WIDTH / 32, WIDTH / 16 * 8 - WIDTH / 32, HEIGHT - WIDTH / 16 * 2);
+				BATCH.draw(backgroundInv1, previosTabInv.X + previosTabInv.width, previosTabInv.Y, nextTabInv.X - (previosTabInv.X + previosTabInv.width), previosTabInv.height);
 			}
-			exitButton.render(b, cam);
+			exitButton.render(BATCH, cam);
 
 			for (int i = 0; i < buttons.size(); i++) {
-				buttons.get(i).render(b, cam);
+				buttons.get(i).render(BATCH, cam);
 			}
 			for (int i = 0; i < images.size(); i++) {
-				images.get(i).render(b, cam);
+				images.get(i).render(BATCH, cam);
 			}
 			for (Slot slot : slots) {
-				slot.render(b, cam);
+				slot.render(BATCH, cam);
 			}
 			for (int i = 0; i < slots.size(); i++) {
-				slots.get(i).itemRender(b, items);
+				slots.get(i).itemRender(BATCH, items);
 			}
 			if (IE != null) {
 				IE.render();

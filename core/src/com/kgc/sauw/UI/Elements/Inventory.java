@@ -19,13 +19,14 @@ import com.kgc.sauw.resource.Textures;
 
 import java.text.DecimalFormat;
 
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+
 public class Inventory {
     private int w, h;
     private BitmapFont itemsCount = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-    private SpriteBatch b;
     private Camera2D cam;
-    private Texture t;
-    private Texture t2;
+    private Texture Texture;
+    private Texture Texture2;
     private Items items;
     private boolean hided = false;
     private boolean isTouched = false;
@@ -40,20 +41,19 @@ public class Inventory {
     Animation playerAnim;
     Animation tiredPlayerAnim;
 
-    public Inventory(SpriteBatch b, Camera2D c, Texture t, Texture t2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
+    public Inventory(Camera2D c, Texture Texture, Texture Texture2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
         w = c.W;
         h = c.H;
         itemsCount.setColor(Color.BLACK);
         itemsCount.scale(w / 2500);
-        this.b = b;
         this.cam = c;
-        this.t = t;
-        this.t2 = t2;
+        this.Texture = Texture;
+        this.Texture2 = Texture2;
         this.x = x;
         this.y = y;
         this.items = items;
         openButton = new Button("", x + w / 16 * 8, y, w / 16, w / 16, Textures.extraButton_0, Textures.extraButton_1);
-        inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, Textures, b, cam, items, gi);
+        inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, cam, items, gi);
         inventoryInterface.setHeaderText(langs.getString("inventory")).isBlockInterface(false).createInventory();
         openButton.setEventListener(new Button.EventListener() {
             @Override
@@ -165,15 +165,15 @@ public class Inventory {
 
             @Override
             public void render() {
-                Interface.text.drawMultiLine(b, DF.format(pl.weight) + " | " + DF.format(pl.maxWeight) + "Kg", w / 16 * 9 + w / 64, w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
-                Interface.text.drawMultiLine(b, langs.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
-                b.draw(currentFrame, w / 16 * 12 - plW / 2, w / 16 * 4, plW, plH);
-                b.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
+                Interface.text.drawMultiLine(BATCH, DF.format(pl.weight) + " | " + DF.format(pl.maxWeight) + "Kg", w / 16 * 9 + w / 64, w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
+                Interface.text.drawMultiLine(BATCH, langs.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
+                BATCH.draw(currentFrame, w / 16 * 12 - plW / 2, w / 16 * 4, plW, plH);
+                BATCH.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
                 if (Interface.currentItemInv != -1 && Interface.currentItemInv < pl.Inventory.size()) {
-                    b.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
-                    b.draw(items.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
-                    Interface.text.drawMultiLine(b, items.getItemById(pl.Inventory.get(Interface.currentItemInv).id).weight + " Kg", w / 16 * 11 + w / 64, w / 32 * 4, w / 16 * 4, BitmapFont.HAlignment.LEFT);
-                    Interface.text.drawMultiLine(b, items.getNameById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 11 + w / 64, w / 32 * 5, w / 16 * 4, BitmapFont.HAlignment.LEFT);
+                    BATCH.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
+                    BATCH.draw(items.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
+                    Interface.text.drawMultiLine(BATCH, items.getItemById(pl.Inventory.get(Interface.currentItemInv).id).weight + " Kg", w / 16 * 11 + w / 64, w / 32 * 4, w / 16 * 4, BitmapFont.HAlignment.LEFT);
+                    Interface.text.drawMultiLine(BATCH, items.getNameById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 11 + w / 64, w / 32 * 5, w / 16 * 4, BitmapFont.HAlignment.LEFT);
                 }
             }
         });
@@ -198,20 +198,20 @@ public class Inventory {
 
     public void render(Player pl) {
         if (!hided) {
-            b.setColor(1, 1, 1, 0.8f);
-            b.draw(t, x + cam.X, y + cam.Y, w / 16 * 8, w / 16);
+            BATCH.setColor(1, 1, 1, 0.8f);
+            BATCH.draw(Texture, x + cam.X, y + cam.Y, w / 16 * 8, w / 16);
             for (int i = 0; i < 8; i++) {
                 if (Gdx.input.getX() > (i * (w / 16)) + x && Gdx.input.getX() < (i * (w / 16)) + x + (w / 16) && Gdx.input.getY() < h && Gdx.input.getY() > h - (w / 16)) {
                     pl.carriedSlot = i;
                 }
             }
-            openButton.render(b, cam);
-            b.setColor(1, 1, 1, 1);
-            b.draw(t2, x + cam.X + (pl.carriedSlot * (w / 16)), y + cam.Y, w / 16, w / 16);
+            openButton.render(BATCH, cam);
+            BATCH.setColor(1, 1, 1, 1);
+            BATCH.draw(Texture2, x + cam.X + (pl.carriedSlot * (w / 16)), y + cam.Y, w / 16, w / 16);
             for (int i = 0; i < 8; i++) {
                 if (pl.hotbar[i] != -1) {
-                    b.draw(items.getTextureById(pl.getItemFromHotbar(i).id), x + cam.X + i * (w / 16) + (w / 64), y + cam.Y + (w / 64), w / 32, w / 32);
-                    itemsCount.draw(b, "" + pl.Inventory.get((pl.hotbar[i])).count, i * (w / 16) + x + cam.X, y + cam.Y + (w / 16));
+                    BATCH.draw(items.getTextureById(pl.getItemFromHotbar(i).id), x + cam.X + i * (w / 16) + (w / 64), y + cam.Y + (w / 64), w / 32, w / 32);
+                    itemsCount.draw(BATCH, "" + pl.Inventory.get((pl.hotbar[i])).count, i * (w / 16) + x + cam.X, y + cam.Y + (w / 16));
                 }
             }
         }

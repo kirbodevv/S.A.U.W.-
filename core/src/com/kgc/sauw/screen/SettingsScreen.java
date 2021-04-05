@@ -1,22 +1,25 @@
 package com.kgc.sauw.screen;
-import com.kgc.sauw.UI.Elements.Button;
-import com.kgc.sauw.game.MainGame;
-import com.kgc.sauw.resource.Textures;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import org.json.JSONObject;
-import java.util.Iterator;
+import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Elements.Checkbox;
-import com.kgc.sauw.UI.Elements.Slider;
 import com.kgc.sauw.UI.Elements.Notification;
+import com.kgc.sauw.UI.Elements.Slider;
+import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.resource.Textures;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.GAME_CAMERA;
 
 public class SettingsScreen implements Screen {
-	SpriteBatch batch;
 	private int width = Gdx.graphics.getWidth();
 	private int height = Gdx.graphics.getHeight();
 	MainGame game;
@@ -51,7 +54,6 @@ public class SettingsScreen implements Screen {
 	public SettingsScreen(final MainGame game, Textures t, MenuScreen ms) {
 		this.game = game;
 		this.t = t;
-		batch = ms.b;
 		this.MenuScreen = ms;
 		try {
 			availableLangs = new JSONObject(Gdx.files.internal("json/availableLanguages.json").readString());
@@ -61,7 +63,7 @@ public class SettingsScreen implements Screen {
 		Notification = new Notification(Textures.generateBackground(8, 4));
 		debug = new Checkbox(t.switch_0, t.switch_1);
 		debug.setSize(width / 16, width / 16);
-		debug.setPosition(ms.camera.X + width / 16 * 6 + width / 64 , ms.camera.Y + height - width / 16 * 6);
+		debug.setPosition(GAME_CAMERA.X + width / 16 * 6 + width / 64 , GAME_CAMERA.Y + height - width / 16 * 6);
 		debug.setChecked(ms.settings.debugMode);
 		debug.setEventListener(new Checkbox.EventListener(){
 				@Override
@@ -72,7 +74,7 @@ public class SettingsScreen implements Screen {
 			});
 		debugRenderer = new Checkbox(t.switch_0, t.switch_1);
 		debugRenderer.setSize(width / 16, width / 16);
-		debugRenderer.setPosition(ms.camera.X + width / 16 * 6 + width / 64 , ms.camera.Y + height - width / 16 * 7);
+		debugRenderer.setPosition(GAME_CAMERA.X + width / 16 * 6 + width / 64 , GAME_CAMERA.Y + height - width / 16 * 7);
 		debugRenderer.setChecked(ms.settings.debugRenderer);
 		debugRenderer.setEventListener(new Checkbox.EventListener(){
 				@Override
@@ -83,7 +85,7 @@ public class SettingsScreen implements Screen {
 			});
 		AIPU = new Checkbox(t.switch_0, t.switch_1);
 		AIPU.setSize(width / 16, width / 16);
-		AIPU.setPosition(MenuScreen.camera.X + width / 16 * 9, MenuScreen.camera.Y + height - width / 16 * 3);
+		AIPU.setPosition(GAME_CAMERA.X + width / 16 * 9, GAME_CAMERA.Y + height - width / 16 * 3);
 		AIPU.setChecked(ms.settings.autopickup);
 		AIPU.setEventListener(new Checkbox.EventListener(){
 				@Override
@@ -94,7 +96,7 @@ public class SettingsScreen implements Screen {
 			});
 		useConsole = new Checkbox(t.switch_0, t.switch_1);
 		useConsole.setSize(width / 16, width / 16);
-		useConsole.setPosition(MenuScreen.camera.X + width / 16 * 9, MenuScreen.camera.Y + height - width / 16 * 4);
+		useConsole.setPosition(GAME_CAMERA.X + width / 16 * 9, GAME_CAMERA.Y + height - width / 16 * 4);
 		useConsole.setChecked(ms.settings.useConsole);
 		useConsole.setEventListener(new Checkbox.EventListener(){
 				@Override
@@ -114,8 +116,8 @@ public class SettingsScreen implements Screen {
 					game.setScreen(MenuScreen);
 				}
 			});
-		prevLang = new Button("", ms.camera.X + width / 16 * 4 + width / 64, ms.camera.Y + height - width / 32 * 7, width / 16, width / 16, t.button_up_0, t.button_up_1);
-		nextLang = new Button("", ms.camera.X + width / 16 * 4 + width / 64, ms.camera.Y + height - width / 32 * 9, width / 16, width / 16, t.button_down_0, t.button_down_1);
+		prevLang = new Button("", GAME_CAMERA.X + width / 16 * 4 + width / 64, GAME_CAMERA.Y + height - width / 32 * 7, width / 16, width / 16, t.button_up_0, t.button_up_1);
+		nextLang = new Button("", GAME_CAMERA.X + width / 16 * 4 + width / 64, GAME_CAMERA.Y + height - width / 32 * 9, width / 16, width / 16, t.button_down_0, t.button_down_1);
 		nextLang.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -227,62 +229,62 @@ public class SettingsScreen implements Screen {
 
 		if (currentSettingCot == 0) {
 			general.lock(true);
-			nextLang.update(MenuScreen.camera);
-			prevLang.update(MenuScreen.camera);
-			debug.update(MenuScreen.camera);
-			debugRenderer.update(MenuScreen.camera);
+			nextLang.update(GAME_CAMERA);
+			prevLang.update(GAME_CAMERA);
+			debug.update(GAME_CAMERA);
+			debugRenderer.update(GAME_CAMERA);
 		} else if (currentSettingCot == 1) {
 			Interface.lock(true);
 		} else if (currentSettingCot == 2) {
 			gameSettings.lock(true);
-			AIPU.update(MenuScreen.camera);
-			useConsole.update(MenuScreen.camera);
+			AIPU.update(GAME_CAMERA);
+			useConsole.update(GAME_CAMERA);
 		} else if (currentSettingCot == 3) {
 			sound.lock(true);
-		    musicVolume.update(MenuScreen.camera);
+		    musicVolume.update(GAME_CAMERA);
 		}
-		Notification.update(MenuScreen.camera);
-		closeButton.update(MenuScreen.camera);
-		general.update(MenuScreen.camera);
-		Interface.update(MenuScreen.camera);
-		gameSettings.update(MenuScreen.camera);
-		sound.update(MenuScreen.camera);
-		batch.begin();
-		batch.draw(t.standartBackground_full, MenuScreen.camera.X, MenuScreen.camera.Y, width, height);
-		batch.draw(background0, MenuScreen.camera.X + width / 32, MenuScreen.camera.Y + width / 32, width / 16 * 15, height - width / 16 * 2);
-		closeButton.render(batch, MenuScreen.camera);
-		general.render(batch, MenuScreen.camera);
-		Interface.render(batch, MenuScreen.camera);
-		gameSettings.render(batch, MenuScreen.camera);
-		sound.render(batch, MenuScreen.camera);
+		Notification.update(GAME_CAMERA);
+		closeButton.update(GAME_CAMERA);
+		general.update(GAME_CAMERA);
+		Interface.update(GAME_CAMERA);
+		gameSettings.update(GAME_CAMERA);
+		sound.update(GAME_CAMERA);
+		BATCH.begin();
+		BATCH.draw(t.standartBackground_full, GAME_CAMERA.X, GAME_CAMERA.Y, width, height);
+		BATCH.draw(background0, GAME_CAMERA.X + width / 32, GAME_CAMERA.Y + width / 32, width / 16 * 15, height - width / 16 * 2);
+		closeButton.render(BATCH, GAME_CAMERA);
+		general.render(BATCH, GAME_CAMERA);
+		Interface.render(BATCH, GAME_CAMERA);
+		gameSettings.render(BATCH, GAME_CAMERA);
+		sound.render(BATCH, GAME_CAMERA);
 		if (currentSettingCot == 0) {
 			try {
-				batch.draw(background1, MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 4, width / 16 * 3, width / 16);
-				bf.drawMultiLine(batch, MenuScreen.langs.getString("language"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
-				bf.drawMultiLine(batch, availableLangs.getString(MenuScreen.settings.lang), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
-			    bf.drawMultiLine(batch, MenuScreen.langs.getString("debug"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
-				bf.drawMultiLine(batch, MenuScreen.langs.getString("debugRenderer"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
-				nextLang.render(batch, MenuScreen.camera);
-				prevLang.render(batch, MenuScreen.camera);
-				debug.render(batch, MenuScreen.camera);
-				debugRenderer.render(batch, MenuScreen.camera);
+				BATCH.draw(background1, GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 4, width / 16 * 3, width / 16);
+				bf.drawMultiLine(BATCH, MenuScreen.langs.getString("language"), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
+				bf.drawMultiLine(BATCH, availableLangs.getString(MenuScreen.settings.lang), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
+			    bf.drawMultiLine(BATCH, MenuScreen.langs.getString("debug"), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
+				bf.drawMultiLine(BATCH, MenuScreen.langs.getString("debugRenderer"), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
+				nextLang.render(BATCH, GAME_CAMERA);
+				prevLang.render(BATCH, GAME_CAMERA);
+				debug.render(BATCH, GAME_CAMERA);
+				debugRenderer.render(BATCH, GAME_CAMERA);
 			} catch (Exception e) {
 
 			}
 		} else if (currentSettingCot == 1) {
 
 		} else if (currentSettingCot == 2) {
-			bf.drawMultiLine(batch, MenuScreen.langs.getString("autoitemspickup"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
-			AIPU.render(batch, MenuScreen.camera);
-			bf.drawMultiLine(batch, MenuScreen.langs.getString("useConsole"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
-			useConsole.render(batch, MenuScreen.camera);
+			bf.drawMultiLine(BATCH, MenuScreen.langs.getString("autoitemspickup"), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
+			AIPU.render(BATCH, GAME_CAMERA);
+			bf.drawMultiLine(BATCH, MenuScreen.langs.getString("useConsole"), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
+			useConsole.render(BATCH, GAME_CAMERA);
 		} else if (currentSettingCot == 3) {
-			bf.drawMultiLine(batch, MenuScreen.langs.getString("music"), MenuScreen.camera.X + width / 16, MenuScreen.camera.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, BitmapFont.HAlignment.LEFT);
-		    musicVolume.render(batch, MenuScreen.camera);
-			bf.drawMultiLine(batch, musicVolume.getValue() + "", MenuScreen.camera.X + musicVolume.X + musicVolume.width + width / 32, MenuScreen.camera.Y + musicVolume.Y + musicVolume.height, width / 16 * 2, BitmapFont.HAlignment.LEFT);
+			bf.drawMultiLine(BATCH, MenuScreen.langs.getString("music"), GAME_CAMERA.X + width / 16, GAME_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, BitmapFont.HAlignment.LEFT);
+		    musicVolume.render(BATCH, GAME_CAMERA);
+			bf.drawMultiLine(BATCH, musicVolume.getValue() + "", GAME_CAMERA.X + musicVolume.X + musicVolume.width + width / 32, GAME_CAMERA.Y + musicVolume.Y + musicVolume.height, width / 16 * 2, BitmapFont.HAlignment.LEFT);
 		}
-		Notification.render(batch, MenuScreen.camera);
-		batch.end();
+		Notification.render(BATCH, GAME_CAMERA);
+		BATCH.end();
 	}
 
 	@Override

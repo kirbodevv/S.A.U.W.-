@@ -25,18 +25,16 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.intbyte.bdb.DataBuffer;
-import com.kgc.sauw.utils.Camera2D;
 
 import java.util.*;
 
 import static com.kgc.sauw.graphic.Graphic.*;
-
+import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.environment.Environment.BLOCKS;
 public class World {
     private int WIDTH = Gdx.graphics.getWidth();
     private int HEIGHT = Gdx.graphics.getHeight();
-    private Items items;
     public Maps maps;
-    private Blocks blocks;
     private GameInterface GI;
     private boolean interfaceTouched;
     private boolean isTouched;
@@ -95,7 +93,7 @@ public class World {
     }
 
     public void createNewWorld() {
-        maps.generateWorld(this, items);
+        maps.generateWorld(this, ITEMS);
     }
 
     public void load(String WorldName) {
@@ -116,7 +114,7 @@ public class World {
                 buffer.readBytes(mapFile.readBytes());
                 int[] map = buffer.getIntArray("mapIds");
                 int[] mapDmg = buffer.getIntArray("mapDamage");
-                Tile.TileEntityFactory TEF = new Tile.TileEntityFactory(blocks);
+                Tile.TileEntityFactory TEF = new Tile.TileEntityFactory();
                 List<? extends com.intbyte.bdb.ExtraData> tileEntitys = null;
                 if (buffer.getInt("tileEnCount") > 0) {
                     tileEntitys = buffer.getExtraDataList("tileEntitys", TEF);
@@ -156,7 +154,7 @@ public class World {
             for (int x = 0; x < maps.map0[y].length; x++) {
                 for (int z = maps.map0[y][x].length - 3; z >= 0; z--) {
                     Tile t = maps.map0[y][x][z];
-                    Blocks.Block b = blocks.getBlockById(t.id);
+                    Blocks.Block b = BLOCKS.getBlockById(t.id);
                     if (t.t != null) {
                         Pixmap p = extractPixmapFromTextureRegion(t.t);
                         pixmap.drawPixmap(p, 0, 0, p.getWidth(), p.getHeight(), x * 32, y * 32, 32 * b.getSize().x, 32 * b.getSize().y);
@@ -193,22 +191,18 @@ public class World {
         return pixmap;
     }
 
-    public World(Items i, Blocks blocks, GameInterface GI, Settings s) {
-        this.items = i;
+    public World(GameInterface GI) {
         this.maps = new Maps();
-        this.blocks = blocks;
         this.GI = GI;
         createWorld();
-        entities = new Entities(BATCH, maps, TEXTURES, items);
-        pl = new Player(i, TEXTURES, GI, entities, maps, s);
+        entities = new Entities(maps, TEXTURES);
+        pl = new Player(TEXTURES, GI, entities, maps);
         pl.body = createBox(pl.posX, pl.posY, pl.playerBodyW, pl.playerBodyH, BodyDef.BodyType.DynamicBody);
         pl.body.setFixedRotation(true);
     }
 
-    public World(Items i, Blocks blocks) {
-        this.items = i;
+    public World(Items i, Blocks BLOCKS) {
         this.maps = new Maps();
-        this.blocks = blocks;
         createWorld();
     }
 
@@ -242,7 +236,7 @@ public class World {
 
     public boolean setBlock(int x, int y, int z, Blocks.Block block) {
         if (x >= 0 && x < maps.map0[0].length + 1 && y >= 0 && y < maps.map0.length + 1) {
-            Tile tile = new Tile(blocks);
+            Tile tile = new Tile();
             tile.createTile(x, y, z, block);
             if (maps.map0[y][x][z] != null && maps.map0[y][x][z].body != null)
                 world.destroyBody(maps.map0[y][x][z].body);
@@ -263,7 +257,7 @@ public class World {
         if (maps.map0[tile.y][tile.x][tile.z] != null && maps.map0[tile.y][tile.x][tile.z].body != null)
             world.destroyBody(maps.map0[tile.y][tile.x][tile.z].body);
         maps.map0[tile.y][tile.x][tile.z] = tile;
-        setBodyAndLight(tile.x, tile.y, tile.z, tile, blocks.getBlockById(tile.id));
+        setBodyAndLight(tile.x, tile.y, tile.z, tile, BLOCKS.getBlockById(tile.id));
         return true;
     }
 
@@ -276,11 +270,11 @@ public class World {
         } else {
             return false;
         }
-        return setBlock(x, y, z, blocks.getBlockById(id));
+        return setBlock(x, y, z, BLOCKS.getBlockById(id));
     }
 
     public boolean setBlock(int x, int y, int z, int id) {
-        return setBlock(x, y, z, blocks.getBlockById(id));
+        return setBlock(x, y, z, BLOCKS.getBlockById(id));
     }
 
     public int getHighestBlock(int x, int y) {
@@ -296,7 +290,7 @@ public class World {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         pl.update(this, a, GAME_CAMERA);
         entities.update();
-        maps.update(GAME_CAMERA, GI, pl, this, blocks, entities, items);
+        maps.update(GAME_CAMERA, GI, pl, this, BLOCKS, entities, ITEMS);
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
                 if (GI.isTouched())
@@ -380,7 +374,7 @@ public class World {
             pl.render(BATCH, TEXTURES, WorldTime);
             for (int y = pl.currentTileY; y > 0; y--) {
                 if (maps.map0[y][pl.currentTileX][0].id != 4) {
-                    if (pl.currentTileY - y <= blocks.getBlockById(maps.map0[y][pl.currentTileX][0].id).getSize().y && pl.body.getPosition().y + pl.playerBodyH / 2 >= maps.map0[y][pl.currentTileX][0].block.y) {
+                    if (pl.currentTileY - y <= BLOCKS.getBlockById(maps.map0[y][pl.currentTileX][0].id).getSize().y && pl.body.getPosition().y + pl.playerBodyH / 2 >= maps.map0[y][pl.currentTileX][0].block.y) {
                         renderBlock(pl.currentTileX, y, true);
                     }
                 }
@@ -399,21 +393,21 @@ public class World {
     public void renderBlock(int x, int y, boolean isHighestLayer) {
         int z = getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (WIDTH / 16), y * (WIDTH / 16), blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (WIDTH / 16), y * (WIDTH / 16), BLOCKS.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, BLOCKS.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
                 if ((!isHighestLayer) || (isHighestLayer && z == 0)) {
                     if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
                         BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
                     }
-                    if (!isHighestLayer && z == 0 && blocks.getBlockById(maps.map0[y][x][z].id).getTranspanent()) {
+                    if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(maps.map0[y][x][z].id).getTranspanent()) {
                         z = z + 1;
                     }
                     if ((maps.map0[y][x][z].TileEntity == null || (maps.map0[y][x][z].TileEntity != null && maps.map0[y][x][z].TileEntity.renderIf(maps.map0[y][x][z])))) {
-                        int w = blocks.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16;
-                        int h = blocks.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16;
+                        int w = BLOCKS.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16;
+                        int h = BLOCKS.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16;
                         if (maps.map0[y][x][z].type == 0) {
                             BATCH.draw(maps.map0[y][x][z].t, x * (WIDTH / 16), y * (WIDTH / 16), w, h);
                         } else if (maps.map0[y][x][z].type == 1) {
-                            BATCH.draw(getConnectingTexture(blocks.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16), y * (WIDTH / 16), w, h);
+                            BATCH.draw(getConnectingTexture(BLOCKS.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16), y * (WIDTH / 16), w, h);
                         }
                     }
                     if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {

@@ -9,15 +9,15 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.environment.Blocks;
 import com.kgc.sauw.environment.Crafting;
-import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.utils.Langs;
 
 import static com.kgc.sauw.graphic.Graphic.*;
-
+import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.environment.Environment.BLOCKS;
+import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.environment.Environment.SETTINGS;
 public class SAUW implements Screen {
 
     com.kgc.sauw.map.World World;
@@ -25,16 +25,11 @@ public class SAUW implements Screen {
     float HEIGHT;
     GameInterface GI;
 
-    Items ITEMS;
-    Blocks BLOCKS;
-    Settings settings;
-
     int camX, camY;
     Achievements achievements;
     Mods mods;
     Crafting crafting;
     public ModAPI ModAPI;
-    public Langs langs;
     MainGame game;
     Music music;
 
@@ -45,30 +40,25 @@ public class SAUW implements Screen {
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
         crafting = new Crafting();
-        settings = new Settings();
-        langs = new Langs(settings);
-        achievements = new Achievements(langs);
+        achievements = new Achievements(LANGUAGES);
 
-        ITEMS = new Items(langs);
-        GI = new GameInterface(ITEMS, settings, langs);
-        BLOCKS = new Blocks(langs);
-        World = new World(ITEMS, BLOCKS, GI, settings);
-        BLOCKS.setItems(ITEMS);
+        GI = new GameInterface(ITEMS, SETTINGS, LANGUAGES);
+        World = new World(GI);
         DR = new Box2DDebugRenderer();
         this.music = music;
         music.w = World;
-        music.setMusicVolume(settings.musicVolume);
-        BLOCKS.initialize(ITEMS, GI, World, langs);
+        music.setMusicVolume(SETTINGS.musicVolume);
+        BLOCKS.initialize(GI, World);
         ModAPI = new ModAPI(GI);
         mods = new Mods();
-        GI.initialize(crafting, ModAPI, game, langs, World);
+        GI.initialize(crafting, ModAPI, game, LANGUAGES, World);
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             World.createNewWorld();
             World.save(worldName);
         } else {
             World.load(worldName);
         }
-        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, settings, GI);
+        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, SETTINGS, GI);
     }
 
     @Override
@@ -89,9 +79,9 @@ public class SAUW implements Screen {
         World.renderLights();
         if (GI.isInterfaceOpen) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
-        if (settings.debugRenderer) DR.render(World.world, GAME_CAMERA.CAMERA.combined);
+        if (SETTINGS.debugRenderer) DR.render(World.world, GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
-        GI.render(World, World.pl, settings.debugMode);
+        GI.render(World, World.pl, SETTINGS.debugMode);
         BLOCKS.interfacesRender(World.maps, World.pl, INTERFACE_CAMERA);
         GI.update(World.pl);
         World.update(mods, achievements);

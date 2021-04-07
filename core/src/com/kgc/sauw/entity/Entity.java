@@ -7,15 +7,13 @@ import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import java.util.ArrayList;
 
+import static com.kgc.sauw.environment.Environment.ITEMS;
+
 public class Entity implements com.intbyte.bdb.ExtraData {
 	public static class MobFactory implements ExtraDataFactory {
-		public Items items;
-		public MobFactory(Items i) {
-			this.items = i;
-		}
 		@Override
 		public com.intbyte.bdb.ExtraData getExtraData() {
-			return new Entity(items);
+			return new Entity();
 		}
 	}
 	@Override
@@ -40,10 +38,7 @@ public class Entity implements com.intbyte.bdb.ExtraData {
 		}
 		return buffer.toBytes();
 	}
-    public Items items;
-	public Entity(Items items) {
-		this.items = items;
-	}
+
 	@Override
 	public void readBytes(byte[] bytes, int begin, int end) {
 		DataBuffer buffer = new DataBuffer();
@@ -76,7 +71,7 @@ public class Entity implements com.intbyte.bdb.ExtraData {
 	public Entity loadedEntity;
 	public Entity createMob(int type){
 		if (type == 0) {
-			return new ItemEntity(posX, posY, 0, 0, 0, items);
+			return new ItemEntity(posX, posY, 0, 0, 0);
 		}
 		return null;
 	}
@@ -97,7 +92,7 @@ public class Entity implements com.intbyte.bdb.ExtraData {
 	public void update() {
 
 	}
-	public void render(SpriteBatch b) {
+	public void render() {
 
 	}
 	public void setExtraData(String key, Object value) {

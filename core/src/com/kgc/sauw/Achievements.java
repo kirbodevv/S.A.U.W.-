@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.entity.Player;
-import com.kgc.sauw.utils.Langs;
+import com.kgc.sauw.utils.Languages;
 import org.json.JSONArray;
 
 public class Achievements {
@@ -24,7 +24,7 @@ public class Achievements {
 			this.giveCoins = giveCoins;
 		}	
 	}
-	public Achievements(Langs l) {
+	public Achievements(Languages l) {
 		try {
 			JSONArray achievements = new JSONArray(Gdx.files.internal("json/achivements.json").readString());
 		    for (int i = 0; i < achievements.length(); i++) {

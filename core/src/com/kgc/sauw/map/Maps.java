@@ -41,13 +41,13 @@ public class Maps {
 			for (int i = 0; i < map0.length; i++) {
 				for (int j = 0; j < map0[i].length; j++) {
 					if (r1.nextInt(75) == 0) {
-						w.entities.spawn(new ItemEntity(j * WIDTH / 16, i * WIDTH / 16, 7, 1, 0, ITEMS));
+						w.entities.spawn(new ItemEntity(j * WIDTH / 16, i * WIDTH / 16, 7, 1, 0));
 					}
 					if (r1.nextInt(50) == 0) {
-						w.entities.spawn(new ItemEntity(j * WIDTH / 16, i * WIDTH / 16, 12, 1, 0, ITEMS));
+						w.entities.spawn(new ItemEntity(j * WIDTH / 16, i * WIDTH / 16, 12, 1, 0));
 					}
 					if(r1.nextInt(100) == 0){
-						w.entities.spawn(new ItemEntity(j * WIDTH / 16, i * WIDTH / 16, 18, 1, 0, ITEMS));
+						w.entities.spawn(new ItemEntity(j * WIDTH / 16, i * WIDTH / 16, 18, 1, 0));
 					}
 				}
 			}

@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.intbyte.bdb.ExtraData;
 import java.util.ArrayList;
 import com.intbyte.bdb.DataBuffer;
-import com.kgc.sauw.environment.Items;
 import java.util.List;
+
+import static com.kgc.sauw.environment.Environment.ITEMS;
 
 public class Entities implements ExtraData {
 	@Override
@@ -30,7 +31,7 @@ public class Entities implements ExtraData {
 	public void readBytes(byte[] bytes, int begin, int end) {
 		DataBuffer buffer = new DataBuffer();
 		buffer.readBytes(bytes, begin, end);
-		Entity.MobFactory mobFactotory = new Entity.MobFactory(items);
+		Entity.MobFactory mobFactotory = new Entity.MobFactory();
 		List<? extends ExtraData> mobs = null;
 		if (buffer.getInt("mobsCount") > 0) {
 			mobs = buffer.getExtraDataList("mobs", mobFactotory);
@@ -43,15 +44,11 @@ public class Entities implements ExtraData {
 		}
 	}
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
-	private SpriteBatch b;
 	private Maps m;
 	private Textures t;
-	private Items items;
-    public Entities(SpriteBatch b, Maps m, Textures t, Items items) {
-		this.b = b;
+    public Entities(Maps m, Textures t) {
 		this.m = m;
 		this.t = t;
-		this.items = items;
 	}
 	public void update() {
 		for (Entity entity : entities) {
@@ -61,7 +58,7 @@ public class Entities implements ExtraData {
 	public void render(Camera2D cam) {
 		for (Entity entity : entities) {
 			if (Maths.rectCrossing(entity.posX, entity.posY, entity.plW, entity.plH, cam.X, cam.Y, cam.W, cam.H))
-				entity.render(b);
+				entity.render();
 		}
 	}
 	public boolean spawn(Entity entity) {

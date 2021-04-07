@@ -6,6 +6,7 @@ import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.UI.Interface;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Blocks;
+import com.kgc.sauw.environment.Environment;
 import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.entity.ItemEntity;
@@ -21,15 +22,13 @@ import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.ExtraData;
 
+import static com.kgc.sauw.environment.Environment.BLOCKS;
+
 public class Tile implements com.intbyte.bdb.ExtraData {
 	public static class TileEntityFactory implements ExtraDataFactory {
-		private Blocks b;
-		public TileEntityFactory(Blocks b) {
-			this.b = b;
-		}
 		@Override
 		public com.intbyte.bdb.ExtraData getExtraData() {
-			return new Tile(b);
+			return new Tile();
 		}
 	}
 	public int id;
@@ -38,7 +37,6 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 	public int damage;
 	public int biomId = 0;
 	private int instrumentType;
-	private Blocks blocks;
 	public Tile.TileEntity TileEntity = null;
 	public Interface Interface = null;
 	float timer;
@@ -71,15 +69,12 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 		this.y = buffer.getIntArray("coords")[1];
 		this.z = buffer.getIntArray("coords")[2];
 		this.id = buffer.getInt("id");
-		createTile(x, y, z, blocks.getBlockById(id));
+		createTile(x, y, z, BLOCKS.getBlockById(id));
 		for (Container c : containers) {
 			c.setItem(buffer.getIntArray(c.ID)[0],
 					  buffer.getIntArray(c.ID)[1],
 					  buffer.getIntArray(c.ID)[2]);
 		}
-	}
-	public Tile(Blocks b) {
-		this.blocks = b;
 	}
 	public void createTile(int X, int Y, int Z, Blocks.Block bl) {
 		this.x = X;
@@ -161,7 +156,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 				Random r = new Random();
 				int xx = r.nextInt(WIDTH / 16) + WIDTH / 16 * x;
 				int yy = r.nextInt(WIDTH / 16) + WIDTH / 16 * y;
-				entities.spawn(new ItemEntity(xx, yy, b.getBlockById(id).drop[i][0], b.getBlockById(id).drop[i][1], 0, items));
+				entities.spawn(new ItemEntity(xx, yy, b.getBlockById(id).drop[i][0], b.getBlockById(id).drop[i][1], 0));
 			}
 		}
 		if (TileEntity != null) {

@@ -3,7 +3,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.utils.Langs;
 import com.kgc.sauw.UI.Interface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,10 +19,10 @@ import com.kgc.sauw.map.World;
 import com.kgc.sauw.math.Vector2i;
 
 import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.environment.Environment.ITEMS;
 
 public class Blocks {
 	public ArrayList<Block> BLOCKS = new ArrayList<Block>();
-	Items items;
 	int w = Gdx.graphics.getWidth();
 	int h = Gdx.graphics.getHeight();
 	TextureRegion[][] saplingTextures;
@@ -33,9 +32,7 @@ public class Blocks {
 	
 	Animation campfireAnimation;
 	Animation furnaceAnimation;
-	private Langs l;
-	public Blocks(Langs l) {
-		this.l = l;
+	public Blocks() {
 		createBlock(1, TEXTURES.grass0);
 		createBlock(2, TEXTURES.stone);
 		createBlock(3, TEXTURES.wall0, TEXTURES.wall1, TEXTURES.wall2, TEXTURES.wall3, TEXTURES.wall4, TEXTURES.wall5, TEXTURES.wall6, TEXTURES.wall7, TEXTURES.wall8, TEXTURES.wall9, TEXTURES.wall10, TEXTURES.wall0, TEXTURES.wall1, TEXTURES.wall0, TEXTURES.wall1, TEXTURES.wall0);
@@ -110,14 +107,8 @@ public class Blocks {
 	    getBlockById(15).setCollisionsRectangleByPixels(8, 2, 18, 10, 32);
 		getBlockById(17).setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
 	}
-	public void setItems(Items items) {
-		this.items = items;
-		for (Block bl : BLOCKS) {
-			bl.setStandartDrop(this);
-		}
-	}
 	public Items.Item getItemByBlockId(int id) {
-		for (Items.Item item : items.ITEMS) {
+		for (Items.Item item : ITEMS.ITEMS) {
 			if (item.type == 1 && item.blockId == id) {
 				return item;
 			}
@@ -133,9 +124,9 @@ public class Blocks {
 	public void createBlock(int id, String t0) {
 		Texture tt0 = new Texture(Gdx.files.external("S.A.U.W./Mods/" + t0));
 		this.createBlock(id, tt0);
-		items.createItem(items.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
+		ITEMS.createItem(ITEMS.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
 	}
-	public void initialize(final Items items, final GameInterface gi, final World world, final Langs langs) {
+	public void initialize(final GameInterface gi, final World world) {
 		final Maps maps = world.maps;
 		getBlockById(5).registerTileEntity(new Tile.TileEntity(){
 			    @Override
@@ -145,8 +136,8 @@ public class Blocks {
 					float width = w / 16 * (h / (w / 16.0f) - 2);
 					float heigth = w / 16 * (h / (w / 16.0f) - 2);
 	               // String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
-					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, items, gi);
-					chestInterface.createInventory().setHeaderText(langs.getString("chest")).isBlockInterface(true);
+					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, ITEMS, gi);
+					chestInterface.createInventory().setHeaderText(Environment.LANGUAGES.getString("chest")).isBlockInterface(true);
 					chestInterface.setMaps(maps);
 				   for (int i = 0; i < 3; i++) {
 						for (int j = 0; j < 8; j++) {
@@ -272,8 +263,8 @@ public class Blocks {
 				};
 				@Override
 				public void interfaceInitialize() {
-					_interface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, items, gi);
-					_interface.setHeaderText(langs.getString("furnace")).isBlockInterface(true).createInventory();
+					_interface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, ITEMS, gi);
+					_interface.setHeaderText(Environment.LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);
 					int temp = (int)(_interface.width - w / 24 * 4) / 2;
 					resultSlot = new Slot("ResultSlot", (int)(_interface.x + _interface.width - temp - w / 24), (int)(_interface.y + w / 24 * 6.5), w / 24, w / 24, TEXTURES.selected_slot);
@@ -321,7 +312,7 @@ public class Blocks {
 						if ((int)(tile.getExtraData("progress")) <= 0) {
 							for (int i = 0; i < recipes.length; i++) {
 								Container ingCon = tile.getContainer("IngSlot");
-								if (ingCon.getId() == recipes[i][0] && (tile.getContainer("ResultSlot").getId() == recipes[i][1] || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < items.getItemById(recipes[i][1]).maxCount) {
+								if (ingCon.getId() == recipes[i][0] && (tile.getContainer("ResultSlot").getId() == recipes[i][1] || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < ITEMS.getItemById(recipes[i][1]).maxCount) {
 									tile.setExtraData("progress", 100);
 									tile.setExtraData("curRecId", recipes[i][1]);
 								}

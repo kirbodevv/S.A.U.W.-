@@ -3,7 +3,7 @@ package com.kgc.sauw.UI.Elements;
 import com.badlogic.gdx.Application;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.utils.Langs;
+import com.kgc.sauw.utils.Languages;
 import com.kgc.sauw.UI.Interface;
 import com.kgc.sauw.UI.InterfaceEvents;
 import com.badlogic.gdx.Gdx;
@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Items;
@@ -41,7 +40,7 @@ public class Inventory {
     Animation playerAnim;
     Animation tiredPlayerAnim;
 
-    public Inventory(Camera2D c, Texture Texture, Texture Texture2, Items items, int x, int y, Textures Textures, GameInterface gi, Langs langs) {
+    public Inventory(Camera2D c, Texture Texture, Texture Texture2, Items items, int x, int y, Textures Textures, GameInterface gi, Languages languages) {
         w = c.W;
         h = c.H;
         itemsCount.setColor(Color.BLACK);
@@ -54,7 +53,7 @@ public class Inventory {
         this.items = items;
         openButton = new Button("", x + w / 16 * 8, y, w / 16, w / 16, Textures.extraButton_0, Textures.extraButton_1);
         inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, cam, items, gi);
-        inventoryInterface.setHeaderText(langs.getString("inventory")).isBlockInterface(false).createInventory();
+        inventoryInterface.setHeaderText(languages.getString("inventory")).isBlockInterface(false).createInventory();
         openButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -75,7 +74,7 @@ public class Inventory {
         currentFrame = playerAnimFrames[0];
     }
 
-    public void init(final Player pl, final Textures textures, final Langs langs) {
+    public void init(final Player pl, final Textures textures, final Languages languages) {
 
         inventoryInterface.setInterfaceEvents(new InterfaceEvents() {
             int plW = w / 24 * 4 * 10 / 26;
@@ -166,7 +165,7 @@ public class Inventory {
             @Override
             public void render() {
                 Interface.text.drawMultiLine(BATCH, DF.format(pl.weight) + " | " + DF.format(pl.maxWeight) + "Kg", w / 16 * 9 + w / 64, w / 32 * 9, w / 16 * 3, BitmapFont.HAlignment.LEFT);
-                Interface.text.drawMultiLine(BATCH, langs.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
+                Interface.text.drawMultiLine(BATCH, languages.getString("backpack"), Interface.previosTabInv.X + Interface.previosTabInv.width, Interface.previosTabInv.Y + Interface.previosTabInv.height - ((Interface.previosTabInv.height - Interface.text.getCapHeight()) / 2), Interface.nextTabInv.X - (Interface.previosTabInv.X + Interface.previosTabInv.width), BitmapFont.HAlignment.CENTER);
                 BATCH.draw(currentFrame, w / 16 * 12 - plW / 2, w / 16 * 4, plW, plH);
                 BATCH.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
                 if (Interface.currentItemInv != -1 && Interface.currentItemInv < pl.Inventory.size()) {

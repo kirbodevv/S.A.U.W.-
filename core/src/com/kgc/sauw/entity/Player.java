@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.*;
 import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.environment.Time;
 import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.map.World;
@@ -25,6 +24,9 @@ import java.util.Random;
 import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import org.json.JSONObject;
+
+import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.environment.Environment.SETTINGS;
 
 public class Player implements ExtraData {
     @Override
@@ -67,7 +69,6 @@ public class Player implements ExtraData {
     public float posX = w / 2 + 16;
     public float posY = h / 2 - 32;
     public int carriedSlot = 0;
-    private final com.kgc.sauw.environment.Items Items;
     private Textures t;
     public int[] hotbar = new int[8];
     public int currentTileX;
@@ -102,7 +103,6 @@ public class Player implements ExtraData {
     private float stateTime;
     private Entities entities;
     public boolean isDead = true;
-    private Settings settings;
 
     public Rectangle player;
     public Vector2d velocity = new Vector2d(0, 0);
@@ -148,7 +148,7 @@ public class Player implements ExtraData {
 
     public int getFirstSlotWithId(int id) {
         for (int i = 0; i < Inventory.size(); i++) {
-            if (Inventory.get(i).id == id && Inventory.get(i).count < Items.getItemById(Inventory.get(i).id).maxCount)
+            if (Inventory.get(i).id == id && Inventory.get(i).count < ITEMS.getItemById(Inventory.get(i).id).maxCount)
                 return i;
         }
         return -1;
@@ -164,10 +164,10 @@ public class Player implements ExtraData {
     }
 
     public com.kgc.sauw.environment.Items.Item getItemFromHotbar(int index) {
-        if (hotbar[index] != -1 && Items.getItemById(Inventory.get(hotbar[index]).id) != null) {
-            return Items.getItemById(Inventory.get(hotbar[index]).id);
+        if (hotbar[index] != -1 && ITEMS.getItemById(Inventory.get(hotbar[index]).id) != null) {
+            return ITEMS.getItemById(Inventory.get(hotbar[index]).id);
         } else {
-            return Items.getItemById(0);
+            return ITEMS.getItemById(0);
         }
     }
 
@@ -194,8 +194,8 @@ public class Player implements ExtraData {
 
     public boolean addItem(int id, int count, int data) {
         for (int i = 0; i < Inventory.size(); i++) {
-            if (Inventory.get(i).id == id && Inventory.get(i).count < Items.getItemById(Inventory.get(i).id).maxCount) {
-                int canadd = Items.getItemById(Inventory.get(i).id).maxCount - Inventory.get(i).count;
+            if (Inventory.get(i).id == id && Inventory.get(i).count < ITEMS.getItemById(Inventory.get(i).id).maxCount) {
+                int canadd = ITEMS.getItemById(Inventory.get(i).id).maxCount - Inventory.get(i).count;
                 if (canadd > count) {
                     Inventory.get(i).count = Inventory.get(i).count + count;
                     count -= count;
@@ -209,13 +209,13 @@ public class Player implements ExtraData {
             }
         }
         if (count > 0) {
-            int slotsCount = (count % Items.getItemById(id).maxCount) + 1;
+            int slotsCount = (count % ITEMS.getItemById(id).maxCount) + 1;
             for (int i = 0; i < slotsCount; i++)
                 Inventory.add(new InventorySlot());
         }
         for (int i = 0; i < Inventory.size(); i++) {
             if (Inventory.get(i).id == 0) {
-                int canadd = Items.getItemById(id).maxCount;
+                int canadd = ITEMS.getItemById(id).maxCount;
                 Inventory.get(i).id = id;
                 if (canadd > count) {
                     Inventory.get(i).count = Inventory.get(i).count + count;
@@ -245,13 +245,11 @@ public class Player implements ExtraData {
         }
     }
 
-    public Player(Items it, Textures t, GameInterface GI, Entities entities, Maps m, Settings settings) {
-        this.Items = it;
+    public Player(Textures t, GameInterface GI, Entities entities, Maps m) {
         this.t = t;
         this.GI = GI;
         this.entities = entities;
         this.maps = m;
-        this.settings = settings;
         this.player = new Rectangle();
         this.player.setSize(plW, plH);
         for (int i = 0; i < hotbar.length; i++) {
@@ -313,7 +311,7 @@ public class Player implements ExtraData {
 
             weight = 0.0f;
             for (InventorySlot slot : Inventory) {
-                weight += slot.count * Items.getItemById(slot.id).weight;
+                weight += slot.count * ITEMS.getItemById(slot.id).weight;
             }
             playerSpeed = 1.0f - ((weight * 1.66f) / 100);
             if (playerSpeed < 0) playerSpeed = 0;
@@ -386,11 +384,11 @@ public class Player implements ExtraData {
             velocity.y = 0;
 
             for (int i = 0; i < Inventory.size(); i++) {
-                if (Inventory.get(i).data >= Items.getItemById(Inventory.get(i).id).maxData && Items.getItemById(Inventory.get(i).id).maxData != 0) {
+                if (Inventory.get(i).data >= ITEMS.getItemById(Inventory.get(i).id).maxData && ITEMS.getItemById(Inventory.get(i).id).maxData != 0) {
                     Inventory.remove(i);
                 }
             }
-            if (settings.autopickup || (GI.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
+            if (SETTINGS.autopickup || (GI.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < entities.entities.size(); i++) {
                     if (entities.entities.get(i) instanceof ItemEntity && Maths.distanceD((int) posX, (int) posY, entities.entities.get(i).posX, entities.entities.get(i).posY) < w / 32) {
                         ItemEntity item = (ItemEntity) entities.entities.get(i);
@@ -419,7 +417,7 @@ public class Player implements ExtraData {
 			 }
 			 }*/
         }
-        AC.update(world, this, a, GI, settings);
+        AC.update(world, this, a, GI, SETTINGS);
     }
 
     public static class InventorySlot implements ExtraData {

@@ -11,6 +11,7 @@ public final class Graphic {
     public static final Textures TEXTURES;
     public static final Camera2D GAME_CAMERA;
     public static final Camera2D INTERFACE_CAMERA;
+    public static final Camera2D MENU_CAMERA;
     static {
         BATCH = new SpriteBatch();
         TEXTURES = new Textures();
@@ -19,5 +20,6 @@ public final class Graphic {
         GAME_CAMERA = new Camera2D();
         GAME_CAMERA.setCameraZoom(1.25f);
         INTERFACE_CAMERA = new Camera2D();
+        MENU_CAMERA = new Camera2D();
     }
 }

@@ -12,8 +12,7 @@ import com.kgc.sauw.utils.Version;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.map.World;
-import com.kgc.sauw.utils.Camera2D;
-import com.kgc.sauw.utils.Langs;
+import com.kgc.sauw.utils.Languages;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -75,7 +74,7 @@ public class GameInterface implements InputProcessor {
         settings.saveSettings();
     }
 
-    public GameInterface(Items ITEMS, Settings settings, Langs langs) {
+    public GameInterface(Items ITEMS, Settings settings, Languages languages) {
         multiplexer = new InputMultiplexer();
         this.settings = settings;
         setConsoleTextColor(settings.consoleTextColorRed, settings.consoleTextColorGreen, settings.consoleTextColorBlue);
@@ -93,7 +92,7 @@ public class GameInterface implements InputProcessor {
         pauseButton = new Button("pauseButton", 0, (int) (HEIGHT - WIDTH / 16), (int) WIDTH / 16, (int) WIDTH / 16);
         j = new Joystick(TEXTURES.j_0, TEXTURES.j_1, (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), BATCH, (int) (WIDTH / 16 * 3), INTERFACE_CAMERA);
         j.setDiameters((int) WIDTH / 16 * 3, (int) WIDTH / 32 * 2);
-        inv = new Inventory(INTERFACE_CAMERA, TEXTURES.inventory, TEXTURES.selected_slot, ITEMS, (int) ((WIDTH / 16) * 4), 0, TEXTURES, this, langs);
+        inv = new Inventory(INTERFACE_CAMERA, TEXTURES.inventory, TEXTURES.selected_slot, ITEMS, (int) ((WIDTH / 16) * 4), 0, TEXTURES, this, languages);
         health = new Health(BATCH, INTERFACE_CAMERA, TEXTURES.health_0, TEXTURES.health_1);
         notifW = (int) WIDTH / 16 * 4;
     }
@@ -112,12 +111,12 @@ public class GameInterface implements InputProcessor {
         notifAl = 1;
     }
 
-    public void initialize(Crafting c, final ModAPI ModAPI, final MainGame game, final Langs langs, final World w) {
+    public void initialize(Crafting c, final ModAPI ModAPI, final MainGame game, final Languages languages, final World w) {
         final Player pl = w.pl;
-        inv.init(w.pl, TEXTURES, langs);
+        inv.init(w.pl, TEXTURES, languages);
         crafting = c;
         consoleInterface = new Interface(Interface.InterfaceSizes.FULL, INTERFACE_CAMERA, ITEMS, this);
-        consoleInterface.setHeaderText(langs.getString("console")).isBlockInterface(false);
+        consoleInterface.setHeaderText(languages.getString("console")).isBlockInterface(false);
         consoleInterface.setInterfaceEvents(new InterfaceEvents() {
             public Button sendCommandButton;
             public Button nextCommand;
@@ -234,7 +233,7 @@ public class GameInterface implements InputProcessor {
 
         });
         craftingInterface = new Interface(Interface.InterfaceSizes.FULL, INTERFACE_CAMERA, ITEMS, this);
-        craftingInterface.setHeaderText(langs.getString("crafting")).isBlockInterface(false);
+        craftingInterface.setHeaderText(languages.getString("crafting")).isBlockInterface(false);
         craftingInterface.setInterfaceEvents(new InterfaceEvents() {
             Button craft;
             BitmapFont craftName;
@@ -264,9 +263,9 @@ public class GameInterface implements InputProcessor {
                 craftName = new BitmapFont(Gdx.files.internal("ttf.fnt"));
                 craftName.setColor(Color.BLACK);
                 craftName.setScale(WIDTH / 32 / 2 / craftName.getCapHeight());
-                TB = BF.getBounds(langs.getString("craftList"));
+                TB = BF.getBounds(languages.getString("craftList"));
                 craft = new Button("craftButton", (int) (WIDTH / 16 * 9 + WIDTH / 32), (int) WIDTH / 16, (int) WIDTH / 16 * 5, (int) WIDTH / 16);
-                craft.setText(langs.getString("craft"));
+                craft.setText(languages.getString("craft"));
                 craft.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {
@@ -392,7 +391,7 @@ public class GameInterface implements InputProcessor {
                         craftName.drawMultiLine(BATCH, ITEMS.getNameById(crafting.crafts.get(i).result[0]), WIDTH / 32 * 22, WIDTH / 16 * 5 - WIDTH / 128, WIDTH / 16 * 2, BitmapFont.HAlignment.CENTER);
                     }
                 }
-                BF.draw(BATCH, langs.getString("craftList"), previos.X + previos.width + (next.X - (previos.X + previos.width) - TB.width) / 2, previos.Y + previos.height - (previos.height - TB.height) / 2);
+                BF.draw(BATCH, languages.getString("craftList"), previos.X + previos.width + (next.X - (previos.X + previos.width) - TB.width) / 2, previos.Y + previos.height - (previos.height - TB.height) / 2);
             }
 
         });
@@ -405,7 +404,7 @@ public class GameInterface implements InputProcessor {
             public void initialize() {
                 respawn = new Button("respawn", (int) (WIDTH / 16 * 5), (int) (HEIGHT - WIDTH / 16 * 5), (int) (WIDTH / 16 * 6), (int) (WIDTH / 16));
                 //respawn.setTextColor(Color.BLACK);
-                respawn.setText(langs.getString("respawn"));
+                respawn.setText(languages.getString("respawn"));
                 respawn.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {
@@ -448,7 +447,7 @@ public class GameInterface implements InputProcessor {
             @Override
             public void initialize() {
                 resumeButton = new Button("ResumeButton", (int) (WIDTH / 16), (int) (HEIGHT - WIDTH / 16 * 4), (int) (WIDTH / 16 * 4), (int) WIDTH / 16);
-                resumeButton.setText(langs.getString("resume"));
+                resumeButton.setText(languages.getString("resume"));
                 resumeButton.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {
@@ -456,7 +455,7 @@ public class GameInterface implements InputProcessor {
                     }
                 });
                 saveWorldButton = new Button("saveWorldButton", (int) (WIDTH / 16), (int) (resumeButton.Y - WIDTH / 16), (int) (WIDTH / 16 * 4), (int) WIDTH / 16);
-                saveWorldButton.setText(langs.getString("save"));
+                saveWorldButton.setText(languages.getString("save"));
                 saveWorldButton.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {

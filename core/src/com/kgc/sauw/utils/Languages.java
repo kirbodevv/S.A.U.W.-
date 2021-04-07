@@ -3,10 +3,10 @@ import com.kgc.sauw.config.Settings;
 import org.json.JSONObject;
 import com.badlogic.gdx.Gdx;
 
-public class Langs {
+public class Languages {
     public JSONObject langs;
 	private Settings settings;
-	public Langs(Settings s) {
+	public Languages(Settings s) {
 		this.settings = s;
 		try {
 			langs = new JSONObject(Gdx.files.internal("json/langs.json").readString());

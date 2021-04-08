@@ -11,13 +11,11 @@ import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
 import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.Languages;
 import org.json.JSONObject;
 
@@ -26,6 +24,7 @@ import com.kgc.sauw.UI.Elements.EditText;
 import com.badlogic.gdx.files.FileHandle;
 
 import static com.kgc.sauw.environment.Environment.BLOCKS;
+import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.*;
 
 public class MenuScreen implements Screen {
@@ -92,7 +91,6 @@ public class MenuScreen implements Screen {
         this.game = game;
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
-        Items items = new Items();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -173,7 +171,7 @@ public class MenuScreen implements Screen {
                 StartGameMenu = false;
             }
         });
-        createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, MENU_CAMERA, items, null);
+        createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, null);
         createWorldInterface.setHeaderText(languages.getString("createNewWorld"));
         createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
             EditText worldName;
@@ -256,7 +254,7 @@ public class MenuScreen implements Screen {
                 setSelectButtonsText();
             }
         });
-        world = new World(items, BLOCKS);
+        world = new World();
         String lastWorld = null;
         try {
             JSONObject data = new JSONObject(Gdx.files.external("S.A.U.W./User/data.json").readString());
@@ -316,10 +314,10 @@ public class MenuScreen implements Screen {
         camY += yC;
         if (camX < BLOCK_SIZE) camX = (int) BLOCK_SIZE;
         if (camY < BLOCK_SIZE) camY = (int) BLOCK_SIZE;
-        if (camX + Graphic.GAME_CAMERA.W > (world.maps.map0[0].length - 1) * BLOCK_SIZE)
-            camX = (int) ((world.maps.map0[0].length - 1) * BLOCK_SIZE - MENU_CAMERA.W);
-        if (camY + MENU_CAMERA.H > (world.maps.map0.length - 1) * BLOCK_SIZE)
-            camY = (int) ((world.maps.map0.length - 1) * BLOCK_SIZE - MENU_CAMERA.H);
+        if (camX + Graphic.GAME_CAMERA.W > (world.getMaps().map0[0].length - 1) * BLOCK_SIZE)
+            camX = (int) ((world.getMaps().map0[0].length - 1) * BLOCK_SIZE - MENU_CAMERA.W);
+        if (camY + MENU_CAMERA.H > (world.getMaps().map0.length - 1) * BLOCK_SIZE)
+            camY = (int) ((world.getMaps().map0.length - 1) * BLOCK_SIZE - MENU_CAMERA.H);
         MENU_CAMERA.lookAt(camX, camY);
         MENU_CAMERA.update(BATCH);
         //startButton.setText("" + cam.X + " " + cam.Y);

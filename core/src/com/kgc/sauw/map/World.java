@@ -201,7 +201,7 @@ public class World {
         pl.body.setFixedRotation(true);
     }
 
-    public World(Items i, Blocks BLOCKS) {
+    public World() {
         this.maps = new Maps();
         createWorld();
     }
@@ -454,4 +454,7 @@ public class World {
         return TEXTURES.undf;
     }
 
+    public Maps getMaps() {
+        return maps;
+    }
 }

@@ -127,7 +127,7 @@ public class Blocks {
 		ITEMS.createItem(ITEMS.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
 	}
 	public void initialize(final GameInterface gi, final World world) {
-		final Maps maps = world.maps;
+		final Maps maps = world.getMaps();
 		getBlockById(5).registerTileEntity(new Tile.TileEntity(){
 			    @Override
 				public void interfaceInitialize() {
@@ -136,7 +136,7 @@ public class Blocks {
 					float width = w / 16 * (h / (w / 16.0f) - 2);
 					float heigth = w / 16 * (h / (w / 16.0f) - 2);
 	               // String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
-					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, ITEMS, gi);
+					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, gi);
 					chestInterface.createInventory().setHeaderText(Environment.LANGUAGES.getString("chest")).isBlockInterface(true);
 					chestInterface.setMaps(maps);
 				   for (int i = 0; i < 3; i++) {
@@ -263,7 +263,7 @@ public class Blocks {
 				};
 				@Override
 				public void interfaceInitialize() {
-					_interface = new Interface(Interface.InterfaceSizes.STANDART, INTERFACE_CAMERA, ITEMS, gi);
+					_interface = new Interface(Interface.InterfaceSizes.STANDART, gi);
 					_interface.setHeaderText(Environment.LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);
 					int temp = (int)(_interface.width - w / 24 * 4) / 2;

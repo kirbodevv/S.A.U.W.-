@@ -18,15 +18,15 @@ import com.kgc.sauw.resource.Textures;
 
 import java.text.DecimalFormat;
 
-import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class Inventory {
     private int w, h;
-    private BitmapFont itemsCount = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-    private Camera2D cam;
+    private BitmapFont itemsCount = new BitmapFont(Gdx.files.internal("ttf.fnt"));;
     private Texture Texture;
     private Texture Texture2;
-    private Items items;
     private boolean hided = false;
     private boolean isTouched = false;
     private int x, y;
@@ -40,27 +40,25 @@ public class Inventory {
     Animation playerAnim;
     Animation tiredPlayerAnim;
 
-    public Inventory(Camera2D c, Texture Texture, Texture Texture2, Items items, int x, int y, Textures Textures, GameInterface gi, Languages languages) {
-        w = c.W;
-        h = c.H;
+    public Inventory(Texture Texture, Texture Texture2, int x, int y, GameInterface gi) {
+        w = INTERFACE_CAMERA.W;
+        h = INTERFACE_CAMERA.H;
         itemsCount.setColor(Color.BLACK);
         itemsCount.scale(w / 2500);
-        this.cam = c;
         this.Texture = Texture;
         this.Texture2 = Texture2;
         this.x = x;
         this.y = y;
-        this.items = items;
-        openButton = new Button("", x + w / 16 * 8, y, w / 16, w / 16, Textures.extraButton_0, Textures.extraButton_1);
-        inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, cam, items, gi);
-        inventoryInterface.setHeaderText(languages.getString("inventory")).isBlockInterface(false).createInventory();
+        openButton = new Button("", x + w / 16 * 8, y, w / 16, w / 16, TEXTURES.extraButton_0, TEXTURES.extraButton_1);
+        inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, gi);
+        inventoryInterface.setHeaderText(LANGUAGES.getString("inventory")).isBlockInterface(false).createInventory();
         openButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 inventoryInterface.open();
             }
         });
-        TextureRegion[][] tmp = TextureRegion.split(Textures.player_inv, Textures.player_inv.getWidth() / 3, Textures.player_inv.getHeight());
+        TextureRegion[][] tmp = TextureRegion.split(TEXTURES.player_inv, TEXTURES.player_inv.getWidth() / 3, TEXTURES.player_inv.getHeight());
         playerAnimFrames = new TextureRegion[3];
         int index = 0;
         for (int i = 0; i < 1; i++) {
@@ -170,21 +168,21 @@ public class Inventory {
                 BATCH.draw(background0, w / 16 * 9, w / 16 * 3 - w / 64, w / 16 * 6, w / 64);
                 if (Interface.currentItemInv != -1 && Interface.currentItemInv < pl.Inventory.size()) {
                     BATCH.draw(background1, w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
-                    BATCH.draw(items.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
-                    Interface.text.drawMultiLine(BATCH, items.getItemById(pl.Inventory.get(Interface.currentItemInv).id).weight + " Kg", w / 16 * 11 + w / 64, w / 32 * 4, w / 16 * 4, BitmapFont.HAlignment.LEFT);
-                    Interface.text.drawMultiLine(BATCH, items.getNameById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 11 + w / 64, w / 32 * 5, w / 16 * 4, BitmapFont.HAlignment.LEFT);
+                    BATCH.draw(ITEMS.getTextureById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 9 + w / 128, w / 32 + w / 128, w / 16 * 2, w / 16 * 2);
+                    Interface.text.drawMultiLine(BATCH, ITEMS.getItemById(pl.Inventory.get(Interface.currentItemInv).id).weight + " Kg", w / 16 * 11 + w / 64, w / 32 * 4, w / 16 * 4, BitmapFont.HAlignment.LEFT);
+                    Interface.text.drawMultiLine(BATCH, ITEMS.getNameById(pl.Inventory.get(Interface.currentItemInv).id), w / 16 * 11 + w / 64, w / 32 * 5, w / 16 * 4, BitmapFont.HAlignment.LEFT);
                 }
             }
         });
     }
 
     public void update(Player pl) {
-        inventoryInterface.update(pl, cam);
+        inventoryInterface.update(pl, INTERFACE_CAMERA);
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             openButton.hide(true);
         }
         if (!hided) {
-            openButton.update(cam);
+            openButton.update(INTERFACE_CAMERA);
             if (Gdx.input.isTouched()) {
                 if (Gdx.input.getX() >= x && Gdx.input.getX() <= 8 * (w / 16) + x && Gdx.input.getY() < h && Gdx.input.getY() > h - (w / 16)) {
                     isTouched = true;
@@ -198,23 +196,23 @@ public class Inventory {
     public void render(Player pl) {
         if (!hided) {
             BATCH.setColor(1, 1, 1, 0.8f);
-            BATCH.draw(Texture, x + cam.X, y + cam.Y, w / 16 * 8, w / 16);
+            BATCH.draw(Texture, x + INTERFACE_CAMERA.X, y + INTERFACE_CAMERA.Y, w / 16 * 8, w / 16);
             for (int i = 0; i < 8; i++) {
                 if (Gdx.input.getX() > (i * (w / 16)) + x && Gdx.input.getX() < (i * (w / 16)) + x + (w / 16) && Gdx.input.getY() < h && Gdx.input.getY() > h - (w / 16)) {
                     pl.carriedSlot = i;
                 }
             }
-            openButton.render(BATCH, cam);
+            openButton.render(BATCH, INTERFACE_CAMERA);
             BATCH.setColor(1, 1, 1, 1);
-            BATCH.draw(Texture2, x + cam.X + (pl.carriedSlot * (w / 16)), y + cam.Y, w / 16, w / 16);
+            BATCH.draw(Texture2, x + INTERFACE_CAMERA.X + (pl.carriedSlot * (w / 16)), y + INTERFACE_CAMERA.Y, w / 16, w / 16);
             for (int i = 0; i < 8; i++) {
                 if (pl.hotbar[i] != -1) {
-                    BATCH.draw(items.getTextureById(pl.getItemFromHotbar(i).id), x + cam.X + i * (w / 16) + (w / 64), y + cam.Y + (w / 64), w / 32, w / 32);
-                    itemsCount.draw(BATCH, "" + pl.Inventory.get((pl.hotbar[i])).count, i * (w / 16) + x + cam.X, y + cam.Y + (w / 16));
+                    BATCH.draw(ITEMS.getTextureById(pl.getItemFromHotbar(i).id), x + INTERFACE_CAMERA.X + i * (w / 16) + (w / 64), y + INTERFACE_CAMERA.Y + (w / 64), w / 32, w / 32);
+                    itemsCount.draw(BATCH, "" + pl.Inventory.get((pl.hotbar[i])).count, i * (w / 16) + x + INTERFACE_CAMERA.X, y + INTERFACE_CAMERA.Y + (w / 16));
                 }
             }
         }
-        inventoryInterface.render(pl, cam);
+        inventoryInterface.render(pl, INTERFACE_CAMERA);
     }
 
     public boolean isHided() {

@@ -12,7 +12,11 @@ public final class Graphic {
     public static final Camera2D GAME_CAMERA;
     public static final Camera2D INTERFACE_CAMERA;
     public static final Camera2D MENU_CAMERA;
+    public static final int SCREEN_WIDTH;
+    public static final int SCREEN_HEIGHT;
     static {
+        SCREEN_WIDTH = Gdx.graphics.getWidth();
+        SCREEN_HEIGHT = Gdx.graphics.getHeight();
         BATCH = new SpriteBatch();
         TEXTURES = new Textures();
         TEXTURES.load();

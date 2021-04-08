@@ -5,9 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.utils.Camera2D;
 
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
+
 public class Health {
-	SpriteBatch b;
-	Camera2D cam;
 	Texture t0;
 	Texture t1;
 	int w;
@@ -17,13 +18,11 @@ public class Health {
 	public void hide(boolean h) {
 		this.hided = h;
 	}
-    public Health(SpriteBatch b, Camera2D cam, Texture t0, Texture t1) {
-		this.b = b;
-		this.cam = cam;
+    public Health(Texture t0, Texture t1) {
 		this.t0 = t0;
 		this.t1 = t1;
-		w = cam.W;
-		h = cam.H;
+		w = INTERFACE_CAMERA.W;
+		h = INTERFACE_CAMERA.H;
 		if(Gdx.app.getType() == Application.ApplicationType.Desktop){
 			x = 0;
 		} else if (Gdx.app.getType() == Application.ApplicationType.Android){
@@ -37,13 +36,13 @@ public class Health {
 			for (int i = 0; i < c1; i++) {
 				int num = (maxHealth % 10 != 0 && i == c1 - 1) ? maxHealth % 10 : 10;
 				for (int j = 0; j < num; j++) {
-					b.draw(t1, x + j * (w / 32) + cam.X, (h - (w / 32)) - i * (w / 32) + cam.Y, w / 32, w / 32);
+					BATCH.draw(t1, x + j * (w / 32) + INTERFACE_CAMERA.X, (h - (w / 32)) - i * (w / 32) + INTERFACE_CAMERA.Y, w / 32, w / 32);
 				}
 			}
 			for (int i = 0; i < c2; i++) {
 				int num = (currentHealth % 10 != 0 && i == c2 - 1) ? currentHealth % 10 : 10;
 				for (int j = 0; j < num; j++) {
-					b.draw(t0, x + j * (w / 32) + cam.X, (h - (w / 32)) - i * (w / 32) + cam.Y, w / 32, w / 32);
+					BATCH.draw(t0, x + j * (w / 32) + INTERFACE_CAMERA.X, (h - (w / 32)) - i * (w / 32) + INTERFACE_CAMERA.Y, w / 32, w / 32);
 				}
 			}
 		}

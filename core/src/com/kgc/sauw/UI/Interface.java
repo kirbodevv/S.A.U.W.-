@@ -8,13 +8,13 @@ import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Elements.Image;
 import com.kgc.sauw.UI.Elements.Slot;
 import com.kgc.sauw.entity.Player;
-import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.utils.Camera2D;
 
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.environment.Environment.ITEMS;
 public class Interface {
 	public static class InterfaceSizes {
 		public static int STANDART = 0;
@@ -24,12 +24,11 @@ public class Interface {
 	private int HEIGHT = Gdx.graphics.getHeight();
 	public boolean isOpen = false;
 	public boolean isBlockInterface;
-	private Items items;
 	private int w, h;
 	public BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 	public float width, heigth, x, y;
 	public Button exitButton;
-	private final GameInterface GI;
+	private final GameInterface GAME_INTERFACE;
 
 	public ArrayList<Button> buttons = new ArrayList<Button>();
 	public ArrayList<Image> images = new ArrayList<Image>();
@@ -52,9 +51,8 @@ public class Interface {
 	public int currentItemInv = -1;
 	public int currentTabInv = 0;
 
-	public Interface(int size, Camera2D cam, Items items, GameInterface GI_) {
-		this.GI = GI_;
-		this.items = items;
+	public Interface(int size, GameInterface GAME_INTERFACE) {
+		this.GAME_INTERFACE = GAME_INTERFACE;
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 
@@ -76,7 +74,7 @@ public class Interface {
 				@Override
 				public void onClick() {
 					isOpen = false;
-					if (GI != null)GI.isInterfaceOpen = false;
+					if (Interface.this.GAME_INTERFACE != null) Interface.this.GAME_INTERFACE.isInterfaceOpen = false;
 					if(IE != null)
 						IE.onClose();
 				}
@@ -205,7 +203,7 @@ public class Interface {
 	}
 	public void update(Player pl, Camera2D cam) {
 		if (isOpen) {
-			if (GI != null) GI.isInterfaceOpen = true;
+			if (GAME_INTERFACE != null) GAME_INTERFACE.isInterfaceOpen = true;
 			for (Slot slot : slots) {
 				slot.id = 0;
 				slot.count = 0;
@@ -281,7 +279,7 @@ public class Interface {
 				slot.render(BATCH, cam);
 			}
 			for (int i = 0; i < slots.size(); i++) {
-				slots.get(i).itemRender(BATCH, items);
+				slots.get(i).itemRender(BATCH, ITEMS);
 			}
 			if (IE != null) {
 				IE.render();

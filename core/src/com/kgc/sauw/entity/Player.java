@@ -6,7 +6,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.*;
 import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.environment.Time;
 import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.map.World;
@@ -29,12 +28,13 @@ import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.environment.Environment.SETTINGS;
 
 public class Player implements ExtraData {
+    //static Player player;
     @Override
     public byte[] getBytes() {
         DataBuffer buffer = new DataBuffer();
         buffer.put("health", health);
         buffer.put("hunger", hunger);
-        buffer.put("coords", new int[]{(int) player.x, (int) player.y});
+        buffer.put("coords", new int[]{(int) playerBody.x, (int) playerBody.y});
         buffer.put("InvLenght", Inventory.size());
         for (int i = 0; i < Inventory.size(); i++) {
             buffer.put("Inv_" + i, Inventory.get(i));
@@ -46,8 +46,8 @@ public class Player implements ExtraData {
     public void readBytes(byte[] bytes, int begin, int end) {
         DataBuffer buffer = new DataBuffer();
         buffer.readBytes(bytes);
-        player.x = buffer.getIntArray("coords")[0];
-        player.y = buffer.getIntArray("coords")[1];
+        playerBody.x = buffer.getIntArray("coords")[0];
+        playerBody.y = buffer.getIntArray("coords")[1];
         health = buffer.getInt("health");
         hunger = buffer.getInt("hunger");
         Inventory = new ArrayList<InventorySlot>(buffer.getInt("InvLenght"));
@@ -104,7 +104,7 @@ public class Player implements ExtraData {
     private Entities entities;
     public boolean isDead = true;
 
-    public Rectangle player;
+    public Rectangle playerBody;
     public Vector2d velocity = new Vector2d(0, 0);
 
     public int getCountOfItems(int id) {
@@ -185,8 +185,8 @@ public class Player implements ExtraData {
             Random r = new Random();
             currentTileY = r.nextInt(maps.map0.length - 2) + 1;
             currentTileX = r.nextInt(maps.map0[0].length - 2) + 1;
-            player.x = currentTileX * (w / 16);
-            player.y = currentTileY * (w / 16);
+            playerBody.x = currentTileX * (w / 16);
+            playerBody.y = currentTileY * (w / 16);
         }
         isDead = false;
         health = maxHealth;
@@ -250,8 +250,8 @@ public class Player implements ExtraData {
         this.GI = GI;
         this.entities = entities;
         this.maps = m;
-        this.player = new Rectangle();
-        this.player.setSize(plW, plH);
+        this.playerBody = new Rectangle();
+        this.playerBody.setSize(plW, plH);
         for (int i = 0; i < hotbar.length; i++) {
             this.hotbar[i] = -1;
         }
@@ -379,7 +379,7 @@ public class Player implements ExtraData {
             currentTileX = (int) (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
             currentTileY = (int) (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
 
-            player.setPosition(posX, posY);
+            playerBody.setPosition(posX, posY);
             velocity.x = 0;
             velocity.y = 0;
 

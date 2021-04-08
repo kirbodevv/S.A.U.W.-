@@ -1,6 +1,5 @@
 package com.kgc.sauw.game;
 
-import com.kgc.sauw.Achievements;
 import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,27 +7,21 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.environment.Crafting;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
 
+import static com.kgc.sauw.environment.Environment.*;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.environment.Environment.LANGUAGES;
-import static com.kgc.sauw.environment.Environment.BLOCKS;
-import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.environment.Environment.SETTINGS;
+
 public class SAUW implements Screen {
 
     com.kgc.sauw.map.World World;
-    float WIDTH;
-    float HEIGHT;
-    GameInterface GI;
+    private float WIDTH;
+    private float HEIGHT;
+    private GameInterface GI;
 
-    int camX, camY;
-    Achievements achievements;
+    private int camX, camY;
     Mods mods;
-    Crafting crafting;
     public ModAPI ModAPI;
     MainGame game;
     Music music;
@@ -39,10 +32,8 @@ public class SAUW implements Screen {
         this.game = game;
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
-        crafting = new Crafting();
-        achievements = new Achievements(LANGUAGES);
 
-        GI = new GameInterface(ITEMS, SETTINGS, LANGUAGES);
+        GI = new GameInterface();
         World = new World(GI);
         DR = new Box2DDebugRenderer();
         this.music = music;
@@ -51,14 +42,14 @@ public class SAUW implements Screen {
         BLOCKS.initialize(GI, World);
         ModAPI = new ModAPI(GI);
         mods = new Mods();
-        GI.initialize(crafting, ModAPI, game, LANGUAGES, World);
+        GI.initialize(ModAPI, game, World);
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             World.createNewWorld();
             World.save(worldName);
         } else {
             World.load(worldName);
         }
-        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, crafting, SETTINGS, GI);
+        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, CRAFTING, SETTINGS, GI);
     }
 
     @Override
@@ -68,7 +59,7 @@ public class SAUW implements Screen {
 
         GAME_CAMERA.update(BATCH);
 
-        BLOCKS.interfacesUpdate(World.maps, World.pl, INTERFACE_CAMERA);
+        BLOCKS.interfacesUpdate(World.getMaps(), World.pl, INTERFACE_CAMERA);
         GI.update(World.pl);
         music.update(false);
         BATCH.begin();
@@ -82,19 +73,19 @@ public class SAUW implements Screen {
         if (SETTINGS.debugRenderer) DR.render(World.world, GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         GI.render(World, World.pl, SETTINGS.debugMode);
-        BLOCKS.interfacesRender(World.maps, World.pl, INTERFACE_CAMERA);
+        BLOCKS.interfacesRender(World.getMaps(), World.pl, INTERFACE_CAMERA);
         GI.update(World.pl);
-        World.update(mods, achievements);
+        World.update(mods, ACHIEVEMENTS);
 
 
         camX = (int) ((World.pl.posX + (World.pl.plW / 2)) - (GAME_CAMERA.W / 2));
         camY = (int) (World.pl.posY + (World.pl.plH / 2) - (GAME_CAMERA.H / 2));
         if (camX < WIDTH / 16) camX = (int) WIDTH / 16;
         if (camY < WIDTH / 16) camY = (int) WIDTH / 16;
-        if (camX + GAME_CAMERA.W > (World.maps.map0[0].length - 1) * (WIDTH / 16))
-            camX = (int) ((World.maps.map0[0].length - 1) * (WIDTH / 16) - GAME_CAMERA.W);
-        if (camY + GAME_CAMERA.H > (World.maps.map0.length - 1) * (WIDTH / 16))
-            camY = (int) ((World.maps.map0.length - 1) * (WIDTH / 16) - GAME_CAMERA.H);
+        if (camX + GAME_CAMERA.W > (World.getMaps().map0[0].length - 1) * (WIDTH / 16))
+            camX = (int) ((World.getMaps().map0[0].length - 1) * (WIDTH / 16) - GAME_CAMERA.W);
+        if (camY + GAME_CAMERA.H > (World.getMaps().map0.length - 1) * (WIDTH / 16))
+            camY = (int) ((World.getMaps().map0.length - 1) * (WIDTH / 16) - GAME_CAMERA.H);
 
         GAME_CAMERA.lookAt(camX, camY);
         BATCH.end();

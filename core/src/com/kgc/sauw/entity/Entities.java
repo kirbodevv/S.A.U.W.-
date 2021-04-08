@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import com.intbyte.bdb.DataBuffer;
 import java.util.List;
 
-import static com.kgc.sauw.environment.Environment.ITEMS;
-
 public class Entities implements ExtraData {
 	@Override
 	public byte[] getBytes() {

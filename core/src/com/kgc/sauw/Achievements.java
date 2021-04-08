@@ -8,6 +8,8 @@ import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.utils.Languages;
 import org.json.JSONArray;
 
+import static com.kgc.sauw.environment.Environment.LANGUAGES;
+
 public class Achievements {
     public static class achievement {
 		public String id;
@@ -24,13 +26,13 @@ public class Achievements {
 			this.giveCoins = giveCoins;
 		}	
 	}
-	public Achievements(Languages l) {
+	public Achievements() {
 		try {
 			JSONArray achievements = new JSONArray(Gdx.files.internal("json/achivements.json").readString());
 		    for (int i = 0; i < achievements.length(); i++) {
 				addAchievement(new achievement(achievements.getJSONObject(i).getString("id"), 
-											   l.getString(achievements.getJSONObject(i).getString("title")), 
-											   l.getString(achievements.getJSONObject(i).getString("txt")),
+											   LANGUAGES.getString(achievements.getJSONObject(i).getString("title")),
+											   LANGUAGES.getString(achievements.getJSONObject(i).getString("txt")),
 											   new Texture(Gdx.files.internal(achievements.getJSONObject(i).getString("texture"))),
 											   achievements.getJSONObject(i).getInt("giveCoins")));
 			}

@@ -7,6 +7,7 @@ import com.badlogic.gdx.*;
 
 import java.util.*;
 
+import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
@@ -318,7 +319,7 @@ public class MenuScreen implements Screen {
             camX = (int) ((world.getMaps().map0[0].length - 1) * BLOCK_SIZE - MENU_CAMERA.W);
         if (camY + MENU_CAMERA.H > (world.getMaps().map0.length - 1) * BLOCK_SIZE)
             camY = (int) ((world.getMaps().map0.length - 1) * BLOCK_SIZE - MENU_CAMERA.H);
-        MENU_CAMERA.lookAt(camX, camY);
+        MENU_CAMERA.lookAt(camX, camY, false);
         MENU_CAMERA.update(BATCH);
         //startButton.setText("" + cam.X + " " + cam.Y);
         BATCH.begin();

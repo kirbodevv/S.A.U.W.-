@@ -3,6 +3,7 @@ package com.kgc.sauw.entity;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.*;
 import com.kgc.sauw.UI.GameInterface;
@@ -18,8 +19,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import org.json.JSONObject;
@@ -78,7 +81,6 @@ public class Player implements ExtraData {
 
     public float maxWeight = 40.0f;
     public float weight = 0.0f;
-
 
     public int maxHealth = 20;
     public int health = 20;
@@ -320,8 +322,8 @@ public class Player implements ExtraData {
             double velY = 0;
 
             if (Gdx.app.getType() == Application.ApplicationType.Android) {
-                velX = GI.j.normD().x;
-                velY = GI.j.normD().y;
+                velX = Maths.map(-0.32, 0.32, -1, 1, GI.j.normD().x);
+                velY = Maths.map(-0.32, 0.32, -1, 1, GI.j.normD().y);
                 if (GI.j.isTouched()) {
                     if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {
                         rot = 0;
@@ -333,7 +335,8 @@ public class Player implements ExtraData {
                         rot = 3;
                     }
                 }
-            } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            }
+            if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
                 if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                     velY = 1;
                     rot = 0;
@@ -429,6 +432,7 @@ public class Player implements ExtraData {
             buffer.put("data", data);
             return buffer.toBytes();
         }
+
         @Override
         public void readBytes(byte[] bytes, int begin, int end) {
             DataBuffer buffer = new DataBuffer();
@@ -437,14 +441,16 @@ public class Player implements ExtraData {
             count = buffer.getInt("count");
             data = buffer.getInt("data");
         }
+
         public int id, count, data;
 
-        public void setItem(int id, int count, int data){
+        public void setItem(int id, int count, int data) {
             this.id = id;
             this.count = count;
             this.data = data;
         }
-        public void clear(){
+
+        public void clear() {
             this.id = 0;
             this.count = 0;
             this.data = 0;

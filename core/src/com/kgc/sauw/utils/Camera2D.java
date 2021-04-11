@@ -3,138 +3,151 @@ package com.kgc.sauw.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.kgc.sauw.math.Vector2d;
 
-public class Camera2D{
+public class Camera2D {
 
     public OrthographicCamera CAMERA;
-    public int SIZE,X,Y,ANGLE,W,H;
-	
-	private boolean isCameraScaling = false;
-	private float cameraScale = 0;
-	private float cameraScaleSec = 0;
-	public float cameraZoom = 1f;
-	private float altCameraZoom;
-	
-	public void setCameraZoom(float zoom){
-		resize((int)(Gdx.graphics.getWidth() * zoom));
-		cameraZoom = zoom;
-	}
-	public void setCameraZoom(float zoom, float sec){
-		isCameraScaling = true;
-		cameraScale = zoom;
-		cameraScaleSec = sec / 10;
-		altCameraZoom = cameraZoom;
-	}
-    public void update(SpriteBatch b){
-		if(isCameraScaling){
-			float temp = (cameraScale - altCameraZoom) / cameraScaleSec * Gdx.graphics.getRawDeltaTime();
-			setCameraZoom(cameraZoom + temp);
-			if((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)){
-				isCameraScaling = false;
-				setCameraZoom(cameraScale);
-			}
-		}
+    public int SIZE, X, Y, ANGLE, W, H;
+
+    private boolean isCameraScaling = false;
+    private float cameraScale = 0;
+    private float cameraScaleSec = 0;
+    public float cameraZoom = 1f;
+    private float altCameraZoom;
+
+    public void setCameraZoom(float zoom) {
+        resize((int) (Gdx.graphics.getWidth() * zoom));
+        cameraZoom = zoom;
+    }
+
+    public void setCameraZoom(float zoom, float sec) {
+        isCameraScaling = true;
+        cameraScale = zoom;
+        cameraScaleSec = sec / 10;
+        altCameraZoom = cameraZoom;
+    }
+
+    public void update(SpriteBatch b) {
+        if (isCameraScaling) {
+            float temp = (cameraScale - altCameraZoom) / cameraScaleSec * Gdx.graphics.getRawDeltaTime();
+            setCameraZoom(cameraZoom + temp);
+            if ((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)) {
+                isCameraScaling = false;
+                setCameraZoom(cameraScale);
+            }
+        }
         CAMERA.update();
         b.setProjectionMatrix(CAMERA.combined);
     }
 
-    private void configure(int size){
-        int w=Gdx.graphics.getWidth(),
-                h=Gdx.graphics.getHeight();
+    private void configure(int size) {
+        int w = Gdx.graphics.getWidth(),
+                h = Gdx.graphics.getHeight();
 
-        if( h<w ){
-            CAMERA.setToOrtho( false,size,size*h/w );
-            W=size;
-            H=size*h/w;
-        }else{
-            CAMERA.setToOrtho( false,size*w/h,size );
-            W=size*w/h;
-            H=size;
+        if (h < w) {
+            CAMERA.setToOrtho(false, size, size * h / w);
+            W = size;
+            H = size * h / w;
+        } else {
+            CAMERA.setToOrtho(false, size * w / h, size);
+            W = size * w / h;
+            H = size;
         }
 
-        CAMERA.translate(X,Y);
+        CAMERA.translate(X, Y);
         CAMERA.rotate(ANGLE);
     }
 
-    public Camera2D(int size){
-        CAMERA=new OrthographicCamera();
+    public Camera2D(int size) {
+        CAMERA = new OrthographicCamera();
         configure(size);
-        SIZE=size;
+        SIZE = size;
     }
 
-    public Camera2D(){
-        int size=Math.max(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        CAMERA=new OrthographicCamera();
+    public Camera2D() {
+        int size = Math.max(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        CAMERA = new OrthographicCamera();
         configure(size);
-        SIZE=size;
+        SIZE = size;
     }
 
-    public void rotate(int a){
+    public void rotate(int a) {
         CAMERA.rotate(a);
-        ANGLE+=a;
+        ANGLE += a;
     }
 
-    public void setAngle(int a){
-        CAMERA.rotate(-ANGLE+a);
-        ANGLE=a;
+    public void setAngle(int a) {
+        CAMERA.rotate(-ANGLE + a);
+        ANGLE = a;
     }
 
-    public void lookAt(int x,int y){
-        CAMERA.translate(-X+x,-Y+y);
-        X=x;
-        Y=y;
+    public void lookAt(int x, int y, boolean smooth) {
+        if (!smooth) {
+            CAMERA.translate(-X + x, -Y + y);
+            X = x;
+            Y = y;
+        } else {
+            if (X != x && Y != y) {
+                float camX = MathUtils.lerp(X, x, 0.06f);
+                float camY = MathUtils.lerp(Y, y, 0.06f);
+                CAMERA.position.x = camX;
+                CAMERA.position.y = camY;
+                X = (int) camX;
+                Y = (int) camY;
+            }
+        }
     }
 
-    public void translatePosition(int x,int y){
-        CAMERA.translate(x,y);
-        X+=x;
-        Y+=y;
+    public void translatePosition(int x, int y) {
+        CAMERA.translate(x, y);
+        X += x;
+        Y += y;
     }
 
-    public void translatePosition(Vector2d v){
-        CAMERA.translate(v.x(),v.y());
-        X+=v.x();
-        Y+=v.y();
+    public void translatePosition(Vector2d v) {
+        CAMERA.translate(v.x(), v.y());
+        X += v.x();
+        Y += v.y();
     }
 
-    public void resize(int size){
-        SIZE=size;
+    public void resize(int size) {
+        SIZE = size;
         configure(size);
     }
 
-    public void resize(){
+    public void resize() {
         configure(SIZE);
     }
 
-    public void translateScale(int lss){
-        resize(SIZE+lss);
+    public void translateScale(int lss) {
+        resize(SIZE + lss);
     }
 
-    public int touchX(){
-        return Gdx.input.getX()+X;
+    public int touchX() {
+        return Gdx.input.getX() + X;
     }
 
-    public int touchY(){
-        return H-Gdx.input.getY()+Y;
+    public int touchY() {
+        return H - Gdx.input.getY() + Y;
     }
 
-    public int touchYI(){
-        return Gdx.input.getY()+(H-Y)+H;
+    public int touchYI() {
+        return Gdx.input.getY() + (H - Y) + H;
     }
 
-    public int touchYI(int i){
-        return Gdx.input.getY(i)+(H-Y)+H;
+    public int touchYI(int i) {
+        return Gdx.input.getY(i) + (H - Y) + H;
     }
 
-    public int touchX(int i){
-        return Gdx.input.getX(i)+X;
+    public int touchX(int i) {
+        return Gdx.input.getX(i) + X;
     }
 
-    public int touchY(int i){
-        return H-Gdx.input.getY(i)+Y;
+    public int touchY(int i) {
+        return H - Gdx.input.getY(i) + Y;
     }
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.kgc.sauw.game;
 
+import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -87,7 +88,7 @@ public class SAUW implements Screen {
         if (camY + GAME_CAMERA.H > (World.getMaps().map0.length - 1) * (WIDTH / 16))
             camY = (int) ((World.getMaps().map0.length - 1) * (WIDTH / 16) - GAME_CAMERA.H);
 
-        GAME_CAMERA.lookAt(camX, camY);
+        GAME_CAMERA.lookAt(camX, camY, true);
         BATCH.end();
     }
 

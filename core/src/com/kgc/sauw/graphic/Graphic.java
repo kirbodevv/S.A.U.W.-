@@ -22,7 +22,7 @@ public final class Graphic {
         TEXTURES.load();
         BLOCK_SIZE = SCREEN_WIDTH / 16;
         GAME_CAMERA = new Camera2D();
-        GAME_CAMERA.setCameraZoom(1.25f);
+        GAME_CAMERA.setCurrentCameraZoom(1.25f);
         INTERFACE_CAMERA = new Camera2D();
         MENU_CAMERA = new Camera2D();
     }

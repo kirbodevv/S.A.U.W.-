@@ -40,7 +40,7 @@ public class Inventory {
     Animation playerAnim;
     Animation tiredPlayerAnim;
 
-    public Inventory(Texture Texture, Texture Texture2, int x, int y, GameInterface gi) {
+    public Inventory(Texture Texture, Texture Texture2, int x, int y) {
         w = INTERFACE_CAMERA.W;
         h = INTERFACE_CAMERA.H;
         itemsCount.setColor(Color.BLACK);
@@ -50,7 +50,7 @@ public class Inventory {
         this.x = x;
         this.y = y;
         openButton = new Button("", x + w / 16 * 8, y, w / 16, w / 16, TEXTURES.extraButton_0, TEXTURES.extraButton_1);
-        inventoryInterface = new Interface(Interface.InterfaceSizes.FULL, gi);
+        inventoryInterface = new Interface(Interface.InterfaceSizes.FULL);
         inventoryInterface.setHeaderText(LANGUAGES.getString("inventory")).isBlockInterface(false).createInventory();
         openButton.setEventListener(new Button.EventListener() {
             @Override

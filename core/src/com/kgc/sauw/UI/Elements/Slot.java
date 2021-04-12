@@ -27,10 +27,12 @@ public class Slot extends InterfaceElement {
 
     private float itemX;
     private float itemY;
-
+    private float toItemX;
+    private float toItemY;
     private Vector2d itemDirection;
     public SlotFunctions SF = null;
     public BitmapFont IC;
+
 
     public void setSF(SlotFunctions SF) {
         this.SF = SF;
@@ -49,6 +51,8 @@ public class Slot extends InterfaceElement {
 		this.invSlot = invSlot;*/
         itemX = x + w / 4;
         itemY = y + h / 4;
+        toItemX = itemX;
+        toItemY = itemY;
         itemDirection = new Vector2d();
         IC = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         IC.scale((w / 8) / 4 / IC.getData().capHeight);
@@ -58,9 +62,11 @@ public class Slot extends InterfaceElement {
     public void update(ArrayList<Slot> slots, Interface Interface, Player pl, Camera2D cam) {
         this.update(cam);
         if (isTouched()) {
-            itemX = MathUtils.lerp(itemX, (Gdx.input.getX() + cam.X - height / 4), 0.05f);
-            itemY = MathUtils.lerp(itemY, (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4), 0.05f);
+            toItemX = (Gdx.input.getX() + cam.X - height / 4);
+            toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
         }
+        itemX = MathUtils.lerp(itemX, toItemX, 0.05f);
+        itemY = MathUtils.lerp(itemY, toItemY, 0.05f);
         if (wasUp && id != 0) onClick(slots, Interface, pl, cam);
     }
 
@@ -70,8 +76,8 @@ public class Slot extends InterfaceElement {
                 Interface.sendToSlot(this, slot, pl, cam);
             }
         }
-        itemX = cam.X + X + width / 4;
-        itemY = cam.Y + Y + height / 4;
+        toItemX = cam.X + X + width / 4;
+        toItemY = cam.Y + Y + height / 4;
     }
 
     @Override

@@ -1,18 +1,18 @@
 package com.kgc.sauw.game;
 
-import com.badlogic.gdx.InputMultiplexer;
 import com.kgc.sauw.screen.MenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
+import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
+
 public class MainGame extends Game {
     public int keyboardHeight = 0;
-	public InputMultiplexer multiplexer;
     @Override
     public void create() {
     	createFiles();
-    	multiplexer = new InputMultiplexer();
+		Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
     	setScreen(new MenuScreen(this));
     }
 	public void createFiles(){

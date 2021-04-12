@@ -301,14 +301,14 @@ public class Player implements ExtraData {
                 for (int x = currentTileX - 3; x < currentTileX + 3; x++) {
                     if (y > 0 && y < maps.map0.length && x > 0 && x < maps.map0[0].length) {
                         if (world.maps.map0[y][x][0].id == 15) {
-                            cam.setCameraZoom(0.75f, 5);
+                            cam.setCameraZoom(0.75f, 0.025f);
                             isCameraZooming = true;
                         }
                     }
                 }
             }
             if (!isCameraZooming) {
-                cam.setCameraZoom(1.25f, 5);
+                cam.setCameraZoom(1.25f, 0.025f);
             }
 
             weight = 0.0f;

@@ -136,7 +136,7 @@ public class Blocks {
 					float width = w / 16 * (h / (w / 16.0f) - 2);
 					float heigth = w / 16 * (h / (w / 16.0f) - 2);
 	               // String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
-					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, gi);
+					chestInterface = new Interface(Interface.InterfaceSizes.STANDART);
 					chestInterface.createInventory().setHeaderText(Environment.LANGUAGES.getString("chest")).isBlockInterface(true);
 					chestInterface.setMaps(maps);
 				   for (int i = 0; i < 3; i++) {
@@ -263,7 +263,7 @@ public class Blocks {
 				};
 				@Override
 				public void interfaceInitialize() {
-					_interface = new Interface(Interface.InterfaceSizes.STANDART, gi);
+					_interface = new Interface(Interface.InterfaceSizes.STANDART);
 					_interface.setHeaderText(Environment.LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 					_interface.setMaps(maps);
 					int temp = (int)(_interface.width - w / 24 * 4) / 2;

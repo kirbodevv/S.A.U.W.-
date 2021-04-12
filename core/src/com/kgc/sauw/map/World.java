@@ -4,10 +4,8 @@ import box2dLight.RayHandler;
 import com.kgc.sauw.*;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.environment.Blocks;
-import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.environment.Time;
 import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.entity.Entities;
@@ -28,6 +26,8 @@ import com.intbyte.bdb.DataBuffer;
 
 import java.util.*;
 
+import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
@@ -35,7 +35,6 @@ public class World {
     private int WIDTH = Gdx.graphics.getWidth();
     private int HEIGHT = Gdx.graphics.getHeight();
     public Maps maps;
-    private GameInterface GI;
     private boolean interfaceTouched;
     private boolean isTouched;
     private Random r = new Random();
@@ -191,19 +190,13 @@ public class World {
         return pixmap;
     }
 
-    public World(GameInterface GI) {
-        this.maps = new Maps();
-        this.GI = GI;
-        createWorld();
-        entities = new Entities(maps, TEXTURES);
-        pl = new Player(TEXTURES, GI, entities, maps);
-        pl.body = createBox(pl.posX, pl.posY, pl.playerBodyW, pl.playerBodyH, BodyDef.BodyType.DynamicBody);
-        pl.body.setFixedRotation(true);
-    }
-
     public World() {
         this.maps = new Maps();
         createWorld();
+        entities = new Entities(maps, TEXTURES);
+        pl = new Player(TEXTURES, GAME_INTERFACE, entities, maps);
+        pl.body = createBox(pl.posX, pl.posY, pl.playerBodyW, pl.playerBodyH, BodyDef.BodyType.DynamicBody);
+        pl.body.setFixedRotation(true);
     }
 
     public void createWorld() {
@@ -290,10 +283,10 @@ public class World {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         pl.update(this, a, GAME_CAMERA);
         entities.update();
-        maps.update(GAME_CAMERA, GI, pl, this, BLOCKS, entities, ITEMS);
+        maps.update(GAME_CAMERA, GAME_INTERFACE, pl, this, BLOCKS, entities, ITEMS);
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
-                if (GI.isTouched())
+                if (GAME_INTERFACE.isTouched())
                     interfaceTouched = true;
                 else worldTouched = true;
 
@@ -304,7 +297,7 @@ public class World {
             interfaceTouched = false;
         if (!Gdx.input.isTouched() && worldTouched) {
             worldTouched = false;
-            if (!interfaceTouched && !GI.isInterfaceOpen) {
+            if (!interfaceTouched && !isAnyInterfaceOpen()) {
                 double sc = (double) GAME_CAMERA.W / WIDTH;
                 int cX = (int) (Gdx.input.getX() * sc + GAME_CAMERA.X);
                 int cY = (int) (GAME_CAMERA.H - Gdx.input.getY() * sc + GAME_CAMERA.Y);
@@ -358,7 +351,7 @@ public class World {
     }
     public void renderLights(){
         BATCH.end();
-        if (GI != null && !GI.isInterfaceOpen) {
+        if (GAME_INTERFACE != null && !isAnyInterfaceOpen()) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
             RayHandler.setAmbientLight(AL, AL, AL, 1);
             RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA.combined);
@@ -395,7 +388,7 @@ public class World {
         if (z != -1)
             if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (WIDTH / 16), y * (WIDTH / 16), BLOCKS.getBlockById(maps.map0[y][x][z].id).getSize().x * WIDTH / 16, BLOCKS.getBlockById(maps.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
                 if ((!isHighestLayer) || (isHighestLayer && z == 0)) {
-                    if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
+                    if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
                     }
                     if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(maps.map0[y][x][z].id).getTranspanent()) {
@@ -410,7 +403,7 @@ public class World {
                             BATCH.draw(getConnectingTexture(BLOCKS.getBlockById(maps.map0[y][x][z].id), maps.map0[y + 1][x][z].id, maps.map0[y][x + 1][z].id, maps.map0[y - 1][x][z].id, maps.map0[y][x - 1][z].id), x * (WIDTH / 16), y * (WIDTH / 16), w, h);
                         }
                     }
-                    if (z == 2 && (GI != null && !GI.isInterfaceOpen)) {
+                    if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(1, 1, 1, 1);
                     }
                 }

@@ -2,6 +2,7 @@ package com.kgc.sauw.UI.Elements;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
+import com.kgc.sauw.UI.InterfaceElement;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,30 +10,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.resource.Textures;
 
-public class EditText {
+import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
+
+public class EditText extends InterfaceElement {
     public String input = "";
-    public int X, Y, w, h;
     private Texture backgroundTextutre;
     private BitmapFont BF;
-    public boolean hided;
-    private boolean isTouched;
-    private Camera2D cam;
     public boolean isKeyboardOpen = false;
     private InputProcessor processor;
     private InputMultiplexer multiplexer;
-    public EditText(int x, int y, int w, int h, Camera2D cam, InputMultiplexer multiplexer) {
-        this.multiplexer = multiplexer;
-        int width = Gdx.graphics.getWidth();
-        this.backgroundTextutre = Textures.generateTexture(w / (width / 16), h / (width / 16), false);
-        this.X = x;
-        this.Y = y;
-        this.cam = cam;
 
-        setWidthAndHeight(new Vector2(w, h));
+    private boolean possibleToEnterText = false;
+
+    public EditText(int x, int y, int w, int h, InputMultiplexer multiplexer) {
+        this.multiplexer = multiplexer;
+        this.backgroundTextutre = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
+
+        setPosition(x, y);
+        setSize(w, h);
 
         BF = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         BF.setColor(Color.BLACK);
         BF.setScale(h / 2 / BF.getData().capHeight);
+
         processor = new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {
@@ -46,7 +46,7 @@ public class EditText {
 
             @Override
             public boolean keyTyped(char c) {
-                if (!hided) {
+                if (!hided && possibleToEnterText) {
                     if (c == 0) {
                         return false;
                     } else if (c == '\b' && input.length() > 0) {
@@ -83,11 +83,7 @@ public class EditText {
                 return false;
             }
         };
-    }
-
-    public void setWidthAndHeight(Vector2 WH) {
-        this.w = (int) WH.x;
-        this.h = (int) WH.y;
+        multiplexer.addProcessor(processor);
     }
 
     public void setTextColor(float r, float g, float b) {
@@ -98,37 +94,33 @@ public class EditText {
         input = "";
     }
 
-    public void hide(boolean flag) {
-        this.hided = flag;
-        if(flag){
-            multiplexer.removeProcessor(processor);
-        } else {
-            multiplexer.addProcessor(processor);
-        }
-    }
-
-    public void update() {
-        if (!hided) {
-            if (Gdx.input.getX() > X && Gdx.input.getX() < X + w && cam.H - Gdx.input.getY() > Y && cam.H - Gdx.input.getY() < Y + h) {
-                isTouched = true;
-            } else {
-                isTouched = false;
-            }
-            if (!Gdx.input.isTouched())
-                isTouched = false;
-        }
-        if (isTouched) {
-            Gdx.input.setOnscreenKeyboardVisible(true);
-            isKeyboardOpen = true;
-        } else if (Gdx.input.isTouched()) {
+    @Override
+    public void update(Camera2D cam) {
+        super.update(cam);
+        if (Gdx.input.isTouched()) {
             Gdx.input.setOnscreenKeyboardVisible(false);
+            possibleToEnterText = false;
             isKeyboardOpen = false;
         }
-
     }
 
-    public void render(SpriteBatch b) {
-        b.draw(backgroundTextutre, X + cam.X, Y + cam.Y, w, h);
-        BF.draw(b, input, X + cam.X + (h / 2), Y + cam.Y + (h / 4 * 3));
+    @Override
+    public void hide(boolean b) {
+        super.hide(b);
+        if(b) possibleToEnterText = false;
+    }
+
+    @Override
+    public void onClick(boolean onButton) {
+        super.onClick(onButton);
+        Gdx.input.setOnscreenKeyboardVisible(true);
+        possibleToEnterText = true;
+        isKeyboardOpen = true;
+    }
+
+    @Override
+    public void render(SpriteBatch b, Camera2D cam) {
+        b.draw(backgroundTextutre, X + cam.X, Y + cam.Y, width, height);
+        BF.draw(b, input, X + cam.X + (height / 2), Y + cam.Y + (height / 4 * 3));
     }
 }

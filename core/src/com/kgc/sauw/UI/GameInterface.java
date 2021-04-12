@@ -5,16 +5,15 @@ import com.kgc.sauw.UI.Elements.*;
 import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.kgc.sauw.UI.Interfaces.Interfaces;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.utils.Version;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.map.World;
-import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.ScriptableObject;
 import com.badlogic.gdx.graphics.Texture;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.CONSOLE_INTERFACE;
+import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
 import static com.kgc.sauw.environment.Environment.*;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
@@ -25,13 +24,12 @@ public class GameInterface implements InputProcessor {
     Inventory inv;
     public Button interactionButton;
     public Button dropButton;
-    public Button atackButton;
+    public Button attackButton;
     public Button consoleOpenButton;
     public Button pauseButton;
     public Joystick j;
     Health health;
     BitmapFont debug;
-    public boolean isInterfaceOpen = false;
     public boolean hided = false;
 
     public Interface craftingInterface;
@@ -49,8 +47,6 @@ public class GameInterface implements InputProcessor {
     public String logText = "Lol";
     public int R = 0, G = 0, B = 0;
 
-    public InputMultiplexer multiplexer;
-
     public void consolePrint(String txt) {
         this.logText = txt;
     }
@@ -66,14 +62,13 @@ public class GameInterface implements InputProcessor {
     }
 
     public GameInterface() {
-        multiplexer = new InputMultiplexer();
         setConsoleTextColor(SETTINGS.consoleTextColorRed, SETTINGS.consoleTextColorGreen, SETTINGS.consoleTextColorBlue);
         WIDTH = INTERFACE_CAMERA.W;
         HEIGHT = INTERFACE_CAMERA.H;
         notification = new Notification(TEXTURES.generateBackground(4, WIDTH / 12.0f / (WIDTH / 16.0f)));
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         debug.setScale(WIDTH / 64 / debug.getCapHeight());
-        atackButton = new Button("", (int) (12 * (WIDTH / 16)), (int) (3 * (WIDTH / 16)), (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), TEXTURES.button_0, TEXTURES.button_1);
+        attackButton = new Button("", (int) (12 * (WIDTH / 16)), (int) (3 * (WIDTH / 16)), (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), TEXTURES.button_0, TEXTURES.button_1);
         dropButton = new Button("", (int) (13 * (WIDTH / 16)), (int) (3 * (WIDTH / 32)), (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), TEXTURES.button_0, TEXTURES.button_1);
         interactionButton = new Button("", (int) (14 * (WIDTH / 16)), (int) (3 * (WIDTH / 16))/*(int)(13 * (WIDTH / 16)), (int)(3 * (WIDTH / 32))*/, (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), TEXTURES.button_0, TEXTURES.button_1);
         consoleOpenButton = new Button("", (int) (WIDTH - (WIDTH / 16)), (int) (HEIGHT - (WIDTH / 16)), (int) WIDTH / 16, (int) WIDTH / 16, TEXTURES.console_button_0, TEXTURES.console_button_1);
@@ -81,9 +76,10 @@ public class GameInterface implements InputProcessor {
         pauseButton = new Button("pauseButton", 0, (int) (HEIGHT - WIDTH / 16), (int) WIDTH / 16, (int) WIDTH / 16);
         j = new Joystick(TEXTURES.j_0, TEXTURES.j_1, (int) (WIDTH / 32 * 3), (int) (WIDTH / 32 * 3), BATCH, (int) (WIDTH / 16 * 3), INTERFACE_CAMERA);
         j.setDiameters((int) WIDTH / 16 * 3, (int) WIDTH / 32 * 2);
-        inv = new Inventory(TEXTURES.inventory, TEXTURES.selected_slot, (int) ((WIDTH / 16) * 4), 0, this);
+        inv = new Inventory(TEXTURES.inventory, TEXTURES.selected_slot, (int) ((WIDTH / 16) * 4), 0);
         health = new Health(TEXTURES.health_0, TEXTURES.health_1);
         notifW = (int) WIDTH / 16 * 4;
+        INPUT_MULTIPLEXER.addProcessor(this);
     }
 
     public boolean isTouched() {
@@ -103,7 +99,7 @@ public class GameInterface implements InputProcessor {
     public void initialize(final ModAPI ModAPI, final MainGame game, final World w) {
         final Player pl = w.pl;
         inv.init(w.pl, TEXTURES, LANGUAGES);
-        craftingInterface = new Interface(Interface.InterfaceSizes.FULL, this);
+        craftingInterface = new Interface(Interface.InterfaceSizes.FULL);
         craftingInterface.setHeaderText(LANGUAGES.getString("crafting")).isBlockInterface(false);
         craftingInterface.setInterfaceEvents(new InterfaceEvents() {
             Button craft;
@@ -266,7 +262,7 @@ public class GameInterface implements InputProcessor {
             }
 
         });
-        deadInterface = new Interface(Interface.InterfaceSizes.STANDART, this);
+        deadInterface = new Interface(Interface.InterfaceSizes.STANDART);
         deadInterface.setHeaderText("").isBlockInterface(false);
         deadInterface.setInterfaceEvents(new InterfaceEvents() {
             Button respawn;
@@ -280,7 +276,7 @@ public class GameInterface implements InputProcessor {
                     @Override
                     public void onClick() {
                         pl.spawn();
-                        Interface.exitButton.EventListener.onClick();
+                        Interface.close();
                     }
                 });
                 Interface.exitButton.hide(true);
@@ -308,7 +304,7 @@ public class GameInterface implements InputProcessor {
             public void render() {
             }
         });
-        pauseInterface = new Interface(Interface.InterfaceSizes.FULL, this);
+        pauseInterface = new Interface(Interface.InterfaceSizes.FULL);
         pauseInterface.setHeaderText("").isBlockInterface(false);
         pauseInterface.setInterfaceEvents(new InterfaceEvents() {
             Button saveWorldButton;
@@ -378,16 +374,19 @@ public class GameInterface implements InputProcessor {
                 pauseInterface.open();
             }
         });
-        game.multiplexer.addProcessor(this);
-        game.multiplexer.addProcessor(multiplexer);
+        addInterface(deadInterface);
+        addInterface(craftingInterface);
+        addInterface(pauseInterface);
+        addInterface(inv.inventoryInterface);
     }
+    public void setSize(){
 
+    }
     public void update(Player pl) {
-        if (isInterfaceOpen) {
+        if (isAnyInterfaceOpen()) {
             interactionButton.hide(true);
             dropButton.hide(true);
-            atackButton.hide(true);
-            //button2.hide(true);
+            attackButton.hide(true);
             inv.hide(true);
             j.hide(true);
             health.hide(true);
@@ -397,8 +396,7 @@ public class GameInterface implements InputProcessor {
         } else {
             interactionButton.hide(false);
             dropButton.hide(false);
-            atackButton.hide(false);
-            //button2.hide(false);
+            attackButton.hide(false);
             inv.hide(false);
             j.hide(false);
             health.hide(false);
@@ -413,17 +411,17 @@ public class GameInterface implements InputProcessor {
             craftingButton.hide(true);
             interactionButton.hide(true);
             dropButton.hide(true);
-            atackButton.hide(true);
+            attackButton.hide(true);
         }
         isTouched = false;
         inv.update(pl);
         interactionButton.update(INTERFACE_CAMERA);
         dropButton.update(INTERFACE_CAMERA);
-        atackButton.update(INTERFACE_CAMERA);
+        attackButton.update(INTERFACE_CAMERA);
         consoleOpenButton.update(INTERFACE_CAMERA);
         craftingButton.update(INTERFACE_CAMERA);
         pauseButton.update(INTERFACE_CAMERA);
-        if (consoleOpenButton.isTouched() || dropButton.isTouched() || atackButton.isTouched() || interactionButton.isTouched() || j.isTouched() || inv.isTouched()) {
+        if (consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || j.isTouched() || inv.isTouched()) {
             isTouched = true;
         }
         CONSOLE_INTERFACE.update(pl, INTERFACE_CAMERA);
@@ -453,7 +451,7 @@ public class GameInterface implements InputProcessor {
         BATCH.setColor(1f, 1f, 1f, 0.7f);
         interactionButton.render(BATCH, INTERFACE_CAMERA);
         dropButton.render(BATCH, INTERFACE_CAMERA);
-        atackButton.render(BATCH, INTERFACE_CAMERA);
+        attackButton.render(BATCH, INTERFACE_CAMERA);
         consoleOpenButton.render(BATCH, INTERFACE_CAMERA);
         craftingButton.render(BATCH, INTERFACE_CAMERA);
         pauseButton.render(BATCH, INTERFACE_CAMERA);
@@ -465,7 +463,7 @@ public class GameInterface implements InputProcessor {
         craftingInterface.render(pl, INTERFACE_CAMERA);
         deadInterface.render(pl, INTERFACE_CAMERA);
         pauseInterface.render(pl, INTERFACE_CAMERA);
-        if (!isInterfaceOpen && debug)
+        if (!isAnyInterfaceOpen() && debug)
             drawDebugString(World);
         inv.render(pl);
         BATCH.setColor(1, 1, 1, notifAl);
@@ -495,7 +493,7 @@ public class GameInterface implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (!isInterfaceOpen) {
+        if (!isAnyInterfaceOpen()) {
             if (keycode == Input.Keys.ESCAPE) {
                 if (!pauseInterface.isOpen) pauseInterface.open();
             }
@@ -510,17 +508,17 @@ public class GameInterface implements InputProcessor {
             }
         } else {
             if (keycode == Input.Keys.ESCAPE) {
-                if (pauseInterface.isOpen) pauseInterface.exitButton.EventListener.onClick();
+                if (pauseInterface.isOpen) pauseInterface.close();
             }
             if (keycode == Input.Keys.TAB) {
-                if (inv.inventoryInterface.isOpen) inv.inventoryInterface.exitButton.EventListener.onClick();
+                if (inv.inventoryInterface.isOpen) inv.inventoryInterface.close();
             }
             if (keycode == Input.Keys.F1) {
                 if (SETTINGS.useConsole)
-                    if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.exitButton.EventListener.onClick();
+                    if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.close();
             }
             if (keycode == Input.Keys.C) {
-                if (craftingInterface.isOpen) craftingInterface.exitButton.EventListener.onClick();
+                if (craftingInterface.isOpen) craftingInterface.close();
             }
         }
         return false;

@@ -11,6 +11,8 @@ import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
 
+import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.environment.Environment.*;
 import static com.kgc.sauw.graphic.Graphic.*;
 
@@ -19,7 +21,6 @@ public class SAUW implements Screen {
     com.kgc.sauw.map.World World;
     private float WIDTH;
     private float HEIGHT;
-    private GameInterface GI;
 
     private int camX, camY;
     Mods mods;
@@ -34,23 +35,22 @@ public class SAUW implements Screen {
         WIDTH = Gdx.graphics.getWidth();
         HEIGHT = Gdx.graphics.getHeight();
 
-        GI = new GameInterface();
-        World = new World(GI);
+        World = new World();
         DR = new Box2DDebugRenderer();
         this.music = music;
         music.w = World;
         music.setMusicVolume(SETTINGS.musicVolume);
-        BLOCKS.initialize(GI, World);
-        ModAPI = new ModAPI(GI);
+        BLOCKS.initialize(GAME_INTERFACE, World);
+        ModAPI = new ModAPI(GAME_INTERFACE);
         mods = new Mods();
-        GI.initialize(ModAPI, game, World);
+        GAME_INTERFACE.initialize(ModAPI, game, World);
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             World.createNewWorld();
             World.save(worldName);
         } else {
             World.load(worldName);
         }
-        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, CRAFTING, SETTINGS, GI);
+        mods.load(World.pl, BLOCKS, ITEMS, ModAPI, CRAFTING, SETTINGS, GAME_INTERFACE);
     }
 
     @Override
@@ -61,21 +61,21 @@ public class SAUW implements Screen {
         GAME_CAMERA.update(BATCH);
 
         BLOCKS.interfacesUpdate(World.getMaps(), World.pl, INTERFACE_CAMERA);
-        GI.update(World.pl);
+        GAME_INTERFACE.update(World.pl);
         music.update(false);
         BATCH.begin();
-        if (GI.isInterfaceOpen) BATCH.setColor(0.5f, 0.5f, 0.5f, 1);
+        if (isAnyInterfaceOpen()) BATCH.setColor(0.5f, 0.5f, 0.5f, 1);
         World.renderLowLayer();
         World.renderHighLayer();
         World.renderEntitys();
         World.renderLights();
-        if (GI.isInterfaceOpen) BATCH.setColor(1, 1, 1, 1);
+        if (isAnyInterfaceOpen()) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
         if (SETTINGS.debugRenderer) DR.render(World.world, GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
-        GI.render(World, World.pl, SETTINGS.debugMode);
+        GAME_INTERFACE.render(World, World.pl, SETTINGS.debugMode);
         BLOCKS.interfacesRender(World.getMaps(), World.pl, INTERFACE_CAMERA);
-        GI.update(World.pl);
+        GAME_INTERFACE.update(World.pl);
         World.update(mods, ACHIEVEMENTS);
 
 

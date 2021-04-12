@@ -7,14 +7,12 @@ import com.badlogic.gdx.*;
 
 import java.util.*;
 
-import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
 import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
-import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
 import com.kgc.sauw.utils.Languages;
 import org.json.JSONObject;
@@ -23,6 +21,7 @@ import com.kgc.sauw.UI.InterfaceEvents;
 import com.kgc.sauw.UI.Elements.EditText;
 import com.badlogic.gdx.files.FileHandle;
 
+import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.graphic.Graphic.*;
 
 public class MenuScreen implements Screen {
@@ -63,7 +62,6 @@ public class MenuScreen implements Screen {
 
     public MenuScreen(final MainGame game) {
         WIDTH = Gdx.graphics.getWidth();
-        Gdx.input.setInputProcessor(game.multiplexer);
         FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
         if (!settings.exists()) {
             try {
@@ -161,7 +159,7 @@ public class MenuScreen implements Screen {
                 StartGameMenu = false;
             }
         });
-        createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, null);
+        createWorldInterface = new Interface(Interface.InterfaceSizes.FULL);
         createWorldInterface.setHeaderText(languages.getString("createNewWorld"));
         createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
             EditText worldName;
@@ -170,8 +168,7 @@ public class MenuScreen implements Screen {
 
             @Override
             public void initialize() {
-                worldName = new EditText((int) (Interface.x + WIDTH / 16), (int) (Interface.y + Interface.heigth - WIDTH / 16 * 3), WIDTH / 16 * 9, WIDTH / 16, MENU_CAMERA, game.multiplexer);
-                worldName.hide(true);
+                worldName = new EditText((int) (Interface.x + WIDTH / 16), (int) (Interface.y + Interface.heigth - WIDTH / 16 * 3), WIDTH / 16 * 9, WIDTH / 16, INPUT_MULTIPLEXER);
                 bf.setScale(WIDTH / 16 / 2 / bf.getCapHeight());
                 bf.setColor(Color.BLACK);
                 create = new Button("create", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 3, WIDTH / 16);
@@ -190,13 +187,13 @@ public class MenuScreen implements Screen {
 
             @Override
             public void tick() {
-                worldName.update();
+                worldName.update(MENU_CAMERA);
             }
 
             @Override
             public void onOpen() {
-                worldName.hide(false);
                 worldName.input = languages.getString("newWorld");
+                worldName.hide(false);
             }
 
             @Override
@@ -210,8 +207,8 @@ public class MenuScreen implements Screen {
 
             @Override
             public void render() {
-                bf.draw(BATCH, languages.getString("WorldName"), worldName.X + MENU_CAMERA.X, worldName.Y + worldName.h + WIDTH / 16 + MENU_CAMERA.Y);
-                worldName.render(BATCH);
+                bf.draw(BATCH, languages.getString("WorldName"), worldName.X + MENU_CAMERA.X, worldName.Y + worldName.height + WIDTH / 16 + MENU_CAMERA.Y);
+                worldName.render(BATCH, MENU_CAMERA);
             }
         });
         createNewWorld = new Button("", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);

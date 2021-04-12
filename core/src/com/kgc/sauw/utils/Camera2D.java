@@ -11,33 +11,22 @@ public class Camera2D {
     public OrthographicCamera CAMERA;
     public int SIZE, X, Y, ANGLE, W, H;
 
-    private boolean isCameraScaling = false;
-    private float cameraScale = 0;
-    private float cameraScaleSec = 0;
+    private float cameraScaleProgress = 1f;
     public float cameraZoom = 1f;
-    private float altCameraZoom;
+    public float currentCameraZoom = 1f;
 
-    public void setCameraZoom(float zoom) {
-        resize((int) (Gdx.graphics.getWidth() * zoom));
-        cameraZoom = zoom;
+    public void setCurrentCameraZoom(float zoom) {
+        if (Gdx.graphics.getWidth() * zoom != W) resize((int) (Gdx.graphics.getWidth() * zoom));
+        currentCameraZoom = zoom;
     }
 
-    public void setCameraZoom(float zoom, float sec) {
-        isCameraScaling = true;
-        cameraScale = zoom;
-        cameraScaleSec = sec / 10;
-        altCameraZoom = cameraZoom;
+    public void setCameraZoom(float zoom, float progress) {
+        cameraZoom = zoom;
+        cameraScaleProgress = progress;
     }
 
     public void update(SpriteBatch b) {
-        if (isCameraScaling) {
-            float temp = (cameraScale - altCameraZoom) / cameraScaleSec * Gdx.graphics.getRawDeltaTime();
-            setCameraZoom(cameraZoom + temp);
-            if ((temp < 0 && cameraZoom <= cameraScale) || (temp > 0 && cameraZoom >= cameraScale)) {
-                isCameraScaling = false;
-                setCameraZoom(cameraScale);
-            }
-        }
+        setCurrentCameraZoom(MathUtils.lerp(currentCameraZoom, cameraZoom, cameraScaleProgress));
         CAMERA.update();
         b.setProjectionMatrix(CAMERA.combined);
     }

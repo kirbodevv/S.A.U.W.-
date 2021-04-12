@@ -322,16 +322,18 @@ public class Player implements ExtraData {
             double velY = 0;
 
             if (Gdx.app.getType() == Application.ApplicationType.Android) {
-                velX = Maths.map(-0.32, 0.32, -1, 1, GI.j.normD().x);
-                velY = Maths.map(-0.32, 0.32, -1, 1, GI.j.normD().y);
                 if (GI.j.isTouched()) {
                     if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {
+                        velY = 1;
                         rot = 0;
                     } else if (GI.j.angleI() < 225 && GI.j.angleI() > 135) {
+                        velX = 1;
                         rot = 1;
                     } else if (GI.j.angleI() > 45 && GI.j.angleI() < 135) {
+                        velY = -1;
                         rot = 2;
                     } else if (GI.j.angleI() < 45 || GI.j.angleI() > 315) {
+                        velX = -1;
                         rot = 3;
                     }
                 }

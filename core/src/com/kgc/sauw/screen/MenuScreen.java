@@ -14,7 +14,6 @@ import com.kgc.sauw.UI.Interface;
 import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
-import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.resource.Music;
 import com.kgc.sauw.utils.Languages;
@@ -24,8 +23,6 @@ import com.kgc.sauw.UI.InterfaceEvents;
 import com.kgc.sauw.UI.Elements.EditText;
 import com.badlogic.gdx.files.FileHandle;
 
-import static com.kgc.sauw.environment.Environment.BLOCKS;
-import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.*;
 
 public class MenuScreen implements Screen {
@@ -41,8 +38,6 @@ public class MenuScreen implements Screen {
     Button exitButton;
 
     Button closeButton;
-    World world;
-    Timer timer = new Timer();
     float tmr;
     int camX, camY;
     boolean StartGameMenu = false;
@@ -92,13 +87,7 @@ public class MenuScreen implements Screen {
         this.game = game;
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                xC = random.nextInt(11) - 5;
-                yC = random.nextInt(11) - 5;
-            }
-        }, 0, 5000);
+
         SettingsScreen = new SettingsScreen(game, TEXTURES, this);
         ModsScreen = new ModsScreen(game, TEXTURES, this);
         startButton = new Button("", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
@@ -255,26 +244,10 @@ public class MenuScreen implements Screen {
                 setSelectButtonsText();
             }
         });
-        world = new World();
-        String lastWorld = null;
-        try {
-            JSONObject data = new JSONObject(Gdx.files.external("S.A.U.W./User/data.json").readString());
-            lastWorld = data.getString("lastWorld");
-        } catch (Exception e) {
-
-        }
-        if (lastWorld != null) {
-            if (Gdx.files.external("S.A.U.W./Worlds/" + lastWorld).exists())
-                world.load(lastWorld);
-            else world.createNewWorld();
-        } else {
-            world.createNewWorld();
-        }
         startButton.setText(languages.getString("startGame"));
         settingsButton.setText(languages.getString("settings"));
         modsButton.setText(languages.getString("mods"));
         exitButton.setText(languages.getString("exit"));
-
 
         music = new Music(null);
     }
@@ -311,21 +284,13 @@ public class MenuScreen implements Screen {
         music.update(true);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camX += xC;
-        camY += yC;
-        if (camX < BLOCK_SIZE) camX = (int) BLOCK_SIZE;
-        if (camY < BLOCK_SIZE) camY = (int) BLOCK_SIZE;
-        if (camX + Graphic.GAME_CAMERA.W > (world.getMaps().map0[0].length - 1) * BLOCK_SIZE)
-            camX = (int) ((world.getMaps().map0[0].length - 1) * BLOCK_SIZE - MENU_CAMERA.W);
-        if (camY + MENU_CAMERA.H > (world.getMaps().map0.length - 1) * BLOCK_SIZE)
-            camY = (int) ((world.getMaps().map0.length - 1) * BLOCK_SIZE - MENU_CAMERA.H);
-        MENU_CAMERA.lookAt(camX, camY, false);
-        MENU_CAMERA.update(BATCH);
-        //startButton.setText("" + cam.X + " " + cam.Y);
         BATCH.begin();
         BATCH.setColor(0.6f, 0.6f, 0.6f, 1);
-        world.renderLowLayer();
-        world.renderHighLayer();
+        for (int x = 0; x < 16; x++) {
+            for (int y = 0; y < SCREEN_HEIGHT / BLOCK_SIZE; y++) {
+                BATCH.draw(TEXTURES.grass0, BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE);
+            }
+        }
         BATCH.setColor(1, 1, 1, 1);
         BATCH.draw(TEXTURES.logo, MENU_CAMERA.X + w / 16 * 5, MENU_CAMERA.Y + h - w / 16 * 4, w / 16 * 6, w / 16 * 3);
         if (!StartGameMenu) {

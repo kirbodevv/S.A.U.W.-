@@ -126,7 +126,7 @@ public class GameInterface implements InputProcessor {
                 background2 = TEXTURES.generateTexture(6f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
                 BF = new BitmapFont(Gdx.files.internal("ttf.fnt"));
                 BF.setColor(Color.BLACK);
-                BF.setScale(INTERFACE_CAMERA.W / 1100);
+                BF.setScale((INTERFACE_CAMERA.W / 32) * BF.getCapHeight());
                 craftName = new BitmapFont(Gdx.files.internal("ttf.fnt"));
                 craftName.setColor(Color.BLACK);
                 craftName.setScale(WIDTH / 32 / 2 / craftName.getCapHeight());
@@ -404,7 +404,7 @@ public class GameInterface implements InputProcessor {
             craftingButton.hide(false);
             pauseButton.hide(false);
         }
-        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+        if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
             j.hide(true);
             consoleOpenButton.hide(true);
             pauseButton.hide(true);
@@ -477,7 +477,9 @@ public class GameInterface implements InputProcessor {
                 "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb";
         String Player = "\n Hunger:" + World.pl.hunger + "/20" +
                 "\n X : " + World.pl.currentTileX +
-                "\n Y : " + World.pl.currentTileY;
+                "\n Y : " + World.pl.currentTileY +
+                "\n velX : " + World.pl.velX +
+                "\n velY : " + World.pl.velY;
         this.debug.setColor(0f, 0f, 0f, 1f);
         this.debug.drawMultiLine(BATCH, Main, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - WIDTH / 16 + INTERFACE_CAMERA.Y);
         this.debug.setColor(0.25f, 0.25f, 1f, 1f);

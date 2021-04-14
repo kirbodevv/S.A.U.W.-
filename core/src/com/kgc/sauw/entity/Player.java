@@ -29,8 +29,19 @@ import org.json.JSONObject;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.environment.Environment.SETTINGS;
+import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
 
 public class Player implements ExtraData {
+    public double velX;
+    public double velY;
+    static {
+        SPEED_RATIO_X = Gdx.graphics.getWidth() / 1280.0f;
+        SPEED_RATIO_Y = Gdx.graphics.getHeight() / 720.0f;
+    }
+
+    public static float SPEED_RATIO_X;
+    public static float SPEED_RATIO_Y;
+
     //static Player player;
     @Override
     public byte[] getBytes() {
@@ -248,6 +259,7 @@ public class Player implements ExtraData {
     }
 
     public Player(Textures t, GameInterface GI, Entities entities, Maps m) {
+        System.out.println(SPEED_RATIO_X);
         this.t = t;
         this.GI = GI;
         this.entities = entities;
@@ -318,12 +330,12 @@ public class Player implements ExtraData {
             playerSpeed = 1.0f - ((weight * 1.66f) / 100);
             if (playerSpeed < 0) playerSpeed = 0;
 
-            double velX = 0;
-            double velY = 0;
+            velX = 0;
+            velY = 0;
 
-            if (Gdx.app.getType() == Application.ApplicationType.Android) {
-                velX = Maths.map(-0.32, 0.32, -1, 1, GI.j.normD().x);
-                velY = Maths.map(-0.32, 0.32, -1, 1, GI.j.normD().y);
+            if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+                velX = GI.j.normD(3).x;
+                velY = GI.j.normD(3).y;
                 if (GI.j.isTouched()) {
                     if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {
                         rot = 0;
@@ -335,8 +347,7 @@ public class Player implements ExtraData {
                         rot = 3;
                     }
                 }
-            }
-            if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            } else if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
                 if (Gdx.input.isKeyPressed(Input.Keys.W)) {
                     velY = 1;
                     rot = 0;
@@ -365,7 +376,8 @@ public class Player implements ExtraData {
             }
             velocity.x = (velX * (playerSpeed));
             velocity.y = (velY * (playerSpeed));
-            body.setLinearVelocity((float) velocity.x * normalPlayerSpeed * 2, (float) velocity.y * normalPlayerSpeed * 2);
+
+            body.setLinearVelocity((float) (velocity.x * normalPlayerSpeed * 2) * SPEED_RATIO_X, (float) (velocity.y * normalPlayerSpeed * 2) * SPEED_RATIO_Y);
             if (body.getPosition().x - playerBodyW / 2 == posX && body.getPosition().y - playerBodyH / 2 == posY) {
                 if (rot == 1) {
                     currentFrame = walkFrames[3];

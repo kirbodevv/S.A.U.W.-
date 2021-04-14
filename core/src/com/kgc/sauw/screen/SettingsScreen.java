@@ -109,15 +109,15 @@ public class SettingsScreen implements Screen {
 					}
 				}
 			});
-		closeButton = new Button("closeButton", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
+		closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
 		closeButton.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
 					game.setScreen(MenuScreen);
 				}
 			});
-		prevLang = new Button("", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 7, width / 16, width / 16, t.button_up_0, t.button_up_1);
-		nextLang = new Button("", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 9, width / 16, width / 16, t.button_down_0, t.button_down_1);
+		prevLang = new Button("SETTINGS_SCREEN_PREVIOUS_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 7, width / 16, width / 16, t.button_up_0, t.button_up_1);
+		nextLang = new Button("SETTINGS_SCREEN_NEXT_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 9, width / 16, width / 16, t.button_down_0, t.button_down_1);
 		nextLang.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -167,7 +167,7 @@ public class SettingsScreen implements Screen {
 			});
 		bf.setScale(width / 16 / 2 / bf.getCapHeight());
 		bf.setColor(Color.BLACK);
-		general = new Button("", width / 16, height - width / 32 * 3, width / 32 * 5, width / 16);
+		general = new Button("SETTINGS_SCREEN_GENERAL_BUTTON", width / 16, height - width / 32 * 3, width / 32 * 5, width / 16);
 		//general.setTextColor(Color.BLACK);
 		general.setText(MenuScreen.languages.getString("general"));
 		general.setEventListener(new Button.EventListener(){
@@ -177,7 +177,7 @@ public class SettingsScreen implements Screen {
 					general.lock(true);
 				}
 			});
-		Interface = new Button("", general.X + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
+		Interface = new Button("SETTINGS_SCREEN_INTERFACE_BUTTON", general.X + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
 		// Interface.setTextColor(Color.BLACK);
 		Interface.setText(MenuScreen.languages.getString("interface"));
 		Interface.setEventListener(new Button.EventListener(){
@@ -187,7 +187,7 @@ public class SettingsScreen implements Screen {
 					Interface.lock(true);
 				}
 			});
-		gameSettings = new Button("", Interface.X + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
+		gameSettings = new Button("SETTINGS_SCREEN_GAME_BUTTON", Interface.X + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
 		// gameSettings.setTextColor(Color.BLACK);
 		gameSettings.setText(MenuScreen.languages.getString("game"));
 		gameSettings.setEventListener(new Button.EventListener(){
@@ -197,7 +197,7 @@ public class SettingsScreen implements Screen {
 					gameSettings.lock(true);
 				}
 			});
-		sound = new Button("", gameSettings.X + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
+		sound = new Button("SETTINGS_SCREEN_SOUND_BUTTON", gameSettings.X + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
 		//sound.setTextColor(Color.BLACK);
 		sound.setText(MenuScreen.languages.getString("sound"));
 		sound.setEventListener(new Button.EventListener(){

@@ -1,5 +1,5 @@
 package com.kgc.sauw.utils;
 
 public class Version {
-    public static String VERSION = "0.1.2.1 Beta";
+    public static String VERSION = "0.1.3 Beta";
 }

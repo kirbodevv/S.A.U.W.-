@@ -12,9 +12,12 @@ import org.mozilla.javascript.ScriptableObject;
 
 import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.map.World.WORLD;
 
 public class ConsoleInterface extends Interface {
     public Button sendCommandButton;
@@ -28,22 +31,22 @@ public class ConsoleInterface extends Interface {
     public Scriptable sc;
 
     public ConsoleInterface() {
-        super(InterfaceSizes.FULL);
+        super(InterfaceSizes.FULL, "CONSOLE_INTERFACE");
         setHeaderText(LANGUAGES.getString("console")).isBlockInterface(false);
         int inW = (int) (width - SCREEN_WIDTH / 8 - SCREEN_WIDTH / 32);
         input = new EditText((int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), inW, (int) SCREEN_WIDTH / 16, INPUT_MULTIPLEXER);
         log_bg = TEXTURES.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), ((heigth - SCREEN_WIDTH / 16) - (SCREEN_WIDTH / 8)) / (SCREEN_WIDTH / 16), false);
-        nextCommand = new Button("", input.X + input.width, (int) (y + SCREEN_WIDTH / 16), (int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), TEXTURES.button_up_0, TEXTURES.button_up_1);
-        prevCommand = new Button("", input.X + input.width, (int) (y + SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), TEXTURES.button_down_0, TEXTURES.button_down_1);
-               /* nextCommand.setEventListener(new Button.EventListener() {
+        nextCommand = new Button("CONSOLE_INTERFACE_NEXT_COMMAND_BUTTON", input.X + input.width, (int) (y + SCREEN_WIDTH / 16), (int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), TEXTURES.button_up_0, TEXTURES.button_up_1);
+        prevCommand = new Button("CONSOLE_INTERFACE_NEXT_COMMAND_BUTTON", input.X + input.width, (int) (y + SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), TEXTURES.button_down_0, TEXTURES.button_down_1);
+               nextCommand.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {
                         currCom++;
-                        if (currCom >= ModAPI.Console.inputs.size()) {
-                            currCom = ModAPI.Console.inputs.size() - 1;
+                        if (currCom >= MOD_API.Console.inputs.size()) {
+                            currCom = MOD_API.Console.inputs.size() - 1;
                         }
                         if (currCom != -1) {
-                            input.input = ModAPI.Console.input(currCom);
+                            input.input = MOD_API.Console.input(currCom);
                         } else {
                             input.input = inputTxt;
                         }
@@ -57,13 +60,13 @@ public class ConsoleInterface extends Interface {
                             currCom = -1;
                         }
                         if (currCom != -1) {
-                            input.input = ModAPI.Console.input(currCom);
+                            input.input = MOD_API.Console.input(currCom);
                         } else {
                             input.input = inputTxt;
                         }
                     }
-                });*/
-        sendCommandButton = new Button("SendButton", input.X + input.width + (int) (SCREEN_WIDTH / 32), input.Y, (int) SCREEN_WIDTH / 16, (int) SCREEN_WIDTH / 16, TEXTURES.button_right_0, TEXTURES.button_right_1);
+                });
+        sendCommandButton = new Button("CONSOLE_INTERFACE_SEND_COMMAND_BUTTON", input.X + input.width + (int) (SCREEN_WIDTH / 32), input.Y, (int) SCREEN_WIDTH / 16, (int) SCREEN_WIDTH / 16, TEXTURES.button_right_0, TEXTURES.button_right_1);
         buttons.add(sendCommandButton);
         buttons.add(nextCommand);
         buttons.add(prevCommand);
@@ -72,14 +75,15 @@ public class ConsoleInterface extends Interface {
         cx.setOptimizationLevel(-1);
         try {
             sc = cx.initStandardObjects();
-            //ScriptableObject.putProperty(sc, "Player", pl);
+            ScriptableObject.putProperty(sc, "Player", PLAYER);
             ScriptableObject.putProperty(sc, "GI", GAME_INTERFACE);
-            //ScriptableObject.putProperty(sc, "World", w);
+            ScriptableObject.putProperty(sc, "World", WORLD);
         } catch (Exception e) {
             Gdx.app.log("error", e.toString());
         } finally {
             Context.exit();
         }
+        input.input = "give(1, 1, 0);";
     }
 
     @Override

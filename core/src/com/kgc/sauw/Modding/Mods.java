@@ -18,13 +18,17 @@ import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
+import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.environment.Environment.*;
+import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Mods {
 	Context cx;
 	mod mods[] = null;
 
-    public void load(Player pl, Blocks BLOCKS, Items ITEMS, ModAPI ModAPI, Crafting crafting, Settings settings, GameInterface GI) {
+    public void load() {
 		cx = Context.enter();
 		cx.setOptimizationLevel(-1);
 		try {
@@ -41,13 +45,13 @@ public class Mods {
 						FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/main.js");
 						String result = MainJSFile.readString();
 						ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
-						crafting.addCraftsFromDirectory(mods[i].CraftsFolder);
-						ScriptableObject.putProperty(mods[i].sc, "Player", pl);
+						CRAFTING.addCraftsFromDirectory(mods[i].CraftsFolder);
+						ScriptableObject.putProperty(mods[i].sc, "Player", PLAYER);
 						ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
 						ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
-						ScriptableObject.putProperty(mods[i].sc, "ModAPI", ModAPI);
-						ScriptableObject.putProperty(mods[i].sc, "Settings", settings);
-						ScriptableObject.putProperty(mods[i].sc, "GI", GI);
+						ScriptableObject.putProperty(mods[i].sc, "ModAPI", MOD_API);
+						ScriptableObject.putProperty(mods[i].sc, "Settings", SETTINGS);
+						ScriptableObject.putProperty(mods[i].sc, "GI", GAME_INTERFACE);
 						ScriptableObject.putProperty(mods[i].sc, "Textures", TEXTURES);
 
 						cx.evaluateString(mods[i].sc, result, names[i], 1, null);

@@ -24,6 +24,8 @@ public class Interface {
         public static int FULL = 1;
     }
 
+    private String ID;
+
     private int WIDTH = Gdx.graphics.getWidth();
     private int HEIGHT = Gdx.graphics.getHeight();
     public boolean isOpen = false;
@@ -49,12 +51,14 @@ public class Interface {
     private Texture backgroundInv0;
     private Texture backgroundInv1;
     private Texture backgroundInv2;
-    public Button previosTabInv;
+    public Button previousTabInv;
     public Button nextTabInv;
     public int currentItemInv = -1;
     public int currentTabInv = 0;
 
-    public Interface(int size) {
+    public Interface(int size, String ID) {
+        this.ID = ID;
+
         w = Gdx.graphics.getWidth();
         h = Gdx.graphics.getHeight();
 
@@ -71,7 +75,7 @@ public class Interface {
         x = (w - width) / 2;
         y = (h - heigth) / 2;
         this.size = size;
-        exitButton = new Button("", (int) (x + width - w / 16), (int) (y + heigth - w / 16 + w / 64), w / 32, w / 32, Graphic.TEXTURES.closeButton, Graphic.TEXTURES.closeButton);
+        exitButton = new Button(ID + "_CLOSE_BUTTON", (int) (x + width - w / 16), (int) (y + heigth - w / 16 + w / 64), w / 32, w / 32, Graphic.TEXTURES.closeButton, Graphic.TEXTURES.closeButton);
         exitButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -98,11 +102,11 @@ public class Interface {
         float hhh = HEIGHT - WIDTH / 16 * 2;
         backgroundInv0 = Graphic.TEXTURES.generateTexture(7.5f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
         backgroundInv2 = Graphic.TEXTURES.generateTexture(6f, (HEIGHT - WIDTH / 16 * 2) / (WIDTH / 16), false);
-        previosTabInv = new Button("pr", (int) (xxx + WIDTH / 32), (int) (yyy + hhh - hhh / 7 - WIDTH / 64), (int) hhh / 7, (int) hhh / 7, Graphic.TEXTURES.button_left_0, Graphic.TEXTURES.button_left_1);
-        nextTabInv = new Button("next", (int) (xxx + www - WIDTH / 32 - hhh / 7), (int) (yyy + hhh - hhh / 7 - WIDTH / 64), (int) hhh / 7, (int) hhh / 7, Graphic.TEXTURES.button_right_0, Graphic.TEXTURES.button_right_1);
-        buttons.add(previosTabInv);
+        previousTabInv = new Button(ID + "_PREVIOUS_INVENTORY_TAB_BUTTON", (int) (xxx + WIDTH / 32), (int) (yyy + hhh - hhh / 7 - WIDTH / 64), (int) hhh / 7, (int) hhh / 7, Graphic.TEXTURES.button_left_0, Graphic.TEXTURES.button_left_1);
+        nextTabInv = new Button(ID + "_NEXT_INVENTORY_TAB_BUTTON", (int) (xxx + www - WIDTH / 32 - hhh / 7), (int) (yyy + hhh - hhh / 7 - WIDTH / 64), (int) hhh / 7, (int) hhh / 7, Graphic.TEXTURES.button_right_0, Graphic.TEXTURES.button_right_1);
+        buttons.add(previousTabInv);
         buttons.add(nextTabInv);
-        int dist = nextTabInv.X - (previosTabInv.X + previosTabInv.width);
+        int dist = nextTabInv.X - (previousTabInv.X + previousTabInv.width);
         backgroundInv1 = Graphic.TEXTURES.generateTexture(dist / (WIDTH / 16), (hhh / 7) / (WIDTH / 16), true);
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 6; x++) {
@@ -240,7 +244,7 @@ public class Interface {
                         currentTabInv++;
                     }
                 }
-                if (previosTabInv.wasClicked) {
+                if (previousTabInv.wasClicked) {
                     if (currentTabInv - 1 >= 0) {
                         currentTabInv--;
                     }
@@ -285,7 +289,7 @@ public class Interface {
             if (inventory) {
                 BATCH.draw(backgroundInv2, WIDTH / 16 * 9, WIDTH / 32, WIDTH / 16 * 6, HEIGHT - WIDTH / 16 * 2);
                 BATCH.draw(backgroundInv0, WIDTH / 16, WIDTH / 32, WIDTH / 16 * 8 - WIDTH / 32, HEIGHT - WIDTH / 16 * 2);
-                BATCH.draw(backgroundInv1, previosTabInv.X + previosTabInv.width, previosTabInv.Y, nextTabInv.X - (previosTabInv.X + previosTabInv.width), previosTabInv.height);
+                BATCH.draw(backgroundInv1, previousTabInv.X + previousTabInv.width, previousTabInv.Y, nextTabInv.X - (previousTabInv.X + previousTabInv.width), previousTabInv.height);
             }
             exitButton.render(BATCH, cam);
 

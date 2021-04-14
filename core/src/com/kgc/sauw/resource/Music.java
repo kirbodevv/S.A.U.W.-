@@ -2,15 +2,15 @@ package com.kgc.sauw.resource;
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.map.World;
 
+import static com.kgc.sauw.map.World.WORLD;
+
 public class Music {
 
 	com.badlogic.gdx.audio.Music main;
 	com.badlogic.gdx.audio.Music nightSoundtrack;
 
-	public World w;
 	float musicVolume;
-	public Music(World w) {
-		this.w = w;
+	public Music() {
 		main = Gdx.audio.newMusic(Gdx.files.internal("music/main.mp3"));
 		nightSoundtrack = Gdx.audio.newMusic(Gdx.files.internal("music/Sunset.mp3"));
 
@@ -28,7 +28,7 @@ public class Music {
 		} else {
 			if (main.isPlaying())
 				main.stop();
-			if (w.WorldTime.getHours() > 19 || w.WorldTime.getHours() < 7) {
+			if (WORLD.WorldTime.getHours() > 19 || WORLD.WorldTime.getHours() < 7) {
 				if (!nightSoundtrack.isPlaying())
 					nightSoundtrack.play();
 			} else {

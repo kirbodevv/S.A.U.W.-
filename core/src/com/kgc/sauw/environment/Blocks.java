@@ -20,6 +20,8 @@ import com.kgc.sauw.math.Vector2i;
 
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.map.World.MAPS;
+import static com.kgc.sauw.map.World.WORLD;
 
 public class Blocks {
 	public ArrayList<Block> BLOCKS = new ArrayList<Block>();
@@ -126,8 +128,7 @@ public class Blocks {
 		this.createBlock(id, tt0);
 		ITEMS.createItem(ITEMS.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
 	}
-	public void initialize(final GameInterface gi, final World world) {
-		final Maps maps = world.getMaps();
+	public void initialize() {
 		getBlockById(5).registerTileEntity(new Tile.TileEntity(){
 			    @Override
 				public void interfaceInitialize() {
@@ -136,9 +137,9 @@ public class Blocks {
 					float width = w / 16 * (h / (w / 16.0f) - 2);
 					float heigth = w / 16 * (h / (w / 16.0f) - 2);
 	               // String _interface = "{\"standart\":{\"header\":{\"text\":{\"text\":\"Chest\"}}, \"isBlockInterface\":true, \"inventory\" : {\"standart\":true}, \"background\" : {\"standart\" : true, \"full\" : false}}, \"elements\" : {";
-					chestInterface = new Interface(Interface.InterfaceSizes.STANDART);
+					chestInterface = new Interface(Interface.InterfaceSizes.STANDART, "CHEST_INTERFACE");
 					chestInterface.createInventory().setHeaderText(Environment.LANGUAGES.getString("chest")).isBlockInterface(true);
-					chestInterface.setMaps(maps);
+					chestInterface.setMaps(MAPS);
 				   for (int i = 0; i < 3; i++) {
 						for (int j = 0; j < 8; j++) {
 							Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int)(x + ((width - w / 24.0f * 8) / 2) + (w / 24 * j)), (int)(y + (w / 24 * 3 + w / 16 + w / 32) + w / 24 * i + w / 64), w / 24, w / 24, TEXTURES.selected_slot);
@@ -263,9 +264,9 @@ public class Blocks {
 				};
 				@Override
 				public void interfaceInitialize() {
-					_interface = new Interface(Interface.InterfaceSizes.STANDART);
+					_interface = new Interface(Interface.InterfaceSizes.STANDART, "FURNACE_INTERFACE");
 					_interface.setHeaderText(Environment.LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
-					_interface.setMaps(maps);
+					_interface.setMaps(MAPS);
 					int temp = (int)(_interface.width - w / 24 * 4) / 2;
 					resultSlot = new Slot("ResultSlot", (int)(_interface.x + _interface.width - temp - w / 24), (int)(_interface.y + w / 24 * 6.5), w / 24, w / 24, TEXTURES.selected_slot);
 					ingSlot = new Slot("IngSlot", (int)(_interface.x + temp), (int)(_interface.y + w / 24 * 7.5), w / 24, w / 24, TEXTURES.selected_slot);
@@ -384,7 +385,7 @@ public class Blocks {
 				public void randomTick(Tile tile) {
 					tile.setExtraData("age", (int)tile.getExtraData("age") + 1);
 					if ((int)tile.getExtraData("age") >= 4) {
-						world.setBlock(tile.x, tile.y, tile.z, getBlockById(6));
+						WORLD.setBlock(tile.x, tile.y, tile.z, getBlockById(6));
 					}
 				}
 			});

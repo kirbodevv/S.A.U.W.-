@@ -1,17 +1,18 @@
 package com.kgc.sauw;
 
-import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.entity.Player;
-import com.kgc.sauw.map.World;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.environment.Environment.ACHIEVEMENTS;
+import static com.kgc.sauw.environment.Environment.SETTINGS;
+import static com.kgc.sauw.map.World.WORLD;
 
 public class AchievementsChecker {
-    public void update(World World, Player pl, Achievements achievements, GameInterface GI, Settings settings){
-		if (World.getMaps().map0[pl.currentTileY - 1][pl.currentTileX][0].id == 6) {
-			achievements.giveAchievment(pl, "SZD", GI, settings);
+    public void update(){
+		if (WORLD.getMaps().map0[PLAYER.currentTileY - 1][PLAYER.currentTileX][0].id == 6) {
+			ACHIEVEMENTS.giveAchievment(PLAYER, "SZD", GAME_INTERFACE, SETTINGS);
 		}
-		if(pl.getCountOfItems(14) > 0 || pl.getCountOfItems(15) > 0 || pl.getCountOfItems(22) > 0){
-			achievements.giveAchievment(pl, "stoneItems", GI, settings);
+		if(PLAYER.getCountOfItems(14) > 0 || PLAYER.getCountOfItems(15) > 0 || PLAYER.getCountOfItems(22) > 0){
+			ACHIEVEMENTS.giveAchievment(PLAYER, "stoneItems", GAME_INTERFACE, SETTINGS);
 		}
 	}
 }

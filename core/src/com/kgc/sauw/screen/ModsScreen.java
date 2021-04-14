@@ -59,7 +59,7 @@ public class ModsScreen implements Screen {
         this.t = t;
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
         background1 = Textures.generateTexture(13, height / (width / 16) - 1, false);
-        closeButton = new Button("closeButton", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
+        closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
         closeButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {

@@ -3,12 +3,9 @@ package com.kgc.sauw.entity;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.*;
-import com.kgc.sauw.UI.GameInterface;
 import com.kgc.sauw.environment.Time;
-import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.math.Vector2d;
@@ -27,9 +24,14 @@ import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import org.json.JSONObject;
 
+import static com.kgc.sauw.UI.Interfaces.Interfaces.DEAD_INTERFACE;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.environment.Environment.SETTINGS;
-import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.entity.Entities.ENTITIES;
+import static com.kgc.sauw.map.World.MAPS;
+
 
 public class Player implements ExtraData {
     public double velX;
@@ -42,7 +44,6 @@ public class Player implements ExtraData {
     public static float SPEED_RATIO_X;
     public static float SPEED_RATIO_Y;
 
-    //static Player player;
     @Override
     public byte[] getBytes() {
         DataBuffer buffer = new DataBuffer();
@@ -83,7 +84,6 @@ public class Player implements ExtraData {
     public float posX = w / 2 + 16;
     public float posY = h / 2 - 32;
     public int carriedSlot = 0;
-    private Textures t;
     public int[] hotbar = new int[8];
     public int currentTileX;
     public int currentTileY;
@@ -104,17 +104,14 @@ public class Player implements ExtraData {
 
     public Body body;
 
-    AchievementsChecker AC = new AchievementsChecker();
-    private Maps maps;
+    AchievementsChecker achievementsChecker = new AchievementsChecker();
 
     private TextureRegion[] walkFrames;
     private TextureRegion currentFrame;
-    private GameInterface GI;
     public final float normalPlayerSpeed = w / 16;
     public float playerSpeed = 1.0f;
     public int rot = 0;
     private float stateTime;
-    private Entities entities;
     public boolean isDead = true;
 
     public Rectangle playerBody;
@@ -190,14 +187,14 @@ public class Player implements ExtraData {
 
     public void kill() {
         isDead = true;
-        GI.deadInterface.open();
+        DEAD_INTERFACE.open();
     }
 
     public void spawn() {
         if (isDead) {
             Random r = new Random();
-            currentTileY = r.nextInt(maps.map0.length - 2) + 1;
-            currentTileX = r.nextInt(maps.map0[0].length - 2) + 1;
+            currentTileY = r.nextInt(MAPS.map0.length - 2) + 1;
+            currentTileX = r.nextInt(MAPS.map0[0].length - 2) + 1;
             playerBody.x = currentTileX * (w / 16);
             playerBody.y = currentTileY * (w / 16);
         }
@@ -258,12 +255,8 @@ public class Player implements ExtraData {
         }
     }
 
-    public Player(Textures t, GameInterface GI, Entities entities, Maps m) {
+    public Player() {
         System.out.println(SPEED_RATIO_X);
-        this.t = t;
-        this.GI = GI;
-        this.entities = entities;
-        this.maps = m;
         this.playerBody = new Rectangle();
         this.playerBody.setSize(plW, plH);
         for (int i = 0; i < hotbar.length; i++) {
@@ -278,7 +271,7 @@ public class Player implements ExtraData {
             Gdx.app.log("error", e.toString());
         }
 
-        TextureRegion[][] tmp = TextureRegion.split(t.player, t.player.getWidth() / 4, t.player.getHeight() / 3);
+        TextureRegion[][] tmp = TextureRegion.split(TEXTURES.player, TEXTURES.player.getWidth() / 4, TEXTURES.player.getHeight() / 3);
         walkFrames = new TextureRegion[4 * 3];
         int index = 0;
         for (int i = 0; i < 3; i++) {
@@ -311,8 +304,8 @@ public class Player implements ExtraData {
             boolean isCameraZooming = false;
             for (int y = currentTileY - 3; y < currentTileY + 3; y++) {
                 for (int x = currentTileX - 3; x < currentTileX + 3; x++) {
-                    if (y > 0 && y < maps.map0.length && x > 0 && x < maps.map0[0].length) {
-                        if (world.maps.map0[y][x][0].id == 15) {
+                    if (y > 0 && y < MAPS.map0.length && x > 0 && x < MAPS.map0[0].length) {
+                        if (MAPS.map0[y][x][0].id == 15) {
                             cam.setCameraZoom(0.75f, 0.025f);
                             isCameraZooming = true;
                         }
@@ -334,16 +327,16 @@ public class Player implements ExtraData {
             velY = 0;
 
             if (Gdx.app.getType() == Application.ApplicationType.Android) {
-                velX = GI.j.normD(3).x;
-                velY = GI.j.normD(3).y;
-                if (GI.j.isTouched()) {
-                    if (GI.j.angleI() < 315 && GI.j.angleI() > 225) {
+                velX = GAME_INTERFACE.j.normD(3).x;
+                velY = GAME_INTERFACE.j.normD(3).y;
+                if (GAME_INTERFACE.j.isTouched()) {
+                    if (GAME_INTERFACE.j.angleI() < 315 && GAME_INTERFACE.j.angleI() > 225) {
                         rot = 0;
-                    } else if (GI.j.angleI() < 225 && GI.j.angleI() > 135) {
+                    } else if (GAME_INTERFACE.j.angleI() < 225 && GAME_INTERFACE.j.angleI() > 135) {
                         rot = 1;
-                    } else if (GI.j.angleI() > 45 && GI.j.angleI() < 135) {
+                    } else if (GAME_INTERFACE.j.angleI() > 45 && GAME_INTERFACE.j.angleI() < 135) {
                         rot = 2;
-                    } else if (GI.j.angleI() < 45 || GI.j.angleI() > 315) {
+                    } else if (GAME_INTERFACE.j.angleI() < 45 || GAME_INTERFACE.j.angleI() > 315) {
                         rot = 3;
                     }
                 }
@@ -403,12 +396,12 @@ public class Player implements ExtraData {
                     Inventory.remove(i);
                 }
             }
-            if (SETTINGS.autopickup || (GI.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
-                for (int i = 0; i < entities.entities.size(); i++) {
-                    if (entities.entities.get(i) instanceof ItemEntity && Maths.distanceD((int) posX, (int) posY, entities.entities.get(i).posX, entities.entities.get(i).posY) < w / 32) {
-                        ItemEntity item = (ItemEntity) entities.entities.get(i);
+            if (SETTINGS.autopickup || (GAME_INTERFACE.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
+                for (int i = 0; i < ENTITIES.size(); i++) {
+                    if (ENTITIES.get(i) instanceof ItemEntity && Maths.distanceD((int) posX, (int) posY, ENTITIES.get(i).posX, ENTITIES.get(i).posY) < w / 32) {
+                        ItemEntity item = (ItemEntity) ENTITIES.get(i);
                         addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"), (int) item.getExtraData("itemCount"));
-                        entities.entities.remove(i);
+                        ENTITIES.remove(i);
                     }
                 }
             }
@@ -432,7 +425,7 @@ public class Player implements ExtraData {
 			 }
 			 }*/
         }
-        AC.update(world, this, a, GI, SETTINGS);
+        achievementsChecker.update();
     }
 
     public static class InventorySlot implements ExtraData {

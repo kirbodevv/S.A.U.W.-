@@ -1,5 +1,6 @@
 package com.kgc.sauw.UI;
 
+import com.kgc.sauw.UI.Elements.Elements;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -40,6 +41,10 @@ public class InterfaceElement {
         }
     }
 
+    public void create(){
+        Elements.addElement(this);
+    }
+
     public void render(SpriteBatch batch, Camera2D cam) {
 
     }
@@ -63,6 +68,8 @@ public class InterfaceElement {
     public boolean isHided() {
         return hided;
     }
+
+    public void dispose(){}
 
     public void setPosition(int x, int y) {
         this.X = x;

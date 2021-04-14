@@ -9,13 +9,31 @@ import java.util.ArrayList;
 
 public final class Interfaces {
     public static final GameInterface GAME_INTERFACE;
+    /**S.A.U.W. Interfaces**/
+    public static final CraftingInterface CRAFTING_INTERFACE;
     public static final ConsoleInterface CONSOLE_INTERFACE;
+    public static final PauseInterface PAUSE_INTERFACE;
+    public static final DeadInterface DEAD_INTERFACE;
+    public static final InventoryInterface INVENTORY_INTERFACE;
+
+
     private static final ArrayList<Interface> INTERFACES;
     static {
         GAME_INTERFACE = new GameInterface();
+
         CONSOLE_INTERFACE = new ConsoleInterface();
+        CRAFTING_INTERFACE = new CraftingInterface();
+        PAUSE_INTERFACE = new PauseInterface();
+        DEAD_INTERFACE = new DeadInterface();
+        INVENTORY_INTERFACE = new InventoryInterface();
+
         INTERFACES = new ArrayList<>();
+
         addInterface(CONSOLE_INTERFACE);
+        addInterface(CRAFTING_INTERFACE);
+        addInterface(PAUSE_INTERFACE);
+        addInterface(DEAD_INTERFACE);
+        addInterface(INVENTORY_INTERFACE);
     }
     public static void addInterface(Interface Interface){
         INTERFACES.add(Interface);

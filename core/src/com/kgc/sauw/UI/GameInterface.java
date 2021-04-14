@@ -404,7 +404,7 @@ public class GameInterface implements InputProcessor {
             craftingButton.hide(false);
             pauseButton.hide(false);
         }
-        if (Gdx.app.getType() != Application.ApplicationType.Desktop) {
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             j.hide(true);
             consoleOpenButton.hide(true);
             pauseButton.hide(true);

@@ -333,7 +333,7 @@ public class Player implements ExtraData {
             velX = 0;
             velY = 0;
 
-            if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            if (Gdx.app.getType() == Application.ApplicationType.Android) {
                 velX = GI.j.normD(3).x;
                 velY = GI.j.normD(3).y;
                 if (GI.j.isTouched()) {

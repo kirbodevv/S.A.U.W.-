@@ -78,14 +78,12 @@ public class Camera2D {
             X = x;
             Y = y;
         } else {
-            if (X != x && Y != y) {
-                float camX = MathUtils.lerp(X, x, 0.06f);
-                float camY = MathUtils.lerp(Y, y, 0.06f);
-                CAMERA.position.x = camX;
-                CAMERA.position.y = camY;
-                X = (int) camX;
-                Y = (int) camY;
-            }
+            float camX = MathUtils.lerp(X, x, 0.06f);
+            float camY = MathUtils.lerp(Y, y, 0.06f);
+            CAMERA.position.x = camX;
+            CAMERA.position.y = camY;
+            X = (int) camX;
+            Y = (int) camY;
         }
     }
 

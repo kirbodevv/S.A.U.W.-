@@ -19,7 +19,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.MENU_CAMERA;
 
 public class ModsScreen implements Screen {
     private class Mod {
@@ -64,6 +65,7 @@ public class ModsScreen implements Screen {
             @Override
             public void onClick() {
                 game.setScreen(ms);
+                System.out.println("123");
             }
         });
         slider = new Slider(width / 16 * 13 + width / 64 * 3, width / 32, width / 32, height - width / 16);
@@ -134,19 +136,19 @@ public class ModsScreen implements Screen {
 
     @Override
     public void render(float p1) {
-        closeButton.update(GAME_CAMERA);
-        slider.update(GAME_CAMERA);
-        modInfo0.update(GAME_CAMERA);
-        modInfo1.update(GAME_CAMERA);
-        modInfo2.update(GAME_CAMERA);
+        closeButton.update(MENU_CAMERA);
+        slider.update(MENU_CAMERA);
+        modInfo0.update(MENU_CAMERA);
+        modInfo1.update(MENU_CAMERA);
+        modInfo2.update(MENU_CAMERA);
         BATCH.begin();
-        BATCH.draw(t.standartBackground_full, GAME_CAMERA.X, GAME_CAMERA.Y, width, height);
-        BATCH.draw(background1, GAME_CAMERA.X + width / 32, GAME_CAMERA.Y + width / 32, width / 16 * 13, height - (width / 16));
-        closeButton.render(BATCH, GAME_CAMERA);
-        modInfo0.render(BATCH, GAME_CAMERA);
-        modInfo1.render(BATCH, GAME_CAMERA);
-        modInfo2.render(BATCH, GAME_CAMERA);
-        slider.render(BATCH, GAME_CAMERA);
+        BATCH.draw(t.standartBackground_full, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
+        BATCH.draw(background1, MENU_CAMERA.X + width / 32, MENU_CAMERA.Y + width / 32, width / 16 * 13, height - (width / 16));
+        closeButton.render(BATCH, MENU_CAMERA);
+        modInfo0.render(BATCH, MENU_CAMERA);
+        modInfo1.render(BATCH, MENU_CAMERA);
+        modInfo2.render(BATCH, MENU_CAMERA);
+        slider.render(BATCH, MENU_CAMERA);
 
         BATCH.end();
     }

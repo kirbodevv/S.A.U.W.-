@@ -13,7 +13,7 @@ import java.text.DecimalFormat;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 

@@ -11,12 +11,12 @@ import com.kgc.sauw.UI.Elements.Image;
 import com.kgc.sauw.UI.Elements.Slot;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.graphic.Graphic;
-import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.utils.Camera2D;
 
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.map.World.MAPS;
 
 public class Interface {
     public static class InterfaceSizes {
@@ -30,7 +30,7 @@ public class Interface {
     private int HEIGHT = Gdx.graphics.getHeight();
     public boolean isOpen = false;
     public boolean isBlockInterface;
-    private int w, h;
+    private int w, SCREEN_HEIGHT;
     public BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
     public float width, heigth, x, y;
     public Button exitButton;
@@ -40,7 +40,6 @@ public class Interface {
     public ArrayList<Slot> slots = new ArrayList<Slot>();
 
     private int currX, currY, currZ;
-    private Maps maps;
     public InterfaceEvents IE = null;
     private String headerText = "";
     private int size = 0;
@@ -60,20 +59,20 @@ public class Interface {
         this.ID = ID;
 
         w = Gdx.graphics.getWidth();
-        h = Gdx.graphics.getHeight();
+        SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
         text.setColor(64f / 255, 137f / 255, 154f / 255, 1);
 
         if (size == InterfaceSizes.FULL) {
             width = w;
-            heigth = h;
+            heigth = SCREEN_HEIGHT;
             actionBar = Graphic.TEXTURES.generateTexture(16, 1, true);
         } else if (size == InterfaceSizes.STANDART) {
-            width = w / 16 * (h / (w / 16.0f) - 2);
-            heigth = w / 16 * (h / (w / 16.0f) - 2);
+            width = w / 16 * (SCREEN_HEIGHT / (w / 16.0f) - 2);
+            heigth = w / 16 * (SCREEN_HEIGHT / (w / 16.0f) - 2);
         }
         x = (w - width) / 2;
-        y = (h - heigth) / 2;
+        y = (SCREEN_HEIGHT - heigth) / 2;
         this.size = size;
         exitButton = new Button(ID + "_CLOSE_BUTTON", (int) (x + width - w / 16), (int) (y + heigth - w / 16 + w / 64), w / 32, w / 32, Graphic.TEXTURES.closeButton, Graphic.TEXTURES.closeButton);
         exitButton.setEventListener(new Button.EventListener() {
@@ -156,18 +155,14 @@ public class Interface {
         onClose();
     }
 
-    public void setMaps(Maps maps) {
-        this.maps = maps;
-    }
-
     public void swap(Slot a, Slot a1, Player pl) {
         if (a1.SF == null || a1.SF.isValid(a.id, a.count, a.data, a.ID)) {
             int temp = a.id;
             int temp1 = a.count;
             int temp2 = a.data;
             //if (!a.isInventorySlot) {
-            if (maps != null) {
-                maps.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
+            if (isBlockInterface) {
+                MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
             } else {
                 a.id = a1.id;
                 a.count = a1.count;
@@ -177,8 +172,8 @@ public class Interface {
 			 pl.Inventory[a.invSlot].setItem(a1.id, a1.count, a1.data);
 			 }*/
             //if (!a1.isInventorySlot) {
-            if (maps != null) {
-                maps.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
+            if (MAPS != null) {
+                MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
             } else {
                 a1.id = temp;
                 a1.count = temp1;
@@ -250,11 +245,11 @@ public class Interface {
                     }
                 }
             }
-            if (maps != null) {
-                for (int i = 0; i < maps.map0[currY][currX][currZ].containers.size(); i++) {
-                    getSlot(maps.map0[currY][currX][currZ].containers.get(i).ID).id = maps.map0[currY][currX][currZ].containers.get(i).getId();
-                    getSlot(maps.map0[currY][currX][currZ].containers.get(i).ID).count = maps.map0[currY][currX][currZ].containers.get(i).getCount();
-                    getSlot(maps.map0[currY][currX][currZ].containers.get(i).ID).data = maps.map0[currY][currX][currZ].containers.get(i).getData();
+            if (MAPS != null) {
+                for (int i = 0; i < MAPS.map0[currY][currX][currZ].containers.size(); i++) {
+                    getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).id = MAPS.map0[currY][currX][currZ].containers.get(i).getId();
+                    getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).count = MAPS.map0[currY][currX][currZ].containers.get(i).getCount();
+                    getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).data = MAPS.map0[currY][currX][currZ].containers.get(i).getData();
                 }
             }
             for (Slot slot : slots) {

@@ -23,6 +23,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class MenuScreen implements Screen {
     boolean gameStart = false;
@@ -51,7 +52,6 @@ public class MenuScreen implements Screen {
     Interface createWorldInterface;
     JSONObject data;
     Settings settings;
-    Languages languages;
     private Music music;
     public SettingsScreen SettingsScreen;
     public ModsScreen ModsScreen;
@@ -72,7 +72,6 @@ public class MenuScreen implements Screen {
             }
         }
         this.settings = new Settings();
-        languages = new Languages(this.settings);
         try {
             FileHandle data = Gdx.files.external("S.A.U.W./User/data.json");
             result = data.readString();
@@ -160,7 +159,7 @@ public class MenuScreen implements Screen {
             }
         });
         createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, "CREATE_NEW_WORLD_INTERFACE");
-        createWorldInterface.setHeaderText(languages.getString("createNewWorld"));
+        createWorldInterface.setHeaderText(LANGUAGES.getString("createNewWorld"));
         createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
             EditText worldName;
             Button create;
@@ -172,7 +171,7 @@ public class MenuScreen implements Screen {
                 bf.setScale(WIDTH / 16 / 2 / bf.getCapHeight());
                 bf.setColor(Color.BLACK);
                 create = new Button("CREATE_NEW_WORLD_INTERFACE_CREATE_BUTTON", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 3, WIDTH / 16);
-                create.setText(languages.getString("create"));
+                create.setText(LANGUAGES.getString("create"));
                 create.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {
@@ -192,7 +191,7 @@ public class MenuScreen implements Screen {
 
             @Override
             public void onOpen() {
-                worldName.input = languages.getString("newWorld");
+                worldName.input = LANGUAGES.getString("newWorld");
                 worldName.hide(false);
             }
 
@@ -207,12 +206,12 @@ public class MenuScreen implements Screen {
 
             @Override
             public void render() {
-                bf.draw(BATCH, languages.getString("WorldName"), worldName.X + MENU_CAMERA.X, worldName.Y + worldName.height + WIDTH / 16 + MENU_CAMERA.Y);
+                bf.draw(BATCH, LANGUAGES.getString("WorldName"), worldName.X + MENU_CAMERA.X, worldName.Y + worldName.height + WIDTH / 16 + MENU_CAMERA.Y);
                 worldName.render(BATCH, MENU_CAMERA);
             }
         });
         createNewWorld = new Button("CREATE_NEW_WORLD_BUTTON", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
-        createNewWorld.setText(languages.getString("createNewWorld"));
+        createNewWorld.setText(LANGUAGES.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -241,10 +240,10 @@ public class MenuScreen implements Screen {
                 setSelectButtonsText();
             }
         });
-        startButton.setText(languages.getString("startGame"));
-        settingsButton.setText(languages.getString("settings"));
-        modsButton.setText(languages.getString("mods"));
-        exitButton.setText(languages.getString("exit"));
+        startButton.setText(LANGUAGES.getString("startGame"));
+        settingsButton.setText(LANGUAGES.getString("settings"));
+        modsButton.setText(LANGUAGES.getString("mods"));
+        exitButton.setText(LANGUAGES.getString("exit"));
 
         music = new Music();
     }

@@ -3,7 +3,7 @@ package com.kgc.sauw;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.ACHIEVEMENTS;
-import static com.kgc.sauw.environment.Environment.SETTINGS;
+import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class AchievementsChecker {

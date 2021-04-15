@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import org.json.JSONObject;
 
-import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Items {

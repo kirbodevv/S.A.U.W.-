@@ -4,7 +4,7 @@ import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 import static com.kgc.sauw.graphic.Graphic.SCREEN_HEIGHT;
 import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
 

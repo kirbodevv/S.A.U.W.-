@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
+import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.environment.Environment.*;
 import static com.kgc.sauw.graphic.Graphic.*;
 
 public class GameInterface implements InputProcessor {

@@ -1,51 +1,54 @@
 package com.kgc.sauw.game;
 
-import com.kgc.sauw.Modding.ModAPI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.kgc.sauw.Modding.ModAPI;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.Elements.Elements;
 import com.kgc.sauw.resource.Music;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
-import static com.kgc.sauw.UI.Interfaces.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
+import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.environment.Environment.*;
+import static com.kgc.sauw.environment.Environment.ACHIEVEMENTS;
+import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class SAUW implements Screen {
-    private float WIDTH;
-    private float HEIGHT;
-
     private int camX, camY;
-    Mods mods;
-    public static ModAPI MOD_API;
-    MainGame game;
+
+    public static final Mods MODS;
+    public static final ModAPI MOD_API;
+
+    static {
+        MOD_API = new ModAPI();
+        MODS = new Mods();
+    }
+
+    private MainGame game;
     Music music;
 
     Box2DDebugRenderer DR;
 
     public SAUW(MainGame game, Music music, String worldName) {
         this.game = game;
-        WIDTH = Gdx.graphics.getWidth();
-        HEIGHT = Gdx.graphics.getHeight();
+        this.music = music;
 
         DR = new Box2DDebugRenderer();
-        this.music = music;
         music.setMusicVolume(SETTINGS.musicVolume);
+
         BLOCKS.initialize();
-        MOD_API = new ModAPI();
-        mods = new Mods();
+
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             WORLD.createNewWorld();
             WORLD.save(worldName);
         } else {
             WORLD.load(worldName);
         }
-        mods.load();
+        MODS.load();
     }
 
     @Override
@@ -71,17 +74,17 @@ public class SAUW implements Screen {
         GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
         BLOCKS.interfacesRender(WORLD.getMaps(), PLAYER, INTERFACE_CAMERA);
         GAME_INTERFACE.update(PLAYER);
-        WORLD.update(mods, ACHIEVEMENTS);
+        WORLD.update(MODS, ACHIEVEMENTS);
 
 
         camX = (int) ((PLAYER.posX + (PLAYER.plW / 2)) - (GAME_CAMERA.W / 2));
         camY = (int) (PLAYER.posY + (PLAYER.plH / 2) - (GAME_CAMERA.H / 2));
-        if (camX < WIDTH / 16) camX = (int) WIDTH / 16;
-        if (camY < WIDTH / 16) camY = (int) WIDTH / 16;
-        if (camX + GAME_CAMERA.W > (WORLD.getMaps().map0[0].length - 1) * (WIDTH / 16))
-            camX = (int) ((WORLD.getMaps().map0[0].length - 1) * (WIDTH / 16) - GAME_CAMERA.W);
-        if (camY + GAME_CAMERA.H > (WORLD.getMaps().map0.length - 1) * (WIDTH / 16))
-            camY = (int) ((WORLD.getMaps().map0.length - 1) * (WIDTH / 16) - GAME_CAMERA.H);
+        if (camX < SCREEN_WIDTH / 16) camX = (int) SCREEN_WIDTH / 16;
+        if (camY < SCREEN_WIDTH / 16) camY = (int) SCREEN_WIDTH / 16;
+        if (camX + GAME_CAMERA.W > (WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16))
+            camX = (int) ((WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.W);
+        if (camY + GAME_CAMERA.H > (WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16))
+            camY = (int) ((WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.H);
 
         GAME_CAMERA.lookAt(camX, camY, true);
         BATCH.end();

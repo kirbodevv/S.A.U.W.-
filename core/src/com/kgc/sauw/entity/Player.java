@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.DEAD_INTERFACE;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.environment.Environment.SETTINGS;
+import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.map.World.MAPS;

@@ -18,6 +18,7 @@ import java.util.Iterator;
 
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.MENU_CAMERA;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class SettingsScreen implements Screen {
 	private int width = Gdx.graphics.getWidth();
@@ -105,7 +106,7 @@ public class SettingsScreen implements Screen {
 					MenuScreen.settings.saveSettings();
 					if (isChecked) {
 						Notification.hideOnClick(true);
-						Notification.show(width / 16 * 4, (height - width / 16 * 4) / 2, width / 16 * 8, width / 16 * 4, MenuScreen.languages.getString("useConsole"), MenuScreen.languages.getString("useConsoleNotification"), 10);
+						Notification.show(width / 16 * 4, (height - width / 16 * 4) / 2, width / 16 * 8, width / 16 * 4, LANGUAGES.getString("useConsole"), LANGUAGES.getString("useConsoleNotification"), 10);
 					}
 				}
 			});
@@ -169,7 +170,7 @@ public class SettingsScreen implements Screen {
 		bf.setColor(Color.BLACK);
 		general = new Button("SETTINGS_SCREEN_GENERAL_BUTTON", width / 16, height - width / 32 * 3, width / 32 * 5, width / 16);
 		//general.setTextColor(Color.BLACK);
-		general.setText(MenuScreen.languages.getString("general"));
+		general.setText(LANGUAGES.getString("general"));
 		general.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -179,7 +180,7 @@ public class SettingsScreen implements Screen {
 			});
 		Interface = new Button("SETTINGS_SCREEN_INTERFACE_BUTTON", general.X + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
 		// Interface.setTextColor(Color.BLACK);
-		Interface.setText(MenuScreen.languages.getString("interface"));
+		Interface.setText(LANGUAGES.getString("interface"));
 		Interface.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -189,7 +190,7 @@ public class SettingsScreen implements Screen {
 			});
 		gameSettings = new Button("SETTINGS_SCREEN_GAME_BUTTON", Interface.X + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
 		// gameSettings.setTextColor(Color.BLACK);
-		gameSettings.setText(MenuScreen.languages.getString("game"));
+		gameSettings.setText(LANGUAGES.getString("game"));
 		gameSettings.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -199,7 +200,7 @@ public class SettingsScreen implements Screen {
 			});
 		sound = new Button("SETTINGS_SCREEN_SOUND_BUTTON", gameSettings.X + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
 		//sound.setTextColor(Color.BLACK);
-		sound.setText(MenuScreen.languages.getString("sound"));
+		sound.setText(LANGUAGES.getString("sound"));
 		sound.setEventListener(new Button.EventListener(){
 				@Override
 				public void onClick() {
@@ -260,10 +261,10 @@ public class SettingsScreen implements Screen {
 		if (currentSettingCot == 0) {
 			try {
 				BATCH.draw(background1, MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 4, width / 16 * 3, width / 16);
-				bf.drawMultiLine(BATCH, MenuScreen.languages.getString("language"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
+				bf.drawMultiLine(BATCH, LANGUAGES.getString("language"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
 				bf.drawMultiLine(BATCH, availableLangs.getString(MenuScreen.settings.lang), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
-			    bf.drawMultiLine(BATCH, MenuScreen.languages.getString("debug"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
-				bf.drawMultiLine(BATCH, MenuScreen.languages.getString("debugRenderer"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
+			    bf.drawMultiLine(BATCH, LANGUAGES.getString("debug"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
+				bf.drawMultiLine(BATCH, LANGUAGES.getString("debugRenderer"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
 				nextLang.render(BATCH, MENU_CAMERA);
 				prevLang.render(BATCH, MENU_CAMERA);
 				debug.render(BATCH, MENU_CAMERA);
@@ -274,12 +275,12 @@ public class SettingsScreen implements Screen {
 		} else if (currentSettingCot == 1) {
 
 		} else if (currentSettingCot == 2) {
-			bf.drawMultiLine(BATCH, MenuScreen.languages.getString("autoitemspickup"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
+			bf.drawMultiLine(BATCH, LANGUAGES.getString("autoitemspickup"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
 			AIPU.render(BATCH, MENU_CAMERA);
-			bf.drawMultiLine(BATCH, MenuScreen.languages.getString("useConsole"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
+			bf.drawMultiLine(BATCH, LANGUAGES.getString("useConsole"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 7, BitmapFont.HAlignment.LEFT);
 			useConsole.render(BATCH, MENU_CAMERA);
 		} else if (currentSettingCot == 3) {
-			bf.drawMultiLine(BATCH, MenuScreen.languages.getString("music"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, BitmapFont.HAlignment.LEFT);
+			bf.drawMultiLine(BATCH, LANGUAGES.getString("music"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, BitmapFont.HAlignment.LEFT);
 		    musicVolume.render(BATCH, MENU_CAMERA);
 			bf.drawMultiLine(BATCH, musicVolume.getValue() + "", MENU_CAMERA.X + musicVolume.X + musicVolume.width + width / 32, MENU_CAMERA.Y + musicVolume.Y + musicVolume.height, width / 16 * 2, BitmapFont.HAlignment.LEFT);
 		}

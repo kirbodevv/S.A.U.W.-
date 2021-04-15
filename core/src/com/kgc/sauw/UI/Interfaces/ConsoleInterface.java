@@ -13,7 +13,7 @@ import org.mozilla.javascript.ScriptableObject;
 import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.graphic.Graphic.BATCH;

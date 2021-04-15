@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Elements.Slot;
 import com.kgc.sauw.UI.Interface;
-import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.graphic.Graphic;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.environment.Environment.*;
+import static com.kgc.sauw.environment.Environment.CRAFTING;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class CraftingInterface extends Interface {
     Button craft;

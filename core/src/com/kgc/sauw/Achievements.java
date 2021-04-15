@@ -8,7 +8,7 @@ import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.utils.Languages;
 import org.json.JSONArray;
 
-import static com.kgc.sauw.environment.Environment.LANGUAGES;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class Achievements {
     public static class achievement {

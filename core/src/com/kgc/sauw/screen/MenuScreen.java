@@ -14,7 +14,6 @@ import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.utils.Languages;
 import org.json.JSONObject;
 
 import com.kgc.sauw.UI.InterfaceEvents;
@@ -22,6 +21,7 @@ import com.kgc.sauw.UI.Elements.EditText;
 import com.badlogic.gdx.files.FileHandle;
 
 import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
+import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
@@ -51,7 +51,6 @@ public class MenuScreen implements Screen {
     private String result = "";
     Interface createWorldInterface;
     JSONObject data;
-    Settings settings;
     private Music music;
     public SettingsScreen SettingsScreen;
     public ModsScreen ModsScreen;
@@ -71,7 +70,6 @@ public class MenuScreen implements Screen {
 
             }
         }
-        this.settings = new Settings();
         try {
             FileHandle data = Gdx.files.external("S.A.U.W./User/data.json");
             result = data.readString();
@@ -276,7 +274,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        music.setMusicVolume(settings.musicVolume);
+        music.setMusicVolume(SETTINGS.musicVolume);
         music.update(true);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

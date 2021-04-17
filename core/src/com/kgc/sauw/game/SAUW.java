@@ -38,6 +38,7 @@ public class SAUW implements Screen {
         this.music = music;
 
         DR = new Box2DDebugRenderer();
+
         music.setMusicVolume(SETTINGS.musicVolume);
 
         BLOCKS.initialize();
@@ -56,10 +57,12 @@ public class SAUW implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        music.setMusicVolume(SETTINGS.musicVolume);
         GAME_CAMERA.update(BATCH);
 
         BLOCKS.interfacesUpdate(WORLD.getMaps(), PLAYER, INTERFACE_CAMERA);
         GAME_INTERFACE.update(PLAYER);
+        music.setMusicVolume(SETTINGS.musicVolume);
         music.update(false);
         BATCH.begin();
         if (isAnyInterfaceOpen()) BATCH.setColor(0.5f, 0.5f, 0.5f, 1);

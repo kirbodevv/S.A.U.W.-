@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
+import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.MENU_CAMERA;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
@@ -65,45 +66,45 @@ public class SettingsScreen implements Screen {
 		debug = new Checkbox(t.switch_0, t.switch_1);
 		debug.setSize(width / 16, width / 16);
 		debug.setPosition(MENU_CAMERA.X + width / 16 * 6 + width / 64 , MENU_CAMERA.Y + height - width / 16 * 6);
-		debug.setChecked(ms.settings.debugMode);
+		debug.setChecked(SETTINGS.debugMode);
 		debug.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
-					MenuScreen.settings.debugMode = isChecked;
-					MenuScreen.settings.saveSettings();
+					SETTINGS.debugMode = isChecked;
+					SETTINGS.saveSettings();
 				}
 			});
 		debugRenderer = new Checkbox(t.switch_0, t.switch_1);
 		debugRenderer.setSize(width / 16, width / 16);
 		debugRenderer.setPosition(MENU_CAMERA.X + width / 16 * 6 + width / 64 , MENU_CAMERA.Y + height - width / 16 * 7);
-		debugRenderer.setChecked(ms.settings.debugRenderer);
+		debugRenderer.setChecked(SETTINGS.debugRenderer);
 		debugRenderer.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
-					MenuScreen.settings.debugRenderer = isChecked;
-					MenuScreen.settings.saveSettings();
+					SETTINGS.debugRenderer = isChecked;
+					SETTINGS.saveSettings();
 				}
 			});
 		AIPU = new Checkbox(t.switch_0, t.switch_1);
 		AIPU.setSize(width / 16, width / 16);
 		AIPU.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 3);
-		AIPU.setChecked(ms.settings.autopickup);
+		AIPU.setChecked(SETTINGS.autopickup);
 		AIPU.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
-					MenuScreen.settings.autopickup = isChecked;
-					MenuScreen.settings.saveSettings();
+					SETTINGS.autopickup = isChecked;
+					SETTINGS.saveSettings();
 				}
 			});
 		useConsole = new Checkbox(t.switch_0, t.switch_1);
 		useConsole.setSize(width / 16, width / 16);
 		useConsole.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 4);
-		useConsole.setChecked(ms.settings.useConsole);
+		useConsole.setChecked(SETTINGS.useConsole);
 		useConsole.setEventListener(new Checkbox.EventListener(){
 				@Override
 				public void onClick(boolean isChecked) {
-					MenuScreen.settings.useConsole = isChecked;
-					MenuScreen.settings.saveSettings();
+					SETTINGS.useConsole = isChecked;
+					SETTINGS.saveSettings();
 					if (isChecked) {
 						Notification.hideOnClick(true);
 						Notification.show(width / 16 * 4, (height - width / 16 * 4) / 2, width / 16 * 8, width / 16 * 4, LANGUAGES.getString("useConsole"), LANGUAGES.getString("useConsoleNotification"), 10);
@@ -127,13 +128,13 @@ public class SettingsScreen implements Screen {
 					while (i.hasNext()) {
 						ii++;
 						String l = (String)i.next();
-						if (l.equals(MenuScreen.settings.lang)) {
+						if (l.equals(SETTINGS.lang)) {
 			                if (ii + 1 <= availableLangs.length()) {
-								MenuScreen.settings.lang = (String)i.next();
+								SETTINGS.lang = (String)i.next();
 							} else {
-								MenuScreen.settings.lang = (String)availableLangs.keys().next();
+								SETTINGS.lang = (String)availableLangs.keys().next();
 							}
-							MenuScreen.settings.saveSettings();
+							SETTINGS.saveSettings();
 							break;
 						}
 					}
@@ -147,7 +148,7 @@ public class SettingsScreen implements Screen {
 					int ii = 0;
 					while (i.hasNext()) {
 						String l = (String)i.next();
-						if (l.equals(MenuScreen.settings.lang)) {
+						if (l.equals(SETTINGS.lang)) {
 			                prevLang = ii - 1;
 							if (prevLang < 0) prevLang = availableLangs.length() - 1;
 							ii = 0;
@@ -158,8 +159,8 @@ public class SettingsScreen implements Screen {
 					while (i.hasNext()) {
 						String langg = (String)i.next();
 						if (ii == prevLang) {
-							MenuScreen.settings.lang = langg;
-							MenuScreen.settings.saveSettings();
+							SETTINGS.lang = langg;
+							SETTINGS.saveSettings();
 							break;
 						}
 						ii++;
@@ -212,11 +213,11 @@ public class SettingsScreen implements Screen {
 	    musicVolume.setEventListener(new Slider.EventListener(){
 				@Override
 				public void onValueChange(int v) {
-					MenuScreen.settings.musicVolume = v;
-					MenuScreen.settings.saveSettings();
+					SETTINGS.musicVolume = v;
+					SETTINGS.saveSettings();
 				}
 			});
-		musicVolume.setValue(MenuScreen.settings.musicVolume);
+		musicVolume.setValue(SETTINGS.musicVolume);
 	}
 	@Override
 	public void render(float p1) {
@@ -262,7 +263,7 @@ public class SettingsScreen implements Screen {
 			try {
 				BATCH.draw(background1, MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 4, width / 16 * 3, width / 16);
 				bf.drawMultiLine(BATCH, LANGUAGES.getString("language"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
-				bf.drawMultiLine(BATCH, availableLangs.getString(MenuScreen.settings.lang), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
+				bf.drawMultiLine(BATCH, availableLangs.getString(SETTINGS.lang), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.CENTER);
 			    bf.drawMultiLine(BATCH, LANGUAGES.getString("debug"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
 				bf.drawMultiLine(BATCH, LANGUAGES.getString("debugRenderer"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, BitmapFont.HAlignment.LEFT);
 				nextLang.render(BATCH, MENU_CAMERA);

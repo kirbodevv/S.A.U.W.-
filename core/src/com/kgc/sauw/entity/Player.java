@@ -28,8 +28,8 @@ import static com.kgc.sauw.UI.Interfaces.Interfaces.DEAD_INTERFACE;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.entity.Entities.ENTITIES;
+import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.MAPS;
 
 
@@ -73,16 +73,14 @@ public class Player implements ExtraData {
     }
 
     public JSONObject data;
-    private int h = Gdx.graphics.getHeight();
-    private int w = Gdx.graphics.getWidth();
-    public int plW = w / 16 * 10 / 26;
-    public int plH = w / 16;
+    public int plW = BLOCK_SIZE * 10 / 26;
+    public int plH = BLOCK_SIZE;
 
     public int playerBodyW = plW;
     public int playerBodyH = plH / 4;
 
-    public float posX = w / 2 + 16;
-    public float posY = h / 2 - 32;
+    public float posX = SCREEN_WIDTH / 2 + 16;
+    public float posY = SCREEN_HEIGHT / 2 - 32;
     public int carriedSlot = 0;
     public int[] hotbar = new int[8];
     public int currentTileX;
@@ -108,7 +106,7 @@ public class Player implements ExtraData {
 
     private TextureRegion[] walkFrames;
     private TextureRegion currentFrame;
-    public final float normalPlayerSpeed = w / 16;
+    public final float normalPlayerSpeed = SCREEN_WIDTH / 16;
     public float playerSpeed = 1.0f;
     public int rot = 0;
     private float stateTime;
@@ -195,8 +193,8 @@ public class Player implements ExtraData {
             Random r = new Random();
             currentTileY = r.nextInt(MAPS.map0.length - 2) + 1;
             currentTileX = r.nextInt(MAPS.map0[0].length - 2) + 1;
-            playerBody.x = currentTileX * (w / 16);
-            playerBody.y = currentTileY * (w / 16);
+            playerBody.x = currentTileX * (SCREEN_WIDTH / 16);
+            playerBody.y = currentTileY * (SCREEN_WIDTH / 16);
         }
         isDead = false;
         health = maxHealth;
@@ -288,13 +286,13 @@ public class Player implements ExtraData {
         spawn();
     }
 
-    public void render(SpriteBatch b, Textures t, Time WorldTime) {
+    public void render(Time WorldTime) {
         if (!isDead) {
             float AL = 0.75f - (Maths.module(720 - WorldTime.getTime()) / (720 / 0.3f));
-            b.setColor(1f, 1f, 1f, AL);
-            b.draw(t.shadow, body.getPosition().x - playerBodyW / 2, body.getPosition().y - playerBodyH / 2 - playerBodyH / 4, plW, plW);
-            b.setColor(1f, 1f, 1f, 1f);
-            b.draw(currentFrame, body.getPosition().x - playerBodyW / 2, body.getPosition().y - playerBodyH / 2, plW, plH);
+            BATCH.setColor(1f, 1f, 1f, AL);
+            BATCH.draw(TEXTURES.shadow, body.getPosition().x - playerBodyW / 2, body.getPosition().y - playerBodyH / 2 - playerBodyH / 4, plW, plW);
+            BATCH.setColor(1f, 1f, 1f, 1f);
+            BATCH.draw(currentFrame, body.getPosition().x - playerBodyW / 2, body.getPosition().y - playerBodyH / 2, plW, plH);
         }
     }
 
@@ -384,8 +382,8 @@ public class Player implements ExtraData {
             }
             posX = body.getPosition().x - playerBodyW / 2;
             posY = body.getPosition().y - playerBodyH / 2;
-            currentTileX = (int) (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
-            currentTileY = (int) (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
+            currentTileX = (int)Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
+            currentTileY = (int)Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
 
             playerBody.setPosition(posX, posY);
             velocity.x = 0;
@@ -398,7 +396,7 @@ public class Player implements ExtraData {
             }
             if (SETTINGS.autopickup || (GAME_INTERFACE.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < ENTITIES.size(); i++) {
-                    if (ENTITIES.get(i) instanceof ItemEntity && Maths.distanceD((int) posX, (int) posY, ENTITIES.get(i).posX, ENTITIES.get(i).posY) < w / 32) {
+                    if (ENTITIES.get(i) instanceof ItemEntity && Maths.distanceD((int) posX, (int) posY, ENTITIES.get(i).posX, ENTITIES.get(i).posY) < SCREEN_WIDTH / 32) {
                         ItemEntity item = (ItemEntity) ENTITIES.get(i);
                         addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"), (int) item.getExtraData("itemCount"));
                         ENTITIES.remove(i);

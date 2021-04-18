@@ -131,7 +131,7 @@ public class CraftingInterface extends Interface {
         BATCH.draw(background4, SCREEN_WIDTH / 32 * 22, SCREEN_WIDTH / 32 * 10, SCREEN_WIDTH / 16 * 2, SCREEN_WIDTH / 16 * 2);
     }
     @Override
-    public void render() {
+    public void postRender() {
         for (int i = currentTab * 30; i < CRAFTING.crafts.size(); i++) {
             int x = getButton("CRAFTING_INTERFACE_CRAFT_" + i).X;
             int y = getButton("CRAFTING_INTERFACE_CRAFT_" + i).Y;

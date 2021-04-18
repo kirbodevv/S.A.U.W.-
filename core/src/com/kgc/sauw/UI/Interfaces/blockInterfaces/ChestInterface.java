@@ -12,7 +12,7 @@ import static com.kgc.sauw.utils.Languages.LANGUAGES;
 public class ChestInterface extends Interface {
 
     public ChestInterface() {
-        super(InterfaceSizes.STANDART,"CHEST_INTERFACE");
+        super(InterfaceSizes.FULL,"CHEST_INTERFACE");
         createInventory().setHeaderText(LANGUAGES.getString("chest")).isBlockInterface(true);
         float x = SCREEN_HEIGHT / (SCREEN_WIDTH / 16.0f) / 2 * (SCREEN_WIDTH / 16.0f);
         float y = SCREEN_WIDTH / 16.0f;

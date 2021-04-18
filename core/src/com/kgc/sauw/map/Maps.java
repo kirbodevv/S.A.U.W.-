@@ -65,7 +65,7 @@ public class Maps {
 				for (int z = 0; z < map0[y][x].length; z++) {
 					worldArray[i] = map0[y][x][z].id;
 					mapDmg[i] = map0[y][x][z].damage;
-					if (map0[y][x][z].TileEntity != null) {
+					if (map0[y][x][z].containers.size() > 0) {
 						tileEntitysCount++;
 					}
 					i++;
@@ -80,7 +80,7 @@ public class Maps {
 			for (int y = 0; y < map0.length; y++) {
 				for (int x = 0; x < map0[y].length; x++) {
 					for (int z = 0; z < map0[y][x].length; z++) {
-						if (map0[y][x][z].TileEntity != null) {
+						if (map0[y][x][z].containers.size() > 0) {
 							tileEntitys[j] = map0[y][x][z];
 							j++;
 						}
@@ -92,11 +92,11 @@ public class Maps {
 		buffer.put("tileEnCount", tileEntitysCount);
 		return buffer;
 	}
-	public void update(Camera2D cam, GameInterface GI, Player pl, World w, Blocks bl, Entities entities, Items items) {
+	public void update(Entities entities) {
 		for (int i = 0;i < map0.length;i++) {
 			for (int j = 0; j < map0[i].length; j++) {
 				for (int l = 0; l < map0[i][j].length; l++) {
-					map0[i][j][l].update(cam, GI, pl, w, this, bl, entities, items);
+					map0[i][j][l].update(entities);
 				}
 			}
 		}

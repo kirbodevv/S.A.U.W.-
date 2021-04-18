@@ -10,7 +10,6 @@ import java.util.*;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
-import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.resource.Music;
@@ -309,7 +308,7 @@ public class MenuScreen implements Screen {
                 up.update(MENU_CAMERA);
                 down.update(MENU_CAMERA);
             }
-            createWorldInterface.update(null, MENU_CAMERA);
+            createWorldInterface.update(false);
 
             if (!createWorldInterface.isOpen) {
                 sel_0.render(BATCH, MENU_CAMERA);
@@ -320,7 +319,7 @@ public class MenuScreen implements Screen {
                 up.render(BATCH, MENU_CAMERA);
                 down.render(BATCH, MENU_CAMERA);
             }
-            createWorldInterface.render(null, MENU_CAMERA);
+            createWorldInterface.render();
         }
         BATCH.end();
     }

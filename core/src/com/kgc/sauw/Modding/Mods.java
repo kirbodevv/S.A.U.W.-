@@ -3,12 +3,14 @@ package com.kgc.sauw.Modding;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.UI.Interfaces.Interfaces;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,32 +30,35 @@ public class Mods {
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
         try {
-            String[] names;
+            ArrayList<String> names = new ArrayList<>();
             FileHandle t = Gdx.files.external("S.A.U.W./Mods");
-            names = t.file().list();
-            if (names != null) {
-                mods = new mod[names.length];
-                for (int i = 0; i < names.length; i++) {
-                    if (Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/manifest.json").exists()) {
-                        mods[i] = new mod("S.A.U.W./Mods/" + names[i]);
-                        mods[i].sc = cx.initStandardObjects();
+            FileHandle modsJson = Gdx.files.external("S.A.U.W./Mods/Mods.json");
+            JSONArray modsArray = new JSONArray(modsJson.readString());
+            for (int i = 0; i < modsArray.length(); i++) {
+                if (modsArray.getJSONObject(i).getBoolean("isOn"))
+                    names.add(modsArray.getJSONObject(i).getString("Mod"));
+            }
+            mods = new mod[names.size()];
+            for (int i = 0; i < names.size(); i++) {
+                if (Gdx.files.external("S.A.U.W./Mods/" + names.get(i) + "/manifest.json").exists()) {
+                    mods[i] = new mod("S.A.U.W./Mods/" + names.get(i));
+                    mods[i].sc = cx.initStandardObjects();
 
-                        FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names[i] + "/main.js");
-                        String result = MainJSFile.readString();
-                        ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
-                        CRAFTING.addCraftsFromDirectory(mods[i].CraftsFolder);
-                        ScriptableObject.putProperty(mods[i].sc, "Player", PLAYER);
-                        ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
-                        ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
-                        ScriptableObject.putProperty(mods[i].sc, "ModAPI", MOD_API);
-                        ScriptableObject.putProperty(mods[i].sc, "Settings", SETTINGS);
-                        ScriptableObject.putProperty(mods[i].sc, "GI", GAME_INTERFACE);
-                        ScriptableObject.putProperty(mods[i].sc, "World", WORLD);
-                        ScriptableObject.putProperty(mods[i].sc, "Interfaces", Interfaces.class);
-                        ScriptableObject.putProperty(mods[i].sc, "Textures", TEXTURES);
+                    FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names.get(i) + "/main.js");
+                    String result = MainJSFile.readString();
+                    ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
+                    CRAFTING.addCraftsFromDirectory(mods[i].CraftsFolder);
+                    ScriptableObject.putProperty(mods[i].sc, "Player", PLAYER);
+                    ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
+                    ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
+                    ScriptableObject.putProperty(mods[i].sc, "ModAPI", MOD_API);
+                    ScriptableObject.putProperty(mods[i].sc, "Settings", SETTINGS);
+                    ScriptableObject.putProperty(mods[i].sc, "GI", GAME_INTERFACE);
+                    ScriptableObject.putProperty(mods[i].sc, "World", WORLD);
+                    ScriptableObject.putProperty(mods[i].sc, "Interfaces", Interfaces.class);
+                    ScriptableObject.putProperty(mods[i].sc, "Textures", TEXTURES);
 
-                        cx.evaluateString(mods[i].sc, result, names[i], 1, null);
-                    }
+                    cx.evaluateString(mods[i].sc, result, names.get(i), 1, null);
                 }
             }
         } catch (Exception e) {

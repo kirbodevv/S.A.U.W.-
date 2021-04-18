@@ -9,7 +9,8 @@ import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.Elements.Elements;
 import com.kgc.sauw.resource.Music;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.UI.Interfaces.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.ACHIEVEMENTS;
@@ -41,8 +42,6 @@ public class SAUW implements Screen {
 
         music.setMusicVolume(SETTINGS.musicVolume);
 
-        BLOCKS.initialize();
-
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             WORLD.createNewWorld();
             WORLD.save(worldName);
@@ -60,7 +59,7 @@ public class SAUW implements Screen {
         music.setMusicVolume(SETTINGS.musicVolume);
         GAME_CAMERA.update(BATCH);
 
-        BLOCKS.interfacesUpdate(WORLD.getMaps(), PLAYER, INTERFACE_CAMERA);
+        BLOCKS.animationTick();
         GAME_INTERFACE.update(PLAYER);
         music.setMusicVolume(SETTINGS.musicVolume);
         music.update(false);
@@ -75,7 +74,6 @@ public class SAUW implements Screen {
         if (SETTINGS.debugRenderer) DR.render(WORLD.world, GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
-        BLOCKS.interfacesRender(WORLD.getMaps(), PLAYER, INTERFACE_CAMERA);
         GAME_INTERFACE.update(PLAYER);
         WORLD.update(MODS, ACHIEVEMENTS);
 

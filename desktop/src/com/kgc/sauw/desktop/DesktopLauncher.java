@@ -8,10 +8,10 @@ import com.kgc.sauw.game.MainGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1920;
-		config.height = 1058;
+		config.width = 1280;
+		config.height = 1002;
 		config.title = "S.A.U.W.";
-		config.y = -1080;
+		config.x = 1280;
 		config.addIcon("icon.png", Files.FileType.Internal);
 		final MainGame game = new MainGame();
 		new LwjglApplication(game, config);

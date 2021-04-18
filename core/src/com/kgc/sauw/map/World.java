@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -14,8 +13,9 @@ import com.intbyte.bdb.DataBuffer;
 import com.kgc.sauw.Achievements;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.entity.Entities;
-import com.kgc.sauw.environment.Blocks;
+import com.kgc.sauw.entity.Entity;
 import com.kgc.sauw.environment.Time;
+import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.math.Maths;
 
 import java.util.Date;
@@ -24,6 +24,7 @@ import java.util.Random;
 
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.environment.Environment.ITEMS;
@@ -32,6 +33,7 @@ import static com.kgc.sauw.graphic.Graphic.*;
 public class World {
     public static final Maps MAPS;
     public static final World WORLD;
+
     static {
         MAPS = new Maps();
         WORLD = new World();
@@ -142,7 +144,8 @@ public class World {
                     }
                 }
                 buffer.readBytes(playerFile.readBytes());
-                if (PLAYER != null) PLAYER.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
+                if (PLAYER != null)
+                    PLAYER.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
                 byte[] mobsBytes = mobsFile.readBytes();
                 if (entities != null) entities.readBytes(mobsBytes, 0, mobsBytes.length);
                 buffer.readBytes(worldData.readBytes());
@@ -157,10 +160,10 @@ public class World {
             for (int x = 0; x < MAPS.map0[y].length; x++) {
                 for (int z = MAPS.map0[y][x].length - 3; z >= 0; z--) {
                     Tile t = MAPS.map0[y][x][z];
-                    Blocks.Block b = BLOCKS.getBlockById(t.id);
+                    Block b = BLOCKS.getBlockById(t.id);
                     if (t.t != null) {
                         Pixmap p = extractPixmapFromTextureRegion(t.t);
-                        pixmap.drawPixmap(p, 0, 0, p.getWidth(), p.getHeight(), x * 32, y * 32, 32 * b.getSize().x, 32 * b.getSize().y);
+                        pixmap.drawPixmap(p, 0, 0, p.getWidth(), p.getHeight(), x * 32, y * 32, 32 * b.getBlockConfiguration().getSize().x, 32 * b.getBlockConfiguration().getSize().y);
                         p.dispose();
                     }
                 }
@@ -229,7 +232,7 @@ public class World {
         return body;
     }
 
-    public boolean setBlock(int x, int y, int z, Blocks.Block block) {
+    public boolean setBlock(int x, int y, int z, Block block) {
         if (x >= 0 && x < MAPS.map0[0].length + 1 && y >= 0 && y < MAPS.map0.length + 1) {
             Tile tile = new Tile();
             tile.createTile(x, y, z, block);
@@ -242,7 +245,7 @@ public class World {
         return false;
     }
 
-    public void setBodyAndLight(int x, int y, int z, Tile tile, Blocks.Block block) {
+    public void setBodyAndLight(int x, int y, int z, Tile tile, Block block) {
         if (block.id != 4 && z == 0)
             tile.setBody(createBox((int) tile.block.x, (int) tile.block.y, (int) tile.block.width, (int) tile.block.height, BodyDef.BodyType.StaticBody));
         if (z == 0) tile.setLight(RayHandler, block);
@@ -285,7 +288,7 @@ public class World {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         PLAYER.update(this, a, GAME_CAMERA);
         entities.update();
-        MAPS.update(GAME_CAMERA, GAME_INTERFACE, PLAYER, this, BLOCKS, entities, ITEMS);
+        MAPS.update(entities);
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
                 if (GAME_INTERFACE.isTouched())
@@ -339,9 +342,7 @@ public class World {
         }
         int yy = r.nextInt(MAPS.map0.length - 1) + 1;
         int xx = r.nextInt(MAPS.map0[0].length - 1) + 1;
-        if (MAPS.map0[yy][xx][0].TileEntity != null) {
-            MAPS.map0[yy][xx][0].TileEntity.randomTick(MAPS.map0[yy][xx][0]);
-        }
+        BLOCKS.getBlockById(MAPS.map0[yy][xx][0].id).randomTick(MAPS.map0[yy][xx][0]);
     }
 
     public void renderLowLayer() {
@@ -351,7 +352,8 @@ public class World {
     public void renderHighLayer() {
         render(true);
     }
-    public void renderLights(){
+
+    public void renderLights() {
         BATCH.end();
         if (GAME_INTERFACE != null && !isAnyInterfaceOpen()) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
@@ -361,26 +363,24 @@ public class World {
         }
         BATCH.begin();
     }
+
     public void renderEntitys() {
         if (entities != null) {
             entities.render(GAME_CAMERA);
-        }
-        if (PLAYER != null) {
-            PLAYER.render(BATCH, TEXTURES, WorldTime);
-            for (int y = PLAYER.currentTileY; y > 0; y--) {
-                if (MAPS.map0[y][PLAYER.currentTileX][0].id != 4) {
-                    if (PLAYER.currentTileY - y <= BLOCKS.getBlockById(MAPS.map0[y][PLAYER.currentTileX][0].id).getSize().y && PLAYER.body.getPosition().y + PLAYER.playerBodyH / 2 >= MAPS.map0[y][PLAYER.currentTileX][0].block.y) {
-                        renderBlock(PLAYER.currentTileX, y, true);
-                    }
-                }
-            }
         }
     }
 
     public void render(boolean isHighestLayer) {
         for (int y = MAPS.map0.length - 1; y >= 0; y--) {
             for (int x = 0; x < MAPS.map0[y].length; x++) {
-                renderBlock(x, y, isHighestLayer);
+                if (isHighestLayer) {
+                    if (PLAYER.currentTileX == x && PLAYER.currentTileY == y) {
+                        PLAYER.render(WorldTime);
+                        if (Maths.rectCrossing((int) PLAYER.playerBody.x, (int) PLAYER.playerBody.y, (int) PLAYER.playerBody.width, (int) PLAYER.playerBody.height, BLOCK_SIZE * (x - 1), BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE))
+                            renderBlock(x - 1, y, true);
+                    }
+                    renderBlock(x, y, true);
+                } else renderBlock(x, y, false);
             }
         }
     }
@@ -388,23 +388,18 @@ public class World {
     public void renderBlock(int x, int y, boolean isHighestLayer) {
         int z = getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (WIDTH / 16), y * (WIDTH / 16), BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getSize().x * WIDTH / 16, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getSize().y * WIDTH / 16)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (WIDTH / 16), y * (WIDTH / 16), BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x * WIDTH / 16, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y * WIDTH / 16)) {
                 if ((!isHighestLayer) || (isHighestLayer && z == 0)) {
                     if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
                     }
-                    if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getTranspanent()) {
+                    if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
-                    if ((MAPS.map0[y][x][z].TileEntity == null || (MAPS.map0[y][x][z].TileEntity != null && MAPS.map0[y][x][z].TileEntity.renderIf(MAPS.map0[y][x][z])))) {
-                        int w = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getSize().x * WIDTH / 16;
-                        int h = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getSize().y * WIDTH / 16;
-                        if (MAPS.map0[y][x][z].type == 0) {
-                            BATCH.draw(MAPS.map0[y][x][z].t, x * (WIDTH / 16), y * (WIDTH / 16), w, h);
-                        } else if (MAPS.map0[y][x][z].type == 1) {
-                            BATCH.draw(getConnectingTexture(BLOCKS.getBlockById(MAPS.map0[y][x][z].id), MAPS.map0[y + 1][x][z].id, MAPS.map0[y][x + 1][z].id, MAPS.map0[y - 1][x][z].id, MAPS.map0[y][x - 1][z].id), x * (WIDTH / 16), y * (WIDTH / 16), w, h);
-                        }
-                    }
+                    int w = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x * BLOCK_SIZE;
+                    int h = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y * BLOCK_SIZE;
+                    BATCH.draw(MAPS.map0[y][x][z].t, x * BLOCK_SIZE, y * BLOCK_SIZE, w, h);
+
                     if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(1, 1, 1, 1);
                     }
@@ -412,7 +407,7 @@ public class World {
             }
     }
 
-    public Texture getConnectingTexture(Blocks.Block bl, int uID, int rID, int dID, int lID) {
+    /*public Texture getConnectingTexture(Block bl, int uID, int rID, int dID, int lID) {
         if (bl.id == uID && bl.id == dID && bl.id != lID && bl.id != rID) {
             return bl.t0;
         } else if (bl.id != uID && bl.id != dID && bl.id == lID && bl.id == rID) {
@@ -447,7 +442,7 @@ public class World {
             return bl.t15;
         }
         return TEXTURES.undf;
-    }
+    }*/
 
     public Maps getMaps() {
         return MAPS;

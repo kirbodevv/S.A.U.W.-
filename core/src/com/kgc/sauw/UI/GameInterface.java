@@ -3,6 +3,7 @@ package com.kgc.sauw.UI;
 import com.badlogic.gdx.*;
 import com.kgc.sauw.UI.Elements.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.kgc.sauw.UI.Interfaces.Interfaces;
 import com.kgc.sauw.utils.Version;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.map.World;
@@ -147,10 +148,7 @@ public class GameInterface implements InputProcessor {
         if (consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || j.isTouched() || inv.isTouched()) {
             isTouched = true;
         }
-        CONSOLE_INTERFACE.update(pl, INTERFACE_CAMERA);
-        CRAFTING_INTERFACE.update(pl, INTERFACE_CAMERA);
-        DEAD_INTERFACE.update(pl, INTERFACE_CAMERA);
-        PAUSE_INTERFACE.update(pl, INTERFACE_CAMERA);
+        Interfaces.updateInterfaces();
 
         if (notifAnimation) {
             if (notification.timer < 4) {
@@ -182,10 +180,7 @@ public class GameInterface implements InputProcessor {
         j.render(INTERFACE_CAMERA);
         BATCH.setColor(1f, 1f, 1f, 1f);
         health.render(pl.health, pl.maxHealth);
-        CONSOLE_INTERFACE.render(pl, INTERFACE_CAMERA);
-        CRAFTING_INTERFACE.render(pl, INTERFACE_CAMERA);
-        DEAD_INTERFACE.render(pl, INTERFACE_CAMERA);
-        PAUSE_INTERFACE.render(pl, INTERFACE_CAMERA);
+        renderInterfaces();
         if (!isAnyInterfaceOpen() && debug)
             drawDebugString(World);
         inv.render(pl);

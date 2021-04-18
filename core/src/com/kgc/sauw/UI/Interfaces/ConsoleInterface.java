@@ -92,7 +92,7 @@ public class ConsoleInterface extends Interface {
     }
 
     @Override
-    public void render() {
+    public void postRender() {
         GAME_INTERFACE.Log.drawWrapped(BATCH, GAME_INTERFACE.logText, x + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 64, y + heigth - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32 - SCREEN_WIDTH / 64, SCREEN_WIDTH - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32);
         input.render(BATCH, INTERFACE_CAMERA);
     }

@@ -16,15 +16,12 @@ public class Items {
 		public static final byte INSTRUMENT = 2;
 		public static final byte FOOD = 3;
 	}
-	public static Type Type = new Type();
 	public ArrayList<Item> ITEMS = new ArrayList<Item>();
 	public Items() {
 		createItem(0, 0f, null, null, -1, -1, -1);
 		createItem(1, 0.01f, LANGUAGES.getString("grass"), TEXTURES.grass0, Type.BLOCKITEM, 1, 64, 0);
 		createItem(2, 0.2f, LANGUAGES.getString("apple"), TEXTURES.apple, Type.FOOD, 64, 0);
 		createItem(3, 0.01f, LANGUAGES.getString("stone"), TEXTURES.stone, Type.BLOCKITEM, 2, 64, 0);
-		createItem(4, 0.01f, LANGUAGES.getString("wall"), TEXTURES.wall0, Type.BLOCKITEM, 3, 64, 0);
-		createItem(5, 0.01f, LANGUAGES.getString("door"), TEXTURES.door, Type.BLOCKITEM, 7,  64, 0);
 		createItem(6, 0.01f, LANGUAGES.getString("chest"), TEXTURES.chest, Type.BLOCKITEM, 5, 64, 0);
 		createItem(7, 0.05f, LANGUAGES.getString("stick"), TEXTURES.stick, Type.ITEM, 64, 0);
 		createItem(8, 1.25f, LANGUAGES.getString("log"), TEXTURES.log, Type.ITEM, 64, 0);

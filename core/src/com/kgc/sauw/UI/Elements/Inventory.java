@@ -1,17 +1,11 @@
 package com.kgc.sauw.UI.Elements;
 
 import com.badlogic.gdx.Application;
-import com.kgc.sauw.UI.InterfaceEvents;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.entity.Player;
-import com.kgc.sauw.resource.Textures;
-
-import java.text.DecimalFormat;
 
 import static com.kgc.sauw.UI.Interfaces.Interfaces.INVENTORY_INTERFACE;
 import static com.kgc.sauw.entity.Entities.PLAYER;
@@ -45,7 +39,6 @@ public class Inventory {
     }
 
     public void update() {
-        INVENTORY_INTERFACE.update(PLAYER, INTERFACE_CAMERA);
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             openButton.hide(true);
         }
@@ -80,7 +73,6 @@ public class Inventory {
                 }
             }
         }
-        INVENTORY_INTERFACE.render(pl, INTERFACE_CAMERA);
     }
 
     public boolean isHided() {

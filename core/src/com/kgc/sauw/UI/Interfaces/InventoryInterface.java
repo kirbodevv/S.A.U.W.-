@@ -24,8 +24,10 @@ public class InventoryInterface extends Interface {
     Texture background1;
     Slot[] hotbarslots = new Slot[8];
     DecimalFormat DF = new DecimalFormat("#.##");
+
     private TextureRegion[] playerAnimFrames;
     private TextureRegion currentFrame;
+
     private float stateTime = 0.0f;
     private float timer = 0.0f;
 
@@ -112,7 +114,7 @@ public class InventoryInterface extends Interface {
     }
 
     @Override
-    public void render() {
+    public void postRender() {
         text.drawMultiLine(BATCH, DF.format(PLAYER.weight) + " | " + DF.format(PLAYER.maxWeight) + "Kg", SCREEN_WIDTH / 16 * 9 + SCREEN_WIDTH / 64, SCREEN_WIDTH / 32 * 9, SCREEN_WIDTH / 16 * 3, BitmapFont.HAlignment.LEFT);
         text.drawMultiLine(BATCH, LANGUAGES.getString("backpack"), previousTabInv.X + previousTabInv.width, previousTabInv.Y + previousTabInv.height - ((previousTabInv.height - text.getCapHeight()) / 2), nextTabInv.X - (previousTabInv.X + previousTabInv.width), BitmapFont.HAlignment.CENTER);
         BATCH.draw(currentFrame, SCREEN_WIDTH / 16 * 12 - plW / 2, SCREEN_WIDTH / 16 * 4, plW, plH);

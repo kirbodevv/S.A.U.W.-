@@ -35,6 +35,7 @@ import static com.kgc.sauw.map.World.MAPS;
 public class Player implements ExtraData {
     public double velX;
     public double velY;
+
     static {
         SPEED_RATIO_X = Gdx.graphics.getWidth() / 1280.0f;
         SPEED_RATIO_Y = Gdx.graphics.getHeight() / 720.0f;
@@ -114,6 +115,9 @@ public class Player implements ExtraData {
     public Rectangle playerBody;
     public Vector2d velocity = new Vector2d(0, 0);
 
+    private ArrayList<InventorySlot> slotsToRemove = new ArrayList<InventorySlot>();
+
+
     public int getCountOfItems(int id) {
         int count = 0;
         for (int i = 0; i < Inventory.size(); i++) {
@@ -125,12 +129,12 @@ public class Player implements ExtraData {
     }
 
     public void deleteItems() {
-        ArrayList<InventorySlot> toBeRemoved = new ArrayList<InventorySlot>(Inventory);
+        ArrayList<InventorySlot> toBeRemoved = new ArrayList<>(Inventory);
         Inventory.removeAll(toBeRemoved);
     }
 
     public void deleteItems(int id) {
-        ArrayList<InventorySlot> toBeRemoved = new ArrayList<InventorySlot>();
+        ArrayList<InventorySlot> toBeRemoved = new ArrayList<>();
         for (InventorySlot slot : Inventory) {
             if (slot.id == id)
                 toBeRemoved.add(slot);
@@ -174,6 +178,7 @@ public class Player implements ExtraData {
         if (hotbar[index] != -1 && hotbar[index] < Inventory.size() && ITEMS.getItemById(Inventory.get(hotbar[index]).id) != null) {
             return ITEMS.getItemById(Inventory.get(hotbar[index]).id);
         } else {
+            hotbar[index] = -1;
             return ITEMS.getItemById(0);
         }
     }
@@ -295,7 +300,7 @@ public class Player implements ExtraData {
         }
     }
 
-    public void update(World world, Achievements a, Camera2D cam) {
+    public void update() {
         if (!isDead) {
             stateTime += Gdx.graphics.getDeltaTime();
             boolean isCameraZooming = false;
@@ -303,14 +308,14 @@ public class Player implements ExtraData {
                 for (int x = currentTileX - 3; x < currentTileX + 3; x++) {
                     if (y > 0 && y < MAPS.map0.length && x > 0 && x < MAPS.map0[0].length) {
                         if (MAPS.map0[y][x][0].id == 15) {
-                            cam.setCameraZoom(0.75f, 0.025f);
+                            GAME_CAMERA.setCameraZoom(0.75f, 0.025f);
                             isCameraZooming = true;
                         }
                     }
                 }
             }
             if (!isCameraZooming) {
-                cam.setCameraZoom(1.25f, 0.025f);
+                GAME_CAMERA.setCameraZoom(1.25f, 0.025f);
             }
 
             weight = 0.0f;
@@ -381,17 +386,24 @@ public class Player implements ExtraData {
             }
             posX = body.getPosition().x - playerBodyW / 2;
             posY = body.getPosition().y - playerBodyH / 2;
-            currentTileX = (int)Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
-            currentTileY = (int)Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
+            currentTileX = (int) Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
+            currentTileY = (int) Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
 
             playerBody.setPosition(posX, posY);
             velocity.x = 0;
             velocity.y = 0;
 
-            for (int i = 0; i < Inventory.size(); i++) {
-                if (Inventory.get(i).data >= ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxData && ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxData != 0) {
-                    Inventory.remove(i);
+            for (InventorySlot inventorySlot : Inventory) {
+                if (inventorySlot.data >= ITEMS.getItemById(inventorySlot.id).getItemConfiguration().maxData && ITEMS.getItemById(inventorySlot.id).getItemConfiguration().maxData != 0) {
+                    slotsToRemove.add(inventorySlot);
                 }
+                if (inventorySlot.count <= 0) {
+                    slotsToRemove.add(inventorySlot);
+                }
+            }
+            if (slotsToRemove.size() > 0) {
+                Inventory.removeAll(slotsToRemove);
+                slotsToRemove.clear();
             }
             if (SETTINGS.autopickup || (GAME_INTERFACE.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < ENTITIES.size(); i++) {

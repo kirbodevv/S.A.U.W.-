@@ -67,8 +67,8 @@ public class Inventory {
             BATCH.setColor(1, 1, 1, 1);
             BATCH.draw(Texture2, x + INTERFACE_CAMERA.X + (pl.carriedSlot * (SCREEN_WIDTH / 16)), y + INTERFACE_CAMERA.Y, SCREEN_WIDTH / 16, SCREEN_WIDTH / 16);
             for (int i = 0; i < 8; i++) {
-                if (pl.hotbar[i] != -1) {
-                    BATCH.draw(ITEMS.getTextureById(pl.getItemFromHotbar(i).id), x + INTERFACE_CAMERA.X + i * (SCREEN_WIDTH / 16) + (SCREEN_WIDTH / 64), y + INTERFACE_CAMERA.Y + (SCREEN_WIDTH / 64), SCREEN_WIDTH / 32, SCREEN_WIDTH / 32);
+                if (pl.hotbar[i] != -1 && pl.getItemFromHotbar(i).id != 0) {
+                    BATCH.draw(pl.getItemFromHotbar(i).t, x + INTERFACE_CAMERA.X + i * (SCREEN_WIDTH / 16) + (SCREEN_WIDTH / 64), y + INTERFACE_CAMERA.Y + (SCREEN_WIDTH / 64), SCREEN_WIDTH / 32, SCREEN_WIDTH / 32);
                     itemsCount.draw(BATCH, "" + pl.Inventory.get((pl.hotbar[i])).count, i * (SCREEN_WIDTH / 16) + x + INTERFACE_CAMERA.X, y + INTERFACE_CAMERA.Y + (SCREEN_WIDTH / 16));
                 }
             }

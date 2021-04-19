@@ -20,7 +20,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
-        versionName "0.1.4.1 Beta"
+        versionName "0.1.4.2 Beta"
     }
     buildTypes {
         release {
@@ -43,9 +43,9 @@ task copyAndroidNatives {
         configurations.natives.files.each { jar ->
             def outputDir = null
             if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
-            if(jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
-            if(jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
-            if(outputDir != null) {
+            if (jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
+            if (jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+            if (outputDir != null) {
                 copy {
                     from zipTree(jar)
                     into outputDir

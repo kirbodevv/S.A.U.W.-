@@ -285,7 +285,7 @@ public class World {
 
     public void update(Mods mods, Achievements a) {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
-        PLAYER.update(this, a, GAME_CAMERA);
+        PLAYER.update();
         entities.update();
         MAPS.update(entities);
         if (Gdx.input.isTouched()) {

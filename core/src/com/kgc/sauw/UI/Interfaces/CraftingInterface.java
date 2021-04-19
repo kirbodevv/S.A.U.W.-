@@ -68,12 +68,12 @@ public class CraftingInterface extends Interface {
         int xx = (int) Graphic.SCREEN_WIDTH / 16 * 9 + (int) Graphic.SCREEN_WIDTH / 32 + (int) Graphic.SCREEN_WIDTH / 16;
         int yy = (int) Graphic.SCREEN_WIDTH / 32 * 5;
         int ww = (int) Graphic.SCREEN_WIDTH / 16;
-        c2 = new Slot("c2", xx + ww * 2, yy + ww, ww, ww, TEXTURES.selected_slot);
-        c1 = new Slot("c1", xx + ww, yy + ww, ww, ww, TEXTURES.selected_slot);
-        c0 = new Slot("c0", xx, yy + ww, ww, ww, TEXTURES.selected_slot);
-        c5 = new Slot("c5", xx + ww * 2, yy, ww, ww, TEXTURES.selected_slot);
-        c4 = new Slot("c4", xx + ww, yy, ww, ww, TEXTURES.selected_slot);
-        c3 = new Slot("c3", xx, yy, ww, ww, TEXTURES.selected_slot);
+        c2 = new Slot("c2", xx + ww * 2, yy + ww, ww, ww);
+        c1 = new Slot("c1", xx + ww, yy + ww, ww, ww);
+        c0 = new Slot("c0", xx, yy + ww, ww, ww);
+        c5 = new Slot("c5", xx + ww * 2, yy, ww, ww);
+        c4 = new Slot("c4", xx + ww, yy, ww, ww);
+        c3 = new Slot("c3", xx, yy, ww, ww);
         slots.add(c0);
         slots.add(c1);
         slots.add(c2);

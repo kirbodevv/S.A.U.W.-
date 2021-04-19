@@ -1,0 +1,15 @@
+package com.kgc.sauw.environment.items;
+
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
+
+public class StoneAxe extends InstrumentItem {
+    public StoneAxe() {
+        super(15, 128, Type.AXE);
+
+        this.t = TEXTURES.stone_axe;
+        ItemConfiguration.weight = 5.75f;
+        ItemConfiguration.name = LANGUAGES.getString("stone_axe");
+
+    }
+}

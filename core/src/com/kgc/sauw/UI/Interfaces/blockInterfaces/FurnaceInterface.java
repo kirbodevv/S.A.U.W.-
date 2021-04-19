@@ -28,9 +28,9 @@ public class FurnaceInterface extends Interface {
         setHeaderText(LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 
         int temp = (int) (width - SCREEN_WIDTH / 24 * 4) / 2;
-        resultSlot = new Slot("ResultSlot", (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24, TEXTURES.selected_slot);
-        ingSlot = new Slot("IngSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24, TEXTURES.selected_slot);
-        fuelSlot = new Slot("FuelSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24, TEXTURES.selected_slot);
+        resultSlot = new Slot("ResultSlot", (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24);
+        ingSlot = new Slot("IngSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24);
+        fuelSlot = new Slot("FuelSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24);
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
             public boolean isValid(int id, int count, int data, String FromSlotWithId) {
@@ -64,7 +64,7 @@ public class FurnaceInterface extends Interface {
             if ((int) (tile.getExtraData("progress")) <= 0) {
                 for (int i = 0; i < recipes.length; i++) {
                     Container ingCon = tile.getContainer("IngSlot");
-                    if (ingCon.getId() == recipes[i][0] && (tile.getContainer("ResultSlot").getId() == recipes[i][1] || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < ITEMS.getItemById(recipes[i][1]).maxCount) {
+                    if (ingCon.getId() == recipes[i][0] && (tile.getContainer("ResultSlot").getId() == recipes[i][1] || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < ITEMS.getItemById(recipes[i][1]).getItemConfiguration().maxCount) {
                         tile.setExtraData("progress", 100);
                         tile.setExtraData("curRecId", recipes[i][1]);
                     }

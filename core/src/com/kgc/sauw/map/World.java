@@ -13,7 +13,7 @@ import com.intbyte.bdb.DataBuffer;
 import com.kgc.sauw.Achievements;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.entity.Entities;
-import com.kgc.sauw.entity.Entity;
+import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.environment.Time;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.math.Maths;
@@ -24,7 +24,6 @@ import java.util.Random;
 
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.isAnyInterfaceOpen;
-import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.environment.Environment.ITEMS;
@@ -310,28 +309,29 @@ public class World {
                 int bY = (cY - (cY % (WIDTH / 16))) / (WIDTH / 16);
                 mods.HookFunction("itemClick", new Object[]{bX, bY, (MAPS.map0[bY][bX][1].id != 4) ? 1 : 0, MAPS.map0[bY][bX][(MAPS.map0[bY][bX][1].id != 4) ? 1 : 0].id, PLAYER.getCarriedItem()});
                 if (Maths.distanceD((int) PLAYER.posX, (int) PLAYER.posY, bX * WIDTH / 16, bY * WIDTH / 16) <= 1.7 * WIDTH / 16) {
-                    if (PLAYER.getCarriedItem().type == 1) {
-                        if (setBlock(bX, bY, PLAYER.getCarriedItem().blockId)) {
+                    PLAYER.getCarriedItem().onClick(MAPS.map0[bY][bX][getHighestBlock(bX, bY)]);
+                    if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCKITEM) {
+                        if (setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
                             PLAYER.Inventory.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                         }
-                    } else if (PLAYER.getCarriedItem().type == 2 || PLAYER.getCarriedItem().id == 0) {
+                    } else if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.INSTRUMENT || PLAYER.getCarriedItem().id == 0) {
                         if (getHighestBlock(bX, bY) != 2 && getHighestBlock(bX, bY) != -1) {
-                            int z = -1;
+                            /*int z = -1;
                             if (MAPS.map0[bY][bX][0].id != 4) {
                                 z = 0;
                             } else if (MAPS.map0[bY][bX][1].id != 4) {
                                 z = 1;
-                            }
-                            if (z != -1) {
+                            }*/
+                            /*if (z != -1) {
                                 int instrType;
                                 if (PLAYER.getCarriedItem().id == 0) {
                                     instrType = 3;
                                 } else {
-                                    instrType = PLAYER.getCarriedItem().intrumentType;
+                                    instrType = PLAYER.getCarriedItem().getItemConfiguration().instrumentType;
                                 }
                                 if (PLAYER.hotbar[PLAYER.carriedSlot] != -1)
-                                    PLAYER.Inventory.get(PLAYER.hotbar[PLAYER.carriedSlot]).data = PLAYER.Inventory.get(PLAYER.hotbar[PLAYER.carriedSlot]).data + MAPS.map0[bY][bX][z].hit(instrType);
-                            }
+                                    PLAYER.Inventory.get(PLAYER.hotbar[PLAYER.carriedSlot]).data = PLAYER.Inventory.get(PLAYER.hotbar[PLAYER.carriedSlot]).data + MAPS.map0[bY][bX][z].hit();
+                            }*/
                         }
                     }
                 }

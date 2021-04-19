@@ -6,12 +6,12 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.*;
 import com.kgc.sauw.environment.Time;
+import com.kgc.sauw.environment.items.Item;
 import com.kgc.sauw.map.World;
 import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.math.Vector2d;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.intbyte.bdb.DataBuffer;
@@ -20,7 +20,6 @@ import com.intbyte.bdb.ExtraData;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import org.json.JSONObject;
 
@@ -156,7 +155,7 @@ public class Player implements ExtraData {
 
     public int getFirstSlotWithId(int id) {
         for (int i = 0; i < Inventory.size(); i++) {
-            if (Inventory.get(i).id == id && Inventory.get(i).count < ITEMS.getItemById(Inventory.get(i).id).maxCount)
+            if (Inventory.get(i).id == id && Inventory.get(i).count < ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxCount)
                 return i;
         }
         return -1;
@@ -167,12 +166,12 @@ public class Player implements ExtraData {
         if (health <= 0) kill();
     }
 
-    public com.kgc.sauw.environment.Items.Item getCarriedItem() {
+    public Item getCarriedItem() {
         return getItemFromHotbar(carriedSlot);
     }
 
-    public com.kgc.sauw.environment.Items.Item getItemFromHotbar(int index) {
-        if (hotbar[index] != -1 && ITEMS.getItemById(Inventory.get(hotbar[index]).id) != null) {
+    public Item getItemFromHotbar(int index) {
+        if (hotbar[index] != -1 && hotbar[index] < Inventory.size() && ITEMS.getItemById(Inventory.get(hotbar[index]).id) != null) {
             return ITEMS.getItemById(Inventory.get(hotbar[index]).id);
         } else {
             return ITEMS.getItemById(0);
@@ -202,8 +201,8 @@ public class Player implements ExtraData {
 
     public boolean addItem(int id, int count, int data) {
         for (int i = 0; i < Inventory.size(); i++) {
-            if (Inventory.get(i).id == id && Inventory.get(i).count < ITEMS.getItemById(Inventory.get(i).id).maxCount) {
-                int canadd = ITEMS.getItemById(Inventory.get(i).id).maxCount - Inventory.get(i).count;
+            if (Inventory.get(i).id == id && Inventory.get(i).count < ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxCount) {
+                int canadd = ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxCount - Inventory.get(i).count;
                 if (canadd > count) {
                     Inventory.get(i).count = Inventory.get(i).count + count;
                     count -= count;
@@ -217,13 +216,13 @@ public class Player implements ExtraData {
             }
         }
         if (count > 0) {
-            int slotsCount = (count % ITEMS.getItemById(id).maxCount) + 1;
+            int slotsCount = (count % ITEMS.getItemById(id).getItemConfiguration().maxCount) + 1;
             for (int i = 0; i < slotsCount; i++)
                 Inventory.add(new InventorySlot());
         }
         for (int i = 0; i < Inventory.size(); i++) {
             if (Inventory.get(i).id == 0) {
-                int canadd = ITEMS.getItemById(id).maxCount;
+                int canadd = ITEMS.getItemById(id).getItemConfiguration().maxCount;
                 Inventory.get(i).id = id;
                 if (canadd > count) {
                     Inventory.get(i).count = Inventory.get(i).count + count;
@@ -316,7 +315,7 @@ public class Player implements ExtraData {
 
             weight = 0.0f;
             for (InventorySlot slot : Inventory) {
-                weight += slot.count * ITEMS.getItemById(slot.id).weight;
+                weight += slot.count * ITEMS.getItemById(slot.id).getItemConfiguration().weight;
             }
             playerSpeed = 1.0f - ((weight * 1.66f) / 100);
             if (playerSpeed < 0) playerSpeed = 0;
@@ -390,7 +389,7 @@ public class Player implements ExtraData {
             velocity.y = 0;
 
             for (int i = 0; i < Inventory.size(); i++) {
-                if (Inventory.get(i).data >= ITEMS.getItemById(Inventory.get(i).id).maxData && ITEMS.getItemById(Inventory.get(i).id).maxData != 0) {
+                if (Inventory.get(i).data >= ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxData && ITEMS.getItemById(Inventory.get(i).id).getItemConfiguration().maxData != 0) {
                     Inventory.remove(i);
                 }
             }

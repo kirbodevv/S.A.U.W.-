@@ -157,7 +157,7 @@ public class MenuScreen implements Screen {
         });
         createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, "CREATE_NEW_WORLD_INTERFACE");
         createWorldInterface.setHeaderText(LANGUAGES.getString("createNewWorld"));
-        createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
+        /*createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
             EditText worldName;
             Button create;
             BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
@@ -206,7 +206,7 @@ public class MenuScreen implements Screen {
                 bf.draw(BATCH, LANGUAGES.getString("WorldName"), worldName.X + MENU_CAMERA.X, worldName.Y + worldName.height + WIDTH / 16 + MENU_CAMERA.Y);
                 worldName.render(BATCH, MENU_CAMERA);
             }
-        });
+        });*/
         createNewWorld = new Button("CREATE_NEW_WORLD_BUTTON", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
         createNewWorld.setText(LANGUAGES.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener() {

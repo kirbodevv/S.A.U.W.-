@@ -46,7 +46,7 @@ public class Mods {
 
                     FileHandle MainJSFile = Gdx.files.external("S.A.U.W./Mods/" + names.get(i) + "/main.js");
                     String result = MainJSFile.readString();
-                    ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
+                    //ITEMS.createItems(mods[i].ItemsFolder, mods[i].resFolder);
                     CRAFTING.addCraftsFromDirectory(mods[i].CraftsFolder);
                     ScriptableObject.putProperty(mods[i].sc, "Player", PLAYER);
                     ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);

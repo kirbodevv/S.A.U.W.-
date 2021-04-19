@@ -57,7 +57,7 @@ public class InventoryInterface extends Interface {
         int slotW = (int) SCREEN_WIDTH / 32 * 11 / 8;
         for (int i = 0; i < 8; i++) {
             final int ii = i;
-            final Slot s = new Slot("hotbarslot_" + i, (int) (SCREEN_WIDTH / 16 * 9 + SCREEN_WIDTH / 64 + slotW * i), (int) (SCREEN_WIDTH / 32 * 7 - SCREEN_WIDTH / 64), slotW, slotW, TEXTURES.selected_slot);
+            final Slot s = new Slot("hotbarslot_" + i, (int) (SCREEN_WIDTH / 16 * 9 + SCREEN_WIDTH / 64 + slotW * i), (int) (SCREEN_WIDTH / 32 * 7 - SCREEN_WIDTH / 64), slotW, slotW);
             s.setSF(new Slot.SlotFunctions() {
                 @Override
                 public void onClick() {
@@ -116,13 +116,12 @@ public class InventoryInterface extends Interface {
     @Override
     public void postRender() {
         text.drawMultiLine(BATCH, DF.format(PLAYER.weight) + " | " + DF.format(PLAYER.maxWeight) + "Kg", SCREEN_WIDTH / 16 * 9 + SCREEN_WIDTH / 64, SCREEN_WIDTH / 32 * 9, SCREEN_WIDTH / 16 * 3, BitmapFont.HAlignment.LEFT);
-        text.drawMultiLine(BATCH, LANGUAGES.getString("backpack"), previousTabInv.X + previousTabInv.width, previousTabInv.Y + previousTabInv.height - ((previousTabInv.height - text.getCapHeight()) / 2), nextTabInv.X - (previousTabInv.X + previousTabInv.width), BitmapFont.HAlignment.CENTER);
         BATCH.draw(currentFrame, SCREEN_WIDTH / 16 * 12 - plW / 2, SCREEN_WIDTH / 16 * 4, plW, plH);
         BATCH.draw(background0, SCREEN_WIDTH / 16 * 9, SCREEN_WIDTH / 16 * 3 - SCREEN_WIDTH / 64, SCREEN_WIDTH / 16 * 6, SCREEN_WIDTH / 64);
         if (currentItemInv != -1 && currentItemInv < PLAYER.Inventory.size()) {
             BATCH.draw(background1, SCREEN_WIDTH / 16 * 9 + SCREEN_WIDTH / 128, SCREEN_WIDTH / 32 + SCREEN_WIDTH / 128, SCREEN_WIDTH / 16 * 2, SCREEN_WIDTH / 16 * 2);
             BATCH.draw(ITEMS.getTextureById(PLAYER.Inventory.get(currentItemInv).id), SCREEN_WIDTH / 16 * 9 + SCREEN_WIDTH / 128, SCREEN_WIDTH / 32 + SCREEN_WIDTH / 128, SCREEN_WIDTH / 16 * 2, SCREEN_WIDTH / 16 * 2);
-            text.drawMultiLine(BATCH, ITEMS.getItemById(PLAYER.Inventory.get(currentItemInv).id).weight + " Kg", SCREEN_WIDTH / 16 * 11 + SCREEN_WIDTH / 64, SCREEN_WIDTH / 32 * 4, SCREEN_WIDTH / 16 * 4, BitmapFont.HAlignment.LEFT);
+            text.drawMultiLine(BATCH, ITEMS.getItemById(PLAYER.Inventory.get(currentItemInv).id).getItemConfiguration().weight + " Kg", SCREEN_WIDTH / 16 * 11 + SCREEN_WIDTH / 64, SCREEN_WIDTH / 32 * 4, SCREEN_WIDTH / 16 * 4, BitmapFont.HAlignment.LEFT);
             text.drawMultiLine(BATCH, ITEMS.getNameById(PLAYER.Inventory.get(currentItemInv).id), SCREEN_WIDTH / 16 * 11 + SCREEN_WIDTH / 64, SCREEN_WIDTH / 32 * 5, SCREEN_WIDTH / 16 * 4, BitmapFont.HAlignment.LEFT);
         }
     }

@@ -3,6 +3,7 @@ package com.kgc.sauw.environment;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.environment.blocks.*;
+import com.kgc.sauw.environment.items.Item;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,9 @@ public class Blocks {
         addBlock(new Snow());
     }
 
-    public Items.Item getItemByBlockId(int id) {
-        for (Items.Item item : ITEMS.ITEMS) {
-            if (item.type == 1 && item.blockId == id) {
+    public Item getItemByBlockId(int id) {
+        for (Item item : ITEMS.ITEMS) {
+            if (item.getItemConfiguration().type == Items.Type.BLOCKITEM && item.getItemConfiguration().blockId == id) {
                 return item;
             }
         }
@@ -45,12 +46,12 @@ public class Blocks {
         BLOCKS.add(new Block(id, t0));
     }
 
-    public void createBlock(int id, String t0) {
+    /*public void createBlock(int id, String t0) {
         Texture tt0 = new Texture(Gdx.files.external("S.A.U.W./Mods/" + t0));
         this.createBlock(id, tt0);
         ITEMS.createItem(ITEMS.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
     }
-
+*/
     public void addBlock(Block block) {
         BLOCKS.add(block);
     }

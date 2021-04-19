@@ -156,23 +156,22 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         return null;
     }
 
-    public int hit(int IT) {
-        if (IT == instrumentType) {
-            damage -= 1;
-            return 1;
-        } else {
-            return 0;
-        }
+    public int hit() {
+        damage -= 1;
+        return 1;
+
     }
 
     public void update(Entities Entities) {
         if (damage <= 0 && id != 4) {
             WORLD.setBlock(x, y, z, BLOCKS.getBlockById(id).getBlockConfiguration().getBlockIdAfterDestroy());
-            for (int i = 0; i < BLOCKS.getBlockById(id).getBlockConfiguration().getDrop().length; i++) {
-                Random r = new Random();
-                int xx = r.nextInt(WIDTH / 16) + WIDTH / 16 * x;
-                int yy = r.nextInt(WIDTH / 16) + WIDTH / 16 * y;
-                Entities.spawn(new ItemEntity(xx, yy, BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1], 0));
+            if (BLOCKS.getBlockById(id).getBlockConfiguration().getDrop() != null) {
+                for (int i = 0; i < BLOCKS.getBlockById(id).getBlockConfiguration().getDrop().length; i++) {
+                    Random r = new Random();
+                    int xx = r.nextInt(WIDTH / 16) + WIDTH / 16 * x;
+                    int yy = r.nextInt(WIDTH / 16) + WIDTH / 16 * y;
+                    Entities.spawn(new ItemEntity(xx, yy, BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1], 0));
+                }
             }
         }
         BLOCKS.getBlockById(id).tick(this);
@@ -194,31 +193,4 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         }
 
     }
-
-    /*public static abstract class TileEntity {
-        public void interfaceInitialize() {
-
-        }
-
-        public abstract void initialize(Tile tile);
-
-        public abstract void tick(Tile tile);
-
-        public abstract void click(Tile tile);
-
-        public abstract Interface getGuiScreen();
-
-        public abstract void onInteractionButtonPressed(Tile tile);
-
-        public abstract void randomTick(Tile tile);
-
-        public boolean renderIf(Tile tile) {
-            return true;
-        }
-
-        public boolean collisionsIf(Tile tile) {
-            return true;
-        }
-
-    }*/
 }

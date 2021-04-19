@@ -74,7 +74,6 @@ public class SAUW implements Screen {
         if (SETTINGS.debugRenderer) DR.render(WORLD.world, GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
-        GAME_INTERFACE.update(PLAYER);
         WORLD.update(MODS, ACHIEVEMENTS);
 
 

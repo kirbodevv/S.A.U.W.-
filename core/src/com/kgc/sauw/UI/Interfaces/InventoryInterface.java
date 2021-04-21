@@ -13,16 +13,17 @@ import java.text.DecimalFormat;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class InventoryInterface extends Interface {
     int plW = (int) (SCREEN_WIDTH / 24 * 4 * 10 / 26);
     int plH = (int) (SCREEN_WIDTH / 24 * 4);
     Texture background0;
     Texture background1;
+
     Slot[] hotbarslots = new Slot[8];
+
     DecimalFormat DF = new DecimalFormat("#.##");
 
     private TextureRegion[] playerAnimFrames;
@@ -47,6 +48,7 @@ public class InventoryInterface extends Interface {
                 playerAnimFrames[index++] = tmp[i][j];
             }
         }
+
         playerAnim = new Animation(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
         tiredPlayerAnim = new Animation(0.2f, playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[1]);
 
@@ -54,6 +56,7 @@ public class InventoryInterface extends Interface {
 
         background0 = Textures.generateTexture(6f, 0.25f, true);
         background1 = Textures.generateTexture(1f, 1f, true);
+
         int slotW = (int) SCREEN_WIDTH / 32 * 11 / 8;
         for (int i = 0; i < 8; i++) {
             final int ii = i;
@@ -79,8 +82,9 @@ public class InventoryInterface extends Interface {
                 }
             });
             hotbarslots[i] = s;
-            slots.add(s);
+            Elements.add(s);
         }
+        initialize();
     }
 
     @Override

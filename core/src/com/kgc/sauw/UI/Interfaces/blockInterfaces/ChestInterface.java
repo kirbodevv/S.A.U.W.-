@@ -35,11 +35,12 @@ public class ChestInterface extends Interface {
             for (int j = 0; j < xCount; j++) {
                 if (counter < 24) {
                     Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int) (startX + size * j), (int) (startY + size * i), (int) (size), (int) (size));
-                    slots.add(slot);
+                    Elements.add(slot);
                     counter++;
                 }
             }
         }
+        initialize();
     }
 
     @Override

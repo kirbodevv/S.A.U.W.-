@@ -48,7 +48,7 @@ public class Slider extends InterfaceElement {
 	}
 	@Override
 	public void update(Camera2D cam) {
-		if (!isHided()) {
+		if (!isHidden()) {
 			super.update(cam);
 			if (isTouched()) {
 				if (!verticalSlider)
@@ -64,7 +64,7 @@ public class Slider extends InterfaceElement {
 	}
 	@Override
 	public void render(SpriteBatch b, Camera2D cam) {
-		if (!isHided()) {
+		if (!isHidden()) {
 			if (!verticalSlider) {
 				b.draw(background, cam.X + X, cam.Y + Y + height / 4, width, height / 2);
 				b.draw(slider, cam.X + X + (int)(sc * value) - sliderW / 2, cam.Y + Y, sliderW, height);

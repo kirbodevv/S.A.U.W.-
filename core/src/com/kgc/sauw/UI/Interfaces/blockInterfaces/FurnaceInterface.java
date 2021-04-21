@@ -1,6 +1,5 @@
 package com.kgc.sauw.UI.Interfaces.blockInterfaces;
 
-import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.UI.Container;
 import com.kgc.sauw.UI.Elements.Slot;
 import com.kgc.sauw.UI.Interface;
@@ -8,7 +7,6 @@ import com.kgc.sauw.map.Tile;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class FurnaceInterface extends Interface {
@@ -28,9 +26,9 @@ public class FurnaceInterface extends Interface {
         setHeaderText(LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 
         int temp = (int) (width - SCREEN_WIDTH / 24 * 4) / 2;
-        resultSlot = new Slot("ResultSlot", (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24);
-        ingSlot = new Slot("IngSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24);
-        fuelSlot = new Slot("FuelSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int)SCREEN_WIDTH / 24, (int)SCREEN_WIDTH / 24);
+        resultSlot = new Slot("ResultSlot", (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
+        ingSlot = new Slot("IngSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
+        fuelSlot = new Slot("FuelSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
             public boolean isValid(int id, int count, int data, String FromSlotWithId) {
@@ -42,9 +40,11 @@ public class FurnaceInterface extends Interface {
 
             }
         });
-        slots.add(resultSlot);
-        slots.add(fuelSlot);
-        slots.add(ingSlot);
+        Elements.add(resultSlot);
+        Elements.add(fuelSlot);
+        Elements.add(ingSlot);
+
+        initialize();
     }
 
     @Override

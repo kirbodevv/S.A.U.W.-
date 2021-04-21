@@ -64,7 +64,7 @@ public class CraftingInterface extends Interface {
                 }
             }
         });
-        buttons.add(craft);
+        Elements.add(craft);
         int xx = (int) Graphic.SCREEN_WIDTH / 16 * 9 + (int) Graphic.SCREEN_WIDTH / 32 + (int) Graphic.SCREEN_WIDTH / 16;
         int yy = (int) Graphic.SCREEN_WIDTH / 32 * 5;
         int ww = (int) Graphic.SCREEN_WIDTH / 16;
@@ -74,23 +74,23 @@ public class CraftingInterface extends Interface {
         c5 = new Slot("c5", xx + ww * 2, yy, ww, ww);
         c4 = new Slot("c4", xx + ww, yy, ww, ww);
         c3 = new Slot("c3", xx, yy, ww, ww);
-        slots.add(c0);
-        slots.add(c1);
-        slots.add(c2);
-        slots.add(c3);
-        slots.add(c4);
-        slots.add(c5);
+        Elements.add(c0);
+        Elements.add(c1);
+        Elements.add(c2);
+        Elements.add(c3);
+        Elements.add(c4);
+        Elements.add(c5);
         float xxx = Graphic.SCREEN_WIDTH / 16;
         float yyy = Graphic.SCREEN_WIDTH / 32;
         float www = Graphic.SCREEN_WIDTH / 16 * 8 - Graphic.SCREEN_WIDTH / 32;
         float hhh = Graphic.SCREEN_HEIGHT - Graphic.SCREEN_WIDTH / 16 * 2;
         previos = new Button("PREVIOUS_CRAFT_LIST_BUTTON", (int) (xxx + Graphic.SCREEN_WIDTH / 32), (int) (yyy + hhh - hhh / 7 - Graphic.SCREEN_WIDTH / 64), (int) hhh / 7, (int) hhh / 7, TEXTURES.button_left_0, TEXTURES.button_left_1);
         next = new Button("NEXT_CRAFT_LIST_BUTTON", (int) (xxx + www - Graphic.SCREEN_WIDTH / 32 - hhh / 7), (int) (yyy + hhh - hhh / 7 - Graphic.SCREEN_WIDTH / 64), (int) hhh / 7, (int) hhh / 7, TEXTURES.button_right_0, TEXTURES.button_right_1);
-        int dist = next.X - (previos.X + previos.width);
+        float dist = next.X - (previos.X + previos.width);
         background3 = TEXTURES.generateTexture(dist / (Graphic.SCREEN_WIDTH / 16), (hhh / 7) / (Graphic.SCREEN_WIDTH / 16), true);
         background4 = TEXTURES.generateTexture(2, 2, true);
-        buttons.add(previos);
-        buttons.add(next);
+        Elements.add(previos);
+        Elements.add(next);
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
@@ -102,21 +102,22 @@ public class CraftingInterface extends Interface {
                         currentCraft = currentTab * 30 + num;
                     }
                 });
-                buttons.add(b);
+                Elements.add(b);
 
             }
         }
+        initialize();
     }
 
     @Override
     public void tick() {
         int temp = 0;
         for (int i = currentTab * 30; i < currentTab + 1 * 30; i++) {
-            if (getButton("CRAFTING_INTERFACE_CRAFT_" + temp) != null) {
+            if (getElement("CRAFTING_INTERFACE_CRAFT_" + temp) != null) {
                 if (i < CRAFTING.crafts.size()) {
-                    getButton("CRAFTING_INTERFACE_CRAFT_" + temp).hide(false);
+                    getElement("CRAFTING_INTERFACE_CRAFT_" + temp).hide(false);
                 } else {
-                    getButton("CRAFTING_INTERFACE_CRAFT_" + temp).hide(true);
+                    getElement("CRAFTING_INTERFACE_CRAFT_" + temp).hide(true);
                 }
             }
             temp += 1;
@@ -133,16 +134,16 @@ public class CraftingInterface extends Interface {
     @Override
     public void postRender() {
         for (int i = currentTab * 30; i < CRAFTING.crafts.size(); i++) {
-            int x = getButton("CRAFTING_INTERFACE_CRAFT_" + i).X;
-            int y = getButton("CRAFTING_INTERFACE_CRAFT_" + i).Y;
-            int w = getButton("CRAFTING_INTERFACE_CRAFT_" + i).width;
-            int h = getButton("CRAFTING_INTERFACE_CRAFT_" + i).height;
+            float x = getElement("CRAFTING_INTERFACE_CRAFT_" + i).X;
+            float y = getElement("CRAFTING_INTERFACE_CRAFT_" + i).Y;
+            float w = getElement("CRAFTING_INTERFACE_CRAFT_" + i).width;
+            float h = getElement("CRAFTING_INTERFACE_CRAFT_" + i).height;
             BATCH.draw(ITEMS.getTextureById(CRAFTING.crafts.get(i).result[0]), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
             if (currentCraft == i) {
                 for (int j = 0; j < CRAFTING.crafts.get(i).ingr.length; j++) {
-                    int xx = getSlot("c" + j).X;
-                    int yy = getSlot("c" + j).Y;
-                    int ww = getSlot("c" + j).width;
+                    float xx = getSlot("c" + j).X;
+                    float yy = getSlot("c" + j).Y;
+                    float ww = getSlot("c" + j).width;
                     BATCH.draw(ITEMS.getTextureById(CRAFTING.crafts.get(i).ingr[j][0]), xx + ww / 8, yy + ww / 8, ww - ww / 4, ww - ww / 4);
                     if (j == 0)
                         c0.IC.drawMultiLine(BATCH, PLAYER.getCountOfItems(CRAFTING.crafts.get(i).ingr[j][0]) + "/" + CRAFTING.crafts.get(i).ingr[j][1], c0.X, c0.Y + c0.IC.getCapHeight(), c0.width, BitmapFont.HAlignment.RIGHT);

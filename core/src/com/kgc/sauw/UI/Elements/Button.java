@@ -19,17 +19,17 @@ public class Button extends InterfaceElement {
     private boolean locked = false;
     private float capHeight;
 
-    public Button(String ID, int X, int Y, int w, int h, Texture BT, Texture BP) {
+    public Button(String ID, float X, float Y, float w, float h, Texture BT, Texture BP) {
         generatedTextures = false;
         createButton(ID, X, Y, w, h, BT, BP);
     }
 
-    public Button(String ID, int X, int Y, int w, int h) {
+    public Button(String ID, float X, float Y, float w, float h) {
         generatedTextures = true;
         createButton(ID, X, Y, w, h);
     }
 
-    private void createButton(String ID, int X, int Y, int w, int h, Texture BT, Texture BP) {
+    private void createButton(String ID, float X, float Y, float w, float h, Texture BT, Texture BP) {
         setPosition(X, Y);
         setSize(w, h);
         setTextures(BT, BP);
@@ -37,7 +37,7 @@ public class Button extends InterfaceElement {
         create();
     }
 
-    private void createButton(String ID, int X, int Y, int w, int h) {
+    private void createButton(String ID, float X, float Y, float w, float h) {
         setPosition(X, Y);
         setSize(w, h);
         setID(ID);
@@ -103,7 +103,7 @@ public class Button extends InterfaceElement {
 
     @Override
     public void render(SpriteBatch b, Camera2D cam) {
-        if (!isHided()) {
+        if (!isHidden()) {
             if (!locked)
                 b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + X, cam.Y + Y, width, height);
             else b.draw(buttonPressedTexture, cam.X + X, cam.Y + Y, width, height);
@@ -114,7 +114,7 @@ public class Button extends InterfaceElement {
     }
 
     @Override
-    public void setSize(int w, int h) {
+    public void setSize(float w, float h) {
         super.setSize(w, h);
         if (generatedTextures) {
             if (buttonTexture != null) buttonTexture.dispose();

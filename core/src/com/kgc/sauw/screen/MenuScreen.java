@@ -15,11 +15,8 @@ import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.resource.Music;
 import org.json.JSONObject;
 
-import com.kgc.sauw.UI.InterfaceEvents;
-import com.kgc.sauw.UI.Elements.EditText;
 import com.badlogic.gdx.files.FileHandle;
 
-import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
@@ -252,9 +249,9 @@ public class MenuScreen implements Screen {
     }
 
     public void setSelectButtonsText() {
-        if (!sel_0.isHided() && worldSelIndex < worldNames.length) sel_0.setText(worldNames[worldSelIndex]);
-        if (!sel_1.isHided() && worldSelIndex + 1 < worldNames.length) sel_1.setText(worldNames[worldSelIndex + 1]);
-        if (!sel_2.isHided() && worldSelIndex + 2 < worldNames.length) sel_2.setText(worldNames[worldSelIndex + 2]);
+        if (!sel_0.isHidden() && worldSelIndex < worldNames.length) sel_0.setText(worldNames[worldSelIndex]);
+        if (!sel_1.isHidden() && worldSelIndex + 1 < worldNames.length) sel_1.setText(worldNames[worldSelIndex + 1]);
+        if (!sel_2.isHidden() && worldSelIndex + 2 < worldNames.length) sel_2.setText(worldNames[worldSelIndex + 2]);
     }
 
     public void HideButtonsIfNeed() {

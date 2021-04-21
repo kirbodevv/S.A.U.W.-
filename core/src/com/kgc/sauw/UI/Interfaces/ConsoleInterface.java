@@ -67,9 +67,9 @@ public class ConsoleInterface extends Interface {
                     }
                 });
         sendCommandButton = new Button("CONSOLE_INTERFACE_SEND_COMMAND_BUTTON", input.X + input.width + (int) (SCREEN_WIDTH / 32), input.Y, (int) SCREEN_WIDTH / 16, (int) SCREEN_WIDTH / 16, TEXTURES.button_right_0, TEXTURES.button_right_1);
-        buttons.add(sendCommandButton);
-        buttons.add(nextCommand);
-        buttons.add(prevCommand);
+        Elements.add(sendCommandButton);
+        Elements.add(nextCommand);
+        Elements.add(prevCommand);
         GAME_INTERFACE.Log.setColor(Color.BLACK);
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
@@ -84,6 +84,7 @@ public class ConsoleInterface extends Interface {
             Context.exit();
         }
         input.input = "give(1, 1, 0);";
+        initialize();
     }
 
     @Override
@@ -127,7 +128,7 @@ public class ConsoleInterface extends Interface {
             } finally {
                 Context.exit();
             }
-            //ModAPI.Console.inputs.add(input.input);
+            MOD_API.Console.inputs.add(input.input);
             input.clear();
         }
         //input.Y = input.isKeyboardOpen ? game.keyboardHeight : (int) (Interface.y + SCREEN_WIDTH / 32);

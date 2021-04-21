@@ -191,7 +191,7 @@ public class ModsScreen implements Screen {
         private String modPath = "";
         private BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
-        private final int ModIconHeight;
+        private final float ModIconHeight;
         private JSONArray modsList;
         public ModInfo(int X, int Y, final JSONArray modsList) {
             this.modsList = modsList;
@@ -223,7 +223,7 @@ public class ModsScreen implements Screen {
 
         @Override
         public void update(Camera2D cam) {
-            if (!isHided()) {
+            if (!isHidden()) {
                 super.update(cam);
                 modActiv.update(cam);
             }
@@ -231,7 +231,7 @@ public class ModsScreen implements Screen {
 
         @Override
         public void render(SpriteBatch batch, Camera2D cam) {
-            if (!isHided()) {
+            if (!isHidden()) {
                 super.render(batch, cam);
                 batch.draw(background, cam.X + X, cam.Y + Y, width, height);
                 batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, ModIconHeight, ModIconHeight);

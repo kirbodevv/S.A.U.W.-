@@ -49,7 +49,7 @@ public class Notification extends InterfaceElement {
 	@Override
 	public void update(Camera2D cam) {
 		super.update(cam);
-        if (!isHided()) {
+        if (!isHidden()) {
 			timer += Gdx.graphics.getRawDeltaTime();
 			if (timer >= time) {
 				timer = 0;
@@ -70,10 +70,10 @@ public class Notification extends InterfaceElement {
 		this.hideOnClick = b;
 	}
 	public void render(SpriteBatch b, Camera2D cam) {
-		if (!isHided()) {
+		if (!isHidden()) {
 			b.draw(background, cam.X + X, cam.Y + Y, width, height);
 			if (img != null) {
-				int t = height / 8;
+				float t = height / 8;
                 b.draw(img, cam.X + X + t, cam.Y + Y + t, height - t * 2, height - t * 2);
 				BF.setColor(Color.BLUE);
 				BF.draw(b, title, X + cam.X + height, Y + height - BF.getBounds(title).height);

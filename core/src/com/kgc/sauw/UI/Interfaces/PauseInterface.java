@@ -11,6 +11,7 @@ import static com.kgc.sauw.utils.Languages.LANGUAGES;
 public class PauseInterface extends Interface {
     Button saveWorldButton;
     Button resumeButton;
+
     public PauseInterface() {
         super(InterfaceSizes.FULL, "PAUSE_INTERFACE");
         setHeaderText("").isBlockInterface(false);
@@ -32,8 +33,9 @@ public class PauseInterface extends Interface {
             }
         });
         exitButton.hide(true);
-        buttons.add(resumeButton);
-        buttons.add(saveWorldButton);
+        Elements.add(resumeButton);
+        Elements.add(saveWorldButton);
 
+        initialize();
     }
 }

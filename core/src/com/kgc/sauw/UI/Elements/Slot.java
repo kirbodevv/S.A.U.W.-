@@ -41,7 +41,7 @@ public class Slot extends InterfaceElement {
         this.SF = SF;
     }
 
-    public Slot(String ID, int x, int y, int w, int h) {
+    public Slot(String ID, float x, float y, float w, float h) {
         this.X = x;
         this.Y = y;
         this.width = w;
@@ -58,25 +58,26 @@ public class Slot extends InterfaceElement {
         IC.setColor(Color.BLACK);
     }
 
-    public void update(ArrayList<Slot> slots, Interface Interface, Player pl, Camera2D cam) {
+    public void update(ArrayList<Slot> slots, Interface Interface, Camera2D cam) {
         this.update(cam);
         if (isTouched()) {
             toItemX = (Gdx.input.getX() + cam.X - height / 4);
             toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
+        } else {
+            toItemX = cam.X + X + width / 4;
+            toItemY = cam.Y + Y + height / 4;
         }
         itemX = MathUtils.lerp(itemX, toItemX, 0.1f);
         itemY = MathUtils.lerp(itemY, toItemY, 0.1f);
-        if (wasUp && id != 0) onClick(slots, Interface, cam);
+        if (wasUp && id != 0) onClick(slots, Interface);
     }
 
-    public void onClick(ArrayList<Slot> slots, Interface Interface, Camera2D cam) {
+    public void onClick(ArrayList<Slot> slots, Interface Interface) {
         for (Slot slot : slots) {
             if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, (int) itemX + width / 2, (int) itemY + height / 2)) {
                 Interface.sendToSlot(this, slot);
             }
         }
-        toItemX = cam.X + X + width / 4;
-        toItemY = cam.Y + Y + height / 4;
     }
 
     @Override
@@ -90,6 +91,13 @@ public class Slot extends InterfaceElement {
         if (SF != null && onButton) {
             SF.onClick();
         }
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        itemX = X + width / 4;
+        itemY = Y + height / 4;
     }
 
     public void itemRender() {

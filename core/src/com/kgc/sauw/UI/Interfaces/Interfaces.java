@@ -19,6 +19,7 @@ public final class Interfaces {
     public static final PauseInterface PAUSE_INTERFACE;
     public static final DeadInterface DEAD_INTERFACE;
     public static final InventoryInterface INVENTORY_INTERFACE;
+    public static final TestInterface TEST_INTERFACE;
     /**
      * BLOCK Interfaces
      **/
@@ -35,6 +36,7 @@ public final class Interfaces {
         PAUSE_INTERFACE = new PauseInterface();
         DEAD_INTERFACE = new DeadInterface();
         INVENTORY_INTERFACE = new InventoryInterface();
+        TEST_INTERFACE = new TestInterface();
 
         CHEST_INTERFACE = new ChestInterface();
         FURNACE_INTERFACE = new FurnaceInterface();
@@ -46,6 +48,7 @@ public final class Interfaces {
         addInterface(PAUSE_INTERFACE);
         addInterface(DEAD_INTERFACE);
         addInterface(INVENTORY_INTERFACE);
+        addInterface(TEST_INTERFACE);
 
         addInterface(CHEST_INTERFACE);
         addInterface(FURNACE_INTERFACE);

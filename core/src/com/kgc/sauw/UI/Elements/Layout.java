@@ -59,8 +59,6 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void update(Camera2D cam) {
-        updateSize();
-        setElementsPosition();
         for (InterfaceElement element : elements) {
             element.update(cam);
         }
@@ -116,6 +114,14 @@ public class Layout extends InterfaceElement {
         }
     }
 
+    @Override
+    public void hide(boolean b) {
+        super.hide(b);
+        if(!b){
+            setElementsPosition();
+        }
+    }
+
     public void setSize(Size sizeX, Size sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -153,7 +159,6 @@ public class Layout extends InterfaceElement {
                 elements.get(i).attachTo(elements.get(i - 1), LayoutAttachSide, ElementAttachSide);
             }
         }
-        updateSize();
     }
 
     public void addElements(InterfaceElement... Elements) {

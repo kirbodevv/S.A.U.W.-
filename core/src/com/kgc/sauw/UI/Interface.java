@@ -318,9 +318,17 @@ public class Interface {
     }
 
     public void onOpen() {
+        MainLayout.hide(false);
+        for(InterfaceElement e : Elements){
+            e.hide(false);
+        }
     }
 
     public void onClose() {
+        MainLayout.hide(true);
+        for(InterfaceElement e : Elements){
+            e.hide(true);
+        }
     }
 
     public void preRender() {

@@ -24,7 +24,7 @@ public class InterfaceElement {
     protected boolean hided;
     protected boolean isTouched;
     protected boolean this_touched;
-    public String ID;
+    public String ID = "";
     public boolean wasClicked;
     public boolean wasUp;
 

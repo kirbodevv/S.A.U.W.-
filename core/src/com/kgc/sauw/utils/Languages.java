@@ -1,8 +1,7 @@
 package com.kgc.sauw.utils;
 
-import com.kgc.sauw.config.Settings;
-import org.json.JSONObject;
 import com.badlogic.gdx.Gdx;
+import org.json.JSONObject;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
 
@@ -17,7 +16,7 @@ public class Languages {
 
     public Languages() {
         try {
-            langs = new JSONObject(Gdx.files.internal("json/langs.json").readString());
+            langs = new JSONObject(Gdx.files.internal("json/langs.json").readString("UTF-8"));
         } catch (Exception e) {
             Gdx.app.log("error", e.toString());
         }

@@ -15,7 +15,7 @@ public class ChestInterface extends Interface {
     float size;
 
     public ChestInterface() {
-        super(InterfaceSizes.FULL, "CHEST_INTERFACE");
+        super("CHEST_INTERFACE");
         createInventory().setHeaderText(LANGUAGES.getString("chest")).isBlockInterface(true);
 
         size = (int) (BLOCK_SIZE * 7.5f - BLOCK_SIZE * 2) / 6f;
@@ -34,13 +34,13 @@ public class ChestInterface extends Interface {
         for (int i = 0; i < yCount; i++) {
             for (int j = 0; j < xCount; j++) {
                 if (counter < 24) {
-                    Slot slot = new Slot("chestSlot_" + (i * 8 + j), (int) (startX + size * j), (int) (startY + size * i), (int) (size), (int) (size));
+                    Slot slot = new Slot("chestSlot_" + (i * 8 + j), this, (int) (startX + size * j), (int) (startY + size * i), (int) (size), (int) (size));
                     Elements.add(slot);
                     counter++;
                 }
             }
         }
-        initialize();
+        updateElementsList();
     }
 
     @Override

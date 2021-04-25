@@ -72,4 +72,9 @@ public final class Interfaces {
         }
         return false;
     }
+    public static void closeInterface(){
+        for(Interface i : INTERFACES){
+            if(i.isOpen) i.close();
+        }
+    }
 }

@@ -15,7 +15,7 @@ import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.*;
 
-public class GameInterface implements InputProcessor {
+public class GameInterface {
     Inventory inv;
     public Button interactionButton;
     public Button dropButton;
@@ -68,7 +68,6 @@ public class GameInterface implements InputProcessor {
         inv = new Inventory(TEXTURES.inventory, TEXTURES.selected_slot, (int) ((SCREEN_WIDTH / 16) * 4), 0);
         health = new Health(TEXTURES.health_0, TEXTURES.health_1);
         notifW = (int) SCREEN_WIDTH / 16 * 4;
-        INPUT_MULTIPLEXER.addProcessor(this);
 
         craftingButton.setEventListener(new Button.EventListener() {
             @Override
@@ -103,9 +102,11 @@ public class GameInterface implements InputProcessor {
         notifAnimation = true;
         notifAl = 1;
     }
-    public void setSize(){
+
+    public void setSize() {
 
     }
+
     public void update(Player pl) {
         if (isAnyInterfaceOpen()) {
             interactionButton.hide(true);
@@ -167,7 +168,7 @@ public class GameInterface implements InputProcessor {
         }
     }
 
-    public void render(World World,Player pl, boolean debug) {
+    public void render(World World, Player pl, boolean debug) {
         INTERFACE_CAMERA.update(BATCH);
         BATCH.setColor(1f, 1f, 1f, 0.7f);
         interactionButton.render(BATCH, INTERFACE_CAMERA);
@@ -207,73 +208,5 @@ public class GameInterface implements InputProcessor {
         this.debug.drawMultiLine(BATCH, "\n Player", INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main).height);
         this.debug.setColor(0f, 0f, 0f, 1f);
         this.debug.drawMultiLine(BATCH, Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main + "\n Player").height);
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        if (!isAnyInterfaceOpen()) {
-            if (keycode == Input.Keys.ESCAPE) {
-                if (!PAUSE_INTERFACE.isOpen) PAUSE_INTERFACE.open();
-            }
-            if (keycode == Input.Keys.TAB) {
-                if (!INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.open();
-            }
-            if (keycode == Input.Keys.F1) {
-                if (SETTINGS.useConsole) if (!CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.open();
-            }
-            if (keycode == Input.Keys.C) {
-                if (!CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.open();
-            }
-        } else {
-            if (keycode == Input.Keys.ESCAPE) {
-                if (PAUSE_INTERFACE.isOpen) PAUSE_INTERFACE.close();
-            }
-            if (keycode == Input.Keys.TAB) {
-                if (INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.close();
-            }
-            if (keycode == Input.Keys.F1) {
-                if (SETTINGS.useConsole)
-                    if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.close();
-            }
-            if (keycode == Input.Keys.C) {
-                if (CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.close();
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
     }
 }

@@ -31,7 +31,7 @@ public class ConsoleInterface extends Interface {
     public Scriptable sc;
 
     public ConsoleInterface() {
-        super(InterfaceSizes.FULL, "CONSOLE_INTERFACE");
+        super("CONSOLE_INTERFACE");
         setHeaderText(LANGUAGES.getString("console")).isBlockInterface(false);
         int inW = (int) (width - SCREEN_WIDTH / 8 - SCREEN_WIDTH / 32);
         input = new EditText((int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), inW, (int) SCREEN_WIDTH / 16, INPUT_MULTIPLEXER);
@@ -84,7 +84,7 @@ public class ConsoleInterface extends Interface {
             Context.exit();
         }
         input.input = "give(1, 1, 0);";
-        initialize();
+        updateElementsList();
     }
 
     @Override

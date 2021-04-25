@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface header="%Language/inventory" isBlockInterface="false" Inventory="true">
+    <RootLayout id="optionalLayout">
+        <Layout id="PlayerInfoLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
+                translateY="-1bl"
+                marginBottom="0.125bl">
+            <Image id="playerImg" width="1bl" height="2.6bl" imagePosition="CENTER" marginBottom="0.25bl"/>
+            <Text id="playerWeight" width="4bl" height="0.5bl"/>
+        </Layout>
+        <Layout id="HotbarLayout" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+            <Slot id="hotbarslot_0" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_1" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_2" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_3" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_4" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_5" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_6" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+            <Slot id="hotbarslot_7" width="0.625bl" height="0.625bl" isInventorySlot="true"/>
+        </Layout>
+    </RootLayout>
+</Interface>

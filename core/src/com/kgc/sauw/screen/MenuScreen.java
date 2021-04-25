@@ -152,7 +152,7 @@ public class MenuScreen implements Screen {
                 StartGameMenu = false;
             }
         });
-        createWorldInterface = new Interface(Interface.InterfaceSizes.FULL, "CREATE_NEW_WORLD_INTERFACE");
+        createWorldInterface = new Interface("CREATE_NEW_WORLD_INTERFACE");
         createWorldInterface.setHeaderText(LANGUAGES.getString("createNewWorld"));
         /*createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
             EditText worldName;

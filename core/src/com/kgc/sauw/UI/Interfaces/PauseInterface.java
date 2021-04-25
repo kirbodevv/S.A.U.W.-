@@ -13,7 +13,7 @@ public class PauseInterface extends Interface {
     Button resumeButton;
 
     public PauseInterface() {
-        super(InterfaceSizes.FULL, "PAUSE_INTERFACE");
+        super("PAUSE_INTERFACE");
         setHeaderText("").isBlockInterface(false);
 
         resumeButton = new Button("PAUSE_INTERFACE_RESUME_BUTTON", (int) (SCREEN_WIDTH / 16), (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 4), (int) (SCREEN_WIDTH / 16 * 4), (int) SCREEN_WIDTH / 16);
@@ -36,6 +36,6 @@ public class PauseInterface extends Interface {
         Elements.add(resumeButton);
         Elements.add(saveWorldButton);
 
-        initialize();
+        updateElementsList();
     }
 }

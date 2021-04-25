@@ -22,13 +22,13 @@ public class FurnaceInterface extends Interface {
 
 
     public FurnaceInterface() {
-        super(InterfaceSizes.FULL, "FURNACE_INTERFACE");
+        super("FURNACE_INTERFACE");
         setHeaderText(LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 
         int temp = (int) (width - SCREEN_WIDTH / 24 * 4) / 2;
-        resultSlot = new Slot("ResultSlot", (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
-        ingSlot = new Slot("IngSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
-        fuelSlot = new Slot("FuelSlot", (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
+        resultSlot = new Slot("ResultSlot", this, (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
+        ingSlot = new Slot("IngSlot", this, (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
+        fuelSlot = new Slot("FuelSlot", this, (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
             public boolean isValid(int id, int count, int data, String FromSlotWithId) {
@@ -44,7 +44,7 @@ public class FurnaceInterface extends Interface {
         Elements.add(fuelSlot);
         Elements.add(ingSlot);
 
-        initialize();
+        updateElementsList();
     }
 
     @Override

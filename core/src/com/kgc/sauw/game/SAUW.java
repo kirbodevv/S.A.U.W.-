@@ -8,6 +8,7 @@ import com.kgc.sauw.Modding.ModAPI;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.Elements.Elements;
 import com.kgc.sauw.resource.Music;
+import com.kgc.sauw.utils.Units;
 
 import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
 import static com.kgc.sauw.config.Settings.SETTINGS;
@@ -48,7 +49,6 @@ public class SAUW implements Screen {
             WORLD.load(worldName);
         }
         MODS.load();
-        TEST_INTERFACE.open();
     }
 
     @Override

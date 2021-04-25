@@ -2,14 +2,20 @@ package com.kgc.sauw.UI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.kgc.sauw.UI.Elements.Button;
-import com.kgc.sauw.UI.Elements.Image;
-import com.kgc.sauw.UI.Elements.Layout;
-import com.kgc.sauw.UI.Elements.Slot;
+import com.kgc.sauw.UI.Elements.*;
 import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.utils.Units;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
@@ -18,12 +24,7 @@ import static com.kgc.sauw.map.World.MAPS;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class Interface {
-    public static class InterfaceSizes {
-        public static int STANDARD = 0;
-        public static int FULL = 1;
-    }
-
-    private String ID;
+    public String ID;
 
     public boolean isOpen = false;
     public boolean isBlockInterface;
@@ -31,11 +32,10 @@ public class Interface {
     public float width, heigth, x, y;
     public Button exitButton;
 
-    public ArrayList<InterfaceElement> Elements = new ArrayList<>();
-    private ArrayList<Slot> slots = new ArrayList<>();
+    public ArrayList<InterfaceElement> Elements = new ArrayList<InterfaceElement>();
+    public ArrayList<Slot> slots = new ArrayList<>();
     private int currX, currY, currZ;
     private String headerText = "";
-    private int size = 0;
 
     private Image actionBar;
 
@@ -47,34 +47,31 @@ public class Interface {
 
     public Layout MainLayout;
 
-    Layout inventoryLayout;
-    Layout switchTabLayout;
-    Layout slotsLayout;
-    Layout optionalLayout;
+    protected Layout inventoryLayout;
+    protected Layout switchTabLayout;
+    protected Layout slotsLayout;
+    protected Layout optionalLayout;
 
-    public Interface(int size, String ID) {
+    public Interface(String ID) {
         this.ID = ID;
 
         text.setColor(64f / 255, 137f / 255, 154f / 255, 1);
         MainLayout = new Layout(Layout.Orientation.VERTICAL);
-        if (size == InterfaceSizes.FULL) {
-            width = Graphic.SCREEN_WIDTH;
-            heigth = Graphic.SCREEN_HEIGHT;
 
-            actionBar = new Image(0, (int) (SCREEN_HEIGHT - BLOCK_SIZE), (int) SCREEN_WIDTH, BLOCK_SIZE);
-            actionBar.setImg(Textures.generateTexture(16, 1, true));
+        width = Graphic.SCREEN_WIDTH;
+        heigth = Graphic.SCREEN_HEIGHT;
 
-            MainLayout.setBackground(TEXTURES.standartBackground_full);
-            MainLayout.setSize(Layout.Size.MATCH_PARENT, Layout.Size.FIXED_SIZE);
-            MainLayout.setSize(0, SCREEN_HEIGHT - BLOCK_SIZE);
-            MainLayout.setGravity(Layout.Gravity.TOP);
-        } else if (size == InterfaceSizes.STANDARD) {
-            width = BLOCK_SIZE * (Graphic.SCREEN_HEIGHT / BLOCK_SIZE - 2);
-            heigth = BLOCK_SIZE * (Graphic.SCREEN_HEIGHT / BLOCK_SIZE - 2);
-        }
+        actionBar = new Image(0, (int) (SCREEN_HEIGHT - BLOCK_SIZE), (int) SCREEN_WIDTH, BLOCK_SIZE);
+        actionBar.setImg(Textures.generateTexture(16, 1, true));
+
+        MainLayout.setBackground(TEXTURES.standartBackground_full);
+        MainLayout.setSize(Layout.Size.MATCH_PARENT, Layout.Size.FIXED_SIZE);
+        MainLayout.setSize(0, SCREEN_HEIGHT - BLOCK_SIZE);
+        MainLayout.setGravity(Layout.Gravity.TOP);
+        MainLayout.setID(ID + "_MainLayout");
         x = (Graphic.SCREEN_WIDTH - width) / 2;
         y = (Graphic.SCREEN_HEIGHT - heigth) / 2;
-        this.size = size;
+
         exitButton = new Button(ID + "_CLOSE_BUTTON", (int) (x + width - Graphic.SCREEN_WIDTH / 16), (int) (y + heigth - Graphic.SCREEN_WIDTH / 16 + Graphic.SCREEN_WIDTH / 64), (int) Graphic.SCREEN_WIDTH / 32, (int) Graphic.SCREEN_WIDTH / 32, TEXTURES.closeButton, TEXTURES.closeButton);
         exitButton.setEventListener(new Button.EventListener() {
             @Override
@@ -84,8 +81,25 @@ public class Interface {
         });
     }
 
-    public void initialize() {
-        Elements.addAll(MainLayout.getElements());
+    public void createFromXml(String XMLString) {
+        try {
+            XmlInterfaceLoader.load(this,XMLString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isElementInInterface(InterfaceElement e) {
+        for (InterfaceElement e1 : Elements) {
+            if (e1.equals(e)) return true;
+        }
+        return false;
+    }
+
+    public void updateElementsList() {
+        for (InterfaceElement e : MainLayout.getElements()) {
+            if (!isElementInInterface(e)) Elements.add(e);
+        }
         for (InterfaceElement e : Elements) {
             if (e instanceof Slot) slots.add((Slot) e);
         }
@@ -118,27 +132,33 @@ public class Interface {
         inventoryLayout.setSize(BLOCK_SIZE * 7.5f, SCREEN_HEIGHT - BLOCK_SIZE * 2f);
         inventoryLayout.setBackground(Textures.generateTexture(7.5f, SCREEN_HEIGHT / BLOCK_SIZE - 2f, false));
         inventoryLayout.setTranslationX(BLOCK_SIZE);
+        inventoryLayout.setID(ID + "_inventoryLayout");
 
         switchTabLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         switchTabLayout.setGravity(Layout.Gravity.LEFT);
         switchTabLayout.setTranslationY(-(BLOCK_SIZE * 0.25f));
+        switchTabLayout.setID(ID + "_switchTabLayout");
 
         slotsLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         slotsLayout.setGravity(Layout.Gravity.TOP);
         slotsLayout.setTranslationY(-BLOCK_SIZE);
+        slotsLayout.setID(ID + "_slotsLayout");
 
         optionalLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         optionalLayout.setSize(BLOCK_SIZE * 6f, SCREEN_HEIGHT - BLOCK_SIZE * 2);
+        optionalLayout.setGravity(Layout.Gravity.TOP);
         optionalLayout.setBackground(Textures.generateTexture(6f, (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 2) / (SCREEN_WIDTH / 16), false));
         optionalLayout.setTranslationX(BLOCK_SIZE / 2f);
+        optionalLayout.setID(ID + "_optionalLayout");
 
         previousTabInv = new Button(ID + "_PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_left_0, TEXTURES.button_left_1);
         nextTabInv = new Button(ID + "_NEXT_INVENTORY_TAB_BUTTON", 0, 0, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_right_0, TEXTURES.button_right_1);
-        Image textBackground = new Image(0, 0, BLOCK_SIZE * 5, BLOCK_SIZE);
 
-        textBackground.setImg(Textures.generateTexture(5f, 1f, true));
+        Text backpackText = new Text();
+        backpackText.setSize(BLOCK_SIZE * 5, BLOCK_SIZE);
+        backpackText.setText(LANGUAGES.getString("backpack"));
 
-        switchTabLayout.addElements(previousTabInv, textBackground, nextTabInv);
+        switchTabLayout.addElements(previousTabInv, backpackText, nextTabInv);
         inventoryLayout.addElements(switchTabLayout, slotsLayout);
 
         for (int y = 0; y < 5; y++) {
@@ -148,7 +168,7 @@ public class Interface {
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
                 String id = "InventorySlot_" + num;
-                Slot s = new Slot(id, 0, 0, BLOCK_SIZE, BLOCK_SIZE);
+                Slot s = new Slot(id, this, 0, 0, BLOCK_SIZE, BLOCK_SIZE);
                 s.isInventorySlot = true;
                 s.setSF(new Slot.SlotFunctions() {
 
@@ -167,6 +187,7 @@ public class Interface {
             slotsLayout.addElements(l);
         }
         MainLayout.addElements(inventoryLayout, optionalLayout);
+        updateElementsList();
         return this;
     }
 
@@ -176,6 +197,8 @@ public class Interface {
         currX = x;
         currY = y;
         currZ = z;
+        onOpen();
+        onOpen(MAPS.map0[y][x][z]);
     }
 
     public void open() {
@@ -190,24 +213,22 @@ public class Interface {
     }
 
     public void swap(Slot a, Slot a1) {
-        if (a1.SF == null || a1.SF.isValid(a.id, a.count, a.data, a.ID)) {
-            int temp = a.id;
-            int temp1 = a.count;
-            int temp2 = a.data;
-            if (a.isInventorySlot) {
-                if (!a1.isInventorySlot && a1.id == 0) {
-                    MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(a.id, a.count, a.data);
-                    PLAYER.Inventory.remove(PLAYER.Inventory.get(a.inventorySlot));
+        int temp = a.id;
+        int temp1 = a.count;
+        int temp2 = a.data;
+        if (a.isInventorySlot) {
+            if (!a1.isInventorySlot && a1.id == 0) {
+                MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(a.id, a.count, a.data);
+                PLAYER.Inventory.remove(PLAYER.Inventory.get(a.inventorySlot));
 
-                }
+            }
+        } else {
+            if (a1.isInventorySlot) {
+                PLAYER.addItem(a.id, a.count, a.data);
+                MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(0, 0, 0);
             } else {
-                if (a1.isInventorySlot) {
-                    PLAYER.addItem(a.id, a.count, a.data);
-                    MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(0, 0, 0);
-                } else {
-                    MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
-                    MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
-                }
+                MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
+                MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
             }
         }
     }
@@ -239,12 +260,10 @@ public class Interface {
     public void update(boolean isGameInterface) {
         if (isOpen) {
             MainLayout.update(INTERFACE_CAMERA);
-            for (InterfaceElement e : Elements) {
-                if (e instanceof Slot) {
-                    ((Slot) e).id = 0;
-                    ((Slot) e).count = 0;
-                    ((Slot) e).data = 0;
-                }
+            for (Slot slot : slots) {
+                slot.id = 0;
+                slot.count = 0;
+                slot.data = 0;
             }
             if (inventory) {
                 for (int j = 0; j < PLAYER.Inventory.size(); j++) {
@@ -278,9 +297,6 @@ public class Interface {
                 if (e.attachedTo instanceof Layout)
                     e.update(INTERFACE_CAMERA);
             }
-            for (Slot slot : slots) {
-                slot.update(slots, this, INTERFACE_CAMERA);
-            }
             tick();
             if (isBlockInterface) tick(MAPS.map0[currY][currX][currZ]);
             exitButton.update(INTERFACE_CAMERA);
@@ -290,22 +306,16 @@ public class Interface {
     public void render() {
         if (isOpen) {
             MainLayout.render(BATCH, INTERFACE_CAMERA);
-            if (size == InterfaceSizes.FULL) {
-                actionBar.render(BATCH, INTERFACE_CAMERA);
-            }
+
+            actionBar.render(BATCH, INTERFACE_CAMERA);
             text.drawMultiLine(BATCH, headerText, x + INTERFACE_CAMERA.X, (y + heigth + INTERFACE_CAMERA.Y) - (SCREEN_WIDTH / 16 - text.getCapHeight()) / 2, width, BitmapFont.HAlignment.CENTER);
+
             preRender();
+
             exitButton.render(BATCH, INTERFACE_CAMERA);
 
             for (InterfaceElement e : Elements) {
-                if (e instanceof Layout)
-                    e.render(BATCH, INTERFACE_CAMERA);
-            }
-            for (InterfaceElement e : Elements) {
                 if (e instanceof Slot) ((Slot) e).itemRender();
-            }
-            if (inventory) {
-                text.drawMultiLine(BATCH, LANGUAGES.getString("backpack"), previousTabInv.X + previousTabInv.width, previousTabInv.Y + previousTabInv.height - ((previousTabInv.height - text.getCapHeight()) / 2), nextTabInv.X - (previousTabInv.X + previousTabInv.width), BitmapFont.HAlignment.CENTER);
             }
             postRender();
         }
@@ -319,14 +329,18 @@ public class Interface {
 
     public void onOpen() {
         MainLayout.hide(false);
-        for(InterfaceElement e : Elements){
+        for (InterfaceElement e : Elements) {
             e.hide(false);
         }
     }
 
+    public void onOpen(Tile tile) {
+
+    }
+
     public void onClose() {
         MainLayout.hide(true);
-        for(InterfaceElement e : Elements){
+        for (InterfaceElement e : Elements) {
             e.hide(true);
         }
     }

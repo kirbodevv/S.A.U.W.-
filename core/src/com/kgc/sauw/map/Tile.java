@@ -97,13 +97,12 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         if (bl.t0 != null) t = TextureRegion.split(bl.t0, bl.t0.getWidth(), bl.t0.getHeight())[0][0];
 
         this.Interface = BLOCKS.getBlockById(id).GUI;
-        /*if (Interface != null)
+        if (Interface != null)
             for (int i = 0; i < Interface.slots.size(); i++) {
                 if (!Interface.slots.get(i).isInventorySlot) {
                     containers.add(new Container(Interface.slots.get(i).ID));
                 }
             }
-*/
         BLOCKS.getBlockById(id).onPlace(this);
 
         damage = bl.getBlockConfiguration().getMaxDamage();

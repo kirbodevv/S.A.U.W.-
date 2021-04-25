@@ -33,8 +33,9 @@ public class CraftingInterface extends Interface {
     int currentTab = 0;
     Texture background1, background2, background3, background4;
     BitmapFont.TextBounds TB;
+
     public CraftingInterface() {
-        super(InterfaceSizes.FULL, "CRAFTING_INTERFACE");
+        super("CRAFTING_INTERFACE");
         setHeaderText(LANGUAGES.getString("crafting")).isBlockInterface(false);
         background1 = TEXTURES.generateTexture(7.5f, (Graphic.SCREEN_HEIGHT - Graphic.SCREEN_WIDTH / 16 * 2) / (Graphic.SCREEN_WIDTH / 16), false);
         background2 = TEXTURES.generateTexture(6f, (Graphic.SCREEN_HEIGHT - Graphic.SCREEN_WIDTH / 16 * 2) / (Graphic.SCREEN_WIDTH / 16), false);
@@ -68,12 +69,12 @@ public class CraftingInterface extends Interface {
         int xx = (int) Graphic.SCREEN_WIDTH / 16 * 9 + (int) Graphic.SCREEN_WIDTH / 32 + (int) Graphic.SCREEN_WIDTH / 16;
         int yy = (int) Graphic.SCREEN_WIDTH / 32 * 5;
         int ww = (int) Graphic.SCREEN_WIDTH / 16;
-        c2 = new Slot("c2", xx + ww * 2, yy + ww, ww, ww);
-        c1 = new Slot("c1", xx + ww, yy + ww, ww, ww);
-        c0 = new Slot("c0", xx, yy + ww, ww, ww);
-        c5 = new Slot("c5", xx + ww * 2, yy, ww, ww);
-        c4 = new Slot("c4", xx + ww, yy, ww, ww);
-        c3 = new Slot("c3", xx, yy, ww, ww);
+        c2 = new Slot("c2", this, xx + ww * 2, yy + ww, ww, ww);
+        c1 = new Slot("c1", this, xx + ww, yy + ww, ww, ww);
+        c0 = new Slot("c0", this, xx, yy + ww, ww, ww);
+        c5 = new Slot("c5", this, xx + ww * 2, yy, ww, ww);
+        c4 = new Slot("c4", this, xx + ww, yy, ww, ww);
+        c3 = new Slot("c3", this, xx, yy, ww, ww);
         Elements.add(c0);
         Elements.add(c1);
         Elements.add(c2);
@@ -106,7 +107,7 @@ public class CraftingInterface extends Interface {
 
             }
         }
-        initialize();
+        updateElementsList();
     }
 
     @Override
@@ -131,6 +132,7 @@ public class CraftingInterface extends Interface {
         BATCH.draw(background3, previos.X + previos.width, previos.Y, next.X - (previos.X + previos.width), previos.height);
         BATCH.draw(background4, SCREEN_WIDTH / 32 * 22, SCREEN_WIDTH / 32 * 10, SCREEN_WIDTH / 16 * 2, SCREEN_WIDTH / 16 * 2);
     }
+
     @Override
     public void postRender() {
         for (int i = currentTab * 30; i < CRAFTING.crafts.size(); i++) {

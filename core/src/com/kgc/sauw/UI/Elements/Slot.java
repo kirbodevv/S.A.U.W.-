@@ -19,13 +19,13 @@ import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.resource.Textures;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class Slot extends InterfaceElement {
     public int id, count, data;
     public Texture slot;
 
-    public boolean isInventorySlot;
+    public boolean isInventorySlot = false;
     public int inventorySlot;
 
 
@@ -41,13 +41,13 @@ public class Slot extends InterfaceElement {
         this.SF = SF;
     }
 
-    public Slot(String ID, float x, float y, float w, float h) {
+    private Interface Interface;
+
+    public Slot(String ID, Interface Interface, float x, float y, float w, float h) {
+        this.Interface = Interface;
         this.X = x;
         this.Y = y;
-        this.width = w;
-        this.height = h;
-        float W = Gdx.graphics.getWidth();
-        this.slot = Textures.generateTexture(w / (W / 16), h / (W / 16), false);
+        setSize(w, h);
         this.ID = ID;
         itemX = x + w / 4;
         itemY = y + h / 4;
@@ -58,8 +58,16 @@ public class Slot extends InterfaceElement {
         IC.setColor(Color.BLACK);
     }
 
-    public void update(ArrayList<Slot> slots, Interface Interface, Camera2D cam) {
-        this.update(cam);
+    @Override
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
+        if (slot != null) slot.dispose();
+        slot = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
+    }
+
+    @Override
+    public void update(Camera2D cam) {
+        super.update(cam);
         if (isTouched()) {
             toItemX = (Gdx.input.getX() + cam.X - height / 4);
             toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
@@ -67,17 +75,9 @@ public class Slot extends InterfaceElement {
             toItemX = cam.X + X + width / 4;
             toItemY = cam.Y + Y + height / 4;
         }
-        itemX = MathUtils.lerp(itemX, toItemX, 0.1f);
-        itemY = MathUtils.lerp(itemY, toItemY, 0.1f);
-        if (wasUp && id != 0) onClick(slots, Interface);
-    }
 
-    public void onClick(ArrayList<Slot> slots, Interface Interface) {
-        for (Slot slot : slots) {
-            if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, (int) itemX + width / 2, (int) itemY + height / 2)) {
-                Interface.sendToSlot(this, slot);
-            }
-        }
+        itemX = MathUtils.lerp(itemX, toItemX, 0.05f);
+        itemY = MathUtils.lerp(itemY, toItemY, 0.05f);
     }
 
     @Override
@@ -90,6 +90,13 @@ public class Slot extends InterfaceElement {
         super.onClick(onButton);
         if (SF != null && onButton) {
             SF.onClick();
+        }
+        if (id != 0) {
+            for (Slot slot : Interface.slots) {
+                if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
+                    Interface.sendToSlot(this, slot);
+                }
+            }
         }
     }
 

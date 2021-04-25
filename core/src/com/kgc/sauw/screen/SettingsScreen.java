@@ -58,7 +58,7 @@ public class SettingsScreen implements Screen {
 		this.t = t;
 		this.MenuScreen = ms;
 		try {
-			availableLangs = new JSONObject(Gdx.files.internal("json/availableLanguages.json").readString());
+			availableLangs = new JSONObject(Gdx.files.internal("json/availableLanguages.json").readString("UTF-8"));
 		} catch (Exception e) {
 
 		}

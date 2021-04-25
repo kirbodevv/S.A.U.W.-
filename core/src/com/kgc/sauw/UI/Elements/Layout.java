@@ -117,7 +117,7 @@ public class Layout extends InterfaceElement {
     @Override
     public void hide(boolean b) {
         super.hide(b);
-        if(!b){
+        if (!b) {
             setElementsPosition();
         }
     }

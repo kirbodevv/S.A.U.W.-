@@ -4,7 +4,7 @@
         <Layout id="PlayerInfoLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
                 translateY="-1bl"
                 marginBottom="0.125bl">
-            <Image id="playerImg" width="1bl" height="2.6bl" imagePosition="CENTER" marginBottom="0.25bl"/>
+            <Image id="playerImg" width="1bl" height="2.6bl" marginBottom="0.25bl"/>
             <Text id="playerWeight" width="4bl" height="0.5bl"/>
         </Layout>
         <Layout id="HotbarLayout" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">

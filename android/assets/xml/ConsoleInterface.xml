@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface header="%Language/console" isBlockInterface="false" Inventory="false">
+    <RootLayout id="MainLayout">
+        <Layout orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT" translateY="-0.5bl">
+            <EditText id="CommandInput" width="12bl" height="1bl"/>
+            <Button id="prevCommand" width="1bl" height="1bl"/>
+            <Button id="nextCommand" width="1bl" height="1bl"/>
+            <Button id="sendCommandButton" width="1bl" height="1bl"/>
+        </Layout>
+        <Image id="log_bg" width="15bl" height="77%H"/>
+    </RootLayout>
+</Interface>

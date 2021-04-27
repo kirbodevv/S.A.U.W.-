@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface header="%Language/chest" isBlockInterface="true" Inventory="true">
+    <RootLayout id="optionalLayout">
+        <Layout id="" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
+                translateY="-0.25bl">
+            <Text id="chestText" width="5bl" height="1bl" text="%Language/chest"/>
+            <Layout id="chestSlotsLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT">
+                <Layout id="slots0" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT" translateY="-0.25bl">
+                    <Slot id="chestSlot_0" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_1" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_2" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_3" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots1" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+                    <Slot id="chestSlot_4" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_5" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_6" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_7" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots2" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+                    <Slot id="chestSlot_8" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_9" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_10" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_11" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots3" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+                    <Slot id="chestSlot_12" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_13" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_14" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_15" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots4" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+                    <Slot id="chestSlot_16" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_17" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_18" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="chestSlot_19" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+            </Layout>
+        </Layout>
+    </RootLayout>
+</Interface>

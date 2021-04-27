@@ -174,11 +174,11 @@ public class Layout extends InterfaceElement {
         return null;
     }
 
-    public ArrayList<InterfaceElement> getElements() {
+    public ArrayList<InterfaceElement> getAllElements() {
         ArrayList<InterfaceElement> elements = new ArrayList<>();
         for (InterfaceElement e : this.elements) {
             elements.add(e);
-            if (e instanceof Layout) elements.addAll(((Layout) e).getElements());
+            if (e instanceof Layout) elements.addAll(((Layout) e).getAllElements());
         }
         return elements;
     }

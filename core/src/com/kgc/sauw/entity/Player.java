@@ -258,7 +258,6 @@ public class Player implements ExtraData {
     }
 
     public Player() {
-        System.out.println(SPEED_RATIO_X);
         this.playerBody = new Rectangle();
         this.playerBody.setSize(plW, plH);
         for (int i = 0; i < hotbar.length; i++) {

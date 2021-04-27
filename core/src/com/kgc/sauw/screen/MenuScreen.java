@@ -10,6 +10,7 @@ import java.util.*;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Interface;
 
+import com.kgc.sauw.UI.Interfaces.CreateNewWorldInterface;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.resource.Music;
@@ -45,7 +46,7 @@ public class MenuScreen implements Screen {
     Button up;
     Button down;
     private String result = "";
-    Interface createWorldInterface;
+    CreateNewWorldInterface createWorldInterface;
     JSONObject data;
     private Music music;
     public SettingsScreen SettingsScreen;
@@ -53,7 +54,6 @@ public class MenuScreen implements Screen {
     BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
     private int worldSelIndex = 0;
-    String[] worldNames;
 
     public MenuScreen(final MainGame game) {
         WIDTH = Gdx.graphics.getWidth();
@@ -110,39 +110,36 @@ public class MenuScreen implements Screen {
             }
         });
 
-        final FileHandle worldsFolder = Gdx.files.external("S.A.U.W./Worlds/");
-        FileHandle[] files = worldsFolder.list();
-        int i = 0;
-        for (FileHandle file : files) {
-            if (file.isDirectory()) i++;
-        }
-
-        worldNames = new String[i];
-        int ii = 0;
-        for (int j = 0; j < files.length; j++) {
-            if (files[j].isDirectory()) worldNames[ii] = files[j].name();
-            ii++;
-        }
+        createWorldInterface = new CreateNewWorldInterface();
+        createWorldInterface.create.setEventListener(new Button.EventListener() {
+            @Override
+            public void onClick() {
+                for (String name : createWorldInterface.worldNames) {
+                    if (createWorldInterface.worldName.input.equals(name)) return;
+                }
+                loadGame(createWorldInterface.worldName.input);
+            }
+        });
 
         sel_0 = new Button("MENU_SCREEN_WORLD_SELECTOR_1", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
         sel_0.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                loadGame(worldNames[worldSelIndex]);
+                loadGame(createWorldInterface.worldNames[worldSelIndex]);
             }
         });
         sel_1 = new Button("MENU_SCREEN_WORLD_SELECTOR_2", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
         sel_1.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                loadGame(worldNames[worldSelIndex + 1]);
+                loadGame(createWorldInterface.worldNames[worldSelIndex + 1]);
             }
         });
         sel_2 = new Button("MENU_SCREEN_WORLD_SELECTOR_3", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
         sel_2.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                loadGame(worldNames[worldSelIndex + 2]);
+                loadGame(createWorldInterface.worldNames[worldSelIndex + 2]);
             }
         });
         closeButton = new Button("MENU_SCREEN_CLOSE_WORLD_SELECTOR", 0, (h - w / 16), w / 16, w / 16, TEXTURES.button_left_0, TEXTURES.button_left_1);
@@ -152,58 +149,7 @@ public class MenuScreen implements Screen {
                 StartGameMenu = false;
             }
         });
-        createWorldInterface = new Interface("CREATE_NEW_WORLD_INTERFACE");
-        createWorldInterface.setHeaderText(LANGUAGES.getString("createNewWorld"));
-        /*createWorldInterface.setInterfaceEvents(new InterfaceEvents() {
-            EditText worldName;
-            Button create;
-            BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
-            @Override
-            public void initialize() {
-                worldName = new EditText((int) (Interface.x + WIDTH / 16), (int) (Interface.y + Interface.heigth - WIDTH / 16 * 3), WIDTH / 16 * 9, WIDTH / 16, INPUT_MULTIPLEXER);
-                bf.setScale(WIDTH / 16 / 2 / bf.getCapHeight());
-                bf.setColor(Color.BLACK);
-                create = new Button("CREATE_NEW_WORLD_INTERFACE_CREATE_BUTTON", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 3, WIDTH / 16);
-                create.setText(LANGUAGES.getString("create"));
-                create.setEventListener(new Button.EventListener() {
-                    @Override
-                    public void onClick() {
-                        for (int i = 0; i < worldNames.length; i++) {
-                            if (worldName.input.equals(worldNames[i])) return;
-                        }
-                        loadGame(worldName.input);
-                    }
-                });
-                Interface.buttons.add(create);
-            }
-
-            @Override
-            public void tick() {
-                worldName.update(MENU_CAMERA);
-            }
-
-            @Override
-            public void onOpen() {
-                worldName.input = LANGUAGES.getString("newWorld");
-                worldName.hide(false);
-            }
-
-            @Override
-            public void onClose() {
-                worldName.hide(true);
-            }
-
-            @Override
-            public void renderBefore() {
-            }
-
-            @Override
-            public void render() {
-                bf.draw(BATCH, LANGUAGES.getString("WorldName"), worldName.X + MENU_CAMERA.X, worldName.Y + worldName.height + WIDTH / 16 + MENU_CAMERA.Y);
-                worldName.render(BATCH, MENU_CAMERA);
-            }
-        });*/
         createNewWorld = new Button("CREATE_NEW_WORLD_BUTTON", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
         createNewWorld.setText(LANGUAGES.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener() {
@@ -229,7 +175,7 @@ public class MenuScreen implements Screen {
             @Override
             public void onClick() {
                 worldSelIndex++;
-                if (worldSelIndex >= worldNames.length) worldSelIndex = worldNames.length - 1;
+                if (worldSelIndex >= createWorldInterface.worldNames.length) worldSelIndex = createWorldInterface.worldNames.length - 1;
                 HideButtonsIfNeed();
                 setSelectButtonsText();
             }
@@ -249,17 +195,17 @@ public class MenuScreen implements Screen {
     }
 
     public void setSelectButtonsText() {
-        if (!sel_0.isHidden() && worldSelIndex < worldNames.length) sel_0.setText(worldNames[worldSelIndex]);
-        if (!sel_1.isHidden() && worldSelIndex + 1 < worldNames.length) sel_1.setText(worldNames[worldSelIndex + 1]);
-        if (!sel_2.isHidden() && worldSelIndex + 2 < worldNames.length) sel_2.setText(worldNames[worldSelIndex + 2]);
+        if (!sel_0.isHidden() && worldSelIndex < createWorldInterface.worldNames.length) sel_0.setText(createWorldInterface.worldNames[worldSelIndex]);
+        if (!sel_1.isHidden() && worldSelIndex + 1 < createWorldInterface.worldNames.length) sel_1.setText(createWorldInterface.worldNames[worldSelIndex + 1]);
+        if (!sel_2.isHidden() && worldSelIndex + 2 < createWorldInterface.worldNames.length) sel_2.setText(createWorldInterface.worldNames[worldSelIndex + 2]);
     }
 
     public void HideButtonsIfNeed() {
-        if (worldSelIndex >= worldNames.length) sel_0.hide(true);
+        if (worldSelIndex >= createWorldInterface.worldNames.length) sel_0.hide(true);
         else sel_0.hide(false);
-        if (worldSelIndex + 1 >= worldNames.length) sel_1.hide(true);
+        if (worldSelIndex + 1 >= createWorldInterface.worldNames.length) sel_1.hide(true);
         else sel_1.hide(false);
-        if (worldSelIndex + 2 >= worldNames.length) sel_2.hide(true);
+        if (worldSelIndex + 2 >= createWorldInterface.worldNames.length) sel_2.hide(true);
         else sel_2.hide(false);
     }
 
@@ -293,7 +239,7 @@ public class MenuScreen implements Screen {
             modsButton.render(BATCH, MENU_CAMERA);
             exitButton.render(BATCH, MENU_CAMERA);
             BATCH.draw(TEXTURES.SAUWCoin, MENU_CAMERA.X + w / 32, MENU_CAMERA.Y + h - w / 16, w / 32, w / 32);
-            bf.setScale(w / 768);
+            bf.setScale(w / 768f);
             bf.draw(BATCH, SAUW_coins + "", MENU_CAMERA.X + w / 16 + w / 64, MENU_CAMERA.Y + h - w / 32);
         } else {
             if (!createWorldInterface.isOpen) {

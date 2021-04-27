@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.kgc.sauw.UI.Interfaces.Interfaces;
+import com.kgc.sauw.game.SAUW;
 
 import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.CRAFTING_INTERFACE;
@@ -28,32 +29,34 @@ public final class Input {
 
         @Override
         public boolean keyUp(int keycode) {
-            if (!isAnyInterfaceOpen()) {
-                if (keycode == Keys.ESCAPE) {
-                    if (!PAUSE_INTERFACE.isOpen) PAUSE_INTERFACE.open();
-                }
-                if (keycode == Keys.TAB) {
-                    if (!INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.open();
-                }
-                if (keycode == Keys.F1) {
-                    if (SETTINGS.useConsole) if (!CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.open();
-                }
-                if (keycode == Keys.C) {
-                    if (!CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.open();
-                }
-            } else {
-                if (keycode == Keys.ESCAPE) {
-                    Interfaces.closeInterface();
-                }
-                if (keycode == Keys.TAB) {
-                    if (INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.close();
-                }
-                if (keycode == Keys.F1) {
-                    if (SETTINGS.useConsole)
-                        if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.close();
-                }
-                if (keycode == Keys.C) {
-                    if (CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.close();
+            if (SAUW.isGameRunning) {
+                if (!isAnyInterfaceOpen()) {
+                    if (keycode == Keys.ESCAPE) {
+                        if (!PAUSE_INTERFACE.isOpen) PAUSE_INTERFACE.open();
+                    }
+                    if (keycode == Keys.TAB) {
+                        if (!INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.open();
+                    }
+                    if (keycode == Keys.F1) {
+                        if (SETTINGS.useConsole) if (!CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.open();
+                    }
+                    if (keycode == Keys.C) {
+                        if (!CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.open();
+                    }
+                } else {
+                    if (keycode == Keys.ESCAPE) {
+                        Interfaces.closeInterface();
+                    }
+                    if (keycode == Keys.TAB) {
+                        if (INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.close();
+                    }
+                    if (keycode == Keys.F1) {
+                        if (SETTINGS.useConsole)
+                            if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.close();
+                    }
+                    if (keycode == Keys.C) {
+                        if (CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.close();
+                    }
                 }
             }
             return false;

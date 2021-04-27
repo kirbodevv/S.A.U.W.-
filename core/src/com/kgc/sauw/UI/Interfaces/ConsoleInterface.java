@@ -5,10 +5,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.UI.Elements.Button;
 import com.kgc.sauw.UI.Elements.EditText;
+import com.kgc.sauw.UI.Elements.Image;
+import com.kgc.sauw.UI.Elements.Layout;
 import com.kgc.sauw.UI.Interface;
+import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.utils.Units;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import sun.applet.Main;
 
 import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
@@ -29,47 +34,52 @@ public class ConsoleInterface extends Interface {
     String inputTxt = "";
     public Context cx;
     public Scriptable sc;
+    private Image log;
 
     public ConsoleInterface() {
         super("CONSOLE_INTERFACE");
-        setHeaderText(LANGUAGES.getString("console")).isBlockInterface(false);
-        int inW = (int) (width - SCREEN_WIDTH / 8 - SCREEN_WIDTH / 32);
-        input = new EditText((int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), inW, (int) SCREEN_WIDTH / 16, INPUT_MULTIPLEXER);
-        log_bg = TEXTURES.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), ((heigth - SCREEN_WIDTH / 16) - (SCREEN_WIDTH / 8)) / (SCREEN_WIDTH / 16), false);
-        nextCommand = new Button("CONSOLE_INTERFACE_NEXT_COMMAND_BUTTON", input.X + input.width, (int) (y + SCREEN_WIDTH / 16), (int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), TEXTURES.button_up_0, TEXTURES.button_up_1);
-        prevCommand = new Button("CONSOLE_INTERFACE_NEXT_COMMAND_BUTTON", input.X + input.width, (int) (y + SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), (int) (SCREEN_WIDTH / 32), TEXTURES.button_down_0, TEXTURES.button_down_1);
-               nextCommand.setEventListener(new Button.EventListener() {
-                    @Override
-                    public void onClick() {
-                        currCom++;
-                        if (currCom >= MOD_API.Console.inputs.size()) {
-                            currCom = MOD_API.Console.inputs.size() - 1;
-                        }
-                        if (currCom != -1) {
-                            input.input = MOD_API.Console.input(currCom);
-                        } else {
-                            input.input = inputTxt;
-                        }
-                    }
-                });
-                prevCommand.setEventListener(new Button.EventListener() {
-                    @Override
-                    public void onClick() {
-                        currCom--;
-                        if (currCom < 0) {
-                            currCom = -1;
-                        }
-                        if (currCom != -1) {
-                            input.input = MOD_API.Console.input(currCom);
-                        } else {
-                            input.input = inputTxt;
-                        }
-                    }
-                });
-        sendCommandButton = new Button("CONSOLE_INTERFACE_SEND_COMMAND_BUTTON", input.X + input.width + (int) (SCREEN_WIDTH / 32), input.Y, (int) SCREEN_WIDTH / 16, (int) SCREEN_WIDTH / 16, TEXTURES.button_right_0, TEXTURES.button_right_1);
-        Elements.add(sendCommandButton);
-        Elements.add(nextCommand);
-        Elements.add(prevCommand);
+        createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml").readString());
+
+        log_bg = Textures.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), Units.fromStringToPx("77%H") / BLOCK_SIZE, false);
+        input = (EditText) getElement("CommandInput");
+        sendCommandButton = (Button) getElement("sendCommandButton");
+        log = ((Image) getElement("log_bg"));
+        log.setImg(log_bg);
+
+        nextCommand = (Button) getElement("nextCommand");
+        prevCommand = (Button) getElement("prevCommand");
+
+        nextCommand.setTextures(TEXTURES.button_right_0, TEXTURES.button_right_1);
+        prevCommand.setTextures(TEXTURES.button_left_0, TEXTURES.button_left_1);
+
+        nextCommand.setEventListener(new Button.EventListener() {
+            @Override
+            public void onClick() {
+                currCom++;
+                if (currCom >= MOD_API.Console.inputs.size()) {
+                    currCom = MOD_API.Console.inputs.size() - 1;
+                }
+                if (currCom != -1) {
+                    input.input = MOD_API.Console.input(currCom);
+                } else {
+                    input.input = inputTxt;
+                }
+            }
+        });
+        prevCommand.setEventListener(new Button.EventListener() {
+            @Override
+            public void onClick() {
+                currCom--;
+                if (currCom < 0) {
+                    currCom = -1;
+                }
+                if (currCom != -1) {
+                    input.input = MOD_API.Console.input(currCom);
+                } else {
+                    input.input = inputTxt;
+                }
+            }
+        });
         GAME_INTERFACE.Log.setColor(Color.BLACK);
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
@@ -83,31 +93,12 @@ public class ConsoleInterface extends Interface {
         } finally {
             Context.exit();
         }
-        input.input = "give(1, 1, 0);";
         updateElementsList();
     }
 
     @Override
-    public void preRender() {
-        BATCH.draw(log_bg, x + SCREEN_WIDTH / 32, y + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 16, width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16, (heigth - SCREEN_WIDTH / 16) - (SCREEN_WIDTH / 8));
-    }
-
-    @Override
     public void postRender() {
-        GAME_INTERFACE.Log.drawWrapped(BATCH, GAME_INTERFACE.logText, x + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 64, y + heigth - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32 - SCREEN_WIDTH / 64, SCREEN_WIDTH - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32);
-        input.render(BATCH, INTERFACE_CAMERA);
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-        //input.hide(true);
-    }
-
-    @Override
-    public void onOpen() {
-        super.onOpen();
-        //input.hide(false);
+        GAME_INTERFACE.Log.drawWrapped(BATCH, GAME_INTERFACE.logText, x + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 64, log.Y + log.height - BLOCK_SIZE / 4f, SCREEN_WIDTH - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32);
     }
 
     @Override
@@ -117,7 +108,7 @@ public class ConsoleInterface extends Interface {
         if (currCom == -1) {
             inputTxt = input.input;
         }
-        if (sendCommandButton.isTouched() && input.input != null && input.input != "") {
+        if (sendCommandButton.isTouched() && input.input != null && !input.input.equals("")) {
             cx = Context.enter();
             cx.setOptimizationLevel(-1);
             try {
@@ -131,11 +122,8 @@ public class ConsoleInterface extends Interface {
             MOD_API.Console.inputs.add(input.input);
             input.clear();
         }
-        //input.Y = input.isKeyboardOpen ? game.keyboardHeight : (int) (Interface.y + SCREEN_WIDTH / 32);
         if (input.Y == 0) input.Y = (int) (y + SCREEN_WIDTH / 32);
         sendCommandButton.Y = input.Y;
-        prevCommand.Y = input.Y;
-        nextCommand.Y = prevCommand.Y + prevCommand.height;
         input.update(INTERFACE_CAMERA);
     }
 }

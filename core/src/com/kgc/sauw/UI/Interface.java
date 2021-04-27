@@ -6,16 +6,7 @@ import com.kgc.sauw.UI.Elements.*;
 import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.resource.Textures;
-import com.kgc.sauw.utils.Units;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
 import java.util.ArrayList;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
@@ -24,7 +15,7 @@ import static com.kgc.sauw.map.World.MAPS;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class Interface {
-    public String ID;
+    private String ID;
 
     public boolean isOpen = false;
     public boolean isBlockInterface;
@@ -68,11 +59,12 @@ public class Interface {
         MainLayout.setSize(Layout.Size.MATCH_PARENT, Layout.Size.FIXED_SIZE);
         MainLayout.setSize(0, SCREEN_HEIGHT - BLOCK_SIZE);
         MainLayout.setGravity(Layout.Gravity.TOP);
-        MainLayout.setID(ID + "_MainLayout");
+        MainLayout.setID("MainLayout");
+
         x = (Graphic.SCREEN_WIDTH - width) / 2;
         y = (Graphic.SCREEN_HEIGHT - heigth) / 2;
 
-        exitButton = new Button(ID + "_CLOSE_BUTTON", (int) (x + width - Graphic.SCREEN_WIDTH / 16), (int) (y + heigth - Graphic.SCREEN_WIDTH / 16 + Graphic.SCREEN_WIDTH / 64), (int) Graphic.SCREEN_WIDTH / 32, (int) Graphic.SCREEN_WIDTH / 32, TEXTURES.closeButton, TEXTURES.closeButton);
+        exitButton = new Button("CLOSE_BUTTON", (int) (x + width - Graphic.SCREEN_WIDTH / 16), (int) (y + heigth - Graphic.SCREEN_WIDTH / 16 + Graphic.SCREEN_WIDTH / 64), (int) Graphic.SCREEN_WIDTH / 32, (int) Graphic.SCREEN_WIDTH / 32, TEXTURES.closeButton, TEXTURES.closeButton);
         exitButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -83,7 +75,7 @@ public class Interface {
 
     public void createFromXml(String XMLString) {
         try {
-            XmlInterfaceLoader.load(this,XMLString);
+            XmlInterfaceLoader.load(this, XMLString);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,12 +88,21 @@ public class Interface {
         return false;
     }
 
+    private boolean isElementInSlotsArray(Slot slot) {
+        for (Slot slot1 : slots) {
+            if (slot1.equals(slot)) return true;
+        }
+        return false;
+    }
+
     public void updateElementsList() {
-        for (InterfaceElement e : MainLayout.getElements()) {
+        for (InterfaceElement e : MainLayout.getAllElements()) {
             if (!isElementInInterface(e)) Elements.add(e);
         }
         for (InterfaceElement e : Elements) {
-            if (e instanceof Slot) slots.add((Slot) e);
+            if (e instanceof Slot) {
+                if (!isElementInSlotsArray((Slot) e)) slots.add((Slot) e);
+            }
         }
     }
 
@@ -115,7 +116,7 @@ public class Interface {
         return this;
     }
 
-    public Interface createInventory() {
+    public void createInventory() {
         inventory = true;
 
         inventoryLayout = new Layout(Layout.Orientation.VERTICAL);
@@ -132,31 +133,32 @@ public class Interface {
         inventoryLayout.setSize(BLOCK_SIZE * 7.5f, SCREEN_HEIGHT - BLOCK_SIZE * 2f);
         inventoryLayout.setBackground(Textures.generateTexture(7.5f, SCREEN_HEIGHT / BLOCK_SIZE - 2f, false));
         inventoryLayout.setTranslationX(BLOCK_SIZE);
-        inventoryLayout.setID(ID + "_inventoryLayout");
+        inventoryLayout.setID("inventoryLayout");
 
         switchTabLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         switchTabLayout.setGravity(Layout.Gravity.LEFT);
         switchTabLayout.setTranslationY(-(BLOCK_SIZE * 0.25f));
-        switchTabLayout.setID(ID + "_switchTabLayout");
+        switchTabLayout.setID("switchTabLayout");
 
         slotsLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         slotsLayout.setGravity(Layout.Gravity.TOP);
-        slotsLayout.setTranslationY(-BLOCK_SIZE);
-        slotsLayout.setID(ID + "_slotsLayout");
+        slotsLayout.setTranslationY(-BLOCK_SIZE / 4f);
+        slotsLayout.setID("slotsLayout");
 
         optionalLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         optionalLayout.setSize(BLOCK_SIZE * 6f, SCREEN_HEIGHT - BLOCK_SIZE * 2);
         optionalLayout.setGravity(Layout.Gravity.TOP);
         optionalLayout.setBackground(Textures.generateTexture(6f, (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 2) / (SCREEN_WIDTH / 16), false));
         optionalLayout.setTranslationX(BLOCK_SIZE / 2f);
-        optionalLayout.setID(ID + "_optionalLayout");
+        optionalLayout.setID("optionalLayout");
 
-        previousTabInv = new Button(ID + "_PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_left_0, TEXTURES.button_left_1);
-        nextTabInv = new Button(ID + "_NEXT_INVENTORY_TAB_BUTTON", 0, 0, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_right_0, TEXTURES.button_right_1);
+        previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_left_0, TEXTURES.button_left_1);
+        nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_right_0, TEXTURES.button_right_1);
 
         Text backpackText = new Text();
         backpackText.setSize(BLOCK_SIZE * 5, BLOCK_SIZE);
         backpackText.setText(LANGUAGES.getString("backpack"));
+        backpackText.setID("BackpackText");
 
         switchTabLayout.addElements(previousTabInv, backpackText, nextTabInv);
         inventoryLayout.addElements(switchTabLayout, slotsLayout);
@@ -165,6 +167,7 @@ public class Interface {
             Layout l = new Layout(Layout.Orientation.HORIZONTAL);
             l.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
             l.setGravity(Layout.Gravity.LEFT);
+            l.setID("InventoryLayout_" + y);
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
                 String id = "InventorySlot_" + num;
@@ -188,7 +191,6 @@ public class Interface {
         }
         MainLayout.addElements(inventoryLayout, optionalLayout);
         updateElementsList();
-        return this;
     }
 
     public void open(int x, int y, int z) {
@@ -219,8 +221,8 @@ public class Interface {
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
                 MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(a.id, a.count, a.data);
+                System.out.println(PLAYER.Inventory.size());
                 PLAYER.Inventory.remove(PLAYER.Inventory.get(a.inventorySlot));
-
             }
         } else {
             if (a1.isInventorySlot) {
@@ -259,7 +261,6 @@ public class Interface {
 
     public void update(boolean isGameInterface) {
         if (isOpen) {
-            MainLayout.update(INTERFACE_CAMERA);
             for (Slot slot : slots) {
                 slot.id = 0;
                 slot.count = 0;
@@ -286,16 +287,13 @@ public class Interface {
                     }
                 }
             }
+            MainLayout.update(INTERFACE_CAMERA);
             if (isGameInterface) {
                 for (int i = 0; i < MAPS.map0[currY][currX][currZ].containers.size(); i++) {
                     getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).id = MAPS.map0[currY][currX][currZ].containers.get(i).getId();
                     getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).count = MAPS.map0[currY][currX][currZ].containers.get(i).getCount();
                     getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).data = MAPS.map0[currY][currX][currZ].containers.get(i).getData();
                 }
-            }
-            for (InterfaceElement e : Elements) {
-                if (e.attachedTo instanceof Layout)
-                    e.update(INTERFACE_CAMERA);
             }
             tick();
             if (isBlockInterface) tick(MAPS.map0[currY][currX][currZ]);

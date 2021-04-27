@@ -92,6 +92,7 @@ public class Slot extends InterfaceElement {
             SF.onClick();
         }
         if (id != 0) {
+            System.out.println(Interface.slots.size());
             for (Slot slot : Interface.slots) {
                 if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
                     Interface.sendToSlot(this, slot);

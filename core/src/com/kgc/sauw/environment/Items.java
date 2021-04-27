@@ -37,33 +37,6 @@ public class Items {
         addItem(new Campfire());
     }
 
-    /* public void createItem(int id, float weight, String name, Texture t, int type, int maxCount, int maxData) {
-         ITEMS.add(new Item(id, name, t, type, maxCount, maxData));
-         getItemById(id).weight = weight;
-     }
-
-     public void createItem(int id, float weight, String name, Texture t, int type, int bi, int maxCount, int maxData) {
-         ITEMS.add(new Item(id, name, t, type, bi, maxCount, maxData));
-         getItemById(id).weight = weight;
-     }
-
-     public void createItem(int id, float weight, String StringId, String name, Texture t, int type, int bi, int maxCount, int maxData) {
-         ITEMS.add(new Item(id, StringId, name, t, type, bi, maxCount, maxData));
-         getItemById(id).weight = weight;
-     }
-
-     public void createItem(int id, float weight, String StringId, String name, Texture t, int type, int maxCount, int maxData) {
-         ITEMS.add(new Item(id, StringId, name, t, type, maxCount, maxData));
-         getItemById(id).weight = weight;
-     }
-
-     public void createItem(String StringId, float weight, String name, Texture t, int type, int bi, int maxCount, int maxData) {
-         createItem(getFirstFreeId(), weight, StringId, name, t, type, bi, maxCount, maxData);
-     }
-
-     public void createItem(String StringId, float weight, String name, Texture t, int type, int maxCount, int maxData) {
-         createItem(getFirstFreeId(), weight, StringId, name, t, type, maxCount, maxData);
-     }*/
     public void addItem(Item item) {
         ITEMS.add(item);
     }
@@ -77,30 +50,10 @@ public class Items {
         return ITEMS.size() + 1;
     }
 
-    /*public void createItems(FileHandle folder, FileHandle TexturesFolder) {
-        try {
-            FileHandle[] craftFiles = folder.list();
-            for (FileHandle file : craftFiles) {
-                JSONObject item = new JSONObject(file.readString());
-
-                String itemId = item.getString("id");
-                String itemName = item.getString("itemName");
-                Texture texture = new Texture(Gdx.files.external(TexturesFolder + "/" + item.getString("Texture")));
-                int type = item.getInt("itemType");
-                int maxCount = item.getInt("maxCount");
-                int maxData = item.getInt("maxData");
-                float weight = (float) item.getDouble("weight");
-                createItem(itemId, weight, itemName, texture, type, maxCount, maxData);
-            }
-        } catch (Exception e) {
-            Gdx.app.log("ModAPI_CreateItemError", e.toString());
-        }
-    }*/
-
     public Texture getTextureById(int id) {
-        for (int i = 0; i < ITEMS.size(); i++) {
-            if (ITEMS.get(i).id == id) {
-                return ITEMS.get(i).t;
+        for (Item item : ITEMS) {
+            if (item.id == id) {
+                return item.t;
             }
         }
         return TEXTURES.undf;

@@ -8,7 +8,6 @@ import com.kgc.sauw.Modding.ModAPI;
 import com.kgc.sauw.Modding.Mods;
 import com.kgc.sauw.UI.Elements.Elements;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.utils.Units;
 
 import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
 import static com.kgc.sauw.config.Settings.SETTINGS;
@@ -21,12 +20,14 @@ import static com.kgc.sauw.map.World.WORLD;
 public class SAUW implements Screen {
     private int camX, camY;
 
+    public static boolean isGameRunning;
     public static final Mods MODS;
     public static final ModAPI MOD_API;
 
     static {
         MOD_API = new ModAPI();
         MODS = new Mods();
+        isGameRunning = false;
     }
 
     private MainGame game;
@@ -49,6 +50,21 @@ public class SAUW implements Screen {
             WORLD.load(worldName);
         }
         MODS.load();
+        isGameRunning = true;
+        setCameraPosition();
+
+        GAME_CAMERA.lookAt(camX, camY, false);
+    }
+
+    public void setCameraPosition() {
+        camX = (int) ((PLAYER.posX + (PLAYER.plW / 2)) - (GAME_CAMERA.W / 2));
+        camY = (int) (PLAYER.posY + (PLAYER.plH / 2) - (GAME_CAMERA.H / 2));
+        if (camX < SCREEN_WIDTH / 16) camX = (int) SCREEN_WIDTH / 16;
+        if (camY < SCREEN_WIDTH / 16) camY = (int) SCREEN_WIDTH / 16;
+        if (camX + GAME_CAMERA.W > (WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16))
+            camX = (int) ((WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.W);
+        if (camY + GAME_CAMERA.H > (WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16))
+            camY = (int) ((WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.H);
     }
 
     @Override
@@ -76,17 +92,9 @@ public class SAUW implements Screen {
         GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
         WORLD.update(MODS, ACHIEVEMENTS);
 
-
-        camX = (int) ((PLAYER.posX + (PLAYER.plW / 2)) - (GAME_CAMERA.W / 2));
-        camY = (int) (PLAYER.posY + (PLAYER.plH / 2) - (GAME_CAMERA.H / 2));
-        if (camX < SCREEN_WIDTH / 16) camX = (int) SCREEN_WIDTH / 16;
-        if (camY < SCREEN_WIDTH / 16) camY = (int) SCREEN_WIDTH / 16;
-        if (camX + GAME_CAMERA.W > (WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16))
-            camX = (int) ((WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.W);
-        if (camY + GAME_CAMERA.H > (WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16))
-            camY = (int) ((WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.H);
-
+        setCameraPosition();
         GAME_CAMERA.lookAt(camX, camY, true);
+
         BATCH.end();
     }
 

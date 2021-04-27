@@ -12,9 +12,9 @@ import com.kgc.sauw.utils.Camera2D;
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 
 public class Text extends InterfaceElement {
-    Texture background;
-    private static final BitmapFont bitmapFont;
+    private Texture background;
     private String txt = "";
+    private static final BitmapFont bitmapFont;
     private static final float capHeight;
 
     static {
@@ -40,7 +40,8 @@ public class Text extends InterfaceElement {
     }
 
     public void setTextScale() {
-        bitmapFont.setScale(height / 2 / capHeight);
+        if (height != 0)
+            bitmapFont.setScale(height / 2f / capHeight);
     }
 
     public void setColor(int r, int g, int b) {

@@ -1,6 +1,7 @@
 package com.kgc.sauw.UI;
 
 import com.kgc.sauw.UI.Elements.*;
+import com.kgc.sauw.utils.StringUtils;
 import com.kgc.sauw.utils.Units;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
 
 public class XmlInterfaceLoader {
     public static void load(Interface Interface, String xmlString) throws ParserConfigurationException, IOException, SAXException {
@@ -28,11 +30,8 @@ public class XmlInterfaceLoader {
     private static void createFromXml(Document doc, Interface Interface) {
         Element root = doc.getDocumentElement();
 
-        if (root.getAttribute("header").contains("%Language")) {
-            Interface.setHeaderText(LANGUAGES.getString(root.getAttribute("header").substring(10)));
-        } else {
-            Interface.setHeaderText(root.getAttribute("header"));
-        }
+        Interface.setHeaderText(StringUtils.getString(root.getAttribute("header")));
+
         Interface.isBlockInterface(Boolean.parseBoolean(root.getAttribute("isBlockInterface")));
         if (Boolean.parseBoolean(root.getAttribute("Inventory"))) Interface.createInventory();
 
@@ -46,15 +45,6 @@ public class XmlInterfaceLoader {
                     if (n.item(j).getNodeType() == Node.ELEMENT_NODE) {
                         Element e = (Element) n.item(j);
                         addElement(rootLayout.getAttribute("id"), e, Interface);
-                        /*if (e.getNodeName().equals("Layout")) {
-                            NodeList childNodes = e.getChildNodes();
-                            for (int k = 0; k < childNodes.getLength(); k++) {
-                                if (childNodes.item(k).getNodeType() == Node.ELEMENT_NODE) {
-                                    Element childElement = (Element) childNodes.item(k);
-                                    addElement(e.getAttribute("id"), childElement, Interface);
-                                }
-                            }
-                        }*/
                     }
                 }
             }
@@ -63,12 +53,13 @@ public class XmlInterfaceLoader {
 
     public static void addElement(String rootLayoutId, Element element, Interface Interface) {
         Layout rootLayout = null;
+        System.out.println(element.getNodeName());
         for (InterfaceElement e : Interface.Elements) {
             if (e.ID != null) {
-                System.out.println(Interface.ID + "_" + rootLayoutId);
-                if (e instanceof Layout && e.ID.equals(Interface.ID + "_" + rootLayoutId)) rootLayout = (Layout) e;
+                if (e instanceof Layout && e.ID.equals(rootLayoutId)) rootLayout = (Layout) e;
             }
         }
+        if (rootLayoutId.equals("MainLayout")) rootLayout = Interface.MainLayout;
         if (rootLayout != null) {
             InterfaceElement InterfaceElement = null;
             switch (element.getNodeName()) {
@@ -89,6 +80,12 @@ public class XmlInterfaceLoader {
                 case "Slot":
                     InterfaceElement = new Slot("", Interface, 0, 0, 0, 0);
                     ((Slot) InterfaceElement).isInventorySlot = Boolean.parseBoolean(element.getAttribute("isInventorySlot"));
+                    break;
+                case "EditText":
+                    InterfaceElement = new EditText(0, 0, 0, 0, INPUT_MULTIPLEXER);
+                    break;
+                case "Slider":
+                    InterfaceElement = new Slider(0, 0, 0, 0);
                     break;
             }
             if (InterfaceElement != null) {
@@ -122,7 +119,13 @@ public class XmlInterfaceLoader {
                 }
 
                 if (!element.getAttribute("id").equals("")) {
-                    InterfaceElement.setID(Interface.ID + "_" + element.getAttribute("id"));
+                    InterfaceElement.setID(element.getAttribute("id"));
+                }
+                if (InterfaceElement instanceof Text) {
+                    ((Text) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
+                }
+                if (InterfaceElement instanceof Button) {
+                    ((Button) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
                 }
             }
 

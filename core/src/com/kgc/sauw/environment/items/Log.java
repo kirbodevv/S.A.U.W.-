@@ -1,11 +1,13 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class Log extends Item {
     public Log() {
-        super(8);
+        super(ID.registeredId("item:log"));
 
         this.t = TEXTURES.log;
 

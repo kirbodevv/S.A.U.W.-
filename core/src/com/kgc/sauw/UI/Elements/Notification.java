@@ -1,11 +1,11 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.UI.InterfaceElement;
+import com.kgc.sauw.ui.InterfaceElement;
 
 public class Notification extends InterfaceElement {
 	private Texture background;

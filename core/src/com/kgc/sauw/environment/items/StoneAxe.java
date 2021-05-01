@@ -1,11 +1,13 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class StoneAxe extends InstrumentItem {
     public StoneAxe() {
-        super(15, 128, Type.AXE);
+        super(ID.registeredId("item:stone_axe"), 128, Type.AXE);
 
         this.t = TEXTURES.stone_axe;
         ItemConfiguration.weight = 5.75f;

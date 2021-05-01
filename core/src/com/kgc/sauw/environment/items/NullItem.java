@@ -1,8 +1,10 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 public class NullItem extends Item {
     public NullItem() {
-        super(0);
+        super(ID.registeredId("item:void"));
         this.t = null;
         ItemConfiguration.name = null;
         ItemConfiguration.weight = 0f;

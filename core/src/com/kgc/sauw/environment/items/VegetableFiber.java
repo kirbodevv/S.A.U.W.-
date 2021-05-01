@@ -1,11 +1,13 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class VegetableFiber extends Item {
     public VegetableFiber() {
-        super(18);
+        super(ID.registeredId("item:vegetable_fiber"));
 
         this.t = TEXTURES.vegetable_fiber;
 

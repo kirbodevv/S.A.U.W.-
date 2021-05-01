@@ -1,10 +1,8 @@
-package com.kgc.sauw.Modding;
-
-import com.kgc.sauw.UI.GameInterface;
+package com.kgc.sauw.modding;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
 
 public class Console {
     public ArrayList<String> inputs = new ArrayList<String>();

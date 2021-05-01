@@ -8,7 +8,9 @@ public class Maths {
     public static boolean rectCrossing(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
         return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
     }
-
+    public static boolean rectCrossing(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2) {
+        return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
+    }
     public static boolean isLiesOnRect(float x, float y, float w, float h, float px, float py) {
         if (px > x && px < x + w && py > y && py < y + h)
             return true;
@@ -113,7 +115,9 @@ public class Maths {
     public static double distanceD(int x1, int y1, int x2, int y2) {
         return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
-
+    public static double distanceD(float x1, float y1, float x2, float y2) {
+        return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    }
     public static double distanceD(Vector2d v1, Vector2d v2) {
         return Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y));
     }

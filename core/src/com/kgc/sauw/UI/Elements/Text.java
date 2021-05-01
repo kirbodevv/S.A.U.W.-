@@ -1,28 +1,19 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.UI.InterfaceElement;
 import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.ui.InterfaceElement;
 import com.kgc.sauw.utils.Camera2D;
 
-import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class Text extends InterfaceElement {
     private Texture background;
     private String txt = "";
-    private static final BitmapFont bitmapFont;
-    private static final float capHeight;
-
-    static {
-        bitmapFont = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-        capHeight = bitmapFont.getCapHeight();
-    }
-
-    Color textColor = new Color(64f / 255, 137f / 255, 154f / 255, 1);
+    private final Color textColor = new Color(64f / 255, 137f / 255, 154f / 255, 1);
 
     @Override
     public void setSize(float w, float h) {
@@ -34,14 +25,14 @@ public class Text extends InterfaceElement {
     public void setText(String text) {
         txt = text;
         setTextScale();
-        if (bitmapFont.getBounds(text).width > this.width) {
-            setSize(height / 2 + (int) bitmapFont.getBounds(text).width, this.height);
+        if (BITMAP_FONT.getBounds(text).width > this.width) {
+            setSize(height / 2 + (int) BITMAP_FONT.getBounds(text).width, this.height);
         }
     }
 
     public void setTextScale() {
         if (height != 0)
-            bitmapFont.setScale(height / 2f / capHeight);
+            BITMAP_FONT.setScale(height / 2f / BITMAP_FONT_CAP_HEIGHT);
     }
 
     public void setColor(int r, int g, int b) {
@@ -52,8 +43,8 @@ public class Text extends InterfaceElement {
     @Override
     public void render(SpriteBatch batch, Camera2D cam) {
         setTextScale();
-        bitmapFont.setColor(textColor);
+        BITMAP_FONT.setColor(textColor);
         batch.draw(background, cam.X + X, cam.Y + Y, width, height);
-        bitmapFont.drawMultiLine(batch, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, BitmapFont.HAlignment.CENTER);
+        BITMAP_FONT.drawMultiLine(batch, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, BitmapFont.HAlignment.CENTER);
     }
 }

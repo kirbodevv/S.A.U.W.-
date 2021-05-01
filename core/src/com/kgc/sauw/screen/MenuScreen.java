@@ -1,32 +1,23 @@
 package com.kgc.sauw.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.*;
-
-import java.util.*;
-
-import com.kgc.sauw.UI.Elements.Button;
-import com.kgc.sauw.UI.Interface;
-
-import com.kgc.sauw.UI.Interfaces.CreateNewWorldInterface;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.resource.Music;
+import com.kgc.sauw.ui.elements.Button;
+import com.kgc.sauw.ui.interfaces.CreateNewWorldInterface;
 import org.json.JSONObject;
-
-import com.badlogic.gdx.files.FileHandle;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class MenuScreen implements Screen {
-    boolean gameStart = false;
     MainGame game;
-    Random random = new Random();
-    int xC, yC;
     int w, h;
     int WIDTH;
     Button startButton;
@@ -35,8 +26,6 @@ public class MenuScreen implements Screen {
     Button exitButton;
 
     Button closeButton;
-    float tmr;
-    int camX, camY;
     boolean StartGameMenu = false;
     int SAUW_coins = 0;
     Button sel_0;
@@ -45,7 +34,6 @@ public class MenuScreen implements Screen {
     Button createNewWorld;
     Button up;
     Button down;
-    private String result = "";
     CreateNewWorldInterface createWorldInterface;
     JSONObject data;
     private Music music;
@@ -68,7 +56,7 @@ public class MenuScreen implements Screen {
         }
         try {
             FileHandle data = Gdx.files.external("S.A.U.W./User/data.json");
-            result = data.readString();
+            String result = data.readString();
             this.data = new JSONObject(result);
 
             SAUW_coins = this.data.getInt("SAUW_Coins");
@@ -81,28 +69,28 @@ public class MenuScreen implements Screen {
 
         SettingsScreen = new SettingsScreen(game, TEXTURES, this);
         ModsScreen = new ModsScreen(game, TEXTURES, this);
-        startButton = new Button("MENU_SCREEN_START_BUTTON", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
+        startButton = new Button("MENU_SCREEN_START_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 5 + w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
         startButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 StartGameMenu = true;
             }
         });
-        settingsButton = new Button("MENU_SCREEN_SETTINGS_BUTTON", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
+        settingsButton = new Button("MENU_SCREEN_SETTINGS_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 6, BLOCK_SIZE * 6, BLOCK_SIZE);
         settingsButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 game.setScreen(SettingsScreen);
             }
         });
-        modsButton = new Button("MENU_SCREEN_MODS_BUTTON", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
+        modsButton = new Button("MENU_SCREEN_MODS_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 7 - w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
         modsButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 game.setScreen(ModsScreen);
             }
         });
-        exitButton = new Button("MENU_SCREEN_EXIT_BUTTON", w / 16 * 5, h - w / 16 * 8 - w / 128 * 2, w / 16 * 6, w / 16);
+        exitButton = new Button("MENU_SCREEN_EXIT_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 8 - w / 128 * 2, BLOCK_SIZE * 6, BLOCK_SIZE);
         exitButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -121,28 +109,28 @@ public class MenuScreen implements Screen {
             }
         });
 
-        sel_0 = new Button("MENU_SCREEN_WORLD_SELECTOR_1", w / 16 * 5, h - w / 16 * 5 + w / 128, w / 16 * 6, w / 16);
+        sel_0 = new Button("MENU_SCREEN_WORLD_SELECTOR_1", BLOCK_SIZE * 5, h - BLOCK_SIZE * 5 + w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
         sel_0.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 loadGame(createWorldInterface.worldNames[worldSelIndex]);
             }
         });
-        sel_1 = new Button("MENU_SCREEN_WORLD_SELECTOR_2", w / 16 * 5, h - w / 16 * 6, w / 16 * 6, w / 16);
+        sel_1 = new Button("MENU_SCREEN_WORLD_SELECTOR_2", BLOCK_SIZE * 5, h - BLOCK_SIZE * 6, BLOCK_SIZE * 6, BLOCK_SIZE);
         sel_1.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 loadGame(createWorldInterface.worldNames[worldSelIndex + 1]);
             }
         });
-        sel_2 = new Button("MENU_SCREEN_WORLD_SELECTOR_3", w / 16 * 5, h - w / 16 * 7 - w / 128, w / 16 * 6, w / 16);
+        sel_2 = new Button("MENU_SCREEN_WORLD_SELECTOR_3", BLOCK_SIZE * 5, h - BLOCK_SIZE * 7 - w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
         sel_2.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 loadGame(createWorldInterface.worldNames[worldSelIndex + 2]);
             }
         });
-        closeButton = new Button("MENU_SCREEN_CLOSE_WORLD_SELECTOR", 0, (h - w / 16), w / 16, w / 16, TEXTURES.button_left_0, TEXTURES.button_left_1);
+        closeButton = new Button("MENU_SCREEN_CLOSE_WORLD_SELECTOR", 0, (h - BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_left_0, TEXTURES.button_left_1);
         closeButton.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -150,7 +138,7 @@ public class MenuScreen implements Screen {
             }
         });
 
-        createNewWorld = new Button("CREATE_NEW_WORLD_BUTTON", WIDTH / 32, WIDTH / 32, WIDTH / 16 * 6, WIDTH / 16);
+        createNewWorld = new Button("CREATE_NEW_WORLD_BUTTON", BLOCK_SIZE / 2f, BLOCK_SIZE / 2f, BLOCK_SIZE * 6, BLOCK_SIZE);
         createNewWorld.setText(LANGUAGES.getString("createNewWorld"));
         createNewWorld.setEventListener(new Button.EventListener() {
             @Override
@@ -160,7 +148,7 @@ public class MenuScreen implements Screen {
         });
         HideButtonsIfNeed();
         setSelectButtonsText();
-        up = new Button("MENU_SCREEN_WORLD_SELECTOR_UP_BUTTON", w / 32 * 23, sel_0.Y, w / 16, w / 16, TEXTURES.button_up_0, TEXTURES.button_up_1);
+        up = new Button("MENU_SCREEN_WORLD_SELECTOR_UP_BUTTON", BLOCK_SIZE / 2f * 23, sel_0.Y, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_up_0, TEXTURES.button_up_1);
         up.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -170,12 +158,13 @@ public class MenuScreen implements Screen {
                 setSelectButtonsText();
             }
         });
-        down = new Button("MENU_SCREEN_WORLD_SELECTOR_DOWN_BUTTON", w / 32 * 23, sel_2.Y, w / 16, w / 16, TEXTURES.button_down_0, TEXTURES.button_down_1);
+        down = new Button("MENU_SCREEN_WORLD_SELECTOR_DOWN_BUTTON", BLOCK_SIZE / 2f * 23, sel_2.Y, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_down_0, TEXTURES.button_down_1);
         down.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 worldSelIndex++;
-                if (worldSelIndex >= createWorldInterface.worldNames.length) worldSelIndex = createWorldInterface.worldNames.length - 1;
+                if (worldSelIndex >= createWorldInterface.worldNames.length)
+                    worldSelIndex = createWorldInterface.worldNames.length - 1;
                 HideButtonsIfNeed();
                 setSelectButtonsText();
             }
@@ -195,18 +184,18 @@ public class MenuScreen implements Screen {
     }
 
     public void setSelectButtonsText() {
-        if (!sel_0.isHidden() && worldSelIndex < createWorldInterface.worldNames.length) sel_0.setText(createWorldInterface.worldNames[worldSelIndex]);
-        if (!sel_1.isHidden() && worldSelIndex + 1 < createWorldInterface.worldNames.length) sel_1.setText(createWorldInterface.worldNames[worldSelIndex + 1]);
-        if (!sel_2.isHidden() && worldSelIndex + 2 < createWorldInterface.worldNames.length) sel_2.setText(createWorldInterface.worldNames[worldSelIndex + 2]);
+        if (!sel_0.isHidden() && worldSelIndex < createWorldInterface.worldNames.length)
+            sel_0.setText(createWorldInterface.worldNames[worldSelIndex]);
+        if (!sel_1.isHidden() && worldSelIndex + 1 < createWorldInterface.worldNames.length)
+            sel_1.setText(createWorldInterface.worldNames[worldSelIndex + 1]);
+        if (!sel_2.isHidden() && worldSelIndex + 2 < createWorldInterface.worldNames.length)
+            sel_2.setText(createWorldInterface.worldNames[worldSelIndex + 2]);
     }
 
     public void HideButtonsIfNeed() {
-        if (worldSelIndex >= createWorldInterface.worldNames.length) sel_0.hide(true);
-        else sel_0.hide(false);
-        if (worldSelIndex + 1 >= createWorldInterface.worldNames.length) sel_1.hide(true);
-        else sel_1.hide(false);
-        if (worldSelIndex + 2 >= createWorldInterface.worldNames.length) sel_2.hide(true);
-        else sel_2.hide(false);
+        sel_0.hide(worldSelIndex >= createWorldInterface.worldNames.length);
+        sel_1.hide(worldSelIndex + 1 >= createWorldInterface.worldNames.length);
+        sel_2.hide(worldSelIndex + 2 >= createWorldInterface.worldNames.length);
     }
 
     @Override
@@ -228,7 +217,7 @@ public class MenuScreen implements Screen {
             }
         }
         BATCH.setColor(1, 1, 1, 1);
-        BATCH.draw(TEXTURES.logo, MENU_CAMERA.X + w / 16 * 5, MENU_CAMERA.Y + h - w / 16 * 4, w / 16 * 6, w / 16 * 3);
+        BATCH.draw(TEXTURES.logo, MENU_CAMERA.X + BLOCK_SIZE * 5, MENU_CAMERA.Y + h - BLOCK_SIZE * 4, BLOCK_SIZE * 6, BLOCK_SIZE * 3);
         if (!StartGameMenu) {
             startButton.update(MENU_CAMERA);
             settingsButton.update(MENU_CAMERA);
@@ -238,9 +227,9 @@ public class MenuScreen implements Screen {
             settingsButton.render(BATCH, MENU_CAMERA);
             modsButton.render(BATCH, MENU_CAMERA);
             exitButton.render(BATCH, MENU_CAMERA);
-            BATCH.draw(TEXTURES.SAUWCoin, MENU_CAMERA.X + w / 32, MENU_CAMERA.Y + h - w / 16, w / 32, w / 32);
+            BATCH.draw(TEXTURES.SAUWCoin, MENU_CAMERA.X + BLOCK_SIZE / 2f, MENU_CAMERA.Y + h - BLOCK_SIZE, BLOCK_SIZE / 2f, BLOCK_SIZE / 2f);
             bf.setScale(w / 768f);
-            bf.draw(BATCH, SAUW_coins + "", MENU_CAMERA.X + w / 16 + w / 64, MENU_CAMERA.Y + h - w / 32);
+            bf.draw(BATCH, SAUW_coins + "", MENU_CAMERA.X + BLOCK_SIZE + w / 64, MENU_CAMERA.Y + h - BLOCK_SIZE / 2f);
         } else {
             if (!createWorldInterface.isOpen) {
                 sel_0.update(MENU_CAMERA);

@@ -2,37 +2,30 @@ package com.kgc.sauw.map;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
-import com.badlogic.gdx.Input;
-import com.kgc.sauw.UI.Container;
-import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.UI.Interface;
-import com.kgc.sauw.entity.Player;
-import com.kgc.sauw.environment.Blocks;
-import com.kgc.sauw.environment.Environment;
-import com.kgc.sauw.environment.Items;
-import com.kgc.sauw.environment.blocks.Block;
-import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.entity.ItemEntity;
-import com.kgc.sauw.entity.Entities;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.intbyte.bdb.DataBuffer;
+import com.intbyte.bdb.ExtraDataFactory;
+import com.kgc.sauw.entity.ItemEntityL;
+import com.kgc.sauw.environment.Environment;
+import com.kgc.sauw.environment.blocks.Block;
+import com.kgc.sauw.math.Maths;
+import com.kgc.sauw.ui.Container;
+import com.kgc.sauw.ui.Interface;
+import com.kgc.sauw.utils.ExtraData;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.intbyte.bdb.DataBuffer;
-import com.intbyte.bdb.ExtraDataFactory;
-import com.kgc.sauw.utils.Camera2D;
-import com.kgc.sauw.utils.ExtraData;
-
-import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
-import static com.kgc.sauw.graphic.Graphic.GAME_CAMERA;
+import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
+import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
 
 public class Tile implements com.intbyte.bdb.ExtraData {
     public static class TileEntityFactory implements ExtraDataFactory {
@@ -45,16 +38,12 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     public int id;
     public int x, y, z;
     public int damage;
-    public int biomId = 0;
-    private int instrumentType;
     public Interface Interface = null;
-    float timer;
     public TextureRegion t;
     public Rectangle block;
-    private int WIDTH = Gdx.graphics.getWidth();
 
-    public ArrayList<ExtraData> extraData = new ArrayList<ExtraData>();
-    public ArrayList<Container> containers = new ArrayList<Container>();
+    public ArrayList<ExtraData> extraData = new ArrayList<>();
+    public ArrayList<Container> containers = new ArrayList<>();
 
     public PointLight PL;
     public Body body;
@@ -92,7 +81,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         this.z = Z;
         this.id = bl.id;
         this.block = new Rectangle();
-        this.block.setPosition(X * WIDTH / 16 + bl.getBlockConfiguration().getCollisionsRectangle().x, Y * WIDTH / 16 + bl.getBlockConfiguration().getCollisionsRectangle().y);
+        this.block.setPosition(X * BLOCK_SIZE + bl.getBlockConfiguration().getCollisionsRectangle().x, Y * BLOCK_SIZE + bl.getBlockConfiguration().getCollisionsRectangle().y);
         this.block.setSize(bl.getBlockConfiguration().getCollisionsRectangle().width, bl.getBlockConfiguration().getCollisionsRectangle().height);
         if (bl.t0 != null) t = TextureRegion.split(bl.t0, bl.t0.getWidth(), bl.t0.getHeight())[0][0];
 
@@ -106,7 +95,6 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         BLOCKS.getBlockById(id).onPlace(this);
 
         damage = bl.getBlockConfiguration().getMaxDamage();
-        instrumentType = bl.getBlockConfiguration().getInstrumentType();
 
     }
 
@@ -116,15 +104,15 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 
     public void setLight(RayHandler rh, Block bl) {
         if (bl.getBlockConfiguration().getLightingRadius() != -1) {
-            PL = new PointLight(rh, 100, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getLightingRadius() * WIDTH / 16, x * WIDTH / 16 + WIDTH / 32, y * WIDTH / 16 + WIDTH / 32);
+            PL = new PointLight(rh, 100, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getLightingRadius() * BLOCK_SIZE, x * BLOCK_SIZE + BLOCK_SIZE / 2f, y * BLOCK_SIZE + BLOCK_SIZE / 2f);
             PL.attachToBody(body);
         }
     }
 
     public Container getContainer(String ID) {
-        for (int i = 0; i < containers.size(); i++) {
-            if (containers.get(i).ID.equals(ID)) {
-                return containers.get(i);
+        for (Container container : containers) {
+            if (container.ID.equals(ID)) {
+                return container;
             }
         }
         return null;
@@ -155,36 +143,35 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         return null;
     }
 
-    public int hit() {
+    public void hit() {
         damage -= 1;
-        return 1;
 
     }
 
-    public void update(Entities Entities) {
+    public void update() {
         if (damage <= 0 && id != 4) {
             WORLD.setBlock(x, y, z, BLOCKS.getBlockById(id).getBlockConfiguration().getBlockIdAfterDestroy());
             if (BLOCKS.getBlockById(id).getBlockConfiguration().getDrop() != null) {
                 for (int i = 0; i < BLOCKS.getBlockById(id).getBlockConfiguration().getDrop().length; i++) {
                     Random r = new Random();
-                    int xx = r.nextInt(WIDTH / 16) + WIDTH / 16 * x;
-                    int yy = r.nextInt(WIDTH / 16) + WIDTH / 16 * y;
-                    Entities.spawn(new ItemEntity(xx, yy, BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1], 0));
+                    int xx = r.nextInt(BLOCK_SIZE) + BLOCK_SIZE * x;
+                    int yy = r.nextInt(BLOCK_SIZE) + BLOCK_SIZE * y;
+                    ENTITIES.spawn(new ItemEntityL(xx, yy, BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1], 0));
                 }
             }
         }
         BLOCKS.getBlockById(id).tick(this);
         if (Gdx.input.isTouched() && !GAME_INTERFACE.isTouched()) {
-            double sc = (double) GAME_CAMERA.W / WIDTH;
+            double sc = (double) GAME_CAMERA.W / SCREEN_WIDTH;
             int cX = (int) (Gdx.input.getX() * sc + GAME_CAMERA.X);
             int cY = (int) (GAME_CAMERA.H - Gdx.input.getY() * sc + GAME_CAMERA.Y);
-            int bX = (cX - (cX % (WIDTH / 16))) / (WIDTH / 16);
-            int bY = (cY - (cY % (WIDTH / 16))) / (WIDTH / 16);
+            int bX = (cX - (cX % BLOCK_SIZE)) / BLOCK_SIZE;
+            int bY = (cY - (cY % BLOCK_SIZE)) / BLOCK_SIZE;
             if (bX == x && bY == y) {
                 Environment.BLOCKS.getBlockById(id).click(this);
             }
         }
-        if ((GAME_INTERFACE.interactionButton.wasClicked || Gdx.input.isKeyPressed(Input.Keys.E)) && Maths.distance(x, y, PLAYER.currentTileX, PLAYER.currentTileY) <= 1.5 && ((PLAYER.currentTileY + 1 == y && PLAYER.rot == 0) || (PLAYER.currentTileX + 1 == x && PLAYER.rot == 1) || (PLAYER.currentTileY - 1 == y && PLAYER.rot == 2) || (PLAYER.currentTileX - 1 == x && PLAYER.rot == 3))) {
+        if ((GAME_INTERFACE.interactionButton.wasClicked || Gdx.input.isKeyPressed(Input.Keys.E)) && Maths.distance(x, y, PLAYER.getCurrentTileX(), PLAYER.getCurrentTileY()) <= 1.5 && ((PLAYER.getCurrentTileY() + 1 == y && PLAYER.rotation == 0) || (PLAYER.getCurrentTileX() + 1 == x && PLAYER.rotation == 1) || (PLAYER.getCurrentTileY() - 1 == y && PLAYER.rotation == 2) || (PLAYER.getCurrentTileX() - 1 == x && PLAYER.rotation == 3))) {
             Environment.BLOCKS.getBlockById(id).onInteractionButtonPressed(this);
             if (Interface != null)
                 if (!Interface.isOpen)

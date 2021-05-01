@@ -12,7 +12,6 @@ public class Textures {
 	public Texture door;
 	public Texture grass0;
 	public Texture player;
-	//public Texture slot;
 	public Texture selected_slot;
 	public Texture undf;
 	public Texture stone;
@@ -171,12 +170,8 @@ public class Textures {
 		int blockSize = texture.getWidth();
 		int width = (int)(blockSize * w);
 		int height = (int)(blockSize * h);
-		Gdx.app.log("genW", width + "");
-		Gdx.app.log("genH", height + "");
 		Pixmap pixmap = new Pixmap(width, height, Pixmap.Format.RGBA8888);
-		//pixmap.setColor(204f / 255, 204f / 255, 204f / 255, 1);
 		pixmap.setBlending(Pixmap.Blending.None);
-		//pixmap.fill();
 
 		int x = (int)(Math.floor(w) + ((w - Math.floor(w) > 0) ? 1 : 0));
 		int y = (int)(Math.floor(h) + ((h - Math.floor(h) > 0) ? 1 : 0));
@@ -273,12 +268,8 @@ public class Textures {
 		button_left_1           = generateTexture(1, 1, false, "Interface/button_left_0.png");
 		button_right_0          = generateTexture(1, 1, true, "Interface/button_right_0.png");
 		button_right_1          = generateTexture(1, 1, false, "Interface/button_right_0.png");
-		/*button1_0               = new Texture(Gdx.files.internal("Interface/button1_0.png"));
-		 button1_1               = new Texture(Gdx.files.internal("Interface/button1_1.png"));*/
-		//log_intr                = new Texture(Gdx.files.internal("Interface/log_intr.png"));
 		crafting_button_0       = generateTexture(1, 1, true, "Interface/crafting_button_0.png");
 		crafting_button_1       = generateTexture(1, 1, false, "Interface/crafting_button_0.png");
-		//input_background        = new Texture(Gdx.files.internal("Interface/input_background.png"));
 		console_button_0        = generateTexture(1, 1, true, "Interface/console_button_0.png");
 		console_button_1        = generateTexture(1, 1, false, "Interface/console_button_0.png");
         switch_0                = new Texture(Gdx.files.internal("Interface/switch_0.png"));
@@ -342,16 +333,12 @@ public class Textures {
 		button_left_1.dispose();
 		button_right_0.dispose();
 		button_right_1.dispose();
-		/*button1_0.dispose();
-		 button1_1.dispose();*/
-		//log_intr.dispose();
 		stick.dispose();
 		log.dispose();
 		crafting_button_0.dispose();
 		crafting_button_1.dispose();
 		stick_1.dispose();
 		wood.dispose();
-		//Notification_background.dispose();
 		clown.dispose();
 		SAUWCoin.dispose();
 		stone_1.dispose();

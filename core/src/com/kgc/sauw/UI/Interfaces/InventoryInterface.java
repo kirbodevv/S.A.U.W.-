@@ -1,12 +1,12 @@
-package com.kgc.sauw.UI.Interfaces;
+package com.kgc.sauw.ui.interfaces;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.UI.Elements.Image;
-import com.kgc.sauw.UI.Elements.Slot;
-import com.kgc.sauw.UI.Elements.Text;
-import com.kgc.sauw.UI.Interface;
+import com.kgc.sauw.ui.elements.Image;
+import com.kgc.sauw.ui.elements.Slot;
+import com.kgc.sauw.ui.elements.Text;
+import com.kgc.sauw.ui.Interface;
 
 import java.text.DecimalFormat;
 
@@ -61,6 +61,11 @@ public class InventoryInterface extends Interface {
                 }
 
                 @Override
+                public boolean possibleToDrag() {
+                    return true;
+                }
+
+                @Override
                 public boolean isValid(int id, int count, int data, String FromSlotWithId) {
                     if (FromSlotWithId.contains("InventorySlot_")) {
                         for (int i = 0; i < PLAYER.hotbar.length; i++) {
@@ -84,13 +89,13 @@ public class InventoryInterface extends Interface {
         for (int i = 0; i < hotbarslots.length; i++) {
             if (PLAYER.hotbar[i] != -1) {
                 hotbarslots[i].id = PLAYER.getItemFromHotbar(i).id;
-                hotbarslots[i].count = PLAYER.Inventory.get(PLAYER.hotbar[i]).count;
+                hotbarslots[i].count = PLAYER.Inventory.containers.get(PLAYER.hotbar[i]).count;
             }
         }
         timer += Gdx.graphics.getRawDeltaTime();
         if (timer >= 6) {
             stateTime += Gdx.graphics.getDeltaTime();
-            if (PLAYER.weight < PLAYER.maxWeight) {
+            if (PLAYER.itemsWeight < PLAYER.maxWeight) {
                 currentFrame = playerAnim.getKeyFrame(stateTime, true);
                 if (playerAnim.getKeyFrameIndex(stateTime) == 4) {
                     timer = 0;
@@ -108,6 +113,6 @@ public class InventoryInterface extends Interface {
 
         }
         playerImg.setImg(currentFrame);
-        playerWeight.setText(DF.format(PLAYER.weight) + " | " + DF.format(PLAYER.maxWeight) + " Kg");
+        playerWeight.setText(DF.format(PLAYER.itemsWeight) + " | " + DF.format(PLAYER.maxWeight) + " Kg");
     }
 }

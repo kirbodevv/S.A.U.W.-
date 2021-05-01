@@ -1,4 +1,4 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

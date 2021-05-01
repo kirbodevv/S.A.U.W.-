@@ -1,11 +1,11 @@
-package com.kgc.sauw.UI.Interfaces;
+package com.kgc.sauw.ui.interfaces;
 
-import com.kgc.sauw.UI.Elements.Button;
-import com.kgc.sauw.UI.Elements.Image;
-import com.kgc.sauw.UI.Elements.Layout;
-import com.kgc.sauw.UI.Elements.Text;
-import com.kgc.sauw.UI.Interface;
-import com.kgc.sauw.UI.InterfaceElement;
+import com.kgc.sauw.ui.elements.Button;
+import com.kgc.sauw.ui.elements.Image;
+import com.kgc.sauw.ui.elements.Layout;
+import com.kgc.sauw.ui.elements.Text;
+import com.kgc.sauw.ui.Interface;
+import com.kgc.sauw.ui.InterfaceElement;
 
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
@@ -26,7 +26,7 @@ public class TestInterface extends Interface {
         button1.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                for (InterfaceElement e : com.kgc.sauw.UI.Elements.Elements.UI_ELEMENTS)
+                for (InterfaceElement e : com.kgc.sauw.ui.elements.Elements.UI_ELEMENTS)
                     System.out.println(e.ID);
             }
         });

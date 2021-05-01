@@ -1,10 +1,12 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Stick extends Item {
     public Stick() {
-        super(7);
+        super(ID.registeredId("item:stick"));
 
         this.t = TEXTURES.stick;
     }

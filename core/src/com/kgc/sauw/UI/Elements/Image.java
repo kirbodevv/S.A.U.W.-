@@ -1,9 +1,9 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.UI.InterfaceElement;
+import com.kgc.sauw.ui.InterfaceElement;
 import com.kgc.sauw.utils.Camera2D;
 
 public class Image extends InterfaceElement {

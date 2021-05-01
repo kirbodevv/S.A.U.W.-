@@ -1,8 +1,8 @@
-package com.kgc.sauw.UI.Interfaces.blockInterfaces;
+package com.kgc.sauw.ui.interfaces.blockInterfaces;
 
-import com.kgc.sauw.UI.Container;
-import com.kgc.sauw.UI.Elements.Slot;
-import com.kgc.sauw.UI.Interface;
+import com.kgc.sauw.ui.Container;
+import com.kgc.sauw.ui.elements.Slot;
+import com.kgc.sauw.ui.Interface;
 import com.kgc.sauw.map.Tile;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
@@ -38,6 +38,11 @@ public class FurnaceInterface extends Interface {
             @Override
             public void onClick() {
 
+            }
+
+            @Override
+            public boolean possibleToDrag() {
+                return true;
             }
         });
         Elements.add(resultSlot);

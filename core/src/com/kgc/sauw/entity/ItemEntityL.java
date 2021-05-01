@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 
-public class ItemEntity extends Entity {
-	public ItemEntity(int x, int y, int iI, int iC, int iD){
+public class ItemEntityL extends EntityL {
+	public ItemEntityL(int x, int y, int iI, int iC, int iD){
 		this.type = 0;
 		setExtraData("itemId", iI);
 		setExtraData("itemCount", iC);

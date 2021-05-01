@@ -1,13 +1,12 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
-import com.kgc.sauw.UI.InterfaceElement;
+import com.kgc.sauw.ui.InterfaceElement;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.resource.Textures;
 
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;

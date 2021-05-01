@@ -4,15 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.kgc.sauw.Modding.ModAPI;
-import com.kgc.sauw.Modding.Mods;
-import com.kgc.sauw.UI.Elements.Elements;
+import com.kgc.sauw.AchievementsChecker;
+import com.kgc.sauw.WorldLoader;
+import com.kgc.sauw.graphic.Animator;
+import com.kgc.sauw.modding.ModAPI;
+import com.kgc.sauw.modding.Mods;
+import com.kgc.sauw.physic.Physic;
+import com.kgc.sauw.ui.elements.Elements;
 import com.kgc.sauw.resource.Music;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
+import static com.kgc.sauw.resource.Files.loadPlayerData;
+import static com.kgc.sauw.ui.interfaces.Interfaces.*;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.environment.Environment.ACHIEVEMENTS;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
@@ -43,11 +47,13 @@ public class SAUW implements Screen {
 
         music.setMusicVolume(SETTINGS.musicVolume);
 
+        loadPlayerData();
+
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             WORLD.createNewWorld();
-            WORLD.save(worldName);
+            WorldLoader.save(worldName);
         } else {
-            WORLD.load(worldName);
+            WorldLoader.load(worldName);
         }
         MODS.load();
         isGameRunning = true;
@@ -57,10 +63,10 @@ public class SAUW implements Screen {
     }
 
     public void setCameraPosition() {
-        camX = (int) ((PLAYER.posX + (PLAYER.plW / 2)) - (GAME_CAMERA.W / 2));
-        camY = (int) (PLAYER.posY + (PLAYER.plH / 2) - (GAME_CAMERA.H / 2));
-        if (camX < SCREEN_WIDTH / 16) camX = (int) SCREEN_WIDTH / 16;
-        if (camY < SCREEN_WIDTH / 16) camY = (int) SCREEN_WIDTH / 16;
+        camX = (int) ((PLAYER.getPosition().x + (PLAYER.getSize().x / 2)) - (GAME_CAMERA.W / 2));
+        camY = (int) (PLAYER.getPosition().y + (PLAYER.getSize().y  / 2) - (GAME_CAMERA.H / 2));
+        if (camX < BLOCK_SIZE) camX = BLOCK_SIZE;
+        if (camY < BLOCK_SIZE) camY = BLOCK_SIZE;
         if (camX + GAME_CAMERA.W > (WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16))
             camX = (int) ((WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.W);
         if (camY + GAME_CAMERA.H > (WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16))
@@ -71,6 +77,9 @@ public class SAUW implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        Physic.update();
+        Animator.update();
 
         music.setMusicVolume(SETTINGS.musicVolume);
         GAME_CAMERA.update(BATCH);
@@ -83,14 +92,15 @@ public class SAUW implements Screen {
         if (isAnyInterfaceOpen()) BATCH.setColor(0.5f, 0.5f, 0.5f, 1);
         WORLD.renderLowLayer();
         WORLD.renderHighLayer();
-        WORLD.renderEntitys();
+        WORLD.renderEntities();
         WORLD.renderLights();
         if (isAnyInterfaceOpen()) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
-        if (SETTINGS.debugRenderer) DR.render(WORLD.world, GAME_CAMERA.CAMERA.combined);
+        if (SETTINGS.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
-        WORLD.update(MODS, ACHIEVEMENTS);
+        WORLD.update(MODS);
+        //AchievementsChecker.update();
 
         setCameraPosition();
         GAME_CAMERA.lookAt(camX, camY, true);

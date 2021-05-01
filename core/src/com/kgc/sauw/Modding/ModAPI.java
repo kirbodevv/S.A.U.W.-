@@ -1,4 +1,4 @@
-package com.kgc.sauw.Modding;
+package com.kgc.sauw.modding;
 
 public class ModAPI {
     public Console Console;

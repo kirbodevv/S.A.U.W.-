@@ -1,6 +1,6 @@
-package com.kgc.sauw.UI;
+package com.kgc.sauw.ui;
 
-import com.kgc.sauw.UI.Elements.*;
+import com.kgc.sauw.ui.elements.*;
 import com.kgc.sauw.utils.StringUtils;
 import com.kgc.sauw.utils.Units;
 import org.w3c.dom.Document;
@@ -16,8 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
-import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
+import static com.kgc.sauw.input.Input.INPUT_MULTIPLEXER;
 
 public class XmlInterfaceLoader {
     public static void load(Interface Interface, String xmlString) throws ParserConfigurationException, IOException, SAXException {
@@ -53,7 +52,6 @@ public class XmlInterfaceLoader {
 
     public static void addElement(String rootLayoutId, Element element, Interface Interface) {
         Layout rootLayout = null;
-        System.out.println(element.getNodeName());
         for (InterfaceElement e : Interface.Elements) {
             if (e.ID != null) {
                 if (e instanceof Layout && e.ID.equals(rootLayoutId)) rootLayout = (Layout) e;

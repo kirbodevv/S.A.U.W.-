@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface header="%Language/crafting" isBlockInterface="false" Inventory="false">
+    <RootLayout id="MainLayout">
+        <Layout id="craftsLayout" orientation="VERTICAL" gravity="TOP" width="FIXED_SIZE" height="FIXED_SIZE"
+                translateX="1bl">
+            <Layout id="craftsSwitchTabLayout" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT" translateY="-0.25bl">
+                <Button id="prevCraftTabButton" width="1bl" height="1bl"/>
+                <Text id="craftListText" text="%Language/craftList" width="5bl" height="1bl"/>
+                <Button id="prevCraftTabButton" width="1bl" height="1bl"/>
+            </Layout>
+            <Layout id="CraftsListLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT" translateY="-0.25bl"/>
+        </Layout>
+        <Layout id="craftInfoLayout" orientation="VERTICAL" gravity="TOP" width="FIXED_SIZE" height="FIXED_SIZE"
+                translateX="0.5bl">
+            <Layout id="craftIconLayout" orientation="VERTICAL" gravity="TOP" width="FIXED_SIZE"
+                    height="FIXED_SIZE" translateY="-0.25bl" marginBottom="0.25bl">
+                <Layout id="craftIconLayout_0" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="FIXED_SIZE">
+                    <Image id="craftIcon" width="1.5bl" height="1.5bl"/>
+                </Layout>
+            </Layout>
+            <Text id="craftName" width="4bl" height="0.5bl" marginBottom="0.25bl"/>
+            <Layout id="craftItemsLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT">
+                <Layout id="craftItemsLayout_0" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT">
+                    <Slot id="craftItemSlot_0" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="craftItemSlot_1" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="craftItemSlot_2" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="craftItemsLayout_1" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT">
+                    <Slot id="craftItemSlot_3" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="craftItemSlot_4" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="craftItemSlot_5" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Button id="craftButton" width="5bl" height="1bl" translateY="-0.25bl"/>
+            </Layout>
+        </Layout>
+    </RootLayout>
+</Interface>

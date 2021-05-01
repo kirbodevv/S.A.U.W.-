@@ -1,7 +1,7 @@
-package com.kgc.sauw.UI.Interfaces;
+package com.kgc.sauw.ui.interfaces;
 
-import com.kgc.sauw.UI.Elements.Button;
-import com.kgc.sauw.UI.Interface;
+import com.kgc.sauw.ui.elements.Button;
+import com.kgc.sauw.ui.Interface;
 
 import static com.kgc.sauw.graphic.Graphic.SCREEN_HEIGHT;
 import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;

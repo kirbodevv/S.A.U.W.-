@@ -1,8 +1,6 @@
-package com.kgc.sauw.UI;
+package com.kgc.sauw.ui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.kgc.sauw.UI.Elements.*;
+import com.kgc.sauw.ui.elements.*;
 import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.resource.Textures;
@@ -19,16 +17,15 @@ public class Interface {
 
     public boolean isOpen = false;
     public boolean isBlockInterface;
-    public BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
     public float width, heigth, x, y;
     public Button exitButton;
 
-    public ArrayList<InterfaceElement> Elements = new ArrayList<InterfaceElement>();
+    public ArrayList<InterfaceElement> Elements = new ArrayList<>();
     public ArrayList<Slot> slots = new ArrayList<>();
-    private int currX, currY, currZ;
-    private String headerText = "";
 
-    private Image actionBar;
+    private int currX, currY, currZ;
+
+    private Text actionBar;
 
     private boolean inventory = false;
     public Button previousTabInv;
@@ -46,14 +43,14 @@ public class Interface {
     public Interface(String ID) {
         this.ID = ID;
 
-        text.setColor(64f / 255, 137f / 255, 154f / 255, 1);
         MainLayout = new Layout(Layout.Orientation.VERTICAL);
 
         width = Graphic.SCREEN_WIDTH;
         heigth = Graphic.SCREEN_HEIGHT;
 
-        actionBar = new Image(0, (int) (SCREEN_HEIGHT - BLOCK_SIZE), (int) SCREEN_WIDTH, BLOCK_SIZE);
-        actionBar.setImg(Textures.generateTexture(16, 1, true));
+        actionBar = new Text();
+        actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
+        actionBar.setPosition(0, (SCREEN_HEIGHT - BLOCK_SIZE));
 
         MainLayout.setBackground(TEXTURES.standartBackground_full);
         MainLayout.setSize(Layout.Size.MATCH_PARENT, Layout.Size.FIXED_SIZE);
@@ -107,7 +104,7 @@ public class Interface {
     }
 
     public Interface setHeaderText(String text) {
-        this.headerText = text;
+        actionBar.setText(text);
         return this;
     }
 
@@ -184,6 +181,11 @@ public class Interface {
                     public void onClick() {
                         currentItemInv = currentTabInv * 30 + num;
                     }
+
+                    @Override
+                    public boolean possibleToDrag() {
+                        return true;
+                    }
                 });
                 l.addElements(s);
             }
@@ -221,12 +223,12 @@ public class Interface {
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
                 MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(a.id, a.count, a.data);
-                System.out.println(PLAYER.Inventory.size());
-                PLAYER.Inventory.remove(PLAYER.Inventory.get(a.inventorySlot));
+                System.out.println(PLAYER.Inventory.containers.size());
+                PLAYER.Inventory.containers.remove(PLAYER.Inventory.containers.get(a.inventorySlot));
             }
         } else {
             if (a1.isInventorySlot) {
-                PLAYER.addItem(a.id, a.count, a.data);
+                PLAYER.Inventory.addItem(a.id, a.count);
                 MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(0, 0, 0);
             } else {
                 MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
@@ -267,17 +269,17 @@ public class Interface {
                 slot.data = 0;
             }
             if (inventory) {
-                for (int j = 0; j < PLAYER.Inventory.size(); j++) {
+                for (int j = 0; j < PLAYER.Inventory.containers.size(); j++) {
                     if (j >= currentTabInv * 30 && j < currentTabInv * 30 + 30) {
                         Slot slot = getSlot("InventorySlot_" + (j - currentTabInv * 30));
                         slot.inventorySlot = j;
-                        slot.id = PLAYER.Inventory.get(j).id;
-                        slot.count = PLAYER.Inventory.get(j).count;
-                        slot.data = PLAYER.Inventory.get(j).data;
+                        slot.id = PLAYER.Inventory.containers.get(j).id;
+                        slot.count = PLAYER.Inventory.containers.get(j).count;
+                        slot.data = PLAYER.Inventory.containers.get(j).data;
                     }
                 }
                 if (nextTabInv.wasClicked) {
-                    if (PLAYER.Inventory.size() > (currentTabInv + 1) * 30) {
+                    if (PLAYER.Inventory.containers.size() > (currentTabInv + 1) * 30) {
                         currentTabInv++;
                     }
                 }
@@ -297,6 +299,7 @@ public class Interface {
             }
             tick();
             if (isBlockInterface) tick(MAPS.map0[currY][currX][currZ]);
+            actionBar.update(INTERFACE_CAMERA);
             exitButton.update(INTERFACE_CAMERA);
         }
     }
@@ -306,7 +309,6 @@ public class Interface {
             MainLayout.render(BATCH, INTERFACE_CAMERA);
 
             actionBar.render(BATCH, INTERFACE_CAMERA);
-            text.drawMultiLine(BATCH, headerText, x + INTERFACE_CAMERA.X, (y + heigth + INTERFACE_CAMERA.Y) - (SCREEN_WIDTH / 16 - text.getCapHeight()) / 2, width, BitmapFont.HAlignment.CENTER);
 
             preRender();
 

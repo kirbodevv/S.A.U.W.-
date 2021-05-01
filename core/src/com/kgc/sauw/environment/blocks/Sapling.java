@@ -45,7 +45,7 @@ public class Sapling extends Block {
     public void randomTick(Tile tile) {
         tile.setExtraData("age", (int) tile.getExtraData("age") + 1);
         if ((int) tile.getExtraData("age") >= 4) {
-            WORLD.setBlock(tile.x, tile.y, tile.z, BLOCKS.getBlockById(6));
+            WORLD.setBlock(tile.x, tile.y, tile.z, 6);
         }
     }
 }

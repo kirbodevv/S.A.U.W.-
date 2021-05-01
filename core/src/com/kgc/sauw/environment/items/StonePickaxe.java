@@ -1,11 +1,13 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class StonePickaxe extends InstrumentItem {
     public StonePickaxe() {
-        super(14, 128, Type.PICKAXE);
+        super(ID.registeredId("item:stone_pickaxe"), 128, Type.PICKAXE);
 
         this.t = TEXTURES.stone_pickaxe;
 

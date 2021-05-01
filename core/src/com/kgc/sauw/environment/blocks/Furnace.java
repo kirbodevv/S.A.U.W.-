@@ -3,10 +3,9 @@ package com.kgc.sauw.environment.blocks;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.config.BlockConfiguration;
 import com.kgc.sauw.map.Tile;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.FURNACE_INTERFACE;
+import static com.kgc.sauw.ui.interfaces.Interfaces.FURNACE_INTERFACE;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 

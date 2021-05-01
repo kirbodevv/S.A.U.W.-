@@ -13,7 +13,7 @@ public class BlockConfiguration {
     private int ySize;
     private int[][] drop;
     private int InstrumentType;
-    private Rectangle collisionsRectangle;
+    private final Rectangle collisionsRectangle;
     private int lightingRadius;
     private Color lightingColor;
     private int maxDamage;

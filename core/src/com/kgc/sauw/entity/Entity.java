@@ -1,121 +1,140 @@
 package com.kgc.sauw.entity;
-import com.kgc.sauw.utils.ExtraData;
-import com.kgc.sauw.environment.Items;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.intbyte.bdb.DataBuffer;
-import com.intbyte.bdb.ExtraDataFactory;
-import java.util.ArrayList;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.kgc.sauw.Inventory;
+import com.kgc.sauw.graphic.Animator;
 
-import static com.kgc.sauw.environment.Environment.ITEMS;
+import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
 
-public class Entity implements com.intbyte.bdb.ExtraData {
-	public static class MobFactory implements ExtraDataFactory {
-		@Override
-		public com.intbyte.bdb.ExtraData getExtraData() {
-			return new Entity();
-		}
-	}
-	@Override
-	public byte[] getBytes() {
-		DataBuffer buffer = new DataBuffer();
-		buffer.put("coords", new int[]{posX, posY});
-		buffer.put("type", (int)type);
-		for (ExtraData data : ExtraData) {
-			if (Integer.class.isInstance(data.getValue())) {
-				buffer.put(data.key, (int)data.getValue());
-			} else if (Float.class.isInstance(data.getValue())) {
-				buffer.put(data.key, (float)data.getValue());
-			} else if (Double.class.isInstance(data.getValue())) {
-				buffer.put(data.key, (double)data.getValue());
-			} else if (Short.class.isInstance(data.getValue())) {
-				buffer.put(data.key, (short)data.getValue());
-			} else if (Long.class.isInstance(data.getValue())) {
-				buffer.put(data.key, (long)data.getValue());
-			} else if (Byte.class.isInstance(data.getValue())) {
-				buffer.put(data.key, (byte)data.getValue());
-			}
-		}
-		return buffer.toBytes();
-	}
+public class Entity {
+    protected static float SPEED_RATIO_X;
+    protected static float SPEED_RATIO_Y;
 
-	@Override
-	public void readBytes(byte[] bytes, int begin, int end) {
-		DataBuffer buffer = new DataBuffer();
-		buffer.readBytes(bytes, begin, end);
-		posX = buffer.getIntArray("coords")[0];
-		posY = buffer.getIntArray("coords")[1];
-		type = buffer.getInt("type");
-		loadedEntity = createMob(type);
-		loadedEntity.loadExtraData(bytes, begin, end);
-	}
-	public void loadExtraData(byte[] bytes, int begin, int end){
-		DataBuffer buffer = new DataBuffer();
-		buffer.readBytes(bytes, begin, end);
-		for (ExtraData data : ExtraData) {
-			if (Integer.class.isInstance(data.getValue())) {
-				data.setValue(buffer.getInt(data.key));
-			} else if (Float.class.isInstance(data.getValue())) {
-				data.setValue(buffer.getFloat(data.key));
-			} else if (Double.class.isInstance(data.getValue())) {
-				data.setValue(buffer.getDouble(data.key));
-			} else if (Short.class.isInstance(data.getValue())) {
-				data.setValue(buffer.getShort(data.key));
-			} else if (Long.class.isInstance(data.getValue())) {
-				data.setValue(buffer.getLong(data.key));
-			} else if (Byte.class.isInstance(data.getValue())) {
-				data.setValue(buffer.getByte(data.key));
-			}
-		}
-	}
-	public Entity loadedEntity;
-	public Entity createMob(int type){
-		if (type == 0) {
-			return new ItemEntity(posX, posY, 0, 0, 0);
-		}
-		return null;
-	}
-	public int type;
-	public int posX, posY;
-	public int h = Gdx.graphics.getHeight();
-	public int w = Gdx.graphics.getWidth();
-	public int plW = w / 16 * 10 / 26;
-	public int plH = w / 16;
-	public int mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
-	public int mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
-    public boolean collisions = true;
-	public ArrayList<ExtraData> ExtraData = new ArrayList<ExtraData>();
-	public void setPosition(int x, int y) {
-		this.posX = x;
-		this.posY = y;
-	}
-	public void update() {
+    static {
+        SPEED_RATIO_X = Gdx.graphics.getWidth() / 1280.0f;
+        SPEED_RATIO_Y = Gdx.graphics.getHeight() / 720.0f;
+    }
 
-	}
-	public void render() {
 
-	}
-	public void setExtraData(String key, Object value) {
-		for (ExtraData ED : ExtraData) {
-			if (ED.key.equals(key)) {
-				ED.setValue(value);
-				return;
-			}
-		}
-		ExtraData.add(new ExtraData(key));
-		for (ExtraData ED : ExtraData) {
-			if (ED.key.equals(key)) {
-				ED.setValue(value);
-				return;
-			}
-		}
-	}
-	public Object getExtraData(String key) {
-		for (ExtraData ED : ExtraData) {
-			if (ED.key.equals(key)) {
-				return ED.getValue();
-			}
-		}
-		return null;
-	}
+    public Inventory Inventory = new Inventory();
+
+    public float maxWeight = 40.0f;
+    public float itemsWeight = 0.0f;
+
+    public int maxHealth = 20;
+    public int health = 20;
+    public int hunger = 0;
+
+    protected Animator animator;
+    protected TextureRegion currentFrame;
+
+    protected double velX;
+    protected double velY;
+    protected int currentTileX, currentTileY;
+    protected int entityBodyW;
+    protected int entityBodyH;
+
+    protected Vector2 velocity = new Vector2(0, 0);
+    protected Rectangle bodyRectangle = new Rectangle();
+    protected Body body;
+
+    private Vector2 position = new Vector2();
+    private Vector2 size = new Vector2();
+
+    public int rotation = 0;
+
+    public final float normalEntitySpeed = SCREEN_WIDTH / 16;
+    public float entitySpeed = 1.0f;
+
+    protected boolean isDead = false;
+
+    protected void setBody(Body body) {
+        this.body = body;
+        this.body.setFixedRotation(true);
+    }
+
+    public void update() {
+        itemsWeight = Inventory.getItemsWeight();
+
+        entitySpeed = 1.0f - ((itemsWeight * 1.66f) / 100);
+        if (entitySpeed < 0) entitySpeed = 0;
+
+
+        currentTileX = (int) Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
+        currentTileY = (int) Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
+
+        bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 2f);
+        position.set(bodyRectangle.x, bodyRectangle.y);
+
+        Inventory.removeItemsIfNeed();
+
+        velX = 0;
+        velY = 0;
+
+        tick();
+
+        velocity.x = (float) (velX * (entitySpeed));
+        velocity.y = (float) (velY * (entitySpeed));
+
+        body.setLinearVelocity((velocity.x * normalEntitySpeed * 2) * SPEED_RATIO_X, (velocity.y * normalEntitySpeed * 2) * SPEED_RATIO_Y);
+
+        velocity.x = 0;
+        velocity.y = 0;
+    }
+
+    public void tick() {
+
+    }
+    public void render(){
+
+    }
+    public void setVelocity(float velX, float velY) {
+        this.velX = velX;
+        this.velY = velY;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void hit(int damage) {
+        health -= damage;
+        if (health <= 0) kill();
+    }
+
+    public void kill() {
+        isDead = true;
+    }
+    public void onDead(){
+
+    }
+    public Vector2 getSize() {
+        return size;
+    }
+
+    protected void setSize(Vector2 size) {
+        bodyRectangle.setSize(size.x, size.y);
+        this.size = size;
+    }
+
+    public void setPosition(float x, float y) {
+        body.setTransform(x, y, 0);
+    }
+
+    public int getCurrentTileX() {
+        return currentTileX;
+    }
+
+    public int getCurrentTileY() {
+        return currentTileY;
+    }
+
+    public boolean isEntityMoving(){
+        return velX != 0 || velY != 0;
+    }
 }

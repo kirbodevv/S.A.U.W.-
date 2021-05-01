@@ -40,7 +40,6 @@ public class Crafting {
 				result[0] = resultA.getInt("id");
 				result[1] = resultA.getInt("count");
 				result[2] = resultA.getInt("data");
-				Gdx.app.log("CraftID", result[0] + "");
 				for (int j = 0; j < ingrA.length(); j++) {
 					ingr[j][0] = ingrA.getJSONObject(j).getInt("id");
 					ingr[j][1] = ingrA.getJSONObject(j).getInt("count");
@@ -68,7 +67,6 @@ public class Crafting {
 				result[0] = resultA.getInt("id");
 				result[1] = resultA.getInt("count");
 				result[2] = resultA.getInt("data");
-				Gdx.app.log("CraftID", result[0] + "");
 				for (int i = 0; i < ingrA.length(); i++) {
 					ingr[i][0] = ingrA.getJSONObject(i).getInt("id");
 					ingr[i][1] = ingrA.getJSONObject(i).getInt("count");

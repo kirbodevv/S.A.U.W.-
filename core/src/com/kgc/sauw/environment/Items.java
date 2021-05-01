@@ -78,18 +78,18 @@ public class Items {
     }
 
     public Item getItemById(int id) {
-        for (int i = 0; i < ITEMS.size(); i++) {
-            if (ITEMS.get(i).id == id) {
-                return ITEMS.get(i);
+        for (Item item : ITEMS) {
+            if (item.id == id) {
+                return item;
             }
         }
-        return null;
+        return getItemById(0);
     }
 
     public String getNameById(int id) {
-        for (int i = 0; i < ITEMS.size(); i++) {
-            if (ITEMS.get(i).id == id) {
-                return ITEMS.get(i).getItemConfiguration().name;
+        for (Item item : ITEMS) {
+            if (item.id == id) {
+                return item.getItemConfiguration().name;
             }
         }
         return "Нет имени";

@@ -1,4 +1,4 @@
-package com.kgc.sauw.UI;
+package com.kgc.sauw.ui;
 
 public abstract class InterfaceEvents {
 	public Interface Interface;

@@ -1,4 +1,4 @@
-package com.kgc.sauw.UI;
+package com.kgc.sauw.ui;
 
 public class Container {
     private int id, count, data;

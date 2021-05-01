@@ -1,9 +1,9 @@
-package com.kgc.sauw.UI;
+package com.kgc.sauw.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.UI.Elements.Elements;
+import com.kgc.sauw.ui.elements.Elements;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GravityAdapter;
 
@@ -28,7 +28,7 @@ public class InterfaceElement {
     public boolean wasClicked;
     public boolean wasUp;
 
-    protected InterfaceElement attachedTo;
+    public InterfaceElement attachedTo;
     protected Sides attachableSide, attachTo;
 
     public float marginTop, marginBottom, marginLeft, marginRight;

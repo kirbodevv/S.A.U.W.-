@@ -1,11 +1,9 @@
-package com.kgc.sauw.UI.Interfaces;
+package com.kgc.sauw.ui.interfaces;
 
-import com.kgc.sauw.UI.GameInterface;
-import com.kgc.sauw.UI.Interface;
-import com.kgc.sauw.UI.Interfaces.blockInterfaces.ChestInterface;
-import com.kgc.sauw.UI.Interfaces.blockInterfaces.FurnaceInterface;
-import com.kgc.sauw.entity.Player;
-import com.kgc.sauw.utils.Camera2D;
+import com.kgc.sauw.ui.GameInterface;
+import com.kgc.sauw.ui.Interface;
+import com.kgc.sauw.ui.interfaces.blockInterfaces.ChestInterface;
+import com.kgc.sauw.ui.interfaces.blockInterfaces.FurnaceInterface;
 
 import java.util.ArrayList;
 

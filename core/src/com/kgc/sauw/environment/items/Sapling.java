@@ -1,13 +1,14 @@
 package com.kgc.sauw.environment.items;
 
 import com.kgc.sauw.environment.Items;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class Sapling extends Item {
     public Sapling() {
-        super(20);
+        super(ID.registeredId("item:sapling"));
 
         this.t = TEXTURES.sapling_item;
 

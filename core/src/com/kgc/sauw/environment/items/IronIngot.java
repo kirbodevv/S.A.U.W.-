@@ -1,11 +1,13 @@
 package com.kgc.sauw.environment.items;
 
+import com.kgc.sauw.utils.ID;
+
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class IronIngot extends Item {
     public IronIngot() {
-        super(21);
+        super(ID.registeredId("item:iron_ingot"));
 
         this.t = TEXTURES.iron_ingot;
 

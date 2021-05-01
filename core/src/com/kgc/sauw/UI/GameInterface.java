@@ -1,22 +1,21 @@
-package com.kgc.sauw.UI;
+package com.kgc.sauw.ui;
 
 import com.badlogic.gdx.*;
-import com.kgc.sauw.UI.Elements.*;
+import com.kgc.sauw.ui.elements.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.kgc.sauw.UI.Interfaces.Interfaces;
+import com.kgc.sauw.ui.interfaces.Interfaces;
 import com.kgc.sauw.utils.Version;
 import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.map.World;
 import com.badlogic.gdx.graphics.Texture;
 
-import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
-import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
+import static com.kgc.sauw.ui.interfaces.Interfaces.*;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.*;
 
 public class GameInterface {
-    Inventory inv;
+    InventoryElement inv;
     public Button interactionButton;
     public Button dropButton;
     public Button attackButton;
@@ -65,7 +64,7 @@ public class GameInterface {
         pauseButton = new Button("PAUSE_BUTTON", 0, (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16), (int) SCREEN_WIDTH / 16, (int) SCREEN_WIDTH / 16);
         j = new Joystick(TEXTURES.j_0, TEXTURES.j_1, (int) (SCREEN_WIDTH / 32 * 3), (int) (SCREEN_WIDTH / 32 * 3), BATCH, (int) (SCREEN_WIDTH / 16 * 3), INTERFACE_CAMERA);
         j.setDiameters((int) SCREEN_WIDTH / 16 * 3, (int) SCREEN_WIDTH / 32 * 2);
-        inv = new Inventory(TEXTURES.inventory, TEXTURES.selected_slot, (int) ((SCREEN_WIDTH / 16) * 4), 0);
+        inv = new InventoryElement(TEXTURES.inventory, TEXTURES.selected_slot, (int) ((SCREEN_WIDTH / 16) * 4), 0);
         health = new Health(TEXTURES.health_0, TEXTURES.health_1);
         notifW = (int) SCREEN_WIDTH / 16 * 4;
 
@@ -198,10 +197,8 @@ public class GameInterface {
                 "\n Camera Y : " + GAME_CAMERA.Y +
                 "\n UI_ELEMENTS Count : " + Elements.UI_ELEMENTS.size();
         String Player = "\n Hunger:" + PLAYER.hunger + "/20" +
-                "\n X : " + PLAYER.currentTileX +
-                "\n Y : " + PLAYER.currentTileY +
-                "\n velX : " + PLAYER.velX +
-                "\n velY : " + PLAYER.velY;
+                "\n X : " + PLAYER.getCurrentTileX() +
+                "\n Y : " + PLAYER.getCurrentTileY();
         this.debug.setColor(0f, 0f, 0f, 1f);
         this.debug.drawMultiLine(BATCH, Main, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
         this.debug.setColor(0.25f, 0.25f, 1f, 1f);

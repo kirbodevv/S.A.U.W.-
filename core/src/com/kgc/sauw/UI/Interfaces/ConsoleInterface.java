@@ -1,24 +1,20 @@
-package com.kgc.sauw.UI.Interfaces;
+package com.kgc.sauw.ui.interfaces;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.UI.Elements.Button;
-import com.kgc.sauw.UI.Elements.EditText;
-import com.kgc.sauw.UI.Elements.Image;
-import com.kgc.sauw.UI.Elements.Layout;
-import com.kgc.sauw.UI.Interface;
+import com.kgc.sauw.ui.elements.Button;
+import com.kgc.sauw.ui.elements.EditText;
+import com.kgc.sauw.ui.elements.Image;
+import com.kgc.sauw.ui.Interface;
 import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Units;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
-import sun.applet.Main;
 
-import static com.kgc.sauw.Input.INPUT_MULTIPLEXER;
-import static com.kgc.sauw.UI.Interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
 import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.graphic.Graphic.BATCH;

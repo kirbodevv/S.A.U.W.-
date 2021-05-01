@@ -1,13 +1,13 @@
-package com.kgc.sauw;
+package com.kgc.sauw.input;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
-import com.kgc.sauw.UI.Interfaces.Interfaces;
+import com.kgc.sauw.ui.interfaces.Interfaces;
 import com.kgc.sauw.game.SAUW;
 
-import static com.kgc.sauw.UI.Interfaces.Interfaces.*;
-import static com.kgc.sauw.UI.Interfaces.Interfaces.CRAFTING_INTERFACE;
+import static com.kgc.sauw.ui.interfaces.Interfaces.*;
+import static com.kgc.sauw.ui.interfaces.Interfaces.CRAFTING_INTERFACE;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 
 

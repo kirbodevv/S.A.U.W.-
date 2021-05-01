@@ -1,21 +1,16 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.kgc.sauw.utils.Camera2D;
-import com.kgc.sauw.UI.Interface;
-import com.kgc.sauw.UI.InterfaceElement;
+import com.kgc.sauw.ui.Interface;
+import com.kgc.sauw.ui.InterfaceElement;
 import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.math.Vector2d;
-import com.kgc.sauw.environment.Items;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Color;
-import com.kgc.sauw.entity.Player;
 import com.kgc.sauw.resource.Textures;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
@@ -68,7 +63,7 @@ public class Slot extends InterfaceElement {
     @Override
     public void update(Camera2D cam) {
         super.update(cam);
-        if (isTouched()) {
+        if (isTouched() && (SF == null || SF.possibleToDrag())) {
             toItemX = (Gdx.input.getX() + cam.X - height / 4);
             toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
         } else {
@@ -92,7 +87,6 @@ public class Slot extends InterfaceElement {
             SF.onClick();
         }
         if (id != 0) {
-            System.out.println(Interface.slots.size());
             for (Slot slot : Interface.slots) {
                 if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
                     Interface.sendToSlot(this, slot);
@@ -119,5 +113,7 @@ public class Slot extends InterfaceElement {
         public abstract boolean isValid(int id, int count, int data, String FromSlotWithId);
 
         public abstract void onClick();
+
+        public abstract boolean possibleToDrag();
     }
 }

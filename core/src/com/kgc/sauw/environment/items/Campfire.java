@@ -1,13 +1,14 @@
 package com.kgc.sauw.environment.items;
 
 import com.kgc.sauw.environment.Items;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;
 
 public class Campfire extends Item {
     public Campfire() {
-        super(23);
+        super(ID.registeredId("item:campfire"));
 
         this.t = TEXTURES.campfire;
 

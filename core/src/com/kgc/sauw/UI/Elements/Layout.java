@@ -1,13 +1,15 @@
-package com.kgc.sauw.UI.Elements;
+package com.kgc.sauw.ui.elements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.UI.InterfaceElement;
+import com.kgc.sauw.ui.InterfaceElement;
+import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
 
 public class Layout extends InterfaceElement {
@@ -54,13 +56,21 @@ public class Layout extends InterfaceElement {
     }
 
     public void setBackground(Texture background) {
+        if (Background != null) Background.dispose();
         Background = background;
+    }
+
+    public void generateBackground(boolean b) {
+        setBackground(Textures.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, b));
     }
 
     @Override
     public void update(Camera2D cam) {
-        for (InterfaceElement element : elements) {
-            element.update(cam);
+        if (!hided) {
+            super.update(cam);
+            for (InterfaceElement element : elements) {
+                element.update(cam);
+            }
         }
     }
 
@@ -108,9 +118,11 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void render(SpriteBatch batch, Camera2D cam) {
-        if (Background != null) batch.draw(Background, X, Y, width, height);
-        for (InterfaceElement element : elements) {
-            element.render(batch, cam);
+        if (!hided) {
+            if (Background != null) batch.draw(Background, X, Y, width, height);
+            for (InterfaceElement element : elements) {
+                element.render(batch, cam);
+            }
         }
     }
 

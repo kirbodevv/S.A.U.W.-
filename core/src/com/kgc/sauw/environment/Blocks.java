@@ -31,6 +31,7 @@ public class Blocks {
         addBlock(new Campfire());
         addBlock(new ChristmasTree());
         addBlock(new Snow());
+        addBlock(new Water());
     }
 
     public Item getItemByBlockId(int id) {
@@ -46,12 +47,6 @@ public class Blocks {
         BLOCKS.add(new Block(id, t0));
     }
 
-    /*public void createBlock(int id, String t0) {
-        Texture tt0 = new Texture(Gdx.files.external("S.A.U.W./Mods/" + t0));
-        this.createBlock(id, tt0);
-        ITEMS.createItem(ITEMS.ITEMS.size(), 1f, "", tt0, 1, id, 64, 0);
-    }
-*/
     public void addBlock(Block block) {
         BLOCKS.add(block);
     }
@@ -61,8 +56,8 @@ public class Blocks {
     }
 
     public Block getBlockById(int id) {
-        for (int i = 0; i < BLOCKS.size(); i++) {
-            if (BLOCKS.get(i).id == id) return BLOCKS.get(i);
+        for (Block block : BLOCKS) {
+            if (block.id == id) return block;
         }
         return null;
     }

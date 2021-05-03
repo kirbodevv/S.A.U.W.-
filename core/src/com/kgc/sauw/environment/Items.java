@@ -53,16 +53,17 @@ public class Items {
     public Texture getTextureById(int id) {
         for (Item item : ITEMS) {
             if (item.id == id) {
-                return item.t;
+                if (item.t != null)
+                    return item.t;
             }
         }
         return TEXTURES.undf;
     }
 
     public int getMaxCountById(int id) {
-        for (int i = 0; i < ITEMS.size(); i++) {
-            if (ITEMS.get(i).id == id) {
-                return ITEMS.get(i).getItemConfiguration().maxCount;
+        for (Item item : ITEMS) {
+            if (item.id == id) {
+                return item.getItemConfiguration().maxCount;
             }
         }
         return -1;

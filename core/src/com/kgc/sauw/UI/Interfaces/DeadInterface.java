@@ -21,7 +21,7 @@ public class DeadInterface extends Interface {
         respawn.setEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                PLAYER.spawn();
+                PLAYER.randomSpawn();
                 close();
             }
         });

@@ -6,10 +6,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.Inventory;
+import com.kgc.sauw.environment.Blocks;
+import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.graphic.Animator;
+import com.kgc.sauw.particle.Particles;
 
+import java.util.Random;
+
+import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
+import static com.kgc.sauw.map.World.MAPS;
 
 public class Entity {
     protected static float SPEED_RATIO_X;
@@ -58,18 +65,39 @@ public class Entity {
         this.body.setFixedRotation(true);
     }
 
+    public void randomSpawn(int x, int y) {
+        setPosition(x * BLOCK_SIZE, y * BLOCK_SIZE);
+        isDead = false;
+        health = maxHealth;
+    }
+
+    public void randomSpawn() {
+        Random r = new Random();
+        int x = r.nextInt(MAPS.map0.length - 2) + 1;
+        int y = r.nextInt(MAPS.map0[0].length - 2) + 1;
+        randomSpawn(x, y);
+
+    }
+
+    public Block stayingOn() {
+        return BLOCKS.getBlockById(MAPS.map0[currentTileY][currentTileX][1].id);
+    }
+
+    private void updatePosition() {
+        currentTileX = (int) Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
+        currentTileY = (int) Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
+
+        bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 8f);
+        position.set(bodyRectangle.x, bodyRectangle.y);
+    }
+
     public void update() {
         itemsWeight = Inventory.getItemsWeight();
 
         entitySpeed = 1.0f - ((itemsWeight * 1.66f) / 100);
         if (entitySpeed < 0) entitySpeed = 0;
 
-
-        currentTileX = (int) Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
-        currentTileY = (int) Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
-
-        bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 2f);
-        position.set(bodyRectangle.x, bodyRectangle.y);
+        updatePosition();
 
         Inventory.removeItemsIfNeed();
 
@@ -81,6 +109,8 @@ public class Entity {
         velocity.x = (float) (velX * (entitySpeed));
         velocity.y = (float) (velY * (entitySpeed));
 
+        animationTick();
+
         body.setLinearVelocity((velocity.x * normalEntitySpeed * 2) * SPEED_RATIO_X, (velocity.y * normalEntitySpeed * 2) * SPEED_RATIO_Y);
 
         velocity.x = 0;
@@ -90,15 +120,30 @@ public class Entity {
     public void tick() {
 
     }
-    public void render(){
+
+    public void animationTick() {
 
     }
+
+    public void render() {
+
+    }
+
     public void setVelocity(float velX, float velY) {
         this.velX = velX;
         this.velY = velY;
     }
 
+    public void setVelocityX(float velX) {
+        this.velX = velX;
+    }
+
+    public void setVelocityY(float velY) {
+        this.velY = velY;
+    }
+
     public Vector2 getPosition() {
+        updatePosition();
         return position;
     }
 
@@ -110,9 +155,11 @@ public class Entity {
     public void kill() {
         isDead = true;
     }
-    public void onDead(){
+
+    public void onDead() {
 
     }
+
     public Vector2 getSize() {
         return size;
     }
@@ -134,7 +181,7 @@ public class Entity {
         return currentTileY;
     }
 
-    public boolean isEntityMoving(){
+    public boolean isEntityMoving() {
         return velX != 0 || velY != 0;
     }
 }

@@ -1,26 +1,27 @@
 package com.kgc.sauw.input;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Input.Keys;
-import com.kgc.sauw.ui.interfaces.Interfaces;
 import com.kgc.sauw.game.SAUW;
+import com.kgc.sauw.ui.interfaces.Interfaces;
 
-import static com.kgc.sauw.ui.interfaces.Interfaces.*;
-import static com.kgc.sauw.ui.interfaces.Interfaces.CRAFTING_INTERFACE;
 import static com.kgc.sauw.config.Settings.SETTINGS;
+import static com.kgc.sauw.ui.interfaces.Interfaces.*;
 
 
 public final class Input {
     public static final InputMultiplexer INPUT_MULTIPLEXER;
     private static final GameInputProcessor GAME_INPUT_PROCESSOR;
+    private static final PlayerController PLAYER_CONTROLLER;
 
     static {
         INPUT_MULTIPLEXER = new InputMultiplexer();
         GAME_INPUT_PROCESSOR = new GameInputProcessor();
+        PLAYER_CONTROLLER = new PlayerController();
         INPUT_MULTIPLEXER.addProcessor(GAME_INPUT_PROCESSOR);
+        INPUT_MULTIPLEXER.addProcessor(PLAYER_CONTROLLER);
     }
-
     public static class GameInputProcessor implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {

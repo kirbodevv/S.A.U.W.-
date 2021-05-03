@@ -40,7 +40,7 @@ public class MainGame extends Game {
             if (!WorldsFolder.exists())
                 WorldsFolder.mkdirs();
             if (!settings.exists())
-                settings.writeString(""/*Gdx.files.internal("json/settings.json").readString()*/, false);
+                settings.writeString(Gdx.files.internal("json/settings.json").readString(), false);
             if (!userData.exists())
                 userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
             if (!modsFile.exists()) {

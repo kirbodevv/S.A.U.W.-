@@ -7,11 +7,14 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.AchievementsChecker;
 import com.kgc.sauw.WorldLoader;
 import com.kgc.sauw.graphic.Animator;
+import com.kgc.sauw.particle.Particles;
 import com.kgc.sauw.modding.ModAPI;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.physic.Physic;
 import com.kgc.sauw.ui.elements.Elements;
 import com.kgc.sauw.resource.Music;
+import com.kgc.sauw.utils.GameCameraController;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.resource.Files.loadPlayerData;
 import static com.kgc.sauw.ui.interfaces.Interfaces.*;
@@ -22,8 +25,6 @@ import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class SAUW implements Screen {
-    private int camX, camY;
-
     public static boolean isGameRunning;
     public static final Mods MODS;
     public static final ModAPI MOD_API;
@@ -56,22 +57,17 @@ public class SAUW implements Screen {
             WorldLoader.load(worldName);
         }
         MODS.load();
+
+        GameCameraController.init();
+
         isGameRunning = true;
-        setCameraPosition();
 
-        GAME_CAMERA.lookAt(camX, camY, false);
+        WORLD.setBlock(5, 5, 0, ID.get("block:water"));
+        WORLD.setBlock(5, 6, 0, ID.get("block:water"));
+        WORLD.setBlock(6, 5, 0, ID.get("block:water"));
+        WORLD.setBlock(6, 6, 0, ID.get("block:water"));
     }
 
-    public void setCameraPosition() {
-        camX = (int) ((PLAYER.getPosition().x + (PLAYER.getSize().x / 2)) - (GAME_CAMERA.W / 2));
-        camY = (int) (PLAYER.getPosition().y + (PLAYER.getSize().y  / 2) - (GAME_CAMERA.H / 2));
-        if (camX < BLOCK_SIZE) camX = BLOCK_SIZE;
-        if (camY < BLOCK_SIZE) camY = BLOCK_SIZE;
-        if (camX + GAME_CAMERA.W > (WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16))
-            camX = (int) ((WORLD.getMaps().map0[0].length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.W);
-        if (camY + GAME_CAMERA.H > (WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16))
-            camY = (int) ((WORLD.getMaps().map0.length - 1) * (SCREEN_WIDTH / 16) - GAME_CAMERA.H);
-    }
 
     @Override
     public void render(float delta) {
@@ -82,7 +78,6 @@ public class SAUW implements Screen {
         Animator.update();
 
         music.setMusicVolume(SETTINGS.musicVolume);
-        GAME_CAMERA.update(BATCH);
 
         BLOCKS.animationTick();
         GAME_INTERFACE.update(PLAYER);
@@ -94,16 +89,16 @@ public class SAUW implements Screen {
         WORLD.renderHighLayer();
         WORLD.renderEntities();
         WORLD.renderLights();
+        Particles.render();
         if (isAnyInterfaceOpen()) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
         if (SETTINGS.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
         WORLD.update(MODS);
-        //AchievementsChecker.update();
+        AchievementsChecker.update();
 
-        setCameraPosition();
-        GAME_CAMERA.lookAt(camX, camY, true);
+        GameCameraController.update();
 
         BATCH.end();
     }

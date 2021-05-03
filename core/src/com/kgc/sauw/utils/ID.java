@@ -59,5 +59,7 @@ public class ID {
         ID.registeredIdGroup("item", 1200);
         ID.registeredIdGroup("entity", 1200);
         ID.registeredIdGroup("animation", 1200);
+        ID.registeredIdGroup("animation_region", 1200);
+        ID.registeredIdGroup("particle", 1200);
     }
 }

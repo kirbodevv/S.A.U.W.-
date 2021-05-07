@@ -28,6 +28,9 @@ public class Block {
     public void tick(Tile tile) {
     }
 
+    public void tick() {
+    }
+
     public void randomTick(Tile tile) {
     }
 

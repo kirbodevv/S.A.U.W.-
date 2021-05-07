@@ -4,25 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.kgc.sauw.AchievementsChecker;
 import com.kgc.sauw.WorldLoader;
 import com.kgc.sauw.graphic.Animator;
-import com.kgc.sauw.particle.Particles;
+import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.modding.ModAPI;
 import com.kgc.sauw.modding.Mods;
+import com.kgc.sauw.particle.Particles;
 import com.kgc.sauw.physic.Physic;
-import com.kgc.sauw.ui.elements.Elements;
 import com.kgc.sauw.resource.Music;
+import com.kgc.sauw.ui.elements.Elements;
 import com.kgc.sauw.utils.GameCameraController;
 import com.kgc.sauw.utils.ID;
 
-import static com.kgc.sauw.resource.Files.loadPlayerData;
-import static com.kgc.sauw.ui.interfaces.Interfaces.*;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
+import static com.kgc.sauw.resource.Files.loadPlayerData;
+import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.ui.interfaces.Interfaces.isAnyInterfaceOpen;
 
 public class SAUW implements Screen {
     public static boolean isGameRunning;
@@ -43,7 +47,6 @@ public class SAUW implements Screen {
     public SAUW(MainGame game, Music music, String worldName) {
         this.game = game;
         this.music = music;
-
         DR = new Box2DDebugRenderer();
 
         music.setMusicVolume(SETTINGS.musicVolume);
@@ -58,14 +61,13 @@ public class SAUW implements Screen {
         }
         MODS.load();
 
-        GameCameraController.init();
 
         isGameRunning = true;
 
         WORLD.setBlock(5, 5, 0, ID.get("block:water"));
         WORLD.setBlock(5, 6, 0, ID.get("block:water"));
         WORLD.setBlock(6, 5, 0, ID.get("block:water"));
-        WORLD.setBlock(6, 6, 0, ID.get("block:water"));
+        WORLD.setBlock(6, 6, 0, 15);
     }
 
 
@@ -80,9 +82,11 @@ public class SAUW implements Screen {
         music.setMusicVolume(SETTINGS.musicVolume);
 
         BLOCKS.animationTick();
-        GAME_INTERFACE.update(PLAYER);
+        GAME_INTERFACE.update();
         music.setMusicVolume(SETTINGS.musicVolume);
         music.update(false);
+        GameCameraController.update();
+
         BATCH.begin();
         if (isAnyInterfaceOpen()) BATCH.setColor(0.5f, 0.5f, 0.5f, 1);
         WORLD.renderLowLayer();
@@ -94,11 +98,9 @@ public class SAUW implements Screen {
         BATCH.end();
         if (SETTINGS.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
-        GAME_INTERFACE.render(WORLD, PLAYER, SETTINGS.debugMode);
+        GAME_INTERFACE.render(SETTINGS.debugMode);
         WORLD.update(MODS);
         AchievementsChecker.update();
-
-        GameCameraController.update();
 
         BATCH.end();
     }
@@ -113,6 +115,7 @@ public class SAUW implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        Graphic.resize(width, height);
     }
 
     @Override

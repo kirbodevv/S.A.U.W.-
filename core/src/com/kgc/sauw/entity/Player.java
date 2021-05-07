@@ -31,7 +31,7 @@ public class Player extends Entity implements ExtraData {
         buffer.put("health", health);
         buffer.put("hunger", hunger);
         buffer.put("coords", new int[]{(int) getPosition().x, (int) getPosition().y});
-        buffer.put("InvLenght", Inventory.containers.size());
+        buffer.put("InvLength", Inventory.containers.size());
         for (int i = 0; i < Inventory.containers.size(); i++) {
             buffer.put("Inv_" + i, Inventory.containers.get(i));
         }
@@ -45,8 +45,8 @@ public class Player extends Entity implements ExtraData {
         setPosition(buffer.getIntArray("coords")[0], buffer.getIntArray("coords")[1]);
         health = buffer.getInt("health");
         hunger = buffer.getInt("hunger");
-        Inventory = new Inventory(buffer.getInt("InvLenght"));
-        for (int i = 0; i < buffer.getInt("InvLenght"); i++) {
+        Inventory = new Inventory(buffer.getInt("InvLength"));
+        for (int i = 0; i < buffer.getInt("InvLength"); i++) {
             Inventory.containers.add(i, new InventoryContainer());
             Inventory.containers.get(i).readBytes(buffer.getByteArray("Inv_" + i), begin, end);
         }
@@ -74,8 +74,8 @@ public class Player extends Entity implements ExtraData {
     }
 
     public Player() {
-        entityBodyW = (int) (BLOCK_SIZE * 10 / 26f);
-        entityBodyH = BLOCK_SIZE;
+        entityBodyW = 10 / 26f;
+        entityBodyH = 1f;
         setSize(new Vector2(entityBodyW, entityBodyH));
         setBody(Physic.createRectangleBody(0, 0, entityBodyW, entityBodyH / 4f, BodyDef.BodyType.DynamicBody));
 

@@ -50,7 +50,7 @@ public class EditText extends InterfaceElement {
 
             @Override
             public boolean keyTyped(char c) {
-                if (!hided && possibleToEnterText) {
+                if (!hidden && possibleToEnterText) {
                     if (c == 0) {
                         return false;
                     } else if (c == '\b' && input.length() > 0) {

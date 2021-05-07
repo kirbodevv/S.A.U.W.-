@@ -24,7 +24,7 @@ public final class Interfaces {
     public static final ChestInterface CHEST_INTERFACE;
     public static final FurnaceInterface FURNACE_INTERFACE;
 
-    private static final ArrayList<Interface> INTERFACES;
+    public static final ArrayList<Interface> INTERFACES;
 
     static {
         GAME_INTERFACE = new GameInterface();
@@ -52,6 +52,7 @@ public final class Interfaces {
         addInterface(FURNACE_INTERFACE);
     }
 
+
     public static void addInterface(Interface Interface) {
         INTERFACES.add(Interface);
     }
@@ -70,9 +71,10 @@ public final class Interfaces {
         }
         return false;
     }
-    public static void closeInterface(){
-        for(Interface i : INTERFACES){
-            if(i.isOpen) i.close();
+
+    public static void closeInterface() {
+        for (Interface i : INTERFACES) {
+            if (i.isOpen) i.close();
         }
     }
 }

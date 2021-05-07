@@ -15,7 +15,7 @@ public class Button extends InterfaceElement {
     private String txt;
     private BitmapFont buttonText;
     public Button.EventListener EventListener = null;
-    public boolean generatedTextures = false;
+    public boolean generatedTextures;
     private boolean locked = false;
     private float capHeight;
 

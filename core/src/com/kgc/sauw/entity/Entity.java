@@ -1,33 +1,19 @@
 package com.kgc.sauw.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.Inventory;
-import com.kgc.sauw.environment.Blocks;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.graphic.Animator;
-import com.kgc.sauw.particle.Particles;
 
 import java.util.Random;
 
 import static com.kgc.sauw.environment.Environment.BLOCKS;
-import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
-import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
 import static com.kgc.sauw.map.World.MAPS;
 
 public class Entity {
-    protected static float SPEED_RATIO_X;
-    protected static float SPEED_RATIO_Y;
-
-    static {
-        SPEED_RATIO_X = Gdx.graphics.getWidth() / 1280.0f;
-        SPEED_RATIO_Y = Gdx.graphics.getHeight() / 720.0f;
-    }
-
-
     public Inventory Inventory = new Inventory();
 
     public float maxWeight = 40.0f;
@@ -40,22 +26,22 @@ public class Entity {
     protected Animator animator;
     protected TextureRegion currentFrame;
 
-    protected double velX;
-    protected double velY;
+    protected float velX;
+    protected float velY;
     protected int currentTileX, currentTileY;
-    protected int entityBodyW;
-    protected int entityBodyH;
+    protected float entityBodyW;
+    protected float entityBodyH;
 
     protected Vector2 velocity = new Vector2(0, 0);
     protected Rectangle bodyRectangle = new Rectangle();
     protected Body body;
 
-    private Vector2 position = new Vector2();
+    private final Vector2 position = new Vector2();
     private Vector2 size = new Vector2();
 
     public int rotation = 0;
 
-    public final float normalEntitySpeed = SCREEN_WIDTH / 16;
+    public final float normalEntitySpeed = 2f;
     public float entitySpeed = 1.0f;
 
     protected boolean isDead = false;
@@ -65,8 +51,8 @@ public class Entity {
         this.body.setFixedRotation(true);
     }
 
-    public void randomSpawn(int x, int y) {
-        setPosition(x * BLOCK_SIZE, y * BLOCK_SIZE);
+    public void spawn(int x, int y) {
+        setPosition(x, y);
         isDead = false;
         health = maxHealth;
     }
@@ -75,7 +61,7 @@ public class Entity {
         Random r = new Random();
         int x = r.nextInt(MAPS.map0.length - 2) + 1;
         int y = r.nextInt(MAPS.map0[0].length - 2) + 1;
-        randomSpawn(x, y);
+        spawn(x, y);
 
     }
 
@@ -84,8 +70,8 @@ public class Entity {
     }
 
     private void updatePosition() {
-        currentTileX = (int) Math.ceil(body.getPosition().x / BLOCK_SIZE) - 1;
-        currentTileY = (int) Math.ceil(body.getPosition().y / BLOCK_SIZE) - 1;
+        currentTileX = (int) Math.ceil(body.getPosition().x) - 1;
+        currentTileY = (int) Math.ceil(body.getPosition().y) - 1;
 
         bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 8f);
         position.set(bodyRectangle.x, bodyRectangle.y);
@@ -106,12 +92,12 @@ public class Entity {
 
         tick();
 
-        velocity.x = (float) (velX * (entitySpeed));
-        velocity.y = (float) (velY * (entitySpeed));
+        velocity.x = (velX * (entitySpeed));
+        velocity.y = (velY * (entitySpeed));
 
         animationTick();
 
-        body.setLinearVelocity((velocity.x * normalEntitySpeed * 2) * SPEED_RATIO_X, (velocity.y * normalEntitySpeed * 2) * SPEED_RATIO_Y);
+        body.setLinearVelocity((velocity.x * normalEntitySpeed), (velocity.y * normalEntitySpeed));
 
         velocity.x = 0;
         velocity.y = 0;
@@ -184,4 +170,64 @@ public class Entity {
     public boolean isEntityMoving() {
         return velX != 0 || velY != 0;
     }
+
+
+    /*@Override
+    public byte[] getBytes() {
+        DataBuffer buffer = new DataBuffer();
+        buffer.put("coords", new float[]{position.x, position.y});
+        buffer.put("type", type);
+        for (com.kgc.sauw.utils.ExtraData data : ExtraData) {
+            if (Integer.class.isInstance(data.getValue())) {
+                buffer.put(data.key, (int)data.getValue());
+            } else if (Float.class.isInstance(data.getValue())) {
+                buffer.put(data.key, (float)data.getValue());
+            } else if (Double.class.isInstance(data.getValue())) {
+                buffer.put(data.key, (double)data.getValue());
+            } else if (Short.class.isInstance(data.getValue())) {
+                buffer.put(data.key, (short)data.getValue());
+            } else if (Long.class.isInstance(data.getValue())) {
+                buffer.put(data.key, (long)data.getValue());
+            } else if (Byte.class.isInstance(data.getValue())) {
+                buffer.put(data.key, (byte)data.getValue());
+            }
+        }
+        return buffer.toBytes();
+    }
+
+    @Override
+    public void readBytes(byte[] bytes, int begin, int end) {
+        DataBuffer buffer = new DataBuffer();
+        buffer.readBytes(bytes, begin, end);
+        posX = buffer.getIntArray("coords")[0];
+        posY = buffer.getIntArray("coords")[1];
+        type = buffer.getInt("type");
+        loadedEntity = createMob(type);
+        loadedEntity.loadExtraData(bytes, begin, end);
+    }
+    public void loadExtraData(byte[] bytes, int begin, int end){
+        DataBuffer buffer = new DataBuffer();
+        buffer.readBytes(bytes, begin, end);
+        for (com.kgc.sauw.utils.ExtraData data : ExtraData) {
+            if (Integer.class.isInstance(data.getValue())) {
+                data.setValue(buffer.getInt(data.key));
+            } else if (Float.class.isInstance(data.getValue())) {
+                data.setValue(buffer.getFloat(data.key));
+            } else if (Double.class.isInstance(data.getValue())) {
+                data.setValue(buffer.getDouble(data.key));
+            } else if (Short.class.isInstance(data.getValue())) {
+                data.setValue(buffer.getShort(data.key));
+            } else if (Long.class.isInstance(data.getValue())) {
+                data.setValue(buffer.getLong(data.key));
+            } else if (Byte.class.isInstance(data.getValue())) {
+                data.setValue(buffer.getByte(data.key));
+            }
+        }
+    }
+    public static class MobFactory implements ExtraDataFactory {
+        @Override
+        public com.intbyte.bdb.ExtraData getExtraData() {
+            return new Entity();
+        }
+    }*/
 }

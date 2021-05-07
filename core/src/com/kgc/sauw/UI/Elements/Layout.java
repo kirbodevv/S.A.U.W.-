@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
-import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
 
 public class Layout extends InterfaceElement {
     public enum Orientation {
@@ -22,7 +21,7 @@ public class Layout extends InterfaceElement {
     }
 
     public enum Size {
-        MATCH_PARENT, WRAP_CONTENT, FIXED_SIZE
+        WRAP_CONTENT, FIXED_SIZE
     }
 
     Texture Background;
@@ -33,13 +32,10 @@ public class Layout extends InterfaceElement {
 
     public ArrayList<InterfaceElement> elements;
 
-    private Sides LayoutAttachSide = null;
-    private Sides ElementAttachSide = null;
-
     public Layout(Orientation orientation) {
         this.orientation = orientation;
-        sizeX = Size.MATCH_PARENT;
-        sizeY = Size.MATCH_PARENT;
+        sizeX = Size.WRAP_CONTENT;
+        sizeY = Size.WRAP_CONTENT;
 
         elements = new ArrayList<>();
         gravity = Gravity.LEFT;
@@ -66,7 +62,7 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void update(Camera2D cam) {
-        if (!hided) {
+        if (!hidden) {
             super.update(cam);
             for (InterfaceElement element : elements) {
                 element.update(cam);
@@ -75,25 +71,6 @@ public class Layout extends InterfaceElement {
     }
 
     public void updateSize() {
-        if (attachedTo == null) {
-            if (sizeX == Size.MATCH_PARENT) {
-                width = INTERFACE_CAMERA.W;
-                X = 0;
-            }
-            if (sizeY == Size.MATCH_PARENT) {
-                height = INTERFACE_CAMERA.H;
-                Y = 0;
-            }
-        } else {
-            if (sizeX == Size.MATCH_PARENT) {
-                width = attachedTo.width;
-                X = attachedTo.X;
-            }
-            if (sizeY == Size.MATCH_PARENT) {
-                height = attachedTo.height;
-                Y = attachedTo.Y;
-            }
-        }
         if (sizeX == Size.WRAP_CONTENT || sizeY == Size.WRAP_CONTENT) {
             float minX = 0, minY = 0, maxX = 0, maxY = 0;
 
@@ -118,7 +95,7 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void render(SpriteBatch batch, Camera2D cam) {
-        if (!hided) {
+        if (!hidden) {
             if (Background != null) batch.draw(Background, X, Y, width, height);
             for (InterfaceElement element : elements) {
                 element.render(batch, cam);
@@ -129,8 +106,12 @@ public class Layout extends InterfaceElement {
     @Override
     public void hide(boolean b) {
         super.hide(b);
+        for(InterfaceElement e : elements){
+            e.hide(b);
+        }
         if (!b) {
             setElementsPosition();
+            updateSize();
         }
     }
 
@@ -147,28 +128,30 @@ public class Layout extends InterfaceElement {
     }
 
     private void setElementsPosition() {
+        Sides layoutAttachSide = null;
+        Sides elementAttachSide = null;
         if (orientation == Orientation.VERTICAL) {
             if (gravity == Gravity.TOP) {
-                LayoutAttachSide = Sides.TOP;
-                ElementAttachSide = Sides.BOTTOM;
+                layoutAttachSide = Sides.TOP;
+                elementAttachSide = Sides.BOTTOM;
             } else if (gravity == Gravity.BOTTOM) {
-                LayoutAttachSide = Sides.BOTTOM;
-                ElementAttachSide = Sides.TOP;
+                layoutAttachSide = Sides.BOTTOM;
+                elementAttachSide = Sides.TOP;
             }
         } else if (orientation == Orientation.HORIZONTAL) {
             if (gravity == Gravity.RIGHT) {
-                LayoutAttachSide = Sides.RIGHT;
-                ElementAttachSide = Sides.LEFT;
+                layoutAttachSide = Sides.RIGHT;
+                elementAttachSide = Sides.LEFT;
             } else if (gravity == Gravity.LEFT) {
-                LayoutAttachSide = Sides.LEFT;
-                ElementAttachSide = Sides.RIGHT;
+                layoutAttachSide = Sides.LEFT;
+                elementAttachSide = Sides.RIGHT;
             }
         }
         for (int i = 0; i < elements.size(); i++) {
             if (i == 0) {
-                elements.get(i).attachTo(this, LayoutAttachSide, LayoutAttachSide);
+                elements.get(i).attachTo(this, layoutAttachSide, layoutAttachSide);
             } else {
-                elements.get(i).attachTo(elements.get(i - 1), LayoutAttachSide, ElementAttachSide);
+                elements.get(i).attachTo(elements.get(i - 1), layoutAttachSide, elementAttachSide);
             }
         }
     }
@@ -193,5 +176,13 @@ public class Layout extends InterfaceElement {
             if (e instanceof Layout) elements.addAll(((Layout) e).getAllElements());
         }
         return elements;
+    }
+
+    @Override
+    public void resize() {
+        super.resize();
+        for (InterfaceElement e : elements) {
+            e.resize();
+        }
     }
 }

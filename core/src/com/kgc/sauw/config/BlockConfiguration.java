@@ -26,7 +26,7 @@ public class BlockConfiguration {
         setLightingRadius(-1);
         setMaxDamage(1);
         setBlockIdAfterDestroy(4);
-        collisionsRectangle = new Rectangle(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+        collisionsRectangle = new Rectangle(0, 0, 1, 1);
     }
 
 
@@ -63,10 +63,10 @@ public class BlockConfiguration {
         return InstrumentType;
     }
 
-    public void setCollisionsRectangleByPixels(int x, int y, int w, int h, int TextureW) {
-        double scX = SCREEN_WIDTH / 16.0 / TextureW;
-        collisionsRectangle.setPosition((float) scX * x, (float) scX * y);
-        collisionsRectangle.setSize((float) scX * w, (float) scX * h);
+    public void setCollisionsRectangleByPixels(float x, float y, float w, float h, int TextureW) {
+        float sc = 1f / TextureW;
+        collisionsRectangle.setPosition(sc * x,  sc * y);
+        collisionsRectangle.setSize(sc * w,  sc * h);
     }
 
     public Rectangle getCollisionsRectangle() {

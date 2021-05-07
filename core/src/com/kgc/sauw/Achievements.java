@@ -63,7 +63,6 @@ public class Achievements {
                             int HEIGHT = Gdx.graphics.getHeight();
                             playerData.put("SAUW_Coins", playerData.getInt("SAUW_Coins") + a.giveCoins);
                             saveData();
-                            GI.showNotification(a.title, a.text, a.img, 6);
                             a.wasGave = true;
                         } catch (Exception e) {
 

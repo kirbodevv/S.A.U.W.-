@@ -24,6 +24,7 @@ public class InstrumentItem extends Item {
 
     @Override
     public void onClick(Tile tile) {
+        System.out.println(tile.id);
         if(BLOCKS.getBlockById(tile.id).getBlockConfiguration().getInstrumentType() == ItemConfiguration.instrumentType) tile.hit();
     }
 }

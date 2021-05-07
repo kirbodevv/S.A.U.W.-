@@ -43,7 +43,7 @@ public class TestInterface extends Interface {
 
         testLayout.addElements(img1, test, button1, img2);
 
-        MainLayout.addElements(testLayout);
+        mainLayout.addElements(testLayout);
 
         updateElementsList();
     }

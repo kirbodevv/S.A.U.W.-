@@ -33,16 +33,28 @@ public class Campfire extends Block {
     }
 
     private float timer = 0f;
+    private boolean smokeParticles = false;
+
+    @Override
+    public void tick() {
+        timer += Gdx.graphics.getRawDeltaTime();
+        if (timer >= 1) {
+            if (!smokeParticles) {
+                smokeParticles = true;
+            } else {
+                smokeParticles = false;
+                timer = 0;
+            }
+        }
+    }
 
     @Override
     public void tick(Tile tile) {
-        timer += Gdx.graphics.getRawDeltaTime();
-        if (timer >= 1) {
-            float x = tile.x * BLOCK_SIZE + BLOCK_SIZE / 2f;
-            float y = tile.y * BLOCK_SIZE + BLOCK_SIZE / 2f;
-            x += random.nextInt(BLOCK_SIZE / 4) - BLOCK_SIZE / 8f;
+        if (smokeParticles) {
+            float x = tile.x + 0.5f;
+            float y = tile.y + 0.5f;
+            x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:smoke", x, y, 3);
-            timer = 0f;
         }
         tile.t = animator.getFrame("animation:campfire");
     }

@@ -188,7 +188,8 @@ public class ModsScreen implements Screen {
         private Texture background;
         private Checkbox modActiv;
         private Texture modIcon;
-        private String modPath = "";
+        private String modName = "";
+        private String modDescription = "";
         private BitmapFont text = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
         private final float ModIconHeight;
@@ -206,7 +207,7 @@ public class ModsScreen implements Screen {
                 @Override
                 public void onClick(boolean isChecked) {
                     for (int i = 0; i < modsList.length(); i++){
-                        if(modsList.getJSONObject(i).getString("Mod").equals(modPath)){
+                        if(modsList.getJSONObject(i).getString("Mod").equals(modName)){
                             modsList.getJSONObject(i).put("isOn", isChecked);
                             saveModsListFile();
                         }
@@ -217,7 +218,7 @@ public class ModsScreen implements Screen {
 
         public void setMod(Mod mod) {
             this.modIcon = mod.modIcon;
-            this.modPath = mod.modName;
+            this.modName = mod.modName;
             modActiv.setChecked(mod.isOn);
         }
 
@@ -235,7 +236,7 @@ public class ModsScreen implements Screen {
                 super.render(batch, cam);
                 batch.draw(background, cam.X + X, cam.Y + Y, width, height);
                 batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, ModIconHeight, ModIconHeight);
-                text.draw(batch, modPath, cam.X + X + ModIconHeight + height / 4, cam.Y + Y + height - height / 8);
+                text.draw(batch, modName, cam.X + X + ModIconHeight + height / 4, cam.Y + Y + height - height / 8);
                 modActiv.render(batch, cam);
             }
         }

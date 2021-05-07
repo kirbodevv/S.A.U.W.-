@@ -81,8 +81,6 @@ public class World {
 
     public World() {
         createWorld();
-        /*PLAYER.body = Physic.createRectangleBody(PLAYER.posX, PLAYER.posY, PLAYER.playerBodyW, PLAYER.playerBodyH, BodyDef.BodyType.DynamicBody);
-        PLAYER.body.setFixedRotation(true);*/
     }
 
     public void createWorld() {
@@ -93,10 +91,9 @@ public class World {
     }
 
 
-
     public void setBodyAndLight(Tile tile, Block block) {
         if (block.id != 4 && tile.z == 0)
-            tile.setBody(Physic.createRectangleBody((int) tile.block.x, (int) tile.block.y, (int) tile.block.width, (int) tile.block.height, BodyDef.BodyType.StaticBody));
+            tile.setBody(Physic.createRectangleBody(tile.block.x, tile.block.y, tile.block.width, tile.block.height, BodyDef.BodyType.StaticBody));
         if (tile.z == 0) tile.setLight(RayHandler, block);
     }
 
@@ -158,13 +155,13 @@ public class World {
         if (!Gdx.input.isTouched() && worldTouched) {
             worldTouched = false;
             if (!interfaceTouched && !isAnyInterfaceOpen()) {
-                double sc = (double) GAME_CAMERA.W / SCREEN_WIDTH;
-                int cX = (int) (Gdx.input.getX() * sc + GAME_CAMERA.X);
-                int cY = (int) (GAME_CAMERA.H - Gdx.input.getY() * sc + GAME_CAMERA.Y);
-                int bX = (int) ((cX - (cX % (SCREEN_WIDTH / 16))) / (SCREEN_WIDTH / 16));
-                int bY = (int) ((cY - (cY % (SCREEN_WIDTH / 16))) / (SCREEN_WIDTH / 16));
+                float sc = SCREEN_WIDTH / GAME_CAMERA.W;
+                int bX = (int) Math.ceil(Gdx.input.getX() / sc + GAME_CAMERA.X) - 1;
+                int bY = (int) Math.ceil((Gdx.graphics.getHeight() - Gdx.input.getY()) / sc + GAME_CAMERA.Y) - 1;
                 mods.HookFunction("itemClick", new Object[]{bX, bY, (MAPS.map0[bY][bX][1].id != 4) ? 1 : 0, MAPS.map0[bY][bX][(MAPS.map0[bY][bX][1].id != 4) ? 1 : 0].id, PLAYER.getCarriedItem()});
-                if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX * SCREEN_WIDTH / 16, bY * SCREEN_WIDTH / 16) <= 1.7 * SCREEN_WIDTH / 16) {
+                System.out.println(bX);
+                System.out.println(bY);
+                if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
                     PLAYER.getCarriedItem().onClick(MAPS.map0[bY][bX][getHighestBlock(bX, bY)]);
                     if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCKITEM) {
                         if (setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
@@ -225,7 +222,7 @@ public class World {
     public void renderBlock(int x, int y, boolean isHighestLayer) {
         int z = getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x * (SCREEN_WIDTH / 16), y * (SCREEN_WIDTH / 16), BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x * SCREEN_WIDTH / 16, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y * SCREEN_WIDTH / 16)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y)) {
                 if (!isHighestLayer || z == 0) {
                     if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
@@ -233,9 +230,9 @@ public class World {
                     if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
-                    int w = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x * BLOCK_SIZE;
-                    int h = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y * BLOCK_SIZE;
-                    BATCH.draw(MAPS.map0[y][x][z].t, x * BLOCK_SIZE, y * BLOCK_SIZE, w, h);
+                    float w = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x;
+                    float h = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y;
+                    BATCH.draw(MAPS.map0[y][x][z].t, x, y, w, h);
 
                     if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(1, 1, 1, 1);

@@ -7,6 +7,8 @@ import com.kgc.sauw.ui.elements.Elements;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GravityAdapter;
 
+import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
+
 public class InterfaceElement {
     public enum Sides {
         LEFT,
@@ -21,7 +23,9 @@ public class InterfaceElement {
     }
 
     public float X, Y, width, height;
-    protected boolean hided;
+
+    public float BX = 0f, BY = 0f, BWidth = 0f, BHeight = 0f;
+    protected boolean hidden;
     protected boolean isTouched;
     protected boolean this_touched;
     public String ID = "";
@@ -37,7 +41,7 @@ public class InterfaceElement {
     public void update(Camera2D cam) {
         wasClicked = false;
         wasUp = false;
-        if (!hided) {
+        if (!hidden) {
             if (Gdx.input.isTouched()) {
                 if (!isTouched) {
                     if (Gdx.input.getX() > X && Gdx.input.getX() < X + width && cam.H - Gdx.input.getY() > Y && cam.H - Gdx.input.getY() < Y + height)
@@ -104,16 +108,17 @@ public class InterfaceElement {
         this.attachableSide = attachableSide;
         this.attachTo = attachTo;
         Vector2 position = GravityAdapter.getPosition(this, element, attachableSide, attachTo);
+
         setPosition(position.x, position.y);
         if (attachTo == Sides.RIGHT || attachTo == Sides.RIGHT_BOTTOM || attachTo == Sides.RIGHT_TOP)
-            X += element.marginRight;
+            X += element.marginRight * BLOCK_SIZE;
         if (attachTo == Sides.LEFT || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.LEFT_TOP)
-            X -= element.marginLeft;
+            X -= element.marginLeft * BLOCK_SIZE;
         if (attachTo == Sides.TOP || attachTo == Sides.LEFT_TOP || attachTo == Sides.RIGHT_TOP)
-            Y += element.marginTop;
+            Y += element.marginTop * BLOCK_SIZE;
         if (attachTo == Sides.BOTTOM || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.RIGHT_BOTTOM)
-            Y -= element.marginBottom;
-        setPosition(X + translationX, Y + translationY);
+            Y -= element.marginBottom * BLOCK_SIZE;
+        setPosition(X + translationX * BLOCK_SIZE, Y + translationY * BLOCK_SIZE);
     }
 
     public void create() {
@@ -137,11 +142,11 @@ public class InterfaceElement {
     }
 
     public void hide(boolean b) {
-        this.hided = b;
+        this.hidden = b;
     }
 
     public boolean isHidden() {
-        return hided;
+        return hidden;
     }
 
     public void dispose() {
@@ -155,5 +160,22 @@ public class InterfaceElement {
     public void setSize(float w, float h) {
         this.width = w;
         this.height = h;
+    }
+
+    public void setPositionInBlocks(float x, float y) {
+        this.BX = x;
+        this.BY = y;
+        setPosition(x * BLOCK_SIZE, y * BLOCK_SIZE);
+    }
+
+    public void setSizeInBlocks(float w, float h) {
+        this.BWidth = w;
+        this.BHeight = h;
+        setSize(w * BLOCK_SIZE, h * BLOCK_SIZE);
+    }
+
+    public void resize() {
+        setPositionInBlocks(BX, BY);
+        setSizeInBlocks(BWidth, BHeight);
     }
 }

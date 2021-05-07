@@ -1,20 +1,18 @@
 package com.kgc.sauw.entity;
 
-import com.badlogic.gdx.Gdx;
-
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 
 public class ItemEntityL extends EntityL {
-	public ItemEntityL(int x, int y, int iI, int iC, int iD){
+	public ItemEntityL(float x, float y, int iI, int iC, int iD){
 		this.type = 0;
 		setExtraData("itemId", iI);
 		setExtraData("itemCount", iC);
 		setExtraData("itemData", iD);
-		posX = x;
-		posY = y;
-		plW = Gdx.graphics.getWidth() / 32;
-		plH = Gdx.graphics.getWidth() / 32;
+		posX = (int) x;
+		posY = (int) y;
+		plW = 0.5f;
+		plH = 0.5f;
 		collisions = false;
 	}
 	@Override

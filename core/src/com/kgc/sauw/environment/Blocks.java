@@ -55,6 +55,10 @@ public class Blocks {
         for (Block b : BLOCKS) stateTime += Gdx.graphics.getDeltaTime();
     }
 
+    public void blockTick() {
+        for (Block b : BLOCKS) b.tick();
+    }
+
     public Block getBlockById(int id) {
         for (Block block : BLOCKS) {
             if (block.id == id) return block;

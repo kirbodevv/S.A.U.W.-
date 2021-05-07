@@ -75,10 +75,10 @@ public class EntityL implements com.intbyte.bdb.ExtraData {
 	public int posX, posY;
 	public int h = Gdx.graphics.getHeight();
 	public int w = Gdx.graphics.getWidth();
-	public int plW = w / 16 * 10 / 26;
-	public int plH = w / 16;
-	public int mX = (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
-	public int mY = (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
+	public float plW = w / 16 * 10 / 26;
+	public float plH = w / 16;
+	public int mX = (int) (((posX + plW / 2) - ((posX + plW / 2) % (w / 16))) / (w / 16));
+	public int mY = (int) (((posY + plH / 2) - ((posY + plH / 2) % (w / 16))) / (w / 16));
     public boolean collisions = true;
 	public ArrayList<ExtraData> ExtraData = new ArrayList<ExtraData>();
 	public void setPosition(int x, int y) {

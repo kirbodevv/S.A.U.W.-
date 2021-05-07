@@ -57,7 +57,7 @@ public class XmlInterfaceLoader {
                 if (e instanceof Layout && e.ID.equals(rootLayoutId)) rootLayout = (Layout) e;
             }
         }
-        if (rootLayoutId.equals("MainLayout")) rootLayout = Interface.MainLayout;
+        if (rootLayoutId.equals("MainLayout")) rootLayout = Interface.mainLayout;
         if (rootLayout != null) {
             InterfaceElement InterfaceElement = null;
             switch (element.getNodeName()) {
@@ -88,32 +88,32 @@ public class XmlInterfaceLoader {
             }
             if (InterfaceElement != null) {
                 if (!element.getAttribute("margin").equals("")) {
-                    InterfaceElement.setMargin(Units.fromStringToPx(element.getAttribute("margin")));
+                    InterfaceElement.setMargin(Units.fromStringToFloat(element.getAttribute("margin")));
                 }
                 if (!element.getAttribute("marginBottom").equals("")) {
-                    InterfaceElement.setMarginBottom(Units.fromStringToPx(element.getAttribute("marginBottom")));
+                    InterfaceElement.setMarginBottom(Units.fromStringToFloat(element.getAttribute("marginBottom")));
                 }
                 if (!element.getAttribute("marginTop").equals("")) {
-                    InterfaceElement.setMarginTop(Units.fromStringToPx(element.getAttribute("marginTop")));
+                    InterfaceElement.setMarginTop(Units.fromStringToFloat(element.getAttribute("marginTop")));
                 }
                 if (!element.getAttribute("marginRight").equals("")) {
-                    InterfaceElement.setMarginRight(Units.fromStringToPx(element.getAttribute("marginRight")));
+                    InterfaceElement.setMarginRight(Units.fromStringToFloat(element.getAttribute("marginRight")));
                 }
                 if (!element.getAttribute("marginLeft").equals("")) {
-                    InterfaceElement.setMarginLeft(Units.fromStringToPx(element.getAttribute("marginLeft")));
+                    InterfaceElement.setMarginLeft(Units.fromStringToFloat(element.getAttribute("marginLeft")));
                 }
 
                 if (!(InterfaceElement instanceof Layout)) {
                     if (!element.getAttribute("width").equals("") && !element.getAttribute("height").equals("")) {
-                        InterfaceElement.setSize(Units.fromStringToPx(element.getAttribute("width")), Units.fromStringToPx(element.getAttribute("height")));
+                        InterfaceElement.setSizeInBlocks(Units.fromStringToFloat(element.getAttribute("width")), Units.fromStringToFloat(element.getAttribute("height")));
                     }
                 }
 
                 if (!element.getAttribute("translateX").equals("")) {
-                    InterfaceElement.setTranslationX(Units.fromStringToPx(element.getAttribute("translateX")));
+                    InterfaceElement.setTranslationX(Units.fromStringToFloat(element.getAttribute("translateX")));
                 }
                 if (!element.getAttribute("translateY").equals("")) {
-                    InterfaceElement.setTranslationY(Units.fromStringToPx(element.getAttribute("translateY")));
+                    InterfaceElement.setTranslationY(Units.fromStringToFloat(element.getAttribute("translateY")));
                 }
 
                 if (!element.getAttribute("id").equals("")) {

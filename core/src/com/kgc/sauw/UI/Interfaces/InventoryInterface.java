@@ -3,6 +3,7 @@ package com.kgc.sauw.ui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.kgc.sauw.ui.InterfaceElement;
 import com.kgc.sauw.ui.elements.Image;
 import com.kgc.sauw.ui.elements.Slot;
 import com.kgc.sauw.ui.elements.Text;

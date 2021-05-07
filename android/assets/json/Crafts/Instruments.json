@@ -1,23 +1,23 @@
 [
   {
     "result": {
-      "id": 15,
+      "id": "item:stone_axe",
       "count": 2,
       "data": 0
     },
     "ingredients": [
       {
-        "id": 7,
+        "id": "item:stick",
         "count": 3,
         "data": 0
       },
       {
-        "id": 12,
+        "id": "item:stone",
         "count": 3,
         "data": 0
       },
       {
-        "id": 17,
+        "id": "item:rope",
         "count": 2,
         "data": 0
       }
@@ -25,23 +25,23 @@
   },
   {
     "result": {
-      "id": 14,
+      "id": "item:stone_pickaxe",
       "count": 2,
       "data": 0
     },
     "ingredients": [
       {
-        "id": 7,
+        "id": "item:stick",
         "count": 3,
         "data": 0
       },
       {
-        "id": 12,
+        "id": "item:stone",
         "count": 3,
         "data": 0
       },
       {
-        "id": 17,
+        "id": "item:rope",
         "count": 2,
         "data": 0
       }
@@ -49,23 +49,23 @@
   },
   {
     "result": {
-      "id": 22,
+      "id": "item:stone_shovel",
       "count": 2,
       "data": 0
     },
     "ingredients": [
       {
-        "id": 7,
+        "id": "item:stick",
         "count": 3,
         "data": 0
       },
       {
-        "id": 12,
+        "id": "item:stone",
         "count": 3,
         "data": 0
       },
       {
-        "id": 17,
+        "id": "item:rope",
         "count": 2,
         "data": 0
       }

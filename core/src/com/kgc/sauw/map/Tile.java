@@ -81,8 +81,9 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         this.z = Z;
         this.id = bl.id;
         this.block = new Rectangle();
-        this.block.setPosition(X * BLOCK_SIZE + bl.getBlockConfiguration().getCollisionsRectangle().x, Y * BLOCK_SIZE + bl.getBlockConfiguration().getCollisionsRectangle().y);
+        this.block.setPosition(X + bl.getBlockConfiguration().getCollisionsRectangle().x, Y + bl.getBlockConfiguration().getCollisionsRectangle().y);
         this.block.setSize(bl.getBlockConfiguration().getCollisionsRectangle().width, bl.getBlockConfiguration().getCollisionsRectangle().height);
+
         if (bl.t0 != null) t = TextureRegion.split(bl.t0, bl.t0.getWidth(), bl.t0.getHeight())[0][0];
 
         this.Interface = BLOCKS.getBlockById(id).GUI;
@@ -104,7 +105,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 
     public void setLight(RayHandler rh, Block bl) {
         if (bl.getBlockConfiguration().getLightingRadius() != -1) {
-            PL = new PointLight(rh, 100, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getLightingRadius() * BLOCK_SIZE, x * BLOCK_SIZE + BLOCK_SIZE / 2f, y * BLOCK_SIZE + BLOCK_SIZE / 2f);
+            PL = new PointLight(rh, 100, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getLightingRadius(), x + 0.5f, y + 0.5f);
             PL.attachToBody(body);
         }
     }
@@ -154,14 +155,14 @@ public class Tile implements com.intbyte.bdb.ExtraData {
             if (BLOCKS.getBlockById(id).getBlockConfiguration().getDrop() != null) {
                 for (int i = 0; i < BLOCKS.getBlockById(id).getBlockConfiguration().getDrop().length; i++) {
                     Random r = new Random();
-                    int xx = r.nextInt(BLOCK_SIZE) + BLOCK_SIZE * x;
-                    int yy = r.nextInt(BLOCK_SIZE) + BLOCK_SIZE * y;
+                    float xx = (r.nextFloat() - 0.5f) / 2f + x;
+                    float yy = (r.nextFloat() - 0.5f) / 2f + y;
                     ENTITIES.spawn(new ItemEntityL(xx, yy, BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1], 0));
                 }
             }
         }
         BLOCKS.getBlockById(id).tick(this);
-        if (Gdx.input.isTouched() && !GAME_INTERFACE.isTouched()) {
+        /*if (Gdx.input.isTouched() && !GAME_INTERFACE.isTouched()) {
             double sc = (double) GAME_CAMERA.W / SCREEN_WIDTH;
             int cX = (int) (Gdx.input.getX() * sc + GAME_CAMERA.X);
             int cY = (int) (GAME_CAMERA.H - Gdx.input.getY() * sc + GAME_CAMERA.Y);
@@ -170,7 +171,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
             if (bX == x && bY == y) {
                 Environment.BLOCKS.getBlockById(id).click(this);
             }
-        }
+        }*/
         if ((GAME_INTERFACE.interactionButton.wasClicked || Gdx.input.isKeyPressed(Input.Keys.E)) && Maths.distance(x, y, PLAYER.getCurrentTileX(), PLAYER.getCurrentTileY()) <= 1.5 && ((PLAYER.getCurrentTileY() + 1 == y && PLAYER.rotation == 0) || (PLAYER.getCurrentTileX() + 1 == x && PLAYER.rotation == 1) || (PLAYER.getCurrentTileY() - 1 == y && PLAYER.rotation == 2) || (PLAYER.getCurrentTileX() - 1 == x && PLAYER.rotation == 3))) {
             Environment.BLOCKS.getBlockById(id).onInteractionButtonPressed(this);
             if (Interface != null)

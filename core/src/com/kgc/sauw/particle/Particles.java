@@ -56,8 +56,8 @@ public class Particles {
         flameParticle.setTexture(TEXTURES.flameParticle);
 
         smokeParticle.setTextures(TEXTURES.smokeParticle_0, TEXTURES.smokeParticle_1);
-        smokeParticle.setWidth(BLOCK_SIZE - BLOCK_SIZE / 4f);
-        smokeParticle.setHeight(BLOCK_SIZE - BLOCK_SIZE / 4f);
+        smokeParticle.setWidth(0.75f);
+        smokeParticle.setHeight(0.75f);
 
         createParticle(flameParticle, "particle:flame");
         createParticle(smokeParticle, "particle:smoke");

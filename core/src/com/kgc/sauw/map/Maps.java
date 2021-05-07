@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.entity.ItemEntityL;
+import com.kgc.sauw.utils.ID;
 
 import java.util.Random;
 
 import static com.kgc.sauw.entity.Entities.ENTITIES;
+import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class Maps {
@@ -38,13 +40,13 @@ public class Maps {
         for (int i = 0; i < map0.length; i++) {
             for (int j = 0; j < map0[i].length; j++) {
                 if (r1.nextInt(75) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(j * WIDTH / 16, i * WIDTH / 16, 7, 1, 0));
+                    ENTITIES.spawn(new ItemEntityL(j, i, ID.get("item:stick"), 1, 0));
                 }
                 if (r1.nextInt(50) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(j * WIDTH / 16, i * WIDTH / 16, 12, 1, 0));
+                    ENTITIES.spawn(new ItemEntityL(j, i, ID.get("item:stone"), 1, 0));
                 }
                 if (r1.nextInt(100) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(j * WIDTH / 16, i * WIDTH / 16, 18, 1, 0));
+                    ENTITIES.spawn(new ItemEntityL(j, i, ID.get("item:vegetable_fiber"), 1, 0));
                 }
             }
 
@@ -92,6 +94,7 @@ public class Maps {
     }
 
     public void update() {
+        BLOCKS.blockTick();
         for (Tile[][] tiles : map0) {
             for (Tile[] tiles1 : tiles) {
                 for (Tile tile : tiles1) {

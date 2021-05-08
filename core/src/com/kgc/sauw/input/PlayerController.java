@@ -4,10 +4,10 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-import com.kgc.sauw.ui.interfaces.Interfaces;
+import com.kgc.sauw.gui.interfaces.Interfaces;
 
 import static com.kgc.sauw.entity.Entities.PLAYER;
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 
 public class PlayerController implements InputProcessor {
     public static void update() {

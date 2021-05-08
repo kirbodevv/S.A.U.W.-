@@ -2,7 +2,7 @@ package com.kgc.sauw.modding;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.ui.interfaces.Interfaces;
+import com.kgc.sauw.gui.interfaces.Interfaces;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.mozilla.javascript.Context;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.*;

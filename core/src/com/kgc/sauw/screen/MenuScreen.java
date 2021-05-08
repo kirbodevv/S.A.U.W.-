@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.ui.elements.Button;
-import com.kgc.sauw.ui.interfaces.CreateNewWorldInterface;
+import com.kgc.sauw.gui.elements.Button;
+import com.kgc.sauw.gui.interfaces.CreateNewWorldInterface;
 import org.json.JSONObject;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;

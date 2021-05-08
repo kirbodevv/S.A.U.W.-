@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.kgc.sauw.AchievementsChecker;
 import com.kgc.sauw.WorldLoader;
 import com.kgc.sauw.graphic.Animator;
@@ -15,18 +13,17 @@ import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.particle.Particles;
 import com.kgc.sauw.physic.Physic;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.ui.elements.Elements;
+import com.kgc.sauw.gui.elements.Elements;
 import com.kgc.sauw.utils.GameCameraController;
 import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
 import static com.kgc.sauw.resource.Files.loadPlayerData;
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
-import static com.kgc.sauw.ui.interfaces.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
 
 public class SAUW implements Screen {
     public static boolean isGameRunning;

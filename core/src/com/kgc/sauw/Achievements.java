@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.ui.GameInterface;
+import com.kgc.sauw.gui.GameInterface;
 import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.entity.Player;
 import org.json.JSONArray;

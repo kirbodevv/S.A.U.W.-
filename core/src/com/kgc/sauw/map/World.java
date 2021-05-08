@@ -21,8 +21,8 @@ import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
-import static com.kgc.sauw.ui.interfaces.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
 
 public class World {
     public static final Maps MAPS;

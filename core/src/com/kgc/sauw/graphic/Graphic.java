@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.resource.Textures;
-import com.kgc.sauw.ui.Interface;
-import com.kgc.sauw.ui.interfaces.Interfaces;
+import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.gui.interfaces.Interfaces;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GameCameraController;
 
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 
 public final class Graphic {
     public static final SpriteBatch BATCH;

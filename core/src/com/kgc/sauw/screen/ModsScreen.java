@@ -1,10 +1,10 @@
 package com.kgc.sauw.screen;
 
 import com.kgc.sauw.utils.Camera2D;
-import com.kgc.sauw.ui.elements.Button;
-import com.kgc.sauw.ui.elements.Checkbox;
-import com.kgc.sauw.ui.InterfaceElement;
-import com.kgc.sauw.ui.elements.Slider;
+import com.kgc.sauw.gui.elements.Button;
+import com.kgc.sauw.gui.elements.Checkbox;
+import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.gui.elements.Slider;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.resource.Textures;
 import com.badlogic.gdx.Gdx;

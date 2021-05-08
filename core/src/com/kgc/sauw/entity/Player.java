@@ -12,7 +12,6 @@ import com.kgc.sauw.environment.items.Item;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.input.PlayerController;
 import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.particle.Particles;
 import com.kgc.sauw.physic.Physic;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
@@ -20,8 +19,8 @@ import static com.kgc.sauw.entity.Entities.ENTITIES_LIST;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
-import static com.kgc.sauw.ui.interfaces.Interfaces.DEAD_INTERFACE;
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.DEAD_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 
 
 public class Player extends Entity implements ExtraData {

@@ -1,7 +1,7 @@
 package com.kgc.sauw.utils;
 
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.ui.InterfaceElement;
+import com.kgc.sauw.gui.InterfaceElement;
 
 public class GravityAdapter {
     public static Vector2 getPosition(InterfaceElement element, InterfaceElement attachedTo, InterfaceElement.Sides attachableSide, InterfaceElement.Sides attachTo) {

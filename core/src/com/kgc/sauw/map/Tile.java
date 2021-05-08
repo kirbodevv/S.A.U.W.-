@@ -13,8 +13,8 @@ import com.kgc.sauw.entity.ItemEntityL;
 import com.kgc.sauw.environment.Environment;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.ui.Container;
-import com.kgc.sauw.ui.Interface;
+import com.kgc.sauw.gui.Container;
+import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.utils.ExtraData;
 
 import java.util.ArrayList;
@@ -23,9 +23,8 @@ import java.util.Random;
 import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
-import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.WORLD;
-import static com.kgc.sauw.ui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 
 public class Tile implements com.intbyte.bdb.ExtraData {
     public static class TileEntityFactory implements ExtraDataFactory {

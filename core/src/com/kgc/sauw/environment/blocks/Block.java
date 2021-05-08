@@ -1,7 +1,7 @@
 package com.kgc.sauw.environment.blocks;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.ui.Interface;
+import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.config.BlockConfiguration;
 import com.kgc.sauw.map.Tile;
 

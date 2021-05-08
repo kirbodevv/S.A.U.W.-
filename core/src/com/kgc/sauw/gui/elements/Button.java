@@ -92,8 +92,7 @@ public class Button extends InterfaceElement {
     }
 
     @Override
-    public void update(Camera2D cam) {
-        super.update(cam);
+    public void tick(Camera2D cam) {
         setTextScale();
     }
 
@@ -102,15 +101,13 @@ public class Button extends InterfaceElement {
     }
 
     @Override
-    public void render(SpriteBatch b, Camera2D cam) {
-        if (!isHidden()) {
-            if (!locked)
-                b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + X, cam.Y + Y, width, height);
-            else b.draw(buttonPressedTexture, cam.X + X, cam.Y + Y, width, height);
+    public void renderTick(SpriteBatch b, Camera2D cam) {
+        if (!locked)
+            b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + X, cam.Y + Y, width, height);
+        else b.draw(buttonPressedTexture, cam.X + X, cam.Y + Y, width, height);
 
-            if (buttonText != null)
-                buttonText.drawMultiLine(b, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, BitmapFont.HAlignment.CENTER);
-        }
+        if (buttonText != null)
+            buttonText.drawMultiLine(b, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, BitmapFont.HAlignment.CENTER);
     }
 
     @Override

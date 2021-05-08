@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.gui.GameInterface;
+import com.kgc.sauw.gui.HUD;
 import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.entity.Player;
 import org.json.JSONArray;
@@ -53,7 +53,7 @@ public class Achievements {
         achievements.add(ac);
     }
 
-    public void giveAchievment(Player pl, String id, GameInterface GI, Settings s) {
+    public void giveAchievment(Player pl, String id, HUD GI, Settings s) {
         if (!s.useConsole) {
             for (achievement a : achievements) {
                 if (a.id.equals(id)) {

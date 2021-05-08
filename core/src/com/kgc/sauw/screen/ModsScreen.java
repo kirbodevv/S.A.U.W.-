@@ -27,6 +27,7 @@ public class ModsScreen implements Screen {
         public Texture modIcon;
         public String modName;
         public boolean isOn;
+
         public Mod(String modPath, boolean isOn) {
             FileHandle manifestFile = Gdx.files.external(modPath + "/manifest.json");
             this.isOn = isOn;
@@ -194,6 +195,7 @@ public class ModsScreen implements Screen {
 
         private final float ModIconHeight;
         private JSONArray modsList;
+
         public ModInfo(int X, int Y, final JSONArray modsList) {
             this.modsList = modsList;
             setPosition(X, Y);
@@ -206,8 +208,8 @@ public class ModsScreen implements Screen {
             modActiv.setEventListener(new Checkbox.EventListener() {
                 @Override
                 public void onClick(boolean isChecked) {
-                    for (int i = 0; i < modsList.length(); i++){
-                        if(modsList.getJSONObject(i).getString("Mod").equals(modName)){
+                    for (int i = 0; i < modsList.length(); i++) {
+                        if (modsList.getJSONObject(i).getString("Mod").equals(modName)) {
                             modsList.getJSONObject(i).put("isOn", isChecked);
                             saveModsListFile();
                         }
@@ -223,22 +225,17 @@ public class ModsScreen implements Screen {
         }
 
         @Override
-        public void update(Camera2D cam) {
-            if (!isHidden()) {
-                super.update(cam);
-                modActiv.update(cam);
-            }
+        public void tick(Camera2D cam) {
+            modActiv.update(cam);
         }
 
         @Override
-        public void render(SpriteBatch batch, Camera2D cam) {
-            if (!isHidden()) {
-                super.render(batch, cam);
-                batch.draw(background, cam.X + X, cam.Y + Y, width, height);
-                batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, ModIconHeight, ModIconHeight);
-                text.draw(batch, modName, cam.X + X + ModIconHeight + height / 4, cam.Y + Y + height - height / 8);
-                modActiv.render(batch, cam);
-            }
+        public void renderTick(SpriteBatch batch, Camera2D cam) {
+            super.render(batch, cam);
+            batch.draw(background, cam.X + X, cam.Y + Y, width, height);
+            batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, ModIconHeight, ModIconHeight);
+            text.draw(batch, modName, cam.X + X + ModIconHeight + height / 4, cam.Y + Y + height - height / 8);
+            modActiv.render(batch, cam);
         }
     }
 }

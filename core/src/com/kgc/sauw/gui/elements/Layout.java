@@ -61,12 +61,9 @@ public class Layout extends InterfaceElement {
     }
 
     @Override
-    public void update(Camera2D cam) {
-        if (!hidden) {
-            super.update(cam);
-            for (InterfaceElement element : elements) {
-                element.update(cam);
-            }
+    public void tick(Camera2D cam) {
+        for (InterfaceElement element : elements) {
+            element.update(cam);
         }
     }
 
@@ -94,19 +91,17 @@ public class Layout extends InterfaceElement {
     }
 
     @Override
-    public void render(SpriteBatch batch, Camera2D cam) {
-        if (!hidden) {
-            if (Background != null) batch.draw(Background, X, Y, width, height);
-            for (InterfaceElement element : elements) {
-                element.render(batch, cam);
-            }
+    public void renderTick(SpriteBatch batch, Camera2D cam) {
+        if (Background != null) batch.draw(Background, X, Y, width, height);
+        for (InterfaceElement element : elements) {
+            element.render(batch, cam);
         }
     }
 
     @Override
     public void hide(boolean b) {
         super.hide(b);
-        for(InterfaceElement e : elements){
+        for (InterfaceElement e : elements) {
             e.hide(b);
         }
         if (!b) {

@@ -7,7 +7,7 @@ import com.kgc.sauw.gui.elements.Elements;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GravityAdapter;
 
-import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class InterfaceElement {
     public enum Sides {
@@ -38,7 +38,7 @@ public class InterfaceElement {
     public float marginTop, marginBottom, marginLeft, marginRight;
     public float translationX = 0, translationY = 0;
 
-    public void update(Camera2D cam) {
+    public final void update(Camera2D cam) {
         wasClicked = false;
         wasUp = false;
         if (!hidden) {
@@ -62,7 +62,18 @@ public class InterfaceElement {
             }
             if (!Gdx.input.isTouched())
                 isTouched = false;
+            tick(cam);
         }
+    }
+
+    protected void tick(Camera2D cam) {
+    }
+
+    public final void render(SpriteBatch batch, Camera2D cam) {
+        if (!hidden) renderTick(batch, cam);
+    }
+
+    protected void renderTick(SpriteBatch batch, Camera2D cam) {
     }
 
     public void setMarginLeft(float marginLeft) {
@@ -123,10 +134,6 @@ public class InterfaceElement {
 
     public void create() {
         Elements.addElement(this);
-    }
-
-    public void render(SpriteBatch batch, Camera2D cam) {
-
     }
 
     public void onClick(boolean onButton) {

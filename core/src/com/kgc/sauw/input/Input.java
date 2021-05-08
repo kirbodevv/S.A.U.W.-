@@ -14,14 +14,19 @@ public final class Input {
     public static final InputMultiplexer INPUT_MULTIPLEXER;
     private static final GameInputProcessor GAME_INPUT_PROCESSOR;
     private static final PlayerController PLAYER_CONTROLLER;
+    private static final TextInputProcessor TEXT_INPUT_PROCESSOR;
 
     static {
         INPUT_MULTIPLEXER = new InputMultiplexer();
         GAME_INPUT_PROCESSOR = new GameInputProcessor();
         PLAYER_CONTROLLER = new PlayerController();
+        TEXT_INPUT_PROCESSOR = new TextInputProcessor();
+
         INPUT_MULTIPLEXER.addProcessor(GAME_INPUT_PROCESSOR);
         INPUT_MULTIPLEXER.addProcessor(PLAYER_CONTROLLER);
+        INPUT_MULTIPLEXER.addProcessor(TEXT_INPUT_PROCESSOR);
     }
+
     public static class GameInputProcessor implements InputProcessor {
         @Override
         public boolean keyDown(int keycode) {

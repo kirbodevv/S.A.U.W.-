@@ -61,8 +61,7 @@ public class Slot extends InterfaceElement {
     }
 
     @Override
-    public void update(Camera2D cam) {
-        super.update(cam);
+    public void tick(Camera2D cam) {
         if (isTouched() && (SF == null || SF.possibleToDrag())) {
             toItemX = (Gdx.input.getX() + cam.X - height / 4);
             toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
@@ -76,7 +75,7 @@ public class Slot extends InterfaceElement {
     }
 
     @Override
-    public void render(SpriteBatch batch, Camera2D cam) {
+    public void renderTick(SpriteBatch batch, Camera2D cam) {
         batch.draw(slot, cam.X + X, cam.Y + Y, width, height);
     }
 

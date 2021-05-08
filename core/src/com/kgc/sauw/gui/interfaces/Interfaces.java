@@ -1,6 +1,6 @@
 package com.kgc.sauw.gui.interfaces;
 
-import com.kgc.sauw.gui.GameInterface;
+import com.kgc.sauw.gui.HUD;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.ChestInterface;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.FurnaceInterface;
@@ -8,7 +8,7 @@ import com.kgc.sauw.gui.interfaces.blockInterfaces.FurnaceInterface;
 import java.util.ArrayList;
 
 public final class Interfaces {
-    public static final GameInterface GAME_INTERFACE;
+    public static final HUD GAME_INTERFACE;
     /**
      * S.A.U.W. Interfaces
      **/
@@ -27,7 +27,7 @@ public final class Interfaces {
     public static final ArrayList<Interface> INTERFACES;
 
     static {
-        GAME_INTERFACE = new GameInterface();
+        GAME_INTERFACE = new HUD();
 
         CONSOLE_INTERFACE = new ConsoleInterface();
         CRAFTING_INTERFACE = new CraftingInterface();

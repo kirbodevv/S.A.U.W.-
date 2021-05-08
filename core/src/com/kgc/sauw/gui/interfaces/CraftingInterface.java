@@ -34,15 +34,15 @@ public class CraftingInterface extends Interface {
         mainLayout.setGravity(Layout.Gravity.LEFT);
 
         createFromXml(Gdx.files.internal("xml/CraftingInterface.xml").readString());
-        getElement("craftsLayout").setSize(BLOCK_SIZE * 7.5f, SCREEN_HEIGHT - BLOCK_SIZE * 2f);
+        getElement("craftsLayout").setSizeInBlocks(7.5f, 7f);
         ((Layout) getElement("craftsLayout")).generateBackground(false);
-        getElement("craftInfoLayout").setSize(BLOCK_SIZE * 6f, SCREEN_HEIGHT - BLOCK_SIZE * 2);
+        getElement("craftInfoLayout").setSizeInBlocks(6f, 7f);
         ((Layout) getElement("craftInfoLayout")).generateBackground(false);
 
-        getElement("craftIconLayout").setSize(BLOCK_SIZE * 2, BLOCK_SIZE * 2);
+        getElement("craftIconLayout").setSizeInBlocks(2f, 2f);
         ((Layout) getElement("craftIconLayout")).generateBackground(true);
 
-        ((Layout) getElement("craftIconLayout_0")).setSize(0, BLOCK_SIZE * 2);
+        ((Layout) getElement("craftIconLayout_0")).setSizeInBlocks(0, 2);
 
         itemIcon = (Image) getElement("craftIcon");
         craftName = (Text) getElement("craftName");
@@ -94,7 +94,8 @@ public class CraftingInterface extends Interface {
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
                 String id = "Craft_" + num;
-                Button button = new Button(id, 0, 0, BLOCK_SIZE, BLOCK_SIZE);
+                Button button = new Button(id, 0, 0, 0, 0);
+                button.setSizeInBlocks(1, 1);
                 button.setEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {

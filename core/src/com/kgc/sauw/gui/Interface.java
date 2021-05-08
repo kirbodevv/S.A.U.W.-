@@ -157,7 +157,6 @@ public class Interface {
         nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, 0, 0, TEXTURES.button_right_0, TEXTURES.button_right_1);
         previousTabInv.setSizeInBlocks(1, 1);
         nextTabInv.setSizeInBlocks(1, 1);
-
         Text backpackText = new Text();
         backpackText.setSizeInBlocks(5, 1);
         backpackText.setText(LANGUAGES.getString("backpack"));

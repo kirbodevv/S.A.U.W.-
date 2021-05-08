@@ -98,13 +98,12 @@ public class Joystick extends InterfaceElement {
     }
 
     @Override
-    public void update(Camera2D cam) {
-        super.update(cam);
+    public void tick(Camera2D cam) {
         setSize(D1, D1);
     }
 
     @Override
-    public void render(SpriteBatch batch, Camera2D cam) {
+    public void renderTick(SpriteBatch batch, Camera2D cam) {
         int x = 0, y = 0;
         if (Gdx.input.isTouched()) {
             x = (int) cam.touchX();

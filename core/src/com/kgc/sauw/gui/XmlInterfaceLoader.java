@@ -80,7 +80,7 @@ public class XmlInterfaceLoader {
                     ((Slot) InterfaceElement).isInventorySlot = Boolean.parseBoolean(element.getAttribute("isInventorySlot"));
                     break;
                 case "EditText":
-                    InterfaceElement = new EditText(0, 0, 0, 0, INPUT_MULTIPLEXER);
+                    InterfaceElement = new EditText();
                     break;
                 case "Slider":
                     InterfaceElement = new Slider(0, 0, 0, 0);

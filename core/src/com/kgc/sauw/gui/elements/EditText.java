@@ -3,6 +3,8 @@ package com.kgc.sauw.gui.elements;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.input.InputAdapter;
+import com.kgc.sauw.input.TextInputProcessor;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,72 +28,25 @@ public class EditText extends InterfaceElement {
     Color textColor = new Color(64f / 255, 137f / 255, 154f / 255, 1);
 
     public boolean isKeyboardOpen = false;
-    private InputProcessor processor;
-    private InputMultiplexer multiplexer;
-
     private boolean possibleToEnterText = false;
 
-    public EditText(float x, float y, float w, float h, InputMultiplexer multiplexer) {
-        this.multiplexer = multiplexer;
-
-        setPosition(x, y);
-        setSize(w, h);
-
-        processor = new InputProcessor() {
+    public EditText() {
+        TextInputProcessor.addAdapter(new InputAdapter() {
             @Override
-            public boolean keyDown(int keycode) {
-                return false;
+            public void onCharEnter(char char_) {
+                if (possibleToEnterText)
+                    input += char_;
             }
 
             @Override
-            public boolean keyUp(int keycode) {
-                return false;
+            public void onBackspaceClick() {
+                if (input.length() > 0 && possibleToEnterText) input = input.substring(0, input.length() - 1);
             }
-
-            @Override
-            public boolean keyTyped(char c) {
-                if (!hidden && possibleToEnterText) {
-                    if (c == 0) {
-                        return false;
-                    } else if (c == '\b' && input.length() > 0) {
-                        input = input.substring(0, input.length() - 1);
-                    } else {
-                        input += c;
-                    }
-                }
-                return true;
-            }
-
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                return false;
-            }
-
-            @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                return false;
-            }
-
-            @Override
-            public boolean touchDragged(int screenX, int screenY, int pointer) {
-                return false;
-            }
-
-            @Override
-            public boolean mouseMoved(int screenX, int screenY) {
-                return false;
-            }
-
-            @Override
-            public boolean scrolled(int amount) {
-                return false;
-            }
-        };
-        multiplexer.addProcessor(processor);
+        });
     }
 
     public void setTextColor(float r, float g, float b) {
-        this.BF.setColor(r, g, b, 1);
+        BF.setColor(r, g, b, 1);
     }
 
     public void clear() {
@@ -99,8 +54,7 @@ public class EditText extends InterfaceElement {
     }
 
     @Override
-    public void update(Camera2D cam) {
-        super.update(cam);
+    public void tick(Camera2D cam) {
         if (Gdx.input.isTouched()) {
             Gdx.input.setOnscreenKeyboardVisible(false);
             possibleToEnterText = false;
@@ -123,7 +77,7 @@ public class EditText extends InterfaceElement {
     }
 
     @Override
-    public void render(SpriteBatch b, Camera2D cam) {
+    public void renderTick(SpriteBatch b, Camera2D cam) {
         setTextScale();
         BF.setColor(textColor);
         b.draw(backgroundTextutre, X + cam.X, Y + cam.Y, width, height);
@@ -133,7 +87,7 @@ public class EditText extends InterfaceElement {
     @Override
     public void setSize(float w, float h) {
         super.setSize(w, h);
-        if(backgroundTextutre != null) backgroundTextutre.dispose();
+        if (backgroundTextutre != null) backgroundTextutre.dispose();
         this.backgroundTextutre = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
     }
 

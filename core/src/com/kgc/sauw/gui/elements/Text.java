@@ -41,7 +41,7 @@ public class Text extends InterfaceElement {
 
 
     @Override
-    public void render(SpriteBatch batch, Camera2D cam) {
+    public void renderTick(SpriteBatch batch, Camera2D cam) {
         setTextScale();
         BITMAP_FONT.setColor(textColor);
         batch.draw(background, cam.X + X, cam.Y + Y, width, height);

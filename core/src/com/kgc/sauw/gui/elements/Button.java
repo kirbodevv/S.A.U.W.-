@@ -1,5 +1,7 @@
 package com.kgc.sauw.gui.elements;
 
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -18,6 +20,7 @@ public class Button extends InterfaceElement {
     public boolean generatedTextures;
     private boolean locked = false;
     private float capHeight;
+    private GlyphLayout glyphLayout;
 
     public Button(String ID, float X, float Y, float w, float h, Texture BT, Texture BP) {
         generatedTextures = false;
@@ -62,8 +65,9 @@ public class Button extends InterfaceElement {
     public void setText(String text) {
         txt = text;
         createBitmapFont();
-        if (buttonText.getBounds(text).width > this.width) {
-            setSize(height / 2 + (int) buttonText.getBounds(text).width, this.height);
+        glyphLayout.setText(buttonText, text);
+        if (glyphLayout.width > this.width) {
+            setSize(height / 2 + (int) glyphLayout.width, this.height);
         }
     }
 
@@ -73,12 +77,13 @@ public class Button extends InterfaceElement {
             capHeight = buttonText.getCapHeight();
             setTextScale();
             buttonText.setColor(Color.BLACK);
+            glyphLayout = new GlyphLayout();
         }
     }
 
     public void setTextScale() {
         if (buttonText != null) {
-            buttonText.setScale(height / 2 / capHeight);
+            buttonText.getData().setScale(height / 2 / capHeight);
         }
     }
 
@@ -107,7 +112,7 @@ public class Button extends InterfaceElement {
         else b.draw(buttonPressedTexture, cam.X + X, cam.Y + Y, width, height);
 
         if (buttonText != null)
-            buttonText.drawMultiLine(b, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, BitmapFont.HAlignment.CENTER);
+            buttonText.draw(b, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, Align.center, false);
     }
 
     @Override

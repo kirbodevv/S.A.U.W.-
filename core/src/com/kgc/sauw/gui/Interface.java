@@ -1,5 +1,6 @@
 package com.kgc.sauw.gui;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.gui.elements.Button;
@@ -74,9 +75,10 @@ public class Interface {
         Elements.add(closeInterfaceButton);
     }
 
-    public void createFromXml(String XMLString) {
+    public void createFromXml(FileHandle xmlFile) {
         try {
-            XmlInterfaceLoader.load(this, XMLString);
+            System.out.println(xmlFile.readString());
+            XmlInterfaceLoader.load(this, xmlFile.readString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,7 +175,7 @@ public class Interface {
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
                 String id = "InventorySlot_" + num;
-                Slot s = new Slot(id, this, 0, 0, 0, 0);
+                Slot s = new Slot(id, this);
                 s.setSizeInBlocks(1, 1);
                 s.isInventorySlot = true;
                 s.setSF(new Slot.SlotFunctions() {

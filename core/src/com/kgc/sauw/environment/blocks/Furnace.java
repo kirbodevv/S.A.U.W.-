@@ -39,6 +39,6 @@ public class Furnace extends Block {
     @Override
     public void tick(Tile tile) {
         tile.t = furnaceTextures[0][0];
-        if ((int) (tile.getExtraData("fuel")) > 0) tile.t = furnaceAnimation.getKeyFrame(BLOCKS.stateTime, true);
+        if ((int) (tile.getExtraData("fuel")) > 0) tile.t = (TextureRegion) furnaceAnimation.getKeyFrame(BLOCKS.stateTime, true);
     }
 }

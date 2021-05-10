@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.resource.Textures;
+import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 
 import static com.kgc.sauw.graphic.Graphic.*;
@@ -24,15 +25,16 @@ public class Text extends InterfaceElement {
 
     public void setText(String text) {
         txt = text;
+        GLYPH_LAYOUT.setText(BITMAP_FONT, text);
         setTextScale();
-        if (BITMAP_FONT.getBounds(text).width > this.width) {
-            setSize(height / 2 + (int) BITMAP_FONT.getBounds(text).width, this.height);
+        if (GLYPH_LAYOUT.width > this.width) {
+            setSize(height / 2 + (int) GLYPH_LAYOUT.width, this.height);
         }
     }
 
     public void setTextScale() {
         if (height != 0)
-            BITMAP_FONT.setScale(height / 2f / BITMAP_FONT_CAP_HEIGHT);
+            BITMAP_FONT.getData().setScale(height / 2f / BITMAP_FONT_CAP_HEIGHT);
     }
 
     public void setColor(int r, int g, int b) {
@@ -45,6 +47,6 @@ public class Text extends InterfaceElement {
         setTextScale();
         BITMAP_FONT.setColor(textColor);
         batch.draw(background, cam.X + X, cam.Y + Y, width, height);
-        BITMAP_FONT.drawMultiLine(batch, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, BitmapFont.HAlignment.CENTER);
+        BITMAP_FONT.draw(batch, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, Align.center, false);
     }
 }

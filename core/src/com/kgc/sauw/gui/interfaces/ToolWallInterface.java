@@ -7,7 +7,7 @@ public class ToolWallInterface extends Interface {
 
     public ToolWallInterface() {
         super("TOOL_WALL_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/ToolWallInstruments.xml").readString());
+        createFromXml(Gdx.files.internal("xml/ToolWallInstruments.xml"));
 
         updateElementsList();
     }

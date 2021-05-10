@@ -8,7 +8,7 @@ public class ChestInterface extends Interface {
     public ChestInterface() {
         super("CHEST_INTERFACE");
 
-        createFromXml(Gdx.files.internal("xml/ChestInterface.xml").readString());
+        createFromXml(Gdx.files.internal("xml/ChestInterface.xml"));
 
         updateElementsList();
     }

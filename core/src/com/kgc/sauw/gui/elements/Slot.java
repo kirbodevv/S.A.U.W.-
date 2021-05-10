@@ -1,6 +1,7 @@
 package com.kgc.sauw.gui.elements;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.InterfaceElement;
@@ -26,8 +27,6 @@ public class Slot extends InterfaceElement {
 
     private float itemX;
     private float itemY;
-    private float toItemX;
-    private float toItemY;
     public SlotFunctions SF = null;
     public BitmapFont IC;
 
@@ -36,21 +35,12 @@ public class Slot extends InterfaceElement {
         this.SF = SF;
     }
 
-    private Interface Interface;
+    private final Interface Interface;
 
-    public Slot(String ID, Interface Interface, float x, float y, float w, float h) {
+    public Slot(String ID, Interface Interface) {
         this.Interface = Interface;
-        this.X = x;
-        this.Y = y;
-        setSize(w, h);
         this.ID = ID;
-        itemX = x + w / 4;
-        itemY = y + h / 4;
-        toItemX = itemX;
-        toItemY = itemY;
         IC = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-        IC.scale((w / 8f) / 16f / IC.getData().capHeight);
-        IC.setColor(Color.BLACK);
     }
 
     @Override
@@ -58,10 +48,14 @@ public class Slot extends InterfaceElement {
         super.setSize(w, h);
         if (slot != null) slot.dispose();
         slot = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
+        IC.getData().setScale((w / 8f) / 16f / IC.getCapHeight());
+        IC.setColor(Color.BLACK);
     }
 
     @Override
     public void tick(Camera2D cam) {
+        float toItemX;
+        float toItemY;
         if (isTouched() && (SF == null || SF.possibleToDrag())) {
             toItemX = (Gdx.input.getX() + cam.X - height / 4);
             toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
@@ -104,7 +98,7 @@ public class Slot extends InterfaceElement {
     public void itemRender() {
         if (id != 0) {
             BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX, itemY, width / 2, width / 2);
-            IC.drawMultiLine(BATCH, count + "", itemX - width / 4, height + itemY - width / 4, width, BitmapFont.HAlignment.RIGHT);
+            IC.draw(BATCH, count + "", itemX - width / 4, height + itemY - width / 4, width, Align.right, false);
         }
     }
 

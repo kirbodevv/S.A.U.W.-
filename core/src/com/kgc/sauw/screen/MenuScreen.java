@@ -228,7 +228,7 @@ public class MenuScreen implements Screen {
             modsButton.render(BATCH, MENU_CAMERA);
             exitButton.render(BATCH, MENU_CAMERA);
             BATCH.draw(TEXTURES.SAUWCoin, MENU_CAMERA.X + BLOCK_SIZE / 2f, MENU_CAMERA.Y + h - BLOCK_SIZE, BLOCK_SIZE / 2f, BLOCK_SIZE / 2f);
-            bf.setScale(w / 768f);
+            bf.getData().setScale(w / 768f);
             bf.draw(BATCH, SAUW_coins + "", MENU_CAMERA.X + BLOCK_SIZE + w / 64, MENU_CAMERA.Y + h - BLOCK_SIZE / 2f);
         } else {
             if (!createWorldInterface.isOpen) {

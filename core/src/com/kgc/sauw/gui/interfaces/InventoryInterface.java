@@ -32,7 +32,7 @@ public class InventoryInterface extends Interface {
 
     public InventoryInterface() {
         super("INVENTORY_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/InventoryInterface.xml").readString());
+        createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"));
 
         playerWeight = (Text) getElement("playerWeight");
         playerImg = (Image) getElement("playerImg");
@@ -96,14 +96,14 @@ public class InventoryInterface extends Interface {
         if (timer >= 6) {
             stateTime += Gdx.graphics.getDeltaTime();
             if (PLAYER.itemsWeight < PLAYER.maxWeight) {
-                currentFrame = playerAnim.getKeyFrame(stateTime, true);
+                currentFrame = (TextureRegion) playerAnim.getKeyFrame(stateTime, true);
                 if (playerAnim.getKeyFrameIndex(stateTime) == 4) {
                     timer = 0;
                     stateTime = 0;
                     currentFrame = playerAnimFrames[0];
                 }
             } else {
-                currentFrame = tiredPlayerAnim.getKeyFrame(stateTime, true);
+                currentFrame = (TextureRegion) tiredPlayerAnim.getKeyFrame(stateTime, true);
                 if (tiredPlayerAnim.getKeyFrameIndex(stateTime) == 4) {
                     timer = 0;
                     stateTime = 0;

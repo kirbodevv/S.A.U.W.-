@@ -24,7 +24,7 @@ public class Animator {
         }
     }
 
-    private final HashMap<Integer, Animation> animations = new HashMap<>();
+    private final HashMap<Integer, Animation<TextureRegion>> animations = new HashMap<>();
     private final HashMap<Integer, AnimationRegion> animationRegionHashMap = new HashMap<>();
     private static float stateTime = 0f;
 
@@ -45,11 +45,11 @@ public class Animator {
         for (int i = 0; i < frames.length; i++) {
             frames[i] = animationRegionHashMap.get(ID.get(animationRegionId)).frames[frameNumbers[i]];
         }
-        animations.put(ID.registeredId(id), new Animation(frameDuration, frames));
+        animations.put(ID.registeredId(id), new Animation<>(frameDuration, frames));
     }
 
     public static void update() {
-        stateTime += Gdx.graphics.getRawDeltaTime();
+        stateTime += Gdx.graphics.getDeltaTime();
     }
 
     public TextureRegion getFrame(String id) {

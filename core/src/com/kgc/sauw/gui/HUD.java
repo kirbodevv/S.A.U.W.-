@@ -52,7 +52,7 @@ public class HUD {
     public HUD() {
         setConsoleTextColor(SETTINGS.consoleTextColorRed, SETTINGS.consoleTextColorGreen, SETTINGS.consoleTextColorBlue);
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-        debug.setScale(SCREEN_WIDTH / 64 / debug.getCapHeight());
+        debug.getData().setScale(SCREEN_WIDTH / 64 / debug.getCapHeight());
 
         j = new Joystick(TEXTURES.j_0, TEXTURES.j_1);
         j.setSizeInBlocks(3f, 3f);
@@ -192,10 +192,10 @@ public class HUD {
                 "\n X : " + PLAYER.getCurrentTileX() +
                 "\n Y : " + PLAYER.getCurrentTileY();
         this.debug.setColor(0f, 0f, 0f, 1f);
-        this.debug.drawMultiLine(BATCH, Main, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
+        this.debug.draw(BATCH, Main, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
         this.debug.setColor(0.25f, 0.25f, 1f, 1f);
-        this.debug.drawMultiLine(BATCH, "\n Player", INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main).height);
+        /*this.debug.draw(BATCH, "\n Player", INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main).height);
         this.debug.setColor(0f, 0f, 0f, 1f);
-        this.debug.drawMultiLine(BATCH, Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main + "\n Player").height);
+        this.debug.draw(BATCH, Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main + "\n Player").height);*/
     }
 }

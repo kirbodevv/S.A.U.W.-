@@ -92,7 +92,7 @@ public class EditText extends InterfaceElement {
     }
 
     public void setTextScale() {
-        BF.setScale(height / 2f / capHeight);
+        BF.getData().setScale(height / 2f / capHeight);
     }
 
     public void setColor(int r, int g, int b) {

@@ -33,7 +33,7 @@ public class CraftingInterface extends Interface {
         mainLayout.setOrientation(Layout.Orientation.HORIZONTAL);
         mainLayout.setGravity(Layout.Gravity.LEFT);
 
-        createFromXml(Gdx.files.internal("xml/CraftingInterface.xml").readString());
+        createFromXml(Gdx.files.internal("xml/CraftingInterface.xml"));
         getElement("craftsLayout").setSizeInBlocks(7.5f, 7f);
         ((Layout) getElement("craftsLayout")).generateBackground(false);
         getElement("craftInfoLayout").setSizeInBlocks(6f, 7f);

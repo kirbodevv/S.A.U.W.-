@@ -17,7 +17,7 @@ public class CreateNewWorldInterface extends Interface {
 
     public CreateNewWorldInterface() {
         super("CREATE_NEW_WORLD_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/CreateWorldInterface.xml").readString());
+        createFromXml(Gdx.files.internal("xml/CreateWorldInterface.xml"));
 
         FileHandle worldsFolder = Gdx.files.external("S.A.U.W./Worlds/");
         FileHandle[] files = worldsFolder.list();

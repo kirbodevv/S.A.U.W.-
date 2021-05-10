@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.gui.InterfaceElement;
 
 public class Notification extends InterfaceElement {
-    private Texture background;
+    /*private Texture background;
     private BitmapFont BF;
     public float timer = 0;
     private int time = 0;
@@ -88,5 +88,5 @@ public class Notification extends InterfaceElement {
             BF.setColor(Color.BLACK);
             BF.drawWrapped(b, txt, X + cam.X + height / 32, Y + height + cam.Y - height / 8, width - height / 16);
         }
-    }
+    }*/
 }

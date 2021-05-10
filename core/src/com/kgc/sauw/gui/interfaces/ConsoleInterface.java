@@ -34,7 +34,7 @@ public class ConsoleInterface extends Interface {
 
     public ConsoleInterface() {
         super("CONSOLE_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml").readString());
+        createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"));
 
         log_bg = Textures.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), Units.fromStringToPx("77%H") / BLOCK_SIZE, false);
         input = (EditText) getElement("CommandInput");
@@ -94,7 +94,7 @@ public class ConsoleInterface extends Interface {
 
     @Override
     public void postRender() {
-        GAME_INTERFACE.Log.drawWrapped(BATCH, GAME_INTERFACE.logText, x + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 64, log.Y + log.height - BLOCK_SIZE / 4f, SCREEN_WIDTH - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32);
+        //GAME_INTERFACE.Log.draw(BATCH, GAME_INTERFACE.logText, x + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 64, log.Y + log.height - BLOCK_SIZE / 4f, SCREEN_WIDTH - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32);
     }
 
     @Override

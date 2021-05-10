@@ -2,6 +2,7 @@ package com.kgc.sauw.graphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.gui.Interface;
@@ -21,6 +22,7 @@ public final class Graphic {
     public static float SCREEN_WIDTH;
     public static float SCREEN_HEIGHT;
     public static final BitmapFont BITMAP_FONT;
+    public static final GlyphLayout GLYPH_LAYOUT;
     public static final float BITMAP_FONT_CAP_HEIGHT;
 
     static {
@@ -34,6 +36,7 @@ public final class Graphic {
         INTERFACE_CAMERA = new Camera2D();
         MENU_CAMERA = new Camera2D();
         BITMAP_FONT = new BitmapFont(Gdx.files.internal("ttf.fnt"));
+        GLYPH_LAYOUT = new GlyphLayout();
         BITMAP_FONT_CAP_HEIGHT = BITMAP_FONT.getCapHeight();
     }
 

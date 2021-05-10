@@ -1,8 +1,8 @@
 package com.kgc.sauw.gui.interfaces.blockInterfaces;
 
 import com.kgc.sauw.gui.Container;
-import com.kgc.sauw.gui.elements.Slot;
 import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.gui.elements.Slot;
 import com.kgc.sauw.map.Tile;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
@@ -26,9 +26,9 @@ public class FurnaceInterface extends Interface {
         setHeaderText(LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
 
         int temp = (int) (width - SCREEN_WIDTH / 24 * 4) / 2;
-        resultSlot = new Slot("ResultSlot", this, (int) (x + width - temp - SCREEN_WIDTH / 24), (int) (y + SCREEN_WIDTH / 24 * 6.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
-        ingSlot = new Slot("IngSlot", this, (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 7.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
-        fuelSlot = new Slot("FuelSlot", this, (int) (x + temp), (int) (y + SCREEN_WIDTH / 24 * 5.5), (int) SCREEN_WIDTH / 24, (int) SCREEN_WIDTH / 24);
+        resultSlot = new Slot("ResultSlot", this);
+        ingSlot = new Slot("IngSlot", this);
+        fuelSlot = new Slot("FuelSlot", this);
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
             public boolean isValid(int id, int count, int data, String FromSlotWithId) {

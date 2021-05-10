@@ -76,7 +76,7 @@ public class XmlInterfaceLoader {
                     InterfaceElement = new Image(0, 0, 0, 0);
                     break;
                 case "Slot":
-                    InterfaceElement = new Slot("", Interface, 0, 0, 0, 0);
+                    InterfaceElement = new Slot("", Interface);
                     ((Slot) InterfaceElement).isInventorySlot = Boolean.parseBoolean(element.getAttribute("isInventorySlot"));
                     break;
                 case "EditText":

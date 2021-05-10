@@ -8,6 +8,7 @@ import com.kgc.sauw.config.BlockConfiguration;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.particle.Particles;
+import com.kgc.sauw.utils.ID;
 
 import java.util.Random;
 
@@ -17,10 +18,10 @@ import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Campfire extends Block {
     Random random = new Random();
-    private Animator animator;
+    private final Animator animator;
 
     public Campfire() {
-        super(15, TEXTURES.campfire);
+        super(ID.registeredId("block:campfire", 15), TEXTURES.campfire);
 
         BlockConfiguration.setTransparent(true);
         BlockConfiguration.setLightingRadius(4);

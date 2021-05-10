@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="" isBlockInterface="false" Interface="false">
+<Interface header="" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
         <Button id="PAUSE_INTERFACE_RESUME_BUTTON" width="4bl" height="1bl" text="%Language/resume"/>
         <Button id="PAUSE_INTERFACE_SAVE_WORLD_BUTTON" width="4bl" height="1bl" text="%Language/save"/>

@@ -11,7 +11,7 @@ public class Chest extends Item {
 
         this.t = TEXTURES.chest;
 
-        ItemConfiguration.type = Items.Type.BLOCKITEM;
+        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
         ItemConfiguration.blockId = 5;
     }
 }

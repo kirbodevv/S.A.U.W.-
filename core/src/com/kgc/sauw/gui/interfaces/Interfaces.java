@@ -23,6 +23,7 @@ public final class Interfaces {
      **/
     public static final ChestInterface CHEST_INTERFACE;
     public static final FurnaceInterface FURNACE_INTERFACE;
+    public static final ToolWallInterface TOOL_WALL_INTERFACE;
 
     public static final ArrayList<Interface> INTERFACES;
 
@@ -38,6 +39,7 @@ public final class Interfaces {
 
         CHEST_INTERFACE = new ChestInterface();
         FURNACE_INTERFACE = new FurnaceInterface();
+        TOOL_WALL_INTERFACE = new ToolWallInterface();
 
         INTERFACES = new ArrayList<>();
 
@@ -50,6 +52,7 @@ public final class Interfaces {
 
         addInterface(CHEST_INTERFACE);
         addInterface(FURNACE_INTERFACE);
+        addInterface(TOOL_WALL_INTERFACE);
     }
 
 

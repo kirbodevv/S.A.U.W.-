@@ -14,7 +14,7 @@ public class Sapling extends Item {
 
         ItemConfiguration.name = LANGUAGES.getString("sapling");
         ItemConfiguration.weight = 0.1f;
-        ItemConfiguration.type = Items.Type.BLOCKITEM;
+        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
         ItemConfiguration.blockId = 13;
     }
 }

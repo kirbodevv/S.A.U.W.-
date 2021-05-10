@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.map.Tile;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.gui.interfaces.Interfaces.FURNACE_INTERFACE;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
@@ -14,7 +15,7 @@ public class Furnace extends Block {
     Animation furnaceAnimation;
 
     public Furnace() {
-        super(11, TEXTURES.furnace);
+        super(ID.registeredId("block:furnace", 11), TEXTURES.furnace);
 
         BlockConfiguration.setTransparent(true);
         BlockConfiguration.setInstrumentType(1);

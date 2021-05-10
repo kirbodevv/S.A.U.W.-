@@ -226,6 +226,8 @@ public class Interface {
         int temp = a.id;
         int temp1 = a.count;
         int temp2 = a.data;
+        System.out.println(a.isInventorySlot);
+        System.out.println(a1.isInventorySlot);
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
                 MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(a.id, a.count, a.data);
@@ -234,6 +236,7 @@ public class Interface {
             }
         } else {
             if (a1.isInventorySlot) {
+                System.out.println("dsdsds");
                 PLAYER.Inventory.addItem(a.id, a.count);
                 MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(0, 0, 0);
             } else {
@@ -295,8 +298,7 @@ public class Interface {
                     }
                 }
             }
-            mainLayout.setPosition((SCREEN_WIDTH - mainLayout.width) / 2f, (SCREEN_HEIGHT - mainLayout.height - BLOCK_SIZE) / 2f);
-            mainLayout.update(INTERFACE_CAMERA);
+
             if (isGameInterface) {
                 for (int i = 0; i < MAPS.map0[currY][currX][currZ].containers.size(); i++) {
                     getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).id = MAPS.map0[currY][currX][currZ].containers.get(i).getId();
@@ -304,6 +306,10 @@ public class Interface {
                     getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).data = MAPS.map0[currY][currX][currZ].containers.get(i).getData();
                 }
             }
+
+            mainLayout.setPosition((SCREEN_WIDTH - mainLayout.width) / 2f, (SCREEN_HEIGHT - mainLayout.height - BLOCK_SIZE) / 2f);
+            mainLayout.update(INTERFACE_CAMERA);
+
             tick();
             if (isBlockInterface) tick(MAPS.map0[currY][currX][currZ]);
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);

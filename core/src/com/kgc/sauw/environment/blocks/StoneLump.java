@@ -1,12 +1,13 @@
 package com.kgc.sauw.environment.blocks;
 
 import com.kgc.sauw.config.BlockConfiguration;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class StoneLump extends Block {
     public StoneLump() {
-        super(9, TEXTURES.stone_1);
+        super(ID.registeredId("block:stone_lump", 9), TEXTURES.stone_1);
 
         BlockConfiguration.setMaxDamage(5);
         BlockConfiguration.setTransparent(true);

@@ -9,7 +9,7 @@ public class Grass extends Item {
     public Grass() {
         super(ID.registeredId("item:grass"));
         ItemConfiguration.name = LANGUAGES.getString("grass");
-        ItemConfiguration.type = Items.Type.BLOCKITEM;
+        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
         ItemConfiguration.blockId = 1;
     }
 }

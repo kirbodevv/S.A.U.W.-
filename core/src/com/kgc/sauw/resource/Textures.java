@@ -15,17 +15,6 @@ public class Textures {
     public Texture selected_slot;
     public Texture undf;
     public Texture stone;
-    public Texture wall0;
-    public Texture wall1;
-    public Texture wall2;
-    public Texture wall3;
-    public Texture wall4;
-    public Texture wall5;
-    public Texture wall6;
-    public Texture wall7;
-    public Texture wall8;
-    public Texture wall9;
-    public Texture wall10;
     public Texture chest;
     public Texture health_0;
     public Texture health_1;
@@ -85,7 +74,11 @@ public class Textures {
     public Texture smokeParticle_1;
     public Texture water;
     public Texture player1;
-
+    public Texture table;
+    public Texture toolWall;
+    public Texture toolWallInstruments;
+    public Texture hammer;
+    public Texture handsaw;
 
     public static Texture generateTexture(float w, float h, Color background, Color c1, Color c2, Color c3) {
         Pixmap texture = new Pixmap(Gdx.files.internal("Blocks/wood.png"));
@@ -230,18 +223,6 @@ public class Textures {
         player_inv = new Texture(Gdx.files.internal("Entity/player_inv.png"));
         shadow = new Texture(Gdx.files.internal("Entity/shadow.png"));
 
-        wall0 = new Texture(Gdx.files.internal("Blocks/walls/wall_0.png"));
-        wall1 = new Texture(Gdx.files.internal("Blocks/walls/wall_1.png"));
-        wall2 = new Texture(Gdx.files.internal("Blocks/walls/wall_2.png"));
-        wall3 = new Texture(Gdx.files.internal("Blocks/walls/wall_3.png"));
-        wall4 = new Texture(Gdx.files.internal("Blocks/walls/wall_4.png"));
-        wall5 = new Texture(Gdx.files.internal("Blocks/walls/wall_5.png"));
-        wall6 = new Texture(Gdx.files.internal("Blocks/walls/wall_6.png"));
-        wall7 = new Texture(Gdx.files.internal("Blocks/walls/wall_7.png"));
-        wall8 = new Texture(Gdx.files.internal("Blocks/walls/wall_8.png"));
-        wall9 = new Texture(Gdx.files.internal("Blocks/walls/wall_9.png"));
-        wall10 = new Texture(Gdx.files.internal("Blocks/walls/wall_10.png"));
-
         undf = new Texture(Gdx.files.internal("Blocks/undefined.png"));
         stone = new Texture(Gdx.files.internal("Blocks/stone.png"));
         snow = new Texture(Gdx.files.internal("Blocks/snow.png"));
@@ -258,6 +239,9 @@ public class Textures {
         furnace = new Texture(Gdx.files.internal("Blocks/furnace.png"));
         campfire = new Texture(Gdx.files.internal("Blocks/campfire.png"));
         water = new Texture(Gdx.files.internal("Blocks/water.png"));
+        table = new Texture(Gdx.files.internal("Blocks/table.png"));
+        toolWall = new Texture(Gdx.files.internal("Blocks/tool_wall.png"));
+        toolWallInstruments = new Texture(Gdx.files.internal("Blocks/tool_wall_instruments.png"));
         campfire_animation = new Texture(Gdx.files.internal("Blocks/campfire_animation.png"));
 
 
@@ -303,9 +287,12 @@ public class Textures {
         sapling_item = new Texture(Gdx.files.internal("Items/sapling_item.png"));
         furnace_item = new Texture(Gdx.files.internal("Items/furnace_item.png"));
         apple = new Texture(Gdx.files.internal("Items/apple.png"));
+        hammer = new Texture(Gdx.files.internal("Items/hammer.png"));
+        handsaw = new Texture(Gdx.files.internal("Items/hand_saw.png"));
     }
 
     public void dispose() {
+        handsaw.dispose();
         stone_shovel.dispose();
         shadow.dispose();
         j_0.dispose();
@@ -315,21 +302,9 @@ public class Textures {
         door.dispose();
         grass0.dispose();
         player.dispose();
-        //slot.dispose();
         selected_slot.dispose();
         undf.dispose();
         stone.dispose();
-        wall0.dispose();
-        wall1.dispose();
-        wall2.dispose();
-        wall3.dispose();
-        wall4.dispose();
-        wall5.dispose();
-        wall6.dispose();
-        wall7.dispose();
-        wall8.dispose();
-        wall9.dispose();
-        wall10.dispose();
         chest.dispose();
         health_0.dispose();
         health_1.dispose();
@@ -340,6 +315,7 @@ public class Textures {
         standartBackground.dispose();
         standartBackground_full.dispose();
         tree.dispose();
+        table.dispose();
         button_up_0.dispose();
         button_up_1.dispose();
         button_down_0.dispose();
@@ -362,7 +338,8 @@ public class Textures {
         iron_ore_item.dispose();
         stone_pickaxe.dispose();
         stone_axe.dispose();
-        //input_background.dispose();
+        toolWall.dispose();
+        toolWallInstruments.dispose();
         console_button_0.dispose();
         console_button_1.dispose();
         rope.dispose();
@@ -386,5 +363,6 @@ public class Textures {
         smokeParticle_0.dispose();
         smokeParticle_1.dispose();
         water.dispose();
+        hammer.dispose();
     }
 }

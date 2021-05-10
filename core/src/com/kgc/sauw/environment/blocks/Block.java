@@ -5,6 +5,9 @@ import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.config.BlockConfiguration;
 import com.kgc.sauw.map.Tile;
 
+import static com.kgc.sauw.environment.Environment.BLOCKS;
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+
 public class Block {
     public int id;
     public Texture t0;
@@ -29,6 +32,12 @@ public class Block {
     }
 
     public void tick() {
+    }
+
+    public void renderTick(Tile tile) {
+        float w = BLOCKS.getBlockById(tile.id).getBlockConfiguration().getSize().x;
+        float h = BLOCKS.getBlockById(tile.id).getBlockConfiguration().getSize().y;
+        BATCH.draw(tile.t, tile.x, tile.y, w, h);
     }
 
     public void randomTick(Tile tile) {

@@ -1,12 +1,13 @@
 package com.kgc.sauw.environment.blocks;
 
 import com.kgc.sauw.config.BlockConfiguration;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class ChristmasTree extends Block {
     public ChristmasTree() {
-        super(17, TEXTURES.christmas_tree);
+        super(ID.registeredId("block:christmas_tree", 17), TEXTURES.christmas_tree);
 
         BlockConfiguration.setSize(1, 2);
         BlockConfiguration.setMaxDamage(5);

@@ -3,6 +3,9 @@ package com.kgc.sauw;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class InventoryContainer implements ExtraData {
     @Override
     public byte[] getBytes() {
@@ -24,6 +27,10 @@ public class InventoryContainer implements ExtraData {
 
     public int id, count, data;
 
+    public DisplayParameters DisplayParameters = new DisplayParameters();
+
+    public final ArrayList<com.kgc.sauw.utils.ExtraData> ExtraData = new ArrayList<>();
+
     public void setItem(int id, int count, int data) {
         this.id = id;
         this.count = count;
@@ -34,5 +41,10 @@ public class InventoryContainer implements ExtraData {
         this.id = 0;
         this.count = 0;
         this.data = 0;
+    }
+
+    public static class DisplayParameters {
+        public String name;
+        public Color nameColor;
     }
 }

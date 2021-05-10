@@ -13,6 +13,7 @@ import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.physic.Physic;
+import com.kgc.sauw.utils.ID;
 import com.kgc.sauw.utils.PixmapUtils;
 
 import java.util.Random;
@@ -97,6 +98,12 @@ public class World {
         if (tile.z == 0) tile.setLight(RayHandler, block);
     }
 
+    public Tile getTile(int x, int y, int z) {
+        if ((x >= 0 && x < MAPS.map0[0].length) && (y >= 0 && y < MAPS.map0.length) && (z >= 0 && z < MAPS.map0[0][0].length))
+            return MAPS.map0[y][x][z];
+        return null;
+    }
+
     public boolean setBlock(Tile tile) {
         if (MAPS.map0[tile.y][tile.x][tile.z] != null && MAPS.map0[tile.y][tile.x][tile.z].body != null)
             Physic.destroyBody(MAPS.map0[tile.y][tile.x][tile.z].body);
@@ -126,6 +133,10 @@ public class World {
             return setBlock(tile);
         }
         return false;
+    }
+
+    public void setBlock(int x, int y, int z, String id) {
+        setBlock(x, y, z, ID.get(id));
     }
 
     public int getHighestBlock(int x, int y) {
@@ -163,7 +174,7 @@ public class World {
                 System.out.println(bY);
                 if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
                     PLAYER.getCarriedItem().onClick(MAPS.map0[bY][bX][getHighestBlock(bX, bY)]);
-                    if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCKITEM) {
+                    if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCK_ITEM) {
                         if (setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
                             PLAYER.Inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                         }
@@ -230,10 +241,7 @@ public class World {
                     if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
-                    float w = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x;
-                    float h = BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y;
-                    BATCH.draw(MAPS.map0[y][x][z].t, x, y, w, h);
-
+                    MAPS.map0[y][x][z].render();
                     if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(1, 1, 1, 1);
                     }

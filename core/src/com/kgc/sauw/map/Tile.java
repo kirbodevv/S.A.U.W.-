@@ -23,6 +23,7 @@ import java.util.Random;
 import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
+import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.map.World.WORLD;
 import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 
@@ -149,6 +150,11 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     }
 
     public void update() {
+        for (Container c : containers) {
+            if (c.getId() != 0 && ITEMS.getItemById(c.getId()).id == 0) {
+                c.setItem(0, 0, 0);
+            }
+        }
         if (damage <= 0 && id != 4) {
             WORLD.setBlock(x, y, z, BLOCKS.getBlockById(id).getBlockConfiguration().getBlockIdAfterDestroy());
             if (BLOCKS.getBlockById(id).getBlockConfiguration().getDrop() != null) {
@@ -177,6 +183,9 @@ public class Tile implements com.intbyte.bdb.ExtraData {
                 if (!Interface.isOpen)
                     Interface.open(x, y, z);
         }
+    }
 
+    public void render() {
+        BLOCKS.getBlockById(id).renderTick(this);
     }
 }

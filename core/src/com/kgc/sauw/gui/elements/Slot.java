@@ -103,7 +103,7 @@ public class Slot extends InterfaceElement {
 
     public void itemRender() {
         if (id != 0) {
-            BATCH.draw(ITEMS.getTextureById(id), itemX, itemY, width / 2, width / 2);
+            BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX, itemY, width / 2, width / 2);
             IC.drawMultiLine(BATCH, count + "", itemX - width / 4, height + itemY - width / 4, width, BitmapFont.HAlignment.RIGHT);
         }
     }

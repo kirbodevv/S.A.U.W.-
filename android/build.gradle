@@ -20,7 +20,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
-        versionName "0.1.5.3 Beta"
+        versionName "0.1.5.4 Beta"
     }
     buildTypes {
         release {

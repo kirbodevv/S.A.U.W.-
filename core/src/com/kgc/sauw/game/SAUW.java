@@ -64,7 +64,8 @@ public class SAUW implements Screen {
         WORLD.setBlock(5, 5, 0, ID.get("block:water"));
         WORLD.setBlock(5, 6, 0, ID.get("block:water"));
         WORLD.setBlock(6, 5, 0, ID.get("block:water"));
-        WORLD.setBlock(6, 6, 0, 15);
+        WORLD.setBlock(16, 6, 0, ID.get("block:table"));
+        WORLD.setBlock(17, 6, 0, ID.get("block:tool_wall"));
     }
 
 

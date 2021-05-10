@@ -136,7 +136,7 @@ public class Player extends Entity implements ExtraData {
             PlayerController.update();
             if (SETTINGS.autopickup || (GAME_INTERFACE.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < ENTITIES_LIST.size(); i++) {
-                    if (ENTITIES_LIST.get(i) instanceof ItemEntityL && Maths.distanceD((int) getPosition().x, (int) getPosition().x, ENTITIES_LIST.get(i).posX, ENTITIES_LIST.get(i).posY) < SCREEN_WIDTH / 32) {
+                    if (ENTITIES_LIST.get(i) instanceof ItemEntityL && Maths.distanceD((int) getPosition().x, (int) getPosition().x, ENTITIES_LIST.get(i).posX, ENTITIES_LIST.get(i).posY) < 1f) {
                         ItemEntityL item = (ItemEntityL) ENTITIES_LIST.get(i);
                         Inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
                         ENTITIES_LIST.remove(i);

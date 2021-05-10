@@ -1,8 +1,11 @@
 package com.kgc.sauw.environment.items;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.kgc.sauw.InventoryContainer;
 import com.kgc.sauw.config.ItemConfiguration;
 import com.kgc.sauw.map.Tile;
+
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Item {
     public int id;
@@ -19,6 +22,28 @@ public class Item {
         return ItemConfiguration;
     }
 
-    public void onClick(Tile tile){}
+    public void onClick(Tile tile) {
+    }
 
+    public Texture getTexture(InventoryContainer container) {
+        if (t != null)
+            return t;
+        else return TEXTURES.undf;
+    }
+
+    public Texture getDefaultTexture() {
+        if (t != null)
+            return t;
+        else return TEXTURES.undf;
+    }
+
+    public String getName(InventoryContainer container) {
+        if (container == null)
+            return ItemConfiguration.name;
+        else return container.DisplayParameters.name;
+    }
+
+    public String getDefaultName() {
+        return ItemConfiguration.name;
+    }
 }

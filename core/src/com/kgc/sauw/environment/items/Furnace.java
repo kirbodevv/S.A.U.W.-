@@ -13,7 +13,7 @@ public class Furnace extends Item {
         this.t = TEXTURES.furnace_item;
 
         ItemConfiguration.name = LANGUAGES.getString("furnace");
-        ItemConfiguration.type = Items.Type.BLOCKITEM;
+        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
         ItemConfiguration.blockId = 11;
 
     }

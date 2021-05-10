@@ -1,13 +1,14 @@
 package com.kgc.sauw.environment.blocks;
 
 import com.kgc.sauw.config.BlockConfiguration;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class IronOre extends Block {
 
     public IronOre() {
-        super(10, TEXTURES.iron_ore);
+        super(ID.registeredId("block:iron_ore", 10), TEXTURES.iron_ore);
 
         BlockConfiguration.setMaxDamage(6);
         BlockConfiguration.setTransparent(true);

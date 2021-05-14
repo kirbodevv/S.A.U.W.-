@@ -2,9 +2,6 @@ package com.kgc.sauw.environment.blocks;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.config.BlockConfiguration;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.particle.Particles;
@@ -12,8 +9,6 @@ import com.kgc.sauw.utils.ID;
 
 import java.util.Random;
 
-import static com.kgc.sauw.environment.Environment.BLOCKS;
-import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Campfire extends Block {
@@ -23,10 +18,10 @@ public class Campfire extends Block {
     public Campfire() {
         super(ID.registeredId("block:campfire", 15), TEXTURES.campfire);
 
-        BlockConfiguration.setTransparent(true);
-        BlockConfiguration.setLightingRadius(4);
-        BlockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
-        BlockConfiguration.setCollisionsRectangleByPixels(8, 2, 18, 10, 32);
+        blockConfiguration.setTransparent(true);
+        blockConfiguration.setLightingRadius(4);
+        blockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
+        blockConfiguration.setCollisionsRectangleByPixels(8, 2, 18, 10, 32);
 
         animator = new Animator();
         animator.addAnimationRegion("animation_region:campfire", TEXTURES.campfire_animation, 4, 1);

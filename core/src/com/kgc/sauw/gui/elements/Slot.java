@@ -1,18 +1,19 @@
 package com.kgc.sauw.gui.elements;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Align;
-import com.kgc.sauw.utils.Camera2D;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.InterfaceElement;
-import com.kgc.sauw.math.Maths;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Align;
+import com.kgc.sauw.environment.items.Item;
+import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.utils.Camera2D;
+import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.*;
@@ -20,6 +21,7 @@ import static com.kgc.sauw.graphic.Graphic.*;
 public class Slot extends InterfaceElement {
     public int id, count, data;
     public Texture slot;
+    private Texture icon;
 
     public boolean isInventorySlot = false;
     public int inventorySlot;
@@ -71,6 +73,11 @@ public class Slot extends InterfaceElement {
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         batch.draw(slot, cam.X + X, cam.Y + Y, width, height);
+        if (icon != null && id == 0) {
+            batch.setColor(0, 0, 0, 1);
+            batch.draw(icon, cam.X + X, cam.Y + Y, width, height);
+            batch.setColor(1, 1, 1, 1);
+        }
     }
 
     @Override
@@ -98,8 +105,16 @@ public class Slot extends InterfaceElement {
     public void itemRender() {
         if (id != 0) {
             BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX, itemY, width / 2, width / 2);
-            IC.draw(BATCH, count + "", itemX - width / 4, height + itemY - width / 4, width, Align.right, false);
+            IC.draw(BATCH, count + "", itemX - width / 4, height + itemY - width / 4);
         }
+    }
+
+    public void setIcon(Texture icon) {
+        this.icon = icon;
+    }
+
+    public void setIconFromItem(String id) {
+        setIcon(ITEMS.getItemById(com.kgc.sauw.utils.ID.get(id)).t);
     }
 
     public static abstract class SlotFunctions {

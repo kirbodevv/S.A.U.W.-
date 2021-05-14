@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
+import com.kgc.sauw.map.Maps;
 import com.kgc.sauw.map.Tile;
 
 import java.util.Date;
 import java.util.List;
 
 import static com.kgc.sauw.entity.Entities.ENTITIES;
+import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.map.World.MAPS;
 import static com.kgc.sauw.map.World.WORLD;
-import static com.kgc.sauw.entity.Entities.PLAYER;
 
 public class WorldLoader {
     public static void save(String WorldName) {
@@ -65,25 +66,25 @@ public class WorldLoader {
                 int[] map = buffer.getIntArray("mapIds");
                 int[] mapDmg = buffer.getIntArray("mapDamage");
                 Tile.TileEntityFactory TEF = new Tile.TileEntityFactory();
-                List<? extends ExtraData> tileEntitys = null;
+                List<? extends ExtraData> tileEntities = null;
                 if (buffer.getInt("tileEnCount") > 0) {
-                    tileEntitys = buffer.getExtraDataList("tileEntitys", TEF);
+                    tileEntities = buffer.getExtraDataList("tileEntities", TEF);
                 }
                 int i = 0;
-                for (int y = 0; y < MAPS.map0.length; y++) {
-                    for (int x = 0; x < MAPS.map0[y].length; x++) {
-                        for (int z = 0; z < MAPS.map0[y][x].length; z++) {
+                for (int x = 0; x < Maps.xSize; x++) {
+                    for (int y = 0; y < Maps.ySize; y++) {
+                        for (int z = 0; z < Maps.zSize; z++) {
                             if (buffer.getInt("tileEnCount") > 0) {
-                                for (ExtraData tileEntity : tileEntitys) {
+                                for (ExtraData tileEntity : tileEntities) {
                                     Tile tile = (Tile) tileEntity;
                                     if (x == tile.x && y == tile.y && z == tile.z) {
                                         WORLD.setBlock(tile);
                                     }
                                 }
                             }
-                            if (MAPS.map0[y][x][z] == null)
+                            if (MAPS.getTile(x, y, z) == null)
                                 WORLD.setBlock(x, y, z, map[i]);
-                            MAPS.map0[y][x][z].damage = mapDmg[i];
+                            MAPS.getTile(x, y, z).damage = mapDmg[i];
                             i++;
                         }
                     }

@@ -8,22 +8,22 @@ import com.kgc.sauw.AchievementsChecker;
 import com.kgc.sauw.WorldLoader;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.graphic.Graphic;
+import com.kgc.sauw.gui.elements.Elements;
 import com.kgc.sauw.modding.ModAPI;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.particle.Particles;
 import com.kgc.sauw.physic.Physic;
 import com.kgc.sauw.resource.Music;
-import com.kgc.sauw.gui.elements.Elements;
 import com.kgc.sauw.utils.GameCameraController;
 import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
+import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.map.World.WORLD;
 import static com.kgc.sauw.resource.Files.loadPlayerData;
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
-import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
 
 public class SAUW implements Screen {
     public static boolean isGameRunning;
@@ -66,6 +66,7 @@ public class SAUW implements Screen {
         WORLD.setBlock(6, 5, 0, ID.get("block:water"));
         WORLD.setBlock(16, 6, 0, ID.get("block:table"));
         WORLD.setBlock(17, 6, 0, ID.get("block:tool_wall"));
+
     }
 
 
@@ -80,7 +81,7 @@ public class SAUW implements Screen {
         music.setMusicVolume(SETTINGS.musicVolume);
 
         BLOCKS.animationTick();
-        GAME_INTERFACE.update();
+        HUD.update();
         music.setMusicVolume(SETTINGS.musicVolume);
         music.update(false);
         GameCameraController.update();
@@ -96,7 +97,7 @@ public class SAUW implements Screen {
         BATCH.end();
         if (SETTINGS.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
-        GAME_INTERFACE.render(SETTINGS.debugMode);
+        HUD.render(SETTINGS.debugMode);
         WORLD.update(MODS);
         AchievementsChecker.update();
 

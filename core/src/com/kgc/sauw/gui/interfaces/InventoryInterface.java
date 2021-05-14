@@ -3,10 +3,10 @@ package com.kgc.sauw.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.elements.Image;
 import com.kgc.sauw.gui.elements.Slot;
 import com.kgc.sauw.gui.elements.Text;
-import com.kgc.sauw.gui.Interface;
 
 import java.text.DecimalFormat;
 
@@ -24,8 +24,8 @@ public class InventoryInterface extends Interface {
     private float stateTime = 0.0f;
     private float timer = 0.0f;
 
-    Animation playerAnim;
-    Animation tiredPlayerAnim;
+    Animation<TextureRegion> playerAnim;
+    Animation<TextureRegion> tiredPlayerAnim;
 
     Image playerImg;
     Text playerWeight;
@@ -46,8 +46,8 @@ public class InventoryInterface extends Interface {
             }
         }
 
-        playerAnim = new Animation(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
-        tiredPlayerAnim = new Animation(0.2f, playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[1]);
+        playerAnim = new Animation<>(0.2f, playerAnimFrames[0], playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[1], playerAnimFrames[0]);
+        tiredPlayerAnim = new Animation<>(0.2f, playerAnimFrames[1], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[2], playerAnimFrames[1]);
 
         currentFrame = playerAnimFrames[0];
 
@@ -92,18 +92,18 @@ public class InventoryInterface extends Interface {
                 hotbarslots[i].count = PLAYER.Inventory.containers.get(PLAYER.hotbar[i]).count;
             }
         }
-        timer += Gdx.graphics.getRawDeltaTime();
+        timer += Gdx.graphics.getDeltaTime();
         if (timer >= 6) {
             stateTime += Gdx.graphics.getDeltaTime();
             if (PLAYER.itemsWeight < PLAYER.maxWeight) {
-                currentFrame = (TextureRegion) playerAnim.getKeyFrame(stateTime, true);
+                currentFrame = playerAnim.getKeyFrame(stateTime, true);
                 if (playerAnim.getKeyFrameIndex(stateTime) == 4) {
                     timer = 0;
                     stateTime = 0;
                     currentFrame = playerAnimFrames[0];
                 }
             } else {
-                currentFrame = (TextureRegion) tiredPlayerAnim.getKeyFrame(stateTime, true);
+                currentFrame = tiredPlayerAnim.getKeyFrame(stateTime, true);
                 if (tiredPlayerAnim.getKeyFrameIndex(stateTime) == 4) {
                     timer = 0;
                     stateTime = 0;

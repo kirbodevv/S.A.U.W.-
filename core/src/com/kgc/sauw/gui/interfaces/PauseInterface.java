@@ -16,7 +16,7 @@ public class PauseInterface extends Interface {
         createFromXml(Gdx.files.internal("xml/PauseInterface.xml"));
         resumeButton = (Button) getElement("PAUSE_INTERFACE_RESUME_BUTTON");//new Button("PAUSE_INTERFACE_RESUME_BUTTON", (int) (SCREEN_WIDTH / 16), (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 4), (int) (SCREEN_WIDTH / 16 * 4), (int) SCREEN_WIDTH / 16);
         //resumeButton.setText(LANGUAGES.getString("resume"));
-        resumeButton.setEventListener(new Button.EventListener() {
+        resumeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 close();
@@ -24,7 +24,7 @@ public class PauseInterface extends Interface {
         });
         saveWorldButton = (Button) getElement("PAUSE_INTERFACE_SAVE_WORLD_BUTTON"); //new Button("PAUSE_INTERFACE_SAVE_WORLD_BUTTON", (int) (SCREEN_WIDTH / 16), (int) (resumeButton.Y - SCREEN_WIDTH / 16), (int) (SCREEN_WIDTH / 16 * 4), (int) SCREEN_WIDTH / 16);
         //saveWorldButton.setText(LANGUAGES.getString("save"));
-        saveWorldButton.setEventListener(new Button.EventListener() {
+        saveWorldButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 WORLD.save();

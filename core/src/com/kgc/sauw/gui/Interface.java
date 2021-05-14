@@ -54,7 +54,7 @@ public class Interface {
         actionBar = new Text();
         actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
 
-        mainLayout.setBackground(TEXTURES.standartBackground_full);
+        mainLayout.setBackground(TEXTURES.standardBackground);
         mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE - 1);
         mainLayout.setGravity(Layout.Gravity.TOP);
@@ -65,7 +65,7 @@ public class Interface {
 
         closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, (int) Graphic.SCREEN_WIDTH / 32f, (int) Graphic.SCREEN_WIDTH / 32f, TEXTURES.closeButton, TEXTURES.closeButton);
         closeInterfaceButton.setSizeInBlocks(0.5f, 0.5f);
-        closeInterfaceButton.setEventListener(new Button.EventListener() {
+        closeInterfaceButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 close();
@@ -77,7 +77,6 @@ public class Interface {
 
     public void createFromXml(FileHandle xmlFile) {
         try {
-            System.out.println(xmlFile.readString());
             XmlInterfaceLoader.load(this, xmlFile.readString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,8 +154,10 @@ public class Interface {
         optionalLayout.setTranslationX(0.5f);
         optionalLayout.setID("optionalLayout");
 
-        previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, 0, 0, TEXTURES.button_left_0, TEXTURES.button_left_1);
-        nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, 0, 0, TEXTURES.button_right_0, TEXTURES.button_right_1);
+        previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
+        previousTabInv.setIcon(TEXTURES.button_icon_left);
+        nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
+        nextTabInv.setIcon(TEXTURES.button_icon_right);
         previousTabInv.setSizeInBlocks(1, 1);
         nextTabInv.setSizeInBlocks(1, 1);
         Text backpackText = new Text();
@@ -210,7 +211,7 @@ public class Interface {
         currY = y;
         currZ = z;
         onOpen();
-        onOpen(MAPS.map0[y][x][z]);
+        onOpen(MAPS.getTile(x, y, z));
     }
 
     public void open() {
@@ -232,7 +233,7 @@ public class Interface {
         System.out.println(a1.isInventorySlot);
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
-                MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(a.id, a.count, a.data);
+                MAPS.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(a.id, a.count, a.data);
                 System.out.println(PLAYER.Inventory.containers.size());
                 PLAYER.Inventory.containers.remove(PLAYER.Inventory.containers.get(a.inventorySlot));
             }
@@ -240,10 +241,10 @@ public class Interface {
             if (a1.isInventorySlot) {
                 System.out.println("dsdsds");
                 PLAYER.Inventory.addItem(a.id, a.count);
-                MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(0, 0, 0);
+                MAPS.getTile(currX, currY, currZ).getContainer(a.ID).setItem(0, 0, 0);
             } else {
-                MAPS.map0[currY][currX][currZ].getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
-                MAPS.map0[currY][currX][currZ].getContainer(a1.ID).setItem(temp, temp1, temp2);
+                MAPS.getTile(currX, currY, currZ).getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
+                MAPS.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(temp, temp1, temp2);
             }
         }
     }
@@ -302,10 +303,10 @@ public class Interface {
             }
 
             if (isGameInterface) {
-                for (int i = 0; i < MAPS.map0[currY][currX][currZ].containers.size(); i++) {
-                    getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).id = MAPS.map0[currY][currX][currZ].containers.get(i).getId();
-                    getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).count = MAPS.map0[currY][currX][currZ].containers.get(i).getCount();
-                    getSlot(MAPS.map0[currY][currX][currZ].containers.get(i).ID).data = MAPS.map0[currY][currX][currZ].containers.get(i).getData();
+                for (int i = 0; i < MAPS.getTile(currX, currY, currZ).containers.size(); i++) {
+                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).id = MAPS.getTile(currX, currY, currZ).containers.get(i).getId();
+                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).count = MAPS.getTile(currX, currY, currZ).containers.get(i).getCount();
+                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).data = MAPS.getTile(currX, currY, currZ).containers.get(i).getData();
                 }
             }
 
@@ -313,7 +314,7 @@ public class Interface {
             mainLayout.update(INTERFACE_CAMERA);
 
             tick();
-            if (isBlockInterface) tick(MAPS.map0[currY][currX][currZ]);
+            if (isBlockInterface) tick(MAPS.getTile(currX, currY, currZ));
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
             actionBar.setPosition(mainLayout.X, mainLayout.Y + mainLayout.height);
             closeInterfaceButton.setPosition(actionBar.X + actionBar.width - BLOCK_SIZE, actionBar.Y + BLOCK_SIZE * 0.25f);

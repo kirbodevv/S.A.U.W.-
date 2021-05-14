@@ -28,13 +28,13 @@ public class Item {
     public Texture getTexture(InventoryContainer container) {
         if (t != null)
             return t;
-        else return TEXTURES.undf;
+        else return TEXTURES.undef;
     }
 
     public Texture getDefaultTexture() {
         if (t != null)
             return t;
-        else return TEXTURES.undf;
+        else return TEXTURES.undef;
     }
 
     public String getName(InventoryContainer container) {

@@ -17,7 +17,7 @@ public class Blocks {
 
     public Blocks() {
         createBlock(ID.registeredId("block:air_block", 4), (Texture) null);
-        createBlock(ID.registeredId("block:barrier", 14), TEXTURES.undf);
+        createBlock(ID.registeredId("block:barrier", 14), TEXTURES.undef);
 
         addBlock(new Grass());
         addBlock(new Stone());

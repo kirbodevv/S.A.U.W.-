@@ -8,6 +8,6 @@ public class Stone extends Block {
     public Stone() {
         super(ID.registeredId("block:stone", 2), TEXTURES.stone);
 
-        BlockConfiguration.setInstrumentType(1);
+        blockConfiguration.setInstrumentType(1);
     }
 }

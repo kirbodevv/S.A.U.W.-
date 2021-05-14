@@ -1,6 +1,5 @@
 package com.kgc.sauw.map;
 
-import com.badlogic.gdx.Gdx;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.entity.ItemEntityL;
@@ -13,7 +12,12 @@ import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class Maps {
-    public Tile[][][] map0 = new Tile[40][40][3];
+
+    public static final int xSize = 40;
+    public static final int ySize = 40;
+    public static final int zSize = 3;
+
+    private final Tile[][][] map0 = new Tile[ySize][xSize][zSize];
 
     public void generateWorld() {
         Random r = new Random();
@@ -36,17 +40,17 @@ public class Maps {
             }
         }
         Random r1 = new Random();
-        int WIDTH = Gdx.graphics.getWidth();
-        for (int i = 0; i < map0.length; i++) {
-            for (int j = 0; j < map0[i].length; j++) {
+
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
                 if (r1.nextInt(75) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(j, i, ID.get("item:stick"), 1, 0));
+                    ENTITIES.spawn(new ItemEntityL(x, y, ID.get("item:stick"), 1, 0));
                 }
                 if (r1.nextInt(50) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(j, i, ID.get("item:stone"), 1, 0));
+                    ENTITIES.spawn(new ItemEntityL(x, y, ID.get("item:stone"), 1, 0));
                 }
                 if (r1.nextInt(100) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(j, i, ID.get("item:vegetable_fiber"), 1, 0));
+                    ENTITIES.spawn(new ItemEntityL(x, y, ID.get("item:vegetable_fiber"), 1, 0));
                 }
             }
 
@@ -87,7 +91,7 @@ public class Maps {
                     }
                 }
             }
-            buffer.put("tileEntitys", tileEntities);
+            buffer.put("tileEntities", tileEntities);
         }
         buffer.put("tileEnCount", tileEntitiesCount);
         return buffer;
@@ -95,12 +99,22 @@ public class Maps {
 
     public void update() {
         BLOCKS.blockTick();
-        for (Tile[][] tiles : map0) {
-            for (Tile[] tiles1 : tiles) {
-                for (Tile tile : tiles1) {
-                    tile.update();
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                for (int z = 0; z < zSize; z++) {
+                    getTile(x, y, z).update();
                 }
             }
         }
+    }
+
+    public Tile getTile(int x, int y, int z) {
+        if ((x >= 0 && x < xSize) && (y >= 0 && y < ySize) && (z >= 0 && z < ySize))
+            return map0[y][x][z];
+        return null;
+    }
+
+    public void setTile(Tile tile) {
+        map0[tile.y][tile.x][tile.z] = tile;
     }
 }

@@ -1,7 +1,9 @@
 package com.kgc.sauw.resource;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 
 
 public class Textures {
@@ -9,37 +11,29 @@ public class Textures {
     public Texture j_1;
     public Texture button_0;
     public Texture button_1;
-    public Texture door;
     public Texture grass0;
     public Texture player;
     public Texture selected_slot;
-    public Texture undf;
+    public Texture undef;
     public Texture stone;
     public Texture chest;
     public Texture health_0;
     public Texture health_1;
-    public Texture extraButton_0;
-    public Texture extraButton_1;
+    public Texture button_icon_extra;
     public Texture closeButton;
     public Texture inventory;
-    public Texture standartBackground;
-    public Texture standartBackground_full;
+    public Texture standardBackground;
     public Texture tree;
     public Texture christmas_tree;
     public Texture snow;
-    public Texture button_up_0;
-    public Texture button_up_1;
-    public Texture button_down_0;
-    public Texture button_down_1;
-    public Texture button_left_0;
-    public Texture button_left_1;
-    public Texture button_right_0;
-    public Texture button_right_1;
+    public Texture button_icon_up;
+    public Texture button_icon_down;
+    public Texture button_icon_left;
+    public Texture button_icon_right;
     public Texture apple;
     public Texture stick;
     public Texture log;
-    public Texture crafting_button_0;
-    public Texture crafting_button_1;
+    public Texture button_icon_crafting;
     public Texture stick_1;
     public Texture wood;
     public Texture clown;
@@ -51,8 +45,7 @@ public class Textures {
     public Texture iron_ore_item;
     public Texture stone_pickaxe;
     public Texture stone_axe;
-    public Texture console_button_0;
-    public Texture console_button_1;
+    public Texture button_icon_console;
     public Texture rope;
     public Texture dirt;
     public Texture vegetable_fiber;
@@ -154,17 +147,6 @@ public class Textures {
         return t;
     }
 
-    public static Texture generateTexture(float w, float h, boolean c, String iconPath) {
-        Pixmap p = generatePixmap(w, h, c);
-        Pixmap icon = new Pixmap(Gdx.files.internal(iconPath));
-        p.setBlending(Pixmap.Blending.SourceOver);
-        p.drawPixmap(icon, 0, 0, icon.getWidth(), icon.getHeight(), 0, 0, p.getWidth(), p.getHeight());
-        Texture t = new Texture(p);
-        p.dispose();
-        icon.dispose();
-        return t;
-    }
-
     public static Texture generateBackground(float w, float h) {
         Pixmap texture = new Pixmap(Gdx.files.internal("Blocks/wood.png"));
         int blockSize = texture.getWidth();
@@ -223,12 +205,11 @@ public class Textures {
         player_inv = new Texture(Gdx.files.internal("Entity/player_inv.png"));
         shadow = new Texture(Gdx.files.internal("Entity/shadow.png"));
 
-        undf = new Texture(Gdx.files.internal("Blocks/undefined.png"));
+        undef = new Texture(Gdx.files.internal("Blocks/undefined.png"));
         stone = new Texture(Gdx.files.internal("Blocks/stone.png"));
         snow = new Texture(Gdx.files.internal("Blocks/snow.png"));
         stone_1 = new Texture(Gdx.files.internal("Blocks/stone_1.png"));
         grass0 = new Texture(Gdx.files.internal("Blocks/grass_1.png"));
-        door = new Texture(Gdx.files.internal("Blocks/door_0.png"));
         chest = new Texture(Gdx.files.internal("Blocks/chest.png"));
         tree = new Texture(Gdx.files.internal("Blocks/tree.png"));
         christmas_tree = new Texture(Gdx.files.internal("Blocks/christmas_tree.png"));
@@ -252,24 +233,19 @@ public class Textures {
         selected_slot = new Texture(Gdx.files.internal("Interface/selected_slot.png"));
         health_0 = new Texture(Gdx.files.internal("Interface/health_0.png"));
         health_1 = new Texture(Gdx.files.internal("Interface/health_1.png"));
-        extraButton_0 = generateTexture(1, 1, true, "Interface/extraButton_0.png");
-        extraButton_1 = generateTexture(1, 1, false, "Interface/extraButton_0.png");
+
         closeButton = new Texture(Gdx.files.internal("Interface/closeButton.png"));
         inventory = new Texture(Gdx.files.internal("Interface/inventory.png"));
-        standartBackground = generateBackground(8, 8);
-        standartBackground_full = generateBackground(16, (float) (h / (w / 16)));// = new Texture(Gdx.files.internal("Interface/standart_background_full.png"));
-        button_up_0 = generateTexture(1, 1, true, "Interface/button_up_0.png");
-        button_up_1 = generateTexture(1, 1, false, "Interface/button_up_0.png");
-        button_down_0 = generateTexture(1, 1, true, "Interface/button_down_0.png");
-        button_down_1 = generateTexture(1, 1, false, "Interface/button_down_0.png");
-        button_left_0 = generateTexture(1, 1, true, "Interface/button_left_0.png");
-        button_left_1 = generateTexture(1, 1, false, "Interface/button_left_0.png");
-        button_right_0 = generateTexture(1, 1, true, "Interface/button_right_0.png");
-        button_right_1 = generateTexture(1, 1, false, "Interface/button_right_0.png");
-        crafting_button_0 = generateTexture(1, 1, true, "Interface/crafting_button_0.png");
-        crafting_button_1 = generateTexture(1, 1, false, "Interface/crafting_button_0.png");
-        console_button_0 = generateTexture(1, 1, true, "Interface/console_button_0.png");
-        console_button_1 = generateTexture(1, 1, false, "Interface/console_button_0.png");
+        standardBackground = generateBackground(16, (float) (h / (w / 16)));
+
+        button_icon_up = new Texture(Gdx.files.internal("Interface/button_up_0.png"));
+        button_icon_down = new Texture(Gdx.files.internal("Interface/button_down_0.png"));
+        button_icon_left = new Texture(Gdx.files.internal("Interface/button_left_0.png"));
+        button_icon_right = new Texture(Gdx.files.internal("Interface/button_right_0.png"));
+        button_icon_extra = new Texture(Gdx.files.internal("Interface/extraButton_0.png"));
+        button_icon_crafting = new Texture(Gdx.files.internal("Interface/crafting_button_0.png"));
+        button_icon_console = new Texture(Gdx.files.internal("Interface/console_button_0.png"));
+
         switch_0 = new Texture(Gdx.files.internal("Interface/switch_0.png"));
         switch_1 = new Texture(Gdx.files.internal("Interface/switch_1.png"));
 
@@ -299,35 +275,29 @@ public class Textures {
         j_1.dispose();
         button_0.dispose();
         button_1.dispose();
-        door.dispose();
         grass0.dispose();
         player.dispose();
         selected_slot.dispose();
-        undf.dispose();
+        undef.dispose();
         stone.dispose();
         chest.dispose();
         health_0.dispose();
         health_1.dispose();
-        extraButton_0.dispose();
-        extraButton_1.dispose();
+        button_icon_extra.dispose();
         closeButton.dispose();
         inventory.dispose();
-        standartBackground.dispose();
-        standartBackground_full.dispose();
+        standardBackground.dispose();
         tree.dispose();
         table.dispose();
-        button_up_0.dispose();
-        button_up_1.dispose();
-        button_down_0.dispose();
-        button_down_1.dispose();
-        button_left_0.dispose();
-        button_left_1.dispose();
-        button_right_0.dispose();
-        button_right_1.dispose();
+
+        button_icon_up.dispose();
+        button_icon_down.dispose();
+        button_icon_left.dispose();
+        button_icon_right.dispose();
+
         stick.dispose();
         log.dispose();
-        crafting_button_0.dispose();
-        crafting_button_1.dispose();
+        button_icon_crafting.dispose();
         stick_1.dispose();
         wood.dispose();
         clown.dispose();
@@ -340,8 +310,7 @@ public class Textures {
         stone_axe.dispose();
         toolWall.dispose();
         toolWallInstruments.dispose();
-        console_button_0.dispose();
-        console_button_1.dispose();
+        button_icon_console.dispose();
         rope.dispose();
         dirt.dispose();
         vegetable_fiber.dispose();

@@ -12,19 +12,19 @@ import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Furnace extends Block {
     TextureRegion[][] furnaceTextures;
-    Animation furnaceAnimation;
+    Animation<TextureRegion> furnaceAnimation;
 
     public Furnace() {
         super(ID.registeredId("block:furnace", 11), TEXTURES.furnace);
 
-        BlockConfiguration.setTransparent(true);
-        BlockConfiguration.setInstrumentType(1);
-        BlockConfiguration.setLightingRadius(2);
-        BlockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
-        BlockConfiguration.setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
+        blockConfiguration.setTransparent(true);
+        blockConfiguration.setInstrumentType(1);
+        blockConfiguration.setLightingRadius(2);
+        blockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
+        blockConfiguration.setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
 
         furnaceTextures = TextureRegion.split(t0, t0.getWidth() / 4, t0.getHeight());
-        furnaceAnimation = new Animation(0.2f, furnaceTextures[0][1], furnaceTextures[0][2], furnaceTextures[0][2]);
+        furnaceAnimation = new Animation<>(0.2f, furnaceTextures[0][1], furnaceTextures[0][2], furnaceTextures[0][2]);
         GUI = FURNACE_INTERFACE;
     }
 
@@ -39,6 +39,6 @@ public class Furnace extends Block {
     @Override
     public void tick(Tile tile) {
         tile.t = furnaceTextures[0][0];
-        if ((int) (tile.getExtraData("fuel")) > 0) tile.t = (TextureRegion) furnaceAnimation.getKeyFrame(BLOCKS.stateTime, true);
+        if ((int) (tile.getExtraData("fuel")) > 0) tile.t = furnaceAnimation.getKeyFrame(BLOCKS.stateTime, true);
     }
 }

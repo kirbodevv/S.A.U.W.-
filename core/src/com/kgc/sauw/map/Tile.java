@@ -2,17 +2,13 @@ package com.kgc.sauw.map;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.entity.ItemEntityL;
-import com.kgc.sauw.environment.Environment;
 import com.kgc.sauw.environment.blocks.Block;
-import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.gui.Container;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.utils.ExtraData;
@@ -21,11 +17,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static com.kgc.sauw.entity.Entities.ENTITIES;
-import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.map.World.WORLD;
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 
 public class Tile implements com.intbyte.bdb.ExtraData {
     public static class TileEntityFactory implements ExtraDataFactory {
@@ -177,12 +171,6 @@ public class Tile implements com.intbyte.bdb.ExtraData {
                 Environment.BLOCKS.getBlockById(id).click(this);
             }
         }*/
-        if ((GAME_INTERFACE.interactionButton.wasClicked || Gdx.input.isKeyPressed(Input.Keys.E)) && Maths.distance(x, y, PLAYER.getCurrentTileX(), PLAYER.getCurrentTileY()) <= 1.5 && ((PLAYER.getCurrentTileY() + 1 == y && PLAYER.rotation == 0) || (PLAYER.getCurrentTileX() + 1 == x && PLAYER.rotation == 1) || (PLAYER.getCurrentTileY() - 1 == y && PLAYER.rotation == 2) || (PLAYER.getCurrentTileX() - 1 == x && PLAYER.rotation == 3))) {
-            Environment.BLOCKS.getBlockById(id).onInteractionButtonPressed(this);
-            if (Interface != null)
-                if (!Interface.isOpen)
-                    Interface.open(x, y, z);
-        }
     }
 
     public void render() {

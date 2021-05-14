@@ -10,7 +10,7 @@ import com.kgc.sauw.gui.interfaces.Interfaces;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GameCameraController;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 
 public final class Graphic {
     public static final SpriteBatch BATCH;
@@ -56,6 +56,6 @@ public final class Graphic {
             Interface.resize();
             Interface.resize();
         }
-        GAME_INTERFACE.resize();
+        HUD.resize();
     }
 }

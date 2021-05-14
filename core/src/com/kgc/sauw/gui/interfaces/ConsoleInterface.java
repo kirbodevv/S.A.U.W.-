@@ -3,21 +3,20 @@ package com.kgc.sauw.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.EditText;
 import com.kgc.sauw.gui.elements.Image;
-import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Units;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class ConsoleInterface extends Interface {
@@ -45,10 +44,10 @@ public class ConsoleInterface extends Interface {
         nextCommand = (Button) getElement("nextCommand");
         prevCommand = (Button) getElement("prevCommand");
 
-        nextCommand.setTextures(TEXTURES.button_right_0, TEXTURES.button_right_1);
-        prevCommand.setTextures(TEXTURES.button_left_0, TEXTURES.button_left_1);
+        prevCommand.setIcon(TEXTURES.button_icon_left);
+        nextCommand.setIcon(TEXTURES.button_icon_right);
 
-        nextCommand.setEventListener(new Button.EventListener() {
+        nextCommand.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 currCom++;
@@ -62,7 +61,7 @@ public class ConsoleInterface extends Interface {
                 }
             }
         });
-        prevCommand.setEventListener(new Button.EventListener() {
+        prevCommand.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 currCom--;
@@ -76,13 +75,13 @@ public class ConsoleInterface extends Interface {
                 }
             }
         });
-        GAME_INTERFACE.Log.setColor(Color.BLACK);
+        HUD.Log.setColor(Color.BLACK);
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
         try {
             sc = cx.initStandardObjects();
             ScriptableObject.putProperty(sc, "Player", PLAYER);
-            ScriptableObject.putProperty(sc, "GI", GAME_INTERFACE);
+            ScriptableObject.putProperty(sc, "GI", HUD);
             ScriptableObject.putProperty(sc, "World", WORLD);
         } catch (Exception e) {
             Gdx.app.log("error", e.toString());
@@ -99,8 +98,8 @@ public class ConsoleInterface extends Interface {
 
     @Override
     public void tick() {
-        GAME_INTERFACE.Log.setColor(GAME_INTERFACE.R / 255f, GAME_INTERFACE.G / 255f, GAME_INTERFACE.B / 255f, 1);
-        input.setTextColor(GAME_INTERFACE.R / 255f, GAME_INTERFACE.G / 255f, GAME_INTERFACE.B / 255f);
+        HUD.Log.setColor(HUD.R / 255f, HUD.G / 255f, HUD.B / 255f, 1);
+        input.setTextColor(HUD.R / 255f, HUD.G / 255f, HUD.B / 255f);
         if (currCom == -1) {
             inputTxt = input.input;
         }
@@ -110,7 +109,7 @@ public class ConsoleInterface extends Interface {
             try {
                 cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.input, "Command", 1, null);
             } catch (Exception e) {
-                GAME_INTERFACE.consolePrint(e.toString());
+                HUD.consolePrint(e.toString());
                 Gdx.app.log("error", e.toString());
             } finally {
                 Context.exit();

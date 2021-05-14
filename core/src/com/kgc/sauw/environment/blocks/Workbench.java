@@ -9,8 +9,8 @@ public class Workbench extends Block {
     public Workbench() {
         super(ID.registeredId("block:workbench"), TEXTURES.table);
 
-        BlockConfiguration.setTransparent(true);
-        BlockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);
+        blockConfiguration.setTransparent(true);
+        blockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);
     }
 
     /*

@@ -70,28 +70,28 @@ public class MenuScreen implements Screen {
         SettingsScreen = new SettingsScreen(game, TEXTURES, this);
         ModsScreen = new ModsScreen(game, TEXTURES, this);
         startButton = new Button("MENU_SCREEN_START_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 5 + w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
-        startButton.setEventListener(new Button.EventListener() {
+        startButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 StartGameMenu = true;
             }
         });
         settingsButton = new Button("MENU_SCREEN_SETTINGS_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 6, BLOCK_SIZE * 6, BLOCK_SIZE);
-        settingsButton.setEventListener(new Button.EventListener() {
+        settingsButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 game.setScreen(SettingsScreen);
             }
         });
         modsButton = new Button("MENU_SCREEN_MODS_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 7 - w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
-        modsButton.setEventListener(new Button.EventListener() {
+        modsButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 game.setScreen(ModsScreen);
             }
         });
         exitButton = new Button("MENU_SCREEN_EXIT_BUTTON", BLOCK_SIZE * 5, h - BLOCK_SIZE * 8 - w / 128 * 2, BLOCK_SIZE * 6, BLOCK_SIZE);
-        exitButton.setEventListener(new Button.EventListener() {
+        exitButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 Gdx.app.exit();
@@ -99,7 +99,7 @@ public class MenuScreen implements Screen {
         });
 
         createWorldInterface = new CreateNewWorldInterface();
-        createWorldInterface.create.setEventListener(new Button.EventListener() {
+        createWorldInterface.create.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 for (String name : createWorldInterface.worldNames) {
@@ -110,28 +110,29 @@ public class MenuScreen implements Screen {
         });
 
         sel_0 = new Button("MENU_SCREEN_WORLD_SELECTOR_1", BLOCK_SIZE * 5, h - BLOCK_SIZE * 5 + w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
-        sel_0.setEventListener(new Button.EventListener() {
+        sel_0.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 loadGame(createWorldInterface.worldNames[worldSelIndex]);
             }
         });
         sel_1 = new Button("MENU_SCREEN_WORLD_SELECTOR_2", BLOCK_SIZE * 5, h - BLOCK_SIZE * 6, BLOCK_SIZE * 6, BLOCK_SIZE);
-        sel_1.setEventListener(new Button.EventListener() {
+        sel_1.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 loadGame(createWorldInterface.worldNames[worldSelIndex + 1]);
             }
         });
         sel_2 = new Button("MENU_SCREEN_WORLD_SELECTOR_3", BLOCK_SIZE * 5, h - BLOCK_SIZE * 7 - w / 128, BLOCK_SIZE * 6, BLOCK_SIZE);
-        sel_2.setEventListener(new Button.EventListener() {
+        sel_2.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 loadGame(createWorldInterface.worldNames[worldSelIndex + 2]);
             }
         });
-        closeButton = new Button("MENU_SCREEN_CLOSE_WORLD_SELECTOR", 0, (h - BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_left_0, TEXTURES.button_left_1);
-        closeButton.setEventListener(new Button.EventListener() {
+        closeButton = new Button("MENU_SCREEN_CLOSE_WORLD_SELECTOR", 0, (h - BLOCK_SIZE), BLOCK_SIZE, BLOCK_SIZE);
+        closeButton.setIcon(TEXTURES.button_icon_left);
+        closeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 StartGameMenu = false;
@@ -140,7 +141,7 @@ public class MenuScreen implements Screen {
 
         createNewWorld = new Button("CREATE_NEW_WORLD_BUTTON", BLOCK_SIZE / 2f, BLOCK_SIZE / 2f, BLOCK_SIZE * 6, BLOCK_SIZE);
         createNewWorld.setText(LANGUAGES.getString("createNewWorld"));
-        createNewWorld.setEventListener(new Button.EventListener() {
+        createNewWorld.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 createWorldInterface.open();
@@ -148,8 +149,9 @@ public class MenuScreen implements Screen {
         });
         HideButtonsIfNeed();
         setSelectButtonsText();
-        up = new Button("MENU_SCREEN_WORLD_SELECTOR_UP_BUTTON", BLOCK_SIZE / 2f * 23, sel_0.Y, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_up_0, TEXTURES.button_up_1);
-        up.setEventListener(new Button.EventListener() {
+        up = new Button("MENU_SCREEN_WORLD_SELECTOR_UP_BUTTON", BLOCK_SIZE / 2f * 23, sel_0.Y, BLOCK_SIZE, BLOCK_SIZE);
+        up.setIcon(TEXTURES.button_icon_up);
+        up.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 worldSelIndex--;
@@ -158,8 +160,9 @@ public class MenuScreen implements Screen {
                 setSelectButtonsText();
             }
         });
-        down = new Button("MENU_SCREEN_WORLD_SELECTOR_DOWN_BUTTON", BLOCK_SIZE / 2f * 23, sel_2.Y, BLOCK_SIZE, BLOCK_SIZE, TEXTURES.button_down_0, TEXTURES.button_down_1);
-        down.setEventListener(new Button.EventListener() {
+        down = new Button("MENU_SCREEN_WORLD_SELECTOR_DOWN_BUTTON", BLOCK_SIZE / 2f * 23, sel_2.Y, BLOCK_SIZE, BLOCK_SIZE);
+        down.setIcon(TEXTURES.button_icon_down);
+        down.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 worldSelIndex++;

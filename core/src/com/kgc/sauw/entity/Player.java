@@ -17,10 +17,11 @@ import com.kgc.sauw.physic.Physic;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.ENTITIES_LIST;
 import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.map.World.WORLD;
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.gui.interfaces.Interfaces.DEAD_INTERFACE;
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
+import static com.kgc.sauw.map.World.WORLD;
 
 
 public class Player extends Entity implements ExtraData {
@@ -107,6 +108,18 @@ public class Player extends Entity implements ExtraData {
 
     @Override
     public void animationTick() {
+        int angle = Maths.angleBetweenVectors(0, 0, velocity.x, velocity.y);
+        if (isEntityMoving()) {
+            if (angle < 315 && angle > 225) {
+                rotation = 0;
+            } else if (angle < 225 && angle > 135) {
+                rotation = 1;
+            } else if (angle > 45 && angle < 135) {
+                rotation = 2;
+            } else if (angle < 45 || angle > 315) {
+                rotation = 3;
+            }
+        }
         if (rotation == 0) {
             currentFrame = animator.getFrame("animation:player_walk_up");
         } else if (rotation == 1) {
@@ -134,9 +147,9 @@ public class Player extends Entity implements ExtraData {
     public void tick() {
         if (!isDead) {
             PlayerController.update();
-            if (SETTINGS.autopickup || (GAME_INTERFACE.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
+            if (SETTINGS.autopickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < ENTITIES_LIST.size(); i++) {
-                    if (ENTITIES_LIST.get(i) instanceof ItemEntityL && Maths.distanceD((int) getPosition().x, (int) getPosition().x, ENTITIES_LIST.get(i).posX, ENTITIES_LIST.get(i).posY) < 1f) {
+                    if (ENTITIES_LIST.get(i) instanceof ItemEntityL && Maths.distanceD((int) getPosition().x, (int) getPosition().x, ENTITIES_LIST.get(i).posX, ENTITIES_LIST.get(i).posY) <= 1.5f) {
                         ItemEntityL item = (ItemEntityL) ENTITIES_LIST.get(i);
                         Inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
                         ENTITIES_LIST.remove(i);

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.*;
@@ -53,7 +53,7 @@ public class Mods {
                     ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
                     ScriptableObject.putProperty(mods[i].sc, "ModAPI", MOD_API);
                     ScriptableObject.putProperty(mods[i].sc, "Settings", SETTINGS);
-                    ScriptableObject.putProperty(mods[i].sc, "GI", GAME_INTERFACE);
+                    ScriptableObject.putProperty(mods[i].sc, "GI", HUD);
                     ScriptableObject.putProperty(mods[i].sc, "World", WORLD);
                     ScriptableObject.putProperty(mods[i].sc, "Interfaces", Interfaces.class);
                     ScriptableObject.putProperty(mods[i].sc, "Textures", TEXTURES);

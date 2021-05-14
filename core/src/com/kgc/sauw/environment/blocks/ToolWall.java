@@ -16,8 +16,8 @@ public class ToolWall extends Block {
 
         instrumentsTextures = TextureRegion.split(TEXTURES.toolWallInstruments, TEXTURES.toolWallInstruments.getWidth() / 4, TEXTURES.toolWallInstruments.getHeight());
 
-        BlockConfiguration.setTransparent(true);
-        BlockConfiguration.setCollisionsRectangleByPixels(2, 0, 30, 7, 32);
+        blockConfiguration.setTransparent(true);
+        blockConfiguration.setCollisionsRectangleByPixels(2, 0, 30, 7, 32);
 
         GUI = TOOL_WALL_INTERFACE;
     }

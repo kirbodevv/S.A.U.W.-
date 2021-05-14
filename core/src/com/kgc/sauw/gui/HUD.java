@@ -84,17 +84,20 @@ public class HUD {
 
         buttonsLayout.addElements(BtnLyt1, dropButton);
 
-        consoleOpenButton = new Button("CONSOLE_OPEN_BUTTON", 0, 0, 0, 0, TEXTURES.console_button_0, TEXTURES.console_button_1);
+        consoleOpenButton = new Button("CONSOLE_OPEN_BUTTON", 0, 0, 0, 0);
         consoleOpenButton.setSizeInBlocks(1f, 1f);
+        consoleOpenButton.setIcon(TEXTURES.button_icon_console);
 
-        craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0, TEXTURES.crafting_button_0, TEXTURES.crafting_button_1);
+        craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
         craftingButton.setSizeInBlocks(1f, 1f);
+        craftingButton.setIcon(TEXTURES.button_icon_crafting);
 
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
         pauseButton.setSizeInBlocks(1f, 1f);
 
-        inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0, TEXTURES.extraButton_0, TEXTURES.extraButton_1);
+        inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
         inventoryOpenButton.setSizeInBlocks(1f, 1f);
+        inventoryOpenButton.setIcon(TEXTURES.button_icon_extra);
 
         mainLayout = new Layout(Layout.Orientation.VERTICAL);
         mainLayout.setGravity(Layout.Gravity.TOP);
@@ -126,25 +129,25 @@ public class HUD {
         midLayout.addElements(j, separatorLayout1, buttonsLayout);
         bottomLayout.addElements(hotbar, inventoryOpenButton, craftingButton);
 
-        craftingButton.setEventListener(new Button.EventListener() {
+        craftingButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 CRAFTING_INTERFACE.open();
             }
         });
-        consoleOpenButton.setEventListener(new Button.EventListener() {
+        consoleOpenButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 CONSOLE_INTERFACE.open();
             }
         });
-        pauseButton.setEventListener(new Button.EventListener() {
+        pauseButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 PAUSE_INTERFACE.open();
             }
         });
-        inventoryOpenButton.setEventListener(new Button.EventListener() {
+        inventoryOpenButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 INVENTORY_INTERFACE.open();

@@ -62,7 +62,7 @@ public class ModsScreen implements Screen {
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
         background1 = Textures.generateTexture(13, height / (width / 16) - 1, false);
         closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
-        closeButton.setEventListener(new Button.EventListener() {
+        closeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 game.setScreen(ms);
@@ -143,7 +143,7 @@ public class ModsScreen implements Screen {
         modInfo1.update(MENU_CAMERA);
         modInfo2.update(MENU_CAMERA);
         BATCH.begin();
-        BATCH.draw(t.standartBackground_full, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
+        BATCH.draw(t.standardBackground, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
         BATCH.draw(background1, MENU_CAMERA.X + width / 32, MENU_CAMERA.Y + width / 32, width / 16 * 13, height - (width / 16));
         closeButton.render(BATCH, MENU_CAMERA);
         modInfo0.render(BATCH, MENU_CAMERA);

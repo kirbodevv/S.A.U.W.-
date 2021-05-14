@@ -1,22 +1,26 @@
 package com.kgc.sauw.gui.elements;
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.utils.Align;
-import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.resource.Textures;
+import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.utils.Camera2D;
+
+import java.util.ArrayList;
 
 public class Button extends InterfaceElement {
     private Texture buttonTexture;
     private Texture buttonPressedTexture;
+    private Texture icon;
+
     private String txt;
     private BitmapFont buttonText;
-    public Button.EventListener EventListener = null;
+    public ArrayList<EventListener> eventListeners = new ArrayList<>();
     public boolean generatedTextures;
     private boolean locked = false;
     private float capHeight;
@@ -92,8 +96,12 @@ public class Button extends InterfaceElement {
         this.buttonPressedTexture = t1;
     }
 
-    public void setEventListener(Button.EventListener el) {
-        EventListener = el;
+    public void setIcon(Texture icon) {
+        this.icon = icon;
+    }
+
+    public void addEventListener(Button.EventListener eventListener) {
+        eventListeners.add(eventListener);
     }
 
     @Override
@@ -110,6 +118,10 @@ public class Button extends InterfaceElement {
         if (!locked)
             b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + X, cam.Y + Y, width, height);
         else b.draw(buttonPressedTexture, cam.X + X, cam.Y + Y, width, height);
+
+        if (icon != null) {
+            b.draw(icon, cam.X + X, cam.Y + Y, width, height);
+        }
 
         if (buttonText != null)
             buttonText.draw(b, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, Align.center, false);
@@ -128,8 +140,8 @@ public class Button extends InterfaceElement {
     @Override
     public void onClick(boolean onButton) {
         super.onClick(onButton);
-        if (EventListener != null && onButton) {
-            EventListener.onClick();
+        for (EventListener e : eventListeners) {
+            e.onClick();
         }
     }
 

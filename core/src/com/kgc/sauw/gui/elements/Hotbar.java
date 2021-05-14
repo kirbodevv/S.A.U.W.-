@@ -21,6 +21,8 @@ public class Hotbar extends InterfaceElement {
             float localX = cam.X + Gdx.input.getX() - X;
             if (localX > X + width) localX = X + width;
             touchedSlot = (int) (localX / BLOCK_SIZE);
+            if (touchedSlot < 0) touchedSlot = 0;
+            if (touchedSlot > 7) touchedSlot = 7;
         }
     }
 

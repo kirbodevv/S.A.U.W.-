@@ -12,16 +12,16 @@ public class Block {
     public int id;
     public Texture t0;
     public Interface GUI = null;
-    protected BlockConfiguration BlockConfiguration;
+    protected BlockConfiguration blockConfiguration;
 
     public Block(int id, Texture t0) {
-        BlockConfiguration = new BlockConfiguration();
+        blockConfiguration = new BlockConfiguration();
         this.id = id;
         this.t0 = t0;
     }
 
     public BlockConfiguration getBlockConfiguration() {
-        return BlockConfiguration;
+        return blockConfiguration;
     }
 
 

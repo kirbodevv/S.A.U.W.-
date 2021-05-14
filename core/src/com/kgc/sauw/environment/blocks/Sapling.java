@@ -1,11 +1,9 @@
 package com.kgc.sauw.environment.blocks;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.config.BlockConfiguration;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.utils.ID;
 
-import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.map.World.WORLD;
 
@@ -15,10 +13,10 @@ public class Sapling extends Block {
     public Sapling() {
         super(ID.registeredId("block:sapling", 13), TEXTURES.sapling);
 
-        BlockConfiguration.setSize(1, 2);
-        BlockConfiguration.setTransparent(true);
-        BlockConfiguration.setInstrumentType(2);
-        BlockConfiguration.setCollisionsRectangleByPixels(15, 0, 4, 4, 32);
+        blockConfiguration.setSize(1, 2);
+        blockConfiguration.setTransparent(true);
+        blockConfiguration.setInstrumentType(2);
+        blockConfiguration.setCollisionsRectangleByPixels(15, 0, 4, 4, 32);
 
         saplingTextures = TextureRegion.split(t0, t0.getWidth() / 4, t0.getHeight());
     }

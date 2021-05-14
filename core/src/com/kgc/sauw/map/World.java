@@ -2,10 +2,7 @@ package com.kgc.sauw.map;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.PixmapIO;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.kgc.sauw.WorldLoader;
 import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.environment.Time;
@@ -14,7 +11,6 @@ import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.physic.Physic;
 import com.kgc.sauw.utils.ID;
-import com.kgc.sauw.utils.PixmapUtils;
 
 import java.util.Random;
 
@@ -22,7 +18,7 @@ import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.entity.Entities.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
 
 public class World {
@@ -60,26 +56,6 @@ public class World {
         MAPS.generateWorld();
     }
 
-    public void screenshot(String screenshotName) {
-        Pixmap pixmap = new Pixmap(32 * 40, 32 * 40, Pixmap.Format.RGBA8888);
-        for (int y = MAPS.map0.length - 1; y >= 0; y--) {
-            for (int x = 0; x < MAPS.map0[y].length; x++) {
-                for (int z = MAPS.map0[y][x].length - 3; z >= 0; z--) {
-                    Tile t = MAPS.map0[y][x][z];
-                    Block b = BLOCKS.getBlockById(t.id);
-                    if (t.t != null) {
-                        Pixmap p = PixmapUtils.extractPixmapFromTextureRegion(t.t);
-                        pixmap.drawPixmap(p, 0, 0, p.getWidth(), p.getHeight(), x * 32, y * 32, 32 * b.getBlockConfiguration().getSize().x, 32 * b.getBlockConfiguration().getSize().y);
-                        p.dispose();
-                    }
-                }
-            }
-        }
-        FileHandle png = Gdx.files.external("S.A.U.W./Screenshots/" + screenshotName + ".png");
-        PixmapIO.writePNG(png, pixmap);
-        pixmap.dispose();
-    }
-
     public World() {
         createWorld();
     }
@@ -98,25 +74,19 @@ public class World {
         if (tile.z == 0) tile.setLight(RayHandler, block);
     }
 
-    public Tile getTile(int x, int y, int z) {
-        if ((x >= 0 && x < MAPS.map0[0].length) && (y >= 0 && y < MAPS.map0.length) && (z >= 0 && z < MAPS.map0[0][0].length))
-            return MAPS.map0[y][x][z];
-        return null;
-    }
-
     public boolean setBlock(Tile tile) {
-        if (MAPS.map0[tile.y][tile.x][tile.z] != null && MAPS.map0[tile.y][tile.x][tile.z].body != null)
-            Physic.destroyBody(MAPS.map0[tile.y][tile.x][tile.z].body);
-        MAPS.map0[tile.y][tile.x][tile.z] = tile;
+        if (MAPS.getTile(tile.x, tile.y, tile.z) != null && MAPS.getTile(tile.x, tile.y, tile.z).body != null)
+            Physic.destroyBody(MAPS.getTile(tile.x, tile.y, tile.z).body);
+        MAPS.setTile(tile);
         setBodyAndLight(tile, BLOCKS.getBlockById(tile.id));
         return true;
     }
 
     public boolean setBlock(int x, int y, int id) {
         int z;
-        if (MAPS.map0[y][x][1].id == 4) {
+        if (MAPS.getTile(x, y, 1).id == 4) {
             z = 1;
-        } else if (MAPS.map0[y][x][0].id == 4) {
+        } else if (MAPS.getTile(x, y, 0).id == 4) {
             z = 0;
         } else {
             return false;
@@ -126,13 +96,10 @@ public class World {
 
     public boolean setBlock(int x, int y, int z, int id) {
         Block block = BLOCKS.getBlockById(id);
-        if (x >= 0 && x < MAPS.map0[0].length + 1 && y >= 0 && y < MAPS.map0.length + 1) {
-            Tile tile = new Tile();
-            tile.createTile(x, y, z, block);
+        Tile tile = new Tile();
+        tile.createTile(x, y, z, block);
 
-            return setBlock(tile);
-        }
-        return false;
+        return setBlock(tile);
     }
 
     public void setBlock(int x, int y, int z, String id) {
@@ -140,8 +107,8 @@ public class World {
     }
 
     public int getHighestBlock(int x, int y) {
-        for (int z = 0; z < MAPS.map0[y][x].length; z++) {
-            if (MAPS.map0[y][x][z].id != 4) {
+        for (int z = 0; z < Maps.zSize; z++) {
+            if (MAPS.getTile(x, y, z).id != 4) {
                 return z;
             }
         }
@@ -154,7 +121,7 @@ public class World {
         MAPS.update();
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
-                if (GAME_INTERFACE.isTouched())
+                if (HUD.isTouched())
                     interfaceTouched = true;
                 else worldTouched = true;
 
@@ -169,11 +136,9 @@ public class World {
                 float sc = SCREEN_WIDTH / GAME_CAMERA.W;
                 int bX = (int) Math.ceil(Gdx.input.getX() / sc + GAME_CAMERA.X) - 1;
                 int bY = (int) Math.ceil((Gdx.graphics.getHeight() - Gdx.input.getY()) / sc + GAME_CAMERA.Y) - 1;
-                mods.HookFunction("itemClick", new Object[]{bX, bY, (MAPS.map0[bY][bX][1].id != 4) ? 1 : 0, MAPS.map0[bY][bX][(MAPS.map0[bY][bX][1].id != 4) ? 1 : 0].id, PLAYER.getCarriedItem()});
-                System.out.println(bX);
-                System.out.println(bY);
+
                 if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
-                    PLAYER.getCarriedItem().onClick(MAPS.map0[bY][bX][getHighestBlock(bX, bY)]);
+                    PLAYER.getCarriedItem().onClick(MAPS.getTile(bX, bY, getHighestBlock(bX, bY)));
                     if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCK_ITEM) {
                         if (setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
                             PLAYER.Inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
@@ -185,9 +150,9 @@ public class World {
         if (Gdx.input.isTouched()) {
             isTouched = false;
         }
-        int yy = random.nextInt(MAPS.map0.length - 1) + 1;
-        int xx = random.nextInt(MAPS.map0[0].length - 1) + 1;
-        BLOCKS.getBlockById(MAPS.map0[yy][xx][0].id).randomTick(MAPS.map0[yy][xx][0]);
+        int yy = random.nextInt(Maps.ySize - 1) + 1;
+        int xx = random.nextInt(Maps.xSize - 1) + 1;
+        BLOCKS.getBlockById(MAPS.getTile(xx, yy, 0).id).randomTick(MAPS.getTile(xx, yy, 0));
     }
 
     public void renderLowLayer() {
@@ -200,7 +165,7 @@ public class World {
 
     public void renderLights() {
         BATCH.end();
-        if (GAME_INTERFACE != null && !isAnyInterfaceOpen()) {
+        if (HUD != null && !isAnyInterfaceOpen()) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
             RayHandler.setAmbientLight(AL, AL, AL, 1);
             RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA.combined);
@@ -216,8 +181,8 @@ public class World {
     }
 
     public void render(boolean isHighestLayer) {
-        for (int y = MAPS.map0.length - 1; y >= 0; y--) {
-            for (int x = 0; x < MAPS.map0[y].length; x++) {
+        for (int y = Maps.ySize - 1; y >= 0; y--) {
+            for (int x = 0; x < Maps.xSize; x++) {
                 if (isHighestLayer) {
                     if (PLAYER.getCurrentTileX() == x && PLAYER.getCurrentTileY() == y) {
                         PLAYER.render();
@@ -233,16 +198,16 @@ public class World {
     public void renderBlock(int x, int y, boolean isHighestLayer) {
         int z = getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().x, BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().getSize().y)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, BLOCKS.getBlockById(MAPS.getTile(x, y, z).id).getBlockConfiguration().getSize().x, BLOCKS.getBlockById(MAPS.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
                 if (!isHighestLayer || z == 0) {
-                    if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
+                    if (z == 2 && (HUD != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
                     }
-                    if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(MAPS.map0[y][x][z].id).getBlockConfiguration().isTransparent()) {
+                    if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(MAPS.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
-                    MAPS.map0[y][x][z].render();
-                    if (z == 2 && (GAME_INTERFACE != null && !isAnyInterfaceOpen())) {
+                    MAPS.getTile(x, y, z).render();
+                    if (z == 2 && (HUD != null && !isAnyInterfaceOpen())) {
                         BATCH.setColor(1, 1, 1, 1);
                     }
                 }

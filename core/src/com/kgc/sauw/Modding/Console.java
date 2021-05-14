@@ -2,13 +2,13 @@ package com.kgc.sauw.modding;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.GAME_INTERFACE;
+import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 
 public class Console {
     public ArrayList<String> inputs = new ArrayList<String>();
 
     public void print(String txt) {
-        GAME_INTERFACE.consolePrint(txt);
+        HUD.consolePrint(txt);
     }
 
     public ArrayList<String> input() {

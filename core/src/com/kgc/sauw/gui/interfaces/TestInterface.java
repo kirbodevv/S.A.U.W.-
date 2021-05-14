@@ -23,7 +23,7 @@ public class TestInterface extends Interface {
 
         Button button1 = new Button("", 0, 0, BLOCK_SIZE * 2, BLOCK_SIZE);
 
-        button1.setEventListener(new Button.EventListener() {
+        button1.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 for (InterfaceElement e : com.kgc.sauw.gui.elements.Elements.UI_ELEMENTS)

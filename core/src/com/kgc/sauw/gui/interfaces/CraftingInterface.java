@@ -48,7 +48,7 @@ public class CraftingInterface extends Interface {
         craftName = (Text) getElement("craftName");
         craft = (Button) getElement("craftButton");
         craft.setText(LANGUAGES.getString("craft"));
-        craft.setEventListener(new Button.EventListener() {
+        craft.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
                 if (currentCraft != -1) {
@@ -96,7 +96,7 @@ public class CraftingInterface extends Interface {
                 String id = "Craft_" + num;
                 Button button = new Button(id, 0, 0, 0, 0);
                 button.setSizeInBlocks(1, 1);
-                button.setEventListener(new Button.EventListener() {
+                button.addEventListener(new Button.EventListener() {
                     @Override
                     public void onClick() {
                         currentCraft = currentTab * 30 + num;

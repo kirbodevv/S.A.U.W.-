@@ -101,7 +101,9 @@ public class Maths {
     public static int angleBetweenVectors(int x1, int y1, int x2, int y2) {
         return (int) Math.round(Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI + 180);
     }
-
+    public static int angleBetweenVectors(float x1, float y1, float x2, float y2) {
+        return (int) Math.round(Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI + 180);
+    }
     public static int angleBetweenVectors(Vector2d v1, Vector2d v2) {
         return (int) Math.round(Math.atan2(v2.y - v1.y, v2.x - v1.x) * 180 / Math.PI + 180);
     }

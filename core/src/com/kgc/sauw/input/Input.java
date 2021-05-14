@@ -3,6 +3,7 @@ package com.kgc.sauw.input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.controllers.Controllers;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.gui.interfaces.Interfaces;
 
@@ -15,16 +16,20 @@ public final class Input {
     private static final GameInputProcessor GAME_INPUT_PROCESSOR;
     private static final PlayerController PLAYER_CONTROLLER;
     private static final TextInputProcessor TEXT_INPUT_PROCESSOR;
+    private static final ControllerListener CONTROLLER_LISTENER;
 
     static {
         INPUT_MULTIPLEXER = new InputMultiplexer();
         GAME_INPUT_PROCESSOR = new GameInputProcessor();
         PLAYER_CONTROLLER = new PlayerController();
         TEXT_INPUT_PROCESSOR = new TextInputProcessor();
+        CONTROLLER_LISTENER = new ControllerListener();
 
         INPUT_MULTIPLEXER.addProcessor(GAME_INPUT_PROCESSOR);
         INPUT_MULTIPLEXER.addProcessor(PLAYER_CONTROLLER);
         INPUT_MULTIPLEXER.addProcessor(TEXT_INPUT_PROCESSOR);
+
+        Controllers.addListener(CONTROLLER_LISTENER);
     }
 
     public static class GameInputProcessor implements InputProcessor {

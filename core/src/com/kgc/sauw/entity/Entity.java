@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.kgc.sauw.Inventory;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.graphic.Animator;
+import com.kgc.sauw.map.Maps;
 
 import java.util.Random;
 
@@ -59,14 +60,14 @@ public class Entity {
 
     public void randomSpawn() {
         Random r = new Random();
-        int x = r.nextInt(MAPS.map0.length - 2) + 1;
-        int y = r.nextInt(MAPS.map0[0].length - 2) + 1;
+        int x = r.nextInt(Maps.xSize - 2) + 1;
+        int y = r.nextInt(Maps.ySize - 2) + 1;
         spawn(x, y);
 
     }
 
     public Block stayingOn() {
-        return BLOCKS.getBlockById(MAPS.map0[currentTileY][currentTileX][1].id);
+        return BLOCKS.getBlockById(MAPS.getTile(currentTileX, currentTileY, 1).id);
     }
 
     private void updatePosition() {

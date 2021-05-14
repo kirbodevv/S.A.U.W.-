@@ -1,12 +1,13 @@
 package com.kgc.sauw.graphic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.interfaces.Interfaces;
+import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GameCameraController;
 
@@ -24,8 +25,10 @@ public final class Graphic {
     public static final BitmapFont BITMAP_FONT;
     public static final GlyphLayout GLYPH_LAYOUT;
     public static final float BITMAP_FONT_CAP_HEIGHT;
+    public static final Color TEXT_COLOR;
 
     static {
+        TEXT_COLOR = new Color(64f / 255, 137f / 255, 154f / 255, 1);
         SCREEN_WIDTH = Gdx.graphics.getWidth();
         SCREEN_HEIGHT = Gdx.graphics.getHeight();
         BATCH = new SpriteBatch();

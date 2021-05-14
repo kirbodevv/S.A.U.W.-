@@ -50,7 +50,7 @@ public class Slot extends InterfaceElement {
         super.setSize(w, h);
         if (slot != null) slot.dispose();
         slot = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
-        IC.getData().setScale((w / 8f) / 16f / IC.getCapHeight());
+        IC.getData().setScale((w / 4f) / IC.getCapHeight());
         IC.setColor(Color.BLACK);
     }
 
@@ -105,7 +105,7 @@ public class Slot extends InterfaceElement {
     public void itemRender() {
         if (id != 0) {
             BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX, itemY, width / 2, width / 2);
-            IC.draw(BATCH, count + "", itemX - width / 4, height + itemY - width / 4);
+            IC.draw(BATCH, count + "", itemX - width / 4, itemY + height / 4, width, Align.right, false);
         }
     }
 

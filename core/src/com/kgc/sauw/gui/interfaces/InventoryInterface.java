@@ -10,7 +10,7 @@ import com.kgc.sauw.gui.elements.Text;
 
 import java.text.DecimalFormat;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class InventoryInterface extends Interface {

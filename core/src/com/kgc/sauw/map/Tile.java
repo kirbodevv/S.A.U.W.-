@@ -7,7 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
-import com.kgc.sauw.entity.ItemEntityL;
+import com.kgc.sauw.entity.Drop;
+import com.kgc.sauw.entity.EntityManager;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.gui.Container;
 import com.kgc.sauw.gui.Interface;
@@ -16,7 +17,7 @@ import com.kgc.sauw.utils.ExtraData;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.kgc.sauw.entity.Entities.ENTITIES;
+import static com.kgc.sauw.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.map.World.WORLD;
@@ -156,7 +157,8 @@ public class Tile implements com.intbyte.bdb.ExtraData {
                     Random r = new Random();
                     float xx = (r.nextFloat() - 0.5f) / 2f + x;
                     float yy = (r.nextFloat() - 0.5f) / 2f + y;
-                    ENTITIES.spawn(new ItemEntityL(xx, yy, BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1], 0));
+                    Drop drop = (Drop) EntityManager.spawn("entity:drop", xx, yy);
+                    drop.setItem(BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][0], BLOCKS.getBlockById(id).getBlockConfiguration().getDrop()[i][1]);
                 }
             }
         }

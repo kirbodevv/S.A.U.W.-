@@ -10,7 +10,7 @@ import com.kgc.sauw.gui.elements.Text;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.map.World.MAPS;
 import static com.kgc.sauw.utils.Languages.LANGUAGES;

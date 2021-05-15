@@ -16,7 +16,7 @@ import java.util.TimerTask;
 
 import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.environment.Environment.*;
 import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;

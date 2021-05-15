@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.gui.InterfaceElement;
 import com.kgc.sauw.utils.Camera2D;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.*;
 
 public class Hotbar extends InterfaceElement {

@@ -67,7 +67,7 @@ public class EntityL implements com.intbyte.bdb.ExtraData {
 	public EntityL loadedEntity;
 	public EntityL createMob(int type){
 		if (type == 0) {
-			return new ItemEntityL(posX, posY, 0, 0, 0);
+			//return new Drop(posX, posY, 0, 0, 0);
 		}
 		return null;
 	}

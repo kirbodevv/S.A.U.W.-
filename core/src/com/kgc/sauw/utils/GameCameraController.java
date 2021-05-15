@@ -2,7 +2,7 @@ package com.kgc.sauw.utils;
 
 import com.kgc.sauw.map.Maps;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.GAME_CAMERA;
 

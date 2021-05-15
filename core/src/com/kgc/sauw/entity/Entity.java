@@ -4,17 +4,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.intbyte.bdb.DataBuffer;
+import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.Inventory;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.map.Maps;
+import com.kgc.sauw.utils.ExtraData;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.map.World.MAPS;
 
 public class Entity {
+    private int id;
+
     public Inventory Inventory = new Inventory();
 
     public float maxWeight = 40.0f;
@@ -47,9 +53,20 @@ public class Entity {
 
     protected boolean isDead = false;
 
+    public ArrayList<com.kgc.sauw.utils.ExtraData> extraData = new ArrayList<>();
+
+
     protected void setBody(Body body) {
         this.body = body;
         this.body.setFixedRotation(true);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void spawn(int x, int y) {
@@ -64,6 +81,10 @@ public class Entity {
         int y = r.nextInt(Maps.ySize - 2) + 1;
         spawn(x, y);
 
+    }
+
+    public Vector2 getBodySize() {
+        return new Vector2(1, 1);
     }
 
     public Block stayingOn() {
@@ -173,62 +194,113 @@ public class Entity {
     }
 
 
-    /*@Override
-    public byte[] getBytes() {
-        DataBuffer buffer = new DataBuffer();
-        buffer.put("coords", new float[]{position.x, position.y});
-        buffer.put("type", type);
-        for (com.kgc.sauw.utils.ExtraData data : ExtraData) {
-            if (Integer.class.isInstance(data.getValue())) {
-                buffer.put(data.key, (int)data.getValue());
-            } else if (Float.class.isInstance(data.getValue())) {
-                buffer.put(data.key, (float)data.getValue());
-            } else if (Double.class.isInstance(data.getValue())) {
-                buffer.put(data.key, (double)data.getValue());
-            } else if (Short.class.isInstance(data.getValue())) {
-                buffer.put(data.key, (short)data.getValue());
-            } else if (Long.class.isInstance(data.getValue())) {
-                buffer.put(data.key, (long)data.getValue());
-            } else if (Byte.class.isInstance(data.getValue())) {
-                buffer.put(data.key, (byte)data.getValue());
+    public void setExtraData(String key, Object value) {
+        for (com.kgc.sauw.utils.ExtraData ED : extraData) {
+            if (ED.key.equals(key)) {
+                ED.setValue(value);
+                return;
             }
         }
-        return buffer.toBytes();
+        extraData.add(new ExtraData(key));
+        for (ExtraData ED : extraData) {
+            if (ED.key.equals(key)) {
+                ED.setValue(value);
+                return;
+            }
+        }
     }
 
-    @Override
-    public void readBytes(byte[] bytes, int begin, int end) {
-        DataBuffer buffer = new DataBuffer();
-        buffer.readBytes(bytes, begin, end);
-        posX = buffer.getIntArray("coords")[0];
-        posY = buffer.getIntArray("coords")[1];
-        type = buffer.getInt("type");
-        loadedEntity = createMob(type);
-        loadedEntity.loadExtraData(bytes, begin, end);
+    public Object getExtraData(String key) {
+        for (ExtraData ED : extraData) {
+            if (ED.key.equals(key)) {
+                return ED.getValue();
+            }
+        }
+        return null;
     }
-    public void loadExtraData(byte[] bytes, int begin, int end){
-        DataBuffer buffer = new DataBuffer();
-        buffer.readBytes(bytes, begin, end);
-        for (com.kgc.sauw.utils.ExtraData data : ExtraData) {
-            if (Integer.class.isInstance(data.getValue())) {
+
+    public void loadExtraData(DataBuffer buffer) {
+        for (com.kgc.sauw.utils.ExtraData data : extraData) {
+            if (data.getValue() instanceof Integer) {
                 data.setValue(buffer.getInt(data.key));
-            } else if (Float.class.isInstance(data.getValue())) {
+            } else if (data.getValue() instanceof Float) {
                 data.setValue(buffer.getFloat(data.key));
-            } else if (Double.class.isInstance(data.getValue())) {
+            } else if (data.getValue() instanceof Double) {
                 data.setValue(buffer.getDouble(data.key));
-            } else if (Short.class.isInstance(data.getValue())) {
+            } else if (data.getValue() instanceof Short) {
                 data.setValue(buffer.getShort(data.key));
-            } else if (Long.class.isInstance(data.getValue())) {
+            } else if (data.getValue() instanceof Long) {
                 data.setValue(buffer.getLong(data.key));
-            } else if (Byte.class.isInstance(data.getValue())) {
+            } else if (data.getValue() instanceof Byte) {
                 data.setValue(buffer.getByte(data.key));
             }
         }
     }
+
     public static class MobFactory implements ExtraDataFactory {
         @Override
         public com.intbyte.bdb.ExtraData getExtraData() {
-            return new Entity();
+            return new EntityLoader();
         }
-    }*/
+    }
+
+    public static class EntityLoader implements com.intbyte.bdb.ExtraData {
+
+        @Override
+        public byte[] getBytes() {
+            return new byte[0];
+        }
+
+        @Override
+        public void readBytes(byte[] bytes, int begin, int end) {
+            DataBuffer buffer = new DataBuffer();
+            buffer.readBytes(bytes, begin, end);
+            try {
+                int id = buffer.getInt("id");
+                Vector2 position = new Vector2(buffer.getFloat("X"), buffer.getFloat("Y"));
+
+                Entity entity = EntityManager.spawn(id, position.x, position.y);
+                entity.loadExtraData(buffer);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static class EntitySaver implements com.intbyte.bdb.ExtraData {
+        Entity entity;
+
+        public EntitySaver(Entity entity) {
+            this.entity = entity;
+        }
+
+        @Override
+        public byte[] getBytes() {
+            DataBuffer buffer = new DataBuffer();
+            buffer.put("X", entity.position.x);
+            buffer.put("Y", entity.position.y);
+            buffer.put("id", entity.id);
+            for (com.kgc.sauw.utils.ExtraData data : entity.extraData) {
+                if (data.getValue() instanceof Integer) {
+                    buffer.put(data.key, (int) data.getValue());
+                } else if (data.getValue() instanceof Float) {
+                    buffer.put(data.key, (float) data.getValue());
+                } else if (data.getValue() instanceof Double) {
+                    buffer.put(data.key, (double) data.getValue());
+                } else if (data.getValue() instanceof Short) {
+                    buffer.put(data.key, (short) data.getValue());
+                } else if (data.getValue() instanceof Long) {
+                    buffer.put(data.key, (long) data.getValue());
+                } else if (data.getValue() instanceof Byte) {
+                    buffer.put(data.key, (byte) data.getValue());
+                }
+            }
+            return buffer.toBytes();
+        }
+
+        @Override
+        public void readBytes(byte[] bytes, int i, int i1) {
+
+        }
+    }
 }

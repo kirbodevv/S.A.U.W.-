@@ -10,8 +10,8 @@ import com.kgc.sauw.map.Tile;
 import java.util.Date;
 import java.util.List;
 
-import static com.kgc.sauw.entity.Entities.ENTITIES;
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.ENTITY_MANAGER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.map.World.MAPS;
 import static com.kgc.sauw.map.World.WORLD;
 
@@ -44,11 +44,11 @@ public class WorldLoader {
             worldDataBuffer.put("saveTime", date.getTime());
 
             playerFile.writeBytes(playerBuffer.toBytes(), false);
-            mobsFile.writeBytes(ENTITIES.getBytes(), false);
+            mobsFile.writeBytes(ENTITY_MANAGER.getBytes(), false);
             worldData.writeBytes(worldDataBuffer.toBytes(), false);
             mapFile.writeBytes(MAPS.toDataBuffer().toBytes(), false);
         } catch (Exception e) {
-            Gdx.app.log("saveError", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -93,7 +93,7 @@ public class WorldLoader {
                 if (PLAYER != null)
                     PLAYER.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
                 byte[] mobsBytes = mobsFile.readBytes();
-                if (ENTITIES != null) ENTITIES.readBytes(mobsBytes, 0, mobsBytes.length);
+                if (ENTITY_MANAGER != null) ENTITY_MANAGER.readBytes(mobsBytes, 0, mobsBytes.length);
                 buffer.readBytes(worldData.readBytes());
                 if (WORLD.WorldTime != null) WORLD.WorldTime.setTime(buffer.getInt("time"));
             }

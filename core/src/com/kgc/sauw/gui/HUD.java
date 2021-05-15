@@ -7,7 +7,7 @@ import com.kgc.sauw.gui.interfaces.Interfaces;
 import com.kgc.sauw.utils.Version;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.gui.interfaces.Interfaces.*;
 

@@ -2,12 +2,11 @@ package com.kgc.sauw.map;
 
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
-import com.kgc.sauw.entity.ItemEntityL;
-import com.kgc.sauw.utils.ID;
+import com.kgc.sauw.entity.Drop;
+import com.kgc.sauw.entity.EntityManager;
 
 import java.util.Random;
 
-import static com.kgc.sauw.entity.Entities.ENTITIES;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.map.World.WORLD;
 
@@ -44,13 +43,16 @@ public class Maps {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 if (r1.nextInt(75) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(x, y, ID.get("item:stick"), 1, 0));
+                    Drop entity = (Drop) EntityManager.spawn("entity:drop", x, y);
+                    entity.setItem("item:stick", 1);
                 }
                 if (r1.nextInt(50) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(x, y, ID.get("item:stone"), 1, 0));
+                    Drop entity = (Drop) EntityManager.spawn("entity:drop", x, y);
+                    entity.setItem("item:stone", 1);
                 }
                 if (r1.nextInt(100) == 0) {
-                    ENTITIES.spawn(new ItemEntityL(x, y, ID.get("item:vegetable_fiber"), 1, 0));
+                    Drop entity = (Drop) EntityManager.spawn("entity:drop", x, y);
+                    entity.setItem("item:vegetable_fiber", 1);
                 }
             }
 

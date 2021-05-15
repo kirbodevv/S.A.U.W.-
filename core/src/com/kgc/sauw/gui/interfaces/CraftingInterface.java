@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.elements.*;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.environment.Environment.CRAFTING;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.*;

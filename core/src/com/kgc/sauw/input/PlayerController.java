@@ -11,7 +11,7 @@ import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.interfaces.Interfaces;
 import com.kgc.sauw.map.Tile;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
 import static com.kgc.sauw.map.World.MAPS;
 

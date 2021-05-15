@@ -13,7 +13,7 @@ import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;

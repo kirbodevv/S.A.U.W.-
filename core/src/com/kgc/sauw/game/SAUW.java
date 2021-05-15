@@ -18,6 +18,7 @@ import com.kgc.sauw.utils.GameCameraController;
 import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
@@ -52,6 +53,7 @@ public class SAUW implements Screen {
 
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
             WORLD.createNewWorld();
+            PLAYER.randomSpawn();
             WorldLoader.save(worldName);
         } else {
             WorldLoader.load(worldName);

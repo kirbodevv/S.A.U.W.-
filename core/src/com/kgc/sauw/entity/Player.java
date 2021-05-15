@@ -15,7 +15,7 @@ import com.kgc.sauw.math.Maths;
 import com.kgc.sauw.physic.Physic;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.entity.Entities.ENTITIES_LIST;
+import static com.kgc.sauw.entity.EntityManager.ENTITIES_LIST;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
@@ -52,6 +52,11 @@ public class Player extends Entity implements ExtraData {
         }
     }
 
+    @Override
+    public Vector2 getBodySize() {
+        return new Vector2(entityBodyW, entityBodyH / 4f);
+    }
+
     public int carriedSlot = 0;
     public int[] hotbar = new int[8];
 
@@ -77,7 +82,6 @@ public class Player extends Entity implements ExtraData {
         entityBodyW = 10 / 26f;
         entityBodyH = 1f;
         setSize(new Vector2(entityBodyW, entityBodyH));
-        setBody(Physic.createRectangleBody(0, 0, entityBodyW, entityBodyH / 4f, BodyDef.BodyType.DynamicBody));
 
         for (int i = 0; i < hotbar.length; i++) {
             this.hotbar[i] = -1;
@@ -91,8 +95,6 @@ public class Player extends Entity implements ExtraData {
         animator.addAnimation("animation:player_walk_up", "animation_region:player", 0.2f, 6, 7);
 
         currentFrame = animator.getFrames("animation_region:player")[4];
-
-        randomSpawn();
     }
 
     @Override
@@ -149,13 +151,24 @@ public class Player extends Entity implements ExtraData {
             PlayerController.update();
             if (SETTINGS.autopickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 for (int i = 0; i < ENTITIES_LIST.size(); i++) {
-                    if (ENTITIES_LIST.get(i) instanceof ItemEntityL && Maths.distanceD((int) getPosition().x, (int) getPosition().x, ENTITIES_LIST.get(i).posX, ENTITIES_LIST.get(i).posY) <= 1.5f) {
-                        ItemEntityL item = (ItemEntityL) ENTITIES_LIST.get(i);
+                    if (ENTITIES_LIST.get(i) instanceof Drop && Maths.distanceD(getCurrentTileX(), getCurrentTileY(), ENTITIES_LIST.get(i).getCurrentTileX(), ENTITIES_LIST.get(i).getCurrentTileY()) <= 0.5f) {
+                        Drop item = (Drop) ENTITIES_LIST.get(i);
                         Inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
                         ENTITIES_LIST.remove(i);
                     }
                 }
             }
+        }
+    }
+
+    public static class PlayerFactory extends EntityFactory {
+        public PlayerFactory() {
+            super("player", 0);
+        }
+
+        @Override
+        protected Entity createEntity() {
+            return new Player();
         }
     }
 }

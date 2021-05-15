@@ -14,8 +14,8 @@ import com.kgc.sauw.utils.ID;
 
 import java.util.Random;
 
-import static com.kgc.sauw.entity.Entities.ENTITIES;
-import static com.kgc.sauw.entity.Entities.PLAYER;
+import static com.kgc.sauw.entity.EntityManager.ENTITY_MANAGER;
+import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
 import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
@@ -117,7 +117,7 @@ public class World {
 
     public void update(Mods mods) {
         PLAYER.update();
-        ENTITIES.update();
+        ENTITY_MANAGER.update();
         MAPS.update();
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
@@ -168,15 +168,15 @@ public class World {
         if (HUD != null && !isAnyInterfaceOpen()) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
             RayHandler.setAmbientLight(AL, AL, AL, 1);
-            RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA.combined);
+            //RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA.combined);
             RayHandler.updateAndRender();
         }
         BATCH.begin();
     }
 
     public void renderEntities() {
-        if (ENTITIES != null) {
-            ENTITIES.render(GAME_CAMERA);
+        if (ENTITY_MANAGER != null) {
+            ENTITY_MANAGER.render(GAME_CAMERA);
         }
     }
 

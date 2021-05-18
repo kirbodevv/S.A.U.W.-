@@ -9,7 +9,7 @@ public class IronOre extends Item {
     public IronOre() {
         super(ID.registeredId("item:iron_ore"));
 
-        this.t = TEXTURES.iron_ore_item;
+        setTexture(TEXTURES.iron_ore_item);
 
         ItemConfiguration.name = LANGUAGES.getString("iron_ore");
         ItemConfiguration.weight = 0.5f;

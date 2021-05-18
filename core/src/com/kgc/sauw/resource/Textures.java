@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class Textures {
@@ -15,6 +16,7 @@ public class Textures {
     public Texture player;
     public Texture selected_slot;
     public Texture undef;
+    public TextureRegion undefRegion;
     public Texture stone;
     public Texture chest;
     public Texture health_0;
@@ -206,6 +208,8 @@ public class Textures {
         shadow = new Texture(Gdx.files.internal("Entity/shadow.png"));
 
         undef = new Texture(Gdx.files.internal("Blocks/undefined.png"));
+        undefRegion = new TextureRegion(undef);
+
         stone = new Texture(Gdx.files.internal("Blocks/stone.png"));
         snow = new Texture(Gdx.files.internal("Blocks/snow.png"));
         stone_1 = new Texture(Gdx.files.internal("Blocks/stone_1.png"));

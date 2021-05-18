@@ -234,13 +234,13 @@ public class Interface {
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
                 MAPS.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(a.id, a.count, a.data);
-                System.out.println(PLAYER.Inventory.containers.size());
-                PLAYER.Inventory.containers.remove(PLAYER.Inventory.containers.get(a.inventorySlot));
+                System.out.println(PLAYER.inventory.containers.size());
+                PLAYER.inventory.containers.remove(PLAYER.inventory.containers.get(a.inventorySlot));
             }
         } else {
             if (a1.isInventorySlot) {
                 System.out.println("dsdsds");
-                PLAYER.Inventory.addItem(a.id, a.count);
+                PLAYER.inventory.addItem(a.id, a.count);
                 MAPS.getTile(currX, currY, currZ).getContainer(a.ID).setItem(0, 0, 0);
             } else {
                 MAPS.getTile(currX, currY, currZ).getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
@@ -281,17 +281,17 @@ public class Interface {
                 slot.data = 0;
             }
             if (inventory) {
-                for (int j = 0; j < PLAYER.Inventory.containers.size(); j++) {
+                for (int j = 0; j < PLAYER.inventory.containers.size(); j++) {
                     if (j >= currentTabInv * 30 && j < currentTabInv * 30 + 30) {
                         Slot slot = getSlot("InventorySlot_" + (j - currentTabInv * 30));
                         slot.inventorySlot = j;
-                        slot.id = PLAYER.Inventory.containers.get(j).id;
-                        slot.count = PLAYER.Inventory.containers.get(j).count;
-                        slot.data = PLAYER.Inventory.containers.get(j).data;
+                        slot.id = PLAYER.inventory.containers.get(j).id;
+                        slot.count = PLAYER.inventory.containers.get(j).count;
+                        slot.data = PLAYER.inventory.containers.get(j).data;
                     }
                 }
                 if (nextTabInv.wasClicked) {
-                    if (PLAYER.Inventory.containers.size() > (currentTabInv + 1) * 30) {
+                    if (PLAYER.inventory.containers.size() > (currentTabInv + 1) * 30) {
                         currentTabInv++;
                     }
                 }
@@ -333,8 +333,11 @@ public class Interface {
 
             closeInterfaceButton.render(BATCH, INTERFACE_CAMERA);
 
-            for (InterfaceElement e : Elements) {
-                if (e instanceof Slot) ((Slot) e).itemRender();
+            for (Slot slot : slots) {
+                if (slot.isInventorySlot) {
+                    if (slot.inventorySlot < PLAYER.inventory.containers.size())
+                        slot.itemRender(PLAYER.inventory.containers.get(slot.inventorySlot));
+                } else slot.itemRender(null);
             }
             postRender();
         }

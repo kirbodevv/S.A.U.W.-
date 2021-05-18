@@ -8,6 +8,6 @@ public class Stick extends Item {
     public Stick() {
         super(ID.registeredId("item:stick"));
 
-        this.t = TEXTURES.stick;
+        setTexture(TEXTURES.stick);
     }
 }

@@ -1,5 +1,6 @@
 package com.kgc.sauw.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.math.Maths;
@@ -7,40 +8,38 @@ import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.ID;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EntityManager implements ExtraData {
     public static final Player PLAYER;
     public static final ArrayList<Entity> ENTITIES_LIST;
     public static final EntityManager ENTITY_MANAGER;
 
+    private static final EntityFactory[] factories;
+
     static {
         ENTITY_MANAGER = new EntityManager();
         ENTITIES_LIST = new ArrayList<>();
         factories = new EntityFactory[1200];
 
-        addFactory(new Player.PlayerFactory());
-        addFactory(new DropFactory());
+        PLAYER = (Player) new Player.PlayerFactory().create();
 
-        PLAYER = (Player) spawn("entity:player", 0, 0);
+        addFactory(new DropFactory());
     }
 
-    private static final EntityFactory[] factories;
-
     public static void addFactory(EntityFactory entityFactory) {
-        System.out.println(entityFactory.getId());
         factories[entityFactory.getId()] = entityFactory;
     }
 
     public static Entity spawn(Entity entity) {
         ENTITIES_LIST.add(entity);
-
+        Gdx.app.log("ENTITY MANAGER", "Entity spawned with id : " + entity.getId());
         return entity;
     }
 
     public static Entity spawn(int id, float x, float y) {
         Entity entity = spawn(factories[id].create());
         entity.setPosition(x, y);
+
         return entity;
     }
 
@@ -52,13 +51,13 @@ public class EntityManager implements ExtraData {
     public byte[] getBytes() {
         DataBuffer buffer = new DataBuffer();
         ExtraData[] ED;
-        buffer.put("mobsCount", ENTITIES_LIST.size());
+        buffer.put("entitiesCount", ENTITIES_LIST.size());
         if (ENTITIES_LIST.size() > 0) {
             ED = new ExtraData[ENTITIES_LIST.size()];
             for (int i = 0; i < ENTITIES_LIST.size(); i++) {
                 ED[i] = new Entity.EntitySaver(ENTITIES_LIST.get(i));
             }
-            buffer.put("mobs", ED);
+            buffer.put("entities", ED);
         }
         return buffer.toBytes();
     }
@@ -67,10 +66,9 @@ public class EntityManager implements ExtraData {
     public void readBytes(byte[] bytes, int begin, int end) {
         DataBuffer buffer = new DataBuffer();
         buffer.readBytes(bytes, begin, end);
-        Entity.MobFactory mobFactory = new Entity.MobFactory();
-        List<? extends ExtraData> mobs;
-        if (buffer.getInt("mobsCount") > 0) {
-            mobs = buffer.getExtraDataList("mobs", mobFactory);
+        Entity.EntityLoaderFactory entityLoaderFactory = new Entity.EntityLoaderFactory();
+        if (buffer.getInt("entitiesCount") > 0) {
+            buffer.getExtraDataList("entities", entityLoaderFactory);
         }
     }
 

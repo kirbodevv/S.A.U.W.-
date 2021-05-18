@@ -9,7 +9,7 @@ public class StonePickaxe extends InstrumentItem {
     public StonePickaxe() {
         super(ID.registeredId("item:stone_pickaxe"), 128, Type.PICKAXE);
 
-        this.t = TEXTURES.stone_pickaxe;
+        setTexture(TEXTURES.stone_pickaxe);
 
         ItemConfiguration.name = LANGUAGES.getString("stone_pickaxe");
         ItemConfiguration.weight = 5.75f;

@@ -3,7 +3,6 @@ package com.kgc.sauw.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.Inventory;
@@ -12,7 +11,6 @@ import com.kgc.sauw.environment.items.Item;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.input.PlayerController;
 import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.physic.Physic;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.EntityManager.ENTITIES_LIST;
@@ -31,9 +29,9 @@ public class Player extends Entity implements ExtraData {
         buffer.put("health", health);
         buffer.put("hunger", hunger);
         buffer.put("coords", new int[]{(int) getPosition().x, (int) getPosition().y});
-        buffer.put("InvLength", Inventory.containers.size());
-        for (int i = 0; i < Inventory.containers.size(); i++) {
-            buffer.put("Inv_" + i, Inventory.containers.get(i));
+        buffer.put("InvLength", inventory.containers.size());
+        for (int i = 0; i < inventory.containers.size(); i++) {
+            buffer.put("Inv_" + i, inventory.containers.get(i));
         }
         return buffer.toBytes();
     }
@@ -45,10 +43,10 @@ public class Player extends Entity implements ExtraData {
         setPosition(buffer.getIntArray("coords")[0], buffer.getIntArray("coords")[1]);
         health = buffer.getInt("health");
         hunger = buffer.getInt("hunger");
-        Inventory = new Inventory(buffer.getInt("InvLength"));
+        inventory = new Inventory(buffer.getInt("InvLength"));
         for (int i = 0; i < buffer.getInt("InvLength"); i++) {
-            Inventory.containers.add(i, new InventoryContainer());
-            Inventory.containers.get(i).readBytes(buffer.getByteArray("Inv_" + i), begin, end);
+            inventory.containers.add(i, new InventoryContainer());
+            inventory.containers.get(i).readBytes(buffer.getByteArray("Inv_" + i), begin, end);
         }
     }
 
@@ -65,8 +63,8 @@ public class Player extends Entity implements ExtraData {
     }
 
     public Item getItemFromHotbar(int index) {
-        if (hotbar[index] != -1 && hotbar[index] < Inventory.containers.size() && ITEMS.getItemById(Inventory.containers.get(hotbar[index]).id) != null) {
-            return ITEMS.getItemById(Inventory.containers.get(hotbar[index]).id);
+        if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size() && ITEMS.getItemById(inventory.containers.get(hotbar[index]).id) != null) {
+            return ITEMS.getItemById(inventory.containers.get(hotbar[index]).id);
         } else {
             hotbar[index] = -1;
             return ITEMS.getItemById(0);
@@ -153,7 +151,7 @@ public class Player extends Entity implements ExtraData {
                 for (int i = 0; i < ENTITIES_LIST.size(); i++) {
                     if (ENTITIES_LIST.get(i) instanceof Drop && Maths.distanceD(getCurrentTileX(), getCurrentTileY(), ENTITIES_LIST.get(i).getCurrentTileX(), ENTITIES_LIST.get(i).getCurrentTileY()) <= 0.5f) {
                         Drop item = (Drop) ENTITIES_LIST.get(i);
-                        Inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
+                        inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
                         ENTITIES_LIST.remove(i);
                     }
                 }

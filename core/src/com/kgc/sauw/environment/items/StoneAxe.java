@@ -9,7 +9,7 @@ public class StoneAxe extends InstrumentItem {
     public StoneAxe() {
         super(ID.registeredId("item:stone_axe"), 128, Type.AXE);
 
-        this.t = TEXTURES.stone_axe;
+        setTexture(TEXTURES.stone_axe);
         ItemConfiguration.weight = 5.75f;
         ItemConfiguration.name = LANGUAGES.getString("stone_axe");
 

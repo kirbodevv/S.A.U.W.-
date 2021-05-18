@@ -9,7 +9,7 @@ public class Chest extends Item {
     public Chest() {
         super(ID.registeredId("item:chest"));
 
-        this.t = TEXTURES.chest;
+        setTexture(TEXTURES.chest);
 
         ItemConfiguration.type = Items.Type.BLOCK_ITEM;
         ItemConfiguration.blockId = 5;

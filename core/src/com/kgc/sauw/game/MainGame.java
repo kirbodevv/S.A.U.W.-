@@ -1,9 +1,11 @@
 package com.kgc.sauw.game;
 
-import com.kgc.sauw.screen.MenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.kgc.sauw.screen.MenuScreen;
+
+import java.io.IOException;
 
 import static com.kgc.sauw.input.Input.INPUT_MULTIPLEXER;
 
@@ -12,12 +14,16 @@ public class MainGame extends Game {
 
     @Override
     public void create() {
-        createFiles();
+        try {
+            createFiles();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
         setScreen(new MenuScreen(this));
     }
 
-    public void createFiles() {
+    public void createFiles() throws IOException {
         FileHandle mainFolder = Gdx.files.external("S.A.U.W.");
 
         FileHandle ModsFolder = Gdx.files.external("S.A.U.W./Mods");
@@ -28,6 +34,7 @@ public class MainGame extends Game {
         FileHandle userData = Gdx.files.external("S.A.U.W./User/data.json");
         FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
         FileHandle modsFile = Gdx.files.external("S.A.U.W./Mods/Mods.json");
+
         if (!mainFolder.exists()) {
             mainFolder.mkdirs();
         } else {
@@ -39,11 +46,16 @@ public class MainGame extends Game {
                 UserFolder.mkdirs();
             if (!WorldsFolder.exists())
                 WorldsFolder.mkdirs();
-            if (!settings.exists())
+            if (!settings.exists()) {
+                settings.file().createNewFile();
                 settings.writeString(Gdx.files.internal("json/settings.json").readString(), false);
-            if (!userData.exists())
+            }
+            if (!userData.exists()) {
+                userData.file().createNewFile();
                 userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
+            }
             if (!modsFile.exists()) {
+                modsFile.file().createNewFile();
                 modsFile.writeString("[]", false);
             }
         }

@@ -9,7 +9,7 @@ public class StoneShovel extends InstrumentItem {
     public StoneShovel() {
         super(ID.registeredId("item:stone_shovel"), 128, Type.SHOVEL);
 
-        this.t = TEXTURES.stone_shovel;
+        setTexture(TEXTURES.stone_shovel);
 
         ItemConfiguration.name = LANGUAGES.getString("stone_shovel");
         ItemConfiguration.weight = 5.75f;

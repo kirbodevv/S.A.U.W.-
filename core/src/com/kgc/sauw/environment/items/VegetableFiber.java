@@ -9,7 +9,7 @@ public class VegetableFiber extends Item {
     public VegetableFiber() {
         super(ID.registeredId("item:vegetable_fiber"));
 
-        this.t = TEXTURES.vegetable_fiber;
+        setTexture(TEXTURES.vegetable_fiber);
 
         ItemConfiguration.name = LANGUAGES.getString("vegetable_fiber");
         ItemConfiguration.weight = 0.05f;

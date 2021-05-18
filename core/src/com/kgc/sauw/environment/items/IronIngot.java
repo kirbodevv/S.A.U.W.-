@@ -9,7 +9,7 @@ public class IronIngot extends Item {
     public IronIngot() {
         super(ID.registeredId("item:iron_ingot"));
 
-        this.t = TEXTURES.iron_ingot;
+        setTexture(TEXTURES.iron_ingot);
 
         ItemConfiguration.name = LANGUAGES.getString("iron_ingot");
         ItemConfiguration.weight = 1f;

@@ -9,7 +9,7 @@ public class Stone extends Item {
     public Stone() {
         super(ID.registeredId("item:stone"));
 
-        this.t = TEXTURES.stone_item;
+        setTexture(TEXTURES.stone_item);
 
         ItemConfiguration.weight = 0.15f;
         ItemConfiguration.name = LANGUAGES.getString("stone");

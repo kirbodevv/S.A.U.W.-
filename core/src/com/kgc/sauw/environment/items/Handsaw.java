@@ -9,7 +9,7 @@ public class Handsaw extends Item {
     public Handsaw() {
         super(ID.registeredId("item:handsaw"));
 
-        t = TEXTURES.handsaw;
+        setTexture(TEXTURES.handsaw);
 
         ItemConfiguration.weight = 1f;
         ItemConfiguration.name = Languages.LANGUAGES.getString("handsaw");

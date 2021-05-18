@@ -9,7 +9,7 @@ public class Rope extends Item {
     public Rope() {
         super(ID.registeredId("item:rope"));
 
-        this.t = TEXTURES.rope;
+        setTexture(TEXTURES.rope);
 
         ItemConfiguration.name = LANGUAGES.getString("rope");
     }

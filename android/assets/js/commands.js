@@ -1,5 +1,5 @@
 function give(id, count){
-	Player.Inventory.addItem(id, count);
+	Player.inventory.addItem(id, count);
 }
 function color(r, g, b){
 	GI.setConsoleTextColor(r, g, b);

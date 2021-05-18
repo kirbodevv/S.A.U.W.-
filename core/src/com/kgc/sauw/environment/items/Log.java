@@ -9,7 +9,7 @@ public class Log extends Item {
     public Log() {
         super(ID.registeredId("item:log"));
 
-        this.t = TEXTURES.log;
+        setTexture(TEXTURES.log);
 
         ItemConfiguration.name = LANGUAGES.getString("log");
         ItemConfiguration.weight = 1.25f;

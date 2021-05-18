@@ -141,7 +141,7 @@ public class World {
                     PLAYER.getCarriedItem().onClick(MAPS.getTile(bX, bY, getHighestBlock(bX, bY)));
                     if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCK_ITEM) {
                         if (setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
-                            PLAYER.Inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
+                            PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                         }
                     }
                 }

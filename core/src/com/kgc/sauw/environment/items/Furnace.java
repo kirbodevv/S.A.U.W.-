@@ -10,7 +10,7 @@ public class Furnace extends Item {
     public Furnace() {
         super(ID.registeredId("item:furnace"));
 
-        this.t = TEXTURES.furnace_item;
+        setTexture(TEXTURES.furnace_item);
 
         ItemConfiguration.name = LANGUAGES.getString("furnace");
         ItemConfiguration.type = Items.Type.BLOCK_ITEM;

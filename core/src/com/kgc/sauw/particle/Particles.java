@@ -39,9 +39,9 @@ public class Particles {
         }
     }
 
-    private static HashMap<Integer, BaseParticle> particles = new HashMap<>();
+    private static final HashMap<Integer, BaseParticle> particles = new HashMap<>();
     private static final Animator animator;
-    private static Particle[] particlesList = new Particle[200];
+    private static final Particle[] particlesList = new Particle[200];
 
     static {
         for (int i = 0; i < particlesList.length; i++) {

@@ -9,7 +9,7 @@ import static com.kgc.sauw.utils.Languages.LANGUAGES;
 public class Apple extends Item {
     public Apple() {
         super(ID.registeredId("item:apple"));
-        this.t = TEXTURES.apple;
+        setTexture(TEXTURES.apple);
 
         ItemConfiguration.weight = 0.2f;
         ItemConfiguration.name = LANGUAGES.getString("apple");

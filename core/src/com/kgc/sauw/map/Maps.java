@@ -66,9 +66,10 @@ public class Maps {
         ExtraData[] tileEntities;
         int i = 0;
         int tileEntitiesCount = 0;
-        for (Tile[][] tiles : map0) {
-            for (Tile[] tiles1 : tiles) {
-                for (Tile tile : tiles1) {
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                for (int z = 0; z < zSize; z++) {
+                    Tile tile = getTile(x, y, z);
                     worldArray[i] = tile.id;
                     mapDmg[i] = tile.damage;
                     if (tile.containers.size() > 0) {

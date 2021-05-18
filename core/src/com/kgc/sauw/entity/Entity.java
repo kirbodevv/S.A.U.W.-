@@ -21,7 +21,7 @@ import static com.kgc.sauw.map.World.MAPS;
 public class Entity {
     private int id;
 
-    public Inventory Inventory = new Inventory();
+    public Inventory inventory = new Inventory();
 
     public float maxWeight = 40.0f;
     public float itemsWeight = 0.0f;
@@ -100,14 +100,14 @@ public class Entity {
     }
 
     public void update() {
-        itemsWeight = Inventory.getItemsWeight();
+        itemsWeight = inventory.getItemsWeight();
 
         entitySpeed = 1.0f - ((itemsWeight * 1.66f) / 100);
         if (entitySpeed < 0) entitySpeed = 0;
 
         updatePosition();
 
-        Inventory.removeItemsIfNeed();
+        inventory.removeItemsIfNeed();
 
         velX = 0;
         velY = 0;
@@ -237,7 +237,7 @@ public class Entity {
         }
     }
 
-    public static class MobFactory implements ExtraDataFactory {
+    public static class EntityLoaderFactory implements ExtraDataFactory {
         @Override
         public com.intbyte.bdb.ExtraData getExtraData() {
             return new EntityLoader();

@@ -19,32 +19,32 @@ public class WorldLoader {
     public static void save(String WorldName) {
         WORLD.setWorldName(WorldName);
         FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds/" + WorldName);
-        FileHandle map = Gdx.files.external(worldFolder + "/map");
 
         if (!worldFolder.exists()) worldFolder.mkdirs();
-        if (!map.exists()) map.mkdirs();
 
         try {
-
-            FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
-            FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
+            FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map.bdb");
+            FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/worldData.bdb");
             FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
-            FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
+            FileHandle entitiesFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/entities.bdb");
 
             if (!mapFile.exists()) mapFile.file().createNewFile();
             if (!worldData.exists()) worldData.file().createNewFile();
             if (!playerFile.exists()) playerFile.file().createNewFile();
-            if (!mapFile.exists()) mobsFile.file().createNewFile();
+            if (!mapFile.exists()) entitiesFile.file().createNewFile();
 
             DataBuffer playerBuffer = new DataBuffer();
             DataBuffer worldDataBuffer = new DataBuffer();
+
+            //Сохранение игрока
             playerBuffer.put("player", PLAYER);
+            //Сохранение данных мира
             worldDataBuffer.put("time", WORLD.WorldTime.getTime());
             Date date = new Date();
             worldDataBuffer.put("saveTime", date.getTime());
 
             playerFile.writeBytes(playerBuffer.toBytes(), false);
-            mobsFile.writeBytes(ENTITY_MANAGER.getBytes(), false);
+            entitiesFile.writeBytes(ENTITY_MANAGER.getBytes(), false);
             worldData.writeBytes(worldDataBuffer.toBytes(), false);
             mapFile.writeBytes(MAPS.toDataBuffer().toBytes(), false);
         } catch (Exception e) {
@@ -56,10 +56,10 @@ public class WorldLoader {
         WORLD.setWorldName(WorldName);
         FileHandle worldFolder = Gdx.files.external("/S.A.U.W./Worlds/" + WorldName);
         if (worldFolder.exists()) {
-            FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map/map.bdb");
-            FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/world.bdb");
+            FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map.bdb");
+            FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/worldData.bdb");
             FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
-            FileHandle mobsFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/mobs.bdb");
+            FileHandle entitiesFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/entities.bdb");
             if (mapFile.exists()) {
                 DataBuffer buffer = new DataBuffer();
                 buffer.readBytes(mapFile.readBytes());
@@ -92,7 +92,7 @@ public class WorldLoader {
                 buffer.readBytes(playerFile.readBytes());
                 if (PLAYER != null)
                     PLAYER.readBytes(buffer.getByteArray("player"), 0, buffer.getByteArray("player").length);
-                byte[] mobsBytes = mobsFile.readBytes();
+                byte[] mobsBytes = entitiesFile.readBytes();
                 if (ENTITY_MANAGER != null) ENTITY_MANAGER.readBytes(mobsBytes, 0, mobsBytes.length);
                 buffer.readBytes(worldData.readBytes());
                 if (WORLD.WorldTime != null) WORLD.WorldTime.setTime(buffer.getInt("time"));

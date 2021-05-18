@@ -10,7 +10,7 @@ public class Sapling extends Item {
     public Sapling() {
         super(ID.registeredId("item:sapling"));
 
-        this.t = TEXTURES.sapling_item;
+        setTexture(TEXTURES.sapling_item);
 
         ItemConfiguration.name = LANGUAGES.getString("sapling");
         ItemConfiguration.weight = 0.1f;

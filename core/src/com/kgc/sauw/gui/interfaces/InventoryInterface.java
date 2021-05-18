@@ -89,7 +89,7 @@ public class InventoryInterface extends Interface {
         for (int i = 0; i < hotbarslots.length; i++) {
             if (PLAYER.hotbar[i] != -1) {
                 hotbarslots[i].id = PLAYER.getItemFromHotbar(i).id;
-                hotbarslots[i].count = PLAYER.Inventory.containers.get(PLAYER.hotbar[i]).count;
+                hotbarslots[i].count = PLAYER.inventory.containers.get(PLAYER.hotbar[i]).count;
             }
         }
         timer += Gdx.graphics.getDeltaTime();

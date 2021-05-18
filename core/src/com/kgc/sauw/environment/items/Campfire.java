@@ -10,7 +10,7 @@ public class Campfire extends Item {
     public Campfire() {
         super(ID.registeredId("item:campfire"));
 
-        this.t = TEXTURES.campfire;
+        setTexture(TEXTURES.campfire);
 
         ItemConfiguration.name = LANGUAGES.getString("campfire");
         ItemConfiguration.type = Items.Type.BLOCK_ITEM;

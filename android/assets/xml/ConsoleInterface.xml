@@ -7,6 +7,6 @@
             <Button id="nextCommand" width="1bl" height="1bl"/>
             <Button id="sendCommandButton" width="1bl" height="1bl"/>
         </Layout>
-        <Image id="log_bg" width="15bl" height="77%H"/>
+        <Image id="log_bg" width="15bl" height="6bl:9"/>
     </RootLayout>
 </Interface>

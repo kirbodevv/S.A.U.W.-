@@ -129,8 +129,8 @@ public class CraftingInterface extends Interface {
     @Override
     public void postRender() {
         for (int i = currentTab * 30; i < CRAFTING.crafts.size(); i++) {
-            float x = getElement("Craft_" + i).X;
-            float y = getElement("Craft_" + i).Y;
+            float x = getElement("Craft_" + i).x;
+            float y = getElement("Craft_" + i).y;
             float w = getElement("Craft_" + i).width;
             BATCH.draw(ITEMS.getItemById(CRAFTING.crafts.get(i).result[0]).getDefaultTexture(), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
         }

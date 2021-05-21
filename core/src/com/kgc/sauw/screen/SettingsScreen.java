@@ -11,6 +11,7 @@ import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.Checkbox;
 import com.kgc.sauw.gui.elements.Slider;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.resource.Textures;
 import org.json.JSONObject;
 
@@ -45,8 +46,8 @@ public class SettingsScreen implements Screen {
 
     public int currentSettingCot = 0;
 
-    Texture background0 = Textures.generateTexture(15, (height - width / 16 * 2) / (width / 16), false);
-    Texture background1 = Textures.generateTexture(3, 1, true);
+    Texture background0 = TextureGenerator.generateTexture(15, (height - width / 16 * 2) / (width / 16), false);
+    Texture background1 = TextureGenerator.generateTexture(3, 1, true);
 
     BitmapFont bf = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
@@ -181,7 +182,7 @@ public class SettingsScreen implements Screen {
                 general.lock(true);
             }
         });
-        Interface = new Button("SETTINGS_SCREEN_INTERFACE_BUTTON", general.X + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
+        Interface = new Button("SETTINGS_SCREEN_INTERFACE_BUTTON", general.x + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
         // Interface.setTextColor(Color.BLACK);
         Interface.setText(LANGUAGES.getString("interface"));
         Interface.addEventListener(new Button.EventListener() {
@@ -191,7 +192,7 @@ public class SettingsScreen implements Screen {
                 Interface.lock(true);
             }
         });
-        gameSettings = new Button("SETTINGS_SCREEN_GAME_BUTTON", Interface.X + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
+        gameSettings = new Button("SETTINGS_SCREEN_GAME_BUTTON", Interface.x + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
         // gameSettings.setTextColor(Color.BLACK);
         gameSettings.setText(LANGUAGES.getString("game"));
         gameSettings.addEventListener(new Button.EventListener() {
@@ -201,7 +202,7 @@ public class SettingsScreen implements Screen {
                 gameSettings.lock(true);
             }
         });
-        sound = new Button("SETTINGS_SCREEN_SOUND_BUTTON", gameSettings.X + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
+        sound = new Button("SETTINGS_SCREEN_SOUND_BUTTON", gameSettings.x + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
         //sound.setTextColor(Color.BLACK);
         sound.setText(LANGUAGES.getString("sound"));
         sound.addEventListener(new Button.EventListener() {
@@ -286,7 +287,7 @@ public class SettingsScreen implements Screen {
         } else if (currentSettingCot == 3) {
             bf.draw(BATCH, LANGUAGES.getString("music"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, Align.left, false);
             musicVolume.render(BATCH, MENU_CAMERA);
-            bf.draw(BATCH, musicVolume.getValue() + "", MENU_CAMERA.X + musicVolume.X + musicVolume.width + width / 32, MENU_CAMERA.Y + musicVolume.Y + musicVolume.height, width / 16 * 2, Align.left, false);
+            bf.draw(BATCH, musicVolume.getValue() + "", MENU_CAMERA.X + musicVolume.x + musicVolume.width + width / 32, MENU_CAMERA.Y + musicVolume.y + musicVolume.height, width / 16 * 2, Align.left, false);
         }
         //Notification.render(BATCH, MENU_CAMERA);
         BATCH.end();

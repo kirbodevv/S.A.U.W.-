@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.math.Maths;
+import com.kgc.sauw.physic.Physic;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.ID;
 
@@ -30,14 +31,19 @@ public class EntityManager implements ExtraData {
         factories[entityFactory.getId()] = entityFactory;
     }
 
-    public static Entity spawn(Entity entity) {
+    public static void delete(Entity entity) {
+        ENTITIES_LIST.remove(entity);
+        Physic.getWorld().destroyBody(entity.body);
+    }
+
+    public static Entity add(Entity entity) {
         ENTITIES_LIST.add(entity);
         Gdx.app.log("ENTITY MANAGER", "Entity spawned with id : " + entity.getId());
         return entity;
     }
 
     public static Entity spawn(int id, float x, float y) {
-        Entity entity = spawn(factories[id].create());
+        Entity entity = add(factories[id].create());
         entity.setPosition(x, y);
 
         return entity;
@@ -83,5 +89,15 @@ public class EntityManager implements ExtraData {
             if (Maths.rectCrossing(entity.getPosition().x, entity.getPosition().y, entity.getSize().x, entity.getSize().y, cam.X, cam.Y, cam.W, cam.H))
                 entity.render();
         }
+    }
+
+    public static Entity findEntity(Entity entity, float radius) {
+        for (Entity entity1 : ENTITIES_LIST) {
+            if (Maths.distance(
+                    entity.getPosition().x, entity.getPosition().y,
+                    entity1.getPosition().x, entity1.getPosition().y
+            ) <= radius) return entity1;
+        }
+        return null;
     }
 }

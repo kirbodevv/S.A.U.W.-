@@ -26,9 +26,10 @@ public class Entity {
     public float maxWeight = 40.0f;
     public float itemsWeight = 0.0f;
 
-    public int maxHealth = 20;
-    public int health = 20;
-    public int hunger = 0;
+    public float maxHealth = 20;
+    public float maxHunger = 20;
+    public float health = 20;
+    public float hunger = 20;
 
     protected Animator animator;
     protected TextureRegion currentFrame;
@@ -95,7 +96,7 @@ public class Entity {
         currentTileX = (int) Math.ceil(body.getPosition().x) - 1;
         currentTileY = (int) Math.ceil(body.getPosition().y) - 1;
 
-        bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 8f);
+        bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 2f);
         position.set(bodyRectangle.x, bodyRectangle.y);
     }
 

@@ -2,11 +2,10 @@ package com.kgc.sauw.gui.elements;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.gui.InterfaceElement;
-import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 
 import static com.kgc.sauw.graphic.Graphic.*;
@@ -20,7 +19,7 @@ public class Text extends InterfaceElement {
     public void setSize(float w, float h) {
         super.setSize(w, h);
         if (background != null) background.dispose();
-        background = Textures.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, true);
+        background = TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, true);
     }
 
     public void setText(String text) {
@@ -46,7 +45,7 @@ public class Text extends InterfaceElement {
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         setTextScale();
         BITMAP_FONT.setColor(textColor);
-        batch.draw(background, cam.X + X, cam.Y + Y, width, height);
-        BITMAP_FONT.draw(batch, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, Align.center, false);
+        batch.draw(background, cam.X + x, cam.Y + y, width, height);
+        BITMAP_FONT.draw(batch, txt, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
     }
 }

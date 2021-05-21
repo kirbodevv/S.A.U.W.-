@@ -316,8 +316,8 @@ public class Interface {
             tick();
             if (isBlockInterface) tick(MAPS.getTile(currX, currY, currZ));
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
-            actionBar.setPosition(mainLayout.X, mainLayout.Y + mainLayout.height);
-            closeInterfaceButton.setPosition(actionBar.X + actionBar.width - BLOCK_SIZE, actionBar.Y + BLOCK_SIZE * 0.25f);
+            actionBar.setPosition(mainLayout.x, mainLayout.y + mainLayout.height);
+            closeInterfaceButton.setPosition(actionBar.x + actionBar.width - BLOCK_SIZE, actionBar.y + BLOCK_SIZE * 0.25f);
             actionBar.update(INTERFACE_CAMERA);
             closeInterfaceButton.update(INTERFACE_CAMERA);
         }

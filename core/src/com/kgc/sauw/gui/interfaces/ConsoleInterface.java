@@ -7,7 +7,7 @@ import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.EditText;
 import com.kgc.sauw.gui.elements.Image;
-import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Units;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -35,7 +35,7 @@ public class ConsoleInterface extends Interface {
         super("CONSOLE_INTERFACE");
         createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"));
 
-        log_bg = Textures.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), Units.fromStringToPx("77%H") / BLOCK_SIZE, false);
+        log_bg = TextureGenerator.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), Units.fromStringToPx("77%H") / BLOCK_SIZE, false);
         input = (EditText) getElement("CommandInput");
         sendCommandButton = (Button) getElement("sendCommandButton");
         log = ((Image) getElement("log_bg"));
@@ -117,8 +117,8 @@ public class ConsoleInterface extends Interface {
             MOD_API.Console.inputs.add(input.input);
             input.clear();
         }
-        if (input.Y == 0) input.Y = (int) (y + SCREEN_WIDTH / 32);
-        sendCommandButton.Y = input.Y;
+        if (input.y == 0) input.y = (int) (y + SCREEN_WIDTH / 32);
+        sendCommandButton.y = input.y;
         input.update(INTERFACE_CAMERA);
     }
 }

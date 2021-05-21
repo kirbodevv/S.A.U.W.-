@@ -12,7 +12,7 @@ import com.kgc.sauw.InventoryContainer;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.InterfaceElement;
 import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 
 import static com.kgc.sauw.environment.Environment.ITEMS;
@@ -50,7 +50,7 @@ public class Slot extends InterfaceElement {
     public void setSize(float w, float h) {
         super.setSize(w, h);
         if (slot != null) slot.dispose();
-        slot = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
+        slot = TextureGenerator.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
         bitmapFont.getData().setScale((w / 2f) / bitmapFont.getCapHeight());
         bitmapFont.setColor(Color.BLACK);
     }
@@ -63,8 +63,8 @@ public class Slot extends InterfaceElement {
             toItemX = (Gdx.input.getX() + cam.X - height / 4);
             toItemY = (Gdx.graphics.getHeight() - Gdx.input.getY() + cam.Y - height / 4);
         } else {
-            toItemX = cam.X + X;
-            toItemY = cam.Y + Y;
+            toItemX = cam.X + x;
+            toItemY = cam.Y + y;
         }
 
         itemX = MathUtils.lerp(itemX, toItemX, 0.05f);
@@ -73,10 +73,10 @@ public class Slot extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        batch.draw(slot, cam.X + X, cam.Y + Y, width, height);
+        batch.draw(slot, cam.X + x, cam.Y + y, width, height);
         if (icon != null && id == 0) {
             batch.setColor(0, 0, 0, 1);
-            batch.draw(icon, cam.X + X, cam.Y + Y, width, height);
+            batch.draw(icon, cam.X + x, cam.Y + y, width, height);
             batch.setColor(1, 1, 1, 1);
         }
     }
@@ -89,7 +89,7 @@ public class Slot extends InterfaceElement {
         }
         if (id != 0 && Interface != null) {
             for (Slot slot : Interface.slots) {
-                if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.X, slot.Y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
+                if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.x, slot.y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
                     Interface.sendToSlot(this, slot);
                 }
             }
@@ -99,8 +99,8 @@ public class Slot extends InterfaceElement {
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
-        itemX = X;
-        itemY = Y;
+        itemX = this.x;
+        itemY = this.y;
     }
 
     public void itemRender(InventoryContainer container) {

@@ -54,8 +54,8 @@ public class PlayerController implements InputProcessor {
 
     public static void update() {
         if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            PLAYER.setVelocityX((float) HUD.j.normD(3).x);
-            PLAYER.setVelocityY((float) HUD.j.normD(3).y);
+            PLAYER.setVelocityX((float) HUD.joystick.normD(3).x);
+            PLAYER.setVelocityY((float) HUD.joystick.normD(3).y);
         }
         if (Controllers.getCurrent() != null) {
             Controller controller = Controllers.getCurrent();

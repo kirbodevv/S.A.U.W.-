@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.gui.InterfaceElement;
-import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 
 import java.util.ArrayList;
@@ -53,12 +53,12 @@ public class Button extends InterfaceElement {
 
     public Texture generateBTexture() {
         int W = Gdx.graphics.getWidth();
-        return Textures.generateTexture(width / (W / 16.0f), height / (W / 16.0f), true);
+        return TextureGenerator.generateTexture(width / (W / 16.0f), height / (W / 16.0f), true);
     }
 
     public Texture generateBPTexture() {
         int W = Gdx.graphics.getWidth();
-        return Textures.generateTexture(width / (W / 16.0f), height / (W / 16.0f), false);
+        return TextureGenerator.generateTexture(width / (W / 16.0f), height / (W / 16.0f), false);
     }
 
     public void setTextColor(Color c) {
@@ -116,15 +116,15 @@ public class Button extends InterfaceElement {
     @Override
     public void renderTick(SpriteBatch b, Camera2D cam) {
         if (!locked)
-            b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + X, cam.Y + Y, width, height);
-        else b.draw(buttonPressedTexture, cam.X + X, cam.Y + Y, width, height);
+            b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + x, cam.Y + y, width, height);
+        else b.draw(buttonPressedTexture, cam.X + x, cam.Y + y, width, height);
 
         if (icon != null) {
-            b.draw(icon, cam.X + X, cam.Y + Y, width, height);
+            b.draw(icon, cam.X + x, cam.Y + y, width, height);
         }
 
         if (buttonText != null)
-            buttonText.draw(b, txt, cam.X + X, cam.Y + Y + (height / 4 * 3), width, Align.center, false);
+            buttonText.draw(b, txt, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.kgc.sauw.gui.elements;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.gui.InterfaceElement;
-import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 
 import java.util.ArrayList;
@@ -52,12 +52,11 @@ public class Layout extends InterfaceElement {
     }
 
     public void setBackground(Texture background) {
-        if (Background != null) Background.dispose();
         Background = background;
     }
 
     public void generateBackground(boolean b) {
-        setBackground(Textures.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, b));
+        setBackground(TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, b));
     }
 
     @Override
@@ -74,15 +73,15 @@ public class Layout extends InterfaceElement {
             for (int i = 0; i < elements.size(); i++) {
                 InterfaceElement e = elements.get(i);
                 if (i == 0) {
-                    minX = e.X;
-                    maxX = e.X + e.width;
-                    minY = e.Y;
-                    maxY = e.Y + e.height;
+                    minX = e.x;
+                    maxX = e.x + e.width;
+                    minY = e.y;
+                    maxY = e.y + e.height;
                 } else {
-                    minX = Math.min(e.X, minX);
-                    minY = Math.min(e.Y, minY);
-                    maxX = Math.max(e.X + e.width, maxX);
-                    maxY = Math.max(e.Y + e.height, maxY);
+                    minX = Math.min(e.x, minX);
+                    minY = Math.min(e.y, minY);
+                    maxX = Math.max(e.x + e.width, maxX);
+                    maxY = Math.max(e.y + e.height, maxY);
                 }
             }
             if (sizeX == Size.WRAP_CONTENT) width = maxX - minX;
@@ -92,7 +91,7 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        if (Background != null) batch.draw(Background, X, Y, width, height);
+        if (Background != null) batch.draw(Background, x, y, width, height);
         for (InterfaceElement element : elements) {
             element.render(batch, cam);
         }

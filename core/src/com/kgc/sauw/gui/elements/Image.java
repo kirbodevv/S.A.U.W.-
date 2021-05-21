@@ -25,7 +25,7 @@ public class Image extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        if (texture != null) batch.draw(texture, X + cam.X, Y + cam.Y, width, height);
-        if (textureRegion != null) batch.draw(textureRegion, X + cam.X, Y + cam.Y, width, height);
+        if (texture != null) batch.draw(texture, x + cam.X, y + cam.Y, width, height);
+        if (textureRegion != null) batch.draw(textureRegion, x + cam.X, y + cam.Y, width, height);
     }
 }

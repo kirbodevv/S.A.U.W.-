@@ -12,6 +12,18 @@ import static com.kgc.sauw.input.Input.INPUT_MULTIPLEXER;
 public class MainGame extends Game {
     public int keyboardHeight = 0;
 
+    private static MainGame game;
+    private static MenuScreen menuScreen;
+
+    public static MainGame getGame() {
+        return game;
+    }
+
+    public static MenuScreen getMenuScreen() {
+        if (menuScreen == null) menuScreen = new MenuScreen();
+        return menuScreen;
+    }
+
     @Override
     public void create() {
         try {
@@ -20,7 +32,8 @@ public class MainGame extends Game {
             e.printStackTrace();
         }
         Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
-        setScreen(new MenuScreen(this));
+        setScreen(getMenuScreen());
+        game = this;
     }
 
     public void createFiles() throws IOException {
@@ -35,30 +48,29 @@ public class MainGame extends Game {
         FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
         FileHandle modsFile = Gdx.files.external("S.A.U.W./Mods/Mods.json");
 
-        if (!mainFolder.exists()) {
+        if (!mainFolder.exists())
             mainFolder.mkdirs();
-        } else {
-            if (!ModsFolder.exists())
-                ModsFolder.mkdirs();
-            if (!ScreenshotsFolder.exists())
-                ScreenshotsFolder.mkdirs();
-            if (!UserFolder.exists())
-                UserFolder.mkdirs();
-            if (!WorldsFolder.exists())
-                WorldsFolder.mkdirs();
-            if (!settings.exists()) {
-                settings.file().createNewFile();
-                settings.writeString(Gdx.files.internal("json/settings.json").readString(), false);
-            }
-            if (!userData.exists()) {
-                userData.file().createNewFile();
-                userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
-            }
-            if (!modsFile.exists()) {
-                modsFile.file().createNewFile();
-                modsFile.writeString("[]", false);
-            }
+        if (!ModsFolder.exists())
+            ModsFolder.mkdirs();
+        if (!ScreenshotsFolder.exists())
+            ScreenshotsFolder.mkdirs();
+        if (!UserFolder.exists())
+            UserFolder.mkdirs();
+        if (!WorldsFolder.exists())
+            WorldsFolder.mkdirs();
+        if (!settings.exists()) {
+            settings.file().createNewFile();
+            settings.writeString(Gdx.files.internal("json/settings.json").readString(), false);
         }
+        if (!userData.exists()) {
+            userData.file().createNewFile();
+            userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
+        }
+        if (!modsFile.exists()) {
+            modsFile.file().createNewFile();
+            modsFile.writeString("[]", false);
+        }
+
     }
 
     @Override

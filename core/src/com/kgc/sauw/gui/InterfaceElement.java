@@ -22,7 +22,7 @@ public class InterfaceElement {
         RIGHT_BOTTOM
     }
 
-    public float X, Y, width, height;
+    public float x, y, width, height;
 
     public float BX = 0f, BY = 0f, BWidth = 0f, BHeight = 0f;
     protected boolean hidden;
@@ -44,14 +44,14 @@ public class InterfaceElement {
         if (!hidden) {
             if (Gdx.input.isTouched()) {
                 if (!isTouched) {
-                    if (Gdx.input.getX() > X && Gdx.input.getX() < X + width && cam.H - Gdx.input.getY() > Y && cam.H - Gdx.input.getY() < Y + height)
+                    if (Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height)
                         this_touched = true;
                     isTouched = true;
 
                 }
             }
             if (this_touched && !Gdx.input.isTouched()) {
-                if (Gdx.input.getX() > X && Gdx.input.getX() < X + width && cam.H - Gdx.input.getY() > Y && cam.H - Gdx.input.getY() < Y + height) {
+                if (Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height) {
                     onClick(true);
                     wasClicked = true;
                 } else {
@@ -122,14 +122,14 @@ public class InterfaceElement {
 
         setPosition(position.x, position.y);
         if (attachTo == Sides.RIGHT || attachTo == Sides.RIGHT_BOTTOM || attachTo == Sides.RIGHT_TOP)
-            X += element.marginRight * BLOCK_SIZE;
+            x += element.marginRight * BLOCK_SIZE;
         if (attachTo == Sides.LEFT || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.LEFT_TOP)
-            X -= element.marginLeft * BLOCK_SIZE;
+            x -= element.marginLeft * BLOCK_SIZE;
         if (attachTo == Sides.TOP || attachTo == Sides.LEFT_TOP || attachTo == Sides.RIGHT_TOP)
-            Y += element.marginTop * BLOCK_SIZE;
+            y += element.marginTop * BLOCK_SIZE;
         if (attachTo == Sides.BOTTOM || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.RIGHT_BOTTOM)
-            Y -= element.marginBottom * BLOCK_SIZE;
-        setPosition(X + translationX * BLOCK_SIZE, Y + translationY * BLOCK_SIZE);
+            y -= element.marginBottom * BLOCK_SIZE;
+        setPosition(x + translationX * BLOCK_SIZE, y + translationY * BLOCK_SIZE);
     }
 
     public void create() {
@@ -160,8 +160,8 @@ public class InterfaceElement {
     }
 
     public void setPosition(float x, float y) {
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public void setSize(float w, float h) {

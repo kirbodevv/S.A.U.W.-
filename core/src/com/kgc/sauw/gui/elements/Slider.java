@@ -1,6 +1,6 @@
 package com.kgc.sauw.gui.elements;
 
-import com.kgc.sauw.resource.Textures;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;
@@ -21,18 +21,18 @@ public class Slider extends InterfaceElement {
         if (w > h) verticalSlider = false;
         else verticalSlider = true;
         int ww = Gdx.graphics.getWidth();
-        this.X = x;
-        this.Y = y;
+        this.x = x;
+        this.y = y;
         this.width = w;
         this.height = h;
         if (!verticalSlider) sliderW = h / 2;
         else sliderW = w / 2;
         if (!verticalSlider) {
-            slider = Textures.generateTexture(sliderW / (ww / 16.0f), h / (ww / 16.0f), true);
-            background = Textures.generateTexture(w / (ww / 16.0f), h / 2 / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+            slider = TextureGenerator.generateTexture(sliderW / (ww / 16.0f), h / (ww / 16.0f), true);
+            background = TextureGenerator.generateTexture(w / (ww / 16.0f), h / 2 / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
         } else {
-            slider = Textures.generateTexture(w / (ww / 16.0f), sliderW / (ww / 16.0f), true);
-            background = Textures.generateTexture(w / 2 / (ww / 16.0f), h / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+            slider = TextureGenerator.generateTexture(w / (ww / 16.0f), sliderW / (ww / 16.0f), true);
+            background = TextureGenerator.generateTexture(w / 2 / (ww / 16.0f), h / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
         }
         setMaxValue(100);
     }
@@ -56,9 +56,9 @@ public class Slider extends InterfaceElement {
     public void tick(Camera2D cam) {
         if (isTouched()) {
             if (!verticalSlider)
-                value = (int) ((Gdx.input.getX() - X) / sc);
+                value = (int) ((Gdx.input.getX() - x) / sc);
             else
-                value = (int) ((Gdx.input.getY() - Y) / sc);
+                value = (int) ((Gdx.input.getY() - y) / sc);
 
             if (value < 0) value = 0;
             if (value > maxValue) value = maxValue;
@@ -69,11 +69,11 @@ public class Slider extends InterfaceElement {
     @Override
     public void renderTick(SpriteBatch b, Camera2D cam) {
         if (!verticalSlider) {
-            b.draw(background, cam.X + X, cam.Y + Y + height / 4, width, height / 2);
-            b.draw(slider, cam.X + X + (int) (sc * value) - sliderW / 2, cam.Y + Y, sliderW, height);
+            b.draw(background, cam.X + x, cam.Y + y + height / 4, width, height / 2);
+            b.draw(slider, cam.X + x + (int) (sc * value) - sliderW / 2, cam.Y + y, sliderW, height);
         } else {
-            b.draw(background, cam.X + X + width / 4, cam.Y + Y, width / 2, height);
-            b.draw(slider, cam.X + X, cam.Y + Y + (height - (int) (sc * value)) - sliderW / 2, width, sliderW);
+            b.draw(background, cam.X + x + width / 4, cam.Y + y, width / 2, height);
+            b.draw(slider, cam.X + x, cam.Y + y + (height - (int) (sc * value)) - sliderW / 2, width, sliderW);
         }
     }
 

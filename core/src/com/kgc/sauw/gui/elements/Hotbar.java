@@ -77,11 +77,11 @@ public class Hotbar extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        BATCH.draw(TEXTURES.inventory, X + INTERFACE_CAMERA.X, Y + INTERFACE_CAMERA.Y, SCREEN_WIDTH / 16 * 8, SCREEN_WIDTH / 16);
+        BATCH.draw(TEXTURES.inventory, x + INTERFACE_CAMERA.X, y + INTERFACE_CAMERA.Y, SCREEN_WIDTH / 16 * 8, SCREEN_WIDTH / 16);
         for (int i = 0; i < 8; i++) {
             if (PLAYER.hotbar[i] != -1)
                 slots[i].itemRender(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
         }
-        BATCH.draw(TEXTURES.selected_slot, X + INTERFACE_CAMERA.X + (touchedSlot * (SCREEN_WIDTH / 16)), Y + INTERFACE_CAMERA.Y, SCREEN_WIDTH / 16, SCREEN_WIDTH / 16);
+        BATCH.draw(TEXTURES.selected_slot, x + INTERFACE_CAMERA.X + (touchedSlot * (SCREEN_WIDTH / 16)), y + INTERFACE_CAMERA.Y, SCREEN_WIDTH / 16, SCREEN_WIDTH / 16);
     }
 }

@@ -110,7 +110,7 @@ public class Joystick extends InterfaceElement {
             y = (int) cam.touchY();
 
             if (!isTouched) {
-                if (Maths.distance(X + D1 / 2f, Y + D1 / 2f, x, y) <= D1 / 2f)
+                if (Maths.distance(this.x + D1 / 2f, this.y + D1 / 2f, x, y) <= D1 / 2f)
                     joystick_touched = true;
 
                 isTouched = true;
@@ -118,8 +118,8 @@ public class Joystick extends InterfaceElement {
         }
 
         if (joystick_touched) {
-            handle_pos.x = x - X - D1 / 2f;
-            handle_pos.y = y - Y - D1 / 2f;
+            handle_pos.x = x - this.x - D1 / 2f;
+            handle_pos.y = y - this.y - D1 / 2f;
 
             if (Maths.distance(0, 0, handle_pos.x(), handle_pos.y()) > D1 / 2 - D2 / 2) {
                 handle_pos.norm(D1 + D2);
@@ -134,7 +134,7 @@ public class Joystick extends InterfaceElement {
         if (!Gdx.input.isTouched())
             isTouched = false;
 
-        batch.draw(a, X, Y, D1, D1);
-        batch.draw(h, X + handle_pos.x() + D1 / 2f - D2 / 2f, Y + handle_pos.y() + D1 / 2f - D2 / 2f, D2, D2);
+        batch.draw(a, this.x, this.y, D1, D1);
+        batch.draw(h, this.x + handle_pos.x() + D1 / 2f - D2 / 2f, this.y + handle_pos.y() + D1 / 2f - D2 / 2f, D2, D2);
     }
 }

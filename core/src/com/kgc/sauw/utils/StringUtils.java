@@ -10,6 +10,7 @@ public class StringUtils {
         } else {
             result = string;
         }
-        return result;
+        if(result != null) return result;
+        else return "";
     }
 }

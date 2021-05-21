@@ -13,7 +13,6 @@ import com.kgc.sauw.input.PlayerController;
 import com.kgc.sauw.math.Maths;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.entity.EntityManager.ENTITIES_LIST;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
@@ -28,7 +27,8 @@ public class Player extends Entity implements ExtraData {
         DataBuffer buffer = new DataBuffer();
         buffer.put("health", health);
         buffer.put("hunger", hunger);
-        buffer.put("coords", new int[]{(int) getPosition().x, (int) getPosition().y});
+        buffer.put("X", getPosition().x);
+        buffer.put("Y", getPosition().y);
         buffer.put("InvLength", inventory.containers.size());
         for (int i = 0; i < inventory.containers.size(); i++) {
             buffer.put("Inv_" + i, inventory.containers.get(i));
@@ -40,7 +40,7 @@ public class Player extends Entity implements ExtraData {
     public void readBytes(byte[] bytes, int begin, int end) {
         DataBuffer buffer = new DataBuffer();
         buffer.readBytes(bytes);
-        setPosition(buffer.getIntArray("coords")[0], buffer.getIntArray("coords")[1]);
+        setPosition(buffer.getFloat("X"), buffer.getFloat("Y"));
         health = buffer.getInt("health");
         hunger = buffer.getInt("hunger");
         inventory = new Inventory(buffer.getInt("InvLength"));
@@ -148,12 +148,11 @@ public class Player extends Entity implements ExtraData {
         if (!isDead) {
             PlayerController.update();
             if (SETTINGS.autopickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
-                for (int i = 0; i < ENTITIES_LIST.size(); i++) {
-                    if (ENTITIES_LIST.get(i) instanceof Drop && Maths.distanceD(getCurrentTileX(), getCurrentTileY(), ENTITIES_LIST.get(i).getCurrentTileX(), ENTITIES_LIST.get(i).getCurrentTileY()) <= 0.5f) {
-                        Drop item = (Drop) ENTITIES_LIST.get(i);
-                        inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
-                        ENTITIES_LIST.remove(i);
-                    }
+                Entity entity = EntityManager.findEntity(this, 0.6f);
+                if (entity != null) {
+                    Drop item = (Drop) entity;
+                    inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
+                    EntityManager.delete(item);
                 }
             }
         }

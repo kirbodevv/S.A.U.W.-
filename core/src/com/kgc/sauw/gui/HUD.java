@@ -13,7 +13,6 @@ import static com.kgc.sauw.gui.interfaces.Interfaces.*;
 
 public class HUD {
     public Hotbar hotbar;
-    public Health health;
 
     public Button interactionButton;
     public Button dropButton;
@@ -22,7 +21,10 @@ public class HUD {
     public Button pauseButton;
     public Button craftingButton;
     public Button inventoryOpenButton;
-    public Joystick j;
+    public Joystick joystick;
+
+    public ProgressBar healthProgressBar;
+    public ProgressBar hungerProgressBar;
 
     private final BitmapFont debug;
     private boolean isTouched;
@@ -54,14 +56,38 @@ public class HUD {
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         debug.getData().setScale(SCREEN_WIDTH / 64 / debug.getCapHeight());
 
-        j = new Joystick(TEXTURES.j_0, TEXTURES.j_1);
-        j.setSizeInBlocks(3f, 3f);
-        j.setTranslationX(0.5f);
+        joystick = new Joystick(TEXTURES.j_0, TEXTURES.j_1);
+        joystick.setSizeInBlocks(3f, 3f);
+        joystick.setTranslationX(0.5f);
 
         hotbar = new Hotbar();
         hotbar.setTranslationY(0.25f);
 
-        health = new Health(TEXTURES.health_0, TEXTURES.health_1);
+        Layout layout1 = new Layout(Layout.Orientation.VERTICAL);
+        layout1.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
+        layout1.setGravity(Layout.Gravity.TOP);
+
+        healthProgressBar = new ProgressBar(true, false);
+        healthProgressBar.setMaxValue(100f);
+        healthProgressBar.setSizeInBlocks(4, 0.5f);
+        healthProgressBar.setColor(255, 0, 0);
+
+        hungerProgressBar = new ProgressBar(true, false);
+        hungerProgressBar.setMaxValue(100f);
+        hungerProgressBar.setSizeInBlocks(4, 0.5f);
+        hungerProgressBar.setColor(150, 90, 60);
+
+        layout1.addElements(healthProgressBar, hungerProgressBar);
+
+        Layout separatorLayout = new Layout(Layout.Orientation.VERTICAL);
+        separatorLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.FIXED_SIZE);
+        separatorLayout.setSizeInBlocks(0, 1);
+        separatorLayout.setGravity(Layout.Gravity.TOP);
+
+        Text playerInfoText = new Text();
+        playerInfoText.setSizeInBlocks(10, 0.5f);
+
+        separatorLayout.addElements(playerInfoText);
 
         attackButton = new Button("ATTACK_BUTTON", 0, 0, 0, 0, TEXTURES.button_0, TEXTURES.button_1);
         attackButton.setSizeInBlocks(1.5f, 1.5f);
@@ -125,8 +151,8 @@ public class HUD {
         separatorLayout1.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         separatorLayout1.setSizeInBlocks(8.875f, 1f);
 
-        topLayout.addElements(pauseButton, consoleOpenButton);
-        midLayout.addElements(j, separatorLayout1, buttonsLayout);
+        topLayout.addElements(layout1, separatorLayout, pauseButton, consoleOpenButton);
+        midLayout.addElements(joystick, separatorLayout1, buttonsLayout);
         bottomLayout.addElements(hotbar, inventoryOpenButton, craftingButton);
 
         craftingButton.addEventListener(new Button.EventListener() {
@@ -169,8 +195,9 @@ public class HUD {
 
     public void update() {
         mainLayout.hide(isAnyInterfaceOpen());
+        healthProgressBar.setValue(PLAYER.health / PLAYER.maxHealth * 100f);
         mainLayout.update(INTERFACE_CAMERA);
-        isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || j.isTouched() || hotbar.isTouched();
+        isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
         Interfaces.updateInterfaces();
     }
 
@@ -195,10 +222,7 @@ public class HUD {
                 "\n X : " + PLAYER.getCurrentTileX() +
                 "\n Y : " + PLAYER.getCurrentTileY();
         this.debug.setColor(0f, 0f, 0f, 1f);
-        this.debug.draw(BATCH, Main, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
+        this.debug.draw(BATCH, Main + "\n Player \n" + Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
         this.debug.setColor(0.25f, 0.25f, 1f, 1f);
-        /*this.debug.draw(BATCH, "\n Player", INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main).height);
-        this.debug.setColor(0f, 0f, 0f, 1f);
-        this.debug.draw(BATCH, Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y - this.debug.getMultiLineBounds(Main + "\n Player").height);*/
     }
 }

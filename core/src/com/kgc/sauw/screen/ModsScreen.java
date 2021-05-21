@@ -1,5 +1,6 @@
 package com.kgc.sauw.screen;
 
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.Checkbox;
@@ -60,7 +61,7 @@ public class ModsScreen implements Screen {
     public ModsScreen(final MainGame game, Textures t, final MenuScreen ms) {
         this.t = t;
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
-        background1 = Textures.generateTexture(13, height / (width / 16) - 1, false);
+        background1 = TextureGenerator.generateTexture(13, height / (width / 16) - 1, false);
         closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
         closeButton.addEventListener(new Button.EventListener() {
             @Override
@@ -201,7 +202,7 @@ public class ModsScreen implements Screen {
             setPosition(X, Y);
             setSize(WIDTH / 16 * 12, WIDTH / 16 * 2);
             ModIconHeight = height - height / 8 * 2;
-            background = Textures.generateTexture(13, 2, true);
+            background = TextureGenerator.generateTexture(13, 2, true);
             modActiv = new Checkbox(t.switch_0, t.switch_1);
             modActiv.setSize(WIDTH / 16, WIDTH / 16);
             modActiv.setPosition(X + width - modActiv.width - WIDTH / 32, Y + (height - modActiv.height) / 2);
@@ -231,10 +232,9 @@ public class ModsScreen implements Screen {
 
         @Override
         public void renderTick(SpriteBatch batch, Camera2D cam) {
-            super.render(batch, cam);
-            batch.draw(background, cam.X + X, cam.Y + Y, width, height);
-            batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + X + height / 8, cam.Y + Y + height / 8, ModIconHeight, ModIconHeight);
-            text.draw(batch, modName, cam.X + X + ModIconHeight + height / 4, cam.Y + Y + height - height / 8);
+            batch.draw(background, cam.X + x, cam.Y + y, width, height);
+            batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + x + height / 8, cam.Y + y + height / 8, ModIconHeight, ModIconHeight);
+            text.draw(batch, modName, cam.X + x + ModIconHeight + height / 4, cam.Y + y + height - height / 8);
             modActiv.render(batch, cam);
         }
     }

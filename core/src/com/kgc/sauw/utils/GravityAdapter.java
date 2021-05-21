@@ -48,40 +48,40 @@ public class GravityAdapter {
         }
         switch (attachTo) {
             case LEFT:
-                attachToX = attachedTo.X - attachableSideX;
-                attachToY = attachedTo.Y + attachedTo.height / 2 - attachableSideY;
+                attachToX = attachedTo.x - attachableSideX;
+                attachToY = attachedTo.y + attachedTo.height / 2 - attachableSideY;
                 break;
             case RIGHT:
-                attachToX = attachedTo.X + attachedTo.width - attachableSideX;
-                attachToY = attachedTo.Y + attachedTo.height / 2 - attachableSideY;
+                attachToX = attachedTo.x + attachedTo.width - attachableSideX;
+                attachToY = attachedTo.y + attachedTo.height / 2 - attachableSideY;
                 break;
             case TOP:
-                attachToX = attachedTo.X + attachedTo.width / 2 - attachableSideX;
-                attachToY = attachedTo.Y + attachedTo.height - attachableSideY;
+                attachToX = attachedTo.x + attachedTo.width / 2 - attachableSideX;
+                attachToY = attachedTo.y + attachedTo.height - attachableSideY;
                 break;
             case BOTTOM:
-                attachToX = attachedTo.X + attachedTo.width / 2 - attachableSideX;
-                attachToY = attachedTo.Y - attachableSideY;
+                attachToX = attachedTo.x + attachedTo.width / 2 - attachableSideX;
+                attachToY = attachedTo.y - attachableSideY;
                 break;
             case LEFT_TOP:
-                attachToX = attachedTo.X - attachableSideX;
-                attachToY = attachedTo.Y + attachedTo.height - attachableSideY;
+                attachToX = attachedTo.x - attachableSideX;
+                attachToY = attachedTo.y + attachedTo.height - attachableSideY;
                 break;
             case LEFT_BOTTOM:
-                attachToX = attachedTo.X - attachableSideX;
-                attachToY = attachedTo.Y - attachableSideY;
+                attachToX = attachedTo.x - attachableSideX;
+                attachToY = attachedTo.y - attachableSideY;
                 break;
             case RIGHT_TOP:
-                attachToX = attachedTo.X + attachedTo.width - attachableSideX;
-                attachToY = attachedTo.Y + attachedTo.height - attachableSideY;
+                attachToX = attachedTo.x + attachedTo.width - attachableSideX;
+                attachToY = attachedTo.y + attachedTo.height - attachableSideY;
                 break;
             case RIGHT_BOTTOM:
-                attachToX = attachedTo.X + attachedTo.width - attachableSideX;
-                attachToY = attachedTo.Y - attachableSideY;
+                attachToX = attachedTo.x + attachedTo.width - attachableSideX;
+                attachToY = attachedTo.y - attachableSideY;
                 break;
             case CENTER:
-                attachToX = attachedTo.X + attachedTo.width / 2 - attachableSideX;
-                attachToY = attachedTo.Y + attachedTo.height / 2 - attachableSideY;
+                attachToX = attachedTo.x + attachedTo.width / 2 - attachableSideX;
+                attachToY = attachedTo.y + attachedTo.height / 2 - attachableSideY;
                 break;
         }
         return new Vector2(attachToX, attachToY);

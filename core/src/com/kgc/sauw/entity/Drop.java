@@ -16,7 +16,7 @@ public class Drop extends Entity {
 
     @Override
     public Vector2 getBodySize() {
-        return new Vector2(0.5f, 0.5f);
+        return new Vector2(0.25f, 0.25f);
     }
 
     public void setItem(int itemId, int itemsCount) {

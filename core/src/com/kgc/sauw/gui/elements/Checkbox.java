@@ -29,7 +29,7 @@ public class Checkbox extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        batch.draw(isChecked ? t1 : t0, cam.X + X, cam.Y + Y, width, height);
+        batch.draw(isChecked ? t1 : t0, cam.X + x, cam.Y + y, width, height);
     }
 
     @Override

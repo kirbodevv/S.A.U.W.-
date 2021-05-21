@@ -37,14 +37,12 @@ public class SAUW implements Screen {
         isGameRunning = false;
     }
 
-    private MainGame game;
     Music music;
 
     Box2DDebugRenderer DR;
 
-    public SAUW(MainGame game, Music music, String worldName) {
-        this.game = game;
-        this.music = music;
+    public SAUW(String worldName) {
+        this.music = Music.getMusic();
         DR = new Box2DDebugRenderer();
 
         music.setMusicVolume(SETTINGS.musicVolume);
@@ -100,7 +98,7 @@ public class SAUW implements Screen {
         if (SETTINGS.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         HUD.render(SETTINGS.debugMode);
-        WORLD.update(MODS);
+        WORLD.update();
         AchievementsChecker.update();
 
         BATCH.end();

@@ -115,7 +115,7 @@ public class World {
         return -1;
     }
 
-    public void update(Mods mods) {
+    public void update() {
         PLAYER.update();
         ENTITY_MANAGER.update();
         MAPS.update();
@@ -168,7 +168,6 @@ public class World {
         if (HUD != null && !isAnyInterfaceOpen()) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
             RayHandler.setAmbientLight(AL, AL, AL, 1);
-            //RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA.combined);
             RayHandler.updateAndRender();
         }
         BATCH.begin();
@@ -212,9 +211,5 @@ public class World {
                     }
                 }
             }
-    }
-
-    public Maps getMaps() {
-        return MAPS;
     }
 }

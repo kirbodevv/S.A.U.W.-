@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.gui.InterfaceElement;
 import com.kgc.sauw.input.InputAdapter;
 import com.kgc.sauw.input.TextInputProcessor;
+import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.resource.Textures;
 
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 
@@ -80,15 +80,15 @@ public class EditText extends InterfaceElement {
     public void renderTick(SpriteBatch b, Camera2D cam) {
         setTextScale();
         BF.setColor(textColor);
-        b.draw(backgroundTextutre, X + cam.X, Y + cam.Y, width, height);
-        BF.draw(b, input, X + cam.X + (height / 2), Y + cam.Y + (height / 4 * 3));
+        b.draw(backgroundTextutre, x + cam.X, y + cam.Y, width, height);
+        BF.draw(b, input, x + cam.X + (height / 2), y + cam.Y + (height / 4 * 3));
     }
 
     @Override
     public void setSize(float w, float h) {
         super.setSize(w, h);
         if (backgroundTextutre != null) backgroundTextutre.dispose();
-        this.backgroundTextutre = Textures.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
+        this.backgroundTextutre = TextureGenerator.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
     }
 
     public void setTextScale() {

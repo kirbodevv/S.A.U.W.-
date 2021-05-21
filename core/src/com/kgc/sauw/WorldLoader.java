@@ -16,6 +16,25 @@ import static com.kgc.sauw.map.World.MAPS;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class WorldLoader {
+
+    public static String[] worldNames;
+
+    public static void updateWorldsList() {
+        FileHandle worldsFolder = Gdx.files.external("S.A.U.W./Worlds/");
+        FileHandle[] files = worldsFolder.list();
+        int i = 0;
+        for (FileHandle file : files) {
+            if (file.isDirectory()) i++;
+        }
+
+        worldNames = new String[i];
+        int ii = 0;
+        for (FileHandle file : files) {
+            if (file.isDirectory()) worldNames[ii] = file.name();
+            ii++;
+        }
+    }
+
     public static void save(String WorldName) {
         WORLD.setWorldName(WorldName);
         FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds/" + WorldName);

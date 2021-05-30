@@ -16,8 +16,8 @@ import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.gui.interfaces.Interfaces.DEAD_INTERFACE;
-import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
+import static com.kgc.sauw.gui.Interfaces.DEAD_INTERFACE;
+import static com.kgc.sauw.gui.Interfaces.HUD;
 import static com.kgc.sauw.map.World.WORLD;
 
 

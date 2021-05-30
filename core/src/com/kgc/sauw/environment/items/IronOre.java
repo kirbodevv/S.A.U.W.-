@@ -11,8 +11,8 @@ public class IronOre extends Item {
 
         setTexture(TEXTURES.iron_ore_item);
 
-        ItemConfiguration.name = LANGUAGES.getString("iron_ore");
-        ItemConfiguration.weight = 0.5f;
+        itemConfiguration.name = LANGUAGES.getString("iron_ore");
+        itemConfiguration.weight = 0.5f;
 
     }
 }

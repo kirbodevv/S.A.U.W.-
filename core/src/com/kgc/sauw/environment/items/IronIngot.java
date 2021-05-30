@@ -11,8 +11,8 @@ public class IronIngot extends Item {
 
         setTexture(TEXTURES.iron_ingot);
 
-        ItemConfiguration.name = LANGUAGES.getString("iron_ingot");
-        ItemConfiguration.weight = 1f;
+        itemConfiguration.name = LANGUAGES.getString("iron_ingot");
+        itemConfiguration.weight = 1f;
 
     }
 }

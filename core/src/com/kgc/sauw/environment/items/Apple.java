@@ -11,9 +11,9 @@ public class Apple extends Item {
         super(ID.registeredId("item:apple"));
         setTexture(TEXTURES.apple);
 
-        ItemConfiguration.weight = 0.2f;
-        ItemConfiguration.name = LANGUAGES.getString("apple");
-        ItemConfiguration.type = Items.Type.FOOD;
-        ItemConfiguration.foodScore = 4;
+        itemConfiguration.weight = 0.2f;
+        itemConfiguration.name = LANGUAGES.getString("apple");
+        itemConfiguration.type = Items.Type.FOOD;
+        itemConfiguration.foodScore = 4;
     }
 }

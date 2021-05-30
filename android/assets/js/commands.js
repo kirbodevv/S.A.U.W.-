@@ -17,8 +17,5 @@ function setTime(time){
     World.WorldTime.setTime(time);
 }
 function clear(){
-    Player.deleteItems();
-}
-function clear(id){
-    Player.deleteItems(id);
+    Player.inventory.deleteItems();
 }

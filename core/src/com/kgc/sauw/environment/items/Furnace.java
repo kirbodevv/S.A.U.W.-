@@ -12,9 +12,9 @@ public class Furnace extends Item {
 
         setTexture(TEXTURES.furnace_item);
 
-        ItemConfiguration.name = LANGUAGES.getString("furnace");
-        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
-        ItemConfiguration.blockId = 11;
+        itemConfiguration.name = LANGUAGES.getString("furnace");
+        itemConfiguration.type = Items.Type.BLOCK_ITEM;
+        itemConfiguration.blockId = 11;
 
     }
 }

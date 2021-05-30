@@ -26,10 +26,10 @@ public class Textures {
     public Texture tree;
     public Texture christmas_tree;
     public Texture snow;
-    public Texture button_icon_up;
-    public Texture button_icon_down;
-    public Texture button_icon_left;
-    public Texture button_icon_right;
+    public Texture icon_up;
+    public Texture icon_down;
+    public Texture icon_left;
+    public Texture icon_right;
     public Texture apple;
     public Texture stick;
     public Texture log;
@@ -73,6 +73,7 @@ public class Textures {
     public Texture hammer;
     public Texture handsaw;
     public Texture glass;
+    public Texture planks;
 
     public void load() {
         int w = Gdx.graphics.getWidth();
@@ -129,10 +130,10 @@ public class Textures {
         inventory = new Texture(Gdx.files.internal("Interface/inventory.png"));
         standardBackground = TextureGenerator.generateBackground(16, (float) (h / (w / 16)));
 
-        button_icon_up = new Texture(Gdx.files.internal("Interface/button_up_0.png"));
-        button_icon_down = new Texture(Gdx.files.internal("Interface/button_down_0.png"));
-        button_icon_left = new Texture(Gdx.files.internal("Interface/button_left_0.png"));
-        button_icon_right = new Texture(Gdx.files.internal("Interface/button_right_0.png"));
+        icon_up = new Texture(Gdx.files.internal("Interface/button_up_0.png"));
+        icon_down = new Texture(Gdx.files.internal("Interface/button_down_0.png"));
+        icon_left = new Texture(Gdx.files.internal("Interface/button_left_0.png"));
+        icon_right = new Texture(Gdx.files.internal("Interface/button_right_0.png"));
         button_icon_extra = new Texture(Gdx.files.internal("Interface/extraButton_0.png"));
         button_icon_crafting = new Texture(Gdx.files.internal("Interface/crafting_button_0.png"));
         button_icon_console = new Texture(Gdx.files.internal("Interface/console_button_0.png"));
@@ -156,6 +157,7 @@ public class Textures {
         apple = new Texture(Gdx.files.internal("Items/apple.png"));
         hammer = new Texture(Gdx.files.internal("Items/hammer.png"));
         handsaw = new Texture(Gdx.files.internal("Items/hand_saw.png"));
+        planks = new Texture(Gdx.files.internal("Items/planks.png"));
     }
 
     public void dispose() {
@@ -180,11 +182,11 @@ public class Textures {
         standardBackground.dispose();
         tree.dispose();
         table.dispose();
-
-        button_icon_up.dispose();
-        button_icon_down.dispose();
-        button_icon_left.dispose();
-        button_icon_right.dispose();
+        planks.dispose();
+        icon_up.dispose();
+        icon_down.dispose();
+        icon_left.dispose();
+        icon_right.dispose();
 
         stick.dispose();
         log.dispose();

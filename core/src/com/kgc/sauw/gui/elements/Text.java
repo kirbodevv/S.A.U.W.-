@@ -14,12 +14,19 @@ public class Text extends InterfaceElement {
     private Texture background;
     private String txt = "";
     private final Color textColor = new Color(64f / 255, 137f / 255, 154f / 255, 1);
+    private boolean generatedBackground = true;
 
     @Override
     public void setSize(float w, float h) {
         super.setSize(w, h);
-        if (background != null) background.dispose();
-        background = TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, true);
+        if (generatedBackground) {
+            if (background != null) background.dispose();
+            background = TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, true);
+        }
+    }
+
+    public void setGeneratedBackground(boolean generatedBackground) {
+        this.generatedBackground = generatedBackground;
     }
 
     public void setText(String text) {
@@ -45,7 +52,7 @@ public class Text extends InterfaceElement {
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         setTextScale();
         BITMAP_FONT.setColor(textColor);
-        batch.draw(background, cam.X + x, cam.Y + y, width, height);
+        if (background != null) batch.draw(background, cam.X + x, cam.Y + y, width, height);
         BITMAP_FONT.draw(batch, txt, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
     }
 }

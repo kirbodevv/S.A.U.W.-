@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.map.Tile;
 import com.kgc.sauw.utils.ID;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.FURNACE_INTERFACE;
+import static com.kgc.sauw.gui.Interfaces.FURNACE_INTERFACE;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 

@@ -12,9 +12,9 @@ public class Sapling extends Item {
 
         setTexture(TEXTURES.sapling_item);
 
-        ItemConfiguration.name = LANGUAGES.getString("sapling");
-        ItemConfiguration.weight = 0.1f;
-        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
-        ItemConfiguration.blockId = 13;
+        itemConfiguration.name = LANGUAGES.getString("sapling");
+        itemConfiguration.weight = 0.1f;
+        itemConfiguration.type = Items.Type.BLOCK_ITEM;
+        itemConfiguration.blockId = 13;
     }
 }

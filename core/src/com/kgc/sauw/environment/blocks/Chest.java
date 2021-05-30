@@ -2,7 +2,7 @@ package com.kgc.sauw.environment.blocks;
 
 import com.kgc.sauw.utils.ID;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.CHEST_INTERFACE;
+import static com.kgc.sauw.gui.Interfaces.CHEST_INTERFACE;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
 
 public class Chest extends Block {

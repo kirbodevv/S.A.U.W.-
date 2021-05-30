@@ -1,12 +1,12 @@
 package com.kgc.sauw.screen;
 
+import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.Checkbox;
 import com.kgc.sauw.gui.InterfaceElement;
 import com.kgc.sauw.gui.elements.Slider;
-import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.resource.Textures;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -20,8 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-import static com.kgc.sauw.graphic.Graphic.BATCH;
-import static com.kgc.sauw.graphic.Graphic.MENU_CAMERA;
+import static com.kgc.sauw.graphic.Graphic.*;
 
 public class ModsScreen implements Screen {
     private class Mod {
@@ -44,7 +43,6 @@ public class ModsScreen implements Screen {
     }
 
     private ArrayList<Mod> Mods = new ArrayList<Mod>();
-    private Textures t;
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
 
@@ -58,15 +56,14 @@ public class ModsScreen implements Screen {
 
     private JSONArray modsList;
 
-    public ModsScreen(final MainGame game, Textures t, final MenuScreen ms) {
-        this.t = t;
+    public ModsScreen(final MenuScreen ms) {
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
         background1 = TextureGenerator.generateTexture(13, height / (width / 16) - 1, false);
-        closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
+        closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, TEXTURES.closeButton, TEXTURES.closeButton);
         closeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                game.setScreen(ms);
+                MainGame.getGame().setScreen(ms);
                 System.out.println("123");
             }
         });
@@ -144,7 +141,7 @@ public class ModsScreen implements Screen {
         modInfo1.update(MENU_CAMERA);
         modInfo2.update(MENU_CAMERA);
         BATCH.begin();
-        BATCH.draw(t.standardBackground, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
+        BATCH.draw(TEXTURES.standardBackground, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
         BATCH.draw(background1, MENU_CAMERA.X + width / 32, MENU_CAMERA.Y + width / 32, width / 16 * 13, height - (width / 16));
         closeButton.render(BATCH, MENU_CAMERA);
         modInfo0.render(BATCH, MENU_CAMERA);
@@ -203,7 +200,7 @@ public class ModsScreen implements Screen {
             setSize(WIDTH / 16 * 12, WIDTH / 16 * 2);
             ModIconHeight = height - height / 8 * 2;
             background = TextureGenerator.generateTexture(13, 2, true);
-            modActiv = new Checkbox(t.switch_0, t.switch_1);
+            modActiv = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
             modActiv.setSize(WIDTH / 16, WIDTH / 16);
             modActiv.setPosition(X + width - modActiv.width - WIDTH / 32, Y + (height - modActiv.height) / 2);
             modActiv.setEventListener(new Checkbox.EventListener() {
@@ -233,7 +230,7 @@ public class ModsScreen implements Screen {
         @Override
         public void renderTick(SpriteBatch batch, Camera2D cam) {
             batch.draw(background, cam.X + x, cam.Y + y, width, height);
-            batch.draw((modIcon == null) ? t.SAUWIcon : modIcon, cam.X + x + height / 8, cam.Y + y + height / 8, ModIconHeight, ModIconHeight);
+            batch.draw((modIcon == null) ? TEXTURES.SAUWIcon : modIcon, cam.X + x + height / 8, cam.Y + y + height / 8, ModIconHeight, ModIconHeight);
             text.draw(batch, modName, cam.X + x + ModIconHeight + height / 4, cam.Y + y + height - height / 8);
             modActiv.render(batch, cam);
         }

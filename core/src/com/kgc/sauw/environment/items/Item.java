@@ -14,15 +14,15 @@ public class Item {
     private Texture texture;
     private TextureRegion textureRegion;
 
-    protected ItemConfiguration ItemConfiguration;
+    protected ItemConfiguration itemConfiguration;
 
     public Item(int id) {
-        ItemConfiguration = new ItemConfiguration(id);
+        itemConfiguration = new ItemConfiguration(id);
         this.id = id;
     }
 
     public ItemConfiguration getItemConfiguration() {
-        return ItemConfiguration;
+        return itemConfiguration;
     }
 
     public void onClick(Tile tile) {
@@ -47,11 +47,11 @@ public class Item {
 
     public String getName(InventoryContainer container) {
         if (container == null)
-            return ItemConfiguration.name;
+            return itemConfiguration.name;
         else return container.DisplayParameters.name;
     }
 
     public String getDefaultName() {
-        return ItemConfiguration.name;
+        return itemConfiguration.name;
     }
 }

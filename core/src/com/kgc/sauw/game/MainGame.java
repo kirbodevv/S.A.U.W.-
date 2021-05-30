@@ -4,24 +4,38 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.screen.MenuScreen;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 import static com.kgc.sauw.input.Input.INPUT_MULTIPLEXER;
 
 public class MainGame extends Game {
-    public int keyboardHeight = 0;
+    public static int keyboardHeight = 0;
 
     private static MainGame game;
     private static MenuScreen menuScreen;
+    private static JSONObject data;
+
+    public static MenuScreen getMenuScreen() {
+        if (menuScreen == null) menuScreen = new MenuScreen();
+        return menuScreen;
+    }
 
     public static MainGame getGame() {
         return game;
     }
 
-    public static MenuScreen getMenuScreen() {
-        if (menuScreen == null) menuScreen = new MenuScreen();
-        return menuScreen;
+    public static JSONObject getData() {
+        if (data == null)
+            try {
+                FileHandle dataFile = Gdx.files.external("S.A.U.W./User/data.json");
+                String result = dataFile.readString();
+                data = new JSONObject(result);
+            } catch (Exception e) {
+                Gdx.app.log("error", e.toString());
+            }
+        return data;
     }
 
     @Override

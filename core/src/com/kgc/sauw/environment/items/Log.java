@@ -11,7 +11,7 @@ public class Log extends Item {
 
         setTexture(TEXTURES.log);
 
-        ItemConfiguration.name = LANGUAGES.getString("log");
-        ItemConfiguration.weight = 1.25f;
+        itemConfiguration.name = LANGUAGES.getString("log");
+        itemConfiguration.weight = 1.25f;
     }
 }

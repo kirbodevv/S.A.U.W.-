@@ -11,6 +11,6 @@ public class Rope extends Item {
 
         setTexture(TEXTURES.rope);
 
-        ItemConfiguration.name = LANGUAGES.getString("rope");
+        itemConfiguration.name = LANGUAGES.getString("rope");
     }
 }

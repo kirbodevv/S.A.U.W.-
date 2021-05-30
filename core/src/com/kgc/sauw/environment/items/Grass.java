@@ -8,8 +8,8 @@ import static com.kgc.sauw.utils.Languages.LANGUAGES;
 public class Grass extends Item {
     public Grass() {
         super(ID.registeredId("item:grass"));
-        ItemConfiguration.name = LANGUAGES.getString("grass");
-        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
-        ItemConfiguration.blockId = 1;
+        itemConfiguration.name = LANGUAGES.getString("grass");
+        itemConfiguration.type = Items.Type.BLOCK_ITEM;
+        itemConfiguration.blockId = 1;
     }
 }

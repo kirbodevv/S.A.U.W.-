@@ -1,5 +1,6 @@
 package com.kgc.sauw;
 
+import com.kgc.sauw.gui.Container;
 import com.kgc.sauw.utils.ID;
 
 import java.util.ArrayList;
@@ -10,10 +11,11 @@ public class Inventory {
     public ArrayList<InventoryContainer> containers;
     private final ArrayList<InventoryContainer> slotsToRemove = new ArrayList<>();
 
-    public Inventory(int count){
+    public Inventory(int count) {
         containers = new ArrayList<>(count);
     }
-    public Inventory(){
+
+    public Inventory() {
         this(0);
     }
 
@@ -44,6 +46,10 @@ public class Inventory {
                 }
             }
         }
+    }
+
+    public boolean addItem(Container container) {
+        return addItem(container.getId(), container.getCount());
     }
 
     public boolean addItem(String stringId, int count) {

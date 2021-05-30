@@ -16,7 +16,7 @@ import org.mozilla.javascript.ScriptableObject;
 import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
+import static com.kgc.sauw.gui.Interfaces.HUD;
 import static com.kgc.sauw.map.World.WORLD;
 
 public class ConsoleInterface extends Interface {
@@ -44,8 +44,8 @@ public class ConsoleInterface extends Interface {
         nextCommand = (Button) getElement("nextCommand");
         prevCommand = (Button) getElement("prevCommand");
 
-        prevCommand.setIcon(TEXTURES.button_icon_left);
-        nextCommand.setIcon(TEXTURES.button_icon_right);
+        prevCommand.setIcon(TEXTURES.icon_left);
+        nextCommand.setIcon(TEXTURES.icon_right);
 
         nextCommand.addEventListener(new Button.EventListener() {
             @Override

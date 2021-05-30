@@ -26,7 +26,7 @@ public class Interface {
     public ArrayList<InterfaceElement> Elements = new ArrayList<>();
     public ArrayList<Slot> slots = new ArrayList<>();
 
-    private int currX, currY, currZ;
+    public int currX, currY, currZ;
 
     private final Text actionBar;
 
@@ -155,9 +155,9 @@ public class Interface {
         optionalLayout.setID("optionalLayout");
 
         previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
-        previousTabInv.setIcon(TEXTURES.button_icon_left);
+        previousTabInv.setIcon(TEXTURES.icon_left);
         nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
-        nextTabInv.setIcon(TEXTURES.button_icon_right);
+        nextTabInv.setIcon(TEXTURES.icon_right);
         previousTabInv.setSizeInBlocks(1, 1);
         nextTabInv.setSizeInBlocks(1, 1);
         Text backpackText = new Text();

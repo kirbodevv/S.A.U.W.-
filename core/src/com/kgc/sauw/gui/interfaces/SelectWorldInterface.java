@@ -23,7 +23,6 @@ public class SelectWorldInterface extends Interface {
         super("SELECT_WORLD_INTERFACE");
 
         createFromXml(Gdx.files.internal("xml/SelectWorldInterface.xml"));
-
         ((Image) getElement("sauwLogo")).setImg(TEXTURES.logo);
         sel_0 = (Button) getElement("SELECT_0");
         sel_0.addEventListener(new Button.EventListener() {
@@ -48,7 +47,7 @@ public class SelectWorldInterface extends Interface {
         });
 
         Button up = (Button) getElement("UP");
-        up.setIcon(TEXTURES.button_icon_up);
+        up.setIcon(TEXTURES.icon_up);
         up.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -59,7 +58,7 @@ public class SelectWorldInterface extends Interface {
             }
         });
         Button down = (Button) getElement("DOWN");
-        down.setIcon(TEXTURES.button_icon_down);
+        down.setIcon(TEXTURES.icon_down);
         down.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {

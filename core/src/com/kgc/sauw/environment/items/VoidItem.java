@@ -6,10 +6,10 @@ public class VoidItem extends Item {
     public VoidItem() {
         super(ID.registeredId("item:void"));
 
-        ItemConfiguration.name = null;
-        ItemConfiguration.weight = 0f;
-        ItemConfiguration.type = -1;
-        ItemConfiguration.maxCount = -1;
-        ItemConfiguration.maxData = -1;
+        itemConfiguration.name = null;
+        itemConfiguration.weight = 0f;
+        itemConfiguration.type = -1;
+        itemConfiguration.maxCount = -1;
+        itemConfiguration.maxData = -1;
     }
 }

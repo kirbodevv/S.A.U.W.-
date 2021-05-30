@@ -12,9 +12,9 @@ public class Campfire extends Item {
 
         setTexture(TEXTURES.campfire);
 
-        ItemConfiguration.name = LANGUAGES.getString("campfire");
-        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
-        ItemConfiguration.blockId = 15;
+        itemConfiguration.name = LANGUAGES.getString("campfire");
+        itemConfiguration.type = Items.Type.BLOCK_ITEM;
+        itemConfiguration.blockId = 15;
 
     }
 }

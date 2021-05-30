@@ -11,7 +11,8 @@ public class Handsaw extends Item {
 
         setTexture(TEXTURES.handsaw);
 
-        ItemConfiguration.weight = 1f;
-        ItemConfiguration.name = Languages.LANGUAGES.getString("handsaw");
+        itemConfiguration.weight = 1f;
+        itemConfiguration.maxData = 100;
+        itemConfiguration.name = Languages.LANGUAGES.getString("handsaw");
     }
 }

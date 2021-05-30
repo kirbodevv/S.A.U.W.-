@@ -11,7 +11,7 @@ public class StoneShovel extends InstrumentItem {
 
         setTexture(TEXTURES.stone_shovel);
 
-        ItemConfiguration.name = LANGUAGES.getString("stone_shovel");
-        ItemConfiguration.weight = 5.75f;
+        itemConfiguration.name = LANGUAGES.getString("stone_shovel");
+        itemConfiguration.weight = 5.75f;
     }
 }

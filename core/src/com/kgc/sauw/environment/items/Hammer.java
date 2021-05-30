@@ -10,7 +10,8 @@ public class Hammer extends Item {
         super(ID.registeredId("item:hammer"));
         setTexture(TEXTURES.hammer);
 
-        ItemConfiguration.name = LANGUAGES.getString("hammer");
-        ItemConfiguration.weight = 1.25f;
+        itemConfiguration.name = LANGUAGES.getString("hammer");
+        itemConfiguration.maxData = 100;
+        itemConfiguration.weight = 1.25f;
     }
 }

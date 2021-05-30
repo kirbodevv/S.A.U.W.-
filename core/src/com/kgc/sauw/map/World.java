@@ -8,7 +8,6 @@ import com.kgc.sauw.environment.Items;
 import com.kgc.sauw.environment.Time;
 import com.kgc.sauw.environment.blocks.Block;
 import com.kgc.sauw.math.Maths;
-import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.physic.Physic;
 import com.kgc.sauw.utils.ID;
 
@@ -18,8 +17,8 @@ import static com.kgc.sauw.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
-import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.gui.Interfaces.HUD;
+import static com.kgc.sauw.gui.Interfaces.isAnyInterfaceOpen;
 
 public class World {
     public static final Maps MAPS;

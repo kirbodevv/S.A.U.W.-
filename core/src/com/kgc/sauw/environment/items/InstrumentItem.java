@@ -16,15 +16,15 @@ public class InstrumentItem extends Item {
     public InstrumentItem(int id, int maxDamage, int type) {
         super(id);
 
-        ItemConfiguration.maxData = maxDamage;
-        ItemConfiguration.type = Items.Type.INSTRUMENT;
-        ItemConfiguration.maxCount = 1;
-        ItemConfiguration.instrumentType = type;
+        itemConfiguration.maxData = maxDamage;
+        itemConfiguration.type = Items.Type.INSTRUMENT;
+        itemConfiguration.maxCount = 1;
+        itemConfiguration.instrumentType = type;
     }
 
     @Override
     public void onClick(Tile tile) {
         System.out.println(tile.id);
-        if(BLOCKS.getBlockById(tile.id).getBlockConfiguration().getInstrumentType() == ItemConfiguration.instrumentType) tile.hit();
+        if(BLOCKS.getBlockById(tile.id).getBlockConfiguration().getInstrumentType() == itemConfiguration.instrumentType) tile.hit();
     }
 }

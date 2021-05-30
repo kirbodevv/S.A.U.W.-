@@ -2,7 +2,7 @@ package com.kgc.sauw.modding;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
+import static com.kgc.sauw.gui.Interfaces.HUD;
 
 public class Console {
     public ArrayList<String> inputs = new ArrayList<String>();

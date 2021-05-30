@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.graphic.Graphic;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.Checkbox;
 import com.kgc.sauw.gui.elements.Slider;
 import com.kgc.sauw.resource.TextureGenerator;
-import com.kgc.sauw.resource.Textures;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -24,8 +24,6 @@ import static com.kgc.sauw.utils.Languages.LANGUAGES;
 public class SettingsScreen implements Screen {
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
-    MainGame game;
-    Textures t;
     MenuScreen MenuScreen;
 
     Button closeButton;
@@ -54,9 +52,7 @@ public class SettingsScreen implements Screen {
     JSONObject availableLangs;
 
     //private Notification Notification;
-    public SettingsScreen(final MainGame game, Textures t, MenuScreen ms) {
-        this.game = game;
-        this.t = t;
+    public SettingsScreen(MenuScreen ms) {
         this.MenuScreen = ms;
         try {
             availableLangs = new JSONObject(Gdx.files.internal("json/availableLanguages.json").readString("UTF-8"));
@@ -64,7 +60,7 @@ public class SettingsScreen implements Screen {
 
         }
         //Notification = new Notification(Textures.generateBackground(8, 4));
-        debug = new Checkbox(t.switch_0, t.switch_1);
+        debug = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         debug.setSize(width / 16, width / 16);
         debug.setPosition(MENU_CAMERA.X + width / 16 * 6 + width / 64, MENU_CAMERA.Y + height - width / 16 * 6);
         debug.setChecked(SETTINGS.debugMode);
@@ -75,7 +71,7 @@ public class SettingsScreen implements Screen {
                 SETTINGS.saveSettings();
             }
         });
-        debugRenderer = new Checkbox(t.switch_0, t.switch_1);
+        debugRenderer = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         debugRenderer.setSize(width / 16, width / 16);
         debugRenderer.setPosition(MENU_CAMERA.X + width / 16 * 6 + width / 64, MENU_CAMERA.Y + height - width / 16 * 7);
         debugRenderer.setChecked(SETTINGS.debugRenderer);
@@ -86,7 +82,7 @@ public class SettingsScreen implements Screen {
                 SETTINGS.saveSettings();
             }
         });
-        AIPU = new Checkbox(t.switch_0, t.switch_1);
+        AIPU = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         AIPU.setSize(width / 16, width / 16);
         AIPU.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 3);
         AIPU.setChecked(SETTINGS.autopickup);
@@ -97,7 +93,7 @@ public class SettingsScreen implements Screen {
                 SETTINGS.saveSettings();
             }
         });
-        useConsole = new Checkbox(t.switch_0, t.switch_1);
+        useConsole = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         useConsole.setSize(width / 16, width / 16);
         useConsole.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 4);
         useConsole.setChecked(SETTINGS.useConsole);
@@ -112,17 +108,17 @@ public class SettingsScreen implements Screen {
                 }
             }
         });
-        closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, t.closeButton, t.closeButton);
+        closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, TEXTURES.closeButton, TEXTURES.closeButton);
         closeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                game.setScreen(MenuScreen);
+                MainGame.getGame().setScreen(MenuScreen);
             }
         });
         prevLang = new Button("SETTINGS_SCREEN_PREVIOUS_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 7, width / 16, width / 16);
-        prevLang.setIcon(TEXTURES.button_icon_up);
+        prevLang.setIcon(Graphic.TEXTURES.icon_up);
         nextLang = new Button("SETTINGS_SCREEN_NEXT_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 9, width / 16, width / 16);
-        nextLang.setIcon(TEXTURES.button_icon_down);
+        nextLang.setIcon(Graphic.TEXTURES.icon_down);
         nextLang.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -256,7 +252,7 @@ public class SettingsScreen implements Screen {
         gameSettings.update(MENU_CAMERA);
         sound.update(MENU_CAMERA);
         BATCH.begin();
-        BATCH.draw(t.standardBackground, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
+        BATCH.draw(TEXTURES.standardBackground, MENU_CAMERA.X, MENU_CAMERA.Y, width, height);
         BATCH.draw(background0, MENU_CAMERA.X + width / 32, MENU_CAMERA.Y + width / 32, width / 16 * 15, height - width / 16 * 2);
         closeButton.render(BATCH, MENU_CAMERA);
         general.render(BATCH, MENU_CAMERA);

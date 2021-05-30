@@ -11,7 +11,7 @@ public class Stone extends Item {
 
         setTexture(TEXTURES.stone_item);
 
-        ItemConfiguration.weight = 0.15f;
-        ItemConfiguration.name = LANGUAGES.getString("stone");
+        itemConfiguration.weight = 0.15f;
+        itemConfiguration.name = LANGUAGES.getString("stone");
     }
 }

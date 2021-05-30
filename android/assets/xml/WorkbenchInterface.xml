@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface header="%Language/craftingTable" isBlockInterface="true" Inventory="true">
+    <RootLayout id="optionalLayout">
+        <Layout id="CRAFT_HANDSAW_LAYOUT" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                height="WRAP_CONTENT" translateY="-0.5bl">
+            <Slot id="CRAFT_HANDSAW_INGREDIENT" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="HANDSAW" width="1bl" height="1bl"/>
+            <Image id="CRAFT_HANDSAW_ARROW" width="1bl" height="1bl"/>
+            <Slot id="CRAFT_HANDSAW_RESULT" width="1bl" height="1bl" isInventorySlot="false"/>
+        </Layout>
+        <Layout id="CRAFT_HAMMER_LAYOUT" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                height="WRAP_CONTENT">
+            <Slot id="CRAFT_HAMMER_INGREDIENT" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="HAMMER" width="1bl" height="1bl"/>
+            <Image id="CRAFT_HAMMER_ARROW" width="1bl" height="1bl"/>
+            <Slot id="CRAFT_HAMMER_RESULT" width="1bl" height="1bl" isInventorySlot="false"/>
+        </Layout>
+    </RootLayout>
+</Interface>

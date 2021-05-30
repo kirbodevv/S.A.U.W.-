@@ -8,11 +8,11 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.kgc.sauw.environment.Environment;
 import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.interfaces.Interfaces;
+import com.kgc.sauw.gui.Interfaces;
 import com.kgc.sauw.map.Tile;
 
 import static com.kgc.sauw.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
+import static com.kgc.sauw.gui.Interfaces.HUD;
 import static com.kgc.sauw.map.World.MAPS;
 
 public class PlayerController implements InputProcessor {

@@ -1,11 +1,11 @@
 package com.kgc.sauw.gui.interfaces;
 
+import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.gui.InterfaceElement;
 import com.kgc.sauw.gui.elements.Button;
 import com.kgc.sauw.gui.elements.Image;
 import com.kgc.sauw.gui.elements.Layout;
 import com.kgc.sauw.gui.elements.Text;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.InterfaceElement;
 
 import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
@@ -21,8 +21,8 @@ public class TestInterface extends Interface {
         testLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         testLayout.setGravity(Layout.Gravity.LEFT);
 
-        Button button1 = new Button("", 0, 0, BLOCK_SIZE * 2, BLOCK_SIZE);
-
+        Button button1 = new Button("", 0, 0, 0, 0);
+        button1.setSizeInBlocks(2, 1);
         button1.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {

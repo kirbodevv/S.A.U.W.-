@@ -11,7 +11,7 @@ public class Chest extends Item {
 
         setTexture(TEXTURES.chest);
 
-        ItemConfiguration.type = Items.Type.BLOCK_ITEM;
-        ItemConfiguration.blockId = 5;
+        itemConfiguration.type = Items.Type.BLOCK_ITEM;
+        itemConfiguration.blockId = 5;
     }
 }

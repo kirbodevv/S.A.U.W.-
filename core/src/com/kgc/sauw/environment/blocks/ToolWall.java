@@ -6,7 +6,7 @@ import com.kgc.sauw.utils.ID;
 
 import static com.kgc.sauw.graphic.Graphic.BATCH;
 import static com.kgc.sauw.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.gui.interfaces.Interfaces.TOOL_WALL_INTERFACE;
+import static com.kgc.sauw.gui.Interfaces.TOOL_WALL_INTERFACE;
 
 public class ToolWall extends Block {
     TextureRegion[][] instrumentsTextures;

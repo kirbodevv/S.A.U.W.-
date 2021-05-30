@@ -11,7 +11,7 @@ public class VegetableFiber extends Item {
 
         setTexture(TEXTURES.vegetable_fiber);
 
-        ItemConfiguration.name = LANGUAGES.getString("vegetable_fiber");
-        ItemConfiguration.weight = 0.05f;
+        itemConfiguration.name = LANGUAGES.getString("vegetable_fiber");
+        itemConfiguration.weight = 0.05f;
     }
 }

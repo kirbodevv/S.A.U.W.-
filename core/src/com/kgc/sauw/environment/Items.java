@@ -1,7 +1,5 @@
 package com.kgc.sauw.environment;
 
-import com.kgc.sauw.environment.items.Hammer;
-import com.kgc.sauw.environment.items.Handsaw;
 import com.kgc.sauw.environment.items.*;
 
 import java.util.ArrayList;
@@ -36,6 +34,7 @@ public class Items {
         addItem(new Campfire());
         addItem(new Hammer());
         addItem(new Handsaw());
+        addItem(new Planks());
     }
 
     public void addItem(Item item) {

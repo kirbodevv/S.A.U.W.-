@@ -21,8 +21,8 @@ import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.gui.interfaces.Interfaces.HUD;
-import static com.kgc.sauw.gui.interfaces.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.gui.Interfaces.HUD;
+import static com.kgc.sauw.gui.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.map.World.WORLD;
 import static com.kgc.sauw.resource.Files.loadPlayerData;
 
@@ -64,8 +64,6 @@ public class SAUW implements Screen {
         WORLD.setBlock(5, 5, 0, ID.get("block:water"));
         WORLD.setBlock(5, 6, 0, ID.get("block:water"));
         WORLD.setBlock(6, 5, 0, ID.get("block:water"));
-        WORLD.setBlock(16, 6, 0, ID.get("block:table"));
-        WORLD.setBlock(17, 6, 0, ID.get("block:tool_wall"));
 
     }
 

@@ -11,7 +11,7 @@ public class StonePickaxe extends InstrumentItem {
 
         setTexture(TEXTURES.stone_pickaxe);
 
-        ItemConfiguration.name = LANGUAGES.getString("stone_pickaxe");
-        ItemConfiguration.weight = 5.75f;
+        itemConfiguration.name = LANGUAGES.getString("stone_pickaxe");
+        itemConfiguration.weight = 5.75f;
     }
 }

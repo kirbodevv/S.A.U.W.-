@@ -3,13 +3,12 @@ package com.kgc.sauw.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.kgc.sauw.gui.elements.*;
-import com.kgc.sauw.gui.interfaces.Interfaces;
 import com.kgc.sauw.utils.Version;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.gui.interfaces.Interfaces.*;
+import static com.kgc.sauw.gui.Interfaces.*;
 
 public class HUD {
     public Hotbar hotbar;

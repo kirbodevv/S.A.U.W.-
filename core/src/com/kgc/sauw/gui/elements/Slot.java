@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
-import com.kgc.sauw.InventoryContainer;
+import com.kgc.sauw.Container;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.InterfaceElement;
 import com.kgc.sauw.math.Maths;
@@ -38,6 +38,12 @@ public class Slot extends InterfaceElement {
     }
 
     private final Interface Interface;
+    public static final ProgressBar itemDamageProgressBar;
+
+    static {
+        itemDamageProgressBar = new ProgressBar(true, false);
+        itemDamageProgressBar.setSizeInBlocks(2, 0.5f);
+    }
 
     public Slot(String ID, Interface Interface) {
         this.Interface = Interface;
@@ -79,6 +85,15 @@ public class Slot extends InterfaceElement {
             batch.draw(icon, cam.X + x, cam.Y + y, width, height);
             batch.setColor(1, 1, 1, 1);
         }
+        if (id != 0 && ITEMS.getItemById(id).getItemConfiguration().maxDamage != 0 &&
+                Maths.isLiesOnRect(x, y, width, height, Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY()) &&
+                !Gdx.input.isTouched()) {
+            itemDamageProgressBar.hide(false);
+            itemDamageProgressBar.setPosition(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY() - itemDamageProgressBar.height);
+            itemDamageProgressBar.setColor(0, 255, 0);
+            itemDamageProgressBar.setMaxValue(ITEMS.getItemById(id).getItemConfiguration().maxDamage);
+            itemDamageProgressBar.setValue(ITEMS.getItemById(id).getItemConfiguration().maxDamage - data);
+        }
     }
 
     @Override
@@ -103,7 +118,7 @@ public class Slot extends InterfaceElement {
         itemY = this.y;
     }
 
-    public void itemRender(InventoryContainer container) {
+    public void itemRender(Container container) {
         if (id != 0) {
             if (container == null) BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX, itemY, width, height);
             else BATCH.draw(ITEMS.getItemById(id).getTexture(container), itemX, itemY, width, height);

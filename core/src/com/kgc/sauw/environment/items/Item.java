@@ -2,7 +2,7 @@ package com.kgc.sauw.environment.items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.InventoryContainer;
+import com.kgc.sauw.Container;
 import com.kgc.sauw.config.ItemConfiguration;
 import com.kgc.sauw.map.Tile;
 
@@ -33,7 +33,7 @@ public class Item {
         this.textureRegion = new TextureRegion(texture);
     }
 
-    public TextureRegion getTexture(InventoryContainer container) {
+    public TextureRegion getTexture(Container container) {
         if (textureRegion != null)
             return textureRegion;
         else return TEXTURES.undefRegion;
@@ -45,7 +45,7 @@ public class Item {
         else return TEXTURES.undef;
     }
 
-    public String getName(InventoryContainer container) {
+    public String getName(Container container) {
         if (container == null)
             return itemConfiguration.name;
         else return container.DisplayParameters.name;

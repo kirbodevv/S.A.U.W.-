@@ -11,7 +11,7 @@ public class Hammer extends Item {
         setTexture(TEXTURES.hammer);
 
         itemConfiguration.name = LANGUAGES.getString("hammer");
-        itemConfiguration.maxData = 100;
+        itemConfiguration.maxDamage = 100;
         itemConfiguration.weight = 1.25f;
     }
 }

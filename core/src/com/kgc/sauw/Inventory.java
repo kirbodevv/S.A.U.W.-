@@ -1,6 +1,5 @@
 package com.kgc.sauw;
 
-import com.kgc.sauw.gui.Container;
 import com.kgc.sauw.utils.ID;
 
 import java.util.ArrayList;
@@ -8,8 +7,8 @@ import java.util.ArrayList;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 
 public class Inventory {
-    public ArrayList<InventoryContainer> containers;
-    private final ArrayList<InventoryContainer> slotsToRemove = new ArrayList<>();
+    public ArrayList<Container> containers;
+    private final ArrayList<Container> slotsToRemove = new ArrayList<>();
 
     public Inventory(int count) {
         containers = new ArrayList<>(count);
@@ -20,13 +19,13 @@ public class Inventory {
     }
 
     public void deleteItems() {
-        ArrayList<InventoryContainer> toBeRemoved = new ArrayList<>(containers);
+        ArrayList<Container> toBeRemoved = new ArrayList<>(containers);
         containers.removeAll(toBeRemoved);
     }
 
     public void deleteItems(int id) {
-        ArrayList<InventoryContainer> toBeRemoved = new ArrayList<>();
-        for (InventoryContainer slot : containers) {
+        ArrayList<Container> toBeRemoved = new ArrayList<>();
+        for (Container slot : containers) {
             if (slot.id == id)
                 toBeRemoved.add(slot);
         }
@@ -57,14 +56,14 @@ public class Inventory {
     }
 
     public boolean addItem(int id, int count) {
-        for (InventoryContainer inventoryContainer : containers) {
-            if (inventoryContainer.id == id && inventoryContainer.count < ITEMS.getItemById(inventoryContainer.id).getItemConfiguration().maxCount) {
-                int canAdd = ITEMS.getItemById(inventoryContainer.id).getItemConfiguration().maxCount - inventoryContainer.count;
+        for (Container container : containers) {
+            if (container.id == id && container.count < ITEMS.getItemById(container.id).getItemConfiguration().maxCount) {
+                int canAdd = ITEMS.getItemById(container.id).getItemConfiguration().maxCount - container.count;
                 if (canAdd > count) {
-                    inventoryContainer.count = inventoryContainer.count + count;
+                    container.count = container.count + count;
                     count -= count;
                 } else {
-                    inventoryContainer.count = inventoryContainer.count + canAdd;
+                    container.count = container.count + canAdd;
                     count -= canAdd;
                 }
             }
@@ -75,17 +74,18 @@ public class Inventory {
         if (count > 0) {
             int slotsCount = (count % ITEMS.getItemById(id).getItemConfiguration().maxCount) + 1;
             for (int i = 0; i < slotsCount; i++)
-                containers.add(new InventoryContainer());
+                containers.add(new Container());
         }
-        for (InventoryContainer inventoryContainer : containers) {
-            if (inventoryContainer.id == 0) {
+        for (Container container : containers) {
+            if (container.id == 0) {
                 int canAdd = ITEMS.getItemById(id).getItemConfiguration().maxCount;
-                inventoryContainer.id = id;
+                container.id = id;
+                container.damage = 0;
                 if (canAdd > count) {
-                    inventoryContainer.count = inventoryContainer.count + count;
+                    container.count = container.count + count;
                     count -= count;
                 } else {
-                    inventoryContainer.count = inventoryContainer.count + canAdd;
+                    container.count = container.count + canAdd;
                     count -= canAdd;
                 }
             }
@@ -102,9 +102,9 @@ public class Inventory {
 
     public int getCountOfItems(int id) {
         int count = 0;
-        for (InventoryContainer inventoryContainer : containers) {
-            if (inventoryContainer.id == id) {
-                count += inventoryContainer.count;
+        for (Container container : containers) {
+            if (container.id == id) {
+                count += container.count;
             }
         }
         return count;
@@ -112,19 +112,19 @@ public class Inventory {
 
     public float getItemsWeight() {
         float itemsWeight = 0f;
-        for (InventoryContainer slot : containers) {
+        for (Container slot : containers) {
             itemsWeight += slot.count * ITEMS.getItemById(slot.id).getItemConfiguration().weight;
         }
         return itemsWeight;
     }
 
     public void removeItemsIfNeed() {
-        for (InventoryContainer inventoryContainer : containers) {
-            if (inventoryContainer.data >= ITEMS.getItemById(inventoryContainer.id).getItemConfiguration().maxData && ITEMS.getItemById(inventoryContainer.id).getItemConfiguration().maxData != 0) {
-                slotsToRemove.add(inventoryContainer);
+        for (Container container : containers) {
+            if (container.damage >= ITEMS.getItemById(container.id).getItemConfiguration().maxDamage && ITEMS.getItemById(container.id).getItemConfiguration().maxDamage != 0) {
+                slotsToRemove.add(container);
             }
-            if (inventoryContainer.count <= 0) {
-                slotsToRemove.add(inventoryContainer);
+            if (container.count <= 0) {
+                slotsToRemove.add(container);
             }
         }
         if (slotsToRemove.size() > 0) {

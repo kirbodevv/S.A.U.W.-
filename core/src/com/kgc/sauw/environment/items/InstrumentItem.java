@@ -16,7 +16,7 @@ public class InstrumentItem extends Item {
     public InstrumentItem(int id, int maxDamage, int type) {
         super(id);
 
-        itemConfiguration.maxData = maxDamage;
+        itemConfiguration.maxDamage = maxDamage;
         itemConfiguration.type = Items.Type.INSTRUMENT;
         itemConfiguration.maxCount = 1;
         itemConfiguration.instrumentType = type;

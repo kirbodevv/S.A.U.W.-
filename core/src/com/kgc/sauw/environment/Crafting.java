@@ -10,13 +10,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Crafting {
-    public static class craft {
+    public static class Craft {
         public int[] result;
-        public int[][] ingr;
+        public int[][] ingredients;
 
-        public craft(int[] result, int[][] ingr) {
+        public Craft(int[] result, int[][] ingredients) {
             this.result = result;
-            this.ingr = ingr;
+            this.ingredients = ingredients;
         }
     }
 
@@ -25,9 +25,9 @@ public class Crafting {
         addCraftsFromFile(Gdx.files.internal("json/Crafts/Ingredients.json"));
     }
 
-    public ArrayList<craft> crafts = new ArrayList<craft>();
+    public ArrayList<Craft> crafts = new ArrayList<Craft>();
 
-    public void addCraft(craft craft) {
+    public void addCraft(Craft craft) {
         crafts.add(craft);
     }
 
@@ -51,7 +51,7 @@ public class Crafting {
                     ingr[j][1] = ingrA.getJSONObject(j).getInt("count");
                     ingr[j][2] = ingrA.getJSONObject(j).getInt("data");
                 }
-                this.addCraft(new Crafting.craft(result, ingr));
+                this.addCraft(new Craft(result, ingr));
             }
         } catch (Exception e) {
             Gdx.app.log("ModAPI_CreateCraftError", e.toString());

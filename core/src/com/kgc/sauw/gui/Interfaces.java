@@ -1,10 +1,14 @@
 package com.kgc.sauw.gui;
 
+import com.kgc.sauw.gui.elements.Slot;
 import com.kgc.sauw.gui.interfaces.*;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.ChestInterface;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.FurnaceInterface;
 
 import java.util.ArrayList;
+
+import static com.kgc.sauw.graphic.Graphic.BATCH;
+import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
 
 public final class Interfaces {
     public static final HUD HUD;
@@ -67,7 +71,10 @@ public final class Interfaces {
     }
 
     public static void renderInterfaces() {
+        Slot.itemDamageProgressBar.hide(true);
         for (Interface i : INTERFACES) i.render();
+        Slot.itemDamageProgressBar.update(INTERFACE_CAMERA);
+        Slot.itemDamageProgressBar.render(BATCH, INTERFACE_CAMERA);
     }
 
     public static boolean isAnyInterfaceOpen() {

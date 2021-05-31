@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.Interfaces;
+import com.kgc.sauw.gui.elements.Slot;
 import com.kgc.sauw.resource.Textures;
 import com.kgc.sauw.utils.Camera2D;
 import com.kgc.sauw.utils.GameCameraController;
@@ -50,6 +51,7 @@ public final class Graphic {
         GLYPH_LAYOUT = new GlyphLayout();
         BITMAP_FONT_CAP_HEIGHT = BITMAP_FONT.getCapHeight();
     }
+
     /**
      * Здесь два раза вызывается метод {@link com.kgc.sauw.gui.Interface#resize()} из-за темной магии InterfaceAPI,
      * которая после резкого изменения размера окна ломает позиции элементов.
@@ -70,6 +72,7 @@ public final class Graphic {
             interface_.resize();
             interface_.resize();
         }
+        Slot.itemDamageProgressBar.resize();
         HUD.resize();
     }
 }

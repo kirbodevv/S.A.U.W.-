@@ -12,7 +12,7 @@ public class Handsaw extends Item {
         setTexture(TEXTURES.handsaw);
 
         itemConfiguration.weight = 1f;
-        itemConfiguration.maxData = 100;
+        itemConfiguration.maxDamage = 100;
         itemConfiguration.name = Languages.LANGUAGES.getString("handsaw");
     }
 }

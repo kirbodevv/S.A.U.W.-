@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.Inventory;
-import com.kgc.sauw.InventoryContainer;
+import com.kgc.sauw.Container;
 import com.kgc.sauw.environment.items.Item;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.input.PlayerController;
@@ -45,7 +45,7 @@ public class Player extends Entity implements ExtraData {
         hunger = buffer.getInt("hunger");
         inventory = new Inventory(buffer.getInt("InvLength"));
         for (int i = 0; i < buffer.getInt("InvLength"); i++) {
-            inventory.containers.add(i, new InventoryContainer());
+            inventory.containers.add(i, new Container());
             inventory.containers.get(i).readBytes(buffer.getByteArray("Inv_" + i), begin, end);
         }
     }

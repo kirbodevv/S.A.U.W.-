@@ -287,7 +287,7 @@ public class Interface {
                         slot.inventorySlot = j;
                         slot.id = PLAYER.inventory.containers.get(j).id;
                         slot.count = PLAYER.inventory.containers.get(j).count;
-                        slot.data = PLAYER.inventory.containers.get(j).data;
+                        slot.data = PLAYER.inventory.containers.get(j).damage;
                     }
                 }
                 if (nextTabInv.wasClicked) {
@@ -306,7 +306,7 @@ public class Interface {
                 for (int i = 0; i < MAPS.getTile(currX, currY, currZ).containers.size(); i++) {
                     getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).id = MAPS.getTile(currX, currY, currZ).containers.get(i).getId();
                     getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).count = MAPS.getTile(currX, currY, currZ).containers.get(i).getCount();
-                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).data = MAPS.getTile(currX, currY, currZ).containers.get(i).getData();
+                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).data = MAPS.getTile(currX, currY, currZ).containers.get(i).getDamage();
                 }
             }
 

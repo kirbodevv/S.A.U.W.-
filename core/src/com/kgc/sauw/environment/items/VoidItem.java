@@ -10,6 +10,6 @@ public class VoidItem extends Item {
         itemConfiguration.weight = 0f;
         itemConfiguration.type = -1;
         itemConfiguration.maxCount = -1;
-        itemConfiguration.maxData = -1;
+        itemConfiguration.maxDamage = -1;
     }
 }

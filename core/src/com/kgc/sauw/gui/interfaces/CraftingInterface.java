@@ -52,14 +52,14 @@ public class CraftingInterface extends Interface {
             @Override
             public void onClick() {
                 if (currentCraft != -1) {
-                    for (int i = 0; i < CRAFTING.crafts.get(currentCraft).ingr.length; i++) {
-                        int IC = PLAYER.inventory.getCountOfItems(CRAFTING.crafts.get(currentCraft).ingr[i][0]);
-                        if (IC < CRAFTING.crafts.get(currentCraft).ingr[i][1]) {
+                    for (int i = 0; i < CRAFTING.crafts.get(currentCraft).ingredients.length; i++) {
+                        int IC = PLAYER.inventory.getCountOfItems(CRAFTING.crafts.get(currentCraft).ingredients[i][0]);
+                        if (IC < CRAFTING.crafts.get(currentCraft).ingredients[i][1]) {
                             return;
                         }
                     }
-                    for (int i = 0; i < CRAFTING.crafts.get(currentCraft).ingr.length; i++) {
-                        PLAYER.inventory.deleteItems(CRAFTING.crafts.get(currentCraft).ingr[i][0], CRAFTING.crafts.get(currentCraft).ingr[i][1]);
+                    for (int i = 0; i < CRAFTING.crafts.get(currentCraft).ingredients.length; i++) {
+                        PLAYER.inventory.deleteItems(CRAFTING.crafts.get(currentCraft).ingredients[i][0], CRAFTING.crafts.get(currentCraft).ingredients[i][1]);
                     }
                     PLAYER.inventory.addItem(CRAFTING.crafts.get(currentCraft).result[0], CRAFTING.crafts.get(currentCraft).result[1]);
                 }

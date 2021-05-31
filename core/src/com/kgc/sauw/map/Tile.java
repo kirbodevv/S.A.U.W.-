@@ -10,14 +10,13 @@ import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.entity.Drop;
 import com.kgc.sauw.entity.EntityManager;
 import com.kgc.sauw.environment.blocks.Block;
-import com.kgc.sauw.gui.Container;
+import com.kgc.sauw.Container;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.utils.ExtraData;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.kgc.sauw.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.environment.Environment.BLOCKS;
 import static com.kgc.sauw.environment.Environment.ITEMS;
 import static com.kgc.sauw.map.World.WORLD;
@@ -49,7 +48,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         buffer.put("id", id);
         buffer.put("coords", new int[]{x, y, z});
         for (Container c : containers) {
-            buffer.put(c.ID, new int[]{c.getId(), c.getCount(), c.getData()});
+            buffer.put(c.ID, new int[]{c.getId(), c.getCount(), c.getDamage()});
         }
         return buffer.toBytes();
     }

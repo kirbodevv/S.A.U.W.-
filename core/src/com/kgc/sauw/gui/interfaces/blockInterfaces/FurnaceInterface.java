@@ -1,6 +1,6 @@
 package com.kgc.sauw.gui.interfaces.blockInterfaces;
 
-import com.kgc.sauw.gui.Container;
+import com.kgc.sauw.Container;
 import com.kgc.sauw.gui.Interface;
 import com.kgc.sauw.gui.elements.Slot;
 import com.kgc.sauw.map.Tile;
@@ -59,7 +59,7 @@ public class FurnaceInterface extends Interface {
                 Container fuelCon = tile.getContainer("FuelSlot");
                 for (int j = 0; j < recipes.length; j++) {
                     if (fuelCon.getId() == fuel[i][0] && tile.getContainer("IngSlot").getId() == recipes[i][0]) {
-                        fuelCon.setItem(fuelCon.getId(), fuelCon.getCount() - 1, fuelCon.getData());
+                        fuelCon.setItem(fuelCon.getId(), fuelCon.getCount() - 1, fuelCon.getDamage());
                         tile.setExtraData("fuel", 20 * fuel[i][1]);
                     }
                 }
@@ -79,8 +79,8 @@ public class FurnaceInterface extends Interface {
                 if ((int) tile.getExtraData("progress") <= 0) {
                     Container res = tile.getContainer("ResultSlot");
                     Container ing = tile.getContainer("IngSlot");
-                    ing.setItem(ing.getId(), ing.getCount() - 1, ing.getData());
-                    res.setItem((int) tile.getExtraData("curRecId"), res.getCount() + 1, res.getData());
+                    ing.setItem(ing.getId(), ing.getCount() - 1, ing.getDamage());
+                    res.setItem((int) tile.getExtraData("curRecId"), res.getCount() + 1, res.getDamage());
                 }
             }
         }

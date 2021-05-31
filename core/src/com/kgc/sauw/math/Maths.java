@@ -14,9 +14,7 @@ public class Maths {
     }
 
     public static boolean isLiesOnRect(float x, float y, float w, float h, float px, float py) {
-        if (px > x && px < x + w && py > y && py < y + h)
-            return true;
-        return false;
+        return px > x && px < x + w && py > y && py < y + h;
     }
 
     public static boolean isCircleCrossing(int d1, int d2, int x1, int y1, int x2, int y2) {

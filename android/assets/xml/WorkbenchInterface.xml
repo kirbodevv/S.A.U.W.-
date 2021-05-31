@@ -7,6 +7,7 @@
             <Image id="HANDSAW" width="1bl" height="1bl"/>
             <Image id="CRAFT_HANDSAW_ARROW" width="1bl" height="1bl"/>
             <Slot id="CRAFT_HANDSAW_RESULT" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="CRAFT_HANDSAW_NOT_AVAILABLE_ICON" width="1bl" height="1bl" translateX="-2bl"/>
         </Layout>
         <Layout id="CRAFT_HAMMER_LAYOUT" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
                 height="WRAP_CONTENT">
@@ -14,6 +15,7 @@
             <Image id="HAMMER" width="1bl" height="1bl"/>
             <Image id="CRAFT_HAMMER_ARROW" width="1bl" height="1bl"/>
             <Slot id="CRAFT_HAMMER_RESULT" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="CRAFT_HAMMER_NOT_AVAILABLE_ICON" width="1bl" height="1bl" translateX="-2bl"/>
         </Layout>
     </RootLayout>
 </Interface>

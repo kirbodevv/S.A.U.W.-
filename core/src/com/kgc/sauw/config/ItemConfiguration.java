@@ -7,7 +7,7 @@ public class ItemConfiguration {
     public String StringId;
     public String name;
     public int maxCount;
-    public int maxData;
+    public int maxDamage;
     public int type;
     public int blockId;
     public int instrumentType;
@@ -18,7 +18,7 @@ public class ItemConfiguration {
         this.id = id;
         this.weight = 0.01f;
         this.maxCount = 64;
-        this.maxData = 0;
+        this.maxDamage = 0;
         this.type = Items.Type.ITEM;
     }
 }

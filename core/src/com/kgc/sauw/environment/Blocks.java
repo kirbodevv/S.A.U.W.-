@@ -56,7 +56,7 @@ public class Blocks {
     }
 
     public void animationTick() {
-        for (Block b : BLOCKS) stateTime += Gdx.graphics.getDeltaTime();
+        stateTime += Gdx.graphics.getDeltaTime();
     }
 
     public void blockTick() {

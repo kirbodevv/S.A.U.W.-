@@ -17,7 +17,6 @@ public class Settings {
         SETTINGS = new Settings();
     }
 
-    private String result = "";
     //<settings>
     public boolean debugMode = true;
     public boolean debugRenderer = false;
@@ -52,7 +51,7 @@ public class Settings {
     public Settings() {
         try {
             FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
-            result = settings.readString();
+            String result = settings.readString();
             this.settings = new JSONObject(result);
 
             //<settings load>

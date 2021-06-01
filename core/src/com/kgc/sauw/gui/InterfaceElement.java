@@ -129,7 +129,7 @@ public class InterfaceElement {
             y += element.marginTop * BLOCK_SIZE;
         if (attachTo == Sides.BOTTOM || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.RIGHT_BOTTOM)
             y -= element.marginBottom * BLOCK_SIZE;
-        setPosition(x + translationX * BLOCK_SIZE, y + translationY * BLOCK_SIZE);
+        setPositionInBlocks(x / BLOCK_SIZE + translationX, y / BLOCK_SIZE + translationY);
     }
 
     public void create() {

@@ -8,7 +8,9 @@ import com.kgc.sauw.AchievementsChecker;
 import com.kgc.sauw.WorldLoader;
 import com.kgc.sauw.graphic.Animator;
 import com.kgc.sauw.graphic.Graphic;
+import com.kgc.sauw.gui.Interfaces;
 import com.kgc.sauw.gui.elements.Elements;
+import com.kgc.sauw.map.World;
 import com.kgc.sauw.modding.ModAPI;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.particle.Particles;
@@ -57,7 +59,7 @@ public class SAUW implements Screen {
             WorldLoader.load(worldName);
         }
         MODS.load();
-
+        new UpdateTick().start();
 
         isGameRunning = true;
 
@@ -77,11 +79,11 @@ public class SAUW implements Screen {
         Animator.update();
 
         music.setMusicVolume(SETTINGS.musicVolume);
+        music.update(false);
 
         BLOCKS.animationTick();
         HUD.update();
-        music.setMusicVolume(SETTINGS.musicVolume);
-        music.update(false);
+
         GameCameraController.update();
 
         BATCH.begin();
@@ -131,5 +133,18 @@ public class SAUW implements Screen {
 
     @Override
     public void resume() {
+    }
+
+    public static class UpdateTick extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            World.MAPS.update();
+            try {
+                sleep(50);
+            } catch (Exception e) {
+            }
+            new UpdateTick().start();
+        }
     }
 }

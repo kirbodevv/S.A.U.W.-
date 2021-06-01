@@ -117,7 +117,6 @@ public class World {
     public void update() {
         PLAYER.update();
         ENTITY_MANAGER.update();
-        MAPS.update();
         if (Gdx.input.isTouched()) {
             if (!isTouched) {
                 if (HUD.isTouched())

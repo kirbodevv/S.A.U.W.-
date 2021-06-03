@@ -1,14 +1,14 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.*;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.*;
 
-import static com.kgc.sauw.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.environment.Environment.CRAFTING;
-import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.graphic.Graphic.*;
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.environment.Environment.CRAFTING;
+import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
 public class CraftingInterface extends Interface {
     Button craft;

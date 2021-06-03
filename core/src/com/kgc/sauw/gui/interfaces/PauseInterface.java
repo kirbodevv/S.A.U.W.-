@@ -1,10 +1,10 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.Interface;
 
-import static com.kgc.sauw.map.World.WORLD;
+import static com.kgc.sauw.core.map.World.WORLD;
 
 public class PauseInterface extends Interface {
     Button saveWorldButton;

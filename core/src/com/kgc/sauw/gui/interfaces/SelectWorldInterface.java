@@ -1,14 +1,14 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.WorldLoader;
+import com.kgc.sauw.core.WorldLoader;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.elements.Image;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Image;
 
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class SelectWorldInterface extends Interface {
     private final Button sel_0;

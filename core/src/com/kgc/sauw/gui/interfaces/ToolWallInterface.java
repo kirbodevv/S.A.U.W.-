@@ -1,10 +1,10 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.Slot;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Slot;
 
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class ToolWallInterface extends Interface {
 

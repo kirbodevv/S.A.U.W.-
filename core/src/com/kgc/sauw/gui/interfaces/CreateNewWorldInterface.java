@@ -1,13 +1,11 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.elements.EditText;
-import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.EditText;
+import com.kgc.sauw.core.gui.Interface;
 
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
 public class CreateNewWorldInterface extends Interface {
     public EditText worldName;

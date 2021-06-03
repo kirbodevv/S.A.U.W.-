@@ -3,15 +3,15 @@ package com.kgc.sauw.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.Image;
-import com.kgc.sauw.gui.elements.Slot;
-import com.kgc.sauw.gui.elements.Text;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.gui.elements.Slot;
+import com.kgc.sauw.core.gui.elements.Text;
 
 import java.text.DecimalFormat;
 
-import static com.kgc.sauw.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class InventoryInterface extends Interface {
     Slot[] hotbarslots = new Slot[8];

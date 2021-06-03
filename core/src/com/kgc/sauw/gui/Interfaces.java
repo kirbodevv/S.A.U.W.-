@@ -1,14 +1,15 @@
 package com.kgc.sauw.gui;
 
-import com.kgc.sauw.gui.elements.Slot;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.gui.interfaces.*;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.ChestInterface;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.FurnaceInterface;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.graphic.Graphic.BATCH;
-import static com.kgc.sauw.graphic.Graphic.INTERFACE_CAMERA;
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.INTERFACE_CAMERA;
 
 public final class Interfaces {
     public static final HUD HUD;

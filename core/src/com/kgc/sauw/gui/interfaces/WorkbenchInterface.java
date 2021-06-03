@@ -1,12 +1,12 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.environment.blocks.Workbench;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.Image;
-import com.kgc.sauw.map.Tile;
+import com.kgc.sauw.game.blocks.Workbench;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.map.Tile;
 
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class WorkbenchInterface extends Interface {
     public final Image craftHandsawNotAvailableImage;
@@ -32,7 +32,7 @@ public class WorkbenchInterface extends Interface {
 
     @Override
     public void tick(Tile tile) {
-        craftHandsawNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HandsawSlot").id == com.kgc.sauw.utils.ID.get("item:handsaw"));
-        craftHammerNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HammerSlot").id == com.kgc.sauw.utils.ID.get("item:hammer"));
+        craftHandsawNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HandsawSlot").id == com.kgc.sauw.core.utils.ID.get("item:handsaw"));
+        craftHammerNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HammerSlot").id == com.kgc.sauw.core.utils.ID.get("item:hammer"));
     }
 }

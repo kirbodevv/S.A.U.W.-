@@ -3,21 +3,21 @@ package com.kgc.sauw.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.elements.EditText;
-import com.kgc.sauw.gui.elements.Image;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.EditText;
+import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.resource.TextureGenerator;
-import com.kgc.sauw.utils.Units;
+import com.kgc.sauw.core.utils.Units;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-import static com.kgc.sauw.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.game.SAUW.MOD_API;
-import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.gui.Interfaces.HUD;
-import static com.kgc.sauw.map.World.WORLD;
+import static com.kgc.sauw.core.map.World.WORLD;
 
 public class ConsoleInterface extends Interface {
     public Button sendCommandButton;
@@ -117,7 +117,7 @@ public class ConsoleInterface extends Interface {
             MOD_API.Console.inputs.add(input.input);
             input.clear();
         }
-        if (input.y == 0) input.y = (int) (y + SCREEN_WIDTH / 32);
+        if (input.y == 0) input.y = (int) (y + BLOCK_SIZE / 2f);
         sendCommandButton.y = input.y;
         input.update(INTERFACE_CAMERA);
     }

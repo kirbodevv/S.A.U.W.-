@@ -2,12 +2,12 @@ package com.kgc.sauw.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.kgc.sauw.gui.elements.*;
-import com.kgc.sauw.utils.Version;
+import com.kgc.sauw.core.gui.elements.*;
+import com.kgc.sauw.core.utils.Version;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.gui.Interfaces.*;
 
 public class HUD {
@@ -187,8 +187,8 @@ public class HUD {
     }
 
     public void resize() {
-        mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE);
-        separatorLayout0.setSizeInBlocks(16f, SCREEN_HEIGHT / BLOCK_SIZE - 6.5f);
+        mainLayout.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS);
+        separatorLayout0.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS - 6.5f);
         mainLayout.resize();
     }
 

@@ -1,7 +1,7 @@
 package com.kgc.sauw.gui.interfaces.blockInterfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.core.gui.Interface;
 
 public class ChestInterface extends Interface {
 

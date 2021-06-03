@@ -1,14 +1,14 @@
 package com.kgc.sauw.gui.interfaces;
 
-import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.gui.InterfaceElement;
-import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.elements.Image;
-import com.kgc.sauw.gui.elements.Layout;
-import com.kgc.sauw.gui.elements.Text;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.elements.Text;
 
-import static com.kgc.sauw.graphic.Graphic.BLOCK_SIZE;
-import static com.kgc.sauw.graphic.Graphic.TEXTURES;
+import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class TestInterface extends Interface {
     public TestInterface() {
@@ -26,7 +26,7 @@ public class TestInterface extends Interface {
         button1.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
-                for (InterfaceElement e : com.kgc.sauw.gui.elements.Elements.UI_ELEMENTS)
+                for (InterfaceElement e : com.kgc.sauw.core.gui.elements.Elements.UI_ELEMENTS)
                     System.out.println(e.ID);
             }
         });

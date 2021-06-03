@@ -3,11 +3,11 @@ package com.kgc.sauw.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.gui.elements.Elements;
-import com.kgc.sauw.utils.Camera2D;
-import com.kgc.sauw.utils.GravityAdapter;
+import com.kgc.sauw.core.gui.elements.Elements;
+import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.core.utils.GravityAdapter;
 
-import static com.kgc.sauw.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.*;
 
 public class InterfaceElement {
     public enum Sides {

@@ -1,13 +1,13 @@
 package com.kgc.sauw.gui.interfaces.blockInterfaces;
 
-import com.kgc.sauw.Container;
-import com.kgc.sauw.gui.Interface;
-import com.kgc.sauw.gui.elements.Slot;
-import com.kgc.sauw.map.Tile;
+import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Slot;
+import com.kgc.sauw.core.map.Tile;
 
-import static com.kgc.sauw.environment.Environment.ITEMS;
-import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.core.graphic.Graphic.SCREEN_WIDTH;
+import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
 public class FurnaceInterface extends Interface {
     Slot resultSlot;

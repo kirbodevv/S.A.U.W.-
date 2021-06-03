@@ -2,7 +2,7 @@ package com.kgc.sauw.resource;
 
 import com.badlogic.gdx.Gdx;
 
-import static com.kgc.sauw.map.World.WORLD;
+import static com.kgc.sauw.core.map.World.WORLD;
 
 public class Music {
 

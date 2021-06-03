@@ -3,12 +3,12 @@ package com.kgc.sauw.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.screen.MenuScreen;
+import com.kgc.sauw.gui.screen.MenuScreen;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-import static com.kgc.sauw.input.Input.INPUT_MULTIPLEXER;
+import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
 
 public class MainGame extends Game {
     public static int keyboardHeight = 0;

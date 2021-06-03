@@ -1,8 +1,9 @@
 package com.kgc.sauw.gui;
 
-import com.kgc.sauw.gui.elements.*;
-import com.kgc.sauw.utils.StringUtils;
-import com.kgc.sauw.utils.Units;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.*;
+import com.kgc.sauw.core.utils.StringUtils;
+import com.kgc.sauw.core.utils.Units;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,8 +16,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
-
-import static com.kgc.sauw.input.Input.INPUT_MULTIPLEXER;
 
 public class XmlInterfaceLoader {
     public static void load(Interface Interface, String xmlString) throws ParserConfigurationException, IOException, SAXException {

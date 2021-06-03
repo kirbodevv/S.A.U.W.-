@@ -1,12 +1,12 @@
 package com.kgc.sauw.gui.interfaces;
 
-import com.kgc.sauw.gui.elements.Button;
-import com.kgc.sauw.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.Interface;
 
-import static com.kgc.sauw.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.utils.Languages.LANGUAGES;
-import static com.kgc.sauw.graphic.Graphic.SCREEN_HEIGHT;
-import static com.kgc.sauw.graphic.Graphic.SCREEN_WIDTH;
+import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.core.graphic.Graphic.SCREEN_HEIGHT;
+import static com.kgc.sauw.core.graphic.Graphic.SCREEN_WIDTH;
 
 public class DeadInterface extends Interface {
     Button respawn;

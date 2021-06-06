@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
 

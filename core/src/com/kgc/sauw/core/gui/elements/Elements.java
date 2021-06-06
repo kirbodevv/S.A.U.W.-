@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.gui.elements;
 
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 
 import java.util.ArrayList;
 

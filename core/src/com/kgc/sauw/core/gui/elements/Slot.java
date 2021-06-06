@@ -7,13 +7,13 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.Interface;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.math.Maths;
-import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.resource.TextureGenerator;
 
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
 import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Slot extends InterfaceElement {
     public int id, count, data;
@@ -100,6 +100,8 @@ public class Slot extends InterfaceElement {
                 }
             }
         }
+        itemX = INTERFACE_CAMERA.X + x;
+        itemY = INTERFACE_CAMERA.Y + y;
     }
 
     @Override
@@ -111,8 +113,10 @@ public class Slot extends InterfaceElement {
 
     public void itemRender(Container container) {
         if (id != 0) {
-            if (container == null) BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX, itemY, width, height);
-            else BATCH.draw(ITEMS.getItemById(id).getTexture(container), itemX, itemY, width, height);
+            if (container == null)
+                BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
+            else
+                BATCH.draw(ITEMS.getItemById(id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
 
             BITMAP_FONT.getData().setScale((width / 3f) / BITMAP_FONT_CAP_HEIGHT);
             GLYPH_LAYOUT.setText(BITMAP_FONT, count + "");

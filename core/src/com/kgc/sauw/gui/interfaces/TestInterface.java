@@ -1,7 +1,7 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.kgc.sauw.core.gui.Interface;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;

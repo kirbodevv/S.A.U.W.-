@@ -3,7 +3,7 @@ package com.kgc.sauw.core.entity;
 import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.core.utils.ID;
 
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
 public class Drop extends Entity {

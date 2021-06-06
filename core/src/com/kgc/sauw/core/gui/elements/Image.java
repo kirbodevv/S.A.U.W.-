@@ -3,7 +3,7 @@ package com.kgc.sauw.core.gui.elements;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
 
 public class Image extends InterfaceElement {

@@ -4,19 +4,19 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.kgc.sauw.core.WorldLoader;
-import com.kgc.sauw.core.environment.Items;
-import com.kgc.sauw.core.environment.Time;
 import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.environment.Time;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.game.environment.Items;
 
 import java.util.Random;
 
 import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.gui.Interfaces.HUD;
 import static com.kgc.sauw.gui.Interfaces.isAnyInterfaceOpen;
 
@@ -166,6 +166,7 @@ public class World {
         if (HUD != null && !isAnyInterfaceOpen()) {
             float AL = 1.0f - (Maths.module(720 - WorldTime.getTime()) / TL);
             RayHandler.setAmbientLight(AL, AL, AL, 1);
+            RayHandler.setCombinedMatrix(GAME_CAMERA.CAMERA);
             RayHandler.updateAndRender();
         }
         BATCH.begin();

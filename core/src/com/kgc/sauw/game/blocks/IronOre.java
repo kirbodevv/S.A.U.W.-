@@ -12,7 +12,7 @@ public class IronOre extends Block {
 
         blockConfiguration.setMaxDamage(6);
         blockConfiguration.setTransparent(true);
-        blockConfiguration.setDrop(new int[][]{{13, 4}});
+        blockConfiguration.setDrop(new int[][]{{ID.get("item:iron_ore"), 4}});
         blockConfiguration.setInstrumentType(1);
         blockConfiguration.setCollisionsRectangleByPixels(0, 0, 32, 8, 32);
     }

@@ -17,8 +17,8 @@ import com.kgc.sauw.core.utils.ExtraData;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.core.map.World.WORLD;
 
 public class Tile implements com.intbyte.bdb.ExtraData {

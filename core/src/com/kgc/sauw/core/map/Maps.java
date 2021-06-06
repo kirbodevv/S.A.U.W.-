@@ -7,7 +7,7 @@ import com.kgc.sauw.core.entity.EntityManager;
 
 import java.util.Random;
 
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.map.World.WORLD;
 
 public class Maps {
@@ -37,6 +37,11 @@ public class Maps {
                 WORLD.setBlock(0, j, 0, 14);
                 WORLD.setBlock(map0.length - 1, j, 0, 14);
             }
+            WORLD.setBlock(15, 5, 0, "block:table");
+            WORLD.setBlock(16, 5, 0, "block:tool_wall");
+            WORLD.setBlock(17, 5, 0, "block:furnace");
+            WORLD.setBlock(18, 5, 0, "block:chest");
+            WORLD.setBlock(19, 5, 0, "block:campfire");
         }
         Random r1 = new Random();
 

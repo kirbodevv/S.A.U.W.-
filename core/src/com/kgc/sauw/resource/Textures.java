@@ -74,6 +74,7 @@ public class Textures {
     public Texture handsaw;
     public Texture glass;
     public Texture planks;
+    public Texture iron_plate;
 
     public void load() {
         int w = Gdx.graphics.getWidth();
@@ -158,6 +159,7 @@ public class Textures {
         hammer = new Texture(Gdx.files.internal("Items/hammer.png"));
         handsaw = new Texture(Gdx.files.internal("Items/hand_saw.png"));
         planks = new Texture(Gdx.files.internal("Items/planks.png"));
+        iron_plate = new Texture(Gdx.files.internal("Items/iron_plate.png"));
     }
 
     public void dispose() {
@@ -166,6 +168,7 @@ public class Textures {
         shadow.dispose();
         j_0.dispose();
         j_1.dispose();
+        iron_plate.dispose();
         button_0.dispose();
         button_1.dispose();
         grass0.dispose();
@@ -187,7 +190,6 @@ public class Textures {
         icon_down.dispose();
         icon_left.dispose();
         icon_right.dispose();
-
         stick.dispose();
         log.dispose();
         button_icon_crafting.dispose();

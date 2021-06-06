@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Interface header="%Language/furnace" isBlockInterface="true" Inventory="true">
+    <RootLayout id="optionalLayout">
+        <Layout translateY="-2bl" id="S0" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+            <Slot id="IngSlot" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="ArrowIcon" width="1bl" height="1bl"/>
+            <Slot id="ResultSlot" width="1bl" height="1bl" isInventorySlot="false"/>
+        </Layout>
+        <Slot translateY="-1bl" id="FuelSlot" width="1bl" height="1bl" isInventorySlot="false"/>
+    </RootLayout>
+</Interface>

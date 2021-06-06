@@ -12,7 +12,7 @@ import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.math.Maths;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.gui.Interfaces.DEAD_INTERFACE;

@@ -6,7 +6,7 @@ import com.intbyte.bdb.ExtraData;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Container implements ExtraData {
     @Override

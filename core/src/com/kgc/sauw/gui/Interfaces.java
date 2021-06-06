@@ -5,6 +5,8 @@ import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.gui.interfaces.*;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.ChestInterface;
 import com.kgc.sauw.gui.interfaces.blockInterfaces.FurnaceInterface;
+import com.kgc.sauw.gui.interfaces.blockInterfaces.ToolWallInterface;
+import com.kgc.sauw.gui.interfaces.blockInterfaces.WorkbenchInterface;
 
 import java.util.ArrayList;
 

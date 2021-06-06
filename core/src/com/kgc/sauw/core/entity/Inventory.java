@@ -5,7 +5,7 @@ import com.kgc.sauw.core.utils.ID;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Inventory {
     public ArrayList<Container> containers;

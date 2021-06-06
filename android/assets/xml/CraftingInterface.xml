@@ -7,7 +7,7 @@
                     height="WRAP_CONTENT" translateY="-0.25bl">
                 <Button id="prevCraftTabButton" width="1bl" height="1bl"/>
                 <Text id="craftListText" text="%Language/craftList" width="5bl" height="1bl"/>
-                <Button id="prevCraftTabButton" width="1bl" height="1bl"/>
+                <Button id="nextCraftTabButton" width="1bl" height="1bl"/>
             </Layout>
             <Layout id="CraftsListLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
                     height="WRAP_CONTENT" translateY="-0.25bl"/>

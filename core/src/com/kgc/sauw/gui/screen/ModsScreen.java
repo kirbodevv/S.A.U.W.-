@@ -5,7 +5,7 @@ import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.gui.elements.Slider;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

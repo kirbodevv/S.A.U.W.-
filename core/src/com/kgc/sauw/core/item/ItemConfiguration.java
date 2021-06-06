@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.item;
 
-import com.kgc.sauw.core.environment.Items;
+import com.kgc.sauw.game.environment.Items;
 
 public class ItemConfiguration {
     public int id;

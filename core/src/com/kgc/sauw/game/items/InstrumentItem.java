@@ -1,10 +1,10 @@
 package com.kgc.sauw.game.items;
 
 import com.kgc.sauw.core.item.Item;
-import com.kgc.sauw.core.environment.Items;
+import com.kgc.sauw.game.environment.Items;
 import com.kgc.sauw.core.map.Tile;
 
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 
 public class InstrumentItem extends Item {
     public static class Type {

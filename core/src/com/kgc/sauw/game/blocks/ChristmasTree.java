@@ -12,7 +12,7 @@ public class ChristmasTree extends Block {
         blockConfiguration.setSize(1, 2);
         blockConfiguration.setMaxDamage(5);
         blockConfiguration.setTransparent(true);
-        blockConfiguration.setDrop(new int[][]{{8, 3}, {20, 1}});
+        blockConfiguration.setDrop(new int[][]{{ID.get("item:log"), 3}, {ID.get("item:sapling"), 1}});
         blockConfiguration.setInstrumentType(2);
         blockConfiguration.setCollisionsRectangleByPixels(11, 0, 10, 10, 32);
     }

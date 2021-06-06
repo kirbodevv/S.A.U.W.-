@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.math.Vector2d;
 import com.kgc.sauw.core.math.Vector2i;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;

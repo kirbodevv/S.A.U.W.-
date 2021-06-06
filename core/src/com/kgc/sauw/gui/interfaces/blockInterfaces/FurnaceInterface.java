@@ -1,34 +1,20 @@
 package com.kgc.sauw.gui.interfaces.blockInterfaces;
 
-import com.kgc.sauw.core.Container;
+import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.map.Tile;
 
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
-import static com.kgc.sauw.core.graphic.Graphic.SCREEN_WIDTH;
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class FurnaceInterface extends Interface {
-    Slot resultSlot;
-    Slot fuelSlot;
-    Slot ingSlot;
-    int[][] recipes = new int[][]{
-            {13, 21}
-    };
-    int[][] fuel = new int[][]{
-            {8, 5}
-    };
 
 
     public FurnaceInterface() {
         super("FURNACE_INTERFACE");
-        setHeaderText(LANGUAGES.getString("furnace")).isBlockInterface(true).createInventory();
+        createFromXml(Gdx.files.internal("xml/FurnaceInterface.xml"));
 
-        int temp = (int) (width - SCREEN_WIDTH / 24 * 4) / 2;
-        resultSlot = new Slot("ResultSlot", this);
-        ingSlot = new Slot("IngSlot", this);
-        fuelSlot = new Slot("FuelSlot", this);
+        Slot resultSlot = (Slot) getElement("ResultSlot");
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
             public boolean isValid(int id, int count, int data, String FromSlotWithId) {
@@ -45,44 +31,9 @@ public class FurnaceInterface extends Interface {
                 return true;
             }
         });
-        Elements.add(resultSlot);
-        Elements.add(fuelSlot);
-        Elements.add(ingSlot);
+
+        ((Image) getElement("ArrowIcon")).setImg(TEXTURES.icon_right);
 
         updateElementsList();
-    }
-
-    @Override
-    public void tick(Tile tile) {
-        if ((int) (tile.getExtraData("fuel")) <= 0) {
-            for (int i = 0; i < fuel.length; i++) {
-                Container fuelCon = tile.getContainer("FuelSlot");
-                for (int j = 0; j < recipes.length; j++) {
-                    if (fuelCon.getId() == fuel[i][0] && tile.getContainer("IngSlot").getId() == recipes[i][0]) {
-                        fuelCon.setItem(fuelCon.getId(), fuelCon.getCount() - 1, fuelCon.getDamage());
-                        tile.setExtraData("fuel", 20 * fuel[i][1]);
-                    }
-                }
-            }
-        } else {
-            tile.setExtraData("fuel", (int) tile.getExtraData("fuel") - 1);
-            if ((int) (tile.getExtraData("progress")) <= 0) {
-                for (int i = 0; i < recipes.length; i++) {
-                    Container ingCon = tile.getContainer("IngSlot");
-                    if (ingCon.getId() == recipes[i][0] && (tile.getContainer("ResultSlot").getId() == recipes[i][1] || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < ITEMS.getItemById(recipes[i][1]).getItemConfiguration().maxCount) {
-                        tile.setExtraData("progress", 100);
-                        tile.setExtraData("curRecId", recipes[i][1]);
-                    }
-                }
-            } else {
-                tile.setExtraData("progress", (int) tile.getExtraData("progress") - 1);
-                if ((int) tile.getExtraData("progress") <= 0) {
-                    Container res = tile.getContainer("ResultSlot");
-                    Container ing = tile.getContainer("IngSlot");
-                    ing.setItem(ing.getId(), ing.getCount() - 1, ing.getDamage());
-                    res.setItem((int) tile.getExtraData("curRecId"), res.getCount() + 1, res.getDamage());
-                }
-            }
-        }
     }
 }

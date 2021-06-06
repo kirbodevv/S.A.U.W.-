@@ -1,8 +1,6 @@
 package com.kgc.sauw.core.gui;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.gui.InterfaceElement;
-import com.kgc.sauw.gui.XmlInterfaceLoader;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.map.Tile;
 import com.kgc.sauw.core.gui.elements.Button;
@@ -25,7 +23,7 @@ public class Interface {
     public float width, height, x, y;
     public Button closeInterfaceButton;
 
-    public ArrayList<InterfaceElement> Elements = new ArrayList<>();
+    public ArrayList<InterfaceElement> elements = new ArrayList<>();
     public ArrayList<Slot> slots = new ArrayList<>();
 
     public int currX, currY, currZ;
@@ -74,7 +72,7 @@ public class Interface {
             }
         });
 
-        Elements.add(closeInterfaceButton);
+        elements.add(closeInterfaceButton);
     }
 
     public void createFromXml(FileHandle xmlFile) {
@@ -86,7 +84,7 @@ public class Interface {
     }
 
     public boolean isElementInInterface(InterfaceElement e) {
-        for (InterfaceElement e1 : Elements) {
+        for (InterfaceElement e1 : elements) {
             if (e1.equals(e)) return true;
         }
         return false;
@@ -101,9 +99,9 @@ public class Interface {
 
     public void updateElementsList() {
         for (InterfaceElement e : mainLayout.getAllElements()) {
-            if (!isElementInInterface(e)) Elements.add(e);
+            if (!isElementInInterface(e)) elements.add(e);
         }
-        for (InterfaceElement e : Elements) {
+        for (InterfaceElement e : elements) {
             if (e instanceof Slot) {
                 if (!isElementInSlotsArray((Slot) e)) slots.add((Slot) e);
             }
@@ -231,8 +229,6 @@ public class Interface {
         int temp = a.id;
         int temp1 = a.count;
         int temp2 = a.data;
-        System.out.println(a.isInventorySlot);
-        System.out.println(a1.isInventorySlot);
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
                 MAPS.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(a.id, a.count, a.data);
@@ -267,7 +263,7 @@ public class Interface {
     }
 
     public InterfaceElement getElement(String ID) {
-        for (InterfaceElement element : Elements) {
+        for (InterfaceElement element : elements) {
             if (element.ID.equals(ID)) {
                 return element;
             }
@@ -362,7 +358,7 @@ public class Interface {
 
     public void onOpen() {
         mainLayout.hide(false);
-        for (InterfaceElement e : Elements) {
+        for (InterfaceElement e : elements) {
             e.hide(false);
         }
     }
@@ -373,7 +369,7 @@ public class Interface {
 
     public void onClose() {
         mainLayout.hide(true);
-        for (InterfaceElement e : Elements) {
+        for (InterfaceElement e : elements) {
             e.hide(true);
         }
     }

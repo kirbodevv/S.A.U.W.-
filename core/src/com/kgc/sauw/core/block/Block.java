@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.map.Tile;
 
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
 public class Block {

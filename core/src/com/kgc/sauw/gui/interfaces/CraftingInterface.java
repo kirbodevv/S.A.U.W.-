@@ -1,31 +1,22 @@
 package com.kgc.sauw.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.*;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.environment.Environment.CRAFTING;
-import static com.kgc.sauw.core.environment.Environment.ITEMS;
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import static com.kgc.sauw.game.environment.Environment.CRAFTING;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class CraftingInterface extends Interface {
-    Button craft;
-    Text craftName;
-    Slot c0;
-    Slot c1;
-    Slot c2;
-    Slot c3;
-    Slot c4;
-    Slot c5;
-    float txtX;
-    float txtY;
-    Button previos;
-    Button next;
-    int currentCraft = -1;
-    int currentTab = 0;
-    Image itemIcon;
+    private final Text craftName;
+    private int currentCraft = -1;
+    private int currentTab = 0;
+    private final Image itemIcon;
 
     public CraftingInterface() {
         super("CRAFTING_INTERFACE");
@@ -42,11 +33,14 @@ public class CraftingInterface extends Interface {
         getElement("craftIconLayout").setSizeInBlocks(2f, 2f);
         ((Layout) getElement("craftIconLayout")).generateBackground(true);
 
-        ((Layout) getElement("craftIconLayout_0")).setSizeInBlocks(0, 2);
+        getElement("craftIconLayout_0").setSizeInBlocks(0, 2);
+
+        ((Button) getElement("prevCraftTabButton")).setIcon(TEXTURES.icon_left);
+        ((Button) getElement("nextCraftTabButton")).setIcon(TEXTURES.icon_right);
 
         itemIcon = (Image) getElement("craftIcon");
         craftName = (Text) getElement("craftName");
-        craft = (Button) getElement("craftButton");
+        Button craft = (Button) getElement("craftButton");
         craft.setText(LANGUAGES.getString("craft"));
         craft.addEventListener(new Button.EventListener() {
             @Override
@@ -116,13 +110,16 @@ public class CraftingInterface extends Interface {
         int temp = 0;
         for (int i = currentTab * 30; i < currentTab + 30; i++) {
             if (getElement("Craft_" + temp) != null) {
-                if (i < CRAFTING.crafts.size()) {
-                    getElement("Craft_" + temp).hide(false);
-                } else {
-                    getElement("Craft_" + temp).hide(true);
-                }
+                getElement("Craft_" + temp).hide(i >= CRAFTING.crafts.size());
             }
             temp += 1;
+        }
+        if (currentCraft != -1) {
+            for (int i = 0; i < CRAFTING.crafts.get(currentCraft).ingredients.length; i++) {
+                Crafting.Craft craft = CRAFTING.crafts.get(currentCraft);
+                ((Slot) getElement("craftItemSlot_" + i)).id = craft.ingredients[i][0];
+                ((Slot) getElement("craftItemSlot_" + i)).count = craft.ingredients[i][1];
+            }
         }
     }
 

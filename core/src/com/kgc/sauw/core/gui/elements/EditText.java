@@ -2,7 +2,7 @@ package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
-import com.kgc.sauw.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.input.InputAdapter;
 import com.kgc.sauw.core.input.TextInputProcessor;
 import com.kgc.sauw.resource.TextureGenerator;

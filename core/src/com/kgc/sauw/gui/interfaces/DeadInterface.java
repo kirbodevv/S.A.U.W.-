@@ -25,7 +25,7 @@ public class DeadInterface extends Interface {
             }
         });
         closeInterfaceButton.hide(true);
-        Elements.add(respawn);
+        elements.add(respawn);
 
         updateElementsList();
     }

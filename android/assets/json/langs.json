@@ -51,7 +51,11 @@
     "debugRenderer": "Debug Renderer",
     "apple": "Яблоко",
     "backpack": "Рюкзак",
-    "mods": "Моды"
+    "mods": "Моды",
+    "hammer": "Молоток",
+    "handsaw": "Ножовка",
+    "planks": "Доски",
+    "iron_plate": "Железная пластина"
   },
   "de": {
     "startGame": "Spielen",
@@ -105,7 +109,11 @@
     "debugRenderer": "Debug Renderer",
     "apple": "Apfel",
     "backpack": "Rucksack",
-    "mods": "Mods"
+    "mods": "Mods",
+    "hammer": "Ein Hammer",
+    "handsaw": "Handsäge",
+    "planks": "Bretter",
+    "iron_plate": "Eisenplatte"
   },
   "en": {
     "startGame": "Start game",
@@ -159,6 +167,10 @@
     "debugRenderer": "Debug Renderer",
     "apple": "Apple",
     "backpack": "Backpack",
-    "mods": "Mods"
+    "mods": "Mods",
+    "hammer": "Hammer",
+    "handsaw": "Handsaw",
+    "planks": "Planks",
+    "iron_plate": "Iron plate"
   }
 }

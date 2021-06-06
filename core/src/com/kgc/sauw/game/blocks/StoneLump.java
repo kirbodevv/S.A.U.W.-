@@ -11,7 +11,7 @@ public class StoneLump extends Block {
 
         blockConfiguration.setMaxDamage(5);
         blockConfiguration.setTransparent(true);
-        blockConfiguration.setDrop(new int[][]{{12, 5}});
+        blockConfiguration.setDrop(new int[][]{{ID.get("item:stone"), 5}});
         blockConfiguration.setInstrumentType(1);
         blockConfiguration.setCollisionsRectangleByPixels(0, 0, 32, 8, 32);
     }

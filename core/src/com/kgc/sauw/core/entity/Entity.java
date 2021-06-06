@@ -14,7 +14,7 @@ import com.kgc.sauw.core.utils.ExtraData;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.map.World.MAPS;
 
 public class Entity {

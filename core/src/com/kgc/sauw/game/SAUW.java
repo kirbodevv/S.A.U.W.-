@@ -20,7 +20,7 @@ import com.kgc.sauw.core.utils.ID;
 
 import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.environment.Environment.BLOCKS;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.gui.Interfaces.HUD;
 import static com.kgc.sauw.gui.Interfaces.isAnyInterfaceOpen;
@@ -58,14 +58,9 @@ public class SAUW implements Screen {
             WorldLoader.load(worldName);
         }
         MODS.load();
+
         new UpdateTick().start();
-
         isGameRunning = true;
-
-        WORLD.setBlock(5, 5, 0, ID.get("block:water"));
-        WORLD.setBlock(5, 6, 0, ID.get("block:water"));
-        WORLD.setBlock(6, 5, 0, ID.get("block:water"));
-
     }
 
 

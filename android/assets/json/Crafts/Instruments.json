@@ -70,5 +70,43 @@
         "data": 0
       }
     ]
+  },
+  {
+    "result": {
+      "id": "item:hammer",
+      "count": 1,
+      "data": 0
+    },
+    "ingredients": [
+      {
+        "id": "item:stick",
+        "count": 3,
+        "data": 0
+      },
+      {
+        "id": "item:iron_ingot",
+        "count": 3,
+        "data": 0
+      }
+    ]
+  },
+  {
+    "result": {
+      "id": "item:handsaw",
+      "count": 1,
+      "data": 0
+    },
+    "ingredients": [
+      {
+        "id": "item:stick",
+        "count": 4,
+        "data": 0
+      },
+      {
+        "id": "item:iron_plate",
+        "count": 4,
+        "data": 0
+      }
+    ]
   }
 ]

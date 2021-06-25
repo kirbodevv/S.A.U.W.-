@@ -26,12 +26,12 @@ public class CraftingInterface extends Interface {
 
         createFromXml(Gdx.files.internal("xml/CraftingInterface.xml"));
         getElement("craftsLayout").setSizeInBlocks(7.5f, 7f);
-        ((Layout) getElement("craftsLayout")).generateBackground(false);
+        ((Layout) getElement("craftsLayout")).setStandardBackground(false);
         getElement("craftInfoLayout").setSizeInBlocks(6f, 7f);
-        ((Layout) getElement("craftInfoLayout")).generateBackground(false);
+        ((Layout) getElement("craftInfoLayout")).setStandardBackground(false);
 
         getElement("craftIconLayout").setSizeInBlocks(2f, 2f);
-        ((Layout) getElement("craftIconLayout")).generateBackground(true);
+        ((Layout) getElement("craftIconLayout")).setStandardBackground(true);
 
         getElement("craftIconLayout_0").setSizeInBlocks(0, 2);
 

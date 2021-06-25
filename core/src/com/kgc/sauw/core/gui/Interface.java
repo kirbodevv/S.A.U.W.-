@@ -2,11 +2,12 @@ package com.kgc.sauw.core.gui;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.map.Tile;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.Text;
+import com.kgc.sauw.core.map.Tile;
+import com.kgc.sauw.skins.Skins;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,7 @@ public class Interface {
         actionBar = new Text();
         actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
 
-        mainLayout.setBackground(TEXTURES.standardBackground);
+        mainLayout.setBackground(Skins.interface_background);
         mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE - 1);
         mainLayout.setGravity(Layout.Gravity.TOP);
@@ -63,8 +64,9 @@ public class Interface {
         x = (Graphic.SCREEN_WIDTH - width) / 2;
         y = (Graphic.SCREEN_HEIGHT - height) / 2;
 
-        closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0, TEXTURES.closeButton, TEXTURES.closeButton);
-        closeInterfaceButton.setSizeInBlocks(0.5f, 0.5f);
+        closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0);
+        closeInterfaceButton.setIcon(TEXTURES.closeButton);
+        closeInterfaceButton.setSizeInBlocks(0.75f, 0.75f);
         closeInterfaceButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -133,7 +135,7 @@ public class Interface {
         inventoryLayout.setGravity(Layout.Gravity.TOP);
         inventoryLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         inventoryLayout.setSizeInBlocks(7.5f, 7f);
-        inventoryLayout.generateBackground(false);
+        inventoryLayout.setStandardBackground(false);
         inventoryLayout.setTranslationX(1);
         inventoryLayout.setID("inventoryLayout");
 
@@ -150,7 +152,7 @@ public class Interface {
         optionalLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         optionalLayout.setSizeInBlocks(6f, 7f);
         optionalLayout.setGravity(Layout.Gravity.TOP);
-        optionalLayout.generateBackground(false);
+        optionalLayout.setStandardBackground(false);
         optionalLayout.setTranslationX(0.5f);
         optionalLayout.setID("optionalLayout");
 
@@ -315,7 +317,7 @@ public class Interface {
             if (isBlockInterface) tick(MAPS.getTile(currX, currY, currZ));
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
             actionBar.setPosition(mainLayout.x, mainLayout.y + mainLayout.height);
-            closeInterfaceButton.setPosition(actionBar.x + actionBar.width - BLOCK_SIZE, actionBar.y + BLOCK_SIZE * 0.25f);
+            closeInterfaceButton.setPosition(actionBar.x + actionBar.width - BLOCK_SIZE, actionBar.y + BLOCK_SIZE * 0.125f);
             actionBar.update(INTERFACE_CAMERA);
             closeInterfaceButton.update(INTERFACE_CAMERA);
         }

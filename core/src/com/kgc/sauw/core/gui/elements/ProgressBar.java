@@ -4,19 +4,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.resource.TextureGenerator;
+import com.kgc.sauw.skins.Skins;
 
 public class ProgressBar extends InterfaceElement {
     private float value;
     private float maxValue;
-    private Texture background;
-    private Texture foreground;
+    private ElementSkin background;
+    private ElementSkin foreground;
     private final TextureRegion progress = new TextureRegion();
 
     private boolean generateTextures = true;
-    private boolean useGlassTexture = true;
     private final Color color = new Color(1f, 1f, 1f, 1f);
 
 
@@ -32,17 +33,18 @@ public class ProgressBar extends InterfaceElement {
         this.color.set(r / 255f, g / 255f, b / 255f, 1);
     }
 
-    public ProgressBar(boolean generateTextures, boolean useGlassTexture) {
+    public ProgressBar(boolean generateTextures) {
         this.generateTextures = generateTextures;
-        this.useGlassTexture = useGlassTexture;
+        setBackground(Skins.progress_bar_background_round);
+        setForeground(Skins.progress_bar_foreground_round);
     }
 
-    public void setForeground(Texture foreground) {
-        this.foreground = foreground;
-    }
-
-    public void setBackground(Texture background) {
+    public void setBackground(ElementSkin background) {
         this.background = background;
+    }
+
+    public void setForeground(ElementSkin foreground) {
+        this.foreground = foreground;
     }
 
     public void setProgressTexture(Texture progress) {
@@ -70,10 +72,6 @@ public class ProgressBar extends InterfaceElement {
     public void setSizeInBlocks(float w, float h) {
         super.setSizeInBlocks(w, h);
         if (generateTextures) {
-            if (background != null) background.dispose();
-            if (foreground != null) foreground.dispose();
-            setForeground(TextureGenerator.generateProgressBarFTexture(w, h, useGlassTexture));
-            setBackground(TextureGenerator.generateTexture(w, h, false));
             setProgressTexture(TextureGenerator.generateProgressBarPTexture(w, h));
         }
     }
@@ -87,12 +85,11 @@ public class ProgressBar extends InterfaceElement {
     protected void renderTick(SpriteBatch batch, Camera2D cam) {
         Color batchColor = new Color(batch.getColor());
         batch.setColor(1, 1, 1, 1);
-        if (background != null) batch.draw(background, x, y, width, height);
+        if (background != null) background.draw(x, y, width, height);
         float pixelWidth = width / progress.getTexture().getWidth();
         batch.setColor(color);
         batch.draw(progress, x, y, progress.getRegionWidth() * pixelWidth, height);
-        batch.setColor(1, 1, 1, 1);
-        if (foreground != null) batch.draw(foreground, x, y, width, height);
         batch.setColor(batchColor);
+        if (foreground != null) foreground.draw(x, y, width, height);
     }
 }

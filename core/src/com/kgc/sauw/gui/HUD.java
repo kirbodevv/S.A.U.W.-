@@ -2,10 +2,11 @@ package com.kgc.sauw.gui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.utils.Version;
+import com.kgc.sauw.skins.Skins;
 
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.gui.Interfaces.*;
@@ -44,14 +45,14 @@ public class HUD {
         R = r;
         G = g;
         B = b;
-        SETTINGS.consoleTextColorRed = r;
-        SETTINGS.consoleTextColorGreen = g;
-        SETTINGS.consoleTextColorBlue = b;
-        SETTINGS.saveSettings();
+        Settings.consoleTextColorRed = r;
+        Settings.consoleTextColorGreen = g;
+        Settings.consoleTextColorBlue = b;
+        Settings.saveSettings();
     }
 
     public HUD() {
-        setConsoleTextColor(SETTINGS.consoleTextColorRed, SETTINGS.consoleTextColorGreen, SETTINGS.consoleTextColorBlue);
+        setConsoleTextColor(Settings.consoleTextColorRed, Settings.consoleTextColorGreen, Settings.consoleTextColorBlue);
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         debug.getData().setScale(SCREEN_WIDTH / 64 / debug.getCapHeight());
 
@@ -66,12 +67,12 @@ public class HUD {
         layout1.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         layout1.setGravity(Layout.Gravity.TOP);
 
-        healthProgressBar = new ProgressBar(true, false);
+        healthProgressBar = new ProgressBar(true);
         healthProgressBar.setMaxValue(100f);
         healthProgressBar.setSizeInBlocks(4, 0.5f);
         healthProgressBar.setColor(255, 0, 0);
 
-        hungerProgressBar = new ProgressBar(true, false);
+        hungerProgressBar = new ProgressBar(true);
         hungerProgressBar.setMaxValue(100f);
         hungerProgressBar.setSizeInBlocks(4, 0.5f);
         hungerProgressBar.setColor(150, 90, 60);
@@ -88,13 +89,13 @@ public class HUD {
 
         separatorLayout.addElements(playerInfoText);
 
-        attackButton = new Button("ATTACK_BUTTON", 0, 0, 0, 0, TEXTURES.button_0, TEXTURES.button_1);
+        attackButton = new Button("ATTACK_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         attackButton.setSizeInBlocks(1.5f, 1.5f);
 
-        dropButton = new Button("DROP_BUTTON", 0, 0, 0, 0, TEXTURES.button_0, TEXTURES.button_1);
+        dropButton = new Button("DROP_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         dropButton.setSizeInBlocks(1.5f, 1.5f);
 
-        interactionButton = new Button("INTERACTION_BUTTON", 0, 0, 0, 0, TEXTURES.button_0, TEXTURES.button_1);
+        interactionButton = new Button("INTERACTION_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         interactionButton.setSizeInBlocks(1.5f, 1.5f);
         interactionButton.setTranslationX(0.125f);
 
@@ -119,6 +120,7 @@ public class HUD {
 
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
         pauseButton.setSizeInBlocks(1f, 1f);
+        pauseButton.setIcon(TEXTURES.pause_icon);
 
         inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
         inventoryOpenButton.setSizeInBlocks(1f, 1f);

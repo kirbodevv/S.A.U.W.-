@@ -75,6 +75,10 @@ public class Textures {
     public Texture glass;
     public Texture planks;
     public Texture iron_plate;
+    public Texture round_up;
+    public Texture round_down;
+    public Texture progress_bar_foreground_round;
+    public Texture pause_icon;
 
     public void load() {
         int w = Gdx.graphics.getWidth();
@@ -160,6 +164,11 @@ public class Textures {
         handsaw = new Texture(Gdx.files.internal("Items/hand_saw.png"));
         planks = new Texture(Gdx.files.internal("Items/planks.png"));
         iron_plate = new Texture(Gdx.files.internal("Items/iron_plate.png"));
+
+        round_up = new Texture(Gdx.files.internal("Interface/round_up.png"));
+        round_down = new Texture(Gdx.files.internal("Interface/round_down.png"));
+        progress_bar_foreground_round = new Texture(Gdx.files.internal("Interface/progress_bar_foreground_round.png"));
+        pause_icon = new Texture(Gdx.files.internal("Interface/pause_icon.png"));
     }
 
     public void dispose() {
@@ -228,5 +237,10 @@ public class Textures {
         smokeParticle_1.dispose();
         water.dispose();
         hammer.dispose();
+
+        round_up.dispose();
+        round_down.dispose();
+        progress_bar_foreground_round.dispose();
+        pause_icon.dispose();
     }
 }

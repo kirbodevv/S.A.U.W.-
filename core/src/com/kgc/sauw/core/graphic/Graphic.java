@@ -31,7 +31,7 @@ public final class Graphic {
     public static final Color TEXT_COLOR;
 
     static {
-        TEXT_COLOR = new Color(64f / 255, 137f / 255, 154f / 255, 1);
+        TEXT_COLOR = new Color(0xAC9262FF);
 
         setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 

@@ -3,6 +3,7 @@ package com.kgc.sauw.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.core.WorldLoader;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.core.graphic.Graphic;
@@ -13,7 +14,6 @@ import com.kgc.sauw.core.gui.elements.Text;
 import com.kgc.sauw.gui.interfaces.SelectWorldInterface;
 import com.kgc.sauw.resource.Music;
 
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
@@ -107,7 +107,7 @@ public class MenuScreen implements Screen {
         coinsLayout = new Layout(Layout.Orientation.HORIZONTAL);
         coinsLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         coinsLayout.setSizeInBlocks(3, 1f);
-        coinsLayout.generateBackground(true);
+        coinsLayout.setStandardBackground(true);
 
         Image coinIcon = new Image(0, 0, 0, 0);
         coinIcon.setSizeInBlocks(0.75f, 0.75f);
@@ -116,7 +116,7 @@ public class MenuScreen implements Screen {
         coinIcon.setMarginRight(0.125f);
 
         Text coinsText = new Text();
-        coinsText.setGeneratedBackground(false);
+        coinsText.setStandardBackground(false);
         coinsText.setSizeInBlocks(1, 0.75f);
         coinsText.setText(SAUW_coins + "");
 
@@ -133,7 +133,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        music.setMusicVolume(SETTINGS.musicVolume);
+        music.setMusicVolume(Settings.musicVolume);
         music.update(true);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);

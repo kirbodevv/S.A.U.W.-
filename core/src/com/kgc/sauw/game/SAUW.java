@@ -5,26 +5,24 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.AchievementsChecker;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.core.WorldLoader;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Elements;
 import com.kgc.sauw.core.map.World;
-import com.kgc.sauw.mods.ModAPI;
-import com.kgc.sauw.mods.Mods;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
-import com.kgc.sauw.resource.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
-import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.mods.ModAPI;
+import com.kgc.sauw.mods.Mods;
+import com.kgc.sauw.resource.Music;
 
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.gui.Interfaces.HUD;
-import static com.kgc.sauw.gui.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.core.map.World.WORLD;
+import static com.kgc.sauw.game.environment.Environment.BLOCKS;
+import static com.kgc.sauw.gui.Interfaces.*;
 import static com.kgc.sauw.resource.Files.loadPlayerData;
 
 public class SAUW implements Screen {
@@ -46,7 +44,7 @@ public class SAUW implements Screen {
         this.music = Music.getMusic();
         DR = new Box2DDebugRenderer();
 
-        music.setMusicVolume(SETTINGS.musicVolume);
+        music.setMusicVolume(Settings.musicVolume);
 
         loadPlayerData();
 
@@ -72,7 +70,7 @@ public class SAUW implements Screen {
         Physic.update();
         Animator.update();
 
-        music.setMusicVolume(SETTINGS.musicVolume);
+        music.setMusicVolume(Settings.musicVolume);
         music.update(false);
 
         BLOCKS.animationTick();
@@ -89,9 +87,9 @@ public class SAUW implements Screen {
         Particles.render();
         if (isAnyInterfaceOpen()) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
-        if (SETTINGS.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
+        if (Settings.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
-        HUD.render(SETTINGS.debugMode);
+        HUD.render(Settings.debugMode);
         WORLD.update();
         AchievementsChecker.update();
 

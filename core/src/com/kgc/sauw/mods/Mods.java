@@ -2,6 +2,7 @@ package com.kgc.sauw.mods;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.gui.Interfaces;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +16,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.kgc.sauw.gui.Interfaces.HUD;
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.game.environment.Environment.*;
 import static com.kgc.sauw.game.SAUW.MOD_API;
@@ -52,7 +52,7 @@ public class Mods {
                     ScriptableObject.putProperty(mods[i].sc, "Blocks", BLOCKS);
                     ScriptableObject.putProperty(mods[i].sc, "Items", ITEMS);
                     ScriptableObject.putProperty(mods[i].sc, "ModAPI", MOD_API);
-                    ScriptableObject.putProperty(mods[i].sc, "Settings", SETTINGS);
+                    ScriptableObject.putProperty(mods[i].sc, "Settings", Settings.class);
                     ScriptableObject.putProperty(mods[i].sc, "GI", HUD);
                     ScriptableObject.putProperty(mods[i].sc, "World", WORLD);
                     ScriptableObject.putProperty(mods[i].sc, "Interfaces", Interfaces.class);

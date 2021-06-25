@@ -2,20 +2,21 @@ package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.input.InputAdapter;
 import com.kgc.sauw.core.input.TextInputProcessor;
 import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kgc.sauw.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 
 public class EditText extends InterfaceElement {
     public String input = "";
-    private Texture backgroundTextutre;
+    private ElementSkin backgroundTexture;
 
     private static final BitmapFont BF;
     private static final float capHeight;
@@ -43,6 +44,7 @@ public class EditText extends InterfaceElement {
                 if (input.length() > 0 && possibleToEnterText) input = input.substring(0, input.length() - 1);
             }
         });
+        backgroundTexture = Skins.round_down_1;
     }
 
     public void setTextColor(float r, float g, float b) {
@@ -80,15 +82,8 @@ public class EditText extends InterfaceElement {
     public void renderTick(SpriteBatch b, Camera2D cam) {
         setTextScale();
         BF.setColor(textColor);
-        b.draw(backgroundTextutre, x + cam.X, y + cam.Y, width, height);
+        backgroundTexture.draw(x + cam.X, y + cam.Y, width, height);
         BF.draw(b, input, x + cam.X + (height / 2), y + cam.Y + (height / 4 * 3));
-    }
-
-    @Override
-    public void setSize(float w, float h) {
-        super.setSize(w, h);
-        if (backgroundTextutre != null) backgroundTextutre.dispose();
-        this.backgroundTextutre = TextureGenerator.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
     }
 
     public void setTextScale() {

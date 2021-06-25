@@ -4,10 +4,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controllers;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.game.SAUW;
 import com.kgc.sauw.gui.Interfaces;
 
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.gui.Interfaces.*;
 
 
@@ -49,7 +49,7 @@ public final class Input {
                         if (!INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.open();
                     }
                     if (keycode == Keys.F1) {
-                        if (SETTINGS.useConsole) if (!CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.open();
+                        if (Settings.useConsole) if (!CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.open();
                     }
                     if (keycode == Keys.C) {
                         if (!CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.open();
@@ -62,7 +62,7 @@ public final class Input {
                         if (INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.close();
                     }
                     if (keycode == Keys.F1) {
-                        if (SETTINGS.useConsole)
+                        if (Settings.useConsole)
                             if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.close();
                     }
                     if (keycode == Keys.C) {

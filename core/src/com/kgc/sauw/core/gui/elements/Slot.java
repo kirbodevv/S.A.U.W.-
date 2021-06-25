@@ -6,18 +6,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.resource.TextureGenerator;
+import com.kgc.sauw.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Slot extends InterfaceElement {
     public int id, count, data;
-    public Texture slot;
+    public ElementSkin slot;
     private Texture icon;
 
     public boolean isInventorySlot = false;
@@ -36,20 +37,14 @@ public class Slot extends InterfaceElement {
     public static final ProgressBar itemDamageProgressBar;
 
     static {
-        itemDamageProgressBar = new ProgressBar(true, false);
+        itemDamageProgressBar = new ProgressBar(true);
         itemDamageProgressBar.setSizeInBlocks(2, 0.5f);
     }
 
     public Slot(String ID, Interface Interface) {
         this.Interface = Interface;
         this.ID = ID;
-    }
-
-    @Override
-    public void setSize(float w, float h) {
-        super.setSize(w, h);
-        if (slot != null) slot.dispose();
-        slot = TextureGenerator.generateTexture(w / BLOCK_SIZE, h / BLOCK_SIZE, false);
+        slot = Skins.slot_round;
     }
 
     @Override
@@ -70,7 +65,7 @@ public class Slot extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        batch.draw(slot, cam.X + x, cam.Y + y, width, height);
+        slot.draw(cam.X + x, cam.Y + y, width, height);
         if (icon != null && id == 0) {
             batch.setColor(0, 0, 0, 1);
             batch.draw(icon, cam.X + x, cam.Y + y, width, height);

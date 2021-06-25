@@ -5,13 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.math.Maths;
 
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
@@ -146,7 +146,7 @@ public class Player extends Entity implements ExtraData {
     public void tick() {
         if (!isDead) {
             PlayerController.update();
-            if (SETTINGS.autopickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
+            if (Settings.autopickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 Entity entity = EntityManager.findEntity(this, 0.6f);
                 if (entity != null) {
                     Drop item = (Drop) entity;

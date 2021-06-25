@@ -1,34 +1,31 @@
 package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
 public class Text extends InterfaceElement {
-    private Texture background;
+    private ElementSkin background;
     private String txt = "";
-    private final Color textColor = new Color(64f / 255, 137f / 255, 154f / 255, 1);
-    private boolean generatedBackground = true;
+    private final Color textColor = new Color(TEXT_COLOR);
 
-    @Override
-    public void setSize(float w, float h) {
-        super.setSize(w, h);
-        if (generatedBackground) {
-            if (background != null) background.dispose();
-            background = TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, true);
-        }
+    public Text(){
+        setStandardBackground(true);
     }
 
-    public void setGeneratedBackground(boolean generatedBackground) {
-        this.generatedBackground = generatedBackground;
+    public void setBackground(ElementSkin background) {
+        this.background = background;
     }
 
+    public void setStandardBackground(boolean b) {
+        setBackground(b ? Skins.round_up : Skins.round_down_1);
+    }
     public void setText(String text) {
         txt = text;
         GLYPH_LAYOUT.setText(BITMAP_FONT, text);
@@ -52,7 +49,7 @@ public class Text extends InterfaceElement {
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         setTextScale();
         BITMAP_FONT.setColor(textColor);
-        if (background != null) batch.draw(background, cam.X + x, cam.Y + y, width, height);
+        if (background != null) background.draw(cam.X + x, cam.Y + y, width, height);
         BITMAP_FONT.draw(batch, txt, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
     }
 }

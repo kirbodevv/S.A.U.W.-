@@ -7,18 +7,18 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.skins.Skins;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
-
 public class Button extends InterfaceElement {
-    private Texture buttonTexture;
-    private Texture buttonPressedTexture;
     private Texture icon;
+
+    ElementSkin buttonUpSkin;
+    ElementSkin buttonDownSkin;
 
     private String txt;
     private BitmapFont buttonText;
@@ -28,7 +28,7 @@ public class Button extends InterfaceElement {
     private float capHeight;
     private GlyphLayout glyphLayout;
 
-    public Button(String ID, float X, float Y, float w, float h, Texture BT, Texture BP) {
+    public Button(String ID, float X, float Y, float w, float h, ElementSkin BT, ElementSkin BP) {
         generatedTextures = false;
         createButton(ID, X, Y, w, h, BT, BP);
     }
@@ -38,27 +38,16 @@ public class Button extends InterfaceElement {
         createButton(ID, X, Y, w, h);
     }
 
-    private void createButton(String ID, float X, float Y, float w, float h, Texture BT, Texture BP) {
+    private void createButton(String ID, float X, float Y, float w, float h, ElementSkin BT, ElementSkin BP) {
         setPosition(X, Y);
         setSize(w, h);
-        setTextures(BT, BP);
+        setSkin(BT, BP);
         setID(ID);
         create();
     }
 
     private void createButton(String ID, float X, float Y, float w, float h) {
-        setPosition(X, Y);
-        setSize(w, h);
-        setID(ID);
-        create();
-    }
-
-    public Texture generateBTexture() {
-        return TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, true);
-    }
-
-    public Texture generateBPTexture() {
-        return TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, false);
+        createButton(ID, X, Y, w, h, Skins.round_up, Skins.round_down);
     }
 
     public void setTextColor(Color c) {
@@ -91,9 +80,9 @@ public class Button extends InterfaceElement {
         }
     }
 
-    public void setTextures(Texture t0, Texture t1) {
-        this.buttonTexture = t0;
-        this.buttonPressedTexture = t1;
+    public void setSkin(ElementSkin elementSkin0, ElementSkin elementSkin1) {
+        this.buttonUpSkin = elementSkin0;
+        this.buttonDownSkin = elementSkin1;
     }
 
     public void setIcon(Texture icon) {
@@ -116,8 +105,8 @@ public class Button extends InterfaceElement {
     @Override
     public void renderTick(SpriteBatch b, Camera2D cam) {
         if (!locked)
-            b.draw(isTouched() ? buttonPressedTexture : buttonTexture, cam.X + x, cam.Y + y, width, height);
-        else b.draw(buttonPressedTexture, cam.X + x, cam.Y + y, width, height);
+            (isTouched() ? buttonDownSkin : buttonUpSkin).draw(cam.X + x, cam.Y + y, width, height);
+        else buttonDownSkin.draw(cam.X + x, cam.Y + y, width, height);
 
         if (icon != null) {
             b.draw(icon, cam.X + x, cam.Y + y, width, height);
@@ -125,16 +114,6 @@ public class Button extends InterfaceElement {
 
         if (buttonText != null)
             buttonText.draw(b, txt, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
-    }
-
-    @Override
-    public void setSize(float w, float h) {
-        super.setSize(w, h);
-        if (generatedTextures) {
-            if (buttonTexture != null) buttonTexture.dispose();
-            if (buttonPressedTexture != null) buttonPressedTexture.dispose();
-            setTextures(generateBTexture(), generateBPTexture());
-        }
     }
 
     @Override
@@ -147,8 +126,6 @@ public class Button extends InterfaceElement {
 
     @Override
     public void dispose() {
-        buttonTexture.dispose();
-        buttonPressedTexture.dispose();
         buttonText.dispose();
     }
 

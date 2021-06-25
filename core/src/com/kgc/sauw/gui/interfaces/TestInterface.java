@@ -1,11 +1,13 @@
 package com.kgc.sauw.gui.interfaces;
 
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Text;
+import com.kgc.sauw.resource.TextureGenerator;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
@@ -46,5 +48,13 @@ public class TestInterface extends Interface {
         mainLayout.addElements(testLayout);
 
         updateElementsList();
+        testSkin = new ElementSkin(TEXTURES.round_up, 3);
+    }
+
+    private ElementSkin testSkin;
+
+    @Override
+    public void postRender() {
+        testSkin.draw(100, 100, 400, 100);
     }
 }

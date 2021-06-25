@@ -1,15 +1,13 @@
 package com.kgc.sauw.core.gui.elements;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.skins.Skins;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 
 public class Layout extends InterfaceElement {
     public enum Orientation {
@@ -24,7 +22,7 @@ public class Layout extends InterfaceElement {
         WRAP_CONTENT, FIXED_SIZE
     }
 
-    Texture Background;
+    private ElementSkin background;
 
     private Orientation orientation;
     private Gravity gravity;
@@ -51,12 +49,12 @@ public class Layout extends InterfaceElement {
         this.orientation = orientation;
     }
 
-    public void setBackground(Texture background) {
-        Background = background;
+    public void setBackground(ElementSkin background) {
+        this.background = background;
     }
 
-    public void generateBackground(boolean b) {
-        setBackground(TextureGenerator.generateTexture(width / BLOCK_SIZE, height / BLOCK_SIZE, b));
+    public void setStandardBackground(boolean b) {
+        setBackground(b ? Skins.round_up : Skins.round_down_1);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        if (Background != null) batch.draw(Background, x, y, width, height);
+        if (background != null) background.draw(x, y, width, height);
         for (InterfaceElement element : elements) {
             element.render(batch, cam);
         }

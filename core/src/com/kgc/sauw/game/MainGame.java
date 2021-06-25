@@ -3,6 +3,7 @@ package com.kgc.sauw.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.gui.screen.MenuScreen;
 import org.json.JSONObject;
 
@@ -42,6 +43,7 @@ public class MainGame extends Game {
     public void create() {
         try {
             createFiles();
+            Settings.loadSettings();
         } catch (IOException e) {
             e.printStackTrace();
         }

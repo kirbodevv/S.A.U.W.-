@@ -7,6 +7,7 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Units;
 import org.mozilla.javascript.Context;
@@ -29,17 +30,16 @@ public class ConsoleInterface extends Interface {
     String inputTxt = "";
     public Context cx;
     public Scriptable sc;
-    private Image log;
 
     public ConsoleInterface() {
         super("CONSOLE_INTERFACE");
         createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"));
 
-        log_bg = TextureGenerator.generateTexture((width - SCREEN_WIDTH / 8 + SCREEN_WIDTH / 16) / (SCREEN_WIDTH / 16), Units.fromStringToPx("77%H") / BLOCK_SIZE, false);
         input = (EditText) getElement("CommandInput");
         sendCommandButton = (Button) getElement("sendCommandButton");
-        log = ((Image) getElement("log_bg"));
-        log.setImg(log_bg);
+        Layout log = ((Layout) getElement("log_bg"));
+        log.setSizeInBlocks(15f, 6f);
+        log.setStandardBackground(false);
 
         nextCommand = (Button) getElement("nextCommand");
         prevCommand = (Button) getElement("prevCommand");

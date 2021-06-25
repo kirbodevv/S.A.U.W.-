@@ -7,6 +7,6 @@
             <Button id="nextCommand" width="1bl" height="1bl"/>
             <Button id="sendCommandButton" width="1bl" height="1bl"/>
         </Layout>
-        <Image id="log_bg" width="15bl" height="6bl:9"/>
+        <Layout id="log_bg" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" height="FIXED_SIZE"/>
     </RootLayout>
 </Interface>

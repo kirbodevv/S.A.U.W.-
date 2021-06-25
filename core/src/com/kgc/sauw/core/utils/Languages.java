@@ -1,9 +1,8 @@
 package com.kgc.sauw.core.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.kgc.sauw.config.Settings;
 import org.json.JSONObject;
-
-import static com.kgc.sauw.config.Settings.SETTINGS;
 
 public class Languages {
     public static final Languages LANGUAGES;
@@ -24,7 +23,7 @@ public class Languages {
 
     public String getString(String id) {
         try {
-            return langs.getJSONObject(SETTINGS.lang).getString(id);
+            return langs.getJSONObject(Settings.lang).getString(id);
         } catch (Exception j) {
             Gdx.app.log("LangsError", "NotFoundString : \"" + id + "\"");
             return null;

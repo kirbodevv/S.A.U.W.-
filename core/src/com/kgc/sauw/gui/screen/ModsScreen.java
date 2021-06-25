@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 
+import com.kgc.sauw.skins.Skins;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -58,7 +59,7 @@ public class ModsScreen implements Screen {
     public ModsScreen(final MenuScreen ms) {
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
         background1 = TextureGenerator.generateTexture(13, height / (width / 16) - 1, false);
-        closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, TEXTURES.closeButton, TEXTURES.closeButton);
+        closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32);
         closeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {

@@ -7,17 +7,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Align;
-import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.config.Settings;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;
 import com.kgc.sauw.core.gui.elements.Slider;
+import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.resource.TextureGenerator;
 import org.json.JSONObject;
 
 import java.util.Iterator;
 
-import static com.kgc.sauw.config.Settings.SETTINGS;
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
@@ -63,52 +63,52 @@ public class SettingsScreen implements Screen {
         debug = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         debug.setSize(width / 16, width / 16);
         debug.setPosition(MENU_CAMERA.X + width / 16 * 6 + width / 64, MENU_CAMERA.Y + height - width / 16 * 6);
-        debug.setChecked(SETTINGS.debugMode);
+        debug.setChecked(Settings.debugMode);
         debug.setEventListener(new Checkbox.EventListener() {
             @Override
             public void onClick(boolean isChecked) {
-                SETTINGS.debugMode = isChecked;
-                SETTINGS.saveSettings();
+                Settings.debugMode = isChecked;
+                Settings.saveSettings();
             }
         });
         debugRenderer = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         debugRenderer.setSize(width / 16, width / 16);
         debugRenderer.setPosition(MENU_CAMERA.X + width / 16 * 6 + width / 64, MENU_CAMERA.Y + height - width / 16 * 7);
-        debugRenderer.setChecked(SETTINGS.debugRenderer);
+        debugRenderer.setChecked(Settings.debugRenderer);
         debugRenderer.setEventListener(new Checkbox.EventListener() {
             @Override
             public void onClick(boolean isChecked) {
-                SETTINGS.debugRenderer = isChecked;
-                SETTINGS.saveSettings();
+                Settings.debugRenderer = isChecked;
+                Settings.saveSettings();
             }
         });
         AIPU = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         AIPU.setSize(width / 16, width / 16);
         AIPU.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 3);
-        AIPU.setChecked(SETTINGS.autopickup);
+        AIPU.setChecked(Settings.autopickup);
         AIPU.setEventListener(new Checkbox.EventListener() {
             @Override
             public void onClick(boolean isChecked) {
-                SETTINGS.autopickup = isChecked;
-                SETTINGS.saveSettings();
+                Settings.autopickup = isChecked;
+                Settings.saveSettings();
             }
         });
         useConsole = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         useConsole.setSize(width / 16, width / 16);
         useConsole.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 4);
-        useConsole.setChecked(SETTINGS.useConsole);
+        useConsole.setChecked(Settings.useConsole);
         useConsole.setEventListener(new Checkbox.EventListener() {
             @Override
             public void onClick(boolean isChecked) {
-                SETTINGS.useConsole = isChecked;
-                SETTINGS.saveSettings();
+                Settings.useConsole = isChecked;
+                Settings.saveSettings();
                 if (isChecked) {
 						/*Notification.hideOnClick(true);
 						Notification.show(width / 16 * 4, (height - width / 16 * 4) / 2, width / 16 * 8, width / 16 * 4, LANGUAGES.getString("useConsole"), LANGUAGES.getString("useConsoleNotification"), 10);*/
                 }
             }
         });
-        closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32, TEXTURES.closeButton, TEXTURES.closeButton);
+        closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32);
         closeButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -127,13 +127,13 @@ public class SettingsScreen implements Screen {
                 while (i.hasNext()) {
                     ii++;
                     String l = (String) i.next();
-                    if (l.equals(SETTINGS.lang)) {
+                    if (l.equals(Settings.lang)) {
                         if (ii + 1 <= availableLangs.length()) {
-                            SETTINGS.lang = (String) i.next();
+                            Settings.lang = (String) i.next();
                         } else {
-                            SETTINGS.lang = (String) availableLangs.keys().next();
+                            Settings.lang = (String) availableLangs.keys().next();
                         }
-                        SETTINGS.saveSettings();
+                        Settings.saveSettings();
                         break;
                     }
                 }
@@ -147,7 +147,7 @@ public class SettingsScreen implements Screen {
                 int ii = 0;
                 while (i.hasNext()) {
                     String l = (String) i.next();
-                    if (l.equals(SETTINGS.lang)) {
+                    if (l.equals(Settings.lang)) {
                         prevLang = ii - 1;
                         if (prevLang < 0) prevLang = availableLangs.length() - 1;
                         ii = 0;
@@ -158,8 +158,8 @@ public class SettingsScreen implements Screen {
                 while (i.hasNext()) {
                     String langg = (String) i.next();
                     if (ii == prevLang) {
-                        SETTINGS.lang = langg;
-                        SETTINGS.saveSettings();
+                        Settings.lang = langg;
+                        Settings.saveSettings();
                         break;
                     }
                     ii++;
@@ -212,11 +212,11 @@ public class SettingsScreen implements Screen {
         musicVolume.setEventListener(new Slider.EventListener() {
             @Override
             public void onValueChange(int v) {
-                SETTINGS.musicVolume = v;
-                SETTINGS.saveSettings();
+                Settings.musicVolume = v;
+                Settings.saveSettings();
             }
         });
-        musicVolume.setValue(SETTINGS.musicVolume);
+        musicVolume.setValue(Settings.musicVolume);
     }
 
     @Override
@@ -263,7 +263,7 @@ public class SettingsScreen implements Screen {
             try {
                 BATCH.draw(background1, MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 4, width / 16 * 3, width / 16);
                 bf.draw(BATCH, LANGUAGES.getString("language"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 3, Align.center, false);
-                bf.draw(BATCH, availableLangs.getString(SETTINGS.lang), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, Align.center, false);
+                bf.draw(BATCH, availableLangs.getString(Settings.lang), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 3, Align.center, false);
                 bf.draw(BATCH, LANGUAGES.getString("debug"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 5 - (width / 16 / 4), width / 16 * 3, Align.left, false);
                 bf.draw(BATCH, LANGUAGES.getString("debugRenderer"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 6 - (width / 16 / 4), width / 16 * 3, Align.left, false);
                 nextLang.render(BATCH, MENU_CAMERA);

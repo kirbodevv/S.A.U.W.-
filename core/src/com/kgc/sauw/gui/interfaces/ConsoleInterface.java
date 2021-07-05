@@ -6,19 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
-import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.resource.TextureGenerator;
-import com.kgc.sauw.core.utils.Units;
+import com.kgc.sauw.mods.ModAPI;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.game.SAUW.MOD_API;
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.gui.Interfaces.HUD;
 import static com.kgc.sauw.core.map.World.WORLD;
+import static com.kgc.sauw.gui.Interfaces.HUD;
 
 public class ConsoleInterface extends Interface {
     public Button sendCommandButton;
@@ -51,11 +48,11 @@ public class ConsoleInterface extends Interface {
             @Override
             public void onClick() {
                 currCom++;
-                if (currCom >= MOD_API.Console.inputs.size()) {
-                    currCom = MOD_API.Console.inputs.size() - 1;
+                if (currCom >= ModAPI.Console.inputs.size()) {
+                    currCom = ModAPI.Console.inputs.size() - 1;
                 }
                 if (currCom != -1) {
-                    input.input = MOD_API.Console.input(currCom);
+                    input.input = ModAPI.Console.input(currCom);
                 } else {
                     input.input = inputTxt;
                 }
@@ -69,7 +66,7 @@ public class ConsoleInterface extends Interface {
                     currCom = -1;
                 }
                 if (currCom != -1) {
-                    input.input = MOD_API.Console.input(currCom);
+                    input.input = ModAPI.Console.input(currCom);
                 } else {
                     input.input = inputTxt;
                 }
@@ -114,7 +111,7 @@ public class ConsoleInterface extends Interface {
             } finally {
                 Context.exit();
             }
-            MOD_API.Console.inputs.add(input.input);
+            ModAPI.Console.inputs.add(input.input);
             input.clear();
         }
         if (input.y == 0) input.y = (int) (y + BLOCK_SIZE / 2f);

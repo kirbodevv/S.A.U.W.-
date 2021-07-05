@@ -20,14 +20,21 @@ public class Crafting {
     }
 
     public Crafting() {
-        addCraftsFromFile(Gdx.files.internal("json/Crafts/Instruments.json"));
-        addCraftsFromFile(Gdx.files.internal("json/Crafts/Ingredients.json"));
+        addCraftsFromDirectory(Gdx.files.internal("json/Crafts"));
     }
 
     public ArrayList<Craft> crafts = new ArrayList<Craft>();
 
     public void addCraft(Craft craft) {
         crafts.add(craft);
+    }
+
+    public void addCraftsFromDirectory(FileHandle dir) {
+        FileHandle includesFile = dir.child("crafts.includes");
+        String[] fileNames = includesFile.readString().split("\\r\\n");
+        for(String fileName : fileNames){
+            addCraftsFromFile(dir.child(fileName));
+        }
     }
 
     public void addCraftsFromFile(FileHandle file) {

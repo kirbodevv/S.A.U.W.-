@@ -109,7 +109,7 @@ public class MenuScreen implements Screen {
 
         Image coinIcon = new Image(0, 0, 0, 0);
         coinIcon.setSizeInBlocks(0.75f, 0.75f);
-        coinIcon.setImg(Resource.getTexture("SAUW_coin.png"));
+        coinIcon.setImg(Resource.getTexture("SAUW_Coin.png"));
         coinIcon.setTranslationX(0.125f);
         coinIcon.setMarginRight(0.125f);
 

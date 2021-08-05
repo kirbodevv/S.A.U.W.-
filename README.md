@@ -22,9 +22,14 @@ bash gradlew desktop:dist
 cd desktop/build/libs
 java -jar desktop-1.0.jar
 ```
+
+* Windows / Linux:
+  
+  [desktop.jar](https://github.com/KirboGames/S.A.U.W.-/raw/master/releases/last/desktop.jar)
+
 * Android:
   
-  [android-release.apk](https://github.com/KirboGames/S.A.U.W.-/raw/master/android/release/android-release.apk)
+  [android.apk](https://github.com/KirboGames/S.A.U.W.-/raw/master/releases/last/android.apk)
 ## Credits
 
 * Programming - by [KiRB0](https://github.com/KirboGames)

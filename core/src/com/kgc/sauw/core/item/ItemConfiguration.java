@@ -1,16 +1,16 @@
 package com.kgc.sauw.core.item;
 
 import com.kgc.sauw.game.environment.Items;
+import com.kgc.sauw.game.items.InstrumentItem;
 
 public class ItemConfiguration {
     public int id;
-    public String StringId;
     public String name;
     public int maxCount;
     public int maxDamage;
-    public int type;
+    public Items.Type type;
     public int blockId;
-    public int instrumentType;
+    public InstrumentItem.Type instrumentType;
     public int foodScore;
     public float weight;
 

@@ -10,20 +10,17 @@ import com.kgc.sauw.core.gui.InterfaceElement;
 
 public class Slider extends InterfaceElement {
     private Texture background, slider;
-    private int sliderW;
+    private float sliderW;
     private int maxValue = 100;
     private int value = 0;
     private double sc;
     private EventListener EL;
     private boolean verticalSlider;
 
-    public Slider(int x, int y, int w, int h) {
-        verticalSlider = w <= h;
+    @Override
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
         int ww = Gdx.graphics.getWidth();
-        this.x = x;
-        this.y = y;
-        this.width = w;
-        this.height = h;
         if (!verticalSlider) sliderW = h / 2;
         else sliderW = w / 2;
         if (!verticalSlider) {
@@ -33,7 +30,7 @@ public class Slider extends InterfaceElement {
             slider = TextureGenerator.generateTexture(w / (ww / 16.0f), sliderW / (ww / 16.0f), true);
             background = TextureGenerator.generateTexture(w / 2 / (ww / 16.0f), h / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
         }
-        setMaxValue(100);
+        verticalSlider = w <= h;
     }
 
     public void setValue(int v) {
@@ -53,12 +50,12 @@ public class Slider extends InterfaceElement {
 
     @Override
     public void tick(Camera2D cam) {
+
         if (isTouched()) {
             if (!verticalSlider)
                 value = (int) ((Gdx.input.getX() - x) / sc);
             else
                 value = (int) ((Gdx.input.getY() - y) / sc);
-
             if (value < 0) value = 0;
             if (value > maxValue) value = maxValue;
         }

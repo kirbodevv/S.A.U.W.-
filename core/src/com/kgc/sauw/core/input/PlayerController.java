@@ -8,12 +8,12 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 import com.kgc.sauw.game.environment.Environment;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.gui.Interfaces;
-import com.kgc.sauw.core.map.Tile;
+import com.kgc.sauw.game.gui.Interfaces;
+import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.gui.Interfaces.HUD;
-import static com.kgc.sauw.core.map.World.MAPS;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
+import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
 public class PlayerController implements InputProcessor {
     public PlayerController() {
@@ -31,16 +31,16 @@ public class PlayerController implements InputProcessor {
         int playerY = PLAYER.getCurrentTileY();
         switch (PLAYER.rotation) {
             case 0:
-                tile = MAPS.getTile(playerX, playerY + 1, 0);
+                tile = getWorld().map.getTile(playerX, playerY + 1, 0);
                 break;
             case 1:
-                tile = MAPS.getTile(playerX + 1, playerY, 0);
+                tile = getWorld().map.getTile(playerX + 1, playerY, 0);
                 break;
             case 2:
-                tile = MAPS.getTile(playerX, playerY - 1, 0);
+                tile = getWorld().map.getTile(playerX, playerY - 1, 0);
                 break;
             case 3:
-                tile = MAPS.getTile(playerX - 1, playerY, 0);
+                tile = getWorld().map.getTile(playerX - 1, playerY, 0);
                 break;
         }
 

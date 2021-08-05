@@ -6,15 +6,16 @@ import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.Text;
-import com.kgc.sauw.core.map.Tile;
-import com.kgc.sauw.skins.Skins;
+import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.game.skins.Skins;
 
 import java.util.ArrayList;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.core.map.World.MAPS;
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
 public class Interface {
     public String ID;
@@ -65,7 +66,7 @@ public class Interface {
         y = (Graphic.SCREEN_HEIGHT - height) / 2;
 
         closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0);
-        closeInterfaceButton.setIcon(TEXTURES.closeButton);
+        closeInterfaceButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
         closeInterfaceButton.setSizeInBlocks(0.75f, 0.75f);
         closeInterfaceButton.addEventListener(new Button.EventListener() {
             @Override
@@ -157,14 +158,14 @@ public class Interface {
         optionalLayout.setID("optionalLayout");
 
         previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
-        previousTabInv.setIcon(TEXTURES.icon_left);
+        previousTabInv.setIcon(Resource.getTexture("Interface/button_left_0.png"));
         nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
-        nextTabInv.setIcon(TEXTURES.icon_right);
+        nextTabInv.setIcon(Resource.getTexture("Interface/button_right_0.png"));
         previousTabInv.setSizeInBlocks(1, 1);
         nextTabInv.setSizeInBlocks(1, 1);
         Text backpackText = new Text();
         backpackText.setSizeInBlocks(5, 1);
-        backpackText.setText(LANGUAGES.getString("backpack"));
+        backpackText.setText(Languages.getString("backpack"));
         backpackText.setID("BackpackText");
 
         switchTabLayout.addElements(previousTabInv, backpackText, nextTabInv);
@@ -213,7 +214,7 @@ public class Interface {
         currY = y;
         currZ = z;
         onOpen();
-        onOpen(MAPS.getTile(x, y, z));
+        onOpen(getWorld().map.getTile(x, y, z));
     }
 
     public void open() {
@@ -233,7 +234,7 @@ public class Interface {
         int temp2 = a.data;
         if (a.isInventorySlot) {
             if (!a1.isInventorySlot && a1.id == 0) {
-                MAPS.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(a.id, a.count, a.data);
+                getWorld().map.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(a.id, a.count, a.data);
                 System.out.println(PLAYER.inventory.containers.size());
                 PLAYER.inventory.containers.remove(PLAYER.inventory.containers.get(a.inventorySlot));
             }
@@ -241,10 +242,10 @@ public class Interface {
             if (a1.isInventorySlot) {
                 System.out.println("dsdsds");
                 PLAYER.inventory.addItem(a.id, a.count);
-                MAPS.getTile(currX, currY, currZ).getContainer(a.ID).setItem(0, 0, 0);
+                getWorld().map.getTile(currX, currY, currZ).getContainer(a.ID).setItem(0, 0, 0);
             } else {
-                MAPS.getTile(currX, currY, currZ).getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
-                MAPS.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(temp, temp1, temp2);
+                getWorld().map.getTile(currX, currY, currZ).getContainer(a.ID).setItem(a1.id, a1.count, a1.data);
+                getWorld().map.getTile(currX, currY, currZ).getContainer(a1.ID).setItem(temp, temp1, temp2);
             }
         }
     }
@@ -303,10 +304,10 @@ public class Interface {
             }
 
             if (isGameInterface) {
-                for (int i = 0; i < MAPS.getTile(currX, currY, currZ).containers.size(); i++) {
-                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).id = MAPS.getTile(currX, currY, currZ).containers.get(i).getId();
-                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).count = MAPS.getTile(currX, currY, currZ).containers.get(i).getCount();
-                    getSlot(MAPS.getTile(currX, currY, currZ).containers.get(i).ID).data = MAPS.getTile(currX, currY, currZ).containers.get(i).getDamage();
+                for (int i = 0; i < getWorld().map.getTile(currX, currY, currZ).containers.size(); i++) {
+                    getSlot(getWorld().map.getTile(currX, currY, currZ).containers.get(i).ID).id = getWorld().map.getTile(currX, currY, currZ).containers.get(i).getId();
+                    getSlot(getWorld().map.getTile(currX, currY, currZ).containers.get(i).ID).count = getWorld().map.getTile(currX, currY, currZ).containers.get(i).getCount();
+                    getSlot(getWorld().map.getTile(currX, currY, currZ).containers.get(i).ID).data = getWorld().map.getTile(currX, currY, currZ).containers.get(i).getDamage();
                 }
             }
 
@@ -314,7 +315,7 @@ public class Interface {
             mainLayout.update(INTERFACE_CAMERA);
 
             tick();
-            if (isBlockInterface) tick(MAPS.getTile(currX, currY, currZ));
+            if (isBlockInterface) tick(getWorld().map.getTile(currX, currY, currZ));
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
             actionBar.setPosition(mainLayout.x, mainLayout.y + mainLayout.height);
             closeInterfaceButton.setPosition(actionBar.x + actionBar.width - BLOCK_SIZE, actionBar.y + BLOCK_SIZE * 0.125f);
@@ -344,10 +345,10 @@ public class Interface {
     }
 
     public void resize() {
-        actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
-        mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE - 1);
         mainLayout.resize();
+        mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE - 1);
         mainLayout.setPosition((SCREEN_WIDTH - mainLayout.width) / 2f, (SCREEN_HEIGHT - mainLayout.height - BLOCK_SIZE) / 2f);
+        actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
         closeInterfaceButton.resize();
         onOpen();
     }

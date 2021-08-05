@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.gui.HUD;
-import com.kgc.sauw.config.Settings;
+import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.sauw.game.gui.HUD;
+import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.entity.Player;
 import org.json.JSONArray;
 
 import static com.kgc.sauw.resource.Files.playerData;
 import static com.kgc.sauw.resource.Files.saveData;
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
 
 public class Achievements {
     public static class achievement {
@@ -37,8 +37,8 @@ public class Achievements {
             JSONArray achievements = new JSONArray(Gdx.files.internal("json/achivements.json").readString());
             for (int i = 0; i < achievements.length(); i++) {
                 addAchievement(new achievement(achievements.getJSONObject(i).getString("id"),
-                        LANGUAGES.getString(achievements.getJSONObject(i).getString("title")),
-                        LANGUAGES.getString(achievements.getJSONObject(i).getString("txt")),
+                        Languages.getString(achievements.getJSONObject(i).getString("title")),
+                        Languages.getString(achievements.getJSONObject(i).getString("txt")),
                         new Texture(Gdx.files.internal(achievements.getJSONObject(i).getString("texture"))),
                         achievements.getJSONObject(i).getInt("giveCoins")));
             }

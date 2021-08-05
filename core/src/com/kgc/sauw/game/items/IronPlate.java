@@ -1,18 +1,17 @@
 package com.kgc.sauw.game.items;
 
 import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
-
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class IronPlate extends Item {
     public IronPlate() {
         super(ID.registeredId("item:iron_plate"));
 
-        setTexture(TEXTURES.iron_plate);
+        setTexture(Resource.getTexture("Items/iron_plate.png"));
 
-        itemConfiguration.name = LANGUAGES.getString("iron_plate");
+        itemConfiguration.name = Languages.getString("iron_plate");
         itemConfiguration.weight = 0.8f;
     }
 }

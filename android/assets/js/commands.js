@@ -19,3 +19,6 @@ function setTime(time){
 function clear(){
     Player.inventory.deleteItems();
 }
+function exit(){
+    com.badlogic.gdx.Gdx.app.exit();
+}

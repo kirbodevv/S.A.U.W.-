@@ -2,7 +2,7 @@ package com.kgc.sauw.core.block;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
-import com.kgc.sauw.core.map.Tile;
+import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;

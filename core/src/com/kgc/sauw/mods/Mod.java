@@ -2,17 +2,16 @@ package com.kgc.sauw.mods;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.gui.Interfaces;
+import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.game.gui.Interfaces;
 import org.json.JSONObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.core.map.World.WORLD;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.game.environment.Environment.*;
-import static com.kgc.sauw.gui.Interfaces.HUD;
+import static com.kgc.sauw.game.gui.Interfaces.HUD;
 import static com.kgc.sauw.mods.Mods.context;
 
 public class Mod {
@@ -28,10 +27,14 @@ public class Mod {
     public FileHandle srcFolder;
     public FileHandle mainJsFile;
 
+    public ModResources modResources;
+
     public Mod(FileHandle modFolder, String sourceName) {
         try {
             this.modFolder = modFolder;
             loadManifest(modFolder);
+            loadResources();
+            loadItems();
             loadCrafts();
             buildSources();
             loadJs(sourceName);
@@ -59,6 +62,10 @@ public class Mod {
         CRAFTING.addCraftsFromDirectory(craftsFolder);
     }
 
+    private void loadItems() {
+        ITEMS.addItemsFromMod(itemsFolder, modResources);
+    }
+
     private void buildSources() {
         if (!modFolder.child("out").exists()) modFolder.child("out").mkdirs();
         FileHandle mainJS = modFolder.child("out").child("main.js");
@@ -79,15 +86,20 @@ public class Mod {
         context.evaluateString(scriptable, mainJsFile.readString(), sourceName, 1, null);
     }
 
+    private void loadResources() {
+        modResources = new ModResources();
+        modResources.loadResources(resFolder);
+    }
+
     private void addProperties() {
         ScriptableObject.putProperty(scriptable, "Player", PLAYER);
+        ScriptableObject.putProperty(scriptable, "Resources", modResources);
         ScriptableObject.putProperty(scriptable, "Blocks", BLOCKS);
         ScriptableObject.putProperty(scriptable, "Items", ITEMS);
         ScriptableObject.putProperty(scriptable, "ModAPI", ModAPI.class);
         ScriptableObject.putProperty(scriptable, "Settings", Settings.class);
         ScriptableObject.putProperty(scriptable, "GI", HUD);
-        ScriptableObject.putProperty(scriptable, "World", WORLD);
+        ScriptableObject.putProperty(scriptable, "World", getWorld());
         ScriptableObject.putProperty(scriptable, "Interfaces", Interfaces.class);
-        ScriptableObject.putProperty(scriptable, "Textures", TEXTURES);
     }
 }

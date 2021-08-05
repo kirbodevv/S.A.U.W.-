@@ -1,14 +1,14 @@
 package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
-
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
+import com.kgc.sauw.game.items.InstrumentItem;
 
 public class Stone extends Block {
     public Stone() {
-        super(ID.registeredId("block:stone", 2), TEXTURES.stone);
+        super(ID.registeredId("block:stone", 2), Resource.getTexture("Blocks/stone.png"));
 
-        blockConfiguration.setInstrumentType(1);
+        blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
     }
 }

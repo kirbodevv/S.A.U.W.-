@@ -6,13 +6,10 @@ import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.input.InputAdapter;
 import com.kgc.sauw.core.input.TextInputProcessor;
-import com.kgc.sauw.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.skins.Skins;
-
-import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import com.kgc.sauw.game.skins.Skins;
 
 public class EditText extends InterfaceElement {
     public String input = "";

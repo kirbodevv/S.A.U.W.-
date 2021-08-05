@@ -2,12 +2,15 @@ package com.kgc.sauw.mods;
 
 import com.badlogic.gdx.Gdx;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.kgc.sauw.core.utils.Version.MOD_FORMAT;
 
 public class Mods {
     public static Context context;
@@ -21,9 +24,16 @@ public class Mods {
             JSONArray modsArray = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
 
             for (int i = 0; i < modsArray.length(); i++) {
-                if (modsArray.getJSONObject(i).getBoolean("isOn"))
-                    names.add(modsArray.getJSONObject(i).getString("Mod"));
+                if (modsArray.getJSONObject(i).getBoolean("isOn")) {
+                    JSONObject manifest = new JSONObject(Gdx.files.external("S.A.U.W./Mods").child(modsArray.getJSONObject(i).getString("Mod")).child("manifest.json").readString());
+                    if (manifest.getInt("mod_format") == MOD_FORMAT)
+                        names.add(modsArray.getJSONObject(i).getString("Mod"));
+                    else
+                        Gdx.app.log("Mods_Loader", "mod \"" + modsArray.getJSONObject(i).getString("Mod") + "\" is not supported");
+                }
             }
+
+            Gdx.app.log("Mods_Loader", "Mods count " + names.size());
 
             mods = new Mod[names.size()];
             for (int i = 0; i < names.size(); i++) {
@@ -31,12 +41,16 @@ public class Mods {
             }
 
         } catch (Exception e) {
-            Gdx.app.log("Mod_API_Error", e.toString());
+            Gdx.app.log("Mods_Loader_error", e.toString());
         } finally {
             Context.exit();
         }
 
         new ModTick().start();
+    }
+
+    public static void disposeResources() {
+        for (Mod mod : mods) mod.modResources.dispose();
     }
 
     public void hookFunction(String functionName, Object[] args) {

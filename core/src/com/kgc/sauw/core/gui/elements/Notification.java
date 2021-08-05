@@ -1,86 +1,50 @@
 package com.kgc.sauw.core.gui.elements;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.game.skins.Skins;
 
 public class Notification extends InterfaceElement {
-    /*private Texture background;
-    private BitmapFont BF;
-    public float timer = 0;
-    private int time = 0;
-    private String title = "";
-    private String txt = "";
-    private Texture img;
-    private BitmapFont.TextBounds TB;
-    private boolean hideOnClick = false;
+    private final Text title;
+    private final Text text;
 
-    public Notification(Texture background) {
-        this.background = background;
-        BF = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-        hide(true);
+    public Notification() {
+        title = new Text();
+        text = new Text();
+        setTitle("fdfd");
+        setText("ffddfdfd");
     }
 
-    public void show(int x, int y, int w, int h, String title, String txt, int timeS) {
-        hide(false);
-        setPosition(x, y);
-        setSize(w, h);
-        this.img = null;
-        this.title = title;
-        this.txt = txt;
-        this.time = timeS;
-    }
-
-    public void show(int x, int y, int w, int h, String title, String txt, Texture img, int timeS) {
-
-        hide(false);
-        setPosition(x, y);
-        setSize(w, h);
-        TB = BF.getBounds(txt);
-        int t = h / 8;
-        int tW = w - h - t;
-        BF.setScale(tW / TB.width);
-        BF.setColor(Color.BLACK);
-        this.title = title;
-        this.txt = txt;
-        this.img = img;
-        this.time = timeS;
+    private void setTextPosition() {
+        title.attachTo(this, Sides.TOP, Sides.TOP);
+        text.attachTo(title, Sides.TOP, Sides.TOP);
     }
 
     @Override
-    public void tick(Camera2D cam) {
-        timer += Gdx.graphics.getRawDeltaTime();
-        if (timer >= time) {
-            timer = 0;
-            hide(true);
-        }
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
+        setTextPosition();
     }
 
     @Override
-    public void onClick(boolean onButton) {
-        super.onClick(onButton);
-        if (hideOnClick) {
-            hide(true);
-            timer = 0;
-        }
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        setTextPosition();
     }
 
-    public void hideOnClick(boolean b) {
-        this.hideOnClick = b;
+    public void setTitle(String text) {
+        title.setText(text);
     }
 
-    public void renderTick(SpriteBatch b, Camera2D cam) {
-        b.draw(background, cam.X + X, cam.Y + Y, width, height);
-        if (img != null) {
-            float t = height / 8;
-            b.draw(img, cam.X + X + t, cam.Y + Y + t, height - t * 2, height - t * 2);
-            BF.setColor(Color.BLUE);
-            BF.draw(b, title, X + cam.X + height, Y + height - BF.getBounds(title).height);
-            BF.setColor(Color.BLACK);
-            BF.drawMultiLine(b, txt, X + cam.X + height, Y + height - BF.getBounds(title).height - BF.getBounds(txt).height);
-        } else {
-            BF.setColor(Color.BLUE);
-            BF.drawMultiLine(b, title, X + cam.X + height / 32, Y + height + cam.Y - height / 32, width - height / 16, BitmapFont.HAlignment.CENTER);
-            BF.setColor(Color.BLACK);
-            BF.drawWrapped(b, txt, X + cam.X + height / 32, Y + height + cam.Y - height / 8, width - height / 16);
-        }
-    }*/
+    public void setText(String text) {
+        this.text.setText(text);
+    }
+
+    @Override
+    protected void renderTick(SpriteBatch batch, Camera2D cam) {
+        Skins.round_down.draw(x, y, width, height);
+        title.render(batch, cam);
+        text.render(batch, cam);
+    }
 }

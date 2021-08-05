@@ -4,25 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.kgc.sauw.AchievementsChecker;
-import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.core.WorldLoader;
+import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Elements;
-import com.kgc.sauw.core.map.World;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
+import com.kgc.sauw.core.render.WorldRenderer;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.GameCameraController;
+import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.mods.Mods;
 import com.kgc.sauw.resource.Music;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
+import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.core.map.World.WORLD;
 import static com.kgc.sauw.game.environment.Environment.BLOCKS;
-import static com.kgc.sauw.gui.Interfaces.HUD;
-import static com.kgc.sauw.gui.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.game.environment.Environment.ITEMS;
+import static com.kgc.sauw.game.gui.Interfaces.HUD;
+import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
 import static com.kgc.sauw.resource.Files.loadPlayerData;
 
 public class SAUW implements Screen {
@@ -46,17 +49,22 @@ public class SAUW implements Screen {
 
         loadPlayerData();
 
+        setWorld(new MysticalVoidWorld());
+
+        Environment.setSaveName(worldName);
+
         if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
-            WORLD.createNewWorld();
+            getWorld().createNewWorld();
             PLAYER.randomSpawn();
-            WorldLoader.save(worldName);
+            Environment.save();
         } else {
-            WorldLoader.load(worldName);
+            Environment.load();
         }
         MODS.load();
 
         new UpdateTick().start();
         isGameRunning = true;
+
     }
 
 
@@ -78,17 +86,14 @@ public class SAUW implements Screen {
 
         BATCH.begin();
         if (isAnyInterfaceOpen()) BATCH.setColor(0.5f, 0.5f, 0.5f, 1);
-        WORLD.renderLowLayer();
-        WORLD.renderHighLayer();
-        WORLD.renderEntities();
-        WORLD.renderLights();
+        WorldRenderer.render(getWorld());
         Particles.render();
         if (isAnyInterfaceOpen()) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
         if (Settings.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         HUD.render(Settings.debugMode);
-        WORLD.update();
+        getWorld().update();
         AchievementsChecker.update();
 
         BATCH.end();
@@ -97,7 +102,8 @@ public class SAUW implements Screen {
     @Override
     public void dispose() {
         BATCH.dispose();
-        TEXTURES.dispose();
+        Resource.dispose();
+        Mods.disposeResources();
         music.dispose();
         Elements.dispose();
     }
@@ -129,10 +135,11 @@ public class SAUW implements Screen {
         @Override
         public void run() {
             super.run();
-            World.MAPS.update();
+            getWorld().map.update();
+            ITEMS.tick();
             try {
                 sleep(50);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
             new UpdateTick().start();
         }

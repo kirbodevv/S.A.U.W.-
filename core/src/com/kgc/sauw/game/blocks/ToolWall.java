@@ -2,20 +2,20 @@ package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.map.Tile;
+import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.gui.Interfaces.TOOL_WALL_INTERFACE;
+import static com.kgc.sauw.game.gui.Interfaces.TOOL_WALL_INTERFACE;
 
 public class ToolWall extends Block {
     TextureRegion[][] instrumentsTextures;
 
     public ToolWall() {
-        super(ID.registeredId("block:tool_wall"), TEXTURES.toolWall);
+        super(ID.registeredId("block:tool_wall"), Resource.getTexture("Blocks/tool_wall.png"));
 
-        instrumentsTextures = TextureRegion.split(TEXTURES.toolWallInstruments, TEXTURES.toolWallInstruments.getWidth() / 4, TEXTURES.toolWallInstruments.getHeight());
+        instrumentsTextures = TextureRegion.split(Resource.getTexture("Blocks/tool_wall_instruments.png"), Resource.getTexture("Blocks/tool_wall_instruments.png").getWidth() / 4, Resource.getTexture("Blocks/tool_wall_instruments.png").getHeight());
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(2, 0, 30, 7, 32);

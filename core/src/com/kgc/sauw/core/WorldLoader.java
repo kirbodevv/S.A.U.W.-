@@ -4,16 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
-import com.kgc.sauw.core.map.Maps;
-import com.kgc.sauw.core.map.Tile;
+import com.kgc.sauw.core.world.Map;
+import com.kgc.sauw.core.world.Tile;
 
 import java.util.Date;
 import java.util.List;
 
 import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.map.World.MAPS;
-import static com.kgc.sauw.core.map.World.WORLD;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
 
 public class WorldLoader {
 
@@ -36,7 +35,6 @@ public class WorldLoader {
     }
 
     public static void save(String WorldName) {
-        WORLD.setWorldName(WorldName);
         FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds/" + WorldName);
 
         if (!worldFolder.exists()) worldFolder.mkdirs();
@@ -58,21 +56,20 @@ public class WorldLoader {
             //Сохранение игрока
             playerBuffer.put("player", PLAYER);
             //Сохранение данных мира
-            worldDataBuffer.put("time", WORLD.WorldTime.getTime());
+            worldDataBuffer.put("time", getWorld().worldTime.getTime());
             Date date = new Date();
             worldDataBuffer.put("saveTime", date.getTime());
 
             playerFile.writeBytes(playerBuffer.toBytes(), false);
             entitiesFile.writeBytes(ENTITY_MANAGER.getBytes(), false);
             worldData.writeBytes(worldDataBuffer.toBytes(), false);
-            mapFile.writeBytes(MAPS.toDataBuffer().toBytes(), false);
+            mapFile.writeBytes(getWorld().map.toDataBuffer().toBytes(), false);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void load(String WorldName) {
-        WORLD.setWorldName(WorldName);
         FileHandle worldFolder = Gdx.files.external("/S.A.U.W./Worlds/" + WorldName);
         if (worldFolder.exists()) {
             FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map.bdb");
@@ -90,20 +87,20 @@ public class WorldLoader {
                     tileEntities = buffer.getExtraDataList("tileEntities", TEF);
                 }
                 int i = 0;
-                for (int x = 0; x < Maps.xSize; x++) {
-                    for (int y = 0; y < Maps.ySize; y++) {
-                        for (int z = 0; z < Maps.zSize; z++) {
+                for (int x = 0; x < Map.xSize; x++) {
+                    for (int y = 0; y < Map.ySize; y++) {
+                        for (int z = 0; z < Map.zSize; z++) {
                             if (buffer.getInt("tileEnCount") > 0) {
                                 for (ExtraData tileEntity : tileEntities) {
                                     Tile tile = (Tile) tileEntity;
                                     if (x == tile.x && y == tile.y && z == tile.z) {
-                                        WORLD.setBlock(tile);
+                                        getWorld().map.setBlock(tile);
                                     }
                                 }
                             }
-                            if (MAPS.getTile(x, y, z) == null)
-                                WORLD.setBlock(x, y, z, map[i]);
-                            MAPS.getTile(x, y, z).damage = mapDmg[i];
+                            if (getWorld().map.getTile(x, y, z) == null)
+                                getWorld().map.setBlock(x, y, z, map[i]);
+                            getWorld().map.getTile(x, y, z).damage = mapDmg[i];
                             i++;
                         }
                     }
@@ -114,7 +111,7 @@ public class WorldLoader {
                 byte[] mobsBytes = entitiesFile.readBytes();
                 if (ENTITY_MANAGER != null) ENTITY_MANAGER.readBytes(mobsBytes, 0, mobsBytes.length);
                 buffer.readBytes(worldData.readBytes());
-                if (WORLD.WorldTime != null) WORLD.WorldTime.setTime(buffer.getInt("time"));
+                if (getWorld().worldTime != null) getWorld().worldTime.setTime(buffer.getInt("time"));
             }
         }
     }

@@ -2,12 +2,12 @@ package com.kgc.sauw.core.particle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
 
 import java.util.HashMap;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 
 public class Particles {
     public static class Particle {
@@ -50,9 +50,9 @@ public class Particles {
         FlyingParticle flameParticle = new FlyingParticle();
         RandomFlyingParticle smokeParticle = new RandomFlyingParticle();
 
-        flameParticle.setTexture(TEXTURES.flameParticle);
+        flameParticle.setTexture(Resource.getTexture("particle/flame.png"));
 
-        smokeParticle.setTextures(TEXTURES.smokeParticle_0, TEXTURES.smokeParticle_1);
+        smokeParticle.setTextures(Resource.getTexture("particle/smoke.png"), Resource.getTexture("particle/smoke_1.png"));
         smokeParticle.setWidth(0.75f);
         smokeParticle.setHeight(0.75f);
 

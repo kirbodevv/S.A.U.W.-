@@ -1,9 +1,9 @@
 package com.kgc.sauw.core.input;
 
 import com.badlogic.gdx.controllers.Controller;
-import com.kgc.sauw.gui.Interfaces;
+import com.kgc.sauw.game.gui.Interfaces;
 
-import static com.kgc.sauw.gui.Interfaces.*;
+import static com.kgc.sauw.game.gui.Interfaces.*;
 
 public class ControllerListener implements com.badlogic.gdx.controllers.ControllerListener {
 

@@ -3,6 +3,7 @@ package com.kgc.sauw.core.gui.elements;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.Container;
@@ -11,15 +12,17 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.skins.Skins;
+import com.kgc.sauw.game.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Slot extends InterfaceElement {
     public int id, count, data;
+
     public ElementSkin slot;
-    private Texture icon;
+
+    private TextureRegion iconRegion;
 
     public boolean isInventorySlot = false;
     public int inventorySlot;
@@ -66,9 +69,9 @@ public class Slot extends InterfaceElement {
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         slot.draw(cam.X + x, cam.Y + y, width, height);
-        if (icon != null && id == 0) {
+        if (iconRegion != null && id == 0) {
             batch.setColor(0, 0, 0, 1);
-            batch.draw(icon, cam.X + x, cam.Y + y, width, height);
+            batch.draw(iconRegion, cam.X + x, cam.Y + y, width, height);
             batch.setColor(1, 1, 1, 1);
         }
         if (id != 0 && ITEMS.getItemById(id).getItemConfiguration().maxDamage != 0 &&
@@ -108,23 +111,23 @@ public class Slot extends InterfaceElement {
 
     public void itemRender(Container container) {
         if (id != 0) {
-            if (container == null)
-                BATCH.draw(ITEMS.getItemById(id).getDefaultTexture(), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
-            else
-                BATCH.draw(ITEMS.getItemById(id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
-
+            BATCH.draw(ITEMS.getItemById(id).getTextureRegion(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
             BITMAP_FONT.getData().setScale((width / 3f) / BITMAP_FONT_CAP_HEIGHT);
             GLYPH_LAYOUT.setText(BITMAP_FONT, count + "");
             BITMAP_FONT.draw(BATCH, count + "", itemX, itemY + GLYPH_LAYOUT.height + width / 32f, width, Align.right, false);
         }
     }
 
+    public void setIcon(TextureRegion icon) {
+        this.iconRegion = icon;
+    }
+
     public void setIcon(Texture icon) {
-        this.icon = icon;
+        this.iconRegion = new TextureRegion(icon);
     }
 
     public void setIconFromItem(String id) {
-        setIcon(ITEMS.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getDefaultTexture());
+        setIcon(ITEMS.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getTextureRegion(null));
     }
 
     public static abstract class SlotFunctions {

@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.skins.Skins;
+import com.kgc.sauw.game.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 

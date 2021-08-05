@@ -36,6 +36,6 @@ public class Drop extends Entity {
     @Override
     public void render() {
         if ((int) getExtraData("itemId") != -1)
-            BATCH.draw(ITEMS.getItemById((int) getExtraData("itemId")).getDefaultTexture(), getPosition().x, getPosition().y, entityBodyW, entityBodyH);
+            BATCH.draw(ITEMS.getItemById((int) getExtraData("itemId")).getTextureRegion(null), getPosition().x, getPosition().y, entityBodyW, entityBodyH);
     }
 }

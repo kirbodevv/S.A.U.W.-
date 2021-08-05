@@ -3,8 +3,8 @@ package com.kgc.sauw.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.config.Settings;
-import com.kgc.sauw.gui.screen.MenuScreen;
+import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.game.gui.screen.MenuScreen;
 import org.json.JSONObject;
 
 import java.io.IOException;

@@ -8,14 +8,14 @@ import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.map.Maps;
+import com.kgc.sauw.core.world.Map;
 import com.kgc.sauw.core.utils.ExtraData;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.game.environment.Environment.BLOCKS;
-import static com.kgc.sauw.core.map.World.MAPS;
 
 public class Entity {
     private int id;
@@ -77,8 +77,8 @@ public class Entity {
 
     public void randomSpawn() {
         Random r = new Random();
-        int x = r.nextInt(Maps.xSize - 2) + 1;
-        int y = r.nextInt(Maps.ySize - 2) + 1;
+        int x = r.nextInt(Map.xSize - 2) + 1;
+        int y = r.nextInt(Map.ySize - 2) + 1;
         spawn(x, y);
 
     }
@@ -88,7 +88,7 @@ public class Entity {
     }
 
     public Block stayingOn() {
-        return BLOCKS.getBlockById(MAPS.getTile(currentTileX, currentTileY, 1).id);
+        return BLOCKS.getBlockById(getWorld().map.getTile(currentTileX, currentTileY, 1).id);
     }
 
     private void updatePosition() {

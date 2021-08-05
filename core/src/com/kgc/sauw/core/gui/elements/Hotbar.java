@@ -1,7 +1,9 @@
 package com.kgc.sauw.core.gui.elements;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.Camera2D;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -12,6 +14,9 @@ public class Hotbar extends InterfaceElement {
 
     private final Layout slotsLayout;
     private final Slot[] slots = new Slot[8];
+
+    private final Texture inv_texture = Resource.getTexture("Interface/inventory.png");
+    private final Texture selected_slot_texture = Resource.getTexture("Interface/selected_slot.png");
 
     public Hotbar() {
         setSizeInBlocks(8f, 1f);
@@ -78,8 +83,8 @@ public class Hotbar extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        BATCH.draw(TEXTURES.inventory, x + INTERFACE_CAMERA.X, y + INTERFACE_CAMERA.Y, BLOCK_SIZE * 8, BLOCK_SIZE);
-        BATCH.draw(TEXTURES.selected_slot, x + INTERFACE_CAMERA.X + (touchedSlot * BLOCK_SIZE), y + INTERFACE_CAMERA.Y, BLOCK_SIZE, BLOCK_SIZE);
+        BATCH.draw(inv_texture, x + INTERFACE_CAMERA.X, y + INTERFACE_CAMERA.Y, BLOCK_SIZE * 8, BLOCK_SIZE);
+        BATCH.draw(selected_slot_texture, x + INTERFACE_CAMERA.X + (touchedSlot * BLOCK_SIZE), y + INTERFACE_CAMERA.Y, BLOCK_SIZE, BLOCK_SIZE);
         BATCH.setColor(1f, 1f, 1f, 1f);
         for (int i = 0; i < 8; i++) {
             if (PLAYER.hotbar[i] != -1)

@@ -1,19 +1,18 @@
 package com.kgc.sauw.game.items;
 
 import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
-
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class Planks extends Item {
 
     public Planks() {
         super(ID.registeredId("item:planks"));
 
-        setTexture(TEXTURES.planks);
+        setTexture(Resource.getTexture("Items/planks.png"));
 
-        itemConfiguration.name = LANGUAGES.getString("planks");
+        itemConfiguration.name = Languages.getString("planks");
         itemConfiguration.weight = 0.55f;
     }
 }

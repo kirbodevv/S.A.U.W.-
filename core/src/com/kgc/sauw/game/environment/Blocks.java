@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.game.blocks.*;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Blocks {
@@ -18,7 +18,7 @@ public class Blocks {
 
     public Blocks() {
         createBlock(ID.registeredId("block:air_block", 4), (Texture) null);
-        createBlock(ID.registeredId("block:barrier", 14), TEXTURES.undef);
+        createBlock(ID.registeredId("block:barrier", 14), Resource.getTexture("Blocks/undefined.png"));
 
         addBlock(new Grass());
         addBlock(new Stone());
@@ -40,7 +40,7 @@ public class Blocks {
     }
 
     public Item getItemByBlockId(int id) {
-        for (Item item : ITEMS.ITEMS) {
+        for (Item item : ITEMS.items) {
             if (item.getItemConfiguration().type == Items.Type.BLOCK_ITEM && item.getItemConfiguration().blockId == id) {
                 return item;
             }

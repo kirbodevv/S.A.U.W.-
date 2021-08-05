@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.utils;
 
-import com.kgc.sauw.core.map.Maps;
+import com.kgc.sauw.core.world.Map;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
@@ -30,9 +30,9 @@ public class GameCameraController {
         camY = (PLAYER.getPosition().y + (PLAYER.getSize().y / 2) - (GAME_CAMERA.H / 2f));
         if (camX < 1) camX = 1;
         if (camY < 1) camY = 1;
-        if (camX + GAME_CAMERA.W > Maps.xSize - 1)
-            camX = Maps.xSize - 1 - GAME_CAMERA.W;
-        if (camY + GAME_CAMERA.H > Maps.ySize - 1)
-            camY = Maps.ySize - 1 - GAME_CAMERA.H;
+        if (camX + GAME_CAMERA.W > Map.xSize - 1)
+            camX = Map.xSize - 1 - GAME_CAMERA.W;
+        if (camY + GAME_CAMERA.H > Map.ySize - 1)
+            camY = Map.ySize - 1 - GAME_CAMERA.H;
     }
 }

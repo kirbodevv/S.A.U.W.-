@@ -1,8 +1,8 @@
 package com.kgc.sauw.resource;
 
-import com.badlogic.gdx.Gdx;
+import com.kgc.sauw.core.resource.Resource;
 
-import static com.kgc.sauw.core.map.World.WORLD;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
 
 public class Music {
 
@@ -19,8 +19,8 @@ public class Music {
     }
 
     public Music() {
-        main = Gdx.audio.newMusic(Gdx.files.internal("music/main.mp3"));
-        nightSoundtrack = Gdx.audio.newMusic(Gdx.files.internal("music/Sunset.mp3"));
+        main = Resource.getMusic("music/main.mp3");
+        nightSoundtrack = Resource.getMusic("music/Sunset.mp3");
 
         main.setLooping(true);
     }
@@ -38,7 +38,7 @@ public class Music {
         } else {
             if (main.isPlaying())
                 main.stop();
-            if (WORLD.WorldTime.getHours() > 19 || WORLD.WorldTime.getHours() < 7) {
+            if (getWorld().worldTime.getHours() > 19 || getWorld().worldTime.getHours() < 7) {
                 if (!nightSoundtrack.isPlaying())
                     nightSoundtrack.play();
             } else {

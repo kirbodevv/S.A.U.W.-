@@ -4,12 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.map.Tile;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.game.items.InstrumentItem;
 
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
 import static com.kgc.sauw.game.environment.Environment.ITEMS;
-import static com.kgc.sauw.gui.Interfaces.FURNACE_INTERFACE;
+import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 
 public class Furnace extends Block {
     private final Animator animator = new Animator();
@@ -22,15 +23,15 @@ public class Furnace extends Block {
     };
 
     public Furnace() {
-        super(ID.registeredId("block:furnace", 11), TEXTURES.furnace);
+        super(ID.registeredId("block:furnace", 11), Resource.getTexture("Blocks/furnace.png"));
 
         blockConfiguration.setTransparent(true);
-        blockConfiguration.setInstrumentType(1);
-        blockConfiguration.setLightingRadius(2);
+        blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
+        blockConfiguration.setMinLightingRadius(2);
         blockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
         blockConfiguration.setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
 
-        animator.addAnimationRegion("animation_region:furnace", TEXTURES.furnace, 4, 1);
+        animator.addAnimationRegion("animation_region:furnace", Resource.getTexture("Blocks/furnace.png"), 4, 1);
         animator.addAnimation("animation:furnace", "animation_region:furnace", 0.2f, 1, 2, 3);
 
         GUI = FURNACE_INTERFACE;

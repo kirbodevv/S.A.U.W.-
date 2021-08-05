@@ -1,12 +1,12 @@
 package com.kgc.sauw.core.utils;
 
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class StringUtils {
     public static String getString(String string) {
         String result = "";
         if (string.contains("%Language")) {
-            result = LANGUAGES.getString(string.substring(10));
+            result = Languages.getString(string.substring(10));
         } else {
             result = string;
         }

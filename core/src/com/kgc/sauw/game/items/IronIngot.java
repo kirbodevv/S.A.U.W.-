@@ -1,18 +1,17 @@
 package com.kgc.sauw.game.items;
 
 import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
-
-import static com.kgc.sauw.core.graphic.Graphic.TEXTURES;
-import static com.kgc.sauw.core.utils.Languages.LANGUAGES;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class IronIngot extends Item {
     public IronIngot() {
         super(ID.registeredId("item:iron_ingot"));
 
-        setTexture(TEXTURES.iron_ingot);
+        setTexture(Resource.getTexture("Items/iron_ingot.png"));
 
-        itemConfiguration.name = LANGUAGES.getString("iron_ingot");
+        itemConfiguration.name = Languages.getString("iron_ingot");
         itemConfiguration.weight = 1f;
 
     }

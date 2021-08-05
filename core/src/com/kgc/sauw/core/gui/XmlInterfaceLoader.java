@@ -81,7 +81,7 @@ public class XmlInterfaceLoader {
                     InterfaceElement = new EditText();
                     break;
                 case "Slider":
-                    InterfaceElement = new Slider(0, 0, 0, 0);
+                    InterfaceElement = new Slider();
                     break;
             }
             if (InterfaceElement != null) {

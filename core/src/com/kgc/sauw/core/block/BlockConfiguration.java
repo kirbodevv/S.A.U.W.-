@@ -3,15 +3,17 @@ package com.kgc.sauw.core.block;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.kgc.sauw.core.math.Vector2i;
+import com.kgc.sauw.game.items.InstrumentItem;
 
 public class BlockConfiguration {
     private boolean isTransparent;
     private int xSize;
     private int ySize;
     private int[][] drop;
-    private int InstrumentType;
+    private InstrumentItem.Type InstrumentType;
     private final Rectangle collisionsRectangle;
-    private int lightingRadius;
+    private int minLightingRadius;
+    private int maxLightingRadius;
     private Color lightingColor;
     private int maxDamage;
     private int BlockIdAfterDestroy;
@@ -19,8 +21,8 @@ public class BlockConfiguration {
     public BlockConfiguration() {
         setTransparent(false);
         setSize(1, 1);
-        setInstrumentType(-1);
-        setLightingRadius(-1);
+        setInstrumentType(InstrumentItem.Type.NULL);
+        setMinLightingRadius(-1);
         setMaxDamage(1);
         setBlockIdAfterDestroy(4);
         collisionsRectangle = new Rectangle(0, 0, 1, 1);
@@ -52,11 +54,11 @@ public class BlockConfiguration {
         return drop;
     }
 
-    public void setInstrumentType(int instrumentType) {
+    public void setInstrumentType(InstrumentItem.Type instrumentType) {
         InstrumentType = instrumentType;
     }
 
-    public int getInstrumentType() {
+    public InstrumentItem.Type getInstrumentType() {
         return InstrumentType;
     }
 
@@ -70,8 +72,12 @@ public class BlockConfiguration {
         return collisionsRectangle;
     }
 
-    public void setLightingRadius(int r) {
-        this.lightingRadius = r;
+    public void setMinLightingRadius(int r) {
+        this.minLightingRadius = r;
+    }
+
+    public void setMaxLightingRadius(int r) {
+        this.maxLightingRadius = r;
     }
 
     public void setLightingColor(Color color) {
@@ -94,8 +100,12 @@ public class BlockConfiguration {
         return BlockIdAfterDestroy;
     }
 
-    public int getLightingRadius() {
-        return lightingRadius;
+    public int getMinLightingRadius() {
+        return minLightingRadius;
+    }
+
+    public int getMaxLightingRadius() {
+        return maxLightingRadius;
     }
 
     public Color getLightingColor() {

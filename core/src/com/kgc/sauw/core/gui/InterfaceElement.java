@@ -33,7 +33,7 @@ public class InterfaceElement {
     public boolean wasUp;
 
     public InterfaceElement attachedTo;
-    protected Sides attachableSide, attachTo;
+    protected Sides attachableSide, attachedToSide;
 
     public float marginTop, marginBottom, marginLeft, marginRight;
     public float translationX = 0, translationY = 0;
@@ -114,20 +114,20 @@ public class InterfaceElement {
         this.marginBottom = margin;
     }
 
-    public void attachTo(InterfaceElement element, Sides attachableSide, Sides attachTo) {
+    public void attachTo(InterfaceElement element, Sides attachableSide, Sides attachedToSide) {
         this.attachedTo = element;
         this.attachableSide = attachableSide;
-        this.attachTo = attachTo;
-        Vector2 position = GravityAdapter.getPosition(this, element, attachableSide, attachTo);
+        this.attachedToSide = attachedToSide;
+        Vector2 position = GravityAdapter.getPosition(this, element, attachableSide, attachedToSide);
 
         setPosition(position.x, position.y);
-        if (attachTo == Sides.RIGHT || attachTo == Sides.RIGHT_BOTTOM || attachTo == Sides.RIGHT_TOP)
+        if (attachedToSide == Sides.RIGHT || attachedToSide == Sides.RIGHT_BOTTOM || attachedToSide == Sides.RIGHT_TOP)
             x += element.marginRight * BLOCK_SIZE;
-        if (attachTo == Sides.LEFT || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.LEFT_TOP)
+        if (attachedToSide == Sides.LEFT || attachedToSide == Sides.LEFT_BOTTOM || attachedToSide == Sides.LEFT_TOP)
             x -= element.marginLeft * BLOCK_SIZE;
-        if (attachTo == Sides.TOP || attachTo == Sides.LEFT_TOP || attachTo == Sides.RIGHT_TOP)
+        if (attachedToSide == Sides.TOP || attachedToSide == Sides.LEFT_TOP || attachedToSide == Sides.RIGHT_TOP)
             y += element.marginTop * BLOCK_SIZE;
-        if (attachTo == Sides.BOTTOM || attachTo == Sides.LEFT_BOTTOM || attachTo == Sides.RIGHT_BOTTOM)
+        if (attachedToSide == Sides.BOTTOM || attachedToSide == Sides.LEFT_BOTTOM || attachedToSide == Sides.RIGHT_BOTTOM)
             y -= element.marginBottom * BLOCK_SIZE;
         setPositionInBlocks(x / BLOCK_SIZE + translationX, y / BLOCK_SIZE + translationY);
     }

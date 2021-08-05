@@ -4,11 +4,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controllers;
-import com.kgc.sauw.config.Settings;
+import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.game.SAUW;
-import com.kgc.sauw.gui.Interfaces;
+import com.kgc.sauw.game.gui.Interfaces;
 
-import static com.kgc.sauw.gui.Interfaces.*;
+import static com.kgc.sauw.game.gui.Interfaces.*;
 
 
 public final class Input {

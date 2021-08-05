@@ -3,9 +3,11 @@ package com.kgc.sauw.core.utils.languages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.resource.Files;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Languages {
     public JSONObject langs;
@@ -14,7 +16,11 @@ public class Languages {
 
     static {
         try {
-            loadLanguage(Gdx.files.internal("lang/ru.language"), "ru");
+            Iterator<String> langCodes = Files.availableLanguages.keys();
+            while (langCodes.hasNext()){
+                String code = langCodes.next();
+                loadLanguage(Gdx.files.internal("lang/" + code + ".language"), code);
+            }
         } catch (Exception e) {
             Gdx.app.log("error", e.toString());
         }
@@ -25,7 +31,7 @@ public class Languages {
             return languages.get(Settings.lang).getString(key);
         } catch (Exception exception) {
             Gdx.app.log("LangError", "NotFoundString : \"" + key + "\"");
-            return null;
+            return "";
         }
 
     }

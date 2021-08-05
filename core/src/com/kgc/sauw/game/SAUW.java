@@ -21,12 +21,12 @@ import com.kgc.sauw.resource.Music;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.Environment.setWorld;
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
-import static com.kgc.sauw.resource.Files.loadPlayerData;
 
 public class SAUW implements Screen {
     public static boolean isGameRunning;
@@ -46,8 +46,6 @@ public class SAUW implements Screen {
         DR = new Box2DDebugRenderer();
 
         music.setMusicVolume(Settings.musicVolume);
-
-        loadPlayerData();
 
         setWorld(new MysticalVoidWorld());
 

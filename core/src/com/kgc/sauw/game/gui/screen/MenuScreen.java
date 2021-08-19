@@ -3,15 +3,18 @@ package com.kgc.sauw.game.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.WorldLoader;
-import com.kgc.sauw.core.gui.elements.*;
+import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.graphic.Graphic;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.elements.Text;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.sauw.game.MainGame;
-import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;
-import com.kgc.sauw.resource.Music;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
@@ -26,8 +29,6 @@ public class MenuScreen implements Screen {
     public int SAUW_coins;
 
     private final SelectWorldInterface selectWorldInterface;
-
-    private final Music music;
 
     public SettingsScreen SettingsScreen;
     public ModsScreen ModsScreen;
@@ -120,8 +121,6 @@ public class MenuScreen implements Screen {
 
         coinsLayout.addElements(coinIcon, coinsText);
         coinsLayout.setPositionInBlocks(0.25f, HEIGHT_IN_BLOCKS - 1f);
-
-        music = Music.getMusic();
     }
 
     @Override
@@ -131,8 +130,9 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        music.setMusicVolume(Settings.musicVolume);
-        music.update(true);
+        Music.setVolume(Settings.musicVolume);
+        Music.play("music/main.mp3");
+        Music.setLooping(true);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -153,7 +153,7 @@ public class MenuScreen implements Screen {
             mainLayout.render(BATCH, MENU_CAMERA);
         }
 
-        selectWorldInterface.update(false);
+        selectWorldInterface.update();
         selectWorldInterface.render();
 
         BATCH.end();

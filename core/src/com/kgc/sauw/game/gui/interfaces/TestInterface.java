@@ -52,6 +52,26 @@ public class TestInterface extends Interface {
     private ElementSkin testSkin;
 
     @Override
+    public void tick() {
+
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
+
+    @Override
     public void postRender() {
         testSkin.draw(100, 100, 400, 100);
     }

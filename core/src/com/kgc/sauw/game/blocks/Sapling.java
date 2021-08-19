@@ -24,8 +24,12 @@ public class Sapling extends Block {
     }
 
     @Override
-    public void onPlace(Tile tile) {
+    public void setDefaultExtraData(Tile tile) {
         tile.setExtraData("age", 0);
+    }
+
+    @Override
+    public void onPlace(Tile tile) {
         tile.t = saplingTextures[0][0];
     }
 

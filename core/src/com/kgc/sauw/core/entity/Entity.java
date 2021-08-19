@@ -7,15 +7,15 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.world.Map;
 import com.kgc.sauw.core.utils.ExtraData;
+import com.kgc.sauw.core.world.Map;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 
 public class Entity {
     private int id;
@@ -88,7 +88,7 @@ public class Entity {
     }
 
     public Block stayingOn() {
-        return BLOCKS.getBlockById(getWorld().map.getTile(currentTileX, currentTileY, 1).id);
+        return Blocks.getBlockById(getWorld().map.getTile(currentTileX, currentTileY, 1).id);
     }
 
     private void updatePosition() {

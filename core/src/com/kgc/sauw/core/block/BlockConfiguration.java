@@ -10,13 +10,14 @@ public class BlockConfiguration {
     private int xSize;
     private int ySize;
     private int[][] drop;
-    private InstrumentItem.Type InstrumentType;
+    private InstrumentItem.Type instrumentType;
     private final Rectangle collisionsRectangle;
     private int minLightingRadius;
     private int maxLightingRadius;
     private Color lightingColor;
     private int maxDamage;
-    private int BlockIdAfterDestroy;
+    private int blockIdAfterDestroy;
+    private boolean collisions = true;
 
     public BlockConfiguration() {
         setTransparent(false);
@@ -55,17 +56,17 @@ public class BlockConfiguration {
     }
 
     public void setInstrumentType(InstrumentItem.Type instrumentType) {
-        InstrumentType = instrumentType;
+        this.instrumentType = instrumentType;
     }
 
     public InstrumentItem.Type getInstrumentType() {
-        return InstrumentType;
+        return instrumentType;
     }
 
     public void setCollisionsRectangleByPixels(float x, float y, float w, float h, int TextureW) {
         float sc = 1f / TextureW;
-        collisionsRectangle.setPosition(sc * x,  sc * y);
-        collisionsRectangle.setSize(sc * w,  sc * h);
+        collisionsRectangle.setPosition(sc * x, sc * y);
+        collisionsRectangle.setSize(sc * w, sc * h);
     }
 
     public Rectangle getCollisionsRectangle() {
@@ -93,11 +94,11 @@ public class BlockConfiguration {
     }
 
     public void setBlockIdAfterDestroy(int blockIdAfterDestroy) {
-        BlockIdAfterDestroy = blockIdAfterDestroy;
+        this.blockIdAfterDestroy = blockIdAfterDestroy;
     }
 
     public int getBlockIdAfterDestroy() {
-        return BlockIdAfterDestroy;
+        return blockIdAfterDestroy;
     }
 
     public int getMinLightingRadius() {
@@ -110,5 +111,13 @@ public class BlockConfiguration {
 
     public Color getLightingColor() {
         return lightingColor;
+    }
+
+    public void setCollisions(boolean collisions) {
+        this.collisions = collisions;
+    }
+
+    public boolean getCollisions() {
+        return collisions;
     }
 }

@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.graphic.Animator;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.game.items.InstrumentItem;
 
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 
 public class Furnace extends Block {
@@ -38,10 +38,14 @@ public class Furnace extends Block {
     }
 
     @Override
-    public void onPlace(Tile tile) {
+    public void setDefaultExtraData(Tile tile) {
         tile.setExtraData("progress", 0);
         tile.setExtraData("fuel", 0);
         tile.setExtraData("curRecId", 0);
+    }
+
+    @Override
+    public void onPlace(Tile tile) {
         tile.t = animator.getFrames("animation_region:furnace")[0];
     }
 
@@ -62,7 +66,7 @@ public class Furnace extends Block {
             if ((int) (tile.getExtraData("progress")) <= 0) {
                 for (String[] recipe : recipes) {
                     Container ingCon = tile.getContainer("IngSlot");
-                    if (ingCon.getId() == com.kgc.sauw.core.utils.ID.get(recipe[0]) && (tile.getContainer("ResultSlot").getId() == com.kgc.sauw.core.utils.ID.get(recipe[1]) || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < ITEMS.getItemById(com.kgc.sauw.core.utils.ID.get(recipe[1])).getItemConfiguration().maxCount) {
+                    if (ingCon.getId() == com.kgc.sauw.core.utils.ID.get(recipe[0]) && (tile.getContainer("ResultSlot").getId() == com.kgc.sauw.core.utils.ID.get(recipe[1]) || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < Items.getItemById(com.kgc.sauw.core.utils.ID.get(recipe[1])).getItemConfiguration().maxCount) {
                         tile.setExtraData("progress", 100);
                         tile.setExtraData("curRecId", com.kgc.sauw.core.utils.ID.get(recipe[1]));
                     }

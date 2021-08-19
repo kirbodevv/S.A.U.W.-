@@ -1,12 +1,15 @@
 package com.kgc.sauw.game.gui.interfaces.blockInterfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.world.Tile;
 
-public class FurnaceInterface extends Interface {
+public class FurnaceInterface extends BlockInterface {
 
 
     public FurnaceInterface() {
@@ -16,7 +19,7 @@ public class FurnaceInterface extends Interface {
         Slot resultSlot = (Slot) getElement("ResultSlot");
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
-            public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+            public boolean isValid(Container container, String FromSlotWithId) {
                 return false;
             }
 
@@ -29,10 +32,50 @@ public class FurnaceInterface extends Interface {
             public boolean possibleToDrag() {
                 return true;
             }
+
+            @Override
+            public void onItemSwapping(Container fromContainer) {
+
+            }
         });
 
         ((Image) getElement("ArrowIcon")).setImg(Resource.getTexture("Interface/button_right_0.png"));
 
         updateElementsList();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+    }
+
+    @Override
+    public void tick(Tile tile) {
+
+    }
+
+    @Override
+    public void onOpen(Tile tile) {
+
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
+
+    @Override
+    public void postRender() {
+
     }
 }

@@ -2,6 +2,7 @@ package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.Camera2D;
@@ -31,7 +32,7 @@ public class Hotbar extends InterfaceElement {
             final int finalI = i;
             slot.setSF(new Slot.SlotFunctions() {
                 @Override
-                public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+                public boolean isValid(Container container, String FromSlotWithId) {
                     return false;
                 }
 
@@ -44,6 +45,11 @@ public class Hotbar extends InterfaceElement {
                 @Override
                 public boolean possibleToDrag() {
                     return false;
+                }
+
+                @Override
+                public void onItemSwapping(Container fromContainer) {
+
                 }
             });
             slots[i] = slot;
@@ -60,10 +66,8 @@ public class Hotbar extends InterfaceElement {
     @Override
     public void tick(Camera2D cam) {
         for (int i = 0; i < 8; i++) {
-            slots[i].id = 0;
             if (PLAYER.hotbar[i] != -1 && PLAYER.getItemFromHotbar(i).id != 0) {
-                slots[i].id = PLAYER.getItemFromHotbar(i).id;
-                slots[i].count = PLAYER.inventory.containers.get(PLAYER.hotbar[i]).count;
+                slots[i].setContainer(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
             }
         }
         slotsLayout.update(cam);
@@ -88,7 +92,7 @@ public class Hotbar extends InterfaceElement {
         BATCH.setColor(1f, 1f, 1f, 1f);
         for (int i = 0; i < 8; i++) {
             if (PLAYER.hotbar[i] != -1)
-                slots[i].itemRender(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
+                slots[i].itemRender();
         }
         BATCH.setColor(1f, 1f, 1f, 0.7f);
     }

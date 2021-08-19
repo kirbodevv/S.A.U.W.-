@@ -2,11 +2,7 @@ package com.kgc.sauw.core;
 
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
-
-import java.awt.*;
-import java.util.ArrayList;
-
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
+import com.kgc.sauw.core.item.Items;
 
 public class Container implements ExtraData {
     @Override
@@ -28,11 +24,8 @@ public class Container implements ExtraData {
     }
 
     public int id, count, damage;
-    public String ID;
-
-    public DisplayParameters DisplayParameters = new DisplayParameters();
-
-    public final ArrayList<com.kgc.sauw.core.utils.ExtraData> ExtraData = new ArrayList<>();
+    public DataBuffer bdbData;
+    public String containerId;
 
     public void clear() {
         this.id = 0;
@@ -40,23 +33,31 @@ public class Container implements ExtraData {
         this.damage = 0;
     }
 
-    public Container(String ID) {
+    public Container(String containerId) {
         clear();
-        this.ID = ID;
+        this.containerId = containerId;
     }
 
     public Container() {
         clear();
     }
 
+    public Container(Container container) {
+        setItemFromContainer(container);
+    }
+
     public void setItem(int id, int count, int damage) {
         this.id = id;
         this.count = count;
         this.damage = damage;
-        if (count <= 0 || (ITEMS.getItemById(id).getItemConfiguration().maxDamage != 0 &&
-                damage >= ITEMS.getItemById(id).getItemConfiguration().maxDamage)) {
+        if (count <= 0 || (Items.getItemById(id).getItemConfiguration().maxDamage != 0 &&
+                damage >= Items.getItemById(id).getItemConfiguration().maxDamage)) {
             clear();
         }
+    }
+
+    public void setItemFromContainer(Container container) {
+        setItem(container.id, container.count, container.damage);
     }
 
     public int getId() {
@@ -71,8 +72,12 @@ public class Container implements ExtraData {
         return damage;
     }
 
-    public static class DisplayParameters {
-        public String name;
-        public Color nameColor;
+    public DataBuffer getBdbData() {
+        if (bdbData == null) bdbData = new DataBuffer();
+        return bdbData;
+    }
+
+    public boolean hasBdbData() {
+        return bdbData != null;
     }
 }

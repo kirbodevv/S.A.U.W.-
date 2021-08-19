@@ -4,27 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Elements;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.render.WorldRenderer;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.mods.Mods;
-import com.kgc.sauw.resource.Music;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
 
@@ -37,15 +37,15 @@ public class SAUW implements Screen {
         isGameRunning = false;
     }
 
-    Music music;
-
     Box2DDebugRenderer DR;
 
     public SAUW(String worldName) {
-        this.music = Music.getMusic();
         DR = new Box2DDebugRenderer();
 
-        music.setMusicVolume(Settings.musicVolume);
+        Items.addItemsArray(new com.kgc.sauw.game.environment.Items());
+        Blocks.addBlocksArray(new com.kgc.sauw.game.environment.Blocks());
+
+        Music.setVolume(Settings.musicVolume);
 
         setWorld(new MysticalVoidWorld());
 
@@ -62,7 +62,6 @@ public class SAUW implements Screen {
 
         new UpdateTick().start();
         isGameRunning = true;
-
     }
 
 
@@ -74,10 +73,9 @@ public class SAUW implements Screen {
         Physic.update();
         Animator.update();
 
-        music.setMusicVolume(Settings.musicVolume);
-        music.update(false);
+        Music.setVolume(Settings.musicVolume);
 
-        BLOCKS.animationTick();
+        Blocks.animationTick();
         HUD.update();
 
         GameCameraController.update();
@@ -102,7 +100,6 @@ public class SAUW implements Screen {
         BATCH.dispose();
         Resource.dispose();
         Mods.disposeResources();
-        music.dispose();
         Elements.dispose();
     }
 
@@ -134,7 +131,7 @@ public class SAUW implements Screen {
         public void run() {
             super.run();
             getWorld().map.update();
-            ITEMS.tick();
+            Items.tick();
             try {
                 sleep(50);
             } catch (Exception ignored) {

@@ -93,15 +93,30 @@ public class SelectWorldInterface extends Interface {
     }
 
     @Override
-    public void update(boolean isGameInterface) {
-        if (!createWorldInterface.isOpen) super.update(isGameInterface);
-        createWorldInterface.update(false);
+    public void update() {
+        if (!createWorldInterface.isOpen) super.update();
+        createWorldInterface.update();
     }
 
     @Override
     public void tick() {
         hideButtonsIfNeed();
         setSelectButtonsText();
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
     }
 
     @Override

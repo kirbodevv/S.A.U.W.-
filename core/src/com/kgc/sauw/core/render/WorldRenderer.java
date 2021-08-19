@@ -1,6 +1,9 @@
 package com.kgc.sauw.core.render;
 
+import box2dLight.Light;
 import box2dLight.RayHandler;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.world.Map;
@@ -9,7 +12,6 @@ import com.kgc.sauw.core.world.World;
 import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 
 public class WorldRenderer {
     public static RayHandler rayHandler;
@@ -18,6 +20,9 @@ public class WorldRenderer {
         rayHandler = new RayHandler(Physic.getWorld());
         rayHandler.setAmbientLight(1, 1, 1, 1);
         RayHandler.useDiffuseLight(true);
+        Filter filter = new Filter();
+        filter.categoryBits = 0x0001;
+        Light.setGlobalContactFilter(filter);
     }
 
     private static void renderLights(World world) {
@@ -61,10 +66,10 @@ public class WorldRenderer {
     public static void renderBlock(int x, int y, boolean isHighestLayer, World world) {
         int z = world.map.getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, BLOCKS.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().x, BLOCKS.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, Blocks.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().x, Blocks.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
                 if (!isHighestLayer || z == 0) {
                     BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
-                    if (!isHighestLayer && z == 0 && BLOCKS.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
+                    if (!isHighestLayer && z == 0 && Blocks.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
                     world.map.getTile(x, y, z).render();

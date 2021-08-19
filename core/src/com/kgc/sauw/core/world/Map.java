@@ -1,17 +1,11 @@
 package com.kgc.sauw.core.world;
 
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.block.Block;
-import com.kgc.sauw.core.entity.Drop;
-import com.kgc.sauw.core.entity.EntityManager;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.ID;
-
-import java.util.Random;
-
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 
 public class Map {
 
@@ -20,52 +14,6 @@ public class Map {
     public static final int zSize = 3;
 
     private final Tile[][][] map0 = new Tile[ySize][xSize][zSize];
-
-    public void generateWorld() {
-        Random r = new Random();
-        for (int i = 0; i < map0.length; i++) {
-            for (int j = 0; j < map0[i].length; j++) {
-                setBlock(j, i, 1, 1);
-                setBlock(j, i, 2, 2);
-                setBlock(j, i, 0, 4);
-                if (r.nextInt(75) == 0) {
-                    setBlock(j, i, 0, 6);
-                } else if (r.nextInt(75) == 0) {
-                    setBlock(j, i, 0, 10);
-                } else if (r.nextInt(75) == 0) {
-                    setBlock(j, i, 0, 9);
-                }
-                setBlock(i, 0, 0, 14);
-                setBlock(i, map0[i].length - 1, 0, 14);
-                setBlock(0, j, 0, 14);
-                setBlock(map0.length - 1, j, 0, 14);
-            }
-            setBlock(15, 5, 0, "block:table");
-            setBlock(16, 5, 0, "block:tool_wall");
-            setBlock(17, 5, 0, "block:furnace");
-            setBlock(18, 5, 0, "block:chest");
-            setBlock(19, 5, 0, "block:campfire");
-        }
-        Random r1 = new Random();
-
-        for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
-                if (r1.nextInt(75) == 0) {
-                    Drop entity = (Drop) EntityManager.spawn("entity:drop", x, y);
-                    entity.setItem("item:stick", 1);
-                }
-                if (r1.nextInt(50) == 0) {
-                    Drop entity = (Drop) EntityManager.spawn("entity:drop", x, y);
-                    entity.setItem("item:stone", 1);
-                }
-                if (r1.nextInt(100) == 0) {
-                    Drop entity = (Drop) EntityManager.spawn("entity:drop", x, y);
-                    entity.setItem("item:vegetable_fiber", 1);
-                }
-            }
-
-        }
-    }
 
     public DataBuffer toDataBuffer() {
         DataBuffer buffer = new DataBuffer();
@@ -109,9 +57,8 @@ public class Map {
     }
 
 
-
     public void update() {
-        BLOCKS.blockTick();
+        Blocks.blockTick();
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 for (int z = 0; z < zSize; z++) {
@@ -157,7 +104,7 @@ public class Map {
     }
 
     public boolean setBlock(int x, int y, int z, int id) {
-        Block block = BLOCKS.getBlockById(id);
+        Block block = Blocks.getBlockById(id);
         Tile tile = new Tile();
         tile.createTile(x, y, z, block);
 

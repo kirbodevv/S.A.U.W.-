@@ -5,7 +5,7 @@ import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.ID;
 
 public abstract class EntityFactory {
-    private int id;
+    private final int id;
 
     public EntityFactory(String stringId, int id) {
         this.id = ID.registeredId("entity:" + stringId, id);
@@ -23,7 +23,7 @@ public abstract class EntityFactory {
 
     public final Entity create() {
         Entity entity = createEntity();
-        entity.setBody(Physic.createRectangleBody(0, 0, entity.getBodySize().x, entity.getBodySize().y, BodyDef.BodyType.DynamicBody));
+        entity.setBody(Physic.createRectangleBody(0, 0, entity.getBodySize().x, entity.getBodySize().y, BodyDef.BodyType.DynamicBody, true));
 
         entity.setId(id);
         return entity;

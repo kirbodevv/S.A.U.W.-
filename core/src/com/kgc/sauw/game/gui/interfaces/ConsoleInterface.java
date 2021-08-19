@@ -119,4 +119,19 @@ public class ConsoleInterface extends Interface {
         sendCommandButton.y = input.y;
         input.update(INTERFACE_CAMERA);
     }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
 }

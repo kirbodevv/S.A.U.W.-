@@ -13,7 +13,7 @@ public class DeadInterface extends Interface {
 
     public DeadInterface() {
         super("DEAD_INTERFACE");
-        setHeaderText("").isBlockInterface(false);
+        setHeaderText("");
 
         respawn = new Button("DEAD_INTERFACE_RESPAWN_BUTTON", (int) (SCREEN_WIDTH / 16 * 5), (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 5), (int) (SCREEN_WIDTH / 16 * 6), (int) (SCREEN_WIDTH / 16));
         respawn.setText(Languages.getString("respawn"));
@@ -28,5 +28,30 @@ public class DeadInterface extends Interface {
         elements.add(respawn);
 
         updateElementsList();
+    }
+
+    @Override
+    public void tick() {
+
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
+
+    @Override
+    public void postRender() {
+
     }
 }

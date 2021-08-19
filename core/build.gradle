@@ -3,6 +3,11 @@ apply plugin: "java"
 sourceCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.java.srcDirs = ["src/"]
 
 eclipse.project.name = appName + "-core"
+
+task cmd(type: Exec) {
+    doFirst { commandLine 'cmd', '-c', 'java -jar ' + project(":json_builder").buildDir.path + '\\libs\\json_builder-1.0.jar ' + project(":core").projectDir.path }
+}
+compileJava.dependsOn cmd

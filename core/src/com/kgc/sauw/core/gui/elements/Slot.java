@@ -10,15 +10,16 @@ import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.InterfaceUtils;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.game.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class Slot extends InterfaceElement {
-    public int id, count, data;
+    private Container container;
 
     public ElementSkin slot;
 
@@ -36,7 +37,7 @@ public class Slot extends InterfaceElement {
         this.SF = SF;
     }
 
-    private final Interface Interface;
+    private final Interface interface_;
     public static final ProgressBar itemDamageProgressBar;
 
     static {
@@ -44,10 +45,18 @@ public class Slot extends InterfaceElement {
         itemDamageProgressBar.setSizeInBlocks(2, 0.5f);
     }
 
-    public Slot(String ID, Interface Interface) {
-        this.Interface = Interface;
+    public Slot(String ID, Interface interface_) {
+        this.interface_ = interface_;
         this.ID = ID;
         slot = Skins.slot_round;
+    }
+
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(Container container) {
+        this.container = container;
     }
 
     @Override
@@ -69,19 +78,19 @@ public class Slot extends InterfaceElement {
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         slot.draw(cam.X + x, cam.Y + y, width, height);
-        if (iconRegion != null && id == 0) {
+        if (iconRegion != null && container.id == 0) {
             batch.setColor(0, 0, 0, 1);
             batch.draw(iconRegion, cam.X + x, cam.Y + y, width, height);
             batch.setColor(1, 1, 1, 1);
         }
-        if (id != 0 && ITEMS.getItemById(id).getItemConfiguration().maxDamage != 0 &&
+        if (container != null && container.id != 0 && Items.getItemById(container.id).getItemConfiguration().maxDamage != 0 &&
                 Maths.isLiesOnRect(x, y, width, height, Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY()) &&
                 !Gdx.input.isTouched()) {
             itemDamageProgressBar.hide(false);
             itemDamageProgressBar.setPosition(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY() - itemDamageProgressBar.height);
             itemDamageProgressBar.setColor(0, 255, 0);
-            itemDamageProgressBar.setMaxValue(ITEMS.getItemById(id).getItemConfiguration().maxDamage);
-            itemDamageProgressBar.setValue(ITEMS.getItemById(id).getItemConfiguration().maxDamage - data);
+            itemDamageProgressBar.setMaxValue(Items.getItemById(container.id).getItemConfiguration().maxDamage);
+            itemDamageProgressBar.setValue(Items.getItemById(container.id).getItemConfiguration().maxDamage - container.damage);
         }
     }
 
@@ -91,10 +100,10 @@ public class Slot extends InterfaceElement {
         if (SF != null && onButton) {
             SF.onClick();
         }
-        if (id != 0 && Interface != null) {
-            for (Slot slot : Interface.slots) {
+        if (container != null && interface_ != null) {
+            for (Slot slot : interface_.slots) {
                 if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.x, slot.y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
-                    Interface.sendToSlot(this, slot);
+                    InterfaceUtils.sendToSlot(this, slot);
                 }
             }
         }
@@ -109,12 +118,12 @@ public class Slot extends InterfaceElement {
         itemY = this.y;
     }
 
-    public void itemRender(Container container) {
-        if (id != 0) {
-            BATCH.draw(ITEMS.getItemById(id).getTextureRegion(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
+    public void itemRender() {
+        if (container != null && container.id != 0) {
+            BATCH.draw(Items.getItemById(container.id).getTextureRegion(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
             BITMAP_FONT.getData().setScale((width / 3f) / BITMAP_FONT_CAP_HEIGHT);
-            GLYPH_LAYOUT.setText(BITMAP_FONT, count + "");
-            BITMAP_FONT.draw(BATCH, count + "", itemX, itemY + GLYPH_LAYOUT.height + width / 32f, width, Align.right, false);
+            GLYPH_LAYOUT.setText(BITMAP_FONT, container.count + "");
+            BITMAP_FONT.draw(BATCH, container.count + "", itemX, itemY + GLYPH_LAYOUT.height + width / 32f, width, Align.right, false);
         }
     }
 
@@ -127,14 +136,16 @@ public class Slot extends InterfaceElement {
     }
 
     public void setIconFromItem(String id) {
-        setIcon(ITEMS.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getTextureRegion(null));
+        setIcon(Items.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getTextureRegion(null));
     }
 
-    public static abstract class SlotFunctions {
-        public abstract boolean isValid(int id, int count, int data, String FromSlotWithId);
+    public interface SlotFunctions {
+        boolean isValid(Container container, String FromSlotWithId);
 
-        public abstract void onClick();
+        void onClick();
 
-        public abstract boolean possibleToDrag();
+        boolean possibleToDrag();
+
+        void onItemSwapping(Container fromContainer);
     }
 }

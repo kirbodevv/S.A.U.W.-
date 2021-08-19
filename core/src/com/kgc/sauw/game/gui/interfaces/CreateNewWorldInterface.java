@@ -21,8 +21,27 @@ public class CreateNewWorldInterface extends Interface {
     }
 
     @Override
+    public void tick() {
+
+    }
+
+    @Override
     public void onOpen() {
-        super.onOpen();
         worldName.input = Languages.getString("newWorld");
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
+
+    @Override
+    public void postRender() {
+
     }
 }

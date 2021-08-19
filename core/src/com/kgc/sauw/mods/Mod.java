@@ -3,6 +3,7 @@ package com.kgc.sauw.mods;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.game.gui.Interfaces;
 import org.json.JSONObject;
 import org.mozilla.javascript.Scriptable;
@@ -63,7 +64,7 @@ public class Mod {
     }
 
     private void loadItems() {
-        ITEMS.addItemsFromMod(itemsFolder, modResources);
+        Items.addItemsFromMod(itemsFolder, modResources);
     }
 
     private void buildSources() {
@@ -94,8 +95,6 @@ public class Mod {
     private void addProperties() {
         ScriptableObject.putProperty(scriptable, "Player", PLAYER);
         ScriptableObject.putProperty(scriptable, "Resources", modResources);
-        ScriptableObject.putProperty(scriptable, "Blocks", BLOCKS);
-        ScriptableObject.putProperty(scriptable, "Items", ITEMS);
         ScriptableObject.putProperty(scriptable, "ModAPI", ModAPI.class);
         ScriptableObject.putProperty(scriptable, "Settings", Settings.class);
         ScriptableObject.putProperty(scriptable, "GI", HUD);

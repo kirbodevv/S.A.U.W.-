@@ -1,22 +1,25 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.*;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.game.environment.Environment.CRAFTING;
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 
 public class CraftingInterface extends Interface {
     private final Text craftName;
     private int currentCraft = -1;
     private int currentTab = 0;
     private final Image itemIcon;
+
+    private final Container[] craftContainers = new Container[6];
 
     public CraftingInterface() {
         super("CRAFTING_INTERFACE");
@@ -61,9 +64,10 @@ public class CraftingInterface extends Interface {
         });
 
         for (int i = 0; i < 6; i++) {
+            craftContainers[i] = new Container();
             ((Slot) getElement("craftItemSlot_" + i)).setSF(new Slot.SlotFunctions() {
                 @Override
-                public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+                public boolean isValid(Container container, String FromSlotWithId) {
                     return false;
                 }
 
@@ -76,9 +80,13 @@ public class CraftingInterface extends Interface {
                 public boolean possibleToDrag() {
                     return false;
                 }
+
+                @Override
+                public void onItemSwapping(Container fromContainer) {
+
+                }
             });
         }
-
         Layout CraftsListLayout = (Layout) getElement("CraftsListLayout");
         for (int y = 0; y < 5; y++) {
             Layout l = new Layout(Layout.Orientation.HORIZONTAL);
@@ -94,8 +102,8 @@ public class CraftingInterface extends Interface {
                     @Override
                     public void onClick() {
                         currentCraft = currentTab * 30 + num;
-                        craftName.setText(ITEMS.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getDefaultName());
-                        itemIcon.setImg(ITEMS.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getTextureRegion(null));
+                        craftName.setText(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getDefaultName());
+                        itemIcon.setImg(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getTextureRegion(null));
                     }
                 });
                 l.addElements(button);
@@ -117,10 +125,25 @@ public class CraftingInterface extends Interface {
         if (currentCraft != -1) {
             for (int i = 0; i < CRAFTING.crafts.get(currentCraft).ingredients.length; i++) {
                 Crafting.Craft craft = CRAFTING.crafts.get(currentCraft);
-                ((Slot) getElement("craftItemSlot_" + i)).id = craft.ingredients[i][0];
-                ((Slot) getElement("craftItemSlot_" + i)).count = craft.ingredients[i][1];
+                craftContainers[i].setItem(craft.ingredients[i][0], craft.ingredients[i][1], 0);
+                ((Slot) getElement("craftItemSlot_" + i)).setContainer(craftContainers[i]);
             }
         }
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
     }
 
     @Override
@@ -129,7 +152,7 @@ public class CraftingInterface extends Interface {
             float x = getElement("Craft_" + i).x;
             float y = getElement("Craft_" + i).y;
             float w = getElement("Craft_" + i).width;
-            BATCH.draw(ITEMS.getItemById(CRAFTING.crafts.get(i).result[0]).getTextureRegion(null), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
+            BATCH.draw(Items.getItemById(CRAFTING.crafts.get(i).result[0]).getTextureRegion(null), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
         }
     }
 }

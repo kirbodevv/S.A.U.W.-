@@ -2,6 +2,7 @@ package com.kgc.sauw.core.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.environment.Time;
 import com.kgc.sauw.core.utils.StringUtils;
@@ -12,7 +13,6 @@ import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 import static com.kgc.sauw.core.graphic.Graphic.SCREEN_WIDTH;
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
 
@@ -77,7 +77,7 @@ public abstract class World {
     private void randomTick() {
         int yy = random.nextInt(Map.ySize - 1) + 1;
         int xx = random.nextInt(Map.xSize - 1) + 1;
-        BLOCKS.getBlockById(map.getTile(xx, yy, 0).id).randomTick(map.getTile(xx, yy, 0));
+        Blocks.getBlockById(map.getTile(xx, yy, 0).id).randomTick(map.getTile(xx, yy, 0));
     }
 
     protected void setSkyLight(int skyLight) {

@@ -29,7 +29,6 @@ public class XmlInterfaceLoader {
 
         Interface.setHeaderText(StringUtils.getString(root.getAttribute("header")));
 
-        Interface.isBlockInterface(Boolean.parseBoolean(root.getAttribute("isBlockInterface")));
         if (Boolean.parseBoolean(root.getAttribute("Inventory"))) Interface.createInventory();
 
         NodeList RootLayoutList = doc.getElementsByTagName("RootLayout");

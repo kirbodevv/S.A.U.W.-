@@ -7,11 +7,11 @@ public class Environment {
     private static World world;
     private static String saveName;
 
-    public static World getWorld(){
+    public static World getWorld() {
         return world;
     }
 
-    public static void setWorld(World world){
+    public static void setWorld(World world) {
         Environment.world = world;
     }
 
@@ -23,10 +23,11 @@ public class Environment {
         return saveName;
     }
 
-    public static void save(){
+    public static void save() {
         WorldLoader.save(saveName);
     }
-    public static void load(){
+
+    public static void load() {
         WorldLoader.load(saveName);
     }
 }

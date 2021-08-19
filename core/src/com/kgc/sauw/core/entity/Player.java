@@ -15,15 +15,15 @@ import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.item.Type;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.game.environment.Items;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.render.WorldRenderer.rayHandler;
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.game.gui.Interfaces.DEAD_INTERFACE;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
@@ -71,11 +71,11 @@ public class Player extends Entity implements ExtraData {
     }
 
     public Item getItemFromHotbar(int index) {
-        if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size() && ITEMS.getItemById(inventory.containers.get(hotbar[index]).id) != null) {
-            return ITEMS.getItemById(inventory.containers.get(hotbar[index]).id);
+        if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size() && Items.getItemById(inventory.containers.get(hotbar[index]).id) != null) {
+            return Items.getItemById(inventory.containers.get(hotbar[index]).id);
         } else {
             hotbar[index] = -1;
-            return ITEMS.getItemById(0);
+            return Items.getItemById(0);
         }
     }
 
@@ -112,7 +112,7 @@ public class Player extends Entity implements ExtraData {
                 int bY = (int) position.y;
                 if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
                     PLAYER.getCarriedItem().onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
-                    if (PLAYER.getCarriedItem().getItemConfiguration().type == Items.Type.BLOCK_ITEM) {
+                    if (PLAYER.getCarriedItem().getItemConfiguration().type == Type.BLOCK_ITEM) {
                         if (getWorld().map.setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
                             PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                         }

@@ -3,7 +3,9 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.Text;
@@ -66,14 +68,20 @@ public class InventoryInterface extends Interface {
                 }
 
                 @Override
-                public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+                public void onItemSwapping(Container fromContainer) {
+
+                }
+
+                @Override
+                public boolean isValid(Container container, String FromSlotWithId) {
+                    InventoryFragment inventoryFragment = (InventoryFragment) getElement("InventoryFragment");
                     if (FromSlotWithId.contains("InventorySlot_")) {
                         for (int i = 0; i < PLAYER.hotbar.length; i++) {
-                            if (PLAYER.hotbar[i] == currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14))) {
+                            if (PLAYER.hotbar[i] == inventoryFragment.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14))) {
                                 PLAYER.hotbar[i] = -1;
                             }
                         }
-                        PLAYER.hotbar[ii] = currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14));
+                        PLAYER.hotbar[ii] = inventoryFragment.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14));
                     }
 
                     return false;
@@ -81,15 +89,14 @@ public class InventoryInterface extends Interface {
             });
             hotbarSlots[i] = s;
         }
-        updateElementsList();
+
     }
 
     @Override
     public void tick() {
         for (int i = 0; i < hotbarSlots.length; i++) {
             if (PLAYER.hotbar[i] != -1) {
-                hotbarSlots[i].id = PLAYER.getItemFromHotbar(i).id;
-                hotbarSlots[i].count = PLAYER.inventory.containers.get(PLAYER.hotbar[i]).count;
+                hotbarSlots[i].setContainer(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
             }
         }
         timer += Gdx.graphics.getDeltaTime();
@@ -114,5 +121,25 @@ public class InventoryInterface extends Interface {
         }
         playerImg.setImg(currentFrame);
         playerWeight.setText(DF.format(PLAYER.itemsWeight) + " | " + DF.format(PLAYER.maxWeight) + " Kg");
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
+
+    @Override
+    public void postRender() {
+
     }
 }

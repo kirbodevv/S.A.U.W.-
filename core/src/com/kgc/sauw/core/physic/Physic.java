@@ -15,7 +15,7 @@ public class Physic {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }
 
-    public static Body createRectangleBody(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type) {
+    public static Body createRectangleBody(float posX, float posY, float boxW, float boxH, BodyDef.BodyType type, boolean lightsInvisible) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = type;
         bodyDef.position.set(posX + boxW / 2.f, posY + boxH / 2.f);
@@ -30,6 +30,16 @@ public class Physic {
         fixtureDef.density = 1f;
 
         Fixture fixture = body.createFixture(fixtureDef);
+
+        Filter filter = new Filter();
+        if (lightsInvisible) {
+            filter.categoryBits = 0x0004;
+            filter.maskBits = 0x0002 | 0x0004;
+        } else {
+            filter.categoryBits = 0x0002;
+            filter.maskBits = 0x0001 | 0x0004;
+        }
+        fixture.setFilterData(filter);
         shape.dispose();
 
         return body;

@@ -9,7 +9,7 @@ import com.kgc.sauw.core.world.Tile;
 public class Item {
     public int id;
 
-    private static TextureRegion undefRegion;
+    private static final TextureRegion undefRegion;
 
     static {
         undefRegion = new TextureRegion(Resource.getTexture("Blocks/undefined.png"));
@@ -57,9 +57,7 @@ public class Item {
     }
 
     public String getName(Container container) {
-        if (container == null)
             return itemConfiguration.name;
-        else return container.DisplayParameters.name;
     }
 
     public String getDefaultName() {

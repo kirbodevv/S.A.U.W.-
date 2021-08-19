@@ -70,7 +70,7 @@ public final class Interfaces {
     }
 
     public static void updateInterfaces() {
-        for (Interface i : INTERFACES) i.update(true);
+        for (Interface i : INTERFACES) i.update();
     }
 
     public static void renderInterfaces() {

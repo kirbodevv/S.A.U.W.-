@@ -4,6 +4,7 @@ import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.gui.elements.Slot;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.world.Tile;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.game.gui.Interfaces.WORKBENCH_INTERFACE;
 
 public class Workbench extends Block {
@@ -35,7 +35,7 @@ public class Workbench extends Block {
                 new int[][]{{ID.get("item:hammer"), 1}, {ID.get("item:iron_ingot"), 1}}));
         ((Slot) GUI.getElement("CRAFT_HANDSAW_RESULT")).setSF(new Slot.SlotFunctions() {
             @Override
-            public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+            public boolean isValid(Container container, String FromSlotWithId) {
                 return false;
             }
 
@@ -48,10 +48,15 @@ public class Workbench extends Block {
             public boolean possibleToDrag() {
                 return false;
             }
+
+            @Override
+            public void onItemSwapping(Container fromContainer) {
+
+            }
         });
         ((Slot) GUI.getElement("CRAFT_HAMMER_RESULT")).setSF(new Slot.SlotFunctions() {
             @Override
-            public boolean isValid(int id, int count, int data, String FromSlotWithId) {
+            public boolean isValid(Container container, String FromSlotWithId) {
                 return false;
             }
 
@@ -63,6 +68,11 @@ public class Workbench extends Block {
             @Override
             public boolean possibleToDrag() {
                 return false;
+            }
+
+            @Override
+            public void onItemSwapping(Container fromContainer) {
+
             }
         });
     }
@@ -94,7 +104,7 @@ public class Workbench extends Block {
             Container craftContainer = tile.getContainer("CRAFT_HANDSAW_INGREDIENT");
             Crafting.Craft craft = getCraft(craftContainer.id);
             if (craft != null) {
-                int resultCount = Math.min(craftContainer.count, ITEMS.getItemById(ID.get("item:handsaw")).getItemConfiguration().maxDamage - toolWallContainer.damage);
+                int resultCount = Math.min(craftContainer.count, Items.getItemById(ID.get("item:handsaw")).getItemConfiguration().maxDamage - toolWallContainer.damage);
                 for (int i = 0; i < resultCount; i++) {
                     PLAYER.inventory.addItem(tile.getContainer("CRAFT_HANDSAW_RESULT").id, craft.result[1]);
                     toolWallContainer.setItem(toolWallContainer.id, toolWallContainer.count, toolWallContainer.damage + 1);
@@ -106,7 +116,7 @@ public class Workbench extends Block {
             Container craftContainer = tile.getContainer("CRAFT_HAMMER_INGREDIENT");
             Crafting.Craft craft = getCraft(craftContainer.id);
             if (craft != null) {
-                int resultCount = Math.min(craftContainer.count, ITEMS.getItemById(ID.get("item:hammer")).getItemConfiguration().maxDamage - toolWallContainer.damage);
+                int resultCount = Math.min(craftContainer.count, Items.getItemById(ID.get("item:hammer")).getItemConfiguration().maxDamage - toolWallContainer.damage);
                 for (int i = 0; i < resultCount; i++) {
                     PLAYER.inventory.addItem(tile.getContainer("CRAFT_HAMMER_RESULT").id, craft.result[1]);
                     toolWallContainer.setItem(toolWallContainer.id, toolWallContainer.count, toolWallContainer.damage + 1);

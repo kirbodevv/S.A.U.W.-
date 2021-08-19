@@ -1,10 +1,8 @@
 package com.kgc.sauw.game.items;
 
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.world.Tile;
-import com.kgc.sauw.game.environment.Items;
-
-import static com.kgc.sauw.game.environment.Environment.BLOCKS;
 
 public class InstrumentItem extends Item {
     public enum Type {
@@ -15,7 +13,7 @@ public class InstrumentItem extends Item {
         super(id);
 
         itemConfiguration.maxDamage = maxDamage;
-        itemConfiguration.type = Items.Type.INSTRUMENT;
+        itemConfiguration.type = com.kgc.sauw.core.item.Type.INSTRUMENT;
         itemConfiguration.maxCount = 1;
         itemConfiguration.instrumentType = type;
     }
@@ -23,7 +21,7 @@ public class InstrumentItem extends Item {
     @Override
     public void onClick(Tile tile) {
         System.out.println(tile.id);
-        if (BLOCKS.getBlockById(tile.id).getBlockConfiguration().getInstrumentType() == itemConfiguration.instrumentType)
+        if (Blocks.getBlockById(tile.id).getBlockConfiguration().getInstrumentType() == itemConfiguration.instrumentType)
             tile.hit();
     }
 }

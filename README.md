@@ -25,11 +25,11 @@ java -jar desktop-1.0.jar
 
 * Windows / Linux:
   
-  [desktop.jar](https://github.com/KirboGames/S.A.U.W.-/raw/master/releases/last/desktop.jar)
+  [desktop.jar](https://github.com/KirboGames/S.A.U.W.-Releases/raw/master/last/desktop.jar)
 
 * Android:
   
-  [android.apk](https://github.com/KirboGames/S.A.U.W.-/raw/master/releases/last/android.apk)
+  [android.apk](https://github.com/KirboGames/S.A.U.W.-Releases/raw/master/last/android.apk)
 ## Credits
 
 * Programming - by [KiRB0](https://github.com/KirboGames)

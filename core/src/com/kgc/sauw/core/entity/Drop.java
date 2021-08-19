@@ -1,9 +1,9 @@
 package com.kgc.sauw.core.entity;
 
 import com.badlogic.gdx.math.Vector2;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.utils.ID;
 
-import static com.kgc.sauw.game.environment.Environment.ITEMS;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
 public class Drop extends Entity {
@@ -36,6 +36,6 @@ public class Drop extends Entity {
     @Override
     public void render() {
         if ((int) getExtraData("itemId") != -1)
-            BATCH.draw(ITEMS.getItemById((int) getExtraData("itemId")).getTextureRegion(null), getPosition().x, getPosition().y, entityBodyW, entityBodyH);
+            BATCH.draw(Items.getItemById((int) getExtraData("itemId")).getTextureRegion(null), getPosition().x, getPosition().y, entityBodyW, entityBodyH);
     }
 }

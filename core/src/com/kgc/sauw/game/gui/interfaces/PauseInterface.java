@@ -36,4 +36,29 @@ public class PauseInterface extends Interface {
 
         updateElementsList();
     }
+
+    @Override
+    public void tick() {
+
+    }
+
+    @Override
+    public void onOpen() {
+
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void preRender() {
+
+    }
+
+    @Override
+    public void postRender() {
+
+    }
 }

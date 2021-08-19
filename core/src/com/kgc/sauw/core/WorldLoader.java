@@ -34,16 +34,16 @@ public class WorldLoader {
         }
     }
 
-    public static void save(String WorldName) {
-        FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds/" + WorldName);
+    public static void save(String worldName) {
+        FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds").child(worldName);
 
         if (!worldFolder.exists()) worldFolder.mkdirs();
 
         try {
-            FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/map.bdb");
-            FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/worldData.bdb");
-            FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/player.bdb");
-            FileHandle entitiesFile = Gdx.files.external("S.A.U.W./Worlds/" + WorldName + "/entities.bdb");
+            FileHandle mapFile = Gdx.files.external("S.A.U.W./Worlds/" + worldName + "/map.bdb");
+            FileHandle worldData = Gdx.files.external("S.A.U.W./Worlds/" + worldName + "/worldData.bdb");
+            FileHandle playerFile = Gdx.files.external("S.A.U.W./Worlds/" + worldName + "/player.bdb");
+            FileHandle entitiesFile = Gdx.files.external("S.A.U.W./Worlds/" + worldName + "/entities.bdb");
 
             if (!mapFile.exists()) mapFile.file().createNewFile();
             if (!worldData.exists()) worldData.file().createNewFile();

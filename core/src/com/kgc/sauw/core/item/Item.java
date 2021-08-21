@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.world.Tile;
 
 public class Item {
@@ -21,6 +22,10 @@ public class Item {
     protected ItemConfiguration itemConfiguration;
 
     private ItemFunctions itemFunctions;
+
+    public Item(String id) {
+        this(ID.registeredId(id));
+    }
 
     public Item(int id) {
         itemConfiguration = new ItemConfiguration(id);
@@ -40,10 +45,15 @@ public class Item {
     }
 
     public void onClick(Tile tile) {
-        if(itemFunctions != null) itemFunctions.onClick(tile);
+        if (itemFunctions != null) itemFunctions.onClick(tile);
     }
 
-    public void tick(){}
+    public void tick() {
+    }
+
+    public void setTexture(String path) {
+        setTexture(Resource.getTexture(path));
+    }
 
     public void setTexture(Texture texture) {
         this.texture = texture;
@@ -57,7 +67,7 @@ public class Item {
     }
 
     public String getName(Container container) {
-            return itemConfiguration.name;
+        return itemConfiguration.name;
     }
 
     public String getDefaultName() {

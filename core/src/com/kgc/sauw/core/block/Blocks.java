@@ -1,24 +1,18 @@
 package com.kgc.sauw.core.block;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
 public class Blocks {
-    private static final ArrayList<BlocksArray> BLOCKS_ARRAYS = new ArrayList<>();
+    private static final ArrayList<Block> BLOCKS = new ArrayList<>();
 
     private static float stateTime = 0.0f;
 
-    public static void addBlocksArray(BlocksArray blocksArray) {
-        BLOCKS_ARRAYS.add(blocksArray);
-        Gdx.app.log("BLOCKS", "added blocks array, count of blocks " + blocksArray.blocks.size());
-    }
-
     public static Block getBlockById(int id) {
-        for (BlocksArray blocksArray : BLOCKS_ARRAYS) {
-            for (Block block : blocksArray.blocks)
-                if (block.id == id) return block;
-        }
+        for (Block block : BLOCKS)
+            if (block.id == id) return block;
         return null;
     }
 
@@ -27,8 +21,15 @@ public class Blocks {
     }
 
     public static void blockTick() {
-        for (BlocksArray blocksArray : BLOCKS_ARRAYS)
-            for (Block block : blocksArray.blocks)
-                block.tick();
+        for (Block block : BLOCKS)
+            block.tick();
+    }
+
+    public static void addBlock(Block block) {
+        BLOCKS.add(block);
+    }
+
+    public static void createBlock(int id, Texture t0) {
+        addBlock(new Block(id, t0));
     }
 }

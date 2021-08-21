@@ -1,0 +1,10 @@
+{
+  "id": "item:iron_ingot",
+  "texture": "Items/iron_ingot.png",
+  "itemConfiguration": {
+    "name": "%Language/iron_ingot",
+    "maxCount": 64,
+    "weight": 1,
+    "type": "ITEM"
+  }
+}

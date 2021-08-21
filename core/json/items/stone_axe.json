@@ -1,0 +1,11 @@
+{
+  "id": "item:stone_axe",
+  "texture": "Items/stone_axe.png",
+  "itemConfiguration": {
+    "name": "%Language/stone_axe",
+    "maxCount": 1,
+    "weight": 5.75,
+    "type": "INSTRUMENT",
+    "instrumentType": "AXE"
+  }
+}

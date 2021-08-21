@@ -1,0 +1,10 @@
+{
+  "id": "item:rope",
+  "texture": "Items/rope.png",
+  "itemConfiguration": {
+    "name": "%Language/rope",
+    "maxCount": 64,
+    "weight": 0.15,
+    "type": "ITEM"
+  }
+}

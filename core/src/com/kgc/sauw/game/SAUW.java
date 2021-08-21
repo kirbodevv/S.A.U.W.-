@@ -17,6 +17,9 @@ import com.kgc.sauw.core.render.WorldRenderer;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
+import com.kgc.sauw.game.environment.Blockss;
+import com.kgc.sauw.game.environment.Itemss;
+import com.kgc.sauw.game.items.Torch;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.mods.Mods;
 
@@ -42,8 +45,9 @@ public class SAUW implements Screen {
     public SAUW(String worldName) {
         DR = new Box2DDebugRenderer();
 
-        Items.addItemsArray(new com.kgc.sauw.game.environment.Items());
-        Blocks.addBlocksArray(new com.kgc.sauw.game.environment.Blocks());
+        GeneratedJson.init();
+        Items.addItem(new Torch());
+        new Blockss();
 
         Music.setVolume(Settings.musicVolume);
 

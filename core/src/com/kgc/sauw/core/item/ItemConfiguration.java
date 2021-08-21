@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.item;
 
-import com.kgc.sauw.game.items.InstrumentItem;
+import com.kgc.sauw.core.utils.ID;
 
 public class ItemConfiguration {
     public int id;
@@ -9,9 +9,14 @@ public class ItemConfiguration {
     public int maxDamage;
     public Type type;
     public int blockId;
+    public String stringBlockId = null;
     public InstrumentItem.Type instrumentType;
     public int foodScore;
     public float weight;
+
+    public ItemConfiguration(String id){
+        this(ID.get(id));
+    }
 
     public ItemConfiguration(int id) {
         this.id = id;

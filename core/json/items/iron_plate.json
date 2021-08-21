@@ -1,0 +1,10 @@
+{
+  "id": "item:iron_plate",
+  "texture": "Items/iron_plate.png",
+  "itemConfiguration": {
+    "name": "%Language/iron_plate",
+    "maxCount": 64,
+    "weight": 0.8,
+    "type": "ITEM"
+  }
+}

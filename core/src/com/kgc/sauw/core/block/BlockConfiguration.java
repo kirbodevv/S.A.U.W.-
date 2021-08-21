@@ -3,7 +3,7 @@ package com.kgc.sauw.core.block;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.kgc.sauw.core.math.Vector2i;
-import com.kgc.sauw.game.items.InstrumentItem;
+import com.kgc.sauw.core.item.InstrumentItem;
 
 public class BlockConfiguration {
     private boolean isTransparent;

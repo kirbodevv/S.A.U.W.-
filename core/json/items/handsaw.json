@@ -1,0 +1,11 @@
+{
+  "id": "item:handsaw",
+  "texture": "Items/handsaw.png",
+  "itemConfiguration": {
+    "name": "%Language/handsaw",
+    "maxCount": 1,
+    "weight": 1,
+    "maxDamage": 100,
+    "type": "ITEM"
+  }
+}

@@ -19,6 +19,7 @@ import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.item.Type;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.ID;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -110,10 +111,13 @@ public class Player extends Entity implements ExtraData {
             public void main(Vector3 position) {
                 int bX = (int) position.x;
                 int bY = (int) position.y;
+                Item carriedItem = PLAYER.getCarriedItem();
                 if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
-                    PLAYER.getCarriedItem().onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
-                    if (PLAYER.getCarriedItem().getItemConfiguration().type == Type.BLOCK_ITEM) {
-                        if (getWorld().map.setBlock(bX, bY, PLAYER.getCarriedItem().getItemConfiguration().blockId)) {
+                    carriedItem.onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
+                    if (carriedItem.getItemConfiguration().type == Type.BLOCK_ITEM) {
+                        if (getWorld().map.setBlock(bX, bY, carriedItem.getItemConfiguration().stringBlockId == null ?
+                                carriedItem.getItemConfiguration().blockId :
+                                ID.get(carriedItem.getItemConfiguration().stringBlockId))) {
                             PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                         }
                     }

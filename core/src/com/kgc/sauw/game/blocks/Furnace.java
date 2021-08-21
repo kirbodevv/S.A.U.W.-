@@ -8,7 +8,7 @@ import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.world.Tile;
-import com.kgc.sauw.game.items.InstrumentItem;
+import com.kgc.sauw.core.item.InstrumentItem;
 
 import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 

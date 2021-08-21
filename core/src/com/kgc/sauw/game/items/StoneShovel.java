@@ -1,5 +1,6 @@
 package com.kgc.sauw.game.items;
 
+import com.kgc.sauw.core.item.InstrumentItem;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.utils.languages.Languages;

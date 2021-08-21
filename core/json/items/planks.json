@@ -1,0 +1,10 @@
+{
+  "id": "item:planks",
+  "texture": "Items/planks.png",
+  "itemConfiguration": {
+    "name": "%Language/planks",
+    "maxCount": 64,
+    "weight": 0.55,
+    "type": "ITEM"
+  }
+}

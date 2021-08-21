@@ -1,12 +1,15 @@
-package com.kgc.sauw.game.items;
+package com.kgc.sauw.core.item;
 
 import com.kgc.sauw.core.block.Blocks;
-import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.world.Tile;
 
 public class InstrumentItem extends Item {
     public enum Type {
         PICKAXE, AXE, HAND, SHOVEL, NULL
+    }
+
+    public InstrumentItem(String id) {
+        super(id);
     }
 
     public InstrumentItem(int id, int maxDamage, Type type) {
@@ -20,7 +23,6 @@ public class InstrumentItem extends Item {
 
     @Override
     public void onClick(Tile tile) {
-        System.out.println(tile.id);
         if (Blocks.getBlockById(tile.id).getBlockConfiguration().getInstrumentType() == itemConfiguration.instrumentType)
             tile.hit();
     }

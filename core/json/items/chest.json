@@ -1,0 +1,11 @@
+{
+  "id": "item:chest",
+  "texture": "Blocks/chest.png",
+  "itemConfiguration": {
+    "name": "%Language/chest",
+    "maxCount": 64,
+    "weight": 0.01,
+    "type": "BLOCK_ITEM",
+    "blockId":"block:chest"
+  }
+}

@@ -1,12 +1,10 @@
-package com.kgc.sauw.game.items;
+package com.kgc.sauw.core.item;
 
-import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.item.Type;
 
 public class VoidItem extends Item {
     public VoidItem() {
-        super(ID.registeredId("item:void"));
+        super(ID.registeredId("item:void", 0));
 
         itemConfiguration.name = null;
         itemConfiguration.weight = 0f;

@@ -17,7 +17,7 @@ buildscript {
 allprojects {
     apply plugin: "eclipse"
 
-    version = '1.0'
+    version = 'v0.2.6-beta'
     ext {
         appName = "S.A.U.W."
         gdxVersion = '1.9.12'
@@ -80,7 +80,7 @@ project(":json_builder") {
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-
+        implementation 'org.json:json:20180813'
     }
 }
 

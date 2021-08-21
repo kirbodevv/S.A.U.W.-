@@ -1,0 +1,10 @@
+{
+  "id": "item:vegetable_fiber",
+  "texture": "Items/vegetable_fiber.png",
+  "itemConfiguration": {
+    "name": "%Language/vegetable_fiber",
+    "maxCount": 64,
+    "weight": 0.05,
+    "type": "ITEM"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "item:campfire",
+  "texture": "Blocks/campfire.png",
+  "itemConfiguration": {
+    "name": "%Language/campfire",
+    "maxCount": 64,
+    "weight": 1,
+    "type": "BLOCK_ITEM",
+    "blockId": "block:campfire"
+  }
+}

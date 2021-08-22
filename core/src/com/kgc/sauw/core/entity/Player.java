@@ -115,9 +115,7 @@ public class Player extends Entity implements ExtraData {
                 if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
                     carriedItem.onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
                     if (carriedItem.getItemConfiguration().type == Type.BLOCK_ITEM) {
-                        if (getWorld().map.setBlock(bX, bY, carriedItem.getItemConfiguration().stringBlockId == null ?
-                                carriedItem.getItemConfiguration().blockId :
-                                ID.get(carriedItem.getItemConfiguration().stringBlockId))) {
+                        if (getWorld().map.setBlock(bX, bY, carriedItem.getItemConfiguration().stringBlockId)) {
                             PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                         }
                     }

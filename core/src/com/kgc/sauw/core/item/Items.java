@@ -56,7 +56,7 @@ public class Items {
             itemConfiguration.maxDamage = itemConfigurationJson.getInt("maxDamage");
 
         if (itemConfiguration.type == Type.BLOCK_ITEM)
-            itemConfiguration.blockId = itemConfigurationJson.getInt("blockId");
+            itemConfiguration.stringBlockId = itemConfigurationJson.getString("blockId");
         if (itemConfiguration.type == Type.INSTRUMENT)
             itemConfiguration.instrumentType = InstrumentItem.Type.valueOf(itemConfigurationJson.getString("instrumentType"));
         if (itemConfiguration.type == Type.FOOD)

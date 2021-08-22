@@ -8,7 +8,6 @@ public class ItemConfiguration {
     public int maxCount;
     public int maxDamage;
     public Type type;
-    public int blockId;
     public String stringBlockId = null;
     public InstrumentItem.Type instrumentType;
     public int foodScore;

@@ -103,6 +103,10 @@ public class Map {
         return setBlock(x, y, z, id);
     }
 
+    public boolean setBlock(int x, int y, String id) {
+        return setBlock(x, y, ID.get(id));
+    }
+
     public boolean setBlock(int x, int y, int z, int id) {
         Block block = Blocks.getBlockById(id);
         Tile tile = new Tile();

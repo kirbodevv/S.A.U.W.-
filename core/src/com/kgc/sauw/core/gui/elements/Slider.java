@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.gui.elements;
 
-import com.kgc.sauw.resource.TextureGenerator;
+import com.kgc.sauw.game.resource.TextureGenerator;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.Gdx;

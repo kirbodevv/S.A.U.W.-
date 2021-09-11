@@ -1,11 +1,12 @@
 package com.kgc.sauw.game.gui;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.kgc.sauw.Version;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.core.utils.Version;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.skins.Skins;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -25,28 +26,30 @@ public class HUD {
     public Button inventoryOpenButton;
     public Joystick joystick;
 
-    public ProgressBar healthProgressBar;
-    public ProgressBar hungerProgressBar;
-
     private final BitmapFont debug;
     private boolean isTouched;
 
-    public BitmapFont Log = new BitmapFont(Gdx.files.internal("ttf.fnt"));
+    public BitmapFont log = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
     public String logText = "Lol";
-    public int R = 0, G = 0, B = 0;
+    public int r = 0, g = 0, b = 0;
 
     private final Layout mainLayout;
     private final Layout separatorLayout0;
+    private final Text healthText;
+    private final Text hungerText;
+    private final Text thirstText;
+    private final Text timeText;
+    private final Layout midLayout;
 
     public void consolePrint(String txt) {
         this.logText = txt;
     }
 
     public void setConsoleTextColor(int r, int g, int b) {
-        R = r;
-        G = g;
-        B = b;
+        this.r = r;
+        this.g = g;
+        this.b = b;
         Settings.consoleTextColorRed = r;
         Settings.consoleTextColorGreen = g;
         Settings.consoleTextColorBlue = b;
@@ -65,31 +68,47 @@ public class HUD {
         hotbar = new Hotbar();
         hotbar.setTranslationY(0.25f);
 
-        Layout layout1 = new Layout(Layout.Orientation.VERTICAL);
-        layout1.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
-        layout1.setGravity(Layout.Gravity.TOP);
+        Layout headerBar = new Layout(Layout.Orientation.HORIZONTAL);
+        headerBar.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
+        headerBar.setSizeInBlocks(16f, 0.5f);
+        headerBar.setGravity(Layout.Gravity.LEFT);
+        headerBar.setStandardBackground(true);
 
-        healthProgressBar = new ProgressBar(true);
-        healthProgressBar.setMaxValue(100f);
-        healthProgressBar.setSizeInBlocks(4, 0.5f);
-        healthProgressBar.setColor(255, 0, 0);
+        healthText = new Text();
+        healthText.setSizeInBlocks(1.25f, 0.5f);
+        healthText.setBackground(null);
+        healthText.setScalable(false);
 
-        hungerProgressBar = new ProgressBar(true);
-        hungerProgressBar.setMaxValue(100f);
-        hungerProgressBar.setSizeInBlocks(4, 0.5f);
-        hungerProgressBar.setColor(150, 90, 60);
+        hungerText = new Text();
+        hungerText.setSizeInBlocks(1.25f, 0.5f);
+        hungerText.setBackground(null);
+        hungerText.setScalable(false);
 
-        layout1.addElements(healthProgressBar, hungerProgressBar);
+        thirstText = new Text();
+        thirstText.setSizeInBlocks(1.25f, 0.5f);
+        thirstText.setBackground(null);
+        thirstText.setScalable(false);
 
-        Layout separatorLayout = new Layout(Layout.Orientation.VERTICAL);
-        separatorLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.FIXED_SIZE);
-        separatorLayout.setSizeInBlocks(0, 1);
-        separatorLayout.setGravity(Layout.Gravity.TOP);
+        Image healthImage = new Image();
+        healthImage.setSizeInBlocks(0.4f, 0.4f);
+        healthImage.setImg(Resource.getTexture("Interface/health_icon.png"));
 
-        Text playerInfoText = new Text();
-        playerInfoText.setSizeInBlocks(10, 0.5f);
+        Image hungerImage = new Image();
+        hungerImage.setSizeInBlocks(0.4f, 0.4f);
+        hungerImage.setImg(Resource.getTexture("Interface/hunger_icon.png"));
 
-        separatorLayout.addElements(playerInfoText);
+        Image thirstImage = new Image();
+        thirstImage.setSizeInBlocks(0.4f, 0.4f);
+        thirstImage.setImg(Resource.getTexture("Interface/thirst_icon.png"));
+
+        timeText = new Text();
+        timeText.setSizeInBlocks(1.25f, 0.5f);
+        timeText.setBackground(null);
+
+        Layout notificationLayout = new Layout(Layout.Orientation.HORIZONTAL);
+        notificationLayout.setGravity(Layout.Gravity.LEFT);
+        notificationLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
+        notificationLayout.setSizeInBlocks(8.8f, 0.5f);
 
         attackButton = new Button("ATTACK_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         attackButton.setSizeInBlocks(1.5f, 1.5f);
@@ -113,7 +132,7 @@ public class HUD {
         buttonsLayout.addElements(BtnLyt1, dropButton);
 
         consoleOpenButton = new Button("CONSOLE_OPEN_BUTTON", 0, 0, 0, 0);
-        consoleOpenButton.setSizeInBlocks(1f, 1f);
+        consoleOpenButton.setSizeInBlocks(0.5f, 0.5f);
         consoleOpenButton.setIcon(Resource.getTexture("Interface/console_button_0.png"));
 
         craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
@@ -121,7 +140,7 @@ public class HUD {
         craftingButton.setIcon(Resource.getTexture("Interface/crafting_button_0.png"));
 
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
-        pauseButton.setSizeInBlocks(1f, 1f);
+        pauseButton.setSizeInBlocks(0.5f, 0.5f);
         pauseButton.setIcon(Resource.getTexture("Interface/pause_icon.png"));
 
         inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
@@ -133,16 +152,11 @@ public class HUD {
         mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         mainLayout.setSizeInBlocks(16f, SCREEN_HEIGHT / BLOCK_SIZE);
 
-        Layout topLayout = new Layout(Layout.Orientation.HORIZONTAL);
-        topLayout.setGravity(Layout.Gravity.LEFT);
-        topLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.FIXED_SIZE);
-        topLayout.setSizeInBlocks(0, 1f);
-
         separatorLayout0 = new Layout(Layout.Orientation.VERTICAL);
         separatorLayout0.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         separatorLayout0.setSizeInBlocks(16f, SCREEN_HEIGHT / BLOCK_SIZE - 6.5f);
 
-        Layout midLayout = new Layout(Layout.Orientation.HORIZONTAL);
+        midLayout = new Layout(Layout.Orientation.HORIZONTAL);
         midLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         midLayout.setSizeInBlocks(16, 4.5f);
 
@@ -154,7 +168,8 @@ public class HUD {
         separatorLayout1.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         separatorLayout1.setSizeInBlocks(8.875f, 1f);
 
-        topLayout.addElements(layout1, separatorLayout, pauseButton, consoleOpenButton);
+        headerBar.addElements(pauseButton, healthText, healthImage, hungerText, hungerImage, thirstText, thirstImage, notificationLayout, timeText, consoleOpenButton);
+
         midLayout.addElements(joystick, separatorLayout1, buttonsLayout);
         bottomLayout.addElements(hotbar, inventoryOpenButton, craftingButton);
 
@@ -183,7 +198,7 @@ public class HUD {
             }
         });
 
-        mainLayout.addElements(topLayout, separatorLayout0, midLayout, bottomLayout);
+        mainLayout.addElements(headerBar, separatorLayout0, midLayout, bottomLayout);
     }
 
     public boolean isTouched() {
@@ -198,10 +213,16 @@ public class HUD {
 
     public void update() {
         mainLayout.hide(isAnyInterfaceOpen());
-        healthProgressBar.setValue(PLAYER.health / PLAYER.maxHealth * 100f);
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            midLayout.hide(true);
+        }
         mainLayout.update(INTERFACE_CAMERA);
+        healthText.setText((int) PLAYER.health + "%");
+        hungerText.setText((int) PLAYER.hunger + "%");
+        thirstText.setText((int) PLAYER.thirst + "%");
         isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
         Interfaces.updateInterfaces();
+        timeText.setText(getWorld().getTime().getTimeString());
     }
 
     public void render(boolean debug) {
@@ -217,6 +238,7 @@ public class HUD {
     public void drawDebugString() {
         String Main = " Version : " + Version.VERSION +
                 "\n Dimension name : " + getWorld().getWorldName() +
+                "\n World time : " + getWorld().getTime().getTimeString() +
                 "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
                 "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
                 "\n Camera X : " + GAME_CAMERA.X +

@@ -36,8 +36,8 @@ public class TestInterface extends Interface {
         test.setSize(BLOCK_SIZE, BLOCK_SIZE);
         test.setText("Это не кнопка");
 
-        Image img1 = new Image(0, 0, BLOCK_SIZE / 2, BLOCK_SIZE / 2);
-        Image img2 = new Image(0, 0, BLOCK_SIZE / 2, BLOCK_SIZE / 2);
+        Image img1 = new Image();
+        Image img2 = new Image();
         //img1.setImg(TEXTURES.stone_shovel);
         //img2.setImg(TEXTURES.apple);
 

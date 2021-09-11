@@ -3,8 +3,8 @@ package com.kgc.sauw.game.worlds;
 import com.kgc.sauw.core.entity.Drop;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.sound.Music;
-import com.kgc.sauw.core.world.Map;
-import com.kgc.sauw.core.world.World;
+import com.kgc.sauw.core.environment.world.Map;
+import com.kgc.sauw.core.environment.world.World;
 
 import java.util.Random;
 

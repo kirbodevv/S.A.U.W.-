@@ -12,19 +12,19 @@ import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.TouchOnBlock;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.environment.achievements.AchievementsData;
+import com.kgc.sauw.core.environment.item.Item;
+import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.environment.item.Type;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.input.PlayerController;
-import com.kgc.sauw.core.item.Item;
-import com.kgc.sauw.core.item.Items;
-import com.kgc.sauw.core.item.Type;
 import com.kgc.sauw.core.math.Maths;
-import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.core.utils.Resource;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
+import static com.kgc.sauw.core.environment.world.WorldRenderer.rayHandler;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
-import static com.kgc.sauw.core.render.WorldRenderer.rayHandler;
 import static com.kgc.sauw.game.gui.Interfaces.DEAD_INTERFACE;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
@@ -34,6 +34,7 @@ public class Player extends Entity implements ExtraData {
         DataBuffer buffer = new DataBuffer();
         buffer.put("health", health);
         buffer.put("hunger", hunger);
+        buffer.put("thirst", thirst);
         buffer.put("X", getPosition().x);
         buffer.put("Y", getPosition().y);
         buffer.put("InvLength", inventory.containers.size());
@@ -48,8 +49,9 @@ public class Player extends Entity implements ExtraData {
         DataBuffer buffer = new DataBuffer();
         buffer.readBytes(bytes);
         setPosition(buffer.getFloat("X"), buffer.getFloat("Y"));
-        health = buffer.getInt("health");
-        hunger = buffer.getInt("hunger");
+        health = buffer.getFloat("health");
+        hunger = buffer.getFloat("hunger");
+        thirst = buffer.getFloat("thirst");
         inventory = new Inventory(buffer.getInt("InvLength"));
         for (int i = 0; i < buffer.getInt("InvLength"); i++) {
             inventory.containers.add(i, new Container());
@@ -72,7 +74,7 @@ public class Player extends Entity implements ExtraData {
     }
 
     public Item getItemFromHotbar(int index) {
-        if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size() && Items.getItemById(inventory.containers.get(hotbar[index]).id) != null) {
+        if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size()) {
             return Items.getItemById(inventory.containers.get(hotbar[index]).id);
         } else {
             hotbar[index] = -1;
@@ -84,6 +86,8 @@ public class Player extends Entity implements ExtraData {
     public void onDead() {
         DEAD_INTERFACE.open();
     }
+
+    public AchievementsData achievementsData = new AchievementsData();
 
     public Player() {
         entityBodyW = 10 / 26f;
@@ -181,7 +185,7 @@ public class Player extends Entity implements ExtraData {
         if (!isDead) {
             pointLight.setPosition(body.getPosition().x, body.getPosition().y);
             PlayerController.update();
-            if (Settings.autopickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
+            if (Settings.autoPickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
                 Entity entity = EntityManager.findEntity(this, 0.6f);
                 if (entity != null) {
                     Drop item = (Drop) entity;

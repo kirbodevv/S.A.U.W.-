@@ -7,8 +7,8 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.mods.ModAPI;
+import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.game.api.mod.ModAPI;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -73,7 +73,7 @@ public class ConsoleInterface extends Interface {
                 }
             }
         });
-        HUD.Log.setColor(Color.BLACK);
+        HUD.log.setColor(Color.BLACK);
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
         try {
@@ -96,8 +96,8 @@ public class ConsoleInterface extends Interface {
 
     @Override
     public void tick() {
-        HUD.Log.setColor(HUD.R / 255f, HUD.G / 255f, HUD.B / 255f, 1);
-        input.setTextColor(HUD.R / 255f, HUD.G / 255f, HUD.B / 255f);
+        HUD.log.setColor(HUD.r / 255f, HUD.g / 255f, HUD.b / 255f, 1);
+        input.setTextColor(HUD.r / 255f, HUD.g / 255f, HUD.b / 255f);
         if (currCom == -1) {
             inputTxt = input.input;
         }

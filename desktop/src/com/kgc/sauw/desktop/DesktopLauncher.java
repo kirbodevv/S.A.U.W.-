@@ -11,7 +11,10 @@ public class DesktopLauncher {
         config.width = 840;
         config.height = 480;
         config.title = "S.A.U.W.";
-        config.addIcon("icon.png", Files.FileType.Internal);
+        config.addIcon("icon/icon_16.png", Files.FileType.Internal);
+        config.addIcon("icon/icon_32.png", Files.FileType.Internal);
+        config.addIcon("icon/icon_64.png", Files.FileType.Internal);
+        config.addIcon("icon/icon_128.png", Files.FileType.Internal);
         final MainGame game = new MainGame();
         new LwjglApplication(game, config);
     }

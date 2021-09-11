@@ -9,7 +9,7 @@ eclipse.project.name = appName + "-core"
 
 task cmd(type: Exec) {
     doFirst {
-        commandLine 'cmd', '/c', 'java -jar ' + project(":json_builder").buildDir.path + '/libs/json_builder-1.0.jar ' + project(":core").projectDir.path + ' ' + project(":json_builder").projectDir.path
+        commandLine 'sh', '-c', 'java -jar ' + project(":json_builder").buildDir.path + '/libs/json_builder-1.0.jar ' + project(":core").projectDir.path + ' ' + project(":json_builder").projectDir.path
     }
 
 }

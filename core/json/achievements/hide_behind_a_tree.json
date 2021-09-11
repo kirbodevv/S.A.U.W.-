@@ -1,0 +1,8 @@
+{
+  "id":"achievements:hide_behind_a_tree",
+  "title":"%Language/ach1_title",
+  "description":"%Language/ach1_txt",
+  "icon":"Items/log.png",
+  "giveCoins":5,
+  "script": "hide_behind_a_tree"
+}

@@ -2,10 +2,9 @@ package com.kgc.sauw.game.gui.interfaces.blockInterfaces;
 
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.BlockInterface;
-import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.environment.world.Tile;
 
 public class ToolWallInterface extends BlockInterface {
 

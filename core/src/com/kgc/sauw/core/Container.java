@@ -2,7 +2,7 @@ package com.kgc.sauw.core;
 
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
-import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.environment.item.Items;
 
 public class Container implements ExtraData {
     @Override

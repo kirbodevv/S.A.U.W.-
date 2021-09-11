@@ -1,13 +1,13 @@
 package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.item.Items;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.environment.world.Tile;
 
 import java.util.ArrayList;
 

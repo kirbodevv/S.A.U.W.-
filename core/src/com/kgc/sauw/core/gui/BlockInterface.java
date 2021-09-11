@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.gui;
 
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.environment.world.Tile;
 
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 

@@ -5,8 +5,8 @@ import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.item.Items;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;

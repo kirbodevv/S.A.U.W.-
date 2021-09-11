@@ -14,22 +14,26 @@ import static com.kgc.sauw.game.gui.Interfaces.*;
 public final class Input {
     public static final InputMultiplexer INPUT_MULTIPLEXER;
     private static final GameInputProcessor GAME_INPUT_PROCESSOR;
-    private static final PlayerController PLAYER_CONTROLLER;
+    private static PlayerController PLAYER_CONTROLLER;
     private static final TextInputProcessor TEXT_INPUT_PROCESSOR;
     private static final ControllerListener CONTROLLER_LISTENER;
 
     static {
         INPUT_MULTIPLEXER = new InputMultiplexer();
         GAME_INPUT_PROCESSOR = new GameInputProcessor();
-        PLAYER_CONTROLLER = new PlayerController();
         TEXT_INPUT_PROCESSOR = new TextInputProcessor();
         CONTROLLER_LISTENER = new ControllerListener();
 
         INPUT_MULTIPLEXER.addProcessor(GAME_INPUT_PROCESSOR);
-        INPUT_MULTIPLEXER.addProcessor(PLAYER_CONTROLLER);
+
         INPUT_MULTIPLEXER.addProcessor(TEXT_INPUT_PROCESSOR);
 
         Controllers.addListener(CONTROLLER_LISTENER);
+    }
+
+    public static void init() {
+        PLAYER_CONTROLLER = new PlayerController();
+        INPUT_MULTIPLEXER.addProcessor(PLAYER_CONTROLLER);
     }
 
     public static class GameInputProcessor implements InputProcessor {

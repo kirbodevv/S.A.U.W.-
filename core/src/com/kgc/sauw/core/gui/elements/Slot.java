@@ -11,7 +11,7 @@ import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.gui.InterfaceUtils;
-import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.game.skins.Skins;

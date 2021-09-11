@@ -14,8 +14,9 @@ public class Text extends InterfaceElement {
     private ElementSkin background;
     private String txt = "";
     private final Color textColor = new Color(TEXT_COLOR);
+    private boolean scalable = true;
 
-    public Text(){
+    public Text() {
         setStandardBackground(true);
     }
 
@@ -26,11 +27,16 @@ public class Text extends InterfaceElement {
     public void setStandardBackground(boolean b) {
         setBackground(b ? Skins.round_up : Skins.round_down_1);
     }
+
+    public void setScalable(boolean scalable) {
+        this.scalable = scalable;
+    }
+
     public void setText(String text) {
         txt = text;
         GLYPH_LAYOUT.setText(BITMAP_FONT, text);
         setTextScale();
-        if (GLYPH_LAYOUT.width > this.width) {
+        if (scalable && GLYPH_LAYOUT.width > this.width) {
             setSize(height / 2 + (int) GLYPH_LAYOUT.width, this.height);
         }
     }

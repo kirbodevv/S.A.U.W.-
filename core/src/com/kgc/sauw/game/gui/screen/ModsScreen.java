@@ -1,8 +1,8 @@
 package com.kgc.sauw.game.gui.screen;
 
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.MainGame;
-import com.kgc.sauw.resource.TextureGenerator;
+import com.kgc.sauw.game.resource.TextureGenerator;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;

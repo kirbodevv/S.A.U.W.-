@@ -70,7 +70,7 @@ public class XmlInterfaceLoader {
                     InterfaceElement = new Text();
                     break;
                 case "Image":
-                    InterfaceElement = new Image(0, 0, 0, 0);
+                    InterfaceElement = new Image();
                     break;
                 case "Slot":
                     InterfaceElement = new Slot("", Interface);

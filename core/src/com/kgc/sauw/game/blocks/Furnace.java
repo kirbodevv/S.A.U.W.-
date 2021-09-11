@@ -2,13 +2,13 @@ package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.item.Items;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.world.Tile;
-import com.kgc.sauw.core.item.InstrumentItem;
+import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.environment.item.InstrumentItem;
 
 import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 

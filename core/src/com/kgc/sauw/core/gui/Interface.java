@@ -6,7 +6,7 @@ import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.Text;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.skins.Skins;
 
 import java.util.ArrayList;

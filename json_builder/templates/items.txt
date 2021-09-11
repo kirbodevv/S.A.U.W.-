@@ -1,0 +1,17 @@
+package com.kgc.sauw.game.generated;
+
+import com.kgc.sauw.core.environment.block.Block;
+import com.kgc.sauw.core.environment.block.BlockConfiguration;
+import com.kgc.sauw.core.environment.item.*;
+import com.kgc.sauw.core.utils.StringUtils;
+
+public class ItemsGenerated {
+    public static void init() {
+		com.kgc.sauw.core.environment.item.Items.addItem(new VoidItem());
+        ItemConfiguration itemConfiguration;
+		BlockConfiguration blockConfiguration;
+        Item item;
+        Block block;
+        $items$
+    }
+}

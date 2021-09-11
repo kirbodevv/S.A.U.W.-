@@ -1,0 +1,7 @@
+{
+  "id": "block:dirt",
+  "intId": 12,
+  "texture": "Blocks/dirt.png",
+  "blockConfiguration": {
+  }
+}

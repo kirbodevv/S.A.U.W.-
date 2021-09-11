@@ -58,7 +58,7 @@ public class Button extends InterfaceElement {
     public void setText(String text) {
         txt = text;
         createBitmapFont();
-        glyphLayout.setText(buttonText, text);
+        //glyphLayout.setText(buttonText, text);
         if (glyphLayout.width > this.width) {
             setSize(height / 2 + (int) glyphLayout.width, this.height);
         }
@@ -67,10 +67,10 @@ public class Button extends InterfaceElement {
     public void createBitmapFont() {
         if (buttonText == null) {
             buttonText = new BitmapFont(Gdx.files.internal("ttf.fnt"));
+            glyphLayout = new GlyphLayout();
             capHeight = buttonText.getCapHeight();
             setTextScale();
             buttonText.setColor(Color.BLACK);
-            glyphLayout = new GlyphLayout();
         }
     }
 
@@ -129,7 +129,7 @@ public class Button extends InterfaceElement {
         buttonText.dispose();
     }
 
-    public static abstract class EventListener {
-        public abstract void onClick();
+    public interface EventListener {
+        void onClick();
     }
 }

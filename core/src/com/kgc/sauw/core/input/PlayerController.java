@@ -6,11 +6,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
-import com.kgc.sauw.core.block.Blocks;
-import com.kgc.sauw.game.environment.Environment;
+import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.game.gui.Interfaces;
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.environment.world.Tile;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;

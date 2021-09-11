@@ -1,7 +1,8 @@
 package com.kgc.sauw.game.environment;
 
-import com.kgc.sauw.core.block.Blocks;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.environment.block.Air;
+import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.game.blocks.*;
 

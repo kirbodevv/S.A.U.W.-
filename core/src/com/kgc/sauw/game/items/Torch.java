@@ -3,8 +3,8 @@ package com.kgc.sauw.game.items;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.item.Item;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.environment.item.Item;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.utils.languages.Languages;
 

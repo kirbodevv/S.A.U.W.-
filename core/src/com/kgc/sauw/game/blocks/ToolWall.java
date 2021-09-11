@@ -1,10 +1,10 @@
 package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.core.block.Block;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.environment.block.Block;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.environment.world.Tile;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.game.gui.Interfaces.TOOL_WALL_INTERFACE;

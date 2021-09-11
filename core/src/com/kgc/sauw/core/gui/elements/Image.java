@@ -10,11 +10,6 @@ public class Image extends InterfaceElement {
     private Texture texture;
     private TextureRegion textureRegion;
 
-    public Image(float x, float y, float w, float h) {
-        setPosition(x, y);
-        setSize(w, h);
-    }
-
     public void setImg(Texture t) {
         this.texture = t;
     }

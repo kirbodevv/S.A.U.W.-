@@ -8,14 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;
 import com.kgc.sauw.core.gui.elements.Slider;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.sauw.game.MainGame;
-import com.kgc.sauw.resource.TextureGenerator;
+import com.kgc.sauw.game.resource.TextureGenerator;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -86,11 +85,11 @@ public class SettingsScreen implements Screen {
         //AIPU = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
         AIPU.setSize(width / 16, width / 16);
         AIPU.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 3);
-        AIPU.setChecked(Settings.autopickup);
+        AIPU.setChecked(Settings.autoPickup);
         AIPU.setEventListener(new Checkbox.EventListener() {
             @Override
             public void onClick(boolean isChecked) {
-                Settings.autopickup = isChecked;
+                Settings.autoPickup = isChecked;
                 Settings.saveSettings();
             }
         });

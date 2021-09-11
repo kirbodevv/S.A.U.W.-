@@ -4,24 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
+import com.kgc.sauw.core.environment.achievements.Achievements;
+import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.environment.world.WorldRenderer;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Elements;
-import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.input.Input;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
-import com.kgc.sauw.core.render.WorldRenderer;
-import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
+import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.game.api.mod.Mods;
 import com.kgc.sauw.game.environment.Blockss;
-import com.kgc.sauw.game.environment.Itemss;
+import com.kgc.sauw.game.generated.AchievementsGenerated;
+import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.items.Torch;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
-import com.kgc.sauw.mods.Mods;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -45,8 +47,9 @@ public class SAUW implements Screen {
     public SAUW(String worldName) {
         DR = new Box2DDebugRenderer();
 
-        GeneratedJson.init();
-        Items.addItem(new Torch());
+        ItemsGenerated.init();
+        AchievementsGenerated.init();
+        com.kgc.sauw.core.environment.item.Items.addItem(new Torch());
         new Blockss();
 
         Music.setVolume(Settings.musicVolume);
@@ -65,6 +68,7 @@ public class SAUW implements Screen {
         MODS.load();
 
         new UpdateTick().start();
+        Input.init();
         isGameRunning = true;
     }
 
@@ -135,7 +139,9 @@ public class SAUW implements Screen {
         public void run() {
             super.run();
             getWorld().map.update();
-            Items.tick();
+            com.kgc.sauw.core.environment.item.Items.tick();
+            Achievements.checkAchievements(PLAYER.achievementsData);
+            getWorld().getTime().updateTime();
             try {
                 sleep(50);
             } catch (Exception ignored) {

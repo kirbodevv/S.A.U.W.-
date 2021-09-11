@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.entity;
 
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.utils.ID;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;

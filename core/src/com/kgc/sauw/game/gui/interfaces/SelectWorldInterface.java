@@ -1,10 +1,10 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.core.WorldLoader;
+import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
 

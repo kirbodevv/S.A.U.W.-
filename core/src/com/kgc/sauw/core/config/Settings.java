@@ -9,7 +9,7 @@ public class Settings {
     public static boolean debugMode = true;
     public static boolean debugRenderer = false;
     public static String lang = "en";
-    public static boolean autopickup = false;
+    public static boolean autoPickup = false;
     public static int consoleTextColorRed;
     public static int consoleTextColorGreen;
     public static int consoleTextColorBlue;
@@ -25,7 +25,7 @@ public class Settings {
         settings.getJSONObject("console").getJSONObject("textColor").put("R", consoleTextColorRed);
         settings.getJSONObject("console").getJSONObject("textColor").put("G", consoleTextColorGreen);
         settings.getJSONObject("console").getJSONObject("textColor").put("B", consoleTextColorBlue);
-        settings.getJSONObject("game").put("autopickup", autopickup);
+        settings.getJSONObject("game").put("autopickup", autoPickup);
         settings.getJSONObject("game").put("useConsole", useConsole);
         settings.getJSONObject("sound").put("music", musicVolume);
         FileHandle settingsFile = Gdx.files.external("S.A.U.W./User/settings.json");
@@ -44,7 +44,7 @@ public class Settings {
         consoleTextColorRed = settings.getJSONObject("console").getJSONObject("textColor").getInt("R");
         consoleTextColorGreen = settings.getJSONObject("console").getJSONObject("textColor").getInt("G");
         consoleTextColorBlue = settings.getJSONObject("console").getJSONObject("textColor").getInt("B");
-        autopickup = settings.getJSONObject("game").getBoolean("autopickup");
+        autoPickup = settings.getJSONObject("game").getBoolean("autopickup");
         useConsole = settings.getJSONObject("game").getBoolean("useConsole");
         musicVolume = settings.getJSONObject("sound").getInt("music");
         //</settings load>

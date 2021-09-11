@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.entity;
 
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.utils.ID;
 
 import java.util.ArrayList;
@@ -98,6 +98,10 @@ public class Inventory {
 
     public void clearSlot(int slot) {
         containers.remove(slot);
+    }
+
+    public int getCountOfItems(String id) {
+        return getCountOfItems(ID.get(id));
     }
 
     public int getCountOfItems(int id) {

@@ -3,15 +3,13 @@ package com.kgc.sauw.core.utils.languages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.resource.Files;
+import com.kgc.sauw.game.resource.Files;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class Languages {
-    public JSONObject langs;
-
     private static final HashMap<String, Language> languages = new HashMap<>();
 
     static {
@@ -37,7 +35,7 @@ public class Languages {
     }
 
     public static void loadLanguage(FileHandle file, String langCode) {
-        String[] lang = file.readString("UTF-8").split("\n");
+        String[] lang = file.readString("UTF-8").split("\r\n");
         for (String string : lang) {
             String[] s = string.split(":");
             getLanguage(langCode).putString(s[0], s[1]);

@@ -3,14 +3,14 @@ package com.kgc.sauw.game.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.kgc.sauw.core.WorldLoader;
+import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Text;
-import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.sauw.game.MainGame;
@@ -49,7 +49,7 @@ public class MenuScreen implements Screen {
         /*SettingsScreen = new SettingsScreen(this);
         ModsScreen = new ModsScreen(this);*/
 
-        sauwLogo = new Image(0, 0, 0, 0);
+        sauwLogo = new Image();
         sauwLogo.setImg(Resource.getTexture("Interface/SAUW_Logo.png"));
 
         startButton = new Button("MENU_SCREEN_START_BUTTON", 0, 0, 0, 0);
@@ -108,7 +108,7 @@ public class MenuScreen implements Screen {
         coinsLayout.setSizeInBlocks(3, 1f);
         coinsLayout.setStandardBackground(true);
 
-        Image coinIcon = new Image(0, 0, 0, 0);
+        Image coinIcon = new Image();
         coinIcon.setSizeInBlocks(0.75f, 0.75f);
         coinIcon.setImg(Resource.getTexture("SAUW_Coin.png"));
         coinIcon.setTranslationX(0.125f);

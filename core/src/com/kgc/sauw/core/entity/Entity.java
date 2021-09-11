@@ -6,11 +6,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
-import com.kgc.sauw.core.block.Block;
-import com.kgc.sauw.core.block.Blocks;
+import com.kgc.sauw.core.environment.block.Block;
+import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.environment.world.Map;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.utils.ExtraData;
-import com.kgc.sauw.core.world.Map;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,10 +25,12 @@ public class Entity {
     public float maxWeight = 40.0f;
     public float itemsWeight = 0.0f;
 
-    public float maxHealth = 20;
-    public float maxHunger = 20;
-    public float health = 20;
-    public float hunger = 20;
+    public float maxHealth = 100;
+    public float maxHunger = 100;
+    public float maxThirst = 100;
+    public float health = 100;
+    public float hunger = 100;
+    public float thirst = 100;
 
     protected Animator animator;
     protected TextureRegion currentFrame;
@@ -143,11 +145,11 @@ public class Entity {
     }
 
     public void setVelocityX(float velX) {
-        this.velX = velX;
+        this.velX = velX * 1.5f;
     }
 
     public void setVelocityY(float velY) {
-        this.velY = velY;
+        this.velY = velY * 1.5f;
     }
 
     public Vector2 getPosition() {

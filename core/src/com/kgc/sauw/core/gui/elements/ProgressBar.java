@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.resource.TextureGenerator;
+import com.kgc.sauw.game.resource.TextureGenerator;
 import com.kgc.sauw.game.skins.Skins;
 
 public class ProgressBar extends InterfaceElement {

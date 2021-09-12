@@ -32,7 +32,7 @@ inventory:Inventar
 crafting:Crafting
 console:Konsole
 campfire:Lagerfeuer
-recipe:Craft
+craft:Craft
 useConsole:Konsole benutzen
 useConsoleNotification:Erfolge sind nur bei ausgeschalteter Konsole Verfügbar.
 ach1_title:Не прячься

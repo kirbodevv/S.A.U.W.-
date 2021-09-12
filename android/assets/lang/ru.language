@@ -32,7 +32,7 @@ inventory:Инвентарь
 crafting:Крафтинг
 console:Консоль
 campfire:Костёр
-recipe:Craft
+craft:Craft
 useConsole:Использовать консоль
 useConsoleNotification:Если ты будешь использовать консоль то ты не сможешь получать достижения.
 ach1_title:Не прячься

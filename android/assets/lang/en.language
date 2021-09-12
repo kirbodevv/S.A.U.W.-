@@ -32,7 +32,7 @@ inventory:Inventory
 crafting:Crafting
 console:Console
 campfire:Костёр
-recipe:Craft
+craft:Craft
 useConsole:Use console
 useConsoleNotification:If you use the console you will not be able to receive achievements.
 ach1_title:Не прячься

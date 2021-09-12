@@ -9,7 +9,11 @@ public class JSChecker implements AchievementChecker {
     private static final Object[] objects = new Object[]{};
 
     public JSChecker(String js, String achievementName) {
-        this.scriptable = JSLoader.loadJs(js, achievementName);
+        try {
+            this.scriptable = JSLoader.loadJs(js, achievementName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

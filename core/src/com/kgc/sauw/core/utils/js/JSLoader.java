@@ -30,7 +30,7 @@ public class JSLoader {
         return result;
     }
 
-    public static Scriptable loadJs(String js, String sourceName) {
+    public static Scriptable loadJs(String js, String sourceName) throws Exception{
         Context context = Context.enter();
         Scriptable scriptable = context.initStandardObjects();
 

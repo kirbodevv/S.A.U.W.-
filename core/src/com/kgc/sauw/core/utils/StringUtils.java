@@ -4,12 +4,7 @@ import com.kgc.sauw.core.utils.languages.Languages;
 
 public class StringUtils {
     public static String getString(String string) {
-        String result;
-        if (string.contains("%Language")) {
-            result = Languages.getString(string.substring(10));
-        } else {
-            result = string;
-        }
+        String result = string.contains("%Language") ? Languages.getString(string.substring(10)) : string;
         if(result != null) return result;
         else return "";
     }

@@ -17,7 +17,7 @@ public class ProgressBar extends InterfaceElement {
     private ElementSkin foreground;
     private final TextureRegion progress = new TextureRegion();
 
-    private boolean generateTextures = true;
+    private boolean generateTextures;
     private final Color color = new Color(1f, 1f, 1f, 1f);
 
 

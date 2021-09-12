@@ -58,7 +58,7 @@ public class Button extends InterfaceElement {
     public void setText(String text) {
         txt = text;
         createBitmapFont();
-        //glyphLayout.setText(buttonText, text);
+        glyphLayout.setText(buttonText, text);
         if (glyphLayout.width > this.width) {
             setSize(height / 2 + (int) glyphLayout.width, this.height);
         }

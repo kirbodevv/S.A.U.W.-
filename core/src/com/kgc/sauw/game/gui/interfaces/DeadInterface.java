@@ -13,7 +13,7 @@ public class DeadInterface extends Interface {
 
     public DeadInterface() {
         super("DEAD_INTERFACE");
-        setHeaderText("");
+        actionBar.setText("");
 
         respawn = new Button("DEAD_INTERFACE_RESPAWN_BUTTON", (int) (SCREEN_WIDTH / 16 * 5), (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 5), (int) (SCREEN_WIDTH / 16 * 6), (int) (SCREEN_WIDTH / 16));
         respawn.setText(Languages.getString("respawn"));

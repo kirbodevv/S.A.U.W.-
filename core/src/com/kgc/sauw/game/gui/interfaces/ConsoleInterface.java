@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
@@ -31,7 +32,7 @@ public class ConsoleInterface extends Interface {
 
     public ConsoleInterface() {
         super("CONSOLE_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"));
+        InterfaceUtils.createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"), this);
 
         input = (EditText) getElement("CommandInput");
         sendCommandButton = (Button) getElement("sendCommandButton");

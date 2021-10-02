@@ -24,12 +24,12 @@ public class XmlInterfaceLoader {
         createFromXml(doc, Interface);
     }
 
-    private static void createFromXml(Document doc, Interface Interface) {
+    private static void createFromXml(Document doc, Interface interface_) {
         Element root = doc.getDocumentElement();
 
-        Interface.setHeaderText(StringUtils.getString(root.getAttribute("header")));
+        interface_.actionBar.setText(StringUtils.getString(root.getAttribute("header")));
 
-        if (Boolean.parseBoolean(root.getAttribute("Inventory"))) Interface.createInventory();
+        if (Boolean.parseBoolean(root.getAttribute("Inventory"))) InterfaceUtils.createInventory(interface_);
 
         NodeList RootLayoutList = doc.getElementsByTagName("RootLayout");
 
@@ -40,7 +40,7 @@ public class XmlInterfaceLoader {
                 for (int j = 0; j < n.getLength(); j++) {
                     if (n.item(j).getNodeType() == Node.ELEMENT_NODE) {
                         Element e = (Element) n.item(j);
-                        addElement(rootLayout.getAttribute("id"), e, Interface);
+                        addElement(rootLayout.getAttribute("id"), e, interface_);
                     }
                 }
             }

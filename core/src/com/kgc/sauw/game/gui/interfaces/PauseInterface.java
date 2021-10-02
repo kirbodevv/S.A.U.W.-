@@ -2,6 +2,7 @@ package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.environment.Environment;
+import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.Interface;
 
@@ -12,7 +13,7 @@ public class PauseInterface extends Interface {
     public PauseInterface() {
         super("PAUSE_INTERFACE");
         //setHeaderText("").isBlockInterface(false);
-        createFromXml(Gdx.files.internal("xml/PauseInterface.xml"));
+        InterfaceUtils.createFromXml(Gdx.files.internal("xml/PauseInterface.xml"), this);
         resumeButton = (Button) getElement("PAUSE_INTERFACE_RESUME_BUTTON");//new Button("PAUSE_INTERFACE_RESUME_BUTTON", (int) (SCREEN_WIDTH / 16), (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 4), (int) (SCREEN_WIDTH / 16 * 4), (int) SCREEN_WIDTH / 16);
         //resumeButton.setText(LANGUAGES.getString("resume"));
         resumeButton.addEventListener(new Button.EventListener() {

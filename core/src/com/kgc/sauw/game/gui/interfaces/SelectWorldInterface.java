@@ -3,6 +3,7 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.MainGame;
@@ -20,7 +21,7 @@ public class SelectWorldInterface extends Interface {
     public SelectWorldInterface() {
         super("SELECT_WORLD_INTERFACE");
 
-        createFromXml(Gdx.files.internal("xml/SelectWorldInterface.xml"));
+        InterfaceUtils.createFromXml(Gdx.files.internal("xml/SelectWorldInterface.xml"), this);
         sel_0 = (Button) getElement("SELECT_0");
         sel_0.addEventListener(new Button.EventListener() {
             @Override

@@ -14,7 +14,7 @@ public class TestInterface extends Interface {
     public TestInterface() {
         super("TEST_INTERFACE");
 
-        setHeaderText("TOP SECRET");
+        actionBar.setText("TOP SECRET");
 
 
         Layout testLayout = new Layout(Layout.Orientation.HORIZONTAL);

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
@@ -34,7 +35,7 @@ public class InventoryInterface extends Interface {
 
     public InventoryInterface() {
         super("INVENTORY_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"));
+        InterfaceUtils.createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"), this);
 
         playerWeight = (Text) getElement("playerWeight");
         playerImg = (Image) getElement("playerImg");

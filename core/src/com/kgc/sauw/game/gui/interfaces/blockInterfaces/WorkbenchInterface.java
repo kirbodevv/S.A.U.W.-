@@ -2,6 +2,7 @@ package com.kgc.sauw.game.gui.interfaces.blockInterfaces;
 
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.BlockInterface;
+import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.environment.world.Tile;
@@ -14,7 +15,7 @@ public class WorkbenchInterface extends BlockInterface {
     public WorkbenchInterface() {
         super("WORKBENCH_TABLE_INTERFACE");
 
-        createFromXml(Gdx.files.internal("xml/WorkbenchInterface.xml"));
+        InterfaceUtils.createFromXml(Gdx.files.internal("xml/WorkbenchInterface.xml"), this);
 
         ((Image) getElement("CRAFT_HANDSAW_ARROW")).setImg(Resource.getTexture("Interface/button_right_0.png"));
         ((Image) getElement("CRAFT_HAMMER_ARROW")).setImg(Resource.getTexture("Interface/button_right_0.png"));

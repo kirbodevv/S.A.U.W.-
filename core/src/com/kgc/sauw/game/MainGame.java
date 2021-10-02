@@ -91,6 +91,16 @@ public class MainGame extends Game {
 
     @Override
     public void render() {
-        super.render();
+        try {
+            super.render();
+        } catch (Exception e) {
+            writeLog(e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public void writeLog(String log) {
+        FileHandle file = Gdx.files.external("S.A.U.W./log.txt");
+        file.writeString(log, false);
     }
 }

@@ -1,6 +1,5 @@
 package com.kgc.sauw.core.gui;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Layout;
@@ -19,14 +18,14 @@ public abstract class Interface {
     public boolean isOpen = false;
     public float width, height, x, y;
 
-
     public ArrayList<InterfaceElement> elements = new ArrayList<>();
     public ArrayList<Slot> slots = new ArrayList<>();
 
-
-    private final Text actionBar;
+    public final Text actionBar = new Text();
     public Layout mainLayout;
     public Button closeInterfaceButton;
+
+    private InterfaceController controller;
 
     public Interface(String ID) {
         this.ID = ID;
@@ -36,7 +35,6 @@ public abstract class Interface {
         width = Graphic.SCREEN_WIDTH;
         height = Graphic.SCREEN_HEIGHT;
 
-        actionBar = new Text();
         actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
 
         mainLayout.setBackground(Skins.interface_background);
@@ -61,12 +59,8 @@ public abstract class Interface {
         elements.add(closeInterfaceButton);
     }
 
-    public void createFromXml(FileHandle xmlFile) {
-        try {
-            XmlInterfaceLoader.load(this, xmlFile.readString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void setController(InterfaceController controller) {
+        this.controller = controller;
     }
 
     public void updateElementsList() {
@@ -78,17 +72,6 @@ public abstract class Interface {
                 if (!InterfaceUtils.isElementInSlotsArray((Slot) e, slots)) slots.add((Slot) e);
             }
         }
-    }
-
-    public void createInventory() {
-        InventoryFragment fragment = new InventoryFragment();
-        fragment.createInventory(this);
-        mainLayout.addElements(fragment);
-        updateElementsList();
-    }
-
-    public void setHeaderText(String text) {
-        actionBar.setText(text);
     }
 
     public void open() {

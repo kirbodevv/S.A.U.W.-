@@ -3,6 +3,7 @@ package com.kgc.sauw.game.gui.interfaces.blockInterfaces;
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.BlockInterface;
+import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.utils.Resource;
@@ -13,7 +14,7 @@ public class FurnaceInterface extends BlockInterface {
 
     public FurnaceInterface() {
         super("FURNACE_INTERFACE");
-        createFromXml(Gdx.files.internal("xml/FurnaceInterface.xml"));
+        InterfaceUtils.createFromXml(Gdx.files.internal("xml/FurnaceInterface.xml"), this);
 
         Slot resultSlot = (Slot) getElement("ResultSlot");
         resultSlot.setSF(new Slot.SlotFunctions() {

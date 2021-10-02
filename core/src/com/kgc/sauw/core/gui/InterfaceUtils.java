@@ -1,5 +1,6 @@
 package com.kgc.sauw.core.gui;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.elements.Slot;
 
@@ -33,5 +34,20 @@ public class InterfaceUtils {
             if (slot1.equals(slot)) return true;
         }
         return false;
+    }
+
+    public static void createFromXml(FileHandle xmlFile, Interface interface_) {
+        try {
+            XmlInterfaceLoader.load(interface_, xmlFile.readString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createInventory(Interface interface_) {
+        InventoryFragment fragment = new InventoryFragment();
+        fragment.createInventory(interface_);
+        interface_.mainLayout.addElements(fragment);
+        interface_.updateElementsList();
     }
 }

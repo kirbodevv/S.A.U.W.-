@@ -6,13 +6,13 @@ import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.Text;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.game.skins.Skins;
+import com.kgc.sauw.core.skins.Skins;
 
 import java.util.ArrayList;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
-public abstract class Interface {
+public class Interface {
     public String ID;
 
     public boolean isOpen = false;
@@ -153,13 +153,23 @@ public abstract class Interface {
         closeInterfaceButton.resize();
     }
 
-    public abstract void tick();
+    public void tick() {
 
-    public abstract void onOpen();
+    }
 
-    public abstract void onClose();
+    public void onOpen() {
 
-    public abstract void preRender();
+    }
 
-    public abstract void postRender();
+    public void onClose() {
+
+    }
+
+    public void preRender() {
+
+    }
+
+    public void postRender() {
+
+    }
 }

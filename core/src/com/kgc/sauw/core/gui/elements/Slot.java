@@ -14,7 +14,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.game.skins.Skins;
+import com.kgc.sauw.core.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
@@ -120,7 +120,7 @@ public class Slot extends InterfaceElement {
 
     public void itemRender() {
         if (container != null && container.id != 0) {
-            BATCH.draw(Items.getItemById(container.id).getTextureRegion(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
+            BATCH.draw(Items.getItemById(container.id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
             BITMAP_FONT.getData().setScale((width / 3f) / BITMAP_FONT_CAP_HEIGHT);
             GLYPH_LAYOUT.setText(BITMAP_FONT, container.count + "");
             BITMAP_FONT.draw(BATCH, container.count + "", itemX, itemY + GLYPH_LAYOUT.height + width / 32f, width, Align.right, false);
@@ -136,7 +136,7 @@ public class Slot extends InterfaceElement {
     }
 
     public void setIconFromItem(String id) {
-        setIcon(Items.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getTextureRegion(null));
+        setIcon(Items.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getTexture(null));
     }
 
     public interface SlotFunctions {

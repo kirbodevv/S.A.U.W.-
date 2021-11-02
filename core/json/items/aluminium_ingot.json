@@ -1,0 +1,9 @@
+{
+  "id": "item:aluminium_ingot",
+  "texture": "Items/iron_ingot.png",
+  "itemConfiguration": {
+    "maxCount": 64,
+    "weight": 1,
+    "type": "ITEM"
+  }
+}

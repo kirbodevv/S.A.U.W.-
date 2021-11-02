@@ -2,7 +2,6 @@
   "id": "item:stone_pickaxe",
   "texture": "Items/stone_pickaxe.png",
   "itemConfiguration": {
-    "name": "%Language/stone_pickaxe",
     "maxCount": 1,
     "weight": 5.75,
     "type": "INSTRUMENT",

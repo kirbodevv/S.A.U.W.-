@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
-import com.kgc.sauw.core.environment.world.Map;
-import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.environment.world.chunk.Chunk;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,18 @@ import static com.kgc.sauw.core.environment.Environment.getWorld;
 public class WorldLoader {
 
     public static String[] worldNames;
+
+    public static void saveChunks(Map map, String worldName) {
+        for (int x = 0; x < map.getMap().length; x++) {
+            for (int z = 0; z < map.getMap()[x].length; z++) {
+                Chunk chunk = map.getChunk(x, z);
+                if (chunk.isChanged()) {
+                    FileHandle chunkFile = Gdx.files.external("S.A.U.W./Worlds").child(worldName).child("map").child("c." + x + "." + z + ".bdb");
+                    chunkFile.writeBytes(chunk.getBytes(), false);
+                }
+            }
+        }
+    }
 
     public static void updateWorldsList() {
         FileHandle worldsFolder = Gdx.files.external("S.A.U.W./Worlds/");

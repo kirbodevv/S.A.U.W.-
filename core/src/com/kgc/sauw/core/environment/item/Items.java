@@ -1,9 +1,10 @@
 package com.kgc.sauw.core.environment.item;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.kgc.sauw.core.mod.ModResources;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.game.api.mod.ModResources;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -39,9 +40,8 @@ public class Items {
     }
 
     public static void addItemFromJson(JSONObject json, ModResources resources) {
-        int id = ID.registeredId(json.getString("id"));
-        Item item = new Item(id);
-        ItemConfiguration itemConfiguration = new ItemConfiguration(id);
+        Item item = new Item(json.getString("id"));
+        ItemConfiguration itemConfiguration = new ItemConfiguration(item.id);
 
         item.setTexture((Texture) resources.get(json.getString("texture")));
 
@@ -64,10 +64,11 @@ public class Items {
 
         item.setItemConfiguration(itemConfiguration);
 
-        addItem(item);
+        defineItem(item);
     }
 
-    public static void addItem(Item item) {
+    public static void defineItem(Item item) {
         ITEMS.add(item);
+        Gdx.app.log("Items", "defined item, with id " + item.getStringId());
     }
 }

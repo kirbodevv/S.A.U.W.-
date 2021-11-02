@@ -17,7 +17,7 @@ buildscript {
 allprojects {
     apply plugin: "eclipse"
 
-    version = 'v0.2.6-beta'
+    version = '0.2.7.h1-beta'
     ext {
         appName = "S.A.U.W."
         gdxVersion = '1.9.12'

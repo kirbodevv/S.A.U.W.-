@@ -4,6 +4,7 @@ import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.environment.world.chunk.Chunk;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.ID;
 
@@ -14,10 +15,19 @@ public class Map {
     public static final int zSize = 3;
 
     private final Tile[][][] map0 = new Tile[ySize][xSize][zSize];
+    private final Chunk[][] map = new Chunk[4][4];
+
+    public Chunk[][] getMap() {
+        return map;
+    }
+
+    public Chunk getChunk(int x, int z) {
+        return map[x][z];
+    }
 
     public DataBuffer toDataBuffer() {
         DataBuffer buffer = new DataBuffer();
-        int[] worldArray = new int[map0.length * map0[0].length * map0[0][0].length];
+        int[] worldArray = new int[xSize * ySize * zSize];
         int[] mapDmg = new int[map0.length * map0[0].length * map0[0][0].length];
         ExtraData[] tileEntities;
         int i = 0;
@@ -55,7 +65,6 @@ public class Map {
         buffer.put("tileEnCount", tileEntitiesCount);
         return buffer;
     }
-
 
     public void update() {
         Blocks.blockTick();

@@ -25,11 +25,11 @@ public class Blocks {
             block.tick();
     }
 
-    public static void addBlock(Block block) {
+    public static void defineBlock(Block block) {
         BLOCKS.add(block);
     }
 
     public static void createBlock(int id, Texture t0) {
-        addBlock(new Block(id, t0));
+        defineBlock(new Block(id, t0));
     }
 }

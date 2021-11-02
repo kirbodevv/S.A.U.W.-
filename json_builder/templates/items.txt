@@ -7,11 +7,9 @@ import com.kgc.sauw.core.utils.StringUtils;
 
 public class ItemsGenerated {
     public static void init() {
-		com.kgc.sauw.core.environment.item.Items.addItem(new VoidItem());
+		com.kgc.sauw.core.environment.item.Items.defineItem(new VoidItem());
         ItemConfiguration itemConfiguration;
-		BlockConfiguration blockConfiguration;
         Item item;
-        Block block;
         $items$
     }
 }

@@ -1,8 +1,9 @@
 package com.kgc.sauw.core.entity;
 
-import com.badlogic.gdx.Gdx;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
+import com.kgc.sauw.core.callbacks.Callback;
+import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.Camera2D;
@@ -25,6 +26,19 @@ public class EntityManager implements ExtraData {
         PLAYER = (Player) new Player.PlayerFactory().create();
 
         addFactory(new DropFactory());
+        addFactory(new NpcFactory());
+
+        Callback.addCallback(new InteractionButtonClicked() {
+            @Override
+            public void main() {
+                for (Entity entity : ENTITIES_LIST) {
+                    if (entity instanceof Npc)
+                        if (Maths.distance(PLAYER.getPosition(), entity.getPosition()) < 3) {
+                            ((Npc) entity).interact();
+                        }
+                }
+            }
+        });
     }
 
     public static void addFactory(EntityFactory entityFactory) {
@@ -38,7 +52,6 @@ public class EntityManager implements ExtraData {
 
     public static Entity add(Entity entity) {
         ENTITIES_LIST.add(entity);
-        Gdx.app.log("ENTITY MANAGER", "Entity spawned with id : " + entity.getId());
         return entity;
     }
 

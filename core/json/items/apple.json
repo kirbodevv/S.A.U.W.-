@@ -2,7 +2,6 @@
   "id": "item:apple",
   "texture": "Items/apple.png",
   "itemConfiguration": {
-    "name": "%Language/apple",
     "maxCount": 64,
     "weight": 0.2,
     "type": "FOOD",

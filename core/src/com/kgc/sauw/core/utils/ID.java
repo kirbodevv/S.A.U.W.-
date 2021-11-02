@@ -18,14 +18,14 @@ public class ID {
         idMap.maxVal = maxVal;
         idMap.idMap = new HashMap<>();
         map.put(key, idMap);
-        Gdx.app.log("ID MANAGER", "registered id group " + key);
+        Gdx.app.log("ID manager", "registered id group \"" + key + "\"");
     }
 
     public static int registeredId(String key, int id) {
         String[] keys = key.split(":");
         if (map.get(keys[0]).maxVal > id)
             map.get(keys[0]).idMap.put(keys[1], id);
-        Gdx.app.log("ID MANAGER", "registered string id " + key + ", with integer id " + id);
+        Gdx.app.log("ID manager", "registered string id \"" + key + "\", with integer id " + id);
         return id;
 
     }
@@ -37,7 +37,7 @@ public class ID {
         while (iterator < idMap.maxVal) {
             if (!idMap.idMap.containsValue(iterator)) {
                 idMap.idMap.put(keys[1], iterator);
-                Gdx.app.log("ID MANAGER", "registered string id " + key + ", with integer id " + iterator);
+                Gdx.app.log("ID manager", "registered string id \"" + key + "\", with integer id " + iterator);
                 return iterator;
             } else iterator++;
         }

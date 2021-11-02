@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.environment.achievements.Achievements;
 import com.kgc.sauw.core.environment.block.Blocks;
@@ -13,17 +14,18 @@ import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Elements;
 import com.kgc.sauw.core.input.Input;
+import com.kgc.sauw.core.mod.Mods;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.game.api.mod.Mods;
+import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.sauw.game.environment.Blockss;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.items.Torch;
-import com.kgc.sauw.game.worlds.MysticalVoidWorld;
+import com.kgc.sauw.game.worlds.DefaultWorld;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -49,12 +51,12 @@ public class SAUW implements Screen {
 
         ItemsGenerated.init();
         AchievementsGenerated.init();
-        com.kgc.sauw.core.environment.item.Items.addItem(new Torch());
+        com.kgc.sauw.core.environment.item.Items.defineItem(new Torch());
         new Blockss();
 
         Music.setVolume(Settings.musicVolume);
 
-        setWorld(new MysticalVoidWorld());
+        setWorld(new DefaultWorld());
 
         Environment.setSaveName(worldName);
 
@@ -70,6 +72,8 @@ public class SAUW implements Screen {
         new UpdateTick().start();
         Input.init();
         isGameRunning = true;
+
+        EntityManager.spawn("entity:npc", 10, 10);
     }
 
 
@@ -98,7 +102,6 @@ public class SAUW implements Screen {
         BATCH.begin();
         HUD.render(Settings.debugMode);
         getWorld().update();
-        AchievementsChecker.update();
 
         BATCH.end();
     }

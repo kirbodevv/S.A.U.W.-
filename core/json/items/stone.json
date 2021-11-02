@@ -2,7 +2,6 @@
   "id": "item:stone",
   "texture": "Items/stone.png",
   "itemConfiguration": {
-    "name": "%Language/stone",
     "maxCount": 64,
     "weight": 0.15,
     "type": "ITEM"

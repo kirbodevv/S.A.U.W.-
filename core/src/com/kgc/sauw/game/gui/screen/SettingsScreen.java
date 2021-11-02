@@ -14,7 +14,7 @@ import com.kgc.sauw.core.gui.elements.Slider;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.sauw.game.MainGame;
-import com.kgc.sauw.game.resource.TextureGenerator;
+import com.kgc.sauw.core.utils.TextureGenerator;
 import org.json.JSONObject;
 
 import java.util.Iterator;

@@ -104,7 +104,7 @@ public class CraftingInterface extends Interface {
                     public void onClick() {
                         currentCraft = currentTab * 30 + num;
                         craftName.setText(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getDefaultName());
-                        itemIcon.setImg(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getTextureRegion(null));
+                        itemIcon.setImg(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getTexture(null));
                     }
                 });
                 l.addElements(button);
@@ -153,7 +153,7 @@ public class CraftingInterface extends Interface {
             float x = getElement("Craft_" + i).x;
             float y = getElement("Craft_" + i).y;
             float w = getElement("Craft_" + i).width;
-            BATCH.draw(Items.getItemById(CRAFTING.crafts.get(i).result[0]).getTextureRegion(null), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
+            BATCH.draw(Items.getItemById(CRAFTING.crafts.get(i).result[0]).getTexture(null), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
         }
     }
 }

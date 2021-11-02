@@ -24,6 +24,7 @@ public final class Interfaces {
     public static final DeadInterface DEAD_INTERFACE;
     public static final InventoryInterface INVENTORY_INTERFACE;
     public static final TestInterface TEST_INTERFACE;
+    public static final EgorInterface EGOR_INTERFACE;
     /**
      * BLOCK Interfaces
      */
@@ -43,6 +44,7 @@ public final class Interfaces {
         DEAD_INTERFACE = new DeadInterface();
         INVENTORY_INTERFACE = new InventoryInterface();
         TEST_INTERFACE = new TestInterface();
+        EGOR_INTERFACE = new EgorInterface();
 
         CHEST_INTERFACE = new ChestInterface();
         FURNACE_INTERFACE = new FurnaceInterface();
@@ -57,6 +59,7 @@ public final class Interfaces {
         addInterface(DEAD_INTERFACE);
         addInterface(INVENTORY_INTERFACE);
         addInterface(TEST_INTERFACE);
+        addInterface(EGOR_INTERFACE);
 
         addInterface(CHEST_INTERFACE);
         addInterface(FURNACE_INTERFACE);

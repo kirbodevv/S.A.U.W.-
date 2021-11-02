@@ -9,7 +9,11 @@ public class Language {
         return strings.get(string);
     }
 
-    public void putString(String key, String string){
+    public void putString(String key, String string) {
         strings.put(key, string);
+    }
+
+    public boolean has(String key) {
+        return strings.containsKey(key);
     }
 }

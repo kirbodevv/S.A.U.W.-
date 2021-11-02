@@ -1,57 +1,24 @@
-startGame:Начать игру
-settings:Настройки
-exit:Выйти
-grass:Трава
-stone:Камень
-wall:Стена
-door:Дверь
-chest:Сундук
-stick:Палка
-log:Бревно
-wood:Доски
-iron_ore:Железная руда
-stone_pickaxe:Каменная кирка
-stone_axe:Каменный топор
-stone_shovel:Каменная лопата
-furnace:Печка
-craftList:Крафты
-respawn:Возродиться
-rope:Верёвка
-vegetable_fiber:Растительное волокно
-dirt:Земля
-general:Общие
-interface:Интерфейс
-language:Язык
-debug:Дебаг
-sapling:Саженец
-game:Игровые
-autoitemspickup:Автоподбор предметов
-sound:Звук
-music:Музыка
-inventory:Инвентарь
-crafting:Крафтинг
-console:Консоль
-campfire:Костёр
-craft:Craft
-useConsole:Использовать консоль
-useConsoleNotification:Если ты будешь использовать консоль то ты не сможешь получать достижения.
-ach1_title:Не прячься
-ach1_txt:Спрятаться за деревом
-ach2_title:Каменный век
-ach2_txt:Скрафитить каменные инструменты
-iron_ingot:Железный слиток
-resume:Продолжить
-save:Сохранить
-createNewWorld:Создать новый мир
-WorldName:Название мира
-newWorld:Новый мир
-create:Создать
-debugRenderer:Debug Renderer
-apple:Яблоко
-backpack:Рюкзак
-mods:Моды
-hammer:Молоток
-handsaw:Ножовка
-planks:Доски
-iron_plate:Железная пластина
-MysticalVoidWorld:Мир мистической пустоты
+sauw.items.void=ничего
+sauw.items.grass=Трава
+sauw.items.apple=Яблоко
+sauw.items.chest=Сундук
+sauw.items.stick=Палка
+sauw.items.log=Бревно
+sauw.items.stone=Камень
+sauw.items.iron_ore=Железная руда
+sauw.items.stone_pickaxe=Каменная кирка
+sauw.items.stone_axe=Каменный топор
+sauw.items.stone_shovel=Каменная лопата
+sauw.items.furnace=Печка
+sauw.items.rope=Верёвка
+sauw.items.vegetable_fiber=Растительное волокно
+sauw.items.sapling=Саженец
+sauw.items.iron_ingot=Железный слиток
+sauw.items.campfire=Костёр
+sauw.items.hammer=Молоток
+sauw.items.handsaw=Ножовка
+sauw.items.planks=Доски
+sauw.items.iron_plate=Железная пластина
+sauw.items.aluminium_ingot=Алюминиевый слиток
+sauw.items.aluminium_can=Алюминиевая банка
+sauw.items.torch=Факел

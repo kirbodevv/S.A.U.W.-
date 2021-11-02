@@ -6,10 +6,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.kgc.sauw.core.callbacks.Callback;
+import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.game.gui.Interfaces;
 import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.game.gui.Interfaces;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -17,9 +18,9 @@ import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
 public class PlayerController implements InputProcessor {
     public PlayerController() {
-        HUD.interactionButton.addEventListener(new Button.EventListener() {
+        Callback.addCallback(new InteractionButtonClicked() {
             @Override
-            public void onClick() {
+            public void main() {
                 openBlockInterface();
             }
         });
@@ -81,9 +82,6 @@ public class PlayerController implements InputProcessor {
             if (Gdx.input.isKeyPressed(Keys.D)) {
                 PLAYER.setVelocityX(1);
             }
-            if (Gdx.input.isKeyPressed(Keys.E)) {
-                openBlockInterface();
-            }
         }
     }
 
@@ -94,6 +92,9 @@ public class PlayerController implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode == Keys.E) {
+            Callback.executeInteractionButtonClickedCallback();
+        }
         return false;
     }
 

@@ -16,6 +16,7 @@ public class Furnace extends Block {
     private final Animator animator = new Animator();
 
     String[][] recipes = new String[][]{
+            {"item:aluminium_can", "item:aluminium_ingot"},
             {"item:iron_ore", "item:iron_ingot"}
     };
     String[][] fuel = new String[][]{

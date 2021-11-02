@@ -3,7 +3,7 @@ package com.kgc.sauw.core.gui.elements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.game.skins.Skins;
+import com.kgc.sauw.core.skins.Skins;
 
 public class Notification extends InterfaceElement {
     private final Text title;

@@ -1,4 +1,4 @@
-package com.kgc.sauw.game.api.mod;
+package com.kgc.sauw.core.mod;
 
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.utils.js.JSLoader;
@@ -30,11 +30,11 @@ public class Mods {
                     if (manifest.getInt("mod_format") == MOD_FORMAT)
                         names.add(modsArray.getJSONObject(i).getString("Mod"));
                     else
-                        Gdx.app.log("Mods_Loader", "mod \"" + modsArray.getJSONObject(i).getString("Mod") + "\" is not supported");
+                        Gdx.app.log("Mods loader", "mod \"" + modsArray.getJSONObject(i).getString("Mod") + "\" is not supported");
                 }
             }
 
-            Gdx.app.log("Mods_Loader", "Mods count " + names.size());
+            Gdx.app.log("Mods loader", "Mods count " + names.size());
 
             mods = new Mod[names.size()];
             for (int i = 0; i < names.size(); i++) {
@@ -42,7 +42,7 @@ public class Mods {
             }
 
         } catch (Exception e) {
-            Gdx.app.log("Mods_Loader_error", e.toString());
+            Gdx.app.log("Mods loader error", e.toString());
         } finally {
             Context.exit();
         }

@@ -2,7 +2,6 @@
   "id": "item:sapling",
   "texture": "Items/sapling.png",
   "itemConfiguration": {
-    "name": "%Language/sapling",
     "maxCount": 64,
     "weight": 0.1,
     "type": "BLOCK_ITEM",

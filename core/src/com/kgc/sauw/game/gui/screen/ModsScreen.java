@@ -1,26 +1,26 @@
 package com.kgc.sauw.game.gui.screen;
 
-import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.game.MainGame;
-import com.kgc.sauw.game.resource.TextureGenerator;
-import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.gui.elements.Checkbox;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.gui.elements.Slider;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Checkbox;
+import com.kgc.sauw.core.gui.elements.Slider;
+import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.utils.TextureGenerator;
+import com.kgc.sauw.game.MainGame;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.MENU_CAMERA;
 
 public class ModsScreen implements Screen {
     private class Mod {
@@ -37,7 +37,7 @@ public class ModsScreen implements Screen {
                 modName = Gdx.files.external(modPath).name();
                 modIcon = new Texture(Gdx.files.external(modPath + "/" + manifeat.getString("icon")));
             } catch (Exception e) {
-                Gdx.app.log("ModInfoLoadError", e.toString());
+                Gdx.app.log("Mods error", "" + e);
             }
         }
     }

@@ -2,7 +2,6 @@
   "id": "item:iron_ore",
   "texture": "Items/iron_ore.png",
   "itemConfiguration": {
-    "name": "%Language/iron_ore",
     "maxCount": 64,
     "weight": 0.5,
     "type": "ITEM"

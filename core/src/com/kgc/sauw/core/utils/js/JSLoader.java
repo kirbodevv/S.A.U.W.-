@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.utils.js;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.game.api.mod.Mods;
+import com.kgc.sauw.core.mod.Mods;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
@@ -23,14 +23,14 @@ public class JSLoader {
                 result = f.call(Mods.context, scriptable, scriptable, args);
             }
         } catch (Exception e) {
-            Gdx.app.log("MOD_ERROR", e.toString());
+            Gdx.app.log("Mods error", e.toString());
         } finally {
             Context.exit();
         }
         return result;
     }
 
-    public static Scriptable loadJs(String js, String sourceName) throws Exception{
+    public static Scriptable loadJs(String js, String sourceName) throws Exception {
         Context context = Context.enter();
         Scriptable scriptable = context.initStandardObjects();
 

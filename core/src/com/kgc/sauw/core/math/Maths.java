@@ -1,5 +1,7 @@
 package com.kgc.sauw.core.math;
 
+import com.badlogic.gdx.math.Vector2;
+
 public class Maths {
     public static double map(double inRangeStart, double inRangeEnd, double outRangeStart, double outRangeEnd, double value) {
         return outRangeStart + (value - inRangeStart) * (outRangeEnd - outRangeStart) / (inRangeEnd - inRangeStart);
@@ -115,6 +117,10 @@ public class Maths {
     }
 
     public static int distance(Vector2d v1, Vector2d v2) {
+        return (int) Math.round(Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y)));
+    }
+
+    public static int distance(Vector2 v1, Vector2 v2) {
         return (int) Math.round(Math.sqrt((v2.x - v1.x) * (v2.x - v1.x) + (v2.y - v1.y) * (v2.y - v1.y)));
     }
 

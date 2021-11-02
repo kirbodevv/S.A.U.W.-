@@ -1,15 +1,15 @@
 package com.kgc.sauw.core.gui;
 
-public abstract class InterfaceController {
-    public abstract void init();
+public interface InterfaceController {
+    void init();
 
-    public abstract void tick();
+    void tick();
 
-    public abstract void onOpen();
+    void onOpen();
 
-    public abstract void onClose();
+    void onClose();
 
-    public abstract void preRender();
+    void preRender();
 
-    public abstract void postRender();
+    void postRender();
 }

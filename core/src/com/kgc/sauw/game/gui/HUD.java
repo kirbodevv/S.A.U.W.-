@@ -4,10 +4,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.kgc.sauw.Version;
+import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.game.skins.Skins;
+import com.kgc.sauw.core.skins.Skins;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -17,13 +18,13 @@ import static com.kgc.sauw.game.gui.Interfaces.*;
 public class HUD {
     public Hotbar hotbar;
 
-    public Button interactionButton;
-    public Button dropButton;
-    public Button attackButton;
-    public Button consoleOpenButton;
-    public Button pauseButton;
-    public Button craftingButton;
-    public Button inventoryOpenButton;
+    private Button interactionButton;
+    private Button dropButton;
+    private Button attackButton;
+    private Button consoleOpenButton;
+    private Button pauseButton;
+    private Button craftingButton;
+    private Button inventoryOpenButton;
     public Joystick joystick;
 
     private final BitmapFont debug;
@@ -119,6 +120,13 @@ public class HUD {
         interactionButton = new Button("INTERACTION_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         interactionButton.setSizeInBlocks(1.5f, 1.5f);
         interactionButton.setTranslationX(0.125f);
+        interactionButton.addEventListener(new Button.EventListener() {
+            @Override
+            public void onClick() {
+                Callback.executeInteractionButtonClickedCallback();
+            }
+        });
+
 
         Layout buttonsLayout = new Layout(Layout.Orientation.VERTICAL);
         buttonsLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);

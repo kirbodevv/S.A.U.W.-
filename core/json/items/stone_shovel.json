@@ -2,7 +2,6 @@
   "id": "item:stone_shovel",
   "texture": "Items/stone_shovel.png",
   "itemConfiguration": {
-    "name": "%Language/stone_shovel",
     "maxCount": 1,
     "weight": 5.75,
     "type": "INSTRUMENT",

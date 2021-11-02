@@ -1,14 +1,17 @@
 package com.kgc.sauw.core.environment.item;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
 import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class Item {
     public int id;
+    private String stringId;
 
     private static final TextureRegion undefRegion;
 
@@ -16,20 +19,31 @@ public class Item {
         undefRegion = new TextureRegion(Resource.getTexture("Blocks/undefined.png"));
     }
 
-    private Texture texture;
-    private TextureRegion textureRegion;
+    protected Sprite sprite = new Sprite();
 
     protected ItemConfiguration itemConfiguration;
 
     private ItemFunctions itemFunctions;
 
-    public Item(String id) {
-        this(ID.registeredId(id));
+    public String getStringId() {
+        return stringId;
     }
 
-    public Item(int id) {
+    public Item(int id, String stringId) {
+        this.id = ID.registeredId(stringId, id);
+        this.stringId = stringId;
+        initItem();
+    }
+
+    public Item(String id) {
+        this.id = ID.registeredId(id);
+        this.stringId = id;
+        initItem();
+    }
+
+    private void initItem() {
         itemConfiguration = new ItemConfiguration(id);
-        this.id = id;
+        itemConfiguration.name = Languages.getString("sauw.items." + stringId.split(":")[1]);
     }
 
     public ItemConfiguration getItemConfiguration() {
@@ -56,14 +70,11 @@ public class Item {
     }
 
     public void setTexture(Texture texture) {
-        this.texture = texture;
-        this.textureRegion = new TextureRegion(texture);
+        sprite.setTexture(texture);
     }
 
-    public TextureRegion getTextureRegion(Container container) {
-        if (textureRegion != null)
-            return textureRegion;
-        else return undefRegion;
+    public Sprite getTexture(Container container) {
+        return sprite;
     }
 
     public String getName(Container container) {

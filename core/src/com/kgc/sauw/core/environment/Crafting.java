@@ -32,7 +32,7 @@ public class Crafting {
     public void addCraftsFromDirectory(FileHandle dir) {
         FileHandle includesFile = dir.child("crafts.includes");
         String[] fileNames = includesFile.readString().split("\\r\\n");
-        for(String fileName : fileNames){
+        for (String fileName : fileNames) {
             addCraftsFromFile(dir.child(fileName));
         }
     }
@@ -60,7 +60,7 @@ public class Crafting {
                 this.addCraft(new Craft(result, ingr));
             }
         } catch (Exception e) {
-            Gdx.app.log("ModAPI_CreateCraftError", e.toString());
+            Gdx.app.log("Mods error", "load craft error : " + e);
         }
     }
 }

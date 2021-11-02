@@ -2,7 +2,6 @@
   "id": "item:hammer",
   "texture": "Items/hammer.png",
   "itemConfiguration": {
-    "name": "%Language/hammer",
     "maxCount": 1,
     "weight": 1.25,
     "maxDamage": 100,

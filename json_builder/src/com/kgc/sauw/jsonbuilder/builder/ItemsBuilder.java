@@ -30,7 +30,6 @@ public class ItemsBuilder implements Builder {
 
         String id = item.getString("id");
         String texture = item.getString("texture");
-        String name = itemConfiguration.getString("name");
         int maxCount = itemConfiguration.getInt("maxCount");
         float weight = itemConfiguration.getFloat("weight");
         String type = itemConfiguration.getString("type");
@@ -44,7 +43,6 @@ public class ItemsBuilder implements Builder {
 
         code += "\n\t\titemConfiguration = new ItemConfiguration(\"" + id + "\");";
         code += "\n\t\titem.setTexture(\"" + texture + "\");";
-        code += "\n\t\titemConfiguration.name = StringUtils.getString(\"" + name + "\");";
         code += "\n\t\titemConfiguration.maxCount = " + maxCount + ";";
         code += "\n\t\titemConfiguration.weight = " + weight + "f;";
         code += "\n\t\titemConfiguration.type = Type." + type + ";";
@@ -64,7 +62,7 @@ public class ItemsBuilder implements Builder {
         }
 
         code += "\n\t\titem.setItemConfiguration(itemConfiguration);";
-        code += "\n\t\tItems.addItem(item);";
+        code += "\n\t\tItems.defineItem(item);";
 
         return code;
     }

@@ -2,7 +2,6 @@
   "id": "item:log",
   "texture": "Items/log.png",
   "itemConfiguration": {
-    "name": "%Language/log",
     "maxCount": 64,
     "weight": 1.25,
     "type": "ITEM"

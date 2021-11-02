@@ -1,4 +1,4 @@
-package com.kgc.sauw.game.skins;
+package com.kgc.sauw.core.skins;
 
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.utils.Resource;

@@ -1,4 +1,4 @@
-package com.kgc.sauw.game.resource;
+package com.kgc.sauw.core.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

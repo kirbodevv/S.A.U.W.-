@@ -9,7 +9,7 @@ import com.kgc.sauw.core.input.TextInputProcessor;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.game.skins.Skins;
+import com.kgc.sauw.core.skins.Skins;
 
 public class EditText extends InterfaceElement {
     public String input = "";

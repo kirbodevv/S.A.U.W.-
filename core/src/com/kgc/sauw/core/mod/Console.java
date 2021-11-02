@@ -1,11 +1,11 @@
-package com.kgc.sauw.game.api;
+package com.kgc.sauw.core.mod;
 
 import java.util.ArrayList;
 
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
 public class Console {
-    public ArrayList<String> inputs = new ArrayList<String>();
+    public ArrayList<String> inputs = new ArrayList<>();
 
     public void print(String txt) {
         HUD.consolePrint(txt);

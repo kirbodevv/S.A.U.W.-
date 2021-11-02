@@ -1,4 +1,4 @@
-package com.kgc.sauw.game.api.mod;
+package com.kgc.sauw.core.mod;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;

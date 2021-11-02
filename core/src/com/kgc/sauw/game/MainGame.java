@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
 import org.json.JSONObject;
 
@@ -12,8 +13,6 @@ import java.io.IOException;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
 
 public class MainGame extends Game {
-    public static int keyboardHeight = 0;
-
     private static MainGame game;
     private static MenuScreen menuScreen;
     private static JSONObject data;
@@ -87,20 +86,5 @@ public class MainGame extends Game {
             modsFile.writeString("[]", false);
         }
 
-    }
-
-    @Override
-    public void render() {
-        try {
-            super.render();
-        } catch (Exception e) {
-            writeLog(e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    public void writeLog(String log) {
-        FileHandle file = Gdx.files.external("S.A.U.W./log.txt");
-        file.writeString(log, false);
     }
 }

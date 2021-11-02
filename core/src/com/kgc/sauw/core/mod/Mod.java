@@ -1,4 +1,4 @@
-package com.kgc.sauw.game.api.mod;
+package com.kgc.sauw.core.mod;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -11,9 +11,9 @@ import org.mozilla.javascript.ScriptableObject;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.game.environment.Environment.*;
+import static com.kgc.sauw.core.mod.Mods.context;
+import static com.kgc.sauw.game.environment.Environment.CRAFTING;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
-import static com.kgc.sauw.game.api.mod.Mods.context;
 
 public class Mod {
     private String ID;
@@ -40,9 +40,9 @@ public class Mod {
             buildSources();
             loadJs(sourceName);
 
-            Gdx.app.log("ModAPI", "loaded mod, with id " + ID);
+            Gdx.app.log("Mods", "loaded mod, with id " + ID);
         } catch (Exception e) {
-            Gdx.app.log("ModAPI_CreateModError", e.toString());
+            Gdx.app.log("Mods", "mod load error, id : " + ID + " error : " + e);
         }
     }
 

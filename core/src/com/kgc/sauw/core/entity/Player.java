@@ -1,8 +1,6 @@
 package com.kgc.sauw.core.entity;
 
 import box2dLight.PointLight;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -10,8 +8,8 @@ import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.callbacks.Callback;
+import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.callbacks.TouchOnBlock;
-import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.achievements.AchievementsData;
 import com.kgc.sauw.core.environment.item.Item;
 import com.kgc.sauw.core.environment.item.Items;
@@ -26,7 +24,6 @@ import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.world.WorldRenderer.rayHandler;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.game.gui.Interfaces.DEAD_INTERFACE;
-import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
 public class Player extends Entity implements ExtraData {
     @Override
@@ -126,6 +123,18 @@ public class Player extends Entity implements ExtraData {
                 }
             }
         });
+        Callback.addCallback(new InteractionButtonClicked() {
+            @Override
+            public void main() {
+                Entity entity = EntityManager.findEntity(PLAYER, 0.6f);
+                if (entity instanceof Drop) {
+                    Drop item = (Drop) entity;
+                    inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
+                    EntityManager.delete(item);
+                }
+                System.out.println("XD");
+            }
+        });
     }
 
     public void setLightActive(boolean active) {
@@ -185,14 +194,6 @@ public class Player extends Entity implements ExtraData {
         if (!isDead) {
             pointLight.setPosition(body.getPosition().x, body.getPosition().y);
             PlayerController.update();
-            if (Settings.autoPickup || (HUD.interactionButton.isTouched() || Gdx.input.isKeyPressed(Input.Keys.E))) {
-                Entity entity = EntityManager.findEntity(this, 0.6f);
-                if (entity != null) {
-                    Drop item = (Drop) entity;
-                    inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
-                    EntityManager.delete(item);
-                }
-            }
         }
     }
 

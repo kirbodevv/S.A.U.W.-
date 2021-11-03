@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="" isBlockInterface="true" Inventory="true">
+<Interface id="tool_wall" isBlockInterface="true" Inventory="true">
     <RootLayout id="optionalLayout">
         <Layout translateY="-2bl" id="InstSlotsLayout" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
             <Slot id="HammerSlot" width="1bl" height="1bl" isInventorySlot="false"/>

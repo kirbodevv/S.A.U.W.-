@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="%Language/selectWorld" isBlockInterface="false" Inventory="false">
+<Interface id="world_selector" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
         <Layout marginBottom="0.05bl" id="" translateX="0.75bl" orientation="HORIZONTAL" gravity="LEFT"
                 width="WRAP_CONTENT"

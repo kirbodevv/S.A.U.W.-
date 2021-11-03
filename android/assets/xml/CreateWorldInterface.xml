@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="%Language/createNewWorld" isBlockInterface="false" Inventory="false">
+<Interface id="createNewWorld" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
         <Text id="WorldName" width="7bl" height="1bl" text="%Language/WorldName"/>
         <EditText id="WorldNameText" width="7bl" height="1bl"/>

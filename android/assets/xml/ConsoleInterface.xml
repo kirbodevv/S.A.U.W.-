@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="%Language/console" isBlockInterface="false" Inventory="false">
+<Interface id="console" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
         <Layout orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT" translateY="-0.5bl">
             <EditText id="CommandInput" width="12bl" height="1bl"/>

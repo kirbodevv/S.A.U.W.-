@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Interface header="%Language/inventory" isBlockInterface="false" Inventory="true">
+<Interface id="inventory" isBlockInterface="false" Inventory="true">
     <RootLayout id="optionalLayout">
         <Layout id="PlayerInfoLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
                 translateY="-1bl"

@@ -3,6 +3,7 @@ package com.kgc.sauw.core.gui;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.utils.StringUtils;
 import com.kgc.sauw.core.utils.Units;
+import com.kgc.sauw.core.utils.languages.Languages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,7 +28,7 @@ public class XmlInterfaceLoader {
     private static void createFromXml(Document doc, Interface interface_) {
         Element root = doc.getDocumentElement();
 
-        interface_.actionBar.setText(StringUtils.getString(root.getAttribute("header")));
+        interface_.actionBar.setText(Languages.getString("sauw.interface." + root.getAttribute("id")));
 
         if (Boolean.parseBoolean(root.getAttribute("Inventory"))) InterfaceUtils.createInventory(interface_);
 

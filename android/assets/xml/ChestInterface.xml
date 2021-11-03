@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="%Language/chest" isBlockInterface="true" Inventory="true">
+<Interface id="chest" isBlockInterface="true" Inventory="true">
     <RootLayout id="optionalLayout">
         <Layout id="" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
                 translateY="-0.25bl">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Interface header="%Language/crafting" isBlockInterface="false" Inventory="false">
+<Interface id="crafting" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
         <Layout id="craftsLayout" orientation="VERTICAL" gravity="TOP" width="FIXED_SIZE" height="FIXED_SIZE"
                 translateX="1bl">

@@ -23,7 +23,7 @@ public final class Elements {
 
     public static InterfaceElement getElementById(String id) {
         for (InterfaceElement e : UI_ELEMENTS) {
-            if (e.ID.equals(id)) return e;
+            if (e.id.equals(id)) return e;
         }
         return null;
     }

@@ -73,6 +73,14 @@ public class Slider extends InterfaceElement {
         }
     }
 
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
+
     public void setEventListener(EventListener EL) {
         this.EL = EL;
     }

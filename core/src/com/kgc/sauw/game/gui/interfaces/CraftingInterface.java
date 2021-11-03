@@ -3,10 +3,11 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.environment.Crafting;
+import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
@@ -15,7 +16,7 @@ import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.game.environment.Environment.CRAFTING;
 
 public class CraftingInterface extends Interface {
-    private final Text craftName;
+    private final TextView craftName;
     private int currentCraft = -1;
     private int currentTab = 0;
     private final Image itemIcon;
@@ -43,10 +44,10 @@ public class CraftingInterface extends Interface {
         ((Button) getElement("nextCraftTabButton")).setIcon(Resource.getTexture("Interface/button_right_0.png"));
 
         itemIcon = (Image) getElement("craftIcon");
-        craftName = (Text) getElement("craftName");
+        craftName = (TextView) getElement("craftName");
         Button craft = (Button) getElement("craftButton");
         craft.setText(Languages.getString("craft"));
-        craft.addEventListener(new Button.EventListener() {
+        craft.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 if (currentCraft != -1) {
@@ -93,18 +94,18 @@ public class CraftingInterface extends Interface {
             Layout l = new Layout(Layout.Orientation.HORIZONTAL);
             l.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
             l.setGravity(Layout.Gravity.LEFT);
-            l.setID("CraftsListLayout_" + y);
+            l.setId("CraftsListLayout_" + y);
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
                 String id = "Craft_" + num;
                 Button button = new Button(id, 0, 0, 0, 0);
                 button.setSizeInBlocks(1, 1);
-                button.addEventListener(new Button.EventListener() {
+                button.addEventListener(new OnClickListener() {
                     @Override
                     public void onClick() {
                         currentCraft = currentTab * 30 + num;
                         craftName.setText(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getDefaultName());
-                        itemIcon.setImg(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getTexture(null));
+                        itemIcon.setSprite(Items.getItemById(CRAFTING.crafts.get(currentCraft).result[0]).getTexture(null));
                     }
                 });
                 l.addElements(button);

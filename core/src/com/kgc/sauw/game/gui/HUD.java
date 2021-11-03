@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.skins.Skins;
@@ -37,10 +38,10 @@ public class HUD {
 
     private final Layout mainLayout;
     private final Layout separatorLayout0;
-    private final Text healthText;
-    private final Text hungerText;
-    private final Text thirstText;
-    private final Text timeText;
+    private final TextView healthTextView;
+    private final TextView hungerTextView;
+    private final TextView thirstTextView;
+    private final TextView timeTextView;
     private final Layout midLayout;
 
     public void consolePrint(String txt) {
@@ -75,20 +76,20 @@ public class HUD {
         headerBar.setGravity(Layout.Gravity.LEFT);
         headerBar.setStandardBackground(true);
 
-        healthText = new Text();
-        healthText.setSizeInBlocks(1.25f, 0.5f);
-        healthText.setBackground(null);
-        healthText.setScalable(false);
+        healthTextView = new TextView();
+        healthTextView.setSizeInBlocks(1.25f, 0.5f);
+        healthTextView.setBackground(null);
+        healthTextView.setScalable(false);
 
-        hungerText = new Text();
-        hungerText.setSizeInBlocks(1.25f, 0.5f);
-        hungerText.setBackground(null);
-        hungerText.setScalable(false);
+        hungerTextView = new TextView();
+        hungerTextView.setSizeInBlocks(1.25f, 0.5f);
+        hungerTextView.setBackground(null);
+        hungerTextView.setScalable(false);
 
-        thirstText = new Text();
-        thirstText.setSizeInBlocks(1.25f, 0.5f);
-        thirstText.setBackground(null);
-        thirstText.setScalable(false);
+        thirstTextView = new TextView();
+        thirstTextView.setSizeInBlocks(1.25f, 0.5f);
+        thirstTextView.setBackground(null);
+        thirstTextView.setScalable(false);
 
         Image healthImage = new Image();
         healthImage.setSizeInBlocks(0.4f, 0.4f);
@@ -102,9 +103,9 @@ public class HUD {
         thirstImage.setSizeInBlocks(0.4f, 0.4f);
         thirstImage.setImg(Resource.getTexture("Interface/thirst_icon.png"));
 
-        timeText = new Text();
-        timeText.setSizeInBlocks(1.25f, 0.5f);
-        timeText.setBackground(null);
+        timeTextView = new TextView();
+        timeTextView.setSizeInBlocks(1.25f, 0.5f);
+        timeTextView.setBackground(null);
 
         Layout notificationLayout = new Layout(Layout.Orientation.HORIZONTAL);
         notificationLayout.setGravity(Layout.Gravity.LEFT);
@@ -120,7 +121,7 @@ public class HUD {
         interactionButton = new Button("INTERACTION_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         interactionButton.setSizeInBlocks(1.5f, 1.5f);
         interactionButton.setTranslationX(0.125f);
-        interactionButton.addEventListener(new Button.EventListener() {
+        interactionButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 Callback.executeInteractionButtonClickedCallback();
@@ -176,30 +177,30 @@ public class HUD {
         separatorLayout1.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         separatorLayout1.setSizeInBlocks(8.875f, 1f);
 
-        headerBar.addElements(pauseButton, healthText, healthImage, hungerText, hungerImage, thirstText, thirstImage, notificationLayout, timeText, consoleOpenButton);
+        headerBar.addElements(pauseButton, healthTextView, healthImage, hungerTextView, hungerImage, thirstTextView, thirstImage, notificationLayout, timeTextView, consoleOpenButton);
 
         midLayout.addElements(joystick, separatorLayout1, buttonsLayout);
         bottomLayout.addElements(hotbar, inventoryOpenButton, craftingButton);
 
-        craftingButton.addEventListener(new Button.EventListener() {
+        craftingButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 CRAFTING_INTERFACE.open();
             }
         });
-        consoleOpenButton.addEventListener(new Button.EventListener() {
+        consoleOpenButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 CONSOLE_INTERFACE.open();
             }
         });
-        pauseButton.addEventListener(new Button.EventListener() {
+        pauseButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 PAUSE_INTERFACE.open();
             }
         });
-        inventoryOpenButton.addEventListener(new Button.EventListener() {
+        inventoryOpenButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 INVENTORY_INTERFACE.open();
@@ -225,12 +226,12 @@ public class HUD {
             midLayout.hide(true);
         }
         mainLayout.update(INTERFACE_CAMERA);
-        healthText.setText((int) PLAYER.health + "%");
-        hungerText.setText((int) PLAYER.hunger + "%");
-        thirstText.setText((int) PLAYER.thirst + "%");
+        healthTextView.setText((int) PLAYER.health + "%");
+        hungerTextView.setText((int) PLAYER.hunger + "%");
+        thirstTextView.setText((int) PLAYER.thirst + "%");
         isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
         Interfaces.updateInterfaces();
-        timeText.setText(getWorld().getTime().getTimeString());
+        timeTextView.setText(getWorld().getTime().getTimeString());
     }
 
     public void render(boolean debug) {

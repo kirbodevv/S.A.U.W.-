@@ -51,8 +51,8 @@ public class XmlInterfaceLoader {
     public static void addElement(String rootLayoutId, Element element, Interface Interface) {
         Layout rootLayout = null;
         for (InterfaceElement e : Interface.elements) {
-            if (e.ID != null) {
-                if (e instanceof Layout && e.ID.equals(rootLayoutId)) rootLayout = (Layout) e;
+            if (e.id != null) {
+                if (e instanceof Layout && e.id.equals(rootLayoutId)) rootLayout = (Layout) e;
             }
         }
         if (rootLayoutId.equals("MainLayout")) rootLayout = Interface.mainLayout;
@@ -68,7 +68,7 @@ public class XmlInterfaceLoader {
                     InterfaceElement = new Button("", 0, 0, 0, 0);
                     break;
                 case "Text":
-                    InterfaceElement = new Text();
+                    InterfaceElement = new TextView();
                     break;
                 case "Image":
                     InterfaceElement = new Image();
@@ -115,10 +115,10 @@ public class XmlInterfaceLoader {
                 }
 
                 if (!element.getAttribute("id").equals("")) {
-                    InterfaceElement.setID(element.getAttribute("id"));
+                    InterfaceElement.setId(element.getAttribute("id"));
                 }
-                if (InterfaceElement instanceof Text) {
-                    ((Text) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
+                if (InterfaceElement instanceof TextView) {
+                    ((TextView) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
                 }
                 if (InterfaceElement instanceof Button) {
                     ((Button) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));

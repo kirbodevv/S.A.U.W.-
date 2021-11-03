@@ -4,7 +4,6 @@ import com.kgc.sauw.core.utils.ID;
 
 public class ItemConfiguration {
     public int id;
-    public String name;
     public int maxCount;
     public int maxDamage;
     public Type type;

@@ -87,7 +87,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         if (interface_ != null)
             for (int i = 0; i < interface_.slots.size(); i++) {
                 if (!interface_.slots.get(i).isInventorySlot) {
-                    containers.add(new Container(interface_.slots.get(i).ID));
+                    containers.add(new Container(interface_.slots.get(i).id));
                 }
             }
         Blocks.getBlockById(id).setDefaultExtraData(this);

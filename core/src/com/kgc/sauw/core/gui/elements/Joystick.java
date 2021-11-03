@@ -137,4 +137,12 @@ public class Joystick extends InterfaceElement {
         batch.draw(a, this.x, this.y, D1, D1);
         batch.draw(h, this.x + handle_pos.x() + D1 / 2f - D2 / 2f, this.y + handle_pos.y() + D1 / 2f - D2 / 2f, D2, D2);
     }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
 }

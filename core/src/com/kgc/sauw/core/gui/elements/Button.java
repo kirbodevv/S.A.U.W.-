@@ -1,32 +1,19 @@
 package com.kgc.sauw.core.gui.elements;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.utils.Camera2D;
 
-import java.util.ArrayList;
-
-public class Button extends InterfaceElement {
+public class Button extends AbstractTextView {
     private Texture icon;
 
     ElementSkin buttonUpSkin;
     ElementSkin buttonDownSkin;
 
-    private String txt;
-    private BitmapFont buttonText;
-    public ArrayList<EventListener> eventListeners = new ArrayList<>();
     public boolean generatedTextures;
     private boolean locked = false;
-    private float capHeight;
-    private GlyphLayout glyphLayout;
 
     public Button(String ID, float X, float Y, float w, float h, ElementSkin BT, ElementSkin BP) {
         generatedTextures = false;
@@ -42,42 +29,12 @@ public class Button extends InterfaceElement {
         setPosition(X, Y);
         setSize(w, h);
         setSkin(BT, BP);
-        setID(ID);
+        setId(ID);
         create();
     }
 
     private void createButton(String ID, float X, float Y, float w, float h) {
         createButton(ID, X, Y, w, h, Skins.round_up, Skins.round_down);
-    }
-
-    public void setTextColor(Color c) {
-        createBitmapFont();
-        buttonText.setColor(c);
-    }
-
-    public void setText(String text) {
-        txt = text;
-        createBitmapFont();
-        glyphLayout.setText(buttonText, text);
-        if (glyphLayout.width > this.width) {
-            setSize(height / 2 + (int) glyphLayout.width, this.height);
-        }
-    }
-
-    public void createBitmapFont() {
-        if (buttonText == null) {
-            buttonText = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-            glyphLayout = new GlyphLayout();
-            capHeight = buttonText.getCapHeight();
-            setTextScale();
-            buttonText.setColor(Color.BLACK);
-        }
-    }
-
-    public void setTextScale() {
-        if (buttonText != null) {
-            buttonText.getData().setScale(height / 2 / capHeight);
-        }
     }
 
     public void setSkin(ElementSkin elementSkin0, ElementSkin elementSkin1) {
@@ -89,17 +46,16 @@ public class Button extends InterfaceElement {
         this.icon = icon;
     }
 
-    public void addEventListener(Button.EventListener eventListener) {
-        eventListeners.add(eventListener);
+    public void lock(boolean b) {
+        locked = b;
     }
 
     @Override
-    public void tick(Camera2D cam) {
-        setTextScale();
+    public void preRender(SpriteBatch batch, Camera2D cam) {
     }
 
-    public void lock(boolean b) {
-        locked = b;
+    @Override
+    protected void tick(Camera2D cam) {
     }
 
     @Override
@@ -111,25 +67,14 @@ public class Button extends InterfaceElement {
         if (icon != null) {
             b.draw(icon, cam.X + x, cam.Y + y, width, height);
         }
-
-        if (buttonText != null)
-            buttonText.draw(b, txt, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
-    }
-
-    @Override
-    public void onClick(boolean onButton) {
-        super.onClick(onButton);
-        for (EventListener e : eventListeners) {
-            e.onClick();
-        }
+        if (!text.equals("")) super.renderTick(b, cam);
     }
 
     @Override
     public void dispose() {
-        buttonText.dispose();
     }
 
-    public interface EventListener {
-        void onClick();
+    @Override
+    public void onClick(boolean onElement) {
     }
 }

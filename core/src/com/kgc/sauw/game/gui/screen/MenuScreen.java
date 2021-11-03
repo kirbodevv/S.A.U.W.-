@@ -6,10 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.gui.elements.Image;
-import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.gui.elements.Text;
+import com.kgc.sauw.core.gui.OnClickListener;
+import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.languages.Languages;
@@ -41,7 +39,7 @@ public class MenuScreen implements Screen {
         WorldLoader.updateWorldsList();
 
         mainLayout = new Layout(Layout.Orientation.VERTICAL);
-        mainLayout.setID("MENU_MAIN_LAYOUT");
+        mainLayout.setId("MENU_MAIN_LAYOUT");
         mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         mainLayout.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS);
         mainLayout.setGravity(Layout.Gravity.TOP);
@@ -73,7 +71,7 @@ public class MenuScreen implements Screen {
 
         mainLayout.addElements(sauwLogo, startButton, settingsButton, modsButton, exitButton);
 
-        startButton.addEventListener(new Button.EventListener() {
+        startButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 selectWorldInterface.open();
@@ -91,7 +89,7 @@ public class MenuScreen implements Screen {
                 MainGame.getGame().setScreen(ModsScreen);
             }
         });*/
-        exitButton.addEventListener(new Button.EventListener() {
+        exitButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 Gdx.app.exit();
@@ -114,12 +112,12 @@ public class MenuScreen implements Screen {
         coinIcon.setTranslationX(0.125f);
         coinIcon.setMarginRight(0.125f);
 
-        Text coinsText = new Text();
-        coinsText.setStandardBackground(false);
-        coinsText.setSizeInBlocks(1, 0.75f);
-        coinsText.setText(SAUW_coins + "");
+        TextView coinsTextView = new TextView();
+        coinsTextView.setStandardBackground(false);
+        coinsTextView.setSizeInBlocks(1, 0.75f);
+        coinsTextView.setText(SAUW_coins + "");
 
-        coinsLayout.addElements(coinIcon, coinsText);
+        coinsLayout.addElements(coinIcon, coinsTextView);
         coinsLayout.setPositionInBlocks(0.25f, HEIGHT_IN_BLOCKS - 1f);
     }
 

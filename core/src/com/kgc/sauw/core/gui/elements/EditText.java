@@ -68,8 +68,7 @@ public class EditText extends InterfaceElement {
     }
 
     @Override
-    public void onClick(boolean onButton) {
-        super.onClick(onButton);
+    public void onClick(boolean onElement) {
         Gdx.input.setOnscreenKeyboardVisible(true);
         possibleToEnterText = true;
         isKeyboardOpen = true;
@@ -81,6 +80,10 @@ public class EditText extends InterfaceElement {
         BF.setColor(textColor);
         backgroundTexture.draw(x + cam.X, y + cam.Y, width, height);
         BF.draw(b, input, x + cam.X + (height / 2), y + cam.Y + (height / 4 * 3));
+    }
+
+    @Override
+    public void dispose() {
     }
 
     public void setTextScale() {

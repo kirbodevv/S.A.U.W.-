@@ -5,6 +5,7 @@ import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
@@ -23,21 +24,21 @@ public class SelectWorldInterface extends Interface {
 
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/SelectWorldInterface.xml"), this);
         sel_0 = (Button) getElement("SELECT_0");
-        sel_0.addEventListener(new Button.EventListener() {
+        sel_0.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 loadGame(WorldLoader.worldNames[worldSelIndex]);
             }
         });
         sel_1 = (Button) getElement("SELECT_1");
-        sel_1.addEventListener(new Button.EventListener() {
+        sel_1.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 loadGame(WorldLoader.worldNames[worldSelIndex + 1]);
             }
         });
         sel_2 = (Button) getElement("SELECT_2");
-        sel_2.addEventListener(new Button.EventListener() {
+        sel_2.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 loadGame(WorldLoader.worldNames[worldSelIndex + 2]);
@@ -50,7 +51,7 @@ public class SelectWorldInterface extends Interface {
         mainLayout.addElements(listView);*/
         Button up = (Button) getElement("UP");
         up.setIcon(Resource.getTexture("Interface/button_up_0.png"));
-        up.addEventListener(new Button.EventListener() {
+        up.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 worldSelIndex--;
@@ -61,7 +62,7 @@ public class SelectWorldInterface extends Interface {
         });
         Button down = (Button) getElement("DOWN");
         down.setIcon(Resource.getTexture("Interface/button_down_0.png"));
-        down.addEventListener(new Button.EventListener() {
+        down.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 worldSelIndex++;
@@ -72,7 +73,7 @@ public class SelectWorldInterface extends Interface {
             }
         });
         createWorldInterface = new CreateNewWorldInterface();
-        createWorldInterface.create.addEventListener(new Button.EventListener() {
+        createWorldInterface.create.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 for (String name : WorldLoader.worldNames) {
@@ -83,7 +84,7 @@ public class SelectWorldInterface extends Interface {
         });
 
         Button createNewWorld = (Button) getElement("CREATE_NEW_WORLD");
-        createNewWorld.addEventListener(new Button.EventListener() {
+        createNewWorld.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 createWorldInterface.open();

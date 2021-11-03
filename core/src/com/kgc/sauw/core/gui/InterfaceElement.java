@@ -7,9 +7,11 @@ import com.kgc.sauw.core.gui.elements.Elements;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.utils.GravityAdapter;
 
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import java.util.ArrayList;
 
-public class InterfaceElement {
+import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+
+public abstract class InterfaceElement {
     public enum Sides {
         LEFT,
         RIGHT,
@@ -28,7 +30,7 @@ public class InterfaceElement {
     protected boolean hidden;
     protected boolean isTouched;
     protected boolean this_touched;
-    public String ID = "";
+    public String id = "";
     public boolean wasClicked;
     public boolean wasUp;
 
@@ -37,6 +39,8 @@ public class InterfaceElement {
 
     public float marginTop, marginBottom, marginLeft, marginRight;
     public float translationX = 0, translationY = 0;
+
+    public ArrayList<OnClickListener> eventListeners = new ArrayList<>();
 
     public final void update(Camera2D cam) {
         wasClicked = false;
@@ -53,9 +57,11 @@ public class InterfaceElement {
             if (this_touched && !Gdx.input.isTouched()) {
                 if (Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height) {
                     onClick(true);
+                    onClick();
                     wasClicked = true;
                 } else {
                     onClick(false);
+                    onClick();
                 }
                 wasUp = true;
                 this_touched = false;
@@ -66,14 +72,18 @@ public class InterfaceElement {
         }
     }
 
-    protected void tick(Camera2D cam) {
+    private void onClick() {
+        for (OnClickListener e : eventListeners) {
+            e.onClick();
+        }
+    }
+
+    public void addEventListener(OnClickListener eventListener) {
+        eventListeners.add(eventListener);
     }
 
     public final void render(SpriteBatch batch, Camera2D cam) {
         if (!hidden) renderTick(batch, cam);
-    }
-
-    protected void renderTick(SpriteBatch batch, Camera2D cam) {
     }
 
     public void setMarginLeft(float marginLeft) {
@@ -136,16 +146,12 @@ public class InterfaceElement {
         Elements.addElement(this);
     }
 
-    public void onClick(boolean onButton) {
-
-    }
-
     public boolean isTouched() {
         return this_touched;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void hide(boolean b) {
@@ -154,9 +160,6 @@ public class InterfaceElement {
 
     public boolean isHidden() {
         return hidden;
-    }
-
-    public void dispose() {
     }
 
     public void setPosition(float x, float y) {
@@ -185,4 +188,12 @@ public class InterfaceElement {
         setPositionInBlocks(BX, BY);
         setSizeInBlocks(BWidth, BHeight);
     }
+
+    protected abstract void tick(Camera2D cam);
+
+    protected abstract void renderTick(SpriteBatch batch, Camera2D cam);
+
+    public abstract void dispose();
+
+    public abstract void onClick(boolean onElement);
 }

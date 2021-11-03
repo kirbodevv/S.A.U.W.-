@@ -3,10 +3,8 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.gui.elements.Image;
-import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.gui.elements.Text;
+import com.kgc.sauw.core.gui.OnClickListener;
+import com.kgc.sauw.core.gui.elements.*;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 
@@ -23,16 +21,16 @@ public class TestInterface extends Interface {
 
         Button button1 = new Button("", 0, 0, 0, 0);
         button1.setSizeInBlocks(2, 1);
-        button1.addEventListener(new Button.EventListener() {
+        button1.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 for (InterfaceElement e : com.kgc.sauw.core.gui.elements.Elements.UI_ELEMENTS)
-                    System.out.println(e.ID);
+                    System.out.println(e.id);
             }
         });
         button1.setText("А это кнопка");
 
-        Text test = new Text();
+        TextView test = new TextView();
         test.setSize(BLOCK_SIZE, BLOCK_SIZE);
         test.setText("Это не кнопка");
 

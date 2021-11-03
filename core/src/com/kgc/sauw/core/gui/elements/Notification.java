@@ -6,25 +6,29 @@ import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.skins.Skins;
 
 public class Notification extends InterfaceElement {
-    private final Text title;
-    private final Text text;
+    private final TextView title;
+    private final TextView textView;
 
     public Notification() {
-        title = new Text();
-        text = new Text();
+        title = new TextView();
+        textView = new TextView();
         setTitle("fdfd");
         setText("ffddfdfd");
     }
 
     private void setTextPosition() {
         title.attachTo(this, Sides.TOP, Sides.TOP);
-        text.attachTo(title, Sides.TOP, Sides.TOP);
+        textView.attachTo(title, Sides.TOP, Sides.TOP);
     }
 
     @Override
     public void setSize(float w, float h) {
         super.setSize(w, h);
         setTextPosition();
+    }
+
+    @Override
+    protected void tick(Camera2D cam) {
     }
 
     @Override
@@ -38,13 +42,21 @@ public class Notification extends InterfaceElement {
     }
 
     public void setText(String text) {
-        this.text.setText(text);
+        this.textView.setText(text);
     }
 
     @Override
     protected void renderTick(SpriteBatch batch, Camera2D cam) {
         Skins.round_down.draw(x, y, width, height);
         title.render(batch, cam);
-        text.render(batch, cam);
+        textView.render(batch, cam);
+    }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
     }
 }

@@ -9,7 +9,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.gui.elements.Text;
+import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.utils.Resource;
 
 import java.text.DecimalFormat;
@@ -31,13 +31,13 @@ public class InventoryInterface extends Interface {
     Animation<TextureRegion> tiredPlayerAnim;
 
     Image playerImg;
-    Text playerWeight;
+    TextView playerWeight;
 
     public InventoryInterface() {
         super("INVENTORY_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"), this);
 
-        playerWeight = (Text) getElement("playerWeight");
+        playerWeight = (TextView) getElement("playerWeight");
         playerImg = (Image) getElement("playerImg");
 
         TextureRegion[][] tmp = TextureRegion.split(Resource.getTexture("Entity/player_inv.png"), Resource.getTexture("Entity/player_inv.png").getWidth() / 3, Resource.getTexture("Entity/player_inv.png").getHeight());

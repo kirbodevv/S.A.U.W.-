@@ -12,6 +12,7 @@ import com.kgc.sauw.core.utils.languages.Languages;
 public class Item {
     public int id;
     private String stringId;
+    public String name;
 
     private static final TextureRegion undefRegion;
 
@@ -43,7 +44,7 @@ public class Item {
 
     private void initItem() {
         itemConfiguration = new ItemConfiguration(id);
-        itemConfiguration.name = Languages.getString("sauw.items." + stringId.split(":")[1]);
+        name = Languages.getString("sauw.items." + stringId.split(":")[1]);
     }
 
     public ItemConfiguration getItemConfiguration() {
@@ -70,7 +71,7 @@ public class Item {
     }
 
     public void setTexture(Texture texture) {
-        sprite.setTexture(texture);
+        sprite.setRegion(texture);
     }
 
     public Sprite getTexture(Container container) {
@@ -78,10 +79,10 @@ public class Item {
     }
 
     public String getName(Container container) {
-        return itemConfiguration.name;
+        return name;
     }
 
     public String getDefaultName() {
-        return itemConfiguration.name;
+        return name;
     }
 }

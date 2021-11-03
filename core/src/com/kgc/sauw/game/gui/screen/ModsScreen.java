@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Slider;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.utils.Resource;
@@ -60,7 +61,7 @@ public class ModsScreen implements Screen {
         modsList = new JSONArray(Gdx.files.external("S.A.U.W./Mods/Mods.json").readString());
         background1 = TextureGenerator.generateTexture(13, height / (width / 16) - 1, false);
         closeButton = new Button("MODS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32);
-        closeButton.addEventListener(new Button.EventListener() {
+        closeButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 MainGame.getGame().setScreen(ms);
@@ -233,6 +234,14 @@ public class ModsScreen implements Screen {
             batch.draw((modIcon == null) ? Resource.getTexture("Blocks/SAUW_icon.png") : modIcon, cam.X + x + height / 8, cam.Y + y + height / 8, ModIconHeight, ModIconHeight);
             text.draw(batch, modName, cam.X + x + ModIconHeight + height / 4, cam.Y + y + height - height / 8);
             modActiv.render(batch, cam);
+        }
+
+        @Override
+        public void dispose() {
+        }
+
+        @Override
+        public void onClick(boolean onElement) {
         }
     }
 }

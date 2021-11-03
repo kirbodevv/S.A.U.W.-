@@ -96,4 +96,12 @@ public class Hotbar extends InterfaceElement {
         }
         BATCH.setColor(1f, 1f, 1f, 0.7f);
     }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
 }

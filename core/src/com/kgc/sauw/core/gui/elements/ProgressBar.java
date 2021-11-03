@@ -92,4 +92,12 @@ public class ProgressBar extends InterfaceElement {
         batch.setColor(batchColor);
         if (foreground != null) foreground.draw(x, y, width, height);
     }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
 }

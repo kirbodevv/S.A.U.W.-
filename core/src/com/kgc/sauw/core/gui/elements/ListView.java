@@ -76,6 +76,14 @@ public class ListView extends InterfaceElement {
         batch.draw(fbo.getColorBufferTexture(), cam.X + x, cam.Y + y);
     }
 
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
+
     public interface ListViewAdapter {
         void getView(int position, Layout view);
 

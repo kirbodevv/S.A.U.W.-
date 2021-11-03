@@ -1,9 +1,9 @@
 package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.core.utils.Camera2D;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.sauw.core.utils.Camera2D;
 
 public class Checkbox extends InterfaceElement {
     private Texture t0, t1;
@@ -32,13 +32,21 @@ public class Checkbox extends InterfaceElement {
         batch.draw(isChecked ? t1 : t0, cam.X + x, cam.Y + y, width, height);
     }
 
+
     @Override
-    public void onClick(boolean onButton) {
-        super.onClick(onButton);
-        if (EL != null && onButton) {
+    public void onClick(boolean onElement) {
+        if (EL != null && onElement) {
             isChecked = !isChecked;
             EL.onClick(isChecked);
         }
+    }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    protected void tick(Camera2D cam) {
     }
 
     public static abstract class EventListener {

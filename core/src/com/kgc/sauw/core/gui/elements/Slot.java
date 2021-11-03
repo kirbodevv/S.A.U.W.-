@@ -47,7 +47,7 @@ public class Slot extends InterfaceElement {
 
     public Slot(String ID, Interface interface_) {
         this.interface_ = interface_;
-        this.ID = ID;
+        this.id = ID;
         slot = Skins.slot_round;
     }
 
@@ -95,14 +95,17 @@ public class Slot extends InterfaceElement {
     }
 
     @Override
-    public void onClick(boolean onButton) {
-        super.onClick(onButton);
-        if (SF != null && onButton) {
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+        if (SF != null && onElement) {
             SF.onClick();
         }
         if (container != null && interface_ != null) {
             for (Slot slot : interface_.slots) {
-                if (!slot.ID.equals(this.ID) && Maths.isLiesOnRect(slot.x, slot.y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
+                if (!slot.id.equals(this.id) && Maths.isLiesOnRect(slot.x, slot.y, slot.width, slot.height, INTERFACE_CAMERA.touchX(), INTERFACE_CAMERA.touchY())) {
                     InterfaceUtils.sendToSlot(this, slot);
                 }
             }

@@ -1,26 +1,48 @@
 package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
 
 public class Image extends InterfaceElement {
-    private Texture texture;
-    private TextureRegion textureRegion;
+    private final Sprite sprite = new Sprite();
+
+    public void setSprite(Sprite sprite) {
+        this.sprite.set(sprite);
+    }
 
     public void setImg(Texture t) {
-        this.texture = t;
+        this.sprite.setRegion(t);
     }
 
     public void setImg(TextureRegion textureRegion) {
-        this.textureRegion = textureRegion;
+        this.sprite.setRegion(textureRegion);
+    }
+
+    @Override
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
+        sprite.setSize(w, h);
+    }
+
+    @Override
+    protected void tick(Camera2D cam) {
     }
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        if (texture != null) batch.draw(texture, x + cam.X, y + cam.Y, width, height);
-        if (textureRegion != null) batch.draw(textureRegion, x + cam.X, y + cam.Y, width, height);
+        sprite.setPosition(cam.X + x, cam.Y + y);
+        sprite.draw(batch);
+    }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
     }
 }

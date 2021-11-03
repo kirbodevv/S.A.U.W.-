@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class InterfaceUtils {
     public static void sendToSlot(Slot slot1, Slot slot2) {
-        if (slot2.SF == null || slot2.SF.isValid(slot1.getContainer(), slot1.ID)) {
+        if (slot2.SF == null || slot2.SF.isValid(slot1.getContainer(), slot1.id)) {
             InterfaceUtils.swap(slot1.getContainer(), slot2.getContainer());
         }
 

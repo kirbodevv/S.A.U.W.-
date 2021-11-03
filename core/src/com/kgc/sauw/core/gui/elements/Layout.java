@@ -96,6 +96,14 @@ public class Layout extends InterfaceElement {
     }
 
     @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
+
+    @Override
     public void hide(boolean b) {
         super.hide(b);
         for (InterfaceElement e : elements) {
@@ -156,7 +164,7 @@ public class Layout extends InterfaceElement {
 
     public InterfaceElement getElement(String ID) {
         for (InterfaceElement e : elements) {
-            if (ID.equals(e.ID)) return e;
+            if (ID.equals(e.id)) return e;
         }
         return null;
     }

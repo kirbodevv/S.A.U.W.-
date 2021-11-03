@@ -47,7 +47,7 @@ public class Items {
 
         JSONObject itemConfigurationJson = json.getJSONObject("itemConfiguration");
 
-        itemConfiguration.name = itemConfigurationJson.getString("name");
+        item.name = itemConfigurationJson.getString("name");
         itemConfiguration.type = Type.valueOf(itemConfigurationJson.getString("type"));
         itemConfiguration.maxCount = itemConfigurationJson.getInt("maxCount");
         itemConfiguration.weight = itemConfigurationJson.getFloat("weight");
@@ -69,6 +69,6 @@ public class Items {
 
     public static void defineItem(Item item) {
         ITEMS.add(item);
-        Gdx.app.log("Items", "defined item, with id " + item.getStringId());
+        Gdx.app.log("Items", "defined item, with id " + item.getStringId() + ", item name : \"" + item.getDefaultName() + "\"");
     }
 }

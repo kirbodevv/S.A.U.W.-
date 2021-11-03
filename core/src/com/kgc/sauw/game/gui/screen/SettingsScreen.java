@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Slider;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
@@ -109,7 +110,7 @@ public class SettingsScreen implements Screen {
             }
         });
         closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32);
-        closeButton.addEventListener(new Button.EventListener() {
+        closeButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 MainGame.getGame().setScreen(MenuScreen);
@@ -119,7 +120,7 @@ public class SettingsScreen implements Screen {
         prevLang.setIcon(Resource.getTexture("Interface/button_up_0.png"));
         nextLang = new Button("SETTINGS_SCREEN_NEXT_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 9, width / 16, width / 16);
         nextLang.setIcon(Resource.getTexture("Interface/button_down_0.png"));
-        nextLang.addEventListener(new Button.EventListener() {
+        nextLang.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 Iterator i = availableLangs.keys();
@@ -139,7 +140,7 @@ public class SettingsScreen implements Screen {
                 }
             }
         });
-        prevLang.addEventListener(new Button.EventListener() {
+        prevLang.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 Iterator i = availableLangs.keys();
@@ -171,7 +172,7 @@ public class SettingsScreen implements Screen {
         general = new Button("SETTINGS_SCREEN_GENERAL_BUTTON", width / 16, height - width / 32 * 3, width / 32 * 5, width / 16);
         //general.setTextColor(Color.BLACK);
         general.setText(Languages.getString("general"));
-        general.addEventListener(new Button.EventListener() {
+        general.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 currentSettingCot = 0;
@@ -181,7 +182,7 @@ public class SettingsScreen implements Screen {
         Interface = new Button("SETTINGS_SCREEN_INTERFACE_BUTTON", general.x + general.width + width / 128, height - width / 32 * 3, width / 16 * 4, width / 16);
         // Interface.setTextColor(Color.BLACK);
         Interface.setText(Languages.getString("interface"));
-        Interface.addEventListener(new Button.EventListener() {
+        Interface.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 currentSettingCot = 1;
@@ -191,7 +192,7 @@ public class SettingsScreen implements Screen {
         gameSettings = new Button("SETTINGS_SCREEN_GAME_BUTTON", Interface.x + Interface.width + width / 128, height - width / 32 * 3, width / 16 * 3, width / 16);
         // gameSettings.setTextColor(Color.BLACK);
         gameSettings.setText(Languages.getString("game"));
-        gameSettings.addEventListener(new Button.EventListener() {
+        gameSettings.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 currentSettingCot = 2;
@@ -201,7 +202,7 @@ public class SettingsScreen implements Screen {
         sound = new Button("SETTINGS_SCREEN_SOUND_BUTTON", gameSettings.x + gameSettings.width + width / 128, height - width / 32 * 3, width / 16 * 2, width / 16);
         //sound.setTextColor(Color.BLACK);
         sound.setText(Languages.getString("sound"));
-        sound.addEventListener(new Button.EventListener() {
+        sound.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 currentSettingCot = 3;

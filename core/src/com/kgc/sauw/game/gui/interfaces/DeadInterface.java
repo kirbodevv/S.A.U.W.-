@@ -2,6 +2,7 @@ package com.kgc.sauw.game.gui.interfaces;
 
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -17,7 +18,7 @@ public class DeadInterface extends Interface {
 
         respawn = new Button("DEAD_INTERFACE_RESPAWN_BUTTON", (int) (SCREEN_WIDTH / 16 * 5), (int) (SCREEN_HEIGHT - SCREEN_WIDTH / 16 * 5), (int) (SCREEN_WIDTH / 16 * 6), (int) (SCREEN_WIDTH / 16));
         respawn.setText(Languages.getString("respawn"));
-        respawn.addEventListener(new Button.EventListener() {
+        respawn.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 PLAYER.randomSpawn();

@@ -1,10 +1,7 @@
 package com.kgc.sauw.core.gui;
 
 import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.gui.elements.Text;
+import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.skins.Skins;
 
@@ -21,7 +18,7 @@ public class Interface {
     public ArrayList<InterfaceElement> elements = new ArrayList<>();
     public ArrayList<Slot> slots = new ArrayList<>();
 
-    public final Text actionBar = new Text();
+    public final TextView actionBar = new TextView();
     public Layout mainLayout;
     public Button closeInterfaceButton;
 
@@ -41,7 +38,7 @@ public class Interface {
         mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE - 1);
         mainLayout.setGravity(Layout.Gravity.TOP);
-        mainLayout.setID("MainLayout");
+        mainLayout.setId("MainLayout");
 
         x = (Graphic.SCREEN_WIDTH - width) / 2;
         y = (Graphic.SCREEN_HEIGHT - height) / 2;
@@ -49,7 +46,7 @@ public class Interface {
         closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0);
         closeInterfaceButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
         closeInterfaceButton.setSizeInBlocks(0.75f, 0.75f);
-        closeInterfaceButton.addEventListener(new Button.EventListener() {
+        closeInterfaceButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 close();
@@ -95,7 +92,7 @@ public class Interface {
 
     public Slot getSlot(String ID) {
         for (Slot slot : slots) {
-            if (slot.ID.equals(ID)) {
+            if (slot.id.equals(ID)) {
                 return slot;
             }
         }
@@ -104,7 +101,7 @@ public class Interface {
 
     public InterfaceElement getElement(String ID) {
         for (InterfaceElement element : elements) {
-            if (element.ID.equals(ID)) {
+            if (element.id.equals(ID)) {
                 return element;
             }
         }

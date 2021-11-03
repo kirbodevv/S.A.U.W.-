@@ -8,6 +8,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.mod.ModAPI;
 import org.mozilla.javascript.Context;
@@ -46,7 +47,7 @@ public class ConsoleInterface extends Interface {
         prevCommand.setIcon(Resource.getTexture("Interface/button_left_0.png"));
         nextCommand.setIcon(Resource.getTexture("Interface/button_right_0.png"));
 
-        nextCommand.addEventListener(new Button.EventListener() {
+        nextCommand.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 currCom++;
@@ -60,7 +61,7 @@ public class ConsoleInterface extends Interface {
                 }
             }
         });
-        prevCommand.addEventListener(new Button.EventListener() {
+        prevCommand.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 currCom--;

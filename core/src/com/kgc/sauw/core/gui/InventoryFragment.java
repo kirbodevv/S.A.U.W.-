@@ -21,7 +21,7 @@ public class InventoryFragment extends Fragment {
     public InventoryFragment() {
         super(Orientation.HORIZONTAL);
         setGravity(Layout.Gravity.LEFT);
-        setID("InventoryFragment");
+        setId("InventoryFragment");
     }
 
     @Override
@@ -65,24 +65,24 @@ public class InventoryFragment extends Fragment {
         inventoryLayout.setSizeInBlocks(7.5f, 7f);
         inventoryLayout.setStandardBackground(false);
         inventoryLayout.setTranslationX(1);
-        inventoryLayout.setID("inventoryLayout");
+        inventoryLayout.setId("inventoryLayout");
 
         switchTabLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         switchTabLayout.setGravity(Layout.Gravity.LEFT);
         switchTabLayout.setTranslationY(-0.25f);
-        switchTabLayout.setID("switchTabLayout");
+        switchTabLayout.setId("switchTabLayout");
 
         slotsLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
         slotsLayout.setGravity(Layout.Gravity.TOP);
         slotsLayout.setTranslationY(-0.25f);
-        slotsLayout.setID("slotsLayout");
+        slotsLayout.setId("slotsLayout");
 
         optionalLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         optionalLayout.setSizeInBlocks(6f, 7f);
         optionalLayout.setGravity(Layout.Gravity.TOP);
         optionalLayout.setStandardBackground(false);
         optionalLayout.setTranslationX(0.5f);
-        optionalLayout.setID("optionalLayout");
+        optionalLayout.setId("optionalLayout");
 
         previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
         previousTabInv.setIcon(Resource.getTexture("Interface/button_left_0.png"));
@@ -90,19 +90,19 @@ public class InventoryFragment extends Fragment {
         nextTabInv.setIcon(Resource.getTexture("Interface/button_right_0.png"));
         previousTabInv.setSizeInBlocks(1, 1);
         nextTabInv.setSizeInBlocks(1, 1);
-        Text backpackText = new Text();
-        backpackText.setSizeInBlocks(5, 1);
-        backpackText.setText(Languages.getString("backpack"));
-        backpackText.setID("BackpackText");
+        TextView backpackTextView = new TextView();
+        backpackTextView.setSizeInBlocks(5, 1);
+        backpackTextView.setText(Languages.getString("backpack"));
+        backpackTextView.setId("BackpackText");
 
-        switchTabLayout.addElements(previousTabInv, backpackText, nextTabInv);
+        switchTabLayout.addElements(previousTabInv, backpackTextView, nextTabInv);
         inventoryLayout.addElements(switchTabLayout, slotsLayout);
 
         for (int y = 0; y < 5; y++) {
             Layout l = new Layout(Layout.Orientation.HORIZONTAL);
             l.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
             l.setGravity(Layout.Gravity.LEFT);
-            l.setID("InventoryLayout_" + y);
+            l.setId("InventoryLayout_" + y);
             for (int x = 0; x < 6; x++) {
                 final int num = y * 6 + x;
                 String id = "InventorySlot_" + num;

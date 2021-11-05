@@ -3,14 +3,16 @@ package com.kgc.sauw.game.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.OnClickListener;
-import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.sound.Music;
-import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;
 
@@ -50,10 +52,10 @@ public class MenuScreen implements Screen {
         sauwLogo = new Image();
         sauwLogo.setImg(Resource.getTexture("Interface/SAUW_Logo.png"));
 
-        startButton = new Button("MENU_SCREEN_START_BUTTON", 0, 0, 0, 0);
-        settingsButton = new Button("MENU_SCREEN_SETTINGS_BUTTON", 0, 0, 0, 0);
-        modsButton = new Button("MENU_SCREEN_MODS_BUTTON", 0, 0, 0, 0);
-        exitButton = new Button("MENU_SCREEN_EXIT_BUTTON", 0, 0, 0, 0);
+        startButton = new Button("menu_screen.start", 0, 0, 0, 0);
+        settingsButton = new Button("menu_screen.settings", 0, 0, 0, 0);
+        modsButton = new Button("menu_screen.mods", 0, 0, 0, 0);
+        exitButton = new Button("menu_screen.exit", 0, 0, 0, 0);
 
         sauwLogo.setSizeInBlocks(6, 3);
         startButton.setSizeInBlocks(6, 1);
@@ -96,10 +98,10 @@ public class MenuScreen implements Screen {
             }
         });
 
-        startButton.setText(Languages.getString("startGame"));
-        settingsButton.setText(Languages.getString("settings") + "(Закрыто на ремонт)");
-        modsButton.setText(Languages.getString("mods") + "(Закрыто на ремонт)");
-        exitButton.setText(Languages.getString("exit"));
+        startButton.setDefaultText();
+        settingsButton.setDefaultText();
+        modsButton.setDefaultText();
+        exitButton.setDefaultText();
 
         coinsLayout = new Layout(Layout.Orientation.HORIZONTAL);
         coinsLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);

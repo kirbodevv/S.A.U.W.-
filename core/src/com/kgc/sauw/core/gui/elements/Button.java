@@ -1,10 +1,12 @@
 package com.kgc.sauw.core.gui.elements;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.skins.Skins;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class Button extends AbstractTextView {
     private Texture icon;
@@ -25,12 +27,17 @@ public class Button extends AbstractTextView {
         createButton(ID, X, Y, w, h);
     }
 
+    public void setDefaultText() {
+        setText(Languages.getString("sauw.buttons." + id));
+    }
+
     private void createButton(String ID, float X, float Y, float w, float h, ElementSkin BT, ElementSkin BP) {
         setPosition(X, Y);
         setSize(w, h);
         setSkin(BT, BP);
         setId(ID);
         create();
+        setTextColor(Color.BLACK);
     }
 
     private void createButton(String ID, float X, float Y, float w, float h) {

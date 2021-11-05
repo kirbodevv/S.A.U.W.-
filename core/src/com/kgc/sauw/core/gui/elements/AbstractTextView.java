@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
@@ -17,8 +18,12 @@ public abstract class AbstractTextView extends InterfaceElement {
         this.scalable = scalable;
     }
 
-    public void setColor(int r, int g, int b) {
+    public void setTextColor(int r, int g, int b) {
         this.textColor.set(r / 255f, g / 255f, b / 255f, 1f);
+    }
+
+    public void setTextColor(Color color) {
+        this.textColor.set(color);
     }
 
     public void setText(String text) {

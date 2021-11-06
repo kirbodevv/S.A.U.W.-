@@ -8,7 +8,7 @@ public class Console {
     public ArrayList<String> inputs = new ArrayList<>();
 
     public void print(String txt) {
-        HUD.consolePrint(txt);
+        /*Починить вывод в консоль*/
     }
 
     public ArrayList<String> input() {

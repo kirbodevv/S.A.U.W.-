@@ -5,19 +5,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
+import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.gui.OnClickListener;
-import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.mod.ModAPI;
+import com.kgc.sauw.core.utils.Resource;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.core.graphic.Graphic.INTERFACE_CAMERA;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
 public class ConsoleInterface extends Interface {
@@ -109,7 +110,7 @@ public class ConsoleInterface extends Interface {
             try {
                 cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.input, "Command", 1, null);
             } catch (Exception e) {
-                HUD.consolePrint(e.toString());
+                /*Починить вывод в консоль*/
                 Gdx.app.log("error", e.toString());
             } finally {
                 Context.exit();

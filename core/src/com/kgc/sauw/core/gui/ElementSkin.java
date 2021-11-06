@@ -12,6 +12,9 @@ public class ElementSkin {
     Texture texture = null;
     private final Color color = new Color(1, 1, 1, 1);
 
+    public ElementSkin() {
+    }
+
     public ElementSkin(Texture texture, int outlineSize) {
         drawable = createDrawableFromTexture(texture, outlineSize);
     }

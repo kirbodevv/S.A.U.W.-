@@ -18,31 +18,34 @@ public class Skins {
     public static ElementSkin progress_bar_foreground_round;
 
     public static ElementSkin interface_background;
+    public static ElementSkin transparent;
 
-
+    public static final int DEFAULT_OUTLINE_SIZE = 7;
 
     static {
-        round_up = new ElementSkin(Resource.getTexture("Interface/round_up.png"), 5);
+        round_up = new ElementSkin(Resource.getTexture("Interface/round_up.png"), DEFAULT_OUTLINE_SIZE);
         round_up.setColor(0x60769DFF);
-        round_up_1 = new ElementSkin(Resource.getTexture("Interface/round_up.png"), 5);
+        round_up_1 = new ElementSkin(Resource.getTexture("Interface/round_up.png"), DEFAULT_OUTLINE_SIZE);
         round_up_1.setColor(0x7165A3FF);
-        round_down = new ElementSkin(Resource.getTexture("Interface/round_down.png"), 5);
+        round_down = new ElementSkin(Resource.getTexture("Interface/round_down.png"), DEFAULT_OUTLINE_SIZE);
         round_down.setColor(0x60769DFF);
-        round_down_1 = new ElementSkin(Resource.getTexture("Interface/round_down.png"), 5);
+        round_down_1 = new ElementSkin(Resource.getTexture("Interface/round_down.png"), DEFAULT_OUTLINE_SIZE);
         round_down_1.setColor(0x60769DFF);
 
-        slot_round = new ElementSkin(Resource.getTexture("Interface/round_down.png"), 5);
+        slot_round = new ElementSkin(Resource.getTexture("Interface/round_down.png"), DEFAULT_OUTLINE_SIZE);
         slot_round.setColor(0x7165A3FF);
 
         game_button_up = new ElementSkin(Resource.getTexture("Interface/button_0.png"));
         game_button_down = new ElementSkin(Resource.getTexture("Interface/button_1.png"));
 
-        interface_background = new ElementSkin(Resource.getTexture("Interface/round_up.png"), 5);
+        interface_background = new ElementSkin(Resource.getTexture("Interface/round_up.png"), DEFAULT_OUTLINE_SIZE);
         interface_background.setColor(0x374F8DFF);
 
-        progress_bar_background_round = new ElementSkin(Resource.getTexture("Interface/round_down.png"), 5);
+        transparent = new ElementSkin();
+
+        progress_bar_background_round = new ElementSkin(Resource.getTexture("Interface/round_down.png"), DEFAULT_OUTLINE_SIZE);
         progress_bar_background_round.setColor(0x60769DFF);
-        progress_bar_foreground_round = new ElementSkin(Resource.getTexture("Interface/progress_bar_foreground_round.png"), 5);
+        progress_bar_foreground_round = new ElementSkin(Resource.getTexture("Interface/progress_bar_foreground_round.png"), DEFAULT_OUTLINE_SIZE);
         progress_bar_foreground_round.setColor(0x60769DFF);
     }
 }

@@ -8,7 +8,7 @@ public class Settings {
     //<settings>
     public static boolean debugMode = true;
     public static boolean debugRenderer = false;
-    public static String lang = "en";
+    public static String lang = "ru";
     public static boolean autoPickup = false;
     public static int consoleTextColorRed;
     public static int consoleTextColorGreen;

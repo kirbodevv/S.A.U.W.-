@@ -8,8 +8,8 @@ import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.utils.Resource;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -33,7 +33,6 @@ public class HUD {
 
     public BitmapFont log = new BitmapFont(Gdx.files.internal("ttf.fnt"));
 
-    public String logText = "Lol";
     public int r = 0, g = 0, b = 0;
 
     private final Layout mainLayout;
@@ -44,9 +43,6 @@ public class HUD {
     private final TextView timeTextView;
     private final Layout midLayout;
 
-    public void consolePrint(String txt) {
-        this.logText = txt;
-    }
 
     public void setConsoleTextColor(int r, int g, int b) {
         this.r = r;
@@ -74,10 +70,10 @@ public class HUD {
         headerBar.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         headerBar.setSizeInBlocks(16f, 0.5f);
         headerBar.setGravity(Layout.Gravity.LEFT);
-        headerBar.setStandardBackground(true);
 
         healthTextView = new TextView();
         healthTextView.setSizeInBlocks(1.25f, 0.5f);
+        healthTextView.setTranslationY(0.125f);
         healthTextView.setBackground(null);
         healthTextView.setScalable(false);
 
@@ -110,7 +106,7 @@ public class HUD {
         Layout notificationLayout = new Layout(Layout.Orientation.HORIZONTAL);
         notificationLayout.setGravity(Layout.Gravity.LEFT);
         notificationLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
-        notificationLayout.setSizeInBlocks(8.8f, 0.5f);
+        notificationLayout.setSizeInBlocks(8.3f, 0.5f);
 
         attackButton = new Button("ATTACK_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         attackButton.setSizeInBlocks(1.5f, 1.5f);
@@ -141,7 +137,8 @@ public class HUD {
         buttonsLayout.addElements(BtnLyt1, dropButton);
 
         consoleOpenButton = new Button("CONSOLE_OPEN_BUTTON", 0, 0, 0, 0);
-        consoleOpenButton.setSizeInBlocks(0.5f, 0.5f);
+        consoleOpenButton.setSizeInBlocks(0.75f, 0.75f);
+        consoleOpenButton.setTranslationY(-0.125f);
         consoleOpenButton.setIcon(Resource.getTexture("Interface/console_button_0.png"));
 
         craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
@@ -149,7 +146,8 @@ public class HUD {
         craftingButton.setIcon(Resource.getTexture("Interface/crafting_button_0.png"));
 
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
-        pauseButton.setSizeInBlocks(0.5f, 0.5f);
+        pauseButton.setSizeInBlocks(0.75f, 0.75f);
+        pauseButton.setTranslationY(-0.125f);
         pauseButton.setIcon(Resource.getTexture("Interface/pause_icon.png"));
 
         inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
@@ -224,6 +222,8 @@ public class HUD {
         mainLayout.hide(isAnyInterfaceOpen());
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
             midLayout.hide(true);
+            pauseButton.hide(true);
+            consoleOpenButton.hide(true);
         }
         mainLayout.update(INTERFACE_CAMERA);
         healthTextView.setText((int) PLAYER.health + "%");

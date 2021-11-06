@@ -132,7 +132,6 @@ public class Player extends Entity implements ExtraData {
                     inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
                     EntityManager.delete(item);
                 }
-                System.out.println("XD");
             }
         });
     }

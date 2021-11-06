@@ -27,16 +27,11 @@ public class Button extends AbstractTextView {
         createButton(ID, X, Y, w, h);
     }
 
-    public void setDefaultText() {
-        setText(Languages.getString("sauw.buttons." + id));
-    }
-
     private void createButton(String ID, float X, float Y, float w, float h, ElementSkin BT, ElementSkin BP) {
         setPosition(X, Y);
         setSize(w, h);
         setSkin(BT, BP);
         setId(ID);
-        create();
         setTextColor(Color.BLACK);
     }
 

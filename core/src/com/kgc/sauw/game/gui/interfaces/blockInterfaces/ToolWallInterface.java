@@ -10,11 +10,10 @@ import com.kgc.sauw.core.environment.world.Tile;
 public class ToolWallInterface extends BlockInterface {
 
     public ToolWallInterface() {
-        super("TOOL_WALL_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/ToolWallInstruments.xml"), this);
 
-        ((Slot) getElement("HammerSlot")).setIcon(Resource.getTexture("Items/hammer.png"));
-        ((Slot) getElement("HandsawSlot")).setIcon(Resource.getTexture("Items/handsaw.png"));
+        ((Slot) getElement("slot.HammerSlot")).setIcon(Resource.getTexture("Items/hammer.png"));
+        ((Slot) getElement("slot.HandsawSlot")).setIcon(Resource.getTexture("Items/handsaw.png"));
 
         updateElementsList();
     }

@@ -3,7 +3,6 @@ package com.kgc.sauw.core.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.core.gui.elements.Elements;
 import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.utils.GravityAdapter;
 
@@ -140,10 +139,6 @@ public abstract class InterfaceElement {
         if (attachedToSide == Sides.BOTTOM || attachedToSide == Sides.LEFT_BOTTOM || attachedToSide == Sides.RIGHT_BOTTOM)
             y -= element.marginBottom * BLOCK_SIZE;
         setPositionInBlocks(x / BLOCK_SIZE + translationX, y / BLOCK_SIZE + translationY);
-    }
-
-    public void create() {
-        Elements.addElement(this);
     }
 
     public boolean isTouched() {

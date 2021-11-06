@@ -8,10 +8,6 @@ public abstract class BlockInterface extends Interface {
 
     public int currX, currY, currZ;
 
-    public BlockInterface(String ID) {
-        super(ID);
-    }
-
     public void open(int x, int y, int z) {
         currX = x;
         currY = y;

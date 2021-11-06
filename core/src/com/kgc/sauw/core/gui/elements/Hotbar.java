@@ -32,7 +32,7 @@ public class Hotbar extends InterfaceElement {
             final int finalI = i;
             slot.setSF(new Slot.SlotFunctions() {
                 @Override
-                public boolean isValid(Container container, String FromSlotWithId) {
+                public boolean isValid(Container container, String fromSlotWithId) {
                     return false;
                 }
 

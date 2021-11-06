@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Interface id="pause" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
-        <Button id="PAUSE_INTERFACE_RESUME_BUTTON" width="4bl" height="1bl" text="%Language/resume"/>
-        <Button id="PAUSE_INTERFACE_SAVE_WORLD_BUTTON" width="4bl" height="1bl" text="%Language/save"/>
+        <Button id="resume" width="4bl" height="1bl"/>
+        <Button id="save_world" width="4bl" height="1bl"/>
     </RootLayout>
 </Interface>

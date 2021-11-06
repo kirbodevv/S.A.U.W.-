@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.environment.world.WorldLoader;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
-import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.OnClickListener;
+import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.SAUW;
@@ -20,24 +20,23 @@ public class SelectWorldInterface extends Interface {
 
 
     public SelectWorldInterface() {
-        super("SELECT_WORLD_INTERFACE");
 
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/SelectWorldInterface.xml"), this);
-        sel_0 = (Button) getElement("SELECT_0");
+        sel_0 = (Button) getElement("button.SELECT_0");
         sel_0.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 loadGame(WorldLoader.worldNames[worldSelIndex]);
             }
         });
-        sel_1 = (Button) getElement("SELECT_1");
+        sel_1 = (Button) getElement("button.SELECT_1");
         sel_1.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
                 loadGame(WorldLoader.worldNames[worldSelIndex + 1]);
             }
         });
-        sel_2 = (Button) getElement("SELECT_2");
+        sel_2 = (Button) getElement("button.SELECT_2");
         sel_2.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
@@ -49,7 +48,7 @@ public class SelectWorldInterface extends Interface {
         /*ListView listView = new ListView();
         listView.setSizeInBlocks(5, 4);
         mainLayout.addElements(listView);*/
-        Button up = (Button) getElement("UP");
+        Button up = (Button) getElement("button.UP");
         up.setIcon(Resource.getTexture("Interface/button_up_0.png"));
         up.addEventListener(new OnClickListener() {
             @Override
@@ -60,7 +59,7 @@ public class SelectWorldInterface extends Interface {
                 setSelectButtonsText();
             }
         });
-        Button down = (Button) getElement("DOWN");
+        Button down = (Button) getElement("button.DOWN");
         down.setIcon(Resource.getTexture("Interface/button_down_0.png"));
         down.addEventListener(new OnClickListener() {
             @Override
@@ -77,13 +76,14 @@ public class SelectWorldInterface extends Interface {
             @Override
             public void onClick() {
                 for (String name : WorldLoader.worldNames) {
-                    if (createWorldInterface.worldName.input.equals(name)) return;
+                    if (createWorldInterface.worldName.getText().equals(name)) return;
                 }
-                loadGame(createWorldInterface.worldName.input);
+                loadGame(createWorldInterface.worldName.getText());
             }
         });
 
-        Button createNewWorld = (Button) getElement("CREATE_NEW_WORLD");
+        Button createNewWorld = (Button) getElement("button.create_new_world");
+        createNewWorld.setDefaultText();
         createNewWorld.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {

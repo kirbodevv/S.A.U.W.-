@@ -13,13 +13,12 @@ public class FurnaceInterface extends BlockInterface {
 
 
     public FurnaceInterface() {
-        super("FURNACE_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/FurnaceInterface.xml"), this);
 
-        Slot resultSlot = (Slot) getElement("ResultSlot");
+        Slot resultSlot = (Slot) getElement("slot.ResultSlot");
         resultSlot.setSF(new Slot.SlotFunctions() {
             @Override
-            public boolean isValid(Container container, String FromSlotWithId) {
+            public boolean isValid(Container container, String fromSlotWithId) {
                 return false;
             }
 
@@ -39,7 +38,7 @@ public class FurnaceInterface extends BlockInterface {
             }
         });
 
-        ((Image) getElement("ArrowIcon")).setImg(Resource.getTexture("Interface/button_right_0.png"));
+        ((Image) getElement("image.ArrowIcon")).setImg(Resource.getTexture("Interface/button_right_0.png"));
 
         updateElementsList();
     }

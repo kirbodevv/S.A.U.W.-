@@ -16,24 +16,23 @@ import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.game.environment.Environment.CRAFTING;
 
 public class CraftingInterface extends Interface {
-    private final TextView craftName;
+    /*private final TextView craftName;
     private int currentCraft = -1;
     private int currentTab = 0;
-    private final Image itemIcon;
+    private final Image itemIcon;*/
 
     private final Container[] craftContainers = new Container[6];
 
     public CraftingInterface() {
-        super("CRAFTING_INTERFACE");
 
-        mainLayout.setOrientation(Layout.Orientation.HORIZONTAL);
+        /*mainLayout.setOrientation(Layout.Orientation.HORIZONTAL);
         mainLayout.setGravity(Layout.Gravity.LEFT);
 
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/CraftingInterface.xml"), this);
-        getElement("craftsLayout").setSizeInBlocks(7.5f, 7f);
-        ((Layout) getElement("craftsLayout")).setStandardBackground(false);
-        getElement("craftInfoLayout").setSizeInBlocks(6f, 7f);
-        ((Layout) getElement("craftInfoLayout")).setStandardBackground(false);
+        getElement("sauw.layout.crafting.craftsLayout").setSizeInBlocks(7.5f, 7f);
+        ((Layout) getElement("sauw.layout.crafting.craftsLayout")).setStandardBackground(false);
+        getElement("sauw.layout.crafting.craftInfoLayout").setSizeInBlocks(6f, 7f);
+        ((Layout) getElement("sauw.layout.crafting.craftInfoLayout")).setStandardBackground(false);
 
         getElement("craftIconLayout").setSizeInBlocks(2f, 2f);
         ((Layout) getElement("craftIconLayout")).setStandardBackground(true);
@@ -112,12 +111,12 @@ public class CraftingInterface extends Interface {
             }
             CraftsListLayout.addElements(l);
         }
-        updateElementsList();
+        updateElementsList();*/
     }
 
     @Override
     public void tick() {
-        int temp = 0;
+        /*int temp = 0;
         for (int i = currentTab * 30; i < currentTab + 30; i++) {
             if (getElement("Craft_" + temp) != null) {
                 getElement("Craft_" + temp).hide(i >= CRAFTING.crafts.size());
@@ -130,7 +129,7 @@ public class CraftingInterface extends Interface {
                 craftContainers[i].setItem(craft.ingredients[i][0], craft.ingredients[i][1], 0);
                 ((Slot) getElement("craftItemSlot_" + i)).setContainer(craftContainers[i]);
             }
-        }
+        }*/
     }
 
     @Override
@@ -150,11 +149,11 @@ public class CraftingInterface extends Interface {
 
     @Override
     public void postRender() {
-        for (int i = currentTab * 30; i < CRAFTING.crafts.size(); i++) {
+        /*for (int i = currentTab * 30; i < CRAFTING.crafts.size(); i++) {
             float x = getElement("Craft_" + i).x;
             float y = getElement("Craft_" + i).y;
             float w = getElement("Craft_" + i).width;
             BATCH.draw(Items.getItemById(CRAFTING.crafts.get(i).result[0]).getTexture(null), x + w / 8, y + w / 8, w - w / 4, w - w / 4);
-        }
+        }*/
     }
 }

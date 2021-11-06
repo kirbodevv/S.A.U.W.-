@@ -12,20 +12,16 @@ public class AchievementsGenerated {
         Achievement achievement;
         
 
-		achievement = new Achievement("achievements:hide_behind_a_tree");
-		achievement.title = StringUtils.getString("%Language/ach1_title");
-		achievement.description = StringUtils.getString("%Language/ach1_txt");
+		achievement = new Achievement("hide_behind_a_tree");
 		achievement.icon = Resource.getTexture("Items/log.png");
 		achievement.giveCoins = 5;
-		achievement.achievementChecker = new JSChecker(Gdx.files.internal("js/achievements/hide_behind_a_tree.js").readString(), "achievements:hide_behind_a_tree");
+		achievement.achievementChecker = new JSChecker(Gdx.files.internal("js/achievements/hide_behind_a_tree.js").readString(), "hide_behind_a_tree");
 		Achievements.defineAchievement(achievement);
 
-		achievement = new Achievement("achievements:stone_items");
-		achievement.title = StringUtils.getString("%Language/ach2_title");
-		achievement.description = StringUtils.getString("%Language/ach2_txt");
+		achievement = new Achievement("stone_items");
 		achievement.icon = Resource.getTexture("Items/stone.png");
 		achievement.giveCoins = 10;
-		achievement.achievementChecker = new JSChecker(Gdx.files.internal("js/achievements/stone_items.js").readString(), "achievements:stone_items");
+		achievement.achievementChecker = new JSChecker(Gdx.files.internal("js/achievements/stone_items.js").readString(), "stone_items");
 		Achievements.defineAchievement(achievement);
     }
 }

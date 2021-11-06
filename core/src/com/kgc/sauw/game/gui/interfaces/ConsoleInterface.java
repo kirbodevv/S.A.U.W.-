@@ -33,17 +33,16 @@ public class ConsoleInterface extends Interface {
     public Scriptable sc;
 
     public ConsoleInterface() {
-        super("CONSOLE_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"), this);
 
-        input = (EditText) getElement("CommandInput");
-        sendCommandButton = (Button) getElement("sendCommandButton");
-        Layout log = ((Layout) getElement("log_bg"));
+        input = (EditText) getElement("edittext.CommandInput");
+        sendCommandButton = (Button) getElement("button.sendCommandButton");
+        Layout log = ((Layout) getElement("layout.log_bg"));
         log.setSizeInBlocks(15f, 6f);
         log.setStandardBackground(false);
 
-        nextCommand = (Button) getElement("nextCommand");
-        prevCommand = (Button) getElement("prevCommand");
+        nextCommand = (Button) getElement("button.prevCommand");
+        prevCommand = (Button) getElement("button.nextCommand");
 
         prevCommand.setIcon(Resource.getTexture("Interface/button_left_0.png"));
         nextCommand.setIcon(Resource.getTexture("Interface/button_right_0.png"));
@@ -56,9 +55,9 @@ public class ConsoleInterface extends Interface {
                     currCom = ModAPI.Console.inputs.size() - 1;
                 }
                 if (currCom != -1) {
-                    input.input = ModAPI.Console.input(currCom);
+                    input.setText(ModAPI.Console.input(currCom));
                 } else {
-                    input.input = inputTxt;
+                    input.setText(inputTxt);
                 }
             }
         });
@@ -70,9 +69,9 @@ public class ConsoleInterface extends Interface {
                     currCom = -1;
                 }
                 if (currCom != -1) {
-                    input.input = ModAPI.Console.input(currCom);
+                    input.setText(ModAPI.Console.input(currCom));
                 } else {
-                    input.input = inputTxt;
+                    input.setText(inputTxt);
                 }
             }
         });
@@ -100,22 +99,22 @@ public class ConsoleInterface extends Interface {
     @Override
     public void tick() {
         HUD.log.setColor(HUD.r / 255f, HUD.g / 255f, HUD.b / 255f, 1);
-        input.setTextColor(HUD.r / 255f, HUD.g / 255f, HUD.b / 255f);
+        input.setTextColor(HUD.r, HUD.g, HUD.b);
         if (currCom == -1) {
-            inputTxt = input.input;
+            inputTxt = input.getText();
         }
-        if (sendCommandButton.isTouched() && input.input != null && !input.input.equals("")) {
+        if (sendCommandButton.isTouched() && input.getText() != null && !input.getText().equals("")) {
             cx = Context.enter();
             cx.setOptimizationLevel(-1);
             try {
-                cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.input, "Command", 1, null);
+                cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.getText(), "Command", 1, null);
             } catch (Exception e) {
                 /*Починить вывод в консоль*/
                 Gdx.app.log("error", e.toString());
             } finally {
                 Context.exit();
             }
-            ModAPI.Console.inputs.add(input.input);
+            ModAPI.Console.inputs.add(input.getText());
             input.clear();
         }
         if (input.y == 0) input.y = (int) (y + BLOCK_SIZE / 2f);

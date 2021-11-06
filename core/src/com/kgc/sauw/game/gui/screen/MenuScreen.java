@@ -52,10 +52,10 @@ public class MenuScreen implements Screen {
         sauwLogo = new Image();
         sauwLogo.setImg(Resource.getTexture("Interface/SAUW_Logo.png"));
 
-        startButton = new Button("menu_screen.start", 0, 0, 0, 0);
-        settingsButton = new Button("menu_screen.settings", 0, 0, 0, 0);
-        modsButton = new Button("menu_screen.mods", 0, 0, 0, 0);
-        exitButton = new Button("menu_screen.exit", 0, 0, 0, 0);
+        startButton = new Button("sauw.button.menu_screen.start", 0, 0, 0, 0);
+        settingsButton = new Button("sauw.button.menu_screen.settings", 0, 0, 0, 0);
+        modsButton = new Button("sauw.button.menu_screen.mods", 0, 0, 0, 0);
+        exitButton = new Button("sauw.button.menu_screen.exit", 0, 0, 0, 0);
 
         sauwLogo.setSizeInBlocks(6, 3);
         startButton.setSizeInBlocks(6, 1);

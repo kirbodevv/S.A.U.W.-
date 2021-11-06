@@ -1,7 +1,5 @@
 {
-  "id":"achievements:stone_items",
-  "title":"%Language/ach2_title",
-  "description":"%Language/ach2_txt",
+  "id":"stone_items",
   "icon":"Items/stone.png",
   "giveCoins":10,
   "script": "stone_items"

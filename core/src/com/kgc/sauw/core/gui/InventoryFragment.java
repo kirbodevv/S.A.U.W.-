@@ -2,8 +2,8 @@ package com.kgc.sauw.core.gui;
 
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -92,7 +92,7 @@ public class InventoryFragment extends Fragment {
         nextTabInv.setSizeInBlocks(1, 1);
         TextView backpackTextView = new TextView();
         backpackTextView.setSizeInBlocks(5, 1);
-        backpackTextView.setText(Languages.getString("backpack"));
+        backpackTextView.setText(Languages.getString("sauw.inventory_fragment.backpack"));
         backpackTextView.setId("BackpackText");
 
         switchTabLayout.addElements(previousTabInv, backpackTextView, nextTabInv);
@@ -113,7 +113,7 @@ public class InventoryFragment extends Fragment {
                 s.setSF(new Slot.SlotFunctions() {
 
                     @Override
-                    public boolean isValid(Container container, String FromSlotWithId) {
+                    public boolean isValid(Container container, String fromSlotWithId) {
                         return false;
                     }
 

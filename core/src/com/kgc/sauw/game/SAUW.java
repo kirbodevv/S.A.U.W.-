@@ -12,7 +12,6 @@ import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.world.WorldRenderer;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.gui.elements.Elements;
 import com.kgc.sauw.core.input.Input;
 import com.kgc.sauw.core.mod.Mods;
 import com.kgc.sauw.core.particle.Particles;
@@ -24,7 +23,7 @@ import com.kgc.sauw.game.environment.Blockss;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.items.Torch;
-import com.kgc.sauw.game.worlds.DefaultWorld;
+import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -55,7 +54,7 @@ public class SAUW implements Screen {
 
         Music.setVolume(Settings.musicVolume);
 
-        setWorld(new DefaultWorld());
+        setWorld(new MysticalVoidWorld());
 
         Environment.setSaveName(worldName);
 
@@ -110,7 +109,6 @@ public class SAUW implements Screen {
         BATCH.dispose();
         Resource.dispose();
         Mods.disposeResources();
-        Elements.dispose();
     }
 
     @Override

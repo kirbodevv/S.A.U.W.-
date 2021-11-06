@@ -3,8 +3,8 @@ package com.kgc.sauw.core.gui.elements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.utils.Camera2D;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class Layout extends InterfaceElement {
 
     private ElementSkin background;
 
-    private Orientation orientation;
+    public Orientation orientation;
     private Gravity gravity;
     private Size sizeX, sizeY;
 

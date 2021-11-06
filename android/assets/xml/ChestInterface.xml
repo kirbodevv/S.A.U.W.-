@@ -3,7 +3,7 @@
     <RootLayout id="optionalLayout">
         <Layout id="" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
                 translateY="-0.25bl">
-            <Text id="chestText" width="5bl" height="1bl" text="%Language/chest"/>
+            <Text id="chest" width="5bl" height="1bl"/>
             <Layout id="chestSlotsLayout" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
                     height="WRAP_CONTENT">
                 <Layout id="slots0" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT" translateY="-0.25bl">

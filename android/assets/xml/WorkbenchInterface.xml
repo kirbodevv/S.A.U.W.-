@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Interface id="crafting_table" isBlockInterface="true" Inventory="true">
     <RootLayout id="optionalLayout">
-        <Layout id="CRAFT_HANDSAW_LAYOUT" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+        <Layout id="craft_handsaw" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
                 height="WRAP_CONTENT" translateY="-0.5bl">
-            <Slot id="CRAFT_HANDSAW_INGREDIENT" width="1bl" height="1bl" isInventorySlot="false"/>
-            <Image id="HANDSAW" width="1bl" height="1bl"/>
-            <Image id="CRAFT_HANDSAW_ARROW" width="1bl" height="1bl"/>
-            <Slot id="CRAFT_HANDSAW_RESULT" width="1bl" height="1bl" isInventorySlot="false"/>
-            <Image id="CRAFT_HANDSAW_NOT_AVAILABLE_ICON" width="1bl" height="1bl" translateX="-2bl"/>
+            <Slot id="craft_handsaw_ingredient" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="handsaw" width="1bl" height="1bl"/>
+            <Image id="craft_handsaw_arrow" width="1bl" height="1bl"/>
+            <Slot id="craft_handsaw_result" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="craft_handsaw_not_available_icon" width="1bl" height="1bl" translateX="-2bl"/>
         </Layout>
-        <Layout id="CRAFT_HAMMER_LAYOUT" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+        <Layout id="craft_hammer" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
                 height="WRAP_CONTENT">
-            <Slot id="CRAFT_HAMMER_INGREDIENT" width="1bl" height="1bl" isInventorySlot="false"/>
-            <Image id="HAMMER" width="1bl" height="1bl"/>
-            <Image id="CRAFT_HAMMER_ARROW" width="1bl" height="1bl"/>
-            <Slot id="CRAFT_HAMMER_RESULT" width="1bl" height="1bl" isInventorySlot="false"/>
-            <Image id="CRAFT_HAMMER_NOT_AVAILABLE_ICON" width="1bl" height="1bl" translateX="-2bl"/>
+            <Slot id="craft_hammer_ingredient" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="hammer" width="1bl" height="1bl"/>
+            <Image id="craft_hammer_arrow" width="1bl" height="1bl"/>
+            <Slot id="craft_hammer_result" width="1bl" height="1bl" isInventorySlot="false"/>
+            <Image id="craft_hammer_not_available_icon" width="1bl" height="1bl" translateX="-2bl"/>
         </Layout>
     </RootLayout>
 </Interface>

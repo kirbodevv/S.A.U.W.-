@@ -32,15 +32,11 @@ public class AchievementBuilder implements Builder {
         String code = "";
 
         String id = achievement.getString("id");
-        String title = achievement.getString("title");
-        String description = achievement.getString("description");
         String icon = achievement.getString("icon");
         String script = achievement.getString("script");
         int giveCoins = achievement.getInt("giveCoins");
 
         code += "\n\t\tachievement = new Achievement(\"" + id + "\");";
-        code += "\n\t\tachievement.title = StringUtils.getString(\"" + title + "\");";
-        code += "\n\t\tachievement.description = StringUtils.getString(\"" + description + "\");";
         code += "\n\t\tachievement.icon = Resource.getTexture(\"" + icon + "\");";
         code += "\n\t\tachievement.giveCoins = " + giveCoins + ";";
         code += "\n\t\tachievement.achievementChecker = new JSChecker(Gdx.files.internal(\"js/achievements/" + script + ".js\").readString(), \"" + id + "\");";

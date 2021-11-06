@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.utils.StringUtils;
 
 import java.util.Random;
 
@@ -26,14 +25,8 @@ public abstract class World {
     private boolean worldTouched;
     public Time worldTime;
 
-    private String worldName = "";
-
     public int getSkyLight() {
         return skyLight;
-    }
-
-    public String getWorldName() {
-        return worldName;
     }
 
     public World() {
@@ -83,13 +76,12 @@ public abstract class World {
         this.skyLight = skyLight;
     }
 
-    protected void setWorldName(String worldName) {
-        this.worldName = StringUtils.getString(worldName);
-    }
-
     public Time getTime() {
         return worldTime;
     }
+
+
+    public abstract String getName();
 
     protected abstract void init();
 

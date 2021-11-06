@@ -1,16 +1,19 @@
 package com.kgc.sauw.core.gui;
 
 import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.elements.Slot;
+import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.utils.Resource;
 
 import java.util.ArrayList;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
 public class Interface {
-    public String ID;
+    public String id;
 
     public boolean isOpen = false;
     public float width, height, x, y;
@@ -24,9 +27,7 @@ public class Interface {
 
     private InterfaceController controller;
 
-    public Interface(String ID) {
-        this.ID = ID;
-
+    public Interface() {
         mainLayout = new Layout(Layout.Orientation.VERTICAL);
 
         width = Graphic.SCREEN_WIDTH;
@@ -99,13 +100,17 @@ public class Interface {
         return null;
     }
 
-    public InterfaceElement getElement(String ID) {
+    public InterfaceElement getElementByFullId(String fullId) {
         for (InterfaceElement element : elements) {
-            if (element.id.equals(ID)) {
+            if (element.id.equals(fullId)) {
                 return element;
             }
         }
         return null;
+    }
+
+    public InterfaceElement getElement(String elementId) {
+        return getElementByFullId(id + "." + elementId);
     }
 
     public void update() {

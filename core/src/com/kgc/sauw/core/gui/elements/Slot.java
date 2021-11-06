@@ -143,7 +143,7 @@ public class Slot extends InterfaceElement {
     }
 
     public interface SlotFunctions {
-        boolean isValid(Container container, String FromSlotWithId);
+        boolean isValid(Container container, String fromSlotWithId);
 
         void onClick();
 

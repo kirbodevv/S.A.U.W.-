@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Interface id="world_selector" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
-        <Layout marginBottom="0.05bl" id="" translateX="0.75bl" orientation="HORIZONTAL" gravity="LEFT"
+        <Layout id="spLayout0" marginBottom="0.05bl" translateX="0.75bl" orientation="HORIZONTAL" gravity="LEFT"
                 width="WRAP_CONTENT"
                 height="WRAP_CONTENT">
             <Button id="SELECT_0" width="6bl" height="1bl" marginRight="0.5bl"/>
             <Button id="UP" width="1bl" height="1bl"/>
         </Layout>
         <Button translateX="-0.75bl" id="SELECT_1" width="6bl" height="1bl" marginBottom="0.05bl"/>
-        <Layout id="" translateX="0.75bl" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+        <Layout id="spLayout1" translateX="0.75bl" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
                 height="WRAP_CONTENT">
             <Button id="SELECT_2" width="6bl" height="1bl" marginBottom="0.05bl" marginRight="0.5bl"/>
             <Button id="DOWN" width="1bl" height="1bl"/>
         </Layout>
-        <Button translateX="-5bl" translateY="-0.75bl" id="CREATE_NEW_WORLD" width="6bl" height="1bl"
-                text="%Language/createNewWorld"/>
+        <Button id="create_new_world" translateX="-5bl" translateY="-0.75bl" width="6bl" height="1bl"/>
     </RootLayout>
 </Interface>

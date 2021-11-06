@@ -26,6 +26,10 @@ public abstract class AbstractTextView extends InterfaceElement {
         this.textColor.set(color);
     }
 
+    public void setDefaultText() {
+        setText(Languages.getString(id));
+    }
+
     public void setText(String text) {
         this.text = text;
         GLYPH_LAYOUT.setText(BITMAP_FONT, text);
@@ -33,6 +37,10 @@ public abstract class AbstractTextView extends InterfaceElement {
         if (scalable && GLYPH_LAYOUT.width > this.width) {
             setSize(height / 2 + (int) GLYPH_LAYOUT.width, this.height);
         }
+    }
+
+    public String getText() {
+        return text;
     }
 
     private void updateTextScale() {

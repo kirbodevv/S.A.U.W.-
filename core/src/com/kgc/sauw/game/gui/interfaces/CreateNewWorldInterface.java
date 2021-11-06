@@ -5,18 +5,19 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
-import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.sauw.core.gui.elements.TextView;
 
 public class CreateNewWorldInterface extends Interface {
     public EditText worldName;
     public Button create;
 
     public CreateNewWorldInterface() {
-        super("CREATE_NEW_WORLD_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/CreateWorldInterface.xml"), this);
 
-        worldName = (EditText) getElement("WorldNameText");
-        create = (Button) getElement("CREATE_BUTTON");
+        worldName = (EditText) getElement("edittext.world_name_text");
+        create = (Button) getElement("button.create");
+        create.setDefaultText();
+        ((TextView) getElement("text.world_name")).setDefaultText();
 
         updateElementsList();
     }
@@ -28,7 +29,7 @@ public class CreateNewWorldInterface extends Interface {
 
     @Override
     public void onOpen() {
-        worldName.input = Languages.getString("newWorld");
+        worldName.setDefaultText();
     }
 
     @Override

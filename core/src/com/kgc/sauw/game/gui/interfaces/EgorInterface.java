@@ -8,9 +8,8 @@ import com.kgc.sauw.core.utils.Resource;
 
 public class EgorInterface extends Interface {
     public EgorInterface() {
-        super("EGOR_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/EgorInterface.xml"), this);
 
-        ((Image) getElement("mem")).setImg(Resource.getTexture("egor_memes/mem1.jpg"));
+        ((Image) getElement("image.mem")).setImg(Resource.getTexture("egor_memes/mem1.jpg"));
     }
 }

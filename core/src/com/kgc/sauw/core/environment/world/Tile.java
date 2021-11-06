@@ -9,12 +9,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.entity.Drop;
 import com.kgc.sauw.core.entity.EntityManager;
-import com.kgc.sauw.core.gui.BlockInterface;
+import com.kgc.sauw.core.environment.block.Block;
+import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.ExtraData;
 
@@ -109,9 +109,9 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         }
     }
 
-    public Container getContainer(String ID) {
+    public Container getContainer(String containerId) {
         for (Container container : containers) {
-            if (container.containerId.equals(ID)) {
+            if (container.containerId.equals(interface_.id + ".slot." + containerId)) {
                 return container;
             }
         }

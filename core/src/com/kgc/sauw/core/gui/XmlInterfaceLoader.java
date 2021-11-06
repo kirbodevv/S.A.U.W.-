@@ -27,8 +27,8 @@ public class XmlInterfaceLoader {
 
     private static void createFromXml(Document doc, Interface interface_) {
         Element root = doc.getDocumentElement();
-
-        interface_.actionBar.setText(Languages.getString("sauw.interface." + root.getAttribute("id")));
+        interface_.id = "sauw.interface." + root.getAttribute("id");
+        interface_.actionBar.setText(Languages.getString(interface_.id));
 
         if (Boolean.parseBoolean(root.getAttribute("Inventory"))) InterfaceUtils.createInventory(interface_);
 
@@ -48,97 +48,89 @@ public class XmlInterfaceLoader {
         }
     }
 
-    public static void addElement(String rootLayoutId, Element element, Interface Interface) {
-        Layout rootLayout = null;
-        for (InterfaceElement e : Interface.elements) {
-            if (e.id != null) {
-                if (e instanceof Layout && e.id.equals(rootLayoutId)) rootLayout = (Layout) e;
-            }
-        }
-        if (rootLayoutId.equals("MainLayout")) rootLayout = Interface.mainLayout;
+    public static void addElement(String rootLayoutId, Element element, Interface interface_) {
+        Layout rootLayout = (Layout) interface_.getElementByFullId(rootLayoutId);
+
+        if (rootLayoutId.equals("MainLayout")) rootLayout = interface_.mainLayout;
+        System.out.println(rootLayoutId);
         if (rootLayout != null) {
-            InterfaceElement InterfaceElement = null;
+            InterfaceElement interfaceElement = null;
             switch (element.getNodeName()) {
                 case "Layout":
-                    InterfaceElement = new Layout(Layout.Orientation.valueOf(element.getAttribute("orientation")));
-                    ((Layout) InterfaceElement).setSize(Layout.Size.valueOf(element.getAttribute("width")), Layout.Size.valueOf(element.getAttribute("height")));
-                    ((Layout) InterfaceElement).setGravity(Layout.Gravity.valueOf(element.getAttribute("gravity")));
+                    interfaceElement = new Layout(Layout.Orientation.valueOf(element.getAttribute("orientation")));
+                    ((Layout) interfaceElement).setSize(Layout.Size.valueOf(element.getAttribute("width")), Layout.Size.valueOf(element.getAttribute("height")));
+                    ((Layout) interfaceElement).setGravity(Layout.Gravity.valueOf(element.getAttribute("gravity")));
                     break;
                 case "Button":
-                    InterfaceElement = new Button("", 0, 0, 0, 0);
+                    interfaceElement = new Button("", 0, 0, 0, 0);
                     break;
                 case "Text":
-                    InterfaceElement = new TextView();
+                    interfaceElement = new TextView();
                     break;
                 case "Image":
-                    InterfaceElement = new Image();
+                    interfaceElement = new Image();
                     break;
                 case "Slot":
-                    InterfaceElement = new Slot("", Interface);
-                    ((Slot) InterfaceElement).isInventorySlot = Boolean.parseBoolean(element.getAttribute("isInventorySlot"));
+                    interfaceElement = new Slot("", interface_);
+                    ((Slot) interfaceElement).isInventorySlot = Boolean.parseBoolean(element.getAttribute("isInventorySlot"));
                     break;
                 case "EditText":
-                    InterfaceElement = new EditText();
+                    interfaceElement = new EditText();
                     break;
                 case "Slider":
-                    InterfaceElement = new Slider();
+                    interfaceElement = new Slider();
                     break;
             }
-            if (InterfaceElement != null) {
+            if (interfaceElement != null) {
                 if (!element.getAttribute("margin").equals("")) {
-                    InterfaceElement.setMargin(Units.fromStringToFloat(element.getAttribute("margin")));
+                    interfaceElement.setMargin(Units.fromStringToFloat(element.getAttribute("margin")));
                 }
                 if (!element.getAttribute("marginBottom").equals("")) {
-                    InterfaceElement.setMarginBottom(Units.fromStringToFloat(element.getAttribute("marginBottom")));
+                    interfaceElement.setMarginBottom(Units.fromStringToFloat(element.getAttribute("marginBottom")));
                 }
                 if (!element.getAttribute("marginTop").equals("")) {
-                    InterfaceElement.setMarginTop(Units.fromStringToFloat(element.getAttribute("marginTop")));
+                    interfaceElement.setMarginTop(Units.fromStringToFloat(element.getAttribute("marginTop")));
                 }
                 if (!element.getAttribute("marginRight").equals("")) {
-                    InterfaceElement.setMarginRight(Units.fromStringToFloat(element.getAttribute("marginRight")));
+                    interfaceElement.setMarginRight(Units.fromStringToFloat(element.getAttribute("marginRight")));
                 }
                 if (!element.getAttribute("marginLeft").equals("")) {
-                    InterfaceElement.setMarginLeft(Units.fromStringToFloat(element.getAttribute("marginLeft")));
+                    interfaceElement.setMarginLeft(Units.fromStringToFloat(element.getAttribute("marginLeft")));
                 }
 
-                if (!(InterfaceElement instanceof Layout)) {
+                if (!(interfaceElement instanceof Layout)) {
                     if (!element.getAttribute("width").equals("") && !element.getAttribute("height").equals("")) {
-                        InterfaceElement.setSizeInBlocks(Units.fromStringToFloat(element.getAttribute("width")), Units.fromStringToFloat(element.getAttribute("height")));
+                        interfaceElement.setSizeInBlocks(Units.fromStringToFloat(element.getAttribute("width")), Units.fromStringToFloat(element.getAttribute("height")));
                     }
                 }
 
                 if (!element.getAttribute("translateX").equals("")) {
-                    InterfaceElement.setTranslationX(Units.fromStringToFloat(element.getAttribute("translateX")));
+                    interfaceElement.setTranslationX(Units.fromStringToFloat(element.getAttribute("translateX")));
                 }
                 if (!element.getAttribute("translateY").equals("")) {
-                    InterfaceElement.setTranslationY(Units.fromStringToFloat(element.getAttribute("translateY")));
+                    interfaceElement.setTranslationY(Units.fromStringToFloat(element.getAttribute("translateY")));
                 }
-
                 if (!element.getAttribute("id").equals("")) {
-                    InterfaceElement.setId(element.getAttribute("id"));
+                    interfaceElement.setId(interface_.id + "." + element.getNodeName().toLowerCase() + "." + element.getAttribute("id"));
                 }
-                if (InterfaceElement instanceof TextView) {
-                    ((TextView) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
-                }
-                if (InterfaceElement instanceof Button) {
-                    ((Button) InterfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
-                }
-            }
 
-            if (InterfaceElement != null) {
-                rootLayout.addElements(InterfaceElement);
+                if (interfaceElement instanceof AbstractTextView) {
+                    ((AbstractTextView) interfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
+                }
+                rootLayout.addElements(interfaceElement);
             }
-            Interface.updateElementsList();
+            interface_.updateElementsList();
+
             if (element.getNodeName().equals("Layout")) {
                 NodeList childList = element.getChildNodes();
                 for (int i = 0; i < childList.getLength(); i++) {
                     if (childList.item(i).getNodeType() == Node.ELEMENT_NODE) {
                         Element e = (Element) childList.item(i);
-                        addElement(element.getAttribute("id"), e, Interface);
+                        addElement(interfaceElement.id, e, interface_);
                     }
                 }
             }
         }
-        Interface.updateElementsList();
+        interface_.updateElementsList();
     }
 }

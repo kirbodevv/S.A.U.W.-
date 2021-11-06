@@ -8,6 +8,7 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.utils.Resource;
@@ -34,11 +35,12 @@ public class InventoryInterface extends Interface {
     TextView playerWeight;
 
     public InventoryInterface() {
-        super("INVENTORY_INTERFACE");
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"), this);
 
-        playerWeight = (TextView) getElement("playerWeight");
-        playerImg = (Image) getElement("playerImg");
+        System.out.println(((Layout) getElement("layout.hotbar")).orientation);
+
+        playerWeight = (TextView) getElement("text.player_weight");
+        playerImg = (Image) getElement("image.player_img");
 
         TextureRegion[][] tmp = TextureRegion.split(Resource.getTexture("Entity/player_inv.png"), Resource.getTexture("Entity/player_inv.png").getWidth() / 3, Resource.getTexture("Entity/player_inv.png").getHeight());
         playerAnimFrames = new TextureRegion[3];
@@ -56,7 +58,7 @@ public class InventoryInterface extends Interface {
 
         for (int i = 0; i < 8; i++) {
             final int ii = i;
-            final Slot s = (Slot) getElement("hotbarslot_" + i);
+            final Slot s = (Slot) getElement("slot.hotbar_" + i);
             s.setSF(new Slot.SlotFunctions() {
                 @Override
                 public void onClick() {
@@ -74,15 +76,15 @@ public class InventoryInterface extends Interface {
                 }
 
                 @Override
-                public boolean isValid(Container container, String FromSlotWithId) {
+                public boolean isValid(Container container, String fromSlotWithId) {
                     InventoryFragment inventoryFragment = (InventoryFragment) getElement("InventoryFragment");
-                    if (FromSlotWithId.contains("InventorySlot_")) {
+                    if (fromSlotWithId.contains("InventorySlot_")) {
                         for (int i = 0; i < PLAYER.hotbar.length; i++) {
-                            if (PLAYER.hotbar[i] == inventoryFragment.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14))) {
+                            if (PLAYER.hotbar[i] == inventoryFragment.currentTabInv * 30 + Integer.parseInt(fromSlotWithId.substring(14))) {
                                 PLAYER.hotbar[i] = -1;
                             }
                         }
-                        PLAYER.hotbar[ii] = inventoryFragment.currentTabInv * 30 + Integer.parseInt(FromSlotWithId.substring(14));
+                        PLAYER.hotbar[ii] = inventoryFragment.currentTabInv * 30 + Integer.parseInt(fromSlotWithId.substring(14));
                     }
 
                     return false;

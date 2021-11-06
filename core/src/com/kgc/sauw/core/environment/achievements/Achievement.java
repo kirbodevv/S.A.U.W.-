@@ -2,6 +2,7 @@ package com.kgc.sauw.core.environment.achievements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.core.utils.languages.Languages;
 
 public class Achievement {
     public int id;
@@ -13,8 +14,10 @@ public class Achievement {
     public AchievementChecker achievementChecker;
 
     public Achievement(String id) {
-        this.id = ID.registeredId(id);
+        this.id = ID.registeredId("achievements:" + id);
         this.stringID = id;
+        title = Languages.getString("sauw.achievements." + id + ".title");
+        description = Languages.getString("sauw.achievements." + id + ".description");
     }
 
     public boolean check() {

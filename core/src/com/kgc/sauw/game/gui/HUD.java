@@ -246,13 +246,12 @@ public class HUD {
 
     public void drawDebugString() {
         String Main = " Version : " + Version.VERSION +
-                "\n Dimension name : " + getWorld().getWorldName() +
+                "\n Dimension name : " + getWorld().getName() +
                 "\n World time : " + getWorld().getTime().getTimeString() +
                 "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
                 "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
                 "\n Camera X : " + GAME_CAMERA.X +
-                "\n Camera Y : " + GAME_CAMERA.Y +
-                "\n UI_ELEMENTS Count : " + Elements.UI_ELEMENTS.size();
+                "\n Camera Y : " + GAME_CAMERA.Y;
         String Player = "\n Hunger:" + PLAYER.hunger + "/20" +
                 "\n X : " + PLAYER.getCurrentTileX() +
                 "\n Y : " + PLAYER.getCurrentTileY();

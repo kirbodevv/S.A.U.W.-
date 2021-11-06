@@ -5,6 +5,11 @@ import com.kgc.sauw.core.utils.WorldUtils;
 
 public class DefaultWorld extends World {
     @Override
+    public String getName() {
+        return "DefaultWorld";
+    }
+
+    @Override
     protected void init() {
 
     }

@@ -71,7 +71,7 @@ public class SAUW implements Screen {
         Input.init();
         isGameRunning = true;
 
-        EntityManager.spawn("entity:npc", 10, 10);
+        EntityManager.spawn("entity:egor", 10, 10);
     }
 
 

@@ -3,7 +3,7 @@ package com.kgc.sauw.game.blocks;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.environment.world.Tile;
 import com.kgc.sauw.core.environment.item.InstrumentItem;
 
@@ -13,7 +13,7 @@ public class Sapling extends Block {
     TextureRegion[][] saplingTextures;
 
     public Sapling() {
-        super(ID.registeredId("block:sapling", 13), Resource.getTexture("Blocks/sapling.png"));
+        super(SAUW.registeredId("block:sapling", 13), Resource.getTexture("Blocks/sapling.png"));
 
         blockConfiguration.setSize(1, 2);
         blockConfiguration.setTransparent(true);

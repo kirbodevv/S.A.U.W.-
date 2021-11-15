@@ -74,7 +74,7 @@ project(":android") {
     }
 }
 
-project(":json_builder") {
+project(":builders") {
     apply plugin: "java-library"
 
     dependencies {

@@ -4,12 +4,18 @@ import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
+import com.kgc.sauw.core.entity.entities.drop.DropFactory;
+import com.kgc.sauw.core.entity.entities.npc.Npc;
+import com.kgc.sauw.core.entity.entities.player.Player;
+import com.kgc.sauw.core.entity.entities.player.PlayerFactory;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.core.utils.ID;
+import com.kgc.sauw.game.entity.egor.EgorFactory;
 
 import java.util.ArrayList;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class EntityManager implements ExtraData {
     public static final Player PLAYER;
@@ -23,10 +29,10 @@ public class EntityManager implements ExtraData {
         ENTITIES_LIST = new ArrayList<>();
         factories = new EntityFactory[1200];
 
-        PLAYER = (Player) new Player.PlayerFactory().create();
+        PLAYER = (Player) new PlayerFactory().create();
 
         addFactory(new DropFactory());
-        addFactory(new NpcFactory());
+        addFactory(new EgorFactory());
 
         Callback.addCallback(new InteractionButtonClicked() {
             @Override
@@ -63,7 +69,7 @@ public class EntityManager implements ExtraData {
     }
 
     public static Entity spawn(String id, float x, float y) {
-        return spawn(ID.get(id), x, y);
+        return spawn(SAUW.getId(id), x, y);
     }
 
     @Override

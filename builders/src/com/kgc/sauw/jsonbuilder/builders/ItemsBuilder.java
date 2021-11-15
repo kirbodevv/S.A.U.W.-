@@ -1,6 +1,7 @@
-package com.kgc.sauw.jsonbuilder.builder;
+package com.kgc.sauw.jsonbuilder.builders;
 
-import com.kgc.sauw.jsonbuilder.FileUtils;
+import com.kgc.sauw.builder.Builder;
+import com.kgc.sauw.builder.FileUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;

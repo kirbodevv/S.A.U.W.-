@@ -1,9 +1,11 @@
-package com.kgc.sauw.core.entity;
+package com.kgc.sauw.core.entity.entities.drop;
 
 import com.badlogic.gdx.math.Vector2;
+import com.kgc.sauw.core.entity.AbstractEntityRenderer;
+import com.kgc.sauw.core.entity.Entity;
 import com.kgc.sauw.core.environment.item.Items;
-import com.kgc.sauw.core.utils.ID;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
 public class Drop extends Entity {
@@ -25,7 +27,7 @@ public class Drop extends Entity {
     }
 
     public void setItem(String id, int itemsCount) {
-        setItem(ID.get(id), itemsCount);
+        setItem(SAUW.getId(id), itemsCount);
     }
 
     @Override
@@ -34,8 +36,17 @@ public class Drop extends Entity {
     }
 
     @Override
+    public void tick() {
+    }
+
+    @Override
     public void render() {
         if ((int) getExtraData("itemId") != -1)
             BATCH.draw(Items.getItemById((int) getExtraData("itemId")).getTexture(null), getPosition().x, getPosition().y, entityBodyW, entityBodyH);
+    }
+
+    @Override
+    public AbstractEntityRenderer getEntityRenderer() {
+        return null;
     }
 }

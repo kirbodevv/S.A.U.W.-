@@ -8,6 +8,8 @@ import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.game.blocks.Workbench;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
+
 public class WorkbenchInterface extends BlockInterface {
     public final Image craftHandsawNotAvailableImage;
     public final Image craftHammerNotAvailableImage;
@@ -29,8 +31,8 @@ public class WorkbenchInterface extends BlockInterface {
 
     @Override
     public void tick(Tile tile) {
-        craftHandsawNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HandsawSlot").id == com.kgc.sauw.core.utils.ID.get("item:handsaw"));
-        craftHammerNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HammerSlot").id == com.kgc.sauw.core.utils.ID.get("item:hammer"));
+        craftHandsawNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HandsawSlot").id == SAUW.getId("item:handsaw"));
+        craftHammerNotAvailableImage.hide(Workbench.findToolWall(tile).getContainer("HammerSlot").id == SAUW.getId("item:hammer"));
     }
 
     @Override

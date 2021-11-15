@@ -10,6 +10,7 @@ import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.skins.Skins;
 import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.game.mechanics.Building;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -25,6 +26,7 @@ public class HUD {
     private Button consoleOpenButton;
     private Button pauseButton;
     private Button craftingButton;
+    private Button buildButton;
     private Button inventoryOpenButton;
     public Joystick joystick;
 
@@ -145,6 +147,23 @@ public class HUD {
         craftingButton.setSizeInBlocks(1f, 1f);
         craftingButton.setIcon(Resource.getTexture("Interface/crafting_button_0.png"));
 
+        buildButton = new Button("building_button", 0, 0, 0, 0);
+        buildButton.setSizeInBlocks(1f, 1f);
+        buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
+        buildButton.addEventListener(new OnClickListener() {
+            @Override
+            public void onClick() {
+                if (!Building.building) {
+                    Building.startBuilding();
+                    buildButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
+                } else {
+                    Building.stopBuilding();
+                    buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
+                }
+
+            }
+        });
+
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
         pauseButton.setSizeInBlocks(0.75f, 0.75f);
         pauseButton.setTranslationY(-0.125f);
@@ -178,7 +197,7 @@ public class HUD {
         headerBar.addElements(pauseButton, healthTextView, healthImage, hungerTextView, hungerImage, thirstTextView, thirstImage, notificationLayout, timeTextView, consoleOpenButton);
 
         midLayout.addElements(joystick, separatorLayout1, buttonsLayout);
-        bottomLayout.addElements(hotbar, inventoryOpenButton, craftingButton);
+        bottomLayout.addElements(hotbar, inventoryOpenButton);
 
         craftingButton.addEventListener(new OnClickListener() {
             @Override
@@ -215,6 +234,10 @@ public class HUD {
     public void resize() {
         mainLayout.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS);
         separatorLayout0.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS - 6.5f);
+        craftingButton.setPositionInBlocks(WIDTH_IN_BLOCKS - 3, 0.75f);
+        buildButton.setPositionInBlocks(WIDTH_IN_BLOCKS - 2, 0.75f);
+        craftingButton.resize();
+        buildButton.resize();
         mainLayout.resize();
     }
 
@@ -226,6 +249,8 @@ public class HUD {
             consoleOpenButton.hide(true);
         }
         mainLayout.update(INTERFACE_CAMERA);
+        craftingButton.update(INTERFACE_CAMERA);
+        buildButton.update(INTERFACE_CAMERA);
         healthTextView.setText((int) PLAYER.health + "%");
         hungerTextView.setText((int) PLAYER.hunger + "%");
         thirstTextView.setText((int) PLAYER.thirst + "%");
@@ -238,6 +263,8 @@ public class HUD {
         INTERFACE_CAMERA.update(BATCH);
         BATCH.setColor(1f, 1f, 1f, 0.7f);
         mainLayout.render(BATCH, INTERFACE_CAMERA);
+        craftingButton.render(BATCH, INTERFACE_CAMERA);
+        buildButton.render(BATCH, INTERFACE_CAMERA);
         BATCH.setColor(1f, 1f, 1f, 1f);
         renderInterfaces();
         if (!isAnyInterfaceOpen() && debug)

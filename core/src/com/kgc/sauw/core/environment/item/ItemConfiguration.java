@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.environment.item;
 
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class ItemConfiguration {
     public int id;
@@ -12,8 +12,8 @@ public class ItemConfiguration {
     public int foodScore;
     public float weight;
 
-    public ItemConfiguration(String id){
-        this(ID.get(id));
+    public ItemConfiguration(String id) {
+        this(SAUW.getId(id));
     }
 
     public ItemConfiguration(int id) {

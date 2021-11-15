@@ -3,13 +3,13 @@ package com.kgc.sauw.game.blocks;
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.environment.item.Items;
-import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.environment.world.Tile;
 import com.kgc.sauw.core.environment.item.InstrumentItem;
+import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.graphic.Animator;
+import com.kgc.sauw.core.utils.Resource;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 
 public class Furnace extends Block {
@@ -24,7 +24,7 @@ public class Furnace extends Block {
     };
 
     public Furnace() {
-        super(ID.registeredId("block:furnace", 11), Resource.getTexture("Blocks/furnace.png"));
+        super(SAUW.registeredId("block:furnace", 11), Resource.getTexture("Blocks/furnace.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
@@ -56,7 +56,7 @@ public class Furnace extends Block {
             for (int i = 0; i < fuel.length; i++) {
                 Container fuelCon = tile.getContainer("FuelSlot");
                 for (int j = 0; j < recipes.length; j++) {
-                    if (fuelCon.getId() == com.kgc.sauw.core.utils.ID.get(fuel[i][0]) && tile.getContainer("IngSlot").getId() == com.kgc.sauw.core.utils.ID.get(recipes[i][0])) {
+                    if (fuelCon.getId() == SAUW.getId(fuel[i][0]) && tile.getContainer("IngSlot").getId() == SAUW.getId(recipes[i][0])) {
                         fuelCon.setItem(fuelCon.getId(), fuelCon.getCount() - 1, fuelCon.getDamage());
                         tile.setExtraData("fuel", 200);
                     }
@@ -67,9 +67,9 @@ public class Furnace extends Block {
             if ((int) (tile.getExtraData("progress")) <= 0) {
                 for (String[] recipe : recipes) {
                     Container ingCon = tile.getContainer("IngSlot");
-                    if (ingCon.getId() == com.kgc.sauw.core.utils.ID.get(recipe[0]) && (tile.getContainer("ResultSlot").getId() == com.kgc.sauw.core.utils.ID.get(recipe[1]) || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < Items.getItemById(com.kgc.sauw.core.utils.ID.get(recipe[1])).getItemConfiguration().maxCount) {
+                    if (ingCon.getId() == SAUW.getId(recipe[0]) && (tile.getContainer("ResultSlot").getId() == SAUW.getId(recipe[1]) || tile.getContainer("ResultSlot").getId() == 0) && tile.getContainer("ResultSlot").getCount() < Items.getItemById(SAUW.getId(recipe[1])).getItemConfiguration().maxCount) {
                         tile.setExtraData("progress", 100);
-                        tile.setExtraData("curRecId", com.kgc.sauw.core.utils.ID.get(recipe[1]));
+                        tile.setExtraData("curRecId", SAUW.getId(recipe[1]));
                     }
                 }
             } else {

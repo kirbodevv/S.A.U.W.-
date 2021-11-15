@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.environment.world.Tile;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Item {
     public int id;
@@ -31,13 +33,13 @@ public class Item {
     }
 
     public Item(int id, String stringId) {
-        this.id = ID.registeredId(stringId, id);
+        this.id = SAUW.registeredId(stringId, id);
         this.stringId = stringId;
         initItem();
     }
 
     public Item(String id) {
-        this.id = ID.registeredId(id);
+        this.id = SAUW.registeredId(id);
         this.stringId = id;
         initItem();
     }

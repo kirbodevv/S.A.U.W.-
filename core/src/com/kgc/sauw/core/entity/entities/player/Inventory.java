@@ -1,10 +1,12 @@
-package com.kgc.sauw.core.entity;
+package com.kgc.sauw.core.entity.entities.player;
 
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.environment.item.Items;
-import com.kgc.sauw.core.utils.ID;
 
 import java.util.ArrayList;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Inventory {
     public ArrayList<Container> containers;
@@ -47,12 +49,12 @@ public class Inventory {
         }
     }
 
-    public boolean addItem(Container container) {
-        return addItem(container.getId(), container.getCount());
+    public void addItem(Container container) {
+        addItem(container.getId(), container.getCount());
     }
 
-    public boolean addItem(String stringId, int count) {
-        return addItem(ID.get(stringId), count);
+    public boolean addItem(String package_, String stringId, int count) {
+        return addItem(GameContext.get(package_).getId(stringId), count);
     }
 
     public boolean addItem(int id, int count) {
@@ -101,7 +103,7 @@ public class Inventory {
     }
 
     public int getCountOfItems(String id) {
-        return getCountOfItems(ID.get(id));
+        return getCountOfItems(SAUW.getId(id));
     }
 
     public int getCountOfItems(int id) {

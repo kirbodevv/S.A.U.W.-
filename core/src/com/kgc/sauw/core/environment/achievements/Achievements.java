@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.environment.achievements;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Achievements {
 
     public static void giveAchievement(String id, AchievementsData achievementsData) {
         for (Achievement achievement : achievements) {
-            if (achievement.id == ID.get(id)) giveAchievement(achievement, achievementsData);
+            if (achievement.id == SAUW.getId(id)) giveAchievement(achievement, achievementsData);
         }
     }
 

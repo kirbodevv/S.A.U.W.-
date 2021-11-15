@@ -3,13 +3,13 @@ package com.kgc.sauw.game.environment;
 import com.kgc.sauw.core.environment.block.Air;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.game.blocks.*;
 
 public class Blockss {
     public Blockss() {
         Blocks.defineBlock(new Air());
-        Blocks.createBlock(ID.registeredId("block:barrier", 14), Resource.getTexture("Blocks/undefined.png"));
+        Blocks.createBlock(SAUW.registeredId("block:barrier", 14), Resource.getTexture("Blocks/undefined.png"));
 
         Blocks.defineBlock(new Grass());
         Blocks.defineBlock(new Stone());

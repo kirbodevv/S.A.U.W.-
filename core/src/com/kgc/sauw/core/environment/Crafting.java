@@ -2,7 +2,7 @@ package com.kgc.sauw.core.environment;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -49,11 +49,11 @@ public class Crafting {
                 result = new int[3];
                 ingr = new int[ingrA.length()][3];
 
-                result[0] = ID.get(resultA.getString("id"));
+                result[0] = SAUW.getId(resultA.getString("id"));
                 result[1] = resultA.getInt("count");
                 result[2] = resultA.getInt("data");
                 for (int j = 0; j < ingrA.length(); j++) {
-                    ingr[j][0] = ID.get(ingrA.getJSONObject(j).getString("id"));
+                    ingr[j][0] = SAUW.getId(ingrA.getJSONObject(j).getString("id"));
                     ingr[j][1] = ingrA.getJSONObject(j).getInt("count");
                     ingr[j][2] = ingrA.getJSONObject(j).getInt("data");
                 }

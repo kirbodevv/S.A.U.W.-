@@ -6,8 +6,6 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
-import com.kgc.sauw.core.environment.world.Map;
-import com.kgc.sauw.core.environment.world.World;
 
 import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;

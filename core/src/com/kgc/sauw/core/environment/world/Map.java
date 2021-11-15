@@ -6,7 +6,8 @@ import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.world.chunk.Chunk;
 import com.kgc.sauw.core.physic.Physic;
-import com.kgc.sauw.core.utils.ID;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Map {
 
@@ -113,7 +114,7 @@ public class Map {
     }
 
     public boolean setBlock(int x, int y, String id) {
-        return setBlock(x, y, ID.get(id));
+        return setBlock(x, y, SAUW.getId(id));
     }
 
     public boolean setBlock(int x, int y, int z, int id) {
@@ -125,6 +126,6 @@ public class Map {
     }
 
     public void setBlock(int x, int y, int z, String id) {
-        setBlock(x, y, z, ID.get(id));
+        setBlock(x, y, z, SAUW.getId(id));
     }
 }

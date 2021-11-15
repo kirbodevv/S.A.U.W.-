@@ -4,10 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.mod.ModResources;
-import com.kgc.sauw.core.utils.ID;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Items {
     private static final ArrayList<Item> ITEMS = new ArrayList<>();
@@ -19,7 +20,7 @@ public class Items {
     }
 
     public static Item getItemById(String id) {
-        return getItemById(ID.get(id));
+        return getItemById(SAUW.getId(id));
     }
 
     public static Item getItemById(int id) {

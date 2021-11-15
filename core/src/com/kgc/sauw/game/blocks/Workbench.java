@@ -6,7 +6,7 @@ import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.environment.world.Tile;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Workbench extends Block {
     private final ArrayList<Crafting.Craft> crafts;
 
     public Workbench() {
-        super(ID.registeredId("block:workbench"), Resource.getTexture("Blocks/table.png"));
+        super(SAUW.registeredId("block:workbench"), Resource.getTexture("Blocks/table.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);
@@ -28,11 +28,11 @@ public class Workbench extends Block {
         crafts = new ArrayList<>();
 
         crafts.add(new Crafting.Craft(
-                new int[]{ID.get("item:planks"), 2},
-                new int[][]{{ID.get("item:handsaw"), 1}, {ID.get("item:log"), 1}}));
+                new int[]{SAUW.getId("item:planks"), 2},
+                new int[][]{{SAUW.getId("item:handsaw"), 1}, {SAUW.getId("item:log"), 1}}));
         crafts.add(new Crafting.Craft(
-                new int[]{ID.get("item:iron_plate"), 1},
-                new int[][]{{ID.get("item:hammer"), 1}, {ID.get("item:iron_ingot"), 1}}));
+                new int[]{SAUW.getId("item:iron_plate"), 1},
+                new int[][]{{SAUW.getId("item:hammer"), 1}, {SAUW.getId("item:iron_ingot"), 1}}));
         ((Slot) GUI.getElement("slot.craft_handsaw_result")).setSF(new Slot.SlotFunctions() {
             @Override
             public boolean isValid(Container container, String fromSlotWithId) {
@@ -82,13 +82,13 @@ public class Workbench extends Block {
         tile.getContainer("craft_handsaw_result").setItem(0, 0, 0);
         tile.getContainer("craft_hammer_result").setItem(0, 0, 0);
         for (Crafting.Craft craft : crafts) {
-            if (craft.ingredients[0][0] == ID.get("item:handsaw") && toolWall != null) {
-                if (toolWall.getContainer("HandsawSlot").getId() == ID.get("item:handsaw") &&
+            if (craft.ingredients[0][0] == SAUW.getId("item:handsaw") && toolWall != null) {
+                if (toolWall.getContainer("HandsawSlot").getId() == SAUW.getId("item:handsaw") &&
                         tile.getContainer("craft_handsaw_ingredient").getId() == craft.ingredients[1][0]) {
                     tile.getContainer("craft_handsaw_result").setItem(craft.result[0], craft.result[1] * tile.getContainer("craft_handsaw_ingredient").getCount(), 0);
                 }
-            } else if (craft.ingredients[0][0] == ID.get("item:hammer") && toolWall != null) {
-                if (toolWall.getContainer("HammerSlot").getId() == ID.get("item:hammer") &&
+            } else if (craft.ingredients[0][0] == SAUW.getId("item:hammer") && toolWall != null) {
+                if (toolWall.getContainer("HammerSlot").getId() == SAUW.getId("item:hammer") &&
                         tile.getContainer("craft_hammer_ingredient").getId() == craft.ingredients[1][0]) {
                     tile.getContainer("craft_hammer_result").setItem(craft.result[0], craft.result[1] * tile.getContainer("craft_hammer_ingredient").getCount(), 0);
                 }
@@ -103,7 +103,7 @@ public class Workbench extends Block {
             Container craftContainer = tile.getContainer("craft_handsaw_ingredient");
             Crafting.Craft craft = getCraft(craftContainer.id);
             if (craft != null) {
-                int resultCount = Math.min(craftContainer.count, Items.getItemById(ID.get("item:handsaw")).getItemConfiguration().maxDamage - toolWallContainer.damage);
+                int resultCount = Math.min(craftContainer.count, Items.getItemById(SAUW.getId("item:handsaw")).getItemConfiguration().maxDamage - toolWallContainer.damage);
                 for (int i = 0; i < resultCount; i++) {
                     PLAYER.inventory.addItem(tile.getContainer("craft_handsaw_result").id, craft.result[1]);
                     toolWallContainer.setItem(toolWallContainer.id, toolWallContainer.count, toolWallContainer.damage + 1);
@@ -115,7 +115,7 @@ public class Workbench extends Block {
             Container craftContainer = tile.getContainer("craft_hammer_ingredient");
             Crafting.Craft craft = getCraft(craftContainer.id);
             if (craft != null) {
-                int resultCount = Math.min(craftContainer.count, Items.getItemById(ID.get("item:hammer")).getItemConfiguration().maxDamage - toolWallContainer.damage);
+                int resultCount = Math.min(craftContainer.count, Items.getItemById(SAUW.getId("item:hammer")).getItemConfiguration().maxDamage - toolWallContainer.damage);
                 for (int i = 0; i < resultCount; i++) {
                     PLAYER.inventory.addItem(tile.getContainer("craft_hammer_result").id, craft.result[1]);
                     toolWallContainer.setItem(toolWallContainer.id, toolWallContainer.count, toolWallContainer.damage + 1);
@@ -134,10 +134,10 @@ public class Workbench extends Block {
 
     public static Tile findToolWall(Tile tile) {
         Tile toolWall = null;
-        if (getWorld().map.getTile(tile.x - 1, tile.y, tile.z).id == ID.get("block:tool_wall")) {
+        if (getWorld().map.getTile(tile.x - 1, tile.y, tile.z).id == SAUW.getId("block:tool_wall")) {
             toolWall = getWorld().map.getTile(tile.x - 1, tile.y, tile.z);
         }
-        if (getWorld().map.getTile(tile.x + 1, tile.y, tile.z).id == ID.get("block:tool_wall")) {
+        if (getWorld().map.getTile(tile.x + 1, tile.y, tile.z).id == SAUW.getId("block:tool_wall")) {
             toolWall = getWorld().map.getTile(tile.x + 1, tile.y, tile.z);
         }
         return toolWall;

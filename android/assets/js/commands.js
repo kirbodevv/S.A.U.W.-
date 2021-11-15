@@ -1,5 +1,8 @@
 function give(id, count){
-	Player.inventory.addItem(id, count);
+	give("com.kgc.sauw", id, count);
+}
+function give(package, id, count){
+	Player.inventory.addItem(package, id, count);
 }
 function color(r, g, b){
 	GI.setConsoleTextColor(r, g, b);

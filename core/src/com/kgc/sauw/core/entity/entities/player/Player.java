@@ -1,4 +1,4 @@
-package com.kgc.sauw.core.entity;
+package com.kgc.sauw.core.entity.entities.player;
 
 import box2dLight.PointLight;
 import com.badlogic.gdx.graphics.Color;
@@ -10,22 +10,38 @@ import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.callbacks.TouchOnBlock;
+import com.kgc.sauw.core.entity.*;
+import com.kgc.sauw.core.entity.entities.drop.Drop;
 import com.kgc.sauw.core.environment.achievements.AchievementsData;
 import com.kgc.sauw.core.environment.item.Item;
 import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.environment.item.Type;
-import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.math.Maths;
-import com.kgc.sauw.core.utils.Resource;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.world.WorldRenderer.rayHandler;
-import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.game.gui.Interfaces.DEAD_INTERFACE;
 
-public class Player extends Entity implements ExtraData {
+public class Player extends LivingEntity implements ExtraData {
+    public Inventory inventory = new Inventory();
+
+    public float maxWeight = 40.0f;
+    public float itemsWeight = 0.0f;
+
+    public final float maxHunger = 100;
+    public final float maxThirst = 100;
+    public float hunger = 100;
+    public float thirst = 100;
+
+    public AchievementsData achievementsData = new AchievementsData();
+
+    private final PointLight pointLight;
+
+    public int carriedSlot = 0;
+    public int[] hotbar = new int[8];
+
     @Override
     public byte[] getBytes() {
         DataBuffer buffer = new DataBuffer();
@@ -56,15 +72,10 @@ public class Player extends Entity implements ExtraData {
         }
     }
 
-    private final PointLight pointLight;
-
     @Override
     public Vector2 getBodySize() {
         return new Vector2(entityBodyW, entityBodyH / 4f);
     }
-
-    public int carriedSlot = 0;
-    public int[] hotbar = new int[8];
 
     public Item getCarriedItem() {
         return getItemFromHotbar(carriedSlot);
@@ -84,8 +95,6 @@ public class Player extends Entity implements ExtraData {
         DEAD_INTERFACE.open();
     }
 
-    public AchievementsData achievementsData = new AchievementsData();
-
     public Player() {
         entityBodyW = 10 / 26f;
         entityBodyH = 1f;
@@ -94,15 +103,6 @@ public class Player extends Entity implements ExtraData {
         for (int i = 0; i < hotbar.length; i++) {
             this.hotbar[i] = -1;
         }
-
-        animator = new Animator();
-        animator.addAnimationRegion("animation_region:player", Resource.getTexture("Entity/player.png"), 4, 3);
-        animator.addAnimation("animation:player_walk_left", "animation_region:player", 0.2f, 0, 1);
-        animator.addAnimation("animation:player_walk_right", "animation_region:player", 0.2f, 2, 3);
-        animator.addAnimation("animation:player_walk_down", "animation_region:player", 0.2f, 4, 5);
-        animator.addAnimation("animation:player_walk_up", "animation_region:player", 0.2f, 6, 7);
-
-        currentFrame = animator.getFrames("animation_region:player")[4];
 
         pointLight = new PointLight(rayHandler, 100, new Color(0.6f, 0.6f, 0, 1f), 5, 0, 0);
         pointLight.attachToBody(body);
@@ -141,69 +141,20 @@ public class Player extends Entity implements ExtraData {
     }
 
     @Override
-    public void render() {
-        if (!isDead) {
-            float AL = 0.75f - (Maths.module(720 - getWorld().worldTime.getTime()) / (720 / 0.3f));
-            BATCH.setColor(1f, 1f, 1f, AL);
-            //BATCH.draw(TEXTURES.shadow, body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 2f, entityBodyW, entityBodyH);
-            BATCH.setColor(1f, 1f, 1f, 1f);
-            BATCH.draw(currentFrame, body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 8f, entityBodyW, entityBodyH);
-        }
-    }
-
-    @Override
-    public void animationTick() {
-        int angle = Maths.angleBetweenVectors(0, 0, velocity.x, velocity.y);
-        if (isEntityMoving()) {
-            if (angle < 315 && angle > 225) {
-                rotation = 0;
-            } else if (angle < 225 && angle > 135) {
-                rotation = 1;
-            } else if (angle > 45 && angle < 135) {
-                rotation = 2;
-            } else if (angle < 45 || angle > 315) {
-                rotation = 3;
-            }
-        }
-        if (rotation == 0) {
-            currentFrame = animator.getFrame("animation:player_walk_up");
-        } else if (rotation == 1) {
-            currentFrame = animator.getFrame("animation:player_walk_right");
-        } else if (rotation == 2) {
-            currentFrame = animator.getFrame("animation:player_walk_down");
-        } else if (rotation == 3) {
-            currentFrame = animator.getFrame("animation:player_walk_left");
-        }
-
-        if (!isEntityMoving()) {
-            if (rotation == 1) {
-                currentFrame = animator.getFrames("animation_region:player")[3];
-            } else if (rotation == 3) {
-                currentFrame = animator.getFrames("animation_region:player")[1];
-            } else if (rotation == 0) {
-                currentFrame = animator.getFrames("animation_region:player")[9];
-            } else if (rotation == 2) {
-                currentFrame = animator.getFrames("animation_region:player")[8];
-            }
-        }
+    public AbstractEntityRenderer getEntityRenderer() {
+        return PlayerRenderer.INSTANCE;
     }
 
     @Override
     public void tick() {
         if (!isDead) {
+            itemsWeight = inventory.getItemsWeight();
+            entitySpeed = 1.0f - ((itemsWeight * 1.66f) / 100);
+            if (entitySpeed < 0) entitySpeed = 0;
+            inventory.removeItemsIfNeed();
             pointLight.setPosition(body.getPosition().x, body.getPosition().y);
             PlayerController.update();
         }
     }
 
-    public static class PlayerFactory extends EntityFactory {
-        public PlayerFactory() {
-            super("player", 0);
-        }
-
-        @Override
-        protected Entity createEntity() {
-            return new Player();
-        }
-    }
 }

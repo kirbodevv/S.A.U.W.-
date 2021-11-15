@@ -3,7 +3,7 @@ package com.kgc.sauw.core.particle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 import java.util.HashMap;
 
@@ -75,7 +75,7 @@ public class Particles {
     public static Particle addParticle(String id, float x, float y, float duration) {
         for (Particle p : particlesList) {
             if (p.id == -1) {
-                p.createParticle(ID.get(id), x, y, duration);
+                p.createParticle(SAUW.getId(id), x, y, duration);
                 return p;
             }
         }
@@ -83,6 +83,6 @@ public class Particles {
     }
 
     public static void createParticle(BaseParticle particle, String id) {
-        particles.put(ID.registeredId(id), particle);
+        particles.put(SAUW.registeredId(id), particle);
     }
 }

@@ -5,39 +5,38 @@ import com.badlogic.gdx.Gdx;
 import java.util.HashMap;
 
 public class ID {
-    private static final HashMap<String, id> map = new HashMap<>();
+    private static final HashMap<String, IdGroup> map = new HashMap<>();
 
-    private static class id {
+    private static class IdGroup {
         int maxVal = 0;
         HashMap<String, Integer> idMap = null;
     }
 
-
     public static void registeredIdGroup(String key, int maxVal) {
-        id idMap = new id();
-        idMap.maxVal = maxVal;
-        idMap.idMap = new HashMap<>();
-        map.put(key, idMap);
+        IdGroup idGroupMap = new IdGroup();
+        idGroupMap.maxVal = maxVal;
+        idGroupMap.idMap = new HashMap<>();
+        map.put(key, idGroupMap);
         Gdx.app.log("ID manager", "registered id group \"" + key + "\"");
     }
 
-    public static int registeredId(String key, int id) {
+    public static int registeredId(String package_, String key, int id) {
         String[] keys = key.split(":");
         if (map.get(keys[0]).maxVal > id)
-            map.get(keys[0]).idMap.put(keys[1], id);
-        Gdx.app.log("ID manager", "registered string id \"" + key + "\", with integer id " + id);
+            map.get(keys[0]).idMap.put(package_ + ":" + keys[1], id);
+        Gdx.app.log("ID manager", "registered string id \"" + key + "\" for package \"" + package_ + "\", with integer id " + id);
         return id;
 
     }
 
-    public static int registeredId(String key) {
+    public static int registeredId(String package_, String key) {
         int iterator = 0;
         String[] keys = key.split(":");
-        id idMap = map.get(keys[0]);
-        while (iterator < idMap.maxVal) {
-            if (!idMap.idMap.containsValue(iterator)) {
-                idMap.idMap.put(keys[1], iterator);
-                Gdx.app.log("ID manager", "registered string id \"" + key + "\", with integer id " + iterator);
+        IdGroup idGroupMap = map.get(keys[0]);
+        while (iterator < idGroupMap.maxVal) {
+            if (!idGroupMap.idMap.containsValue(iterator)) {
+                idGroupMap.idMap.put(package_ + ":" + keys[1], iterator);
+                Gdx.app.log("ID manager", "registered string id \"" + key + "\" for package \"" + package_ + "\", with integer id " + iterator);
                 return iterator;
             } else iterator++;
         }
@@ -45,22 +44,22 @@ public class ID {
     }
 
 
-    public static int get(String key) {
-        Integer integer = null;
+    public static int get(String package_, String key) {
+        Integer integer;
         String[] keys = key.split(":");
-        id idHashMap = map.get(keys[0]);
-        if (idHashMap == null || (integer = idHashMap.idMap.get(keys[1])) == null)
+        IdGroup idGroupHashMap = map.get(keys[0]);
+        if (idGroupHashMap == null || (integer = idGroupHashMap.idMap.get(package_ + ":" + keys[1])) == null)
             throw new RuntimeException("Cannot found id " + key);
         return integer;
     }
 
     static {
-        ID.registeredIdGroup("block", 1200);
-        ID.registeredIdGroup("item", 1200);
-        ID.registeredIdGroup("entity", 1200);
-        ID.registeredIdGroup("animation", 1200);
-        ID.registeredIdGroup("animation_region", 1200);
-        ID.registeredIdGroup("particle", 1200);
-        ID.registeredIdGroup("achievements", 1200);
+        registeredIdGroup("block", 1200);
+        registeredIdGroup("item", 1200);
+        registeredIdGroup("entity", 1200);
+        registeredIdGroup("animation", 1200);
+        registeredIdGroup("animation_region", 1200);
+        registeredIdGroup("particle", 1200);
+        registeredIdGroup("achievements", 1200);
     }
 }

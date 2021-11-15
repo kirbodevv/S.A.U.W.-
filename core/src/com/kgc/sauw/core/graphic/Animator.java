@@ -4,9 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.core.utils.ID;
 
 import java.util.HashMap;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Animator {
     public static class AnimationRegion {
@@ -33,19 +34,19 @@ public class Animator {
     }
 
     public TextureRegion[] getFrames(String id) {
-        return animationRegionHashMap.get(ID.get(id)).frames;
+        return animationRegionHashMap.get(SAUW.getId(id)).frames;
     }
 
     public void addAnimationRegion(String id, Texture animationTexture, int xFramesCount, int yFramesCount) {
-        animationRegionHashMap.put(ID.registeredId(id), new AnimationRegion(animationTexture, xFramesCount, yFramesCount));
+        animationRegionHashMap.put(SAUW.registeredId(id), new AnimationRegion(animationTexture, xFramesCount, yFramesCount));
     }
 
     public void addAnimation(String id, String animationRegionId, float frameDuration, int... frameNumbers) {
         TextureRegion[] frames = new TextureRegion[frameNumbers.length];
         for (int i = 0; i < frames.length; i++) {
-            frames[i] = animationRegionHashMap.get(ID.get(animationRegionId)).frames[frameNumbers[i]];
+            frames[i] = animationRegionHashMap.get(SAUW.getId(animationRegionId)).frames[frameNumbers[i]];
         }
-        animations.put(ID.registeredId(id), new Animation<>(frameDuration, frames));
+        animations.put(SAUW.registeredId(id), new Animation<>(frameDuration, frames));
     }
 
     public static void update() {
@@ -53,6 +54,6 @@ public class Animator {
     }
 
     public TextureRegion getFrame(String id) {
-        return animations.get(ID.get(id)).getKeyFrame(stateTime, true);
+        return animations.get(SAUW.getId(id)).getKeyFrame(stateTime, true);
     }
 }

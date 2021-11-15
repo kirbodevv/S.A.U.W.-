@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.entity.Drop;
+import com.kgc.sauw.core.entity.entities.drop.Drop;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;

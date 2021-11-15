@@ -1,4 +1,6 @@
-package com.kgc.sauw.jsonbuilder;
+package com.kgc.sauw.builder;
+
+import com.kgc.sauw.jsonbuilder.JsonBuilder;
 
 import java.io.IOException;
 

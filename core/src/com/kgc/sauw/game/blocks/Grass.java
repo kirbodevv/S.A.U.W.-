@@ -3,7 +3,7 @@ package com.kgc.sauw.game.blocks;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
+import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.environment.world.Tile;
 import com.kgc.sauw.core.environment.item.InstrumentItem;
 
@@ -13,7 +13,7 @@ public class Grass extends Block {
     private final Texture flowersTexture = Resource.getTexture("Blocks/flowers.png");
 
     public Grass() {
-        super(ID.registeredId("block:grass", 1), Resource.getTexture("Blocks/grass_1.png"));
+        super(SAUW.registeredId("block:grass", 1), Resource.getTexture("Blocks/grass_1.png"));
 
         blockConfiguration.setInstrumentType(InstrumentItem.Type.SHOVEL);
     }

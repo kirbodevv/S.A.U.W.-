@@ -9,16 +9,6 @@ import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 public class GameCameraController {
     private static float camX, camY;
 
-    public static void init() {
-        setSize();
-    }
-
-    public static void setSize() {
-        GAME_CAMERA.resize(20);
-        setCameraPosition();
-        GAME_CAMERA.lookAt(camX, camY, false);
-    }
-
     public static void update() {
         setCameraPosition();
         GAME_CAMERA.lookAt(camX, camY, true);

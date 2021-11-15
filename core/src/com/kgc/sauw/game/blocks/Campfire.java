@@ -3,20 +3,21 @@ package com.kgc.sauw.game.blocks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.environment.block.Block;
+import com.kgc.sauw.core.environment.world.Tile;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.environment.world.Tile;
 
 import java.util.Random;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Campfire extends Block {
     Random random = new Random();
     private final Animator animator;
 
     public Campfire() {
-        super(ID.registeredId("block:campfire", 15), Resource.getTexture("Blocks/campfire.png"));
+        super(SAUW.registeredId("block:campfire", 15), Resource.getTexture("Blocks/campfire.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setMinLightingRadius(8);

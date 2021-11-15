@@ -1,7 +1,10 @@
-package com.kgc.sauw.jsonbuilder;
+package com.kgc.sauw.builder;
 
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +40,7 @@ public class FileUtils {
         reader.close();
         return result.toString();
     }
+
     public static void writeString(File file, String string) throws IOException {
         FileWriter writer = new FileWriter(file);
         writer.write(string);
@@ -52,5 +56,16 @@ public class FileUtils {
             jsonObjects.add(new JSONObject(readFile(folder + "/" + file + ".json")));
         }
         return jsonObjects;
+    }
+
+    public static ArrayList<Document> loadXmlList(String dirPath) throws IOException, ParserConfigurationException, SAXException {
+        ArrayList<Document> documents = new ArrayList<>();
+        File folder = getFile(dirPath);
+        File listFile = new File(folder, folder.getName() + ".list");
+        String[] filesList = Objects.requireNonNull(readFile(listFile)).split("\n");
+        for (String file : filesList) {
+            documents.add(Utils.readXml(readFile(folder + "/" + file + ".xml")));
+        }
+        return documents;
     }
 }

@@ -1,6 +1,5 @@
 package com.kgc.sauw.core.entity;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,31 +8,19 @@ import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.world.Map;
-import com.kgc.sauw.core.graphic.Animator;
+import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.ExtraData;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import static com.kgc.sauw.core.environment.Environment.getWorld;
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
-public class Entity {
+public abstract class Entity {
     private int id;
 
-    public Inventory inventory = new Inventory();
-
-    public float maxWeight = 40.0f;
-    public float itemsWeight = 0.0f;
-
-    public float maxHealth = 100;
-    public float maxHunger = 100;
-    public float maxThirst = 100;
-    public float health = 100;
-    public float hunger = 100;
-    public float thirst = 100;
-
-    protected Animator animator;
-    protected TextureRegion currentFrame;
+    private final AbstractEntityRenderer entityRenderer;
 
     protected float velX;
     protected float velY;
@@ -58,6 +45,10 @@ public class Entity {
     public ArrayList<com.kgc.sauw.core.utils.ExtraData> extraData = new ArrayList<>();
 
 
+    public Entity() {
+        entityRenderer = getEntityRenderer();
+    }
+
     protected void setBody(Body body) {
         this.body = body;
         this.body.setFixedRotation(true);
@@ -74,7 +65,6 @@ public class Entity {
     public void spawn(int x, int y) {
         setPosition(x, y);
         isDead = false;
-        health = maxHealth;
     }
 
     public void randomSpawn() {
@@ -102,14 +92,9 @@ public class Entity {
     }
 
     public void update() {
-        itemsWeight = inventory.getItemsWeight();
-
-        entitySpeed = 1.0f - ((itemsWeight * 1.66f) / 100);
-        if (entitySpeed < 0) entitySpeed = 0;
-
+        velocity.x = 0;
+        velocity.y = 0;
         updatePosition();
-
-        inventory.removeItemsIfNeed();
 
         velX = 0;
         velY = 0;
@@ -119,24 +104,7 @@ public class Entity {
         velocity.x = (velX * (entitySpeed));
         velocity.y = (velY * (entitySpeed));
 
-        animationTick();
-
         body.setLinearVelocity((velocity.x * normalEntitySpeed), (velocity.y * normalEntitySpeed));
-
-        velocity.x = 0;
-        velocity.y = 0;
-    }
-
-    public void tick() {
-
-    }
-
-    public void animationTick() {
-
-    }
-
-    public void render() {
-
     }
 
     public void setVelocity(float velX, float velY) {
@@ -155,19 +123,6 @@ public class Entity {
     public Vector2 getPosition() {
         updatePosition();
         return position;
-    }
-
-    public void hit(int damage) {
-        health -= damage;
-        if (health <= 0) kill();
-    }
-
-    public void kill() {
-        isDead = true;
-    }
-
-    public void onDead() {
-
     }
 
     public Vector2 getSize() {
@@ -195,7 +150,6 @@ public class Entity {
         return velX != 0 || velY != 0;
     }
 
-
     public void setExtraData(String key, Object value) {
         for (com.kgc.sauw.core.utils.ExtraData ED : extraData) {
             if (ED.key.equals(key)) {
@@ -211,6 +165,27 @@ public class Entity {
             }
         }
     }
+
+    public int getMoveAngle() {
+        return Maths.angleBetweenVectors(0, 0, velocity.x, velocity.y);
+    }
+
+    public float getWidth() {
+        return entityBodyW;
+    }
+
+    public float getHeight() {
+        return entityBodyH;
+    }
+
+    public abstract void tick();
+
+    public void render() {
+        if (entityRenderer != null)
+            entityRenderer.render(this, BATCH);
+    }
+
+    public abstract AbstractEntityRenderer getEntityRenderer();
 
     public Object getExtraData(String key) {
         for (ExtraData ED : extraData) {

@@ -1,12 +1,13 @@
-package com.kgc.sauw.jsonbuilder.builder;
+package com.kgc.sauw.jsonbuilder.builders;
 
-import com.kgc.sauw.jsonbuilder.FileUtils;
+import com.kgc.sauw.builder.Builder;
+import com.kgc.sauw.builder.FileUtils;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class BlocksBuilder implements Builder{
+public class BlocksBuilder implements Builder {
     @Override
     public String build() throws IOException {
         return null;

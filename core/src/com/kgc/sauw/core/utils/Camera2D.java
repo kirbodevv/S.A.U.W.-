@@ -4,18 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.kgc.sauw.core.math.Vector2d;
 
 public class Camera2D {
 
     public OrthographicCamera CAMERA;
-    public int SIZE, ANGLE, W, H;
+    public int SIZE, W, H;
     public float X, Y;
-
-
-    public void setCurrentCameraZoom(float zoom) {
-        resize((int) (Gdx.graphics.getWidth() * zoom));
-    }
 
     public void update(SpriteBatch b) {
         CAMERA.update();
@@ -37,7 +31,6 @@ public class Camera2D {
         }
 
         CAMERA.translate(X, Y);
-        CAMERA.rotate(ANGLE);
     }
 
     public Camera2D(int size) {
@@ -47,20 +40,7 @@ public class Camera2D {
     }
 
     public Camera2D() {
-        int size = Math.max(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        CAMERA = new OrthographicCamera();
-        configure(size);
-        SIZE = size;
-    }
-
-    public void rotate(int a) {
-        CAMERA.rotate(a);
-        ANGLE += a;
-    }
-
-    public void setAngle(int a) {
-        CAMERA.rotate(-ANGLE + a);
-        ANGLE = a;
+        this(Math.max(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
     }
 
     public void lookAt(float x, float y, boolean smooth) {
@@ -77,18 +57,6 @@ public class Camera2D {
         }
     }
 
-    public void translatePosition(int x, int y) {
-        CAMERA.translate(x, y);
-        X += x;
-        Y += y;
-    }
-
-    public void translatePosition(Vector2d v) {
-        CAMERA.translate(v.x(), v.y());
-        X += v.x();
-        Y += v.y();
-    }
-
     public void resize(int size) {
         SIZE = size;
         configure(size);
@@ -98,10 +66,6 @@ public class Camera2D {
         configure(SIZE);
     }
 
-    public void translateScale(int lss) {
-        resize(SIZE + lss);
-    }
-
     public float touchX() {
         return Gdx.input.getX() + X;
     }
@@ -109,22 +73,4 @@ public class Camera2D {
     public float touchY() {
         return H - Gdx.input.getY() + Y;
     }
-
-    public float touchYI() {
-        return Gdx.input.getY() + (H - Y) + H;
-    }
-
-    public float touchYI(int i) {
-        return Gdx.input.getY(i) + (H - Y) + H;
-    }
-
-    public float touchX(int i) {
-        return Gdx.input.getX(i) + X;
-    }
-
-    public float touchY(int i) {
-        return H - Gdx.input.getY(i) + Y;
-    }
-
-
 }

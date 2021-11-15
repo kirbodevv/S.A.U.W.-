@@ -6,10 +6,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.Interface;
-import com.kgc.sauw.game.gui.Interfaces;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.core.utils.GameCameraController;
+import com.kgc.sauw.game.gui.Interfaces;
 
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
@@ -36,6 +35,7 @@ public final class Graphic {
         BATCH = new SpriteBatch();
 
         GAME_CAMERA = new Camera2D();
+        GAME_CAMERA.resize(20);
         INTERFACE_CAMERA = new Camera2D();
         MENU_CAMERA = new Camera2D();
 
@@ -47,7 +47,8 @@ public final class Graphic {
     public static void resize(int w, int h) {
         INTERFACE_CAMERA.resize(Math.max(w, h));
         MENU_CAMERA.resize(Math.max(w, h));
-        GameCameraController.setSize();
+        GAME_CAMERA.resize(20);
+        //GameCameraController.setSize();
 
         setSize(w, h);
 

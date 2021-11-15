@@ -7,15 +7,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
 import com.kgc.sauw.core.gui.InterfaceUtils;
-import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.math.Maths;
-import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.utils.Camera2D;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
 public class Slot extends InterfaceElement {
@@ -139,7 +140,7 @@ public class Slot extends InterfaceElement {
     }
 
     public void setIconFromItem(String id) {
-        setIcon(Items.getItemById(com.kgc.sauw.core.utils.ID.get(id)).getTexture(null));
+        setIcon(Items.getItemById(SAUW.getId(id)).getTexture(null));
     }
 
     public interface SlotFunctions {

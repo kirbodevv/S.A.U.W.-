@@ -122,3 +122,4 @@ Thumbs.db
 /ios-moe/xcode/native/
 
 /builders/build/*
+/utils/build/*

@@ -10,7 +10,7 @@ import com.kgc.sauw.core.entity.entities.player.Player;
 import com.kgc.sauw.core.entity.entities.player.PlayerFactory;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
-import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.utils.Camera2D;
 import com.kgc.sauw.game.entity.egor.EgorFactory;
 
 import java.util.ArrayList;

@@ -2,31 +2,31 @@ package com.kgc.sauw.game.environment;
 
 import com.kgc.sauw.core.environment.block.Air;
 import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.utils.Resource;
-import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.game.blocks.*;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Blockss {
     public Blockss() {
-        Blocks.defineBlock(new Air());
-        Blocks.createBlock(SAUW.registeredId("block:barrier", 14), Resource.getTexture("Blocks/undefined.png"));
+        SAUW.registeredBlock(new Air(), "air");
+        SAUW.registeredBlock(new Barrier(), "barrier");
 
-        Blocks.defineBlock(new Grass());
-        Blocks.defineBlock(new Stone());
-        Blocks.defineBlock(new Chest());
-        Blocks.defineBlock(new Tree());
-        Blocks.defineBlock(new Wood());
-        Blocks.defineBlock(new StoneLump());
-        Blocks.defineBlock(new IronOre());
-        Blocks.defineBlock(new Furnace());
-        Blocks.defineBlock(new Dirt());
-        Blocks.defineBlock(new Sapling());
-        Blocks.defineBlock(new Campfire());
-        Blocks.defineBlock(new ChristmasTree());
-        Blocks.defineBlock(new Snow());
-        Blocks.defineBlock(new Water());
-        Blocks.defineBlock(new Table());
-        Blocks.defineBlock(new ToolWall());
-        Blocks.defineBlock(new Workbench());
+        SAUW.registeredBlock(new Grass(), "grass");
+        SAUW.registeredBlock(new Stone(), "stone");
+        SAUW.registeredBlock(new Chest(), "chest");
+        SAUW.registeredBlock(new Tree(), "tree");
+        SAUW.registeredBlock(new Wood(), "wood");
+        SAUW.registeredBlock(new StoneLump(), "stone_lump");
+        SAUW.registeredBlock(new IronOre(), "iron_ore");
+        SAUW.registeredBlock(new Furnace(), "furnace");
+        SAUW.registeredBlock(new Dirt(), "dirt");
+        SAUW.registeredBlock(new Sapling(), "sapling");
+        SAUW.registeredBlock(new Campfire(), "campfire");
+        SAUW.registeredBlock(new ChristmasTree(), "christmas_tree");
+        SAUW.registeredBlock(new Snow(), "snow");
+        SAUW.registeredBlock(new Water(), "water");
+        SAUW.registeredBlock(new Table(), "table");
+        SAUW.registeredBlock(new ToolWall(), "tool_wall");
+        SAUW.registeredBlock(new Workbench(), "workbench");
     }
 }

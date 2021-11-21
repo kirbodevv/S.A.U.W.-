@@ -1,16 +1,16 @@
 package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.Crafting;
-import com.kgc.sauw.core.gui.elements.Slot;
+import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.item.Items;
-import com.kgc.sauw.core.utils.Resource;
-import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.gui.elements.Slot;
+import com.kgc.sauw.core.utils.Resource;
 
 import java.util.ArrayList;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.game.gui.Interfaces.WORKBENCH_INTERFACE;
@@ -19,7 +19,7 @@ public class Workbench extends Block {
     private final ArrayList<Crafting.Craft> crafts;
 
     public Workbench() {
-        super(SAUW.registeredId("block:workbench"), Resource.getTexture("Blocks/table.png"));
+        super(Resource.getTexture("Blocks/table.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);
@@ -76,6 +76,7 @@ public class Workbench extends Block {
             }
         });
     }
+
     @Override
     public void tick(Tile tile) {
         Tile toolWall = findToolWall(tile);

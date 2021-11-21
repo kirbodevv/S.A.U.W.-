@@ -1,15 +1,15 @@
 package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.utils.Resource;
-import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.utils.Resource;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 
 public class Table extends Block {
     public Table() {
-        super(SAUW.registeredId("block:table"), Resource.getTexture("Blocks/table.png"));
+        super(Resource.getTexture("Blocks/table.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);

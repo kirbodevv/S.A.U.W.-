@@ -7,7 +7,7 @@ import com.kgc.sauw.core.environment.item.InstrumentItem;
 
 public class Dirt extends Block {
     public Dirt() {
-        super(SAUW.registeredId("block:dirt", 12), Resource.getTexture("Blocks/dirt.png"));
+        super(Resource.getTexture("Blocks/dirt.png"));
 
         blockConfiguration.setInstrumentType(InstrumentItem.Type.SHOVEL);
     }

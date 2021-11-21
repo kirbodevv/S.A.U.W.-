@@ -2,6 +2,8 @@ package com.kgc.sauw.core.environment.world.chunk;
 
 import com.kgc.sauw.core.environment.world.Tile;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
+
 public class Chunk {
     public static final int CHUCK_SIZE_X = 8;
     public static final int CHUCK_SIZE_Y = 3;
@@ -35,7 +37,7 @@ public class Chunk {
 
     public int getHighestBlock(int x, int z) {
         for (int y = CHUCK_SIZE_Y - 1; y >= 0; y--) {
-            if (tiles[x][z][y].id != 4) {
+            if (tiles[x][z][y].id != SAUW.getId("block:air")) {
                 return y;
             }
         }

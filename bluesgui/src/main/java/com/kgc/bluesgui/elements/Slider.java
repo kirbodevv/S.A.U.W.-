@@ -1,0 +1,91 @@
+package com.kgc.bluesgui.elements;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.sauw.core.utils.TextureGenerator;
+import com.kgc.utils.Camera2D;
+
+public class Slider extends InterfaceElement {
+    private Texture background, slider;
+    private float sliderW;
+    private int maxValue = 100;
+    private int value = 0;
+    private double sc;
+    private EventListener EL;
+    private boolean verticalSlider;
+
+    @Override
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
+        int ww = Gdx.graphics.getWidth();
+        if (!verticalSlider) sliderW = h / 2;
+        else sliderW = w / 2;
+        if (!verticalSlider) {
+            slider = TextureGenerator.generateTexture(sliderW / (ww / 16.0f), h / (ww / 16.0f), true);
+            background = TextureGenerator.generateTexture(w / (ww / 16.0f), h / 2 / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+        } else {
+            slider = TextureGenerator.generateTexture(w / (ww / 16.0f), sliderW / (ww / 16.0f), true);
+            background = TextureGenerator.generateTexture(w / 2 / (ww / 16.0f), h / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
+        }
+        verticalSlider = w <= h;
+    }
+
+    public void setValue(int v) {
+        this.value = v;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setMaxValue(int v) {
+        this.maxValue = v;
+        if (!verticalSlider)
+            sc = (width + 0.0) / maxValue;
+        else sc = (height + 0.0) / maxValue;
+    }
+
+    @Override
+    public void tick(Camera2D cam) {
+
+        if (isTouched()) {
+            if (!verticalSlider)
+                value = (int) ((Gdx.input.getX() - x) / sc);
+            else
+                value = (int) ((Gdx.input.getY() - y) / sc);
+            if (value < 0) value = 0;
+            if (value > maxValue) value = maxValue;
+        }
+        if (EL != null) EL.onValueChange(value);
+    }
+
+    @Override
+    public void renderTick(SpriteBatch b, Camera2D cam) {
+        if (!verticalSlider) {
+            b.draw(background, cam.X + x, cam.Y + y + height / 4, width, height / 2);
+            b.draw(slider, cam.X + x + (int) (sc * value) - sliderW / 2, cam.Y + y, sliderW, height);
+        } else {
+            b.draw(background, cam.X + x + width / 4, cam.Y + y, width / 2, height);
+            b.draw(slider, cam.X + x, cam.Y + y + (height - (int) (sc * value)) - sliderW / 2, width, sliderW);
+        }
+    }
+
+    @Override
+    public void dispose() {
+    }
+
+    @Override
+    public void onClick(boolean onElement) {
+    }
+
+    public void setEventListener(EventListener EL) {
+        this.EL = EL;
+    }
+
+    public static abstract class EventListener {
+        public abstract void onValueChange(int v);
+    }
+}

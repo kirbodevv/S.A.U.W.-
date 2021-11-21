@@ -1,13 +1,12 @@
 package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.input.InputAdapter;
 import com.kgc.sauw.core.input.TextInputProcessor;
 import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.utils.Camera2D;
 
 public class EditText extends AbstractTextView {
     private ElementSkin backgroundTexture;

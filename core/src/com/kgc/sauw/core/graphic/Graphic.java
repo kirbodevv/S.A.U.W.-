@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.utils.Camera2D;
 import com.kgc.sauw.game.gui.Interfaces;
+import com.kgc.utils.Camera2D;
 
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 

@@ -1,13 +1,14 @@
 package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.utils.Resource;
-import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.environment.item.InstrumentItem;
+import com.kgc.sauw.core.utils.Resource;
+
+import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class ChristmasTree extends Block {
     public ChristmasTree() {
-        super(SAUW.registeredId("block:christmas_tree", 17), Resource.getTexture("Blocks/christmas_tree.png"));
+        super(Resource.getTexture("Blocks/christmas_tree.png"));
 
         blockConfiguration.setSize(1, 2);
         blockConfiguration.setMaxDamage(5);

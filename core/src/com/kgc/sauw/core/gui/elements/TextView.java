@@ -3,7 +3,7 @@ package com.kgc.sauw.core.gui.elements;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.utils.Camera2D;
 
 public class TextView extends AbstractTextView {
     private ElementSkin background;

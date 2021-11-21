@@ -11,7 +11,7 @@ import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Checkbox;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Slider;
-import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.TextureGenerator;
 import com.kgc.sauw.game.MainGame;
@@ -65,7 +65,6 @@ public class ModsScreen implements Screen {
             @Override
             public void onClick() {
                 MainGame.getGame().setScreen(ms);
-                System.out.println("123");
             }
         });
         slider = new Slider();

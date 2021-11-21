@@ -9,8 +9,6 @@ import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
-import static com.kgc.sauw.core.GameContext.SAUW;
-
 public class Item {
     public int id;
     private String stringId;

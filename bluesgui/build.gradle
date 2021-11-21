@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+version '0.2.7.h1-beta'
+
+sourceSets.main.java.srcDirs = ["src/main/java/"]
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(path: ':utils')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

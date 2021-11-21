@@ -2,15 +2,14 @@ package com.kgc.sauw.core.environment.world;
 
 import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.entity.entities.drop.Drop;
 import com.kgc.sauw.core.entity.EntityManager;
+import com.kgc.sauw.core.entity.entities.drop.Drop;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.item.Items;
@@ -21,6 +20,7 @@ import com.kgc.sauw.core.utils.ExtraData;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.world.WorldRenderer.rayHandler;
 
@@ -36,14 +36,14 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     public int x, y, z;
     public int damage;
     public BlockInterface interface_ = null;
-    public TextureRegion t;
-    public Rectangle block;
+    public Rectangle blockRectangle;
 
     public ArrayList<ExtraData> extraData = new ArrayList<>();
     public ArrayList<Container> containers = new ArrayList<>();
 
     public PointLight PL;
     public Body body;
+    private Block block;
 
     @Override
     public byte[] getBytes() {
@@ -77,21 +77,21 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         this.y = Y;
         this.z = Z;
         this.id = bl.id;
-        this.block = new Rectangle();
-        this.block.setPosition(X + bl.getBlockConfiguration().getCollisionsRectangle().x, Y + bl.getBlockConfiguration().getCollisionsRectangle().y);
-        this.block.setSize(bl.getBlockConfiguration().getCollisionsRectangle().width, bl.getBlockConfiguration().getCollisionsRectangle().height);
+        this.blockRectangle = new Rectangle();
+        this.blockRectangle.setPosition(X + bl.getBlockConfiguration().getCollisionsRectangle().x, Y + bl.getBlockConfiguration().getCollisionsRectangle().y);
+        this.blockRectangle.setSize(bl.getBlockConfiguration().getCollisionsRectangle().width, bl.getBlockConfiguration().getCollisionsRectangle().height);
 
-        if (bl.t0 != null) t = TextureRegion.split(bl.t0, bl.t0.getWidth(), bl.t0.getHeight())[0][0];
+        block = bl;
 
-        this.interface_ = Blocks.getBlockById(id).GUI;
+        this.interface_ = block.GUI;
         if (interface_ != null)
             for (int i = 0; i < interface_.slots.size(); i++) {
                 if (!interface_.slots.get(i).isInventorySlot) {
                     containers.add(new Container(interface_.slots.get(i).id));
                 }
             }
-        Blocks.getBlockById(id).setDefaultExtraData(this);
-        Blocks.getBlockById(id).onPlace(this);
+        block.setDefaultExtraData(this);
+        block.onPlace(this);
 
         damage = bl.getBlockConfiguration().getMaxDamage();
 
@@ -155,8 +155,8 @@ public class Tile implements com.intbyte.bdb.ExtraData {
             lightingTimer += Gdx.graphics.getDeltaTime();
             if (lightingTimer >= 0.1) {
                 PL.setDistance(PL.getDistance() + 0.3f);
-                if (PL.getDistance() >= Blocks.getBlockById(id).getBlockConfiguration().getMaxLightingRadius())
-                    PL.setDistance(Blocks.getBlockById(id).getBlockConfiguration().getMinLightingRadius());
+                if (PL.getDistance() >= block.getBlockConfiguration().getMaxLightingRadius())
+                    PL.setDistance(block.getBlockConfiguration().getMinLightingRadius());
                 lightingTimer = 0f;
 
             }
@@ -166,29 +166,28 @@ public class Tile implements com.intbyte.bdb.ExtraData {
                 c.setItem(0, 0, 0);
             }
         }
-        if (damage <= 0 && id != 4) {
-            getWorld().map.setBlock(x, y, z, Blocks.getBlockById(id).getBlockConfiguration().getBlockIdAfterDestroy());
-            if (Blocks.getBlockById(id).getBlockConfiguration().getDrop() != null) {
-                for (int i = 0; i < Blocks.getBlockById(id).getBlockConfiguration().getDrop().length; i++) {
+        if (damage <= 0 && id != SAUW.getId("block:air")) {
+            getWorld().map.setBlock(x, y, z, block.getBlockConfiguration().getBlockIdAfterDestroy());
+            if (block.getBlockConfiguration().getDrop() != null) {
+                for (int i = 0; i < block.getBlockConfiguration().getDrop().length; i++) {
                     Random r = new Random();
                     float xx = (r.nextFloat() - 0.5f) / 2f + x;
                     float yy = (r.nextFloat() - 0.5f) / 2f + y;
                     Drop drop = (Drop) EntityManager.spawn("entity:drop", xx, yy);
-                    drop.setItem(Blocks.getBlockById(id).getBlockConfiguration().getDrop()[i][0], Blocks.getBlockById(id).getBlockConfiguration().getDrop()[i][1]);
+                    drop.setItem(block.getBlockConfiguration().getDrop()[i][0], block.getBlockConfiguration().getDrop()[i][1]);
                 }
             }
         }
-        Blocks.getBlockById(id).tick(this);
+        block.tick(this);
     }
 
     public void render() {
-        Blocks.getBlockById(id).renderTick(this);
+        block.renderTick(this);
     }
 
     public void setBodyAndLight() {
-        Block block = Blocks.getBlockById(id);
         if (z == 0 && block.getBlockConfiguration().getCollisions())
-            setBody(Physic.createRectangleBody(this.block.x, this.block.y, this.block.width, this.block.height, BodyDef.BodyType.StaticBody, false));
+            setBody(Physic.createRectangleBody(this.blockRectangle.x, this.blockRectangle.y, this.blockRectangle.width, this.blockRectangle.height, BodyDef.BodyType.StaticBody, false));
         if (z == 0) setLight(block);
     }
 }

@@ -6,6 +6,6 @@ import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Snow extends Block {
     public Snow() {
-        super(SAUW.registeredId("block:snow", 18), Resource.getTexture("Blocks/snow.png"));
+        super(Resource.getTexture("Blocks/snow.png"));
     }
 }

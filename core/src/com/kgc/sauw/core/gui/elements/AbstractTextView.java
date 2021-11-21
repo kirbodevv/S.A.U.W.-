@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;

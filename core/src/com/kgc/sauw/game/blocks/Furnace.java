@@ -24,7 +24,7 @@ public class Furnace extends Block {
     };
 
     public Furnace() {
-        super(SAUW.registeredId("block:furnace", 11), Resource.getTexture("Blocks/furnace.png"));
+        super(Resource.getTexture("Blocks/furnace.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
@@ -46,8 +46,9 @@ public class Furnace extends Block {
     }
 
     @Override
-    public void onPlace(Tile tile) {
-        tile.t = animator.getFrames("animation_region:furnace")[0];
+    public void animationTick(Tile tile) {
+        sprite.setRegion(animator.getFrames("animation_region:furnace")[0]);
+        if ((int) (tile.getExtraData("fuel")) > 0) sprite.setRegion(animator.getFrame("animation:furnace"));
     }
 
     @Override
@@ -82,7 +83,5 @@ public class Furnace extends Block {
                 }
             }
         }
-        tile.t = animator.getFrames("animation_region:furnace")[0];
-        if ((int) (tile.getExtraData("fuel")) > 0) tile.t = animator.getFrame("animation:furnace");
     }
 }

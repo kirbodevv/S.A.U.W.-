@@ -52,7 +52,6 @@ public class XmlInterfaceLoader {
         Layout rootLayout = (Layout) interface_.getElementByFullId(rootLayoutId);
 
         if (rootLayoutId.equals("MainLayout")) rootLayout = interface_.mainLayout;
-        System.out.println(rootLayoutId);
         if (rootLayout != null) {
             InterfaceElement interfaceElement = null;
             switch (element.getNodeName()) {

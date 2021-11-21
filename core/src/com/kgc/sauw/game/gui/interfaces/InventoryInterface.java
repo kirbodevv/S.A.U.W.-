@@ -37,8 +37,6 @@ public class InventoryInterface extends Interface {
     public InventoryInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"), this);
 
-        System.out.println(((Layout) getElement("layout.hotbar")).orientation);
-
         playerWeight = (TextView) getElement("text.player_weight");
         playerImg = (Image) getElement("image.player_img");
 

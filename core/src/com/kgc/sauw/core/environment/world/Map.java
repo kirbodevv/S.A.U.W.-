@@ -86,7 +86,7 @@ public class Map {
 
     public int getHighestBlock(int x, int y) {
         for (int z = 0; z < Map.zSize; z++) {
-            if (getTile(x, y, z).id != 4) {
+            if (getTile(x, y, z).id != SAUW.getId("block:air")) {
                 return z;
             }
         }
@@ -103,9 +103,9 @@ public class Map {
 
     public boolean setBlock(int x, int y, int id) {
         int z;
-        if (getTile(x, y, 1).id == 4) {
+        if (getTile(x, y, 1).id == SAUW.getId("block:air")) {
             z = 1;
-        } else if (getTile(x, y, 0).id == 4) {
+        } else if (getTile(x, y, 0).id == SAUW.getId("block:air")) {
             z = 0;
         } else {
             return false;

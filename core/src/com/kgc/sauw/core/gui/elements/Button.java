@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.Camera2D;
-import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.utils.Camera2D;
 
 public class Button extends AbstractTextView {
     private Texture icon;

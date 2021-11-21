@@ -30,6 +30,6 @@ public class Blocks {
     }
 
     public static void createBlock(int id, Texture t0) {
-        defineBlock(new Block(id, t0));
+        defineBlock(new Block(t0));
     }
 }

@@ -10,14 +10,12 @@ import com.kgc.sauw.core.utils.Resource;
 
 import java.util.Random;
 
-import static com.kgc.sauw.core.GameContext.SAUW;
-
 public class Campfire extends Block {
     Random random = new Random();
     private final Animator animator;
 
     public Campfire() {
-        super(SAUW.registeredId("block:campfire", 15), Resource.getTexture("Blocks/campfire.png"));
+        super(Resource.getTexture("Blocks/campfire.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setMinLightingRadius(8);
@@ -54,6 +52,10 @@ public class Campfire extends Block {
             x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:smoke", x, y, 3);
         }
-        tile.t = animator.getFrame("animation:campfire");
+    }
+
+    @Override
+    public void animationTick(Tile tile) {
+        sprite.setRegion(animator.getFrame("animation:campfire"));
     }
 }

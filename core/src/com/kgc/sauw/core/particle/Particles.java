@@ -3,10 +3,10 @@ package com.kgc.sauw.core.particle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.utils.Resource;
-import static com.kgc.sauw.core.GameContext.SAUW;
 
 import java.util.HashMap;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 
 public class Particles {
@@ -41,7 +41,7 @@ public class Particles {
     private static final HashMap<Integer, BaseParticle> particles = new HashMap<>();
     private static final Particle[] particlesList = new Particle[200];
 
-    static {
+    public static void init() {
         for (int i = 0; i < particlesList.length; i++) {
             particlesList[i] = new Particle();
             particlesList[i].clear();

@@ -7,7 +7,7 @@ import com.kgc.sauw.core.environment.item.InstrumentItem;
 
 public class Stone extends Block {
     public Stone() {
-        super(SAUW.registeredId("block:stone", 2), Resource.getTexture("Blocks/stone.png"));
+        super(Resource.getTexture("Blocks/stone.png"));
 
         blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
     }

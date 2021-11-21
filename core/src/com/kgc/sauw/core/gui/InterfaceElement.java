@@ -3,7 +3,7 @@ package com.kgc.sauw.core.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.core.utils.Camera2D;
+import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.GravityAdapter;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ public class ToolWall extends Block {
     TextureRegion[][] instrumentsTextures;
 
     public ToolWall() {
-        super(SAUW.registeredId("block:tool_wall"), Resource.getTexture("Blocks/tool_wall.png"));
+        super(Resource.getTexture("Blocks/tool_wall.png"));
 
         instrumentsTextures = TextureRegion.split(Resource.getTexture("Blocks/tool_wall_instruments.png"), Resource.getTexture("Blocks/tool_wall_instruments.png").getWidth() / 4, Resource.getTexture("Blocks/tool_wall_instruments.png").getHeight());
 

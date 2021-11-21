@@ -23,7 +23,7 @@ import com.kgc.sauw.game.environment.Blockss;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.items.Torch;
-import com.kgc.sauw.game.worlds.MysticalVoidWorld;
+import com.kgc.sauw.game.worlds.ChristmasWorld;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -54,7 +54,7 @@ public class SAUW implements Screen {
 
         Music.setVolume(Settings.musicVolume);
 
-        setWorld(new MysticalVoidWorld());
+        setWorld(new ChristmasWorld());
 
         Environment.setSaveName(worldName);
 
@@ -66,6 +66,7 @@ public class SAUW implements Screen {
             Environment.load();
         }
         MODS.load();
+        Particles.init();
 
         new UpdateTick().start();
         Input.init();

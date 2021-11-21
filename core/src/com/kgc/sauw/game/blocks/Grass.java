@@ -13,7 +13,7 @@ public class Grass extends Block {
     private final Texture flowersTexture = Resource.getTexture("Blocks/flowers.png");
 
     public Grass() {
-        super(SAUW.registeredId("block:grass", 1), Resource.getTexture("Blocks/grass_1.png"));
+        super(Resource.getTexture("Blocks/grass_1.png"));
 
         blockConfiguration.setInstrumentType(InstrumentItem.Type.SHOVEL);
     }

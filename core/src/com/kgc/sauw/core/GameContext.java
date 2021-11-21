@@ -9,7 +9,7 @@ import com.kgc.sauw.core.utils.ID;
 import java.util.HashMap;
 
 public class GameContext {
-    public static final GameContext SAUW = registeredContext("com.kgc.sauw");
+    public static final GameContext SAUW = registeredContext("sauw");
     private static HashMap<String, GameContext> gameContexts;
 
     public static GameContext get(String package_) {
@@ -30,6 +30,11 @@ public class GameContext {
     }
 
     private final String package_;
+
+    public void registeredBlock(Block block, String id) {
+        block.id = ID.registeredId(package_, "block:" + id);
+        Blocks.defineBlock(block);
+    }
 
     public int registeredId(String key) {
         return ID.registeredId(package_, key);

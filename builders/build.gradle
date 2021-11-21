@@ -1,8 +1,7 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.0-RC2'
 }
-
+apply plugin: 'kotlin'
 sourceSets.main.java.srcDirs = ["src/"]
 
 version '1.0'

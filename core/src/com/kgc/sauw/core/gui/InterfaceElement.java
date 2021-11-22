@@ -3,8 +3,8 @@ package com.kgc.sauw.core.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.GravityAdapter;
+import com.kgc.utils.Camera2D;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public abstract class InterfaceElement {
     public String id = "";
     public boolean wasClicked;
     public boolean wasUp;
-
+    protected boolean hover;
     public InterfaceElement attachedTo;
     protected Sides attachableSide, attachedToSide;
 
@@ -44,7 +44,9 @@ public abstract class InterfaceElement {
     public final void update(Camera2D cam) {
         wasClicked = false;
         wasUp = false;
+
         if (!hidden) {
+            hover = Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height;
             if (Gdx.input.isTouched()) {
                 if (!isTouched) {
                     if (Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height)

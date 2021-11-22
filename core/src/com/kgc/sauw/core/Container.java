@@ -46,6 +46,10 @@ public class Container implements ExtraData {
         setItemFromContainer(container);
     }
 
+    public void decreaseItem() {
+        setItem(id, count - 1, damage);
+    }
+
     public void setItem(int id, int count, int damage) {
         this.id = id;
         this.count = count;

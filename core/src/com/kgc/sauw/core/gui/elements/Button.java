@@ -41,6 +41,8 @@ public class Button extends AbstractTextView {
     public void setSkin(ElementSkin elementSkin0, ElementSkin elementSkin1) {
         this.buttonUpSkin = elementSkin0;
         this.buttonDownSkin = elementSkin1;
+        defaultColor = new Color(buttonUpSkin.getColor());
+        buttonColor = new Color(defaultColor);
     }
 
     public void setIcon(Texture icon) {
@@ -59,12 +61,13 @@ public class Button extends AbstractTextView {
     protected void tick(Camera2D cam) {
     }
 
+    private Color buttonColor;
+    private Color defaultColor;
+    private final Color onHoverColor = new Color(0xAC9262FF);
+
     @Override
     public void renderTick(SpriteBatch b, Camera2D cam) {
-        if (!locked)
-            (isTouched() ? buttonDownSkin : buttonUpSkin).draw(cam.X + x, cam.Y + y, width, height);
-        else buttonDownSkin.draw(cam.X + x, cam.Y + y, width, height);
-
+        (isTouched() || locked ? buttonDownSkin : buttonUpSkin).draw(cam.X + x, cam.Y + y, width, height, buttonColor, hover ? onHoverColor : defaultColor);
         if (icon != null) {
             b.draw(icon, cam.X + x, cam.Y + y, width, height);
         }

@@ -12,6 +12,10 @@ public class ElementSkin {
     Texture texture = null;
     private final Color color = new Color(1, 1, 1, 1);
 
+    public Color getColor() {
+        return color;
+    }
+
     public ElementSkin() {
     }
 
@@ -27,7 +31,12 @@ public class ElementSkin {
         color.set(rgba);
     }
 
-    public void draw(float x, float y, float w, float h) {
+    public void draw(float x, float y, float w, float h, Color startColor, Color endColor) {
+        Color color = startColor.lerp(endColor, 0.1f);
+        draw(x, y, w, h, color);
+    }
+
+    public void draw(float x, float y, float w, float h, Color color) {
         Color batchColor = new Color(BATCH.getColor());
         BATCH.setColor(color);
         if (drawable != null)
@@ -35,6 +44,10 @@ public class ElementSkin {
         if (texture != null)
             BATCH.draw(texture, x, y, w, h);
         BATCH.setColor(batchColor);
+    }
+
+    public void draw(float x, float y, float w, float h) {
+        draw(x, y, w, h, color);
     }
 
     public static NinePatchDrawable createDrawableFromTexture(Texture texture, int outlineSize) {

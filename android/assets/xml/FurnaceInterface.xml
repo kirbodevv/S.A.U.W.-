@@ -6,6 +6,6 @@
             <Image id="ArrowIcon" width="1bl" height="1bl"/>
             <Slot id="ResultSlot" width="1bl" height="1bl" isInventorySlot="false"/>
         </Layout>
-        <Slot translateY="-1bl" id="FuelSlot" width="1bl" height="1bl" isInventorySlot="false"/>
+        <Slot translateY="-1bl" id="fuel" width="1bl" height="1bl" isInventorySlot="false"/>
     </RootLayout>
 </Interface>

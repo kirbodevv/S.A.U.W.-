@@ -1,5 +1,5 @@
 function give(id, count){
-	give("com.kgc.sauw", id, count);
+	give("sauw", id, count);
 }
 function give(package, id, count){
 	Player.inventory.addItem(package, id, count);

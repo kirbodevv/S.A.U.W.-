@@ -18,7 +18,7 @@ public class Egor extends Npc {
 
     @Override
     public AbstractEntityRenderer getEntityRenderer() {
-        return null;
+        return new EgorRenderer();
     }
 
     @Override

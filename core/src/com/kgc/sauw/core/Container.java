@@ -54,8 +54,8 @@ public class Container implements ExtraData {
         this.id = id;
         this.count = count;
         this.damage = damage;
-        if (count <= 0 || (Items.getItemById(id).getItemConfiguration().maxDamage != 0 &&
-                damage >= Items.getItemById(id).getItemConfiguration().maxDamage)) {
+        if (count <= 0 || (GameContext.getItem(id).getItemConfiguration().maxDamage != 0 &&
+                damage >= GameContext.getItem(id).getItemConfiguration().maxDamage)) {
             clear();
         }
     }

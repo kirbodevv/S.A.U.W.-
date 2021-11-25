@@ -31,28 +31,19 @@ public class GameContext {
 
     private final String package_;
 
-    public void registeredBlock(Block block, String id) {
-        block.id = ID.registeredId(package_, "block:" + id);
-        Blocks.defineBlock(block);
-    }
-
-    public int registeredId(String key) {
+    public int registerId(String key) {
         return ID.registeredId(package_, key);
-    }
-
-    public int registeredId(String key, int id) {
-        return ID.registeredId(package_, key, id);
     }
 
     public int getId(String key) {
         return ID.get(package_, key);
     }
 
-    public Block getBlock(String id) {
-        return Blocks.getBlockById(ID.get(package_, id));
+    public static Block getBlock(int id) {
+        return Blocks.INSTANCE.get(id);
     }
 
-    public Item getItem(String id) {
-        return Items.getItemById(ID.get(package_, id));
+    public static Item getItem(int id) {
+        return Items.INSTANCE.get(id);
     }
 }

@@ -1,13 +1,16 @@
 package com.kgc.sauw.core.gui.elements;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceElement;
@@ -40,6 +43,12 @@ public class Slot extends InterfaceElement {
 
     private final Interface interface_;
     public static final ProgressBar itemDamageProgressBar;
+
+    private Color textColor = null;
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
 
     static {
         itemDamageProgressBar = new ProgressBar(true);
@@ -84,14 +93,14 @@ public class Slot extends InterfaceElement {
             batch.draw(iconRegion, cam.X + x, cam.Y + y, width, height);
             batch.setColor(1, 1, 1, 1);
         }
-        if (container != null && container.id != 0 && Items.getItemById(container.id).getItemConfiguration().maxDamage != 0 &&
+        if (container != null && container.id != 0 && GameContext.getItem(container.id).getItemConfiguration().maxDamage != 0 &&
                 Maths.isLiesOnRect(x, y, width, height, Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY()) &&
                 !Gdx.input.isTouched()) {
             itemDamageProgressBar.hide(false);
             itemDamageProgressBar.setPosition(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY() - itemDamageProgressBar.height);
             itemDamageProgressBar.setColor(0, 255, 0);
-            itemDamageProgressBar.setMaxValue(Items.getItemById(container.id).getItemConfiguration().maxDamage);
-            itemDamageProgressBar.setValue(Items.getItemById(container.id).getItemConfiguration().maxDamage - container.damage);
+            itemDamageProgressBar.setMaxValue(GameContext.getItem(container.id).getItemConfiguration().maxDamage);
+            itemDamageProgressBar.setValue(GameContext.getItem(container.id).getItemConfiguration().maxDamage - container.damage);
         }
     }
 
@@ -124,9 +133,11 @@ public class Slot extends InterfaceElement {
 
     public void itemRender() {
         if (container != null && container.id != 0) {
-            BATCH.draw(Items.getItemById(container.id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
+            BATCH.draw(GameContext.getItem(container.id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
             BITMAP_FONT.getData().setScale((width / 3f) / BITMAP_FONT_CAP_HEIGHT);
             GLYPH_LAYOUT.setText(BITMAP_FONT, container.count + "");
+            Graphic.setTextColor(textColor == null ? TEXT_COLOR : textColor);
+            BITMAP_FONT.getColor().a = COLOR_ALPHA;
             BITMAP_FONT.draw(BATCH, container.count + "", itemX, itemY + GLYPH_LAYOUT.height + width / 32f, width, Align.right, false);
         }
     }
@@ -140,7 +151,7 @@ public class Slot extends InterfaceElement {
     }
 
     public void setIconFromItem(String id) {
-        setIcon(Items.getItemById(SAUW.getId(id)).getTexture(null));
+        setIcon(GameContext.getItem(SAUW.getId(id)).getTexture(null));
     }
 
     public interface SlotFunctions {

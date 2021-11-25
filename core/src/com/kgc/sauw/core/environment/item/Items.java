@@ -1,16 +1,14 @@
 package com.kgc.sauw.core.environment.item;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.mod.ModResources;
+import com.kgc.sauw.core.register.Register;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.GameContext.SAUW;
-
-public class Items {
+public class Items extends Register<Item> {
+    public static final Items INSTANCE = new Items();
     private static final ArrayList<Item> ITEMS = new ArrayList<>();
 
     public static void tick() {
@@ -19,29 +17,19 @@ public class Items {
         }
     }
 
-    public static Item getItemById(String id) {
-        return getItemById(SAUW.getId(id));
-    }
-
-    public static Item getItemById(int id) {
-        for (Item item : ITEMS)
-            if (item.id == id) return item;
-        return getItemById(0);
-    }
-
     public static void addItemsFromMod(FileHandle dir, ModResources resources) {
-        FileHandle[] files = dir.list();
+        /*FileHandle[] files = dir.list();
         for (FileHandle file : files) {
             if (file.isDirectory()) {
                 addItemsFromMod(file, resources);
             } else {
                 addItemFromJson(new JSONObject(file.readString()), resources);
             }
-        }
+        }*/
     }
 
     public static void addItemFromJson(JSONObject json, ModResources resources) {
-        Item item = new Item(json.getString("id"));
+        /*Item item = new Item(json.getString("id"));
         ItemConfiguration itemConfiguration = new ItemConfiguration(item.id);
 
         item.setTexture((Texture) resources.get(json.getString("texture")));
@@ -65,11 +53,15 @@ public class Items {
 
         item.setItemConfiguration(itemConfiguration);
 
-        defineItem(item);
+        defineItem(item);*/
     }
 
     public static void defineItem(Item item) {
         ITEMS.add(item);
-        Gdx.app.log("Items", "defined item, with id " + item.getStringId() + ", item name : \"" + item.getDefaultName() + "\"");
+    }
+
+    @Override
+    public String getIDGroup() {
+        return "item";
     }
 }

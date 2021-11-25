@@ -7,16 +7,8 @@ import com.kgc.sauw.core.physic.Physic;
 public abstract class EntityFactory {
     private final int id;
 
-    public EntityFactory(String package_, String stringId, int id) {
-        this(GameContext.get(package_), stringId, id);
-    }
-
-    public EntityFactory(GameContext context, String stringId, int id) {
-        this.id = context.registeredId("entity:" + stringId, id);
-    }
-
     public EntityFactory(GameContext context, String stringId) {
-        this.id = context.registeredId("entity:" + stringId);
+        this.id = context.registerId("entity:" + stringId);
     }
 
     public int getId() {

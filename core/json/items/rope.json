@@ -1,5 +1,5 @@
 {
-  "id": "item:rope",
+  "id": "rope",
   "texture": "Items/rope.png",
   "itemConfiguration": {
     "maxCount": 64,

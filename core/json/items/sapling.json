@@ -1,5 +1,5 @@
 {
-  "id": "item:sapling",
+  "id": "sapling",
   "texture": "Items/sapling.png",
   "itemConfiguration": {
     "maxCount": 64,

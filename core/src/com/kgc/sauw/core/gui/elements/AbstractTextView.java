@@ -3,9 +3,10 @@ package com.kgc.sauw.core.gui.elements;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.utils.Camera2D;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
@@ -54,7 +55,7 @@ public abstract class AbstractTextView extends InterfaceElement {
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         preRender(batch, cam);
         updateTextScale();
-        BITMAP_FONT.setColor(textColor);
+        Graphic.setTextColor(textColor);
         BITMAP_FONT.draw(batch, text, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
     }
 }

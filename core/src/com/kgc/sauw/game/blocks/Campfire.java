@@ -34,7 +34,7 @@ public class Campfire extends Block {
     @Override
     public void tick() {
         timer += Gdx.graphics.getDeltaTime();
-        if (timer >= 1) {
+        if (timer >= 0.25f) {
             if (!smokeParticles) {
                 smokeParticles = true;
             } else {

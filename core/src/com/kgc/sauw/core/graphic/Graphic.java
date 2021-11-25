@@ -26,6 +26,7 @@ public final class Graphic {
     public static final GlyphLayout GLYPH_LAYOUT;
     public static final float BITMAP_FONT_CAP_HEIGHT;
     public static final Color TEXT_COLOR;
+    public static float COLOR_ALPHA = 1f;
 
     static {
         TEXT_COLOR = new Color(0xAC9262FF);
@@ -33,7 +34,7 @@ public final class Graphic {
         setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         BATCH = new SpriteBatch();
-
+        BATCH.enableBlending();
         GAME_CAMERA = new Camera2D();
         GAME_CAMERA.resize(20);
         INTERFACE_CAMERA = new Camera2D();
@@ -42,6 +43,11 @@ public final class Graphic {
         BITMAP_FONT = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         GLYPH_LAYOUT = new GlyphLayout();
         BITMAP_FONT_CAP_HEIGHT = BITMAP_FONT.getCapHeight();
+    }
+
+    public static void setTextColor(Color color) {
+        BITMAP_FONT.setColor(color);
+        BITMAP_FONT.getColor().a = COLOR_ALPHA;
     }
 
     public static void resize(int w, int h) {

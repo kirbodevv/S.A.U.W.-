@@ -20,15 +20,6 @@ public class ID {
         Gdx.app.log("ID manager", "registered id group \"" + key + "\"");
     }
 
-    public static int registeredId(String package_, String key, int id) {
-        String[] keys = key.split(":");
-        if (map.get(keys[0]).maxVal > id)
-            map.get(keys[0]).idMap.put(package_ + ":" + keys[1], id);
-        Gdx.app.log("ID manager", "registered string id \"" + key + "\" for package \"" + package_ + "\", with integer id " + id);
-        return id;
-
-    }
-
     public static int registeredId(String package_, String key) {
         int iterator = 0;
         String[] keys = key.split(":");

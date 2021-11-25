@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.COLOR_ALPHA;
 
 public class ElementSkin {
     NinePatchDrawable drawable = null;
@@ -17,6 +18,12 @@ public class ElementSkin {
     }
 
     public ElementSkin() {
+    }
+
+    public ElementSkin(ElementSkin elementSkin) {
+        this.drawable = elementSkin.drawable;
+        this.texture = elementSkin.texture;
+        this.color.set(elementSkin.color);
     }
 
     public ElementSkin(Texture texture, int outlineSize) {
@@ -32,12 +39,17 @@ public class ElementSkin {
     }
 
     public void draw(float x, float y, float w, float h, Color startColor, Color endColor) {
-        Color color = startColor.lerp(endColor, 0.1f);
+        draw(x, y, w, h, startColor, endColor, 0.1f);
+    }
+
+    public void draw(float x, float y, float w, float h, Color startColor, Color endColor, float progress) {
+        Color color = startColor.lerp(endColor, progress);
         draw(x, y, w, h, color);
     }
 
     public void draw(float x, float y, float w, float h, Color color) {
         Color batchColor = new Color(BATCH.getColor());
+        color.a = COLOR_ALPHA;
         BATCH.setColor(color);
         if (drawable != null)
             drawable.draw(BATCH, x, y, w, h);

@@ -15,6 +15,7 @@ public final class Input {
     public static final InputMultiplexer INPUT_MULTIPLEXER;
     private static final GameInputProcessor GAME_INPUT_PROCESSOR;
     private static PlayerController PLAYER_CONTROLLER;
+    private static DebugController DEBUG_CONTROLLER;
     private static final TextInputProcessor TEXT_INPUT_PROCESSOR;
     private static final ControllerListener CONTROLLER_LISTENER;
 
@@ -33,7 +34,9 @@ public final class Input {
 
     public static void init() {
         PLAYER_CONTROLLER = new PlayerController();
+        DEBUG_CONTROLLER = new DebugController();
         INPUT_MULTIPLEXER.addProcessor(PLAYER_CONTROLLER);
+        INPUT_MULTIPLEXER.addProcessor(DEBUG_CONTROLLER);
     }
 
     public static class GameInputProcessor implements InputProcessor {

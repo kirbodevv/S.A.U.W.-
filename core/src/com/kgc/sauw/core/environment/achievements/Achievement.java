@@ -15,7 +15,7 @@ public class Achievement {
     public AchievementChecker achievementChecker;
 
     public Achievement(String id) {
-        this.id = SAUW.registeredId("achievements:" + id);
+        this.id = SAUW.registerId("achievements:" + id);
         this.stringID = id;
         title = Languages.getString("sauw.achievements." + id + ".title");
         description = Languages.getString("sauw.achievements." + id + ".description");

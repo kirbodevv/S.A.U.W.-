@@ -83,14 +83,14 @@ public class Slot extends InterfaceElement {
             batch.draw(iconRegion, cam.X + x, cam.Y + y, width, height);
             batch.setColor(1, 1, 1, 1);
         }
-        if (container != null && container.id != 0 && Items.getItemById(container.id).getItemConfiguration().maxDamage != 0 &&
+        if (container != null && container.id != 0 && GameContext.getItemItemById(container.id).getItemConfiguration().maxDamage != 0 &&
                 Maths.isLiesOnRect(x, y, width, height, Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY()) &&
                 !Gdx.input.isTouched()) {
             itemDamageProgressBar.hide(false);
             itemDamageProgressBar.setPosition(Gdx.input.getX(), SCREEN_HEIGHT - Gdx.input.getY() - itemDamageProgressBar.height);
             itemDamageProgressBar.setColor(0, 255, 0);
-            itemDamageProgressBar.setMaxValue(Items.getItemById(container.id).getItemConfiguration().maxDamage);
-            itemDamageProgressBar.setValue(Items.getItemById(container.id).getItemConfiguration().maxDamage - container.damage);
+            itemDamageProgressBar.setMaxValue(GameContext.getItemItemById(container.id).getItemConfiguration().maxDamage);
+            itemDamageProgressBar.setValue(GameContext.getItemItemById(container.id).getItemConfiguration().maxDamage - container.damage);
         }
     }
 
@@ -123,7 +123,7 @@ public class Slot extends InterfaceElement {
 
     public void itemRender() {
         if (container != null && container.id != 0) {
-            BATCH.draw(Items.getItemById(container.id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
+            BATCH.draw(GameContext.getItemItemById(container.id).getTexture(container), itemX + BLOCK_SIZE / 8f, itemY + BLOCK_SIZE / 8f, width - BLOCK_SIZE / 4f, height - BLOCK_SIZE / 4f);
             BITMAP_FONT.getData().setScale((width / 3f) / BITMAP_FONT_CAP_HEIGHT);
             GLYPH_LAYOUT.setText(BITMAP_FONT, container.count + "");
             BITMAP_FONT.draw(BATCH, container.count + "", itemX, itemY + GLYPH_LAYOUT.height + width / 32f, width, Align.right, false);
@@ -139,7 +139,7 @@ public class Slot extends InterfaceElement {
     }
 
     public void setIconFromItem(String id) {
-        setIcon(Items.getItemById(SAUW.getId(id)).getTexture(null));
+        setIcon(GameContext.getItemItemById(SAUW.getId(id)).getTexture(null));
     }
 
     public interface SlotFunctions {

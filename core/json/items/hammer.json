@@ -1,5 +1,5 @@
 {
-  "id": "item:hammer",
+  "id": "hammer",
   "texture": "Items/hammer.png",
   "itemConfiguration": {
     "maxCount": 1,

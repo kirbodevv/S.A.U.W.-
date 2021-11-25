@@ -1,5 +1,5 @@
 {
-  "id": "item:log",
+  "id": "log",
   "texture": "Items/log.png",
   "itemConfiguration": {
     "maxCount": 64,

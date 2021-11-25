@@ -12,8 +12,6 @@ public class Torch extends Item {
     Animator animator = new Animator();
 
     public Torch() {
-        super("item:torch");
-
         setTexture(Resource.getTexture("Items/torch_anim.png"));
 
         animator.addAnimationRegion("animation_region:torch", Resource.getTexture("Items/torch_anim.png"), 4, 1);
@@ -30,6 +28,6 @@ public class Torch extends Item {
 
     @Override
     public void tick() {
-        PLAYER.setLightActive(PLAYER.getCarriedItem().id == id);
+        PLAYER.setLightActive(PLAYER.getCarriedItem().getId() == id);
     }
 }

@@ -10,6 +10,8 @@ import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.TextureGenerator;
 import com.kgc.sauw.core.skins.Skins;
 
+import static com.kgc.sauw.core.graphic.Graphic.COLOR_ALPHA;
+
 public class ProgressBar extends InterfaceElement {
     private float value;
     private float maxValue;
@@ -87,6 +89,7 @@ public class ProgressBar extends InterfaceElement {
         batch.setColor(1, 1, 1, 1);
         if (background != null) background.draw(x, y, width, height);
         float pixelWidth = width / progress.getTexture().getWidth();
+        color.a = COLOR_ALPHA;
         batch.setColor(color);
         batch.draw(progress, x, y, progress.getRegionWidth() * pixelWidth, height);
         batch.setColor(batchColor);

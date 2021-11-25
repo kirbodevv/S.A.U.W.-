@@ -8,10 +8,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.entity.entities.drop.Drop;
 import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.physic.Physic;
@@ -64,7 +64,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         this.y = buffer.getIntArray("coords")[1];
         this.z = buffer.getIntArray("coords")[2];
         this.id = buffer.getInt("id");
-        createTile(x, y, z, Blocks.getBlockById(id));
+        createTile(x, y, z, GameContext.getBlock(id));
         for (Container c : containers) {
             c.setItem(buffer.getIntArray(c.containerId)[0],
                     buffer.getIntArray(c.containerId)[1],
@@ -76,7 +76,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         this.x = X;
         this.y = Y;
         this.z = Z;
-        this.id = bl.id;
+        this.id = bl.getId();
         this.blockRectangle = new Rectangle();
         this.blockRectangle.setPosition(X + bl.getBlockConfiguration().getCollisionsRectangle().x, Y + bl.getBlockConfiguration().getCollisionsRectangle().y);
         this.blockRectangle.setSize(bl.getBlockConfiguration().getCollisionsRectangle().width, bl.getBlockConfiguration().getCollisionsRectangle().height);
@@ -162,8 +162,8 @@ public class Tile implements com.intbyte.bdb.ExtraData {
             }
         }
         for (Container c : containers) {
-            if (c.getId() != 0 && Items.getItemById(c.getId()).id == 0) {
-                c.setItem(0, 0, 0);
+            if (c.getId() == 0) {
+                c.clear();
             }
         }
         if (damage <= 0 && id != SAUW.getId("block:air")) {

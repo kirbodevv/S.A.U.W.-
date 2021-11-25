@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.environment.block.Blocks;
@@ -46,7 +47,7 @@ public class PlayerController implements InputProcessor {
         }
 
         if (tile != null) {
-            Blocks.getBlockById(tile.id).onInteractionButtonPressed(tile);
+            GameContext.getBlock(tile.id).onInteractionButtonPressed(tile);
             if (tile.interface_ != null)
                 if (!tile.interface_.isOpen)
                     tile.interface_.open(tile.x, tile.y, tile.z);

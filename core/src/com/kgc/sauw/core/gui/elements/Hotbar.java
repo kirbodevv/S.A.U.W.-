@@ -1,5 +1,6 @@
 package com.kgc.sauw.core.gui.elements;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.Container;
@@ -29,6 +30,7 @@ public class Hotbar extends InterfaceElement {
             Slot slot = new Slot("HOTBAR_SLOT_" + i, null);
             slot.setSizeInBlocks(0.75f, 0.75f);
             slot.setTranslationX(i == 0 ? 0.125f : 0.25f);
+            slot.setTextColor(new Color(0xFFCB3CFF));
             final int finalI = i;
             slot.setSF(new Slot.SlotFunctions() {
                 @Override

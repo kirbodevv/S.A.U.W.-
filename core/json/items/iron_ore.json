@@ -1,5 +1,5 @@
 {
-  "id": "item:iron_ore",
+  "id": "iron_ore",
   "texture": "Items/iron_ore.png",
   "itemConfiguration": {
     "maxCount": 64,

@@ -1,5 +1,5 @@
 {
-  "id": "item:stone_pickaxe",
+  "id": "stone_pickaxe",
   "texture": "Items/stone_pickaxe.png",
   "itemConfiguration": {
     "maxCount": 1,

@@ -59,8 +59,8 @@ public class Inventory {
 
     public boolean addItem(int id, int count) {
         for (Container container : containers) {
-            if (container.id == id && container.count < Items.getItemById(container.id).getItemConfiguration().maxCount) {
-                int canAdd = Items.getItemById(container.id).getItemConfiguration().maxCount - container.count;
+            if (container.id == id && container.count < GameContext.getItem(container.id).getItemConfiguration().maxCount) {
+                int canAdd = GameContext.getItem(container.id).getItemConfiguration().maxCount - container.count;
                 if (canAdd > count) {
                     container.count = container.count + count;
                     count -= count;
@@ -74,13 +74,13 @@ public class Inventory {
             }
         }
         if (count > 0) {
-            int slotsCount = (count % Items.getItemById(id).getItemConfiguration().maxCount) + 1;
+            int slotsCount = (count % GameContext.getItem(id).getItemConfiguration().maxCount) + 1;
             for (int i = 0; i < slotsCount; i++)
                 containers.add(new Container());
         }
         for (Container container : containers) {
             if (container.id == 0) {
-                int canAdd = Items.getItemById(id).getItemConfiguration().maxCount;
+                int canAdd = GameContext.getItem(id).getItemConfiguration().maxCount;
                 container.id = id;
                 container.damage = 0;
                 if (canAdd > count) {
@@ -119,14 +119,14 @@ public class Inventory {
     public float getItemsWeight() {
         float itemsWeight = 0f;
         for (Container slot : containers) {
-            itemsWeight += slot.count * Items.getItemById(slot.id).getItemConfiguration().weight;
+            itemsWeight += slot.count * GameContext.getItem(slot.id).getItemConfiguration().weight;
         }
         return itemsWeight;
     }
 
     public void removeItemsIfNeed() {
         for (Container container : containers) {
-            if (container.damage >= Items.getItemById(container.id).getItemConfiguration().maxDamage && Items.getItemById(container.id).getItemConfiguration().maxDamage != 0) {
+            if (container.damage >= GameContext.getItem(container.id).getItemConfiguration().maxDamage && GameContext.getItem(container.id).getItemConfiguration().maxDamage != 0) {
                 slotsToRemove.add(container);
             }
             if (container.count <= 0) {

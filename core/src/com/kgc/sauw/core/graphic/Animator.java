@@ -38,7 +38,7 @@ public class Animator {
     }
 
     public void addAnimationRegion(String id, Texture animationTexture, int xFramesCount, int yFramesCount) {
-        animationRegionHashMap.put(SAUW.registeredId(id), new AnimationRegion(animationTexture, xFramesCount, yFramesCount));
+        animationRegionHashMap.put(SAUW.registerId(id), new AnimationRegion(animationTexture, xFramesCount, yFramesCount));
     }
 
     public void addAnimation(String id, String animationRegionId, float frameDuration, int... frameNumbers) {
@@ -46,7 +46,7 @@ public class Animator {
         for (int i = 0; i < frames.length; i++) {
             frames[i] = animationRegionHashMap.get(SAUW.getId(animationRegionId)).frames[frameNumbers[i]];
         }
-        animations.put(SAUW.registeredId(id), new Animation<>(frameDuration, frames));
+        animations.put(SAUW.registerId(id), new Animation<>(frameDuration, frames));
     }
 
     public static void update() {

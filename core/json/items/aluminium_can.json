@@ -1,5 +1,5 @@
 {
-  "id": "item:aluminium_can",
+  "id": "aluminium_can",
   "texture": "Items/aluminium_can.png",
   "itemConfiguration": {
     "maxCount": 64,

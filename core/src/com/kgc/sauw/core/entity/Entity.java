@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.world.Map;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.ExtraData;
@@ -80,7 +80,7 @@ public abstract class Entity {
     }
 
     public Block stayingOn() {
-        return Blocks.getBlockById(getWorld().map.getTile(currentTileX, currentTileY, 1).id);
+        return GameContext.getBlock(getWorld().map.getTile(currentTileX, currentTileY, 1).id);
     }
 
     private void updatePosition() {

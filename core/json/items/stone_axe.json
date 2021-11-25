@@ -1,5 +1,5 @@
 {
-  "id": "item:stone_axe",
+  "id": "stone_axe",
   "texture": "Items/stone_axe.png",
   "itemConfiguration": {
     "maxCount": 1,

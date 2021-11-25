@@ -8,7 +8,6 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
-import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.utils.Resource;
@@ -75,7 +74,7 @@ public class InventoryInterface extends Interface {
 
                 @Override
                 public boolean isValid(Container container, String fromSlotWithId) {
-                    InventoryFragment inventoryFragment = (InventoryFragment) getElement("InventoryFragment");
+                    InventoryFragment inventoryFragment = (InventoryFragment) getElementByFullId("InventoryFragment");
                     if (fromSlotWithId.contains("InventorySlot_")) {
                         for (int i = 0; i < PLAYER.hotbar.length; i++) {
                             if (PLAYER.hotbar[i] == inventoryFragment.currentTabInv * 30 + Integer.parseInt(fromSlotWithId.substring(14))) {

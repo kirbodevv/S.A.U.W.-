@@ -1,5 +1,5 @@
 {
-  "id": "item:iron_ingot",
+  "id": "iron_ingot",
   "texture": "Items/iron_ingot.png",
   "itemConfiguration": {
     "maxCount": 64,

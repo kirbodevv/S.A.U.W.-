@@ -1,5 +1,5 @@
 {
-  "id": "item:stone_shovel",
+  "id": "stone_shovel",
   "texture": "Items/stone_shovel.png",
   "itemConfiguration": {
     "maxCount": 1,

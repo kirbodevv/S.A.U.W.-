@@ -2,14 +2,13 @@ package com.kgc.sauw.core.gui;
 
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.utils.Camera2D;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 
 public class InventoryFragment extends Fragment {
-
     public Button previousTabInv;
     public Button nextTabInv;
     public int currentItemInv = -1;

@@ -9,6 +9,7 @@ import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.environment.achievements.Achievements;
 import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.environment.world.WorldRenderer;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
@@ -19,7 +20,7 @@ import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
 import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.game.environment.Blockss;
+import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.items.Torch;
@@ -49,8 +50,8 @@ public class SAUW implements Screen {
 
         ItemsGenerated.init();
         AchievementsGenerated.init();
-        com.kgc.sauw.core.environment.item.Items.defineItem(new Torch());
-        new Blockss();
+        Items.INSTANCE.register(new Torch(), "sauw", "torch");
+        new GameBlocks();
 
         Music.setVolume(Settings.musicVolume);
 
@@ -73,6 +74,7 @@ public class SAUW implements Screen {
         isGameRunning = true;
 
         EntityManager.spawn("entity:egor", 10, 10);
+        PLAYER.inventory.addItem("sauw", "item:log", 10);
     }
 
 

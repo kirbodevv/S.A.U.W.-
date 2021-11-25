@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.callbacks.TouchOnBlock;
@@ -83,10 +84,10 @@ public class Player extends LivingEntity implements ExtraData {
 
     public Item getItemFromHotbar(int index) {
         if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size()) {
-            return Items.getItemById(inventory.containers.get(hotbar[index]).id);
+            return GameContext.getItem(inventory.containers.get(hotbar[index]).id);
         } else {
             hotbar[index] = -1;
-            return Items.getItemById(0);
+            return GameContext.getItem(0);
         }
     }
 

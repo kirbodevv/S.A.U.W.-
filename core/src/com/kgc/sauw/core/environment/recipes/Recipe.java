@@ -11,7 +11,7 @@ public class Recipe {
     protected int[] result = new int[2];
 
     public Recipe(String id) {
-        this.id = SAUW.registeredId(id);
+        this.id = SAUW.registerId(id);
         this.stringID = id;
     }
 

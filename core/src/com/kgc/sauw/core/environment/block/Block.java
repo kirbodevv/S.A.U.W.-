@@ -4,11 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.kgc.sauw.core.environment.world.Tile;
 import com.kgc.sauw.core.gui.BlockInterface;
+import com.kgc.sauw.core.register.RegistryObject;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
-public class Block {
-    public int id;
+public class Block extends RegistryObject {
     protected Sprite sprite = new Sprite();
     public BlockInterface GUI = null;
     protected BlockConfiguration blockConfiguration;
@@ -46,8 +46,8 @@ public class Block {
     }
 
     public void renderTick(Tile tile) {
-        float w = Blocks.getBlockById(tile.id).getBlockConfiguration().getSize().x;
-        float h = Blocks.getBlockById(tile.id).getBlockConfiguration().getSize().y;
+        float w = getBlockConfiguration().getSize().x;
+        float h = getBlockConfiguration().getSize().y;
         animationTick(tile);
         sprite.setPosition(tile.x, tile.y);
         sprite.setSize(w, h);

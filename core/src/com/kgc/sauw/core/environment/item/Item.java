@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.environment.world.Tile;
-import static com.kgc.sauw.core.GameContext.SAUW;
+import com.kgc.sauw.core.register.RegistryObject;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
-public class Item {
+public class Item extends RegistryObject {
     public int id;
-    private String stringId;
     public String name;
 
     private static final TextureRegion undefRegion;
@@ -26,25 +25,12 @@ public class Item {
 
     private ItemFunctions itemFunctions;
 
-    public String getStringId() {
-        return stringId;
-    }
-
-    public Item(int id, String stringId) {
-        this.id = SAUW.registeredId(stringId, id);
-        this.stringId = stringId;
-        initItem();
-    }
-
-    public Item(String id) {
-        this.id = SAUW.registeredId(id);
-        this.stringId = id;
+    public Item() {
         initItem();
     }
 
     private void initItem() {
-        itemConfiguration = new ItemConfiguration(id);
-        name = Languages.getString("sauw.items." + stringId.split(":")[1]);
+        itemConfiguration = new ItemConfiguration();
     }
 
     public ItemConfiguration getItemConfiguration() {
@@ -83,6 +69,6 @@ public class Item {
     }
 
     public String getDefaultName() {
-        return name;
+        return name = Languages.getString(package_ + "items." + stringId);
     }
 }

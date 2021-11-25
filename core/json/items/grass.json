@@ -1,5 +1,5 @@
 {
-  "id": "item:grass",
+  "id": "grass",
   "texture": "Blocks/grass_1.png",
   "itemConfiguration": {
     "maxCount": 64,

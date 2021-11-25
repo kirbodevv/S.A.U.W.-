@@ -6,7 +6,7 @@ import com.kgc.sauw.core.entity.EntityFactory;
 
 public class PlayerFactory extends EntityFactory {
     public PlayerFactory() {
-        super(GameContext.SAUW, "player", 0);
+        super(GameContext.SAUW, "player");
     }
 
     @Override

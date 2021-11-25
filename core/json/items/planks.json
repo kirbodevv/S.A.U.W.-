@@ -1,5 +1,5 @@
 {
-  "id": "item:planks",
+  "id": "planks",
   "texture": "Items/planks.png",
   "itemConfiguration": {
     "maxCount": 64,

@@ -1,5 +1,5 @@
 {
-  "id": "item:stone",
+  "id": "stone",
   "texture": "Items/stone.png",
   "itemConfiguration": {
     "maxCount": 64,

@@ -72,17 +72,16 @@ public class Particles {
         }
     }
 
-    public static Particle addParticle(String id, float x, float y, float duration) {
+    public static void addParticle(String id, float x, float y, float duration) {
         for (Particle p : particlesList) {
             if (p.id == -1) {
                 p.createParticle(SAUW.getId(id), x, y, duration);
-                return p;
+                return;
             }
         }
-        return null;
     }
 
     public static void createParticle(BaseParticle particle, String id) {
-        particles.put(SAUW.registeredId(id), particle);
+        particles.put(SAUW.registerId(id), particle);
     }
 }

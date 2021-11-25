@@ -1,7 +1,12 @@
 package com.kgc.sauw.game.gui.interfaces;
 
-import com.kgc.sauw.core.gui.*;
-import com.kgc.sauw.core.gui.elements.*;
+import com.badlogic.gdx.graphics.Color;
+import com.kgc.sauw.core.gui.ElementSkin;
+import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.elements.Button;
+import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.elements.TextView;
+import com.kgc.sauw.core.skins.Skins;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 
@@ -23,20 +28,23 @@ public class TestInterface extends Interface {
         test.setSize(BLOCK_SIZE, BLOCK_SIZE);
         test.setText("Это не кнопка");
 
-        Image img1 = new Image();
-        Image img2 = new Image();
-        //img1.setImg(TEXTURES.stone_shovel);
-        //img2.setImg(TEXTURES.apple);
-
-        testLayout.addElements(img1, test, button1, img2);
+        testLayout.addElements(test, button1);
 
         mainLayout.addElements(testLayout);
 
         updateElementsList();
-        //testSkin = new ElementSkin(TEXTURES.round_up, 3);
     }
 
-    private ElementSkin testSkin;
+    private ElementSkin testSkin = new ElementSkin(Skins.round_up);
+    Color[] colors = new Color[]{
+            new Color(0xFF0000FF),
+            new Color(0x0000FFFF),
+            new Color(0x00FF00FF),
+            new Color(0x00FFFFFF),
+            new Color(0x000000FF)
+    };
+    Color color = new Color(0x000000FF);
+    int counter = 0;
 
     @Override
     public void tick() {
@@ -60,6 +68,7 @@ public class TestInterface extends Interface {
 
     @Override
     public void postRender() {
-        testSkin.draw(100, 100, 400, 100);
+        testSkin.draw(100, 100, 400, 100, color, colors[counter], 0.01f);
+        if (testSkin.getColor().equals(colors[counter])) counter++;
     }
 }

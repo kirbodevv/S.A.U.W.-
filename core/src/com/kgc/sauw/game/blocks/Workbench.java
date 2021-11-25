@@ -1,6 +1,7 @@
 package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.environment.Crafting;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.item.Items;
@@ -104,7 +105,7 @@ public class Workbench extends Block {
             Container craftContainer = tile.getContainer("craft_handsaw_ingredient");
             Crafting.Craft craft = getCraft(craftContainer.id);
             if (craft != null) {
-                int resultCount = Math.min(craftContainer.count, Items.getItemById(SAUW.getId("item:handsaw")).getItemConfiguration().maxDamage - toolWallContainer.damage);
+                int resultCount = Math.min(craftContainer.count, GameContext.getItem(SAUW.getId("item:handsaw")).getItemConfiguration().maxDamage - toolWallContainer.damage);
                 for (int i = 0; i < resultCount; i++) {
                     PLAYER.inventory.addItem(tile.getContainer("craft_handsaw_result").id, craft.result[1]);
                     toolWallContainer.setItem(toolWallContainer.id, toolWallContainer.count, toolWallContainer.damage + 1);
@@ -116,7 +117,7 @@ public class Workbench extends Block {
             Container craftContainer = tile.getContainer("craft_hammer_ingredient");
             Crafting.Craft craft = getCraft(craftContainer.id);
             if (craft != null) {
-                int resultCount = Math.min(craftContainer.count, Items.getItemById(SAUW.getId("item:hammer")).getItemConfiguration().maxDamage - toolWallContainer.damage);
+                int resultCount = Math.min(craftContainer.count, GameContext.getItem(SAUW.getId("item:hammer")).getItemConfiguration().maxDamage - toolWallContainer.damage);
                 for (int i = 0; i < resultCount; i++) {
                     PLAYER.inventory.addItem(tile.getContainer("craft_hammer_result").id, craft.result[1]);
                     toolWallContainer.setItem(toolWallContainer.id, toolWallContainer.count, toolWallContainer.damage + 1);

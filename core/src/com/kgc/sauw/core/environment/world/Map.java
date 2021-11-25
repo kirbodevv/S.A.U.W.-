@@ -2,6 +2,7 @@ package com.kgc.sauw.core.environment.world;
 
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.world.chunk.Chunk;
@@ -118,7 +119,7 @@ public class Map {
     }
 
     public boolean setBlock(int x, int y, int z, int id) {
-        Block block = Blocks.getBlockById(id);
+        Block block = GameContext.getBlock(id);
         Tile tile = new Tile();
         tile.createTile(x, y, z, block);
 

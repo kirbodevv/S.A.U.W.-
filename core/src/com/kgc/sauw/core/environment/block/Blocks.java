@@ -1,35 +1,23 @@
 package com.kgc.sauw.core.environment.block;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.kgc.sauw.core.register.Register;
 
-import java.util.ArrayList;
-
-public class Blocks {
-    private static final ArrayList<Block> BLOCKS = new ArrayList<>();
-
+public class Blocks extends Register<Block> {
+    public static final Blocks INSTANCE = new Blocks();
     private static float stateTime = 0.0f;
-
-    public static Block getBlockById(int id) {
-        for (Block block : BLOCKS)
-            if (block.id == id) return block;
-        return null;
-    }
 
     public static void animationTick() {
         stateTime += Gdx.graphics.getDeltaTime();
     }
 
     public static void blockTick() {
-        for (Block block : BLOCKS)
+        for (Block block : INSTANCE.objects)
             block.tick();
     }
 
-    public static void defineBlock(Block block) {
-        BLOCKS.add(block);
-    }
-
-    public static void createBlock(int id, Texture t0) {
-        defineBlock(new Block(t0));
+    @Override
+    public String getIDGroup() {
+        return "block";
     }
 }

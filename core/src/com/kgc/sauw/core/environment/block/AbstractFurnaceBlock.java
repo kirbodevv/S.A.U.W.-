@@ -8,8 +8,8 @@ public abstract class AbstractFurnaceBlock extends Block implements HeatingBlock
     public abstract float getWorkTemperature();
 
     @Override
-    public float heatTemperature(Tile tile) {
-        return (float) tile.getExtraData("currentTemperature");
+    public double heatTemperature(Tile tile) {
+        return (double) tile.getExtraData("currentTemperature");
     }
 
     @Override
@@ -23,14 +23,13 @@ public abstract class AbstractFurnaceBlock extends Block implements HeatingBlock
             }
         } else {
             tile.setExtraData("burnTime", (int) tile.getExtraData("burnTime") - 1);
-            tile.setExtraData("currentTemperature", (float) tile.getExtraData("currentTemperature") + 0.1f);
+            tile.setExtraData("currentTemperature", (double) tile.getExtraData("currentTemperature") + 0.1d);
         }
-        System.out.println("Нагрев :" + tile.getExtraData("currentTemperature") + "C");
     }
 
     @Override
     public void setDefaultExtraData(Tile tile) {
-        tile.setExtraData("currentTemperature", 0f);
+        tile.setExtraData("currentTemperature", 0d);
         tile.setExtraData("burnTime", 0);
     }
 

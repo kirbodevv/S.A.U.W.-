@@ -1,5 +1,5 @@
 {
-  "id": "item:iron_plate",
+  "id": "iron_plate",
   "texture": "Items/iron_plate.png",
   "itemConfiguration": {
     "maxCount": 64,

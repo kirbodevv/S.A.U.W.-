@@ -38,11 +38,11 @@ public class ItemsBuilder implements Builder {
 
         String code = "";
         if (type.equals("INSTRUMENT"))
-            code += "\n\t\titem = new InstrumentItem(\"" + id + "\");";
+            code += "\n\t\titem = new InstrumentItem();";
         else
-            code += "\n\t\titem = new Item(\"" + id + "\");";
+            code += "\n\t\titem = new Item();";
 
-        code += "\n\t\titemConfiguration = new ItemConfiguration(\"" + id + "\");";
+        code += "\n\t\titemConfiguration = new ItemConfiguration();";
         code += "\n\t\titem.setTexture(\"" + texture + "\");";
         code += "\n\t\titemConfiguration.maxCount = " + maxCount + ";";
         code += "\n\t\titemConfiguration.weight = " + weight + "f;";
@@ -63,7 +63,7 @@ public class ItemsBuilder implements Builder {
         }
 
         code += "\n\t\titem.setItemConfiguration(itemConfiguration);";
-        code += "\n\t\tItems.defineItem(item);";
+        code += "\n\t\tItems.INSTANCE.register(item, \"sauw\", \"" + id + "\");";
 
         return code;
     }

@@ -89,7 +89,7 @@ public class Layout extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
-        if (background != null) background.draw(x, y, width, height);
+        if (background != null) background.draw(x + cam.X, y + cam.Y, width, height);
         for (InterfaceElement element : elements) {
             element.render(batch, cam);
         }
@@ -127,7 +127,7 @@ public class Layout extends InterfaceElement {
         updateSize();
     }
 
-    private void setElementsPosition() {
+    public void setElementsPosition() {
         Sides layoutAttachSide = null;
         Sides elementAttachSide = null;
         if (orientation == Orientation.VERTICAL) {

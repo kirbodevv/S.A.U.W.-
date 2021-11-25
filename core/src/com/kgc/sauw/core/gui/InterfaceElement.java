@@ -46,17 +46,20 @@ public abstract class InterfaceElement {
         wasUp = false;
 
         if (!hidden) {
-            hover = Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height;
+            hover = Gdx.input.getX() - cam.X > x &&
+                    Gdx.input.getX() - cam.X < x + width &&
+                    cam.H - Gdx.input.getY() - cam.Y > y &&
+                    cam.H - Gdx.input.getY() - cam.Y < y + height;
             if (Gdx.input.isTouched()) {
                 if (!isTouched) {
-                    if (Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height)
+                    if (hover)
                         this_touched = true;
                     isTouched = true;
 
                 }
             }
             if (this_touched && !Gdx.input.isTouched()) {
-                if (Gdx.input.getX() > x && Gdx.input.getX() < x + width && cam.H - Gdx.input.getY() > y && cam.H - Gdx.input.getY() < y + height) {
+                if (hover) {
                     onClick(true);
                     onClick();
                     wasClicked = true;

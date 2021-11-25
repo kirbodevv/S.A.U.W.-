@@ -3,7 +3,7 @@ package com.kgc.sauw.core.environment.world;
 import box2dLight.Light;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.physics.box2d.Filter;
-import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
 
@@ -64,10 +64,10 @@ public class WorldRenderer {
     public static void renderBlock(int x, int y, boolean isHighestLayer, World world) {
         int z = world.map.getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, Blocks.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().x, Blocks.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
+            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().x, GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
                 if (!isHighestLayer || z == 0) {
                     BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
-                    if (!isHighestLayer && z == 0 && Blocks.getBlockById(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
+                    if (!isHighestLayer && z == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
                     world.map.getTile(x, y, z).render();

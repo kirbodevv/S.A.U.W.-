@@ -1,5 +1,5 @@
 {
-  "id": "item:stick",
+  "id": "stick",
   "texture": "Items/stick.png",
   "itemConfiguration": {
     "maxCount": 64,

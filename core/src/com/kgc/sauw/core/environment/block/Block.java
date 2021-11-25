@@ -62,4 +62,8 @@ public class Block extends RegistryObject {
 
     public void click(Tile tile) {
     }
+
+    @Override
+    public void init() {
+    }
 }

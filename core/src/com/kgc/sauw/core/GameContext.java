@@ -1,5 +1,7 @@
 package com.kgc.sauw.core;
 
+import com.kgc.sauw.core.environment.achievements.Achievement;
+import com.kgc.sauw.core.environment.achievements.Achievements;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.block.Blocks;
 import com.kgc.sauw.core.environment.item.Item;
@@ -45,5 +47,9 @@ public class GameContext {
 
     public static Item getItem(int id) {
         return Items.INSTANCE.get(id);
+    }
+
+    public static Achievement getAchievement(int id) {
+        return Achievements.INSTANCE.get(id);
     }
 }

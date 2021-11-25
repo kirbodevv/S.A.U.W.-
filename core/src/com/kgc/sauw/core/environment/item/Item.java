@@ -69,6 +69,11 @@ public class Item extends RegistryObject {
     }
 
     public String getDefaultName() {
-        return name = Languages.getString(package_ + "items." + stringId);
+        return name;
+    }
+
+    @Override
+    public void init() {
+        name = Languages.getString(package_ + ".items." + stringId);
     }
 }

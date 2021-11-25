@@ -1,16 +1,15 @@
 package com.kgc.sauw.core.environment.achievements;
 
-import com.badlogic.gdx.Gdx;
+import com.kgc.sauw.core.register.Registry;
+
 import static com.kgc.sauw.core.GameContext.SAUW;
 
-import java.util.ArrayList;
-
-public class Achievements {
-    private static final ArrayList<Achievement> achievements = new ArrayList<>();
+public class Achievements extends Registry<Achievement> {
+    public static final Achievements INSTANCE = new Achievements();
 
     public static void checkAchievements(AchievementsData achievementsData) {
         try {
-            for (Achievement achievement : achievements)
+            for (Achievement achievement : INSTANCE.objects)
                 if (achievement.check()) {
                     giveAchievement(achievement, achievementsData);
                 }
@@ -20,8 +19,8 @@ public class Achievements {
     }
 
     public static void giveAchievement(String id, AchievementsData achievementsData) {
-        for (Achievement achievement : achievements) {
-            if (achievement.id == SAUW.getId(id)) giveAchievement(achievement, achievementsData);
+        for (Achievement achievement : INSTANCE.objects) {
+            if (achievement.getId() == SAUW.getId(id)) giveAchievement(achievement, achievementsData);
         }
     }
 
@@ -29,9 +28,8 @@ public class Achievements {
         achievementsData.addAchievement(achievement);
     }
 
-    public static void defineAchievement(Achievement achievement) {
-        achievements.add(achievement);
-        Gdx.app.log("Achievements", "Achievement defined with integer id " + achievement.id);
+    @Override
+    public String getIDGroup() {
+        return "achievement";
     }
-
 }

@@ -51,6 +51,6 @@ public class ID {
         registeredIdGroup("animation", 1200);
         registeredIdGroup("animation_region", 1200);
         registeredIdGroup("particle", 1200);
-        registeredIdGroup("achievements", 1200);
+        registeredIdGroup("achievement", 1200);
     }
 }

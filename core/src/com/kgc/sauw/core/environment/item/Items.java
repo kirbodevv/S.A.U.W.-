@@ -2,12 +2,12 @@ package com.kgc.sauw.core.environment.item;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.mod.ModResources;
-import com.kgc.sauw.core.register.Register;
+import com.kgc.sauw.core.register.Registry;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Items extends Register<Item> {
+public class Items extends Registry<Item> {
     public static final Items INSTANCE = new Items();
     private static final ArrayList<Item> ITEMS = new ArrayList<>();
 

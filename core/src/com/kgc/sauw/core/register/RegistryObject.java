@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.register;
 
-public class RegistryObject {
+public abstract class RegistryObject {
     protected int id;
     protected String stringId;
     protected String package_;
@@ -28,4 +28,6 @@ public class RegistryObject {
     protected void setPackage_(String package_) {
         this.package_ = package_;
     }
+
+    public abstract void init();
 }

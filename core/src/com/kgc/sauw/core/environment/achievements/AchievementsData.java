@@ -19,9 +19,9 @@ public class AchievementsData {
     private final ArrayList<String> receivedAchievements = new ArrayList<>();
 
     public void addAchievement(Achievement achievement) {
-        if (!hasAchievement(achievement.stringID)) {
-            this.receivedAchievements.add(achievement.stringID);
-            Gdx.app.log("Achievements", "Player received achievement " + achievement.stringID);
+        if (!hasAchievement(achievement.getStringId())) {
+            this.receivedAchievements.add(achievement.getStringId());
+            Gdx.app.log("Achievements", "Player received achievement " + achievement.getStringId());
         }
     }
 

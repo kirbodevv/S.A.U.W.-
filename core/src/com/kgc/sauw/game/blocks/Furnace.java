@@ -3,6 +3,7 @@ package com.kgc.sauw.game.blocks;
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.environment.block.AbstractFurnaceBlock;
 import com.kgc.sauw.core.environment.item.InstrumentItem;
+import com.kgc.sauw.core.environment.world.Tile;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.utils.Resource;
 
@@ -33,11 +34,13 @@ public class Furnace extends AbstractFurnaceBlock {
 
         GUI = FURNACE_INTERFACE;
     }
-    /*@Override
+
+    @Override
     public void animationTick(Tile tile) {
-        sprite.setRegion(animator.getFrames("animation_region:furnace")[0]);
-        if ((int) (tile.getExtraData("fuel")) > 0) sprite.setRegion(animator.getFrame("animation:furnace"));
-    }*/
+        sprite.setRegion((int) (tile.getExtraData("burnTime")) > 0 ?
+                animator.getFrame("animation:furnace") :
+                animator.getFrames("animation_region:furnace")[0]);
+    }
 
     @Override
     public float getWorkTemperature() {

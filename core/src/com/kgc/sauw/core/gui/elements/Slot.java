@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.GameContext;
-import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.ElementSkin;
 import com.kgc.sauw.core.gui.Interface;
@@ -80,9 +79,8 @@ public class Slot extends InterfaceElement {
             toItemX = cam.X + x;
             toItemY = cam.Y + y;
         }
-
-        itemX = MathUtils.lerp(itemX, toItemX, 0.05f);
-        itemY = MathUtils.lerp(itemY, toItemY, 0.05f);
+        itemX = isTouched() ? MathUtils.lerp(itemX, toItemX, 0.05f) : toItemX;
+        itemY = isTouched() ? MathUtils.lerp(itemY, toItemY, 0.05f) : toItemY;
     }
 
     @Override
@@ -122,13 +120,6 @@ public class Slot extends InterfaceElement {
         }
         itemX = INTERFACE_CAMERA.X + x;
         itemY = INTERFACE_CAMERA.Y + y;
-    }
-
-    @Override
-    public void setPosition(float x, float y) {
-        super.setPosition(x, y);
-        itemX = this.x;
-        itemY = this.y;
     }
 
     public void itemRender() {

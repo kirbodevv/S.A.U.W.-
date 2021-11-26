@@ -130,7 +130,7 @@ public class Interface {
             mainLayout.setPosition(
                     MathUtils.lerp(mainLayout.x, (SCREEN_WIDTH - mainLayout.width) / 2f, 0.1f),
                     MathUtils.lerp(mainLayout.y, (SCREEN_HEIGHT - mainLayout.height - BLOCK_SIZE) / 2f, 0.1f));
-            mainLayout.hide(false);
+            mainLayout.updatePosition();
             mainLayout.update(INTERFACE_CAMERA);
 
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
@@ -147,7 +147,6 @@ public class Interface {
             COLOR_ALPHA = MathUtils.lerp(color.a, 1f, 0.1f);
             color.set(1f, 1f, 1f, COLOR_ALPHA);
             BATCH.setColor(color);
-            System.out.println(color.a);
             mainLayout.render(BATCH, INTERFACE_CAMERA);
 
             actionBar.render(BATCH, INTERFACE_CAMERA);
@@ -155,7 +154,6 @@ public class Interface {
             preRender();
 
             closeInterfaceButton.render(BATCH, INTERFACE_CAMERA);
-
             for (Slot slot : slots) {
                 slot.itemRender();
             }

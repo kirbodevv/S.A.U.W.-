@@ -127,6 +127,13 @@ public class Layout extends InterfaceElement {
         updateSize();
     }
 
+    public void updatePosition() {
+        setElementsPosition();
+        updateSize();
+        for (InterfaceElement element : elements)
+            if (element instanceof Layout) ((Layout) element).updatePosition();
+    }
+
     public void setElementsPosition() {
         Sides layoutAttachSide = null;
         Sides elementAttachSide = null;

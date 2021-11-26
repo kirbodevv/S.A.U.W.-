@@ -11,11 +11,13 @@ import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.callbacks.TouchOnBlock;
-import com.kgc.sauw.core.entity.*;
+import com.kgc.sauw.core.entity.AbstractEntityRenderer;
+import com.kgc.sauw.core.entity.Entity;
+import com.kgc.sauw.core.entity.EntityManager;
+import com.kgc.sauw.core.entity.LivingEntity;
 import com.kgc.sauw.core.entity.entities.drop.Drop;
 import com.kgc.sauw.core.environment.achievements.AchievementsData;
 import com.kgc.sauw.core.environment.item.Item;
-import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.environment.item.Type;
 import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.math.Maths;
@@ -107,7 +109,7 @@ public class Player extends LivingEntity implements ExtraData {
 
         pointLight = new PointLight(rayHandler, 100, new Color(0.6f, 0.6f, 0, 1f), 5, 0, 0);
         pointLight.attachToBody(body);
-
+        setLightActive(false);
         Callback.addCallback(new TouchOnBlock() {
             @Override
             public void main(Vector3 position) {

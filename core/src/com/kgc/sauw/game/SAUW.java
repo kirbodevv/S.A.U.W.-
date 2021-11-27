@@ -9,7 +9,6 @@ import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.environment.achievements.Achievements;
 import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.environment.world.WorldRenderer;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
@@ -19,11 +18,6 @@ import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
-import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.game.environment.GameBlocks;
-import com.kgc.sauw.game.generated.AchievementsGenerated;
-import com.kgc.sauw.game.generated.ItemsGenerated;
-import com.kgc.sauw.game.items.Torch;
 import com.kgc.sauw.game.worlds.ChristmasWorld;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -47,11 +41,6 @@ public class SAUW implements Screen {
 
     public SAUW(String worldName) {
         DR = new Box2DDebugRenderer();
-
-        ItemsGenerated.init();
-        AchievementsGenerated.init();
-        Items.INSTANCE.register(new Torch(), "sauw", "torch");
-        new GameBlocks();
 
         Music.setVolume(Settings.musicVolume);
 
@@ -109,9 +98,7 @@ public class SAUW implements Screen {
 
     @Override
     public void dispose() {
-        BATCH.dispose();
-        Resource.dispose();
-        Mods.disposeResources();
+        throw new RuntimeException("It works, but you shouldn't use it :moyai:");
     }
 
     @Override
@@ -149,7 +136,8 @@ public class SAUW implements Screen {
                 sleep(50);
             } catch (Exception ignored) {
             }
-            new UpdateTick().start();
+            if (isGameRunning)
+                new UpdateTick().start();
         }
     }
 }

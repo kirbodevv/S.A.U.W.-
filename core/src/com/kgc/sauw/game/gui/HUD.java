@@ -150,18 +150,15 @@ public class HUD {
         buildButton = new Button("building_button", 0, 0, 0, 0);
         buildButton.setSizeInBlocks(1f, 1f);
         buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
-        buildButton.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                if (!Building.building) {
-                    Building.startBuilding();
-                    buildButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
-                } else {
-                    Building.stopBuilding();
-                    buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
-                }
-
+        buildButton.addEventListener(() -> {
+            if (!Building.building) {
+                Building.startBuilding();
+                buildButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
+            } else {
+                Building.stopBuilding();
+                buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
             }
+
         });
 
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
@@ -263,8 +260,10 @@ public class HUD {
         INTERFACE_CAMERA.update(BATCH);
         BATCH.setColor(1f, 1f, 1f, 0.7f);
         mainLayout.render(BATCH, INTERFACE_CAMERA);
-        craftingButton.render(BATCH, INTERFACE_CAMERA);
-        buildButton.render(BATCH, INTERFACE_CAMERA);
+        if (!isAnyInterfaceOpen()) {
+            craftingButton.render(BATCH, INTERFACE_CAMERA);
+            buildButton.render(BATCH, INTERFACE_CAMERA);
+        }
         BATCH.setColor(1f, 1f, 1f, 1f);
         renderInterfaces();
         if (!isAnyInterfaceOpen() && debug)

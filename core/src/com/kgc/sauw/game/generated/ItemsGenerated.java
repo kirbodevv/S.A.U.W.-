@@ -217,5 +217,8 @@ public class ItemsGenerated {
 		itemConfiguration.type = Type.ITEM;
 		item.setItemConfiguration(itemConfiguration);
 		Items.INSTANCE.register(item, "sauw", "aluminium_can");
+
+		item = new com.kgc.sauw.game.items.Torch();
+		Items.INSTANCE.register(item, "sauw", "torch");
     }
 }

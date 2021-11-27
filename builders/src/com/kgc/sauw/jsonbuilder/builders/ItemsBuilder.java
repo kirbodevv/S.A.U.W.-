@@ -27,44 +27,48 @@ public class ItemsBuilder implements Builder {
     }
 
     private static String generateItem(JSONObject item) {
-        JSONObject itemConfiguration = item.getJSONObject("itemConfiguration");
-
         String id = item.getString("id");
-        String texture = item.getString("texture");
-        int maxCount = itemConfiguration.getInt("maxCount");
-        float weight = itemConfiguration.getFloat("weight");
-        String type = itemConfiguration.getString("type");
-
 
         String code = "";
-        if (type.equals("INSTRUMENT"))
-            code += "\n\t\titem = new InstrumentItem();";
-        else
-            code += "\n\t\titem = new Item();";
 
-        code += "\n\t\titemConfiguration = new ItemConfiguration();";
-        code += "\n\t\titem.setTexture(\"" + texture + "\");";
-        code += "\n\t\titemConfiguration.maxCount = " + maxCount + ";";
-        code += "\n\t\titemConfiguration.weight = " + weight + "f;";
-        code += "\n\t\titemConfiguration.type = Type." + type + ";";
+        if (item.has("class")) {
+            code += "\n\t\titem = new " + item.get("class") + "();";
+        } else {
+            JSONObject itemConfiguration = item.getJSONObject("itemConfiguration");
+            String texture = item.getString("texture");
+            int maxCount = itemConfiguration.getInt("maxCount");
+            float weight = itemConfiguration.getFloat("weight");
+            String type = itemConfiguration.getString("type");
 
-        if (itemConfiguration.has("maxDamage"))
-            code += "\n\t\titemConfiguration.maxDamage = " + itemConfiguration.getInt("maxDamage") + ";";
-        switch (type) {
-            case "BLOCK_ITEM":
-                code += "\n\t\titemConfiguration.stringBlockId = \"" + itemConfiguration.getString("blockId") + "\";";
-                break;
-            case "INSTRUMENT":
-                code += "\n\t\titemConfiguration.instrumentType = InstrumentItem.Type." + itemConfiguration.getString("instrumentType") + ";";
-                break;
-            case "FOOD":
-                code += "\n\t\titemConfiguration.foodScore = " + itemConfiguration.getInt("foodScore") + ";";
-                break;
+
+            if (type.equals("INSTRUMENT"))
+                code += "\n\t\titem = new InstrumentItem();";
+            else
+                code += "\n\t\titem = new Item();";
+
+            code += "\n\t\titemConfiguration = new ItemConfiguration();";
+            code += "\n\t\titem.setTexture(\"" + texture + "\");";
+            code += "\n\t\titemConfiguration.maxCount = " + maxCount + ";";
+            code += "\n\t\titemConfiguration.weight = " + weight + "f;";
+            code += "\n\t\titemConfiguration.type = Type." + type + ";";
+
+            if (itemConfiguration.has("maxDamage"))
+                code += "\n\t\titemConfiguration.maxDamage = " + itemConfiguration.getInt("maxDamage") + ";";
+            switch (type) {
+                case "BLOCK_ITEM":
+                    code += "\n\t\titemConfiguration.stringBlockId = \"" + itemConfiguration.getString("blockId") + "\";";
+                    break;
+                case "INSTRUMENT":
+                    code += "\n\t\titemConfiguration.instrumentType = InstrumentItem.Type." + itemConfiguration.getString("instrumentType") + ";";
+                    break;
+                case "FOOD":
+                    code += "\n\t\titemConfiguration.foodScore = " + itemConfiguration.getInt("foodScore") + ";";
+                    break;
+            }
+
+            code += "\n\t\titem.setItemConfiguration(itemConfiguration);";
         }
-
-        code += "\n\t\titem.setItemConfiguration(itemConfiguration);";
         code += "\n\t\tItems.INSTANCE.register(item, \"sauw\", \"" + id + "\");";
-
         return code;
     }
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Interface id="pause" isBlockInterface="false" Inventory="false">
     <RootLayout id="MainLayout">
-        <Button id="resume" width="4bl" height="1bl"/>
-        <Button id="save_world" width="4bl" height="1bl"/>
+        <Button id="resume" width="6bl" height="1bl" marginBottom="0.5bl" translateY="-1bl" translateX="-3bl"/>
+        <Button id="save_world" width="6bl" height="1bl" marginBottom="0.5bl"/>
+        <Button id="settings" width="6bl" height="1bl" marginBottom="0.5bl"/>
+        <Button id="exit" width="6bl" height="1bl"/>
     </RootLayout>
 </Interface>

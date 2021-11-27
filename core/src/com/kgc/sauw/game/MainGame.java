@@ -4,7 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.sauw.game.environment.GameBlocks;
+import com.kgc.sauw.game.generated.AchievementsGenerated;
+import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
 import org.json.JSONObject;
 
@@ -15,7 +17,20 @@ import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
 public class MainGame extends Game {
     private static MainGame game;
     private static MenuScreen menuScreen;
+    private static SAUW sauw;
     private static JSONObject data;
+
+    public static void loadGame(String worldName) {
+        sauw = new SAUW(worldName);
+        getGame().setScreen(sauw);
+    }
+
+    public static void closeGame() {
+        getGame().setScreen(getMenuScreen());
+        SAUW.isGameRunning = false;
+        sauw.dispose();
+        sauw = null;
+    }
 
     public static MenuScreen getMenuScreen() {
         if (menuScreen == null) menuScreen = new MenuScreen();
@@ -47,6 +62,9 @@ public class MainGame extends Game {
             e.printStackTrace();
         }
         Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
+        ItemsGenerated.init();
+        AchievementsGenerated.init();
+        new GameBlocks();
         setScreen(getMenuScreen());
         game = this;
     }

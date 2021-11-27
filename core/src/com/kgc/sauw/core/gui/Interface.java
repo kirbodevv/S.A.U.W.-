@@ -32,6 +32,12 @@ public class Interface {
     private final Color batchColor = new Color();
     private Color color = new Color(0xFFFFFFFF);
 
+    private boolean closeButtonHidden;
+
+    public void closeButtonHidden(boolean closeButtonHidden) {
+        this.closeButtonHidden = closeButtonHidden;
+    }
+
     public Interface() {
         mainLayout = new Layout(Layout.Orientation.VERTICAL);
 
@@ -132,7 +138,7 @@ public class Interface {
                     MathUtils.lerp(mainLayout.y, (SCREEN_HEIGHT - mainLayout.height - BLOCK_SIZE) / 2f, 0.1f));
             mainLayout.updatePosition();
             mainLayout.update(INTERFACE_CAMERA);
-
+            closeInterfaceButton.hide(closeButtonHidden);
             actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
             actionBar.setPosition(mainLayout.x, mainLayout.y + mainLayout.height);
             closeInterfaceButton.setPosition(actionBar.x + actionBar.width - BLOCK_SIZE, actionBar.y + BLOCK_SIZE * 0.125f);
@@ -147,11 +153,10 @@ public class Interface {
             COLOR_ALPHA = MathUtils.lerp(color.a, 1f, 0.1f);
             color.set(1f, 1f, 1f, COLOR_ALPHA);
             BATCH.setColor(color);
+            preRender();
             mainLayout.render(BATCH, INTERFACE_CAMERA);
 
             actionBar.render(BATCH, INTERFACE_CAMERA);
-
-            preRender();
 
             closeInterfaceButton.render(BATCH, INTERFACE_CAMERA);
             for (Slot slot : slots) {

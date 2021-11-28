@@ -75,15 +75,13 @@ public class WorldRenderer {
     private static void renderBlock(int x, int y, boolean highLayer, World world) {
         int z = world.map.getHighestBlock(x, y);
         if (z != -1)
-            if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().x, GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
-                if (!highLayer || z == 0) {
-                    BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
-                    if (!highLayer && z == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
-                        z = z + 1;
-                    }
-                    world.map.getTile(x, y, z).render();
-                    BATCH.setColor(1, 1, 1, 1);
+            if (!highLayer || z == 0) {
+                BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
+                if (!highLayer && z == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
+                    z = z + 1;
                 }
+                world.map.getTile(x, y, z).render();
+                BATCH.setColor(1, 1, 1, 1);
             }
     }
 }

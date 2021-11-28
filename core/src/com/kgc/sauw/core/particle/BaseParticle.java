@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 
-public class BaseParticle {
+public abstract class BaseParticle {
     public String id;
     private Texture particle;
     private float width = BLOCK_SIZE / 8f, height = BLOCK_SIZE / 8f;
@@ -37,4 +37,6 @@ public class BaseParticle {
     public void setHeight(float height) {
         this.height = height;
     }
+
+    public abstract void createParticle(Particles.Particle particle);
 }

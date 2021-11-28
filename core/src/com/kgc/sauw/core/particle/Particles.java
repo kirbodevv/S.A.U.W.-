@@ -12,7 +12,7 @@ import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 public class Particles {
     public static class Particle {
         int id;
-        float startX, startY, x, y, duration;
+        float startX, startY, x, y, duration, direction;
         float width = BLOCK_SIZE / 8f, height = BLOCK_SIZE / 8f;
         Texture texture;
 
@@ -47,10 +47,12 @@ public class Particles {
             particlesList[i].clear();
         }
 
-        FlyingParticle flameParticle = new FlyingParticle();
+        RandomDirectionFlyingParticle flameParticle = new RandomDirectionFlyingParticle();
         RandomFlyingParticle smokeParticle = new RandomFlyingParticle();
 
         flameParticle.setTexture(Resource.getTexture("particle/flame.png"));
+        flameParticle.setWidth(0.15f);
+        flameParticle.setHeight(0.15f);
 
         smokeParticle.setTextures(Resource.getTexture("particle/smoke.png"), Resource.getTexture("particle/smoke_1.png"));
         smokeParticle.setWidth(0.75f);
@@ -76,6 +78,7 @@ public class Particles {
         for (Particle p : particlesList) {
             if (p.id == -1) {
                 p.createParticle(SAUW.getId(id), x, y, duration);
+                particles.get(SAUW.getId(id)).createParticle(p);
                 return;
             }
         }

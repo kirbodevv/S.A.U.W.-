@@ -1,6 +1,5 @@
 package com.kgc.sauw.game.blocks;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.environment.block.Block;
 import com.kgc.sauw.core.environment.world.Tile;
@@ -28,19 +27,22 @@ public class Campfire extends Block {
         animator.addAnimation("animation:campfire", "animation_region:campfire", 0.25f, 0, 1, 2, 3);
     }
 
-    private float timer = 0f;
+    private int timer = 0;
+    private int timer1 = 0;
     private boolean smokeParticles = false;
+    private boolean flameParticles = false;
 
     @Override
     public void tick() {
-        timer += Gdx.graphics.getDeltaTime();
-        if (timer >= 0.25f) {
-            if (!smokeParticles) {
-                smokeParticles = true;
-            } else {
-                smokeParticles = false;
-                timer = 0;
-            }
+        timer++;
+        timer1++;
+        if (timer >= 20) {
+            smokeParticles = true;
+            timer = 0;
+        }
+        if (timer1 >= 15) {
+            flameParticles = true;
+            timer1 = 0;
         }
     }
 
@@ -51,6 +53,14 @@ public class Campfire extends Block {
             float y = tile.y + 0.5f;
             x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:smoke", x, y, 3);
+            smokeParticles = false;
+        }
+        if (flameParticles) {
+            float x = tile.x + 0.5f;
+            float y = tile.y + 0.5f;
+            x += (random.nextFloat() - 0.5) / 2f;
+            Particles.addParticle("particle:flame", x, y, 3);
+            flameParticles = false;
         }
     }
 

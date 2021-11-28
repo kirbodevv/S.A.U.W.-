@@ -103,7 +103,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 
     public void setLight(Block bl) {
         if (bl.getBlockConfiguration().getMinLightingRadius() != -1) {
-            PL = new PointLight(rayHandler, 100, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getMinLightingRadius(), x + 0.5f, y + 0.5f);
+            PL = new PointLight(rayHandler, 10, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getMinLightingRadius(), x + 0.5f, y + 0.5f);
             PL.attachToBody(body);
             Gdx.app.log("Map", "Point light created");
         }

@@ -107,7 +107,7 @@ public class Player extends LivingEntity implements ExtraData {
             this.hotbar[i] = -1;
         }
 
-        pointLight = new PointLight(rayHandler, 100, new Color(0.6f, 0.6f, 0, 1f), 5, 0, 0);
+        pointLight = new PointLight(rayHandler, 10, new Color(0.6f, 0.6f, 0, 1f), 5, 0, 0);
         pointLight.attachToBody(body);
         setLightActive(false);
         Callback.addCallback(new TouchOnBlock() {

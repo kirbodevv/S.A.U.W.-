@@ -4,12 +4,14 @@ import box2dLight.Light;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.kgc.sauw.core.GameContext;
+import com.kgc.sauw.core.entity.Entity;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.physic.Physic;
 
-import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
+import static com.kgc.sauw.core.entity.EntityManager.ENTITIES_LIST;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 
 public class WorldRenderer {
     public static RayHandler rayHandler;
@@ -34,40 +36,45 @@ public class WorldRenderer {
     }
 
     public static void render(World world) {
-        render(false, world);
-        renderEntities();
-        render(true, world);
+        renderMap(world, false);
+        renderMap(world, true);
+        renderEntities(world);
         renderLights(world);
     }
 
-    private static void renderEntities() {
-        if (ENTITY_MANAGER != null) {
-            ENTITY_MANAGER.render(GAME_CAMERA);
+    private static void renderEntities(World world) {
+        renderEntity(PLAYER, world);
+        for (Entity entity : ENTITIES_LIST) renderEntity(entity, world);
+    }
+
+    private static void renderEntity(Entity entity, World world) {
+        if (Maths.rectCrossing(
+                entity.getPosition().x, entity.getPosition().y, entity.getSize().x, entity.getSize().y,
+                GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H)) {
+            entity.render();
+            renderBlock(entity.getCurrentTileX(), entity.getCurrentTileY(), true, world);
         }
     }
 
-    private static void render(boolean isHighestLayer, World world) {
-        for (int y = Map.ySize - 1; y >= 0; y--) {
-            for (int x = 0; x < Map.xSize; x++) {
-                if (isHighestLayer) {
-                    if (PLAYER.getCurrentTileX() == x && PLAYER.getCurrentTileY() == y) {
-                        PLAYER.render();
-                        if (Maths.rectCrossing((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, (int) PLAYER.getSize().x, (int) PLAYER.getSize().y, BLOCK_SIZE * (x - 1), BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE))
-                            renderBlock(x - 1, y, true, world);
-                    }
-                    renderBlock(x, y, true, world);
-                } else renderBlock(x, y, false, world);
+    private static void renderMap(World world, boolean highLayer) {
+        int camX = (int) Math.floor(GAME_CAMERA.X);
+        int camXW = (int) Math.ceil(GAME_CAMERA.X + GAME_CAMERA.W);
+        int camY = (int) Math.floor(GAME_CAMERA.Y);
+        int camYH = (int) Math.ceil(GAME_CAMERA.Y + GAME_CAMERA.H);
+        for (int x = camX; x < camXW; x++) {
+            for (int y = camY; y < camYH; y++) {
+                renderBlock(x, y, highLayer, world);
             }
         }
     }
 
-    public static void renderBlock(int x, int y, boolean isHighestLayer, World world) {
+    private static void renderBlock(int x, int y, boolean highLayer, World world) {
         int z = world.map.getHighestBlock(x, y);
         if (z != -1)
             if (Maths.rectCrossing(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y, GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().x, GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().getSize().y)) {
-                if (!isHighestLayer || z == 0) {
+                if (!highLayer || z == 0) {
                     BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
-                    if (!isHighestLayer && z == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
+                    if (!highLayer && z == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
                         z = z + 1;
                     }
                     world.map.getTile(x, y, z).render();

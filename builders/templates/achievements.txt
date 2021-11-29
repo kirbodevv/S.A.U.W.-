@@ -1,9 +1,9 @@
 package com.kgc.sauw.game.generated;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.core.environment.achievements.Achievement;
-import com.kgc.sauw.core.environment.achievements.Achievements;
-import com.kgc.sauw.core.environment.achievements.JSChecker;
+import com.kgc.sauw.core.achievements.Achievement;
+import com.kgc.sauw.core.achievements.Achievements;
+import com.kgc.sauw.core.achievements.JSChecker;
 import com.kgc.sauw.core.utils.Resource;
 import com.kgc.sauw.core.utils.StringUtils;
 

@@ -1,19 +1,7 @@
 package com.kgc.sauw.game.gui.interfaces;
 
-import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.environment.Crafting;
-import com.kgc.sauw.core.environment.item.Items;
 import com.kgc.sauw.core.gui.Interface;
-import com.kgc.sauw.core.gui.InterfaceUtils;
-import com.kgc.sauw.core.gui.OnClickListener;
-import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.utils.Resource;
-import com.kgc.sauw.core.utils.languages.Languages;
-
-import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
-import static com.kgc.sauw.core.graphic.Graphic.BATCH;
-import static com.kgc.sauw.game.environment.Environment.CRAFTING;
 
 public class CraftingInterface extends Interface {
     /*private final TextView craftName;

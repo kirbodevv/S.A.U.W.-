@@ -16,15 +16,15 @@ import com.kgc.sauw.core.entity.Entity;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.entity.LivingEntity;
 import com.kgc.sauw.core.entity.entities.drop.Drop;
-import com.kgc.sauw.core.environment.achievements.AchievementsData;
-import com.kgc.sauw.core.environment.item.Item;
-import com.kgc.sauw.core.environment.item.Type;
+import com.kgc.sauw.core.achievements.AchievementsData;
+import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.item.Type;
 import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.math.Maths;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.core.environment.world.WorldRenderer.rayHandler;
+import static com.kgc.sauw.core.world.WorldRenderer.rayHandler;
 import static com.kgc.sauw.game.gui.Interfaces.DEAD_INTERFACE;
 
 public class Player extends LivingEntity implements ExtraData {

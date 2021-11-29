@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.core.environment.world.WorldLoader;
+import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;

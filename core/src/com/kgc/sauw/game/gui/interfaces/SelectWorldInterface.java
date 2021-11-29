@@ -1,7 +1,7 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.core.environment.world.WorldLoader;
+import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.OnClickListener;

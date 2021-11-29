@@ -1,7 +1,7 @@
 package com.kgc.sauw.game.worlds;
 
-import com.kgc.sauw.core.environment.world.Map;
-import com.kgc.sauw.core.environment.world.World;
+import com.kgc.sauw.core.world.Map;
+import com.kgc.sauw.core.world.World;
 import com.kgc.sauw.core.utils.WorldUtils;
 
 import java.util.Random;

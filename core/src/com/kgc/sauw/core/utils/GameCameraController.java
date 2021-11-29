@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.utils;
 
-import com.kgc.sauw.core.environment.world.Map;
+import com.kgc.sauw.core.world.Map;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;

@@ -3,7 +3,7 @@ package com.kgc.sauw.core.mod;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.game.gui.Interfaces;
 import org.json.JSONObject;
 import org.mozilla.javascript.Scriptable;
@@ -12,7 +12,6 @@ import org.mozilla.javascript.ScriptableObject;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.mod.Mods.context;
-import static com.kgc.sauw.game.environment.Environment.CRAFTING;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 
 public class Mod {
@@ -60,7 +59,7 @@ public class Mod {
     }
 
     private void loadCrafts() {
-        CRAFTING.addCraftsFromDirectory(craftsFolder);
+        //CRAFTING.addCraftsFromDirectory(craftsFolder);
     }
 
     private void loadItems() {

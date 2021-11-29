@@ -1,6 +1,6 @@
 package com.kgc.sauw.game.generated;
 
-import com.kgc.sauw.core.environment.item.*;
+import com.kgc.sauw.core.item.*;
 
 public class ItemsGenerated {
     public static void init() {

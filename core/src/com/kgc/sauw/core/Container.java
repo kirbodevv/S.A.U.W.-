@@ -2,7 +2,7 @@ package com.kgc.sauw.core;
 
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
-import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.utils.ID;
 
 public class Container implements ExtraData {
     @Override
@@ -58,6 +58,10 @@ public class Container implements ExtraData {
                 damage >= GameContext.getItem(id).getItemConfiguration().maxDamage)) {
             clear();
         }
+    }
+
+    public void setItem(String fullId, int count, int damage) {
+        setItem(ID.get(fullId), count, damage);
     }
 
     public void setItemFromContainer(Container container) {

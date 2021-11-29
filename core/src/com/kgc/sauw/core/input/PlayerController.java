@@ -9,8 +9,7 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
-import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.game.gui.Interfaces;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;

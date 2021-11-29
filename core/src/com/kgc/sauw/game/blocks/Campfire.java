@@ -1,8 +1,8 @@
 package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.Color;
-import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.utils.Resource;
@@ -37,12 +37,14 @@ public class Campfire extends Block {
         timer++;
         timer1++;
         if (timer >= 20) {
-            smokeParticles = true;
-            timer = 0;
+            smokeParticles = !smokeParticles;
+            if (!smokeParticles)
+                timer = 0;
         }
         if (timer1 >= 15) {
-            flameParticles = true;
-            timer1 = 0;
+            flameParticles = !flameParticles;
+            if (!flameParticles)
+                timer1 = 0;
         }
     }
 
@@ -53,14 +55,12 @@ public class Campfire extends Block {
             float y = tile.y + 0.5f;
             x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:smoke", x, y, 3);
-            smokeParticles = false;
         }
         if (flameParticles) {
             float x = tile.x + 0.5f;
             float y = tile.y + 0.5f;
             x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:flame", x, y, 3);
-            flameParticles = false;
         }
     }
 

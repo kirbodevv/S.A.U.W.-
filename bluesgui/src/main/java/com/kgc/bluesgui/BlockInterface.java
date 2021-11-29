@@ -1,6 +1,6 @@
 package com.kgc.bluesgui;
 
-import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 

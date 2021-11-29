@@ -1,11 +1,13 @@
 package com.kgc.sauw.core;
 
-import com.kgc.sauw.core.environment.achievements.Achievement;
-import com.kgc.sauw.core.environment.achievements.Achievements;
-import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.environment.item.Item;
-import com.kgc.sauw.core.environment.item.Items;
+import com.kgc.sauw.core.achievements.Achievement;
+import com.kgc.sauw.core.achievements.Achievements;
+import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.block.Blocks;
+import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.recipes.Recipe;
+import com.kgc.sauw.core.recipes.Recipes;
 import com.kgc.sauw.core.utils.ID;
 
 import java.util.HashMap;
@@ -27,11 +29,11 @@ public class GameContext {
         return context;
     }
 
+    private final String package_;
+
     public GameContext(String package_) {
         this.package_ = package_;
     }
-
-    private final String package_;
 
     public int registerId(String key) {
         return ID.registeredId(package_, key);
@@ -51,5 +53,9 @@ public class GameContext {
 
     public static Achievement getAchievement(int id) {
         return Achievements.INSTANCE.get(id);
+    }
+
+    public static Recipe getRecipe(int id) {
+        return Recipes.INSTANCE.get(id);
     }
 }

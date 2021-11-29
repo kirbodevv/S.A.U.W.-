@@ -1,10 +1,8 @@
 package com.kgc.sauw.game.environment;
 
-import com.kgc.sauw.core.environment.block.Air;
-import com.kgc.sauw.core.environment.block.Blocks;
+import com.kgc.sauw.core.block.Air;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.game.blocks.*;
-
-import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class GameBlocks {
     public GameBlocks() {

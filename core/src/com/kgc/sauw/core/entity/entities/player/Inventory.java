@@ -2,7 +2,6 @@ package com.kgc.sauw.core.entity.entities.player;
 
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.GameContext;
-import com.kgc.sauw.core.environment.item.Items;
 
 import java.util.ArrayList;
 

@@ -7,9 +7,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.environment.Environment;
-import com.kgc.sauw.core.environment.achievements.Achievements;
-import com.kgc.sauw.core.environment.block.Blocks;
-import com.kgc.sauw.core.environment.world.WorldRenderer;
+import com.kgc.sauw.core.achievements.Achievements;
+import com.kgc.sauw.core.block.Blocks;
+import com.kgc.sauw.core.world.WorldRenderer;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.input.Input;
@@ -63,7 +63,10 @@ public class SAUW implements Screen {
         isGameRunning = true;
 
         EntityManager.spawn("entity:egor", 10, 10);
-        PLAYER.inventory.addItem("sauw", "item:log", 10);
+        PLAYER.inventory.addItem("sauw", "item:handsaw", 1);
+        PLAYER.inventory.addItem("sauw", "item:hammer", 1);
+        PLAYER.inventory.addItem("sauw", "item:iron_ingot", 1);
+        PLAYER.inventory.addItem("sauw", "item:log", 1);
     }
 
 
@@ -129,7 +132,7 @@ public class SAUW implements Screen {
         public void run() {
             super.run();
             getWorld().map.update();
-            com.kgc.sauw.core.environment.item.Items.tick();
+            com.kgc.sauw.core.item.Items.tick();
             Achievements.checkAchievements(PLAYER.achievementsData);
             getWorld().getTime().updateTime();
             try {

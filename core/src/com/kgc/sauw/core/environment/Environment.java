@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.environment;
 
-import com.kgc.sauw.core.environment.world.WorldLoader;
-import com.kgc.sauw.core.environment.world.World;
+import com.kgc.sauw.core.world.WorldLoader;
+import com.kgc.sauw.core.world.World;
 
 public class Environment {
     private static World world;

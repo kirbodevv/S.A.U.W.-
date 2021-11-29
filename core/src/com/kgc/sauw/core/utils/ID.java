@@ -34,6 +34,10 @@ public class ID {
         return 0;
     }
 
+    public static int get(String fullId) {
+        String[] keys = fullId.split(":");
+        return get(keys[0], keys[1] + ":" + keys[2]);
+    }
 
     public static int get(String package_, String key) {
         Integer integer;
@@ -52,5 +56,6 @@ public class ID {
         registeredIdGroup("animation_region", 1200);
         registeredIdGroup("particle", 1200);
         registeredIdGroup("achievement", 1200);
+        registeredIdGroup("recipe", 1200);
     }
 }

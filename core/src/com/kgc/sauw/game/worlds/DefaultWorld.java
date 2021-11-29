@@ -1,6 +1,6 @@
 package com.kgc.sauw.game.worlds;
 
-import com.kgc.sauw.core.environment.world.World;
+import com.kgc.sauw.core.world.World;
 import com.kgc.sauw.core.utils.WorldUtils;
 
 public class DefaultWorld extends World {

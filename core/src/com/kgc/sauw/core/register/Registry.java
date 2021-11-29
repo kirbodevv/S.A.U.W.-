@@ -19,6 +19,13 @@ public abstract class Registry<I extends RegistryObject> {
         Gdx.app.log("Registry", "registered " + getIDGroup() + ", with id \"" + object.getStringId() + "\", integer id " + object.id);
     }
 
+    public boolean has(int id) {
+        for (I object : objects) {
+            if (object.id == id) return true;
+        }
+        return false;
+    }
+
     public I get(int id) {
         return objects.get(id);
     }
@@ -29,5 +36,9 @@ public abstract class Registry<I extends RegistryObject> {
             if (object.package_.equals(package_)) arrayList.add(object);
         }
         return arrayList;
+    }
+
+    public ArrayList<I> getObjects() {
+        return objects;
     }
 }

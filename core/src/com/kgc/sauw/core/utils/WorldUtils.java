@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.utils;
 
-import com.kgc.sauw.core.environment.world.Map;
-import com.kgc.sauw.core.environment.world.World;
+import com.kgc.sauw.core.world.Map;
+import com.kgc.sauw.core.world.World;
 
 public class WorldUtils {
     public static void fillLayer(World world, int layer, String id) {

@@ -6,8 +6,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.GameContext;
-import com.kgc.sauw.core.environment.block.Block;
-import com.kgc.sauw.core.environment.world.Map;
+import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.world.Map;
 import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.utils.ExtraData;
 

@@ -7,6 +7,7 @@ import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
+import com.kgc.sauw.game.generated.RecipesGenerated;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
 import org.json.JSONObject;
 
@@ -64,6 +65,7 @@ public class MainGame extends Game {
         Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
         ItemsGenerated.init();
         AchievementsGenerated.init();
+        RecipesGenerated.init();
         new GameBlocks();
         setScreen(getMenuScreen());
         game = this;

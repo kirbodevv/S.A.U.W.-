@@ -1,16 +1,20 @@
 package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.Color;
-import com.kgc.sauw.core.environment.block.AbstractFurnaceBlock;
-import com.kgc.sauw.core.environment.item.InstrumentItem;
-import com.kgc.sauw.core.environment.world.Tile;
+import com.kgc.sauw.core.block.AbstractFurnaceBlock;
+import com.kgc.sauw.core.item.InstrumentItem;
+import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.core.graphic.Animator;
+import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.utils.Resource;
+
+import java.util.Random;
 
 import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 
 public class Furnace extends AbstractFurnaceBlock {
     private final Animator animator = new Animator();
+    Random random = new Random();
 
     String[][] recipes = new String[][]{
             {"item:aluminium_can", "item:aluminium_ingot"},
@@ -33,6 +37,46 @@ public class Furnace extends AbstractFurnaceBlock {
         animator.addAnimation("animation:furnace", "animation_region:furnace", 0.2f, 1, 2, 3);
 
         GUI = FURNACE_INTERFACE;
+    }
+
+    private int timer = 0;
+    private int timer1 = 0;
+    private boolean smokeParticles = false;
+    private boolean flameParticles = false;
+
+    @Override
+    public void tick() {
+        timer++;
+        timer1++;
+        if (timer >= 20) {
+            smokeParticles = !smokeParticles;
+            if (!smokeParticles)
+                timer = 0;
+        }
+        if (timer1 >= 40) {
+            flameParticles = !flameParticles;
+            if (!flameParticles)
+                timer1 = 0;
+        }
+    }
+
+    @Override
+    public void tick(Tile tile) {
+        super.tick(tile);
+        if ((int) (tile.getExtraData("burnTime")) > 0) {
+            if (smokeParticles) {
+                float x = tile.x + 0.5f;
+                float y = tile.y + 1f;
+                x += (random.nextFloat() - 0.5) / 4f;
+                Particles.addParticle("particle:smoke", x, y, 3);
+            }
+            if (flameParticles) {
+                float x = tile.x + 0.5f;
+                float y = tile.y;
+                x += (random.nextFloat() - 0.5) / 2f;
+                Particles.addParticle("particle:flame", x, y, 3);
+            }
+        }
     }
 
     @Override

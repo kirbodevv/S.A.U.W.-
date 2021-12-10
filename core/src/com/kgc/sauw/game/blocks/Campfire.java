@@ -2,14 +2,15 @@ package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.block.Block;
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.block.LightBlock;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.world.Tile;
 
 import java.util.Random;
 
-public class Campfire extends Block {
+public class Campfire extends Block implements LightBlock {
     Random random = new Random();
     private final Animator animator;
 
@@ -17,9 +18,6 @@ public class Campfire extends Block {
         super(Resource.getTexture("Blocks/campfire.png"));
 
         blockConfiguration.setTransparent(true);
-        blockConfiguration.setMinLightingRadius(8);
-        blockConfiguration.setMaxLightingRadius(9);
-        blockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
         blockConfiguration.setCollisionsRectangleByPixels(8, 2, 18, 10, 32);
 
         animator = new Animator();
@@ -67,5 +65,15 @@ public class Campfire extends Block {
     @Override
     public void animationTick(Tile tile) {
         sprite.setRegion(animator.getFrame("animation:campfire"));
+    }
+
+    @Override
+    public int lightLevel() {
+        return 8;
+    }
+
+    @Override
+    public Color lightColor() {
+        return new Color(0.8f, 0.6f, 0, 0.5f);
     }
 }

@@ -25,7 +25,7 @@ public abstract class InterfaceElement {
 
     public float x, y, width, height;
 
-    public float BX = 0f, BY = 0f, BWidth = 0f, BHeight = 0f;
+    public float bx = 0f, by = 0f, bWidth = 0f, bHeight = 0f;
     protected boolean hidden;
     protected boolean isTouched;
     protected boolean this_touched;
@@ -173,20 +173,20 @@ public abstract class InterfaceElement {
     }
 
     public void setPositionInBlocks(float x, float y) {
-        this.BX = x;
-        this.BY = y;
+        this.bx = x;
+        this.by = y;
         setPosition(x * BLOCK_SIZE, y * BLOCK_SIZE);
     }
 
     public void setSizeInBlocks(float w, float h) {
-        this.BWidth = w;
-        this.BHeight = h;
+        this.bWidth = w;
+        this.bHeight = h;
         setSize(w * BLOCK_SIZE, h * BLOCK_SIZE);
     }
 
     public void resize() {
-        setPositionInBlocks(BX, BY);
-        setSizeInBlocks(BWidth, BHeight);
+        setPositionInBlocks(bx, by);
+        setSizeInBlocks(bWidth, bHeight);
     }
 
     protected abstract void tick(Camera2D cam);

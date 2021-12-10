@@ -25,6 +25,7 @@ public final class Interfaces {
     public static final InventoryInterface INVENTORY_INTERFACE;
     public static final TestInterface TEST_INTERFACE;
     public static final EgorInterface EGOR_INTERFACE;
+    public static final UpdatesInterface UPDATES_INTERFACE;
     /**
      * BLOCK Interfaces
      */
@@ -50,6 +51,7 @@ public final class Interfaces {
         FURNACE_INTERFACE = new FurnaceInterface();
         TOOL_WALL_INTERFACE = new ToolWallInterface();
         WORKBENCH_INTERFACE = new WorkbenchInterface();
+        UPDATES_INTERFACE = new UpdatesInterface();
 
         INTERFACES = new ArrayList<>();
 
@@ -60,6 +62,7 @@ public final class Interfaces {
         addInterface(INVENTORY_INTERFACE);
         addInterface(TEST_INTERFACE);
         addInterface(EGOR_INTERFACE);
+        addInterface(UPDATES_INTERFACE);
 
         addInterface(CHEST_INTERFACE);
         addInterface(FURNACE_INTERFACE);

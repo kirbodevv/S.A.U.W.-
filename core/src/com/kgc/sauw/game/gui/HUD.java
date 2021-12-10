@@ -252,7 +252,6 @@ public class HUD {
         hungerTextView.setText((int) PLAYER.hunger + "%");
         thirstTextView.setText((int) PLAYER.thirst + "%");
         isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
-        Interfaces.updateInterfaces();
         timeTextView.setText(getWorld().getTime().getTimeString());
     }
 
@@ -265,8 +264,7 @@ public class HUD {
             buildButton.render(BATCH, INTERFACE_CAMERA);
         }
         BATCH.setColor(1f, 1f, 1f, 1f);
-        renderInterfaces();
-        if (!isAnyInterfaceOpen() && debug)
+        if (debug)
             drawDebugString();
     }
 

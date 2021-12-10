@@ -39,7 +39,7 @@ public class ListView extends InterfaceElement {
     }
 
     private void setSliderPosAndSize() {
-        slider.setSizeInBlocks(0.5f, BHeight - 0.5f);
+        slider.setSizeInBlocks(0.5f, bHeight - 0.5f);
         slider.setTranslationX(-0.25f);
         slider.attachTo(this, Sides.RIGHT, Sides.RIGHT);
         slider.setMaxValue(100);

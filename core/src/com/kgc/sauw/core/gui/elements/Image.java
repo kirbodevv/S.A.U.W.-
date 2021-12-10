@@ -23,18 +23,13 @@ public class Image extends InterfaceElement {
     }
 
     @Override
-    public void setSize(float w, float h) {
-        super.setSize(w, h);
-        sprite.setSize(w, h);
-    }
-
-    @Override
     protected void tick(Camera2D cam) {
     }
 
     @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         sprite.setPosition(cam.X + x, cam.Y + y);
+        sprite.setSize(width, height);
         sprite.draw(batch);
     }
 

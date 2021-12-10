@@ -1,9 +1,8 @@
 package com.kgc.sauw.core.block;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import com.kgc.sauw.core.math.Vector2i;
 import com.kgc.sauw.core.item.InstrumentItem;
+import com.kgc.sauw.core.math.Vector2i;
 
 public class BlockConfiguration {
     public boolean isTransparent;
@@ -12,9 +11,6 @@ public class BlockConfiguration {
     public int[][] drop;
     public InstrumentItem.Type instrumentType;
     public final Rectangle collisionsRectangle;
-    public int minLightingRadius;
-    public int maxLightingRadius;
-    public Color lightingColor;
     public int maxDamage;
     public int blockIdAfterDestroy;
     public boolean collisions = true;
@@ -23,7 +19,6 @@ public class BlockConfiguration {
         setTransparent(false);
         setSize(1, 1);
         setInstrumentType(InstrumentItem.Type.NULL);
-        setMinLightingRadius(-1);
         setMaxDamage(1);
         setBlockIdAfterDestroy(4);
         collisionsRectangle = new Rectangle(0, 0, 1, 1);
@@ -73,18 +68,6 @@ public class BlockConfiguration {
         return collisionsRectangle;
     }
 
-    public void setMinLightingRadius(int r) {
-        this.minLightingRadius = r;
-    }
-
-    public void setMaxLightingRadius(int r) {
-        this.maxLightingRadius = r;
-    }
-
-    public void setLightingColor(Color color) {
-        lightingColor = color;
-    }
-
     public void setMaxDamage(int md) {
         this.maxDamage = md;
     }
@@ -99,18 +82,6 @@ public class BlockConfiguration {
 
     public int getBlockIdAfterDestroy() {
         return blockIdAfterDestroy;
-    }
-
-    public int getMinLightingRadius() {
-        return minLightingRadius;
-    }
-
-    public int getMaxLightingRadius() {
-        return maxLightingRadius;
-    }
-
-    public Color getLightingColor() {
-        return lightingColor;
     }
 
     public void setCollisions(boolean collisions) {

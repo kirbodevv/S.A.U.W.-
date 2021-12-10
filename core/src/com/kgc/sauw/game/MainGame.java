@@ -3,6 +3,8 @@ package com.kgc.sauw.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.kgc.sauw.UpdatesChecker;
+import com.kgc.sauw.Version;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
@@ -13,7 +15,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
+import static com.kgc.sauw.game.gui.Interfaces.*;
 
 public class MainGame extends Game {
     private static MainGame game;
@@ -69,6 +73,13 @@ public class MainGame extends Game {
         new GameBlocks();
         setScreen(getMenuScreen());
         game = this;
+        UpdatesChecker.check(() -> {
+            if (UpdatesChecker.newVersionAvailable(Version.CODE_VERSION)) {
+                UPDATES_INTERFACE.setVersion(UpdatesChecker.getLastVersionName());
+                UpdatesChecker.getChangelog(() -> UPDATES_INTERFACE.setChangelog(UpdatesChecker.getChangelog()));
+                UPDATES_INTERFACE.open();
+            }
+        });
     }
 
     public void createFiles() throws IOException {
@@ -105,6 +116,14 @@ public class MainGame extends Game {
             modsFile.file().createNewFile();
             modsFile.writeString("[]", false);
         }
+    }
 
+    @Override
+    public void render() {
+        super.render();
+        updateInterfaces();
+        BATCH.begin();
+        renderInterfaces();
+        BATCH.end();
     }
 }

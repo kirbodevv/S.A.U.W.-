@@ -30,6 +30,14 @@ public class Layout extends InterfaceElement {
 
     public ArrayList<InterfaceElement> elements;
 
+    public Size getSizeX() {
+        return sizeX;
+    }
+
+    public Size getSizeY() {
+        return sizeY;
+    }
+
     public Layout(Orientation orientation) {
         this.orientation = orientation;
         sizeX = Size.WRAP_CONTENT;

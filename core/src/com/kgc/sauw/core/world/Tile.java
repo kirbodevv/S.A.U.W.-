@@ -9,9 +9,10 @@ import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.GameContext;
+import com.kgc.sauw.core.block.Block;
+import com.kgc.sauw.core.block.LightBlock;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.entity.entities.drop.Drop;
-import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.utils.ExtraData;
@@ -100,12 +101,11 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         this.body = body;
     }
 
-    public void setLight(Block bl) {
-        if (bl.getBlockConfiguration().getMinLightingRadius() != -1) {
-            PL = new PointLight(rayHandler, 10, bl.getBlockConfiguration().getLightingColor(), bl.getBlockConfiguration().getMinLightingRadius(), x + 0.5f, y + 0.5f);
-            PL.attachToBody(body);
-            Gdx.app.log("Map", "Point light created");
-        }
+    public void setLight() {
+        LightBlock block = (LightBlock) this.block;
+        PL = new PointLight(rayHandler, 10, block.lightColor(), block.lightLevel(), x + 0.5f, y + 0.5f);
+        PL.attachToBody(body);
+        Gdx.app.log("Map", "Point light created");
     }
 
     public Container getContainer(String containerId) {
@@ -147,19 +147,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
 
     }
 
-    private float lightingTimer = 0f;
-
     public void update() {
-        if (PL != null) {
-            lightingTimer += Gdx.graphics.getDeltaTime();
-            if (lightingTimer >= 0.1) {
-                PL.setDistance(PL.getDistance() + 0.3f);
-                if (PL.getDistance() >= block.getBlockConfiguration().getMaxLightingRadius())
-                    PL.setDistance(block.getBlockConfiguration().getMinLightingRadius());
-                lightingTimer = 0f;
-
-            }
-        }
         for (Container c : containers) {
             if (c.getId() == 0) {
                 c.clear();
@@ -187,6 +175,6 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     public void setBodyAndLight() {
         if (z == 0 && block.getBlockConfiguration().getCollisions())
             setBody(Physic.createRectangleBody(this.blockRectangle.x, this.blockRectangle.y, this.blockRectangle.width, this.blockRectangle.height, BodyDef.BodyType.StaticBody, false));
-        if (z == 0) setLight(block);
+        if (z == 0 && block instanceof LightBlock) setLight();
     }
 }

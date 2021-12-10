@@ -57,8 +57,13 @@ public class XmlInterfaceLoader {
             switch (element.getNodeName()) {
                 case "Layout":
                     interfaceElement = new Layout(Layout.Orientation.valueOf(element.getAttribute("orientation")));
-                    ((Layout) interfaceElement).setSize(Layout.Size.valueOf(element.getAttribute("width")), Layout.Size.valueOf(element.getAttribute("height")));
-                    ((Layout) interfaceElement).setGravity(Layout.Gravity.valueOf(element.getAttribute("gravity")));
+                    Layout layout = (Layout) interfaceElement;
+                    layout.setSize(Layout.Size.valueOf(element.getAttribute("width")), Layout.Size.valueOf(element.getAttribute("height")));
+                    if (layout.getSizeX() == Layout.Size.FIXED_SIZE)
+                        layout.setSizeInBlocks(Units.fromStringToFloat(element.getAttribute("fixed_width")), layout.bWidth);
+                    if (layout.getSizeY() == Layout.Size.FIXED_SIZE)
+                        layout.setSizeInBlocks(layout.bWidth, Units.fromStringToFloat(element.getAttribute("fixed_height")));
+                    layout.setGravity(Layout.Gravity.valueOf(element.getAttribute("gravity")));
                     break;
                 case "Button":
                     interfaceElement = new Button("", 0, 0, 0, 0);

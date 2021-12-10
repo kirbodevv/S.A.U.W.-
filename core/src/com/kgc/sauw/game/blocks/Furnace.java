@@ -2,17 +2,18 @@ package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.block.AbstractFurnaceBlock;
-import com.kgc.sauw.core.item.InstrumentItem;
-import com.kgc.sauw.core.world.Tile;
+import com.kgc.sauw.core.block.LightBlock;
 import com.kgc.sauw.core.graphic.Animator;
+import com.kgc.sauw.core.item.InstrumentItem;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.world.Tile;
 
 import java.util.Random;
 
 import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
 
-public class Furnace extends AbstractFurnaceBlock {
+public class Furnace extends AbstractFurnaceBlock implements LightBlock {
     private final Animator animator = new Animator();
     Random random = new Random();
 
@@ -29,8 +30,6 @@ public class Furnace extends AbstractFurnaceBlock {
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
-        blockConfiguration.setMinLightingRadius(2);
-        blockConfiguration.setLightingColor(new Color(0.8f, 0.6f, 0, 0.5f));
         blockConfiguration.setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
 
         animator.addAnimationRegion("animation_region:furnace", Resource.getTexture("Blocks/furnace.png"), 4, 1);
@@ -89,5 +88,15 @@ public class Furnace extends AbstractFurnaceBlock {
     @Override
     public float getWorkTemperature() {
         return 100;
+    }
+
+    @Override
+    public int lightLevel() {
+        return 2;
+    }
+
+    @Override
+    public Color lightColor() {
+        return new Color(0.8f, 0.6f, 0, 0.5f);
     }
 }

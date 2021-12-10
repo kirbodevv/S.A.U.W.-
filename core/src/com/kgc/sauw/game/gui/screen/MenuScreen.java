@@ -3,20 +3,22 @@ package com.kgc.sauw.game.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.kgc.sauw.UpdatesChecker;
+import com.kgc.sauw.Version;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.game.gui.Interfaces.UPDATES_INTERFACE;
 
 public class MenuScreen implements Screen {
     private final Button startButton;
@@ -24,6 +26,7 @@ public class MenuScreen implements Screen {
     private final Button modsButton;
     private final Button exitButton;
     private final Image sauwLogo;
+    private final Button update;
     private final Layout coinsLayout;
 
     public int SAUW_coins;
@@ -52,6 +55,9 @@ public class MenuScreen implements Screen {
         sauwLogo = new Image();
         sauwLogo.setImg(Resource.getTexture("Interface/SAUW_Logo.png"));
 
+        update = new Button("sauw.button.menu_screen.update", 0, 0, 0, 0);
+        update.setIcon(Resource.getTexture("Interface/update_icon.png"));
+        update.addEventListener(UPDATES_INTERFACE::open);
         startButton = new Button("sauw.button.menu_screen.start", 0, 0, 0, 0);
         settingsButton = new Button("sauw.button.menu_screen.settings", 0, 0, 0, 0);
         modsButton = new Button("sauw.button.menu_screen.mods", 0, 0, 0, 0);
@@ -62,6 +68,7 @@ public class MenuScreen implements Screen {
         settingsButton.setSizeInBlocks(6, 1);
         modsButton.setSizeInBlocks(6, 1);
         exitButton.setSizeInBlocks(6, 1);
+        update.setSizeInBlocks(1, 1);
 
         startButton.setMarginBottom(0.05f);
         settingsButton.setMarginBottom(0.05f);
@@ -73,12 +80,7 @@ public class MenuScreen implements Screen {
 
         mainLayout.addElements(sauwLogo, startButton, settingsButton, modsButton, exitButton);
 
-        startButton.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                selectWorldInterface.open();
-            }
-        });
+        startButton.addEventListener(selectWorldInterface::open);
         /*settingsButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -91,12 +93,7 @@ public class MenuScreen implements Screen {
                 MainGame.getGame().setScreen(ModsScreen);
             }
         });*/
-        exitButton.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                Gdx.app.exit();
-            }
-        });
+        exitButton.addEventListener(() -> Gdx.app.exit());
 
         startButton.setDefaultText();
         settingsButton.setDefaultText();
@@ -146,11 +143,14 @@ public class MenuScreen implements Screen {
 
         mainLayout.hide(false);
         coinsLayout.hide(false);
+        update.hide(!UpdatesChecker.newVersionAvailable(Version.CODE_VERSION));
         if (!selectWorldInterface.isOpen) {
             coinsLayout.update(MENU_CAMERA);
             mainLayout.update(MENU_CAMERA);
+            update.update(MENU_CAMERA);
             coinsLayout.render(BATCH, MENU_CAMERA);
             mainLayout.render(BATCH, MENU_CAMERA);
+            update.render(BATCH, MENU_CAMERA);
         }
 
         selectWorldInterface.update();
@@ -173,7 +173,9 @@ public class MenuScreen implements Screen {
         mainLayout.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS);
         mainLayout.resize();
         coinsLayout.resize();
+        update.resize();
         coinsLayout.setPositionInBlocks(0.25f, HEIGHT_IN_BLOCKS - 1.25f);
+        update.setPositionInBlocks(WIDTH_IN_BLOCKS - 1.25f, HEIGHT_IN_BLOCKS - 1.25f);
         selectWorldInterface.resize();
     }
 

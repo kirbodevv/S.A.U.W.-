@@ -139,7 +139,7 @@ public class Interface {
             mainLayout.updatePosition();
             mainLayout.update(INTERFACE_CAMERA);
             closeInterfaceButton.hide(closeButtonHidden);
-            actionBar.setSizeInBlocks(mainLayout.BWidth, 1);
+            actionBar.setSizeInBlocks(mainLayout.bWidth, 1);
             actionBar.setPosition(mainLayout.x, mainLayout.y + mainLayout.height);
             closeInterfaceButton.setPosition(actionBar.x + actionBar.width - BLOCK_SIZE, actionBar.y + BLOCK_SIZE * 0.125f);
             actionBar.update(INTERFACE_CAMERA);

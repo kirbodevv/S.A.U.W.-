@@ -22,26 +22,11 @@ public class SelectWorldInterface extends Interface {
 
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/SelectWorldInterface.xml"), this);
         sel_0 = (Button) getElement("button.SELECT_0");
-        sel_0.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                loadGame(WorldLoader.worldNames[worldSelIndex]);
-            }
-        });
+        sel_0.addEventListener(() -> loadGame(WorldLoader.worldNames[worldSelIndex]));
         sel_1 = (Button) getElement("button.SELECT_1");
-        sel_1.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                loadGame(WorldLoader.worldNames[worldSelIndex + 1]);
-            }
-        });
+        sel_1.addEventListener(() -> loadGame(WorldLoader.worldNames[worldSelIndex + 1]));
         sel_2 = (Button) getElement("button.SELECT_2");
-        sel_2.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                loadGame(WorldLoader.worldNames[worldSelIndex + 2]);
-            }
-        });
+        sel_2.addEventListener(() -> loadGame(WorldLoader.worldNames[worldSelIndex + 2]));
 
 
         /*ListView listView = new ListView();

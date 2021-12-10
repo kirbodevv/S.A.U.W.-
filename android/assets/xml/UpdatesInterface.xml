@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface id="update_interface" isBlockInterface="false">
+    <RootLayout id="MainLayout">
+        <Layout id="changelog_" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" fixed_width="14.5bl"
+                height="WRAP_CONTENT" translateY="-0.25bl">
+            <Image id="screenshot" width="5bl" height="6bl"/>
+            <Layout id="changelog" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT" translateX="0.5bl">
+                <Text id="version" width="9bl" height="1bl"/>
+                <Text id="changelog" width="9bl" height="0.5bl" translateY="-0.25bl"/>
+                <Text id="changelog1" width="9bl" height="0.5bl"/>
+                <Text id="changelog2" width="9bl" height="0.5bl"/>
+                <Text id="changelog3" width="9bl" height="0.5bl"/>
+                <Text id="changelog4" width="9bl" height="0.5bl"/>
+                <Button id="full_changelog" width="9bl" height="1bl" translateY="-0.25bl"/>
+            </Layout>
+        </Layout>
+        <Layout id="buttons" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" fixed_width="14.5bl"
+                height="WRAP_CONTENT" translateY="-0.25bl">
+            <Button id="download_update" width="7bl" height="0.75bl"/>
+            <Button id="later" width="7bl" height="0.75bl" translateX="0.5bl"/>
+        </Layout>
+    </RootLayout>
+</Interface>

@@ -24,7 +24,7 @@ public abstract class Entity {
 
     protected float velX;
     protected float velY;
-    protected int currentTileX, currentTileY;
+    protected int currentTileX, currentTileZ;
     protected float entityBodyW;
     protected float entityBodyH;
 
@@ -80,12 +80,12 @@ public abstract class Entity {
     }
 
     public Block stayingOn() {
-        return GameContext.getBlock(getWorld().map.getTile(currentTileX, currentTileY, 1).id);
+        return GameContext.getBlock(getWorld().map.getTile(currentTileX, currentTileZ, 1).id);
     }
 
     private void updatePosition() {
         currentTileX = (int) Math.ceil(body.getPosition().x) - 1;
-        currentTileY = (int) Math.ceil(body.getPosition().y) - 1;
+        currentTileZ = (int) Math.ceil(body.getPosition().y) - 1;
 
         bodyRectangle.setPosition(body.getPosition().x - entityBodyW / 2f, body.getPosition().y - entityBodyH / 2f);
         position.set(bodyRectangle.x, bodyRectangle.y);
@@ -142,8 +142,8 @@ public abstract class Entity {
         return currentTileX;
     }
 
-    public int getCurrentTileY() {
-        return currentTileY;
+    public int getCurrentTileZ() {
+        return currentTileZ;
     }
 
     public boolean isEntityMoving() {

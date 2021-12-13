@@ -52,11 +52,11 @@ public class WorldRenderer {
                 entity.getPosition().x, entity.getPosition().y, entity.getSize().x, entity.getSize().y,
                 GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H)) {
             entity.render();
-            renderBlock(entity.getCurrentTileX(), entity.getCurrentTileY(), true, world);
+            renderBlock(entity.getCurrentTileX(), entity.getCurrentTileZ(), true, world);
             if (entity.getPosition().x < entity.getCurrentTileX())
-                renderBlock(entity.getCurrentTileX() - 1, entity.getCurrentTileY(), true, world);
+                renderBlock(entity.getCurrentTileX() - 1, entity.getCurrentTileZ(), true, world);
             if (entity.getPosition().x + entity.getSize().x > entity.getCurrentTileX())
-                renderBlock(entity.getCurrentTileX() + 1, entity.getCurrentTileY(), true, world);
+                renderBlock(entity.getCurrentTileX() + 1, entity.getCurrentTileZ(), true, world);
         }
     }
 

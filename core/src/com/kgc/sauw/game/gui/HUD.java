@@ -278,7 +278,7 @@ public class HUD {
                 "\n Camera Y : " + GAME_CAMERA.Y;
         String Player = "\n Hunger:" + PLAYER.hunger + "/20" +
                 "\n X : " + PLAYER.getCurrentTileX() +
-                "\n Y : " + PLAYER.getCurrentTileY();
+                "\n Y : " + PLAYER.getCurrentTileZ();
         this.debug.setColor(0f, 0f, 0f, 1f);
         this.debug.draw(BATCH, Main + "\n Player \n" + Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
         this.debug.setColor(0.25f, 0.25f, 1f, 1f);

@@ -29,7 +29,7 @@ public class PlayerController implements InputProcessor {
     public static void openBlockInterface() {
         Tile tile = null;
         int playerX = PLAYER.getCurrentTileX();
-        int playerY = PLAYER.getCurrentTileY();
+        int playerY = PLAYER.getCurrentTileZ();
         switch (PLAYER.rotation) {
             case 0:
                 tile = getWorld().map.getTile(playerX, playerY + 1, 0);

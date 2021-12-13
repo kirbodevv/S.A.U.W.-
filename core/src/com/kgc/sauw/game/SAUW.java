@@ -4,12 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.kgc.sauw.core.achievements.Achievements;
+import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.environment.Environment;
-import com.kgc.sauw.core.achievements.Achievements;
-import com.kgc.sauw.core.block.Blocks;
-import com.kgc.sauw.core.world.WorldRenderer;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.input.Input;
@@ -18,6 +17,7 @@ import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
+import com.kgc.sauw.core.world.WorldRenderer;
 import com.kgc.sauw.game.worlds.ChristmasWorld;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -48,13 +48,13 @@ public class SAUW implements Screen {
 
         Environment.setSaveName(worldName);
 
-        if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
-            getWorld().createNewWorld();
-            PLAYER.randomSpawn();
-            Environment.save();
+        //if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
+        getWorld().createNewWorld();
+        PLAYER.randomSpawn();
+        /*    Environment.save();
         } else {
             Environment.load();
-        }
+        }*/
         MODS.load();
         Particles.init();
 

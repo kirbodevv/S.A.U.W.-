@@ -18,8 +18,8 @@ public class WorldLoader {
     public static String[] worldNames;
 
     public static void saveChunks(Map map, String worldName) {
-        for (int x = 0; x < map.getMap().length; x++) {
-            for (int z = 0; z < map.getMap()[x].length; z++) {
+        for (int x = 0; x < map.getChunks().length; x++) {
+            for (int z = 0; z < map.getChunks()[x].length; z++) {
                 Chunk chunk = map.getChunk(x, z);
                 if (chunk.isChanged()) {
                     FileHandle chunkFile = Gdx.files.external("S.A.U.W./Worlds").child(worldName).child("map").child("c." + x + "." + z + ".bdb");
@@ -46,7 +46,7 @@ public class WorldLoader {
     }
 
     public static void save(String worldName) {
-        FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds").child(worldName);
+    /*    FileHandle worldFolder = Gdx.files.external("S.A.U.W./Worlds").child(worldName);
         if (!worldFolder.exists()) worldFolder.mkdirs();
         try {
             FileHandle mapFile = worldFolder.child("map.bdb");
@@ -71,7 +71,7 @@ public class WorldLoader {
             mapFile.writeBytes(getWorld().map.toDataBuffer().toBytes(), false);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public static void load(String WorldName) {

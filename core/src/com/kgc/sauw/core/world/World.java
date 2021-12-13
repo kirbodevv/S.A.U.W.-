@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
+import com.kgc.sauw.core.world.generator.AbstractWorldGenerator;
 
 import java.util.Random;
 
@@ -67,9 +68,9 @@ public abstract class World {
     }
 
     private void randomTick() {
-        int yy = random.nextInt(Map.ySize - 1) + 1;
+        /*int yy = random.nextInt(Map.ySize - 1) + 1;
         int xx = random.nextInt(Map.xSize - 1) + 1;
-        GameContext.getBlock(map.getTile(xx, yy, 0).id).randomTick(map.getTile(xx, yy, 0));
+        GameContext.getBlock(map.getTile(xx, yy, 0).id).randomTick(map.getTile(xx, yy, 0));*/
     }
 
     protected void setSkyLight(int skyLight) {
@@ -87,5 +88,14 @@ public abstract class World {
 
     protected abstract void tick();
 
-    public abstract void createNewWorld();
+    public void createNewWorld() {
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                map.setChunk(getWorldGenerator().generateChunk(x, z), x, z);
+            }
+        }
+    }
+
+    public abstract AbstractWorldGenerator getWorldGenerator();
+
 }

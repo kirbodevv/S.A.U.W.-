@@ -6,6 +6,7 @@ import com.kgc.sauw.core.world.Map;
 import com.kgc.sauw.core.world.World;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.WorldUtils;
+import com.kgc.sauw.core.world.generator.AbstractWorldGenerator;
 
 import java.util.Random;
 
@@ -76,5 +77,10 @@ public class MysticalVoidWorld extends World {
             }
 
         }
+    }
+
+    @Override
+    public AbstractWorldGenerator getWorldGenerator() {
+        return null;
     }
 }

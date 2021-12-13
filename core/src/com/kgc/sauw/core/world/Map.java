@@ -1,12 +1,8 @@
 package com.kgc.sauw.core.world;
 
-import com.intbyte.bdb.DataBuffer;
-import com.intbyte.bdb.ExtraData;
-import com.kgc.sauw.core.GameContext;
-import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.block.Blocks;
-import com.kgc.sauw.core.world.chunk.Chunk;
 import com.kgc.sauw.core.physic.Physic;
+import com.kgc.sauw.core.world.chunk.Chunk;
 
 import static com.kgc.sauw.core.GameContext.SAUW;
 
@@ -16,18 +12,22 @@ public class Map {
     public static final int ySize = 40;
     public static final int zSize = 3;
 
-    private final Tile[][][] map0 = new Tile[ySize][xSize][zSize];
-    private final Chunk[][] map = new Chunk[4][4];
+    public int chunksX, chunksY;
+    private final Chunk[][] chunks = new Chunk[16][16];
 
-    public Chunk[][] getMap() {
-        return map;
+    public Chunk[][] getChunks() {
+        return chunks;
     }
 
     public Chunk getChunk(int x, int z) {
-        return map[x][z];
+        return chunks[x][z];
     }
 
-    public DataBuffer toDataBuffer() {
+    public void setChunk(Chunk chunk, int x, int z) {
+        chunks[x][z] = chunk;
+    }
+
+    /*public DataBuffer toDataBuffer() {
         DataBuffer buffer = new DataBuffer();
         int[] worldArray = new int[xSize * ySize * zSize];
         int[] mapDmg = new int[map0.length * map0[0].length * map0[0][0].length];
@@ -66,29 +66,26 @@ public class Map {
         }
         buffer.put("tileEnCount", tileEntitiesCount);
         return buffer;
-    }
+    }*/
 
     public void update() {
         Blocks.blockTick();
-        for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
-                for (int z = 0; z < zSize; z++) {
-                    getTile(x, y, z).update();
-                }
+        for (Chunk[] chunks_ : chunks) {
+            for (Chunk chunk : chunks_) {
+                chunk.update();
             }
         }
     }
 
     public Tile getTile(int x, int y, int z) {
-        if ((x >= 0 && x < xSize) && (y >= 0 && y < ySize) && (z >= 0 && z < ySize))
-            return map0[y][x][z];
-        return null;
+        return getChunk(x / Chunk.CHUCK_SIZE_X, z / Chunk.CHUCK_SIZE_Z).
+                getTile(x % Chunk.CHUCK_SIZE_X, y, z % Chunk.CHUCK_SIZE_Z);
     }
 
-    public int getHighestBlock(int x, int y) {
-        for (int z = 0; z < Map.zSize; z++) {
+    public int getHighestBlock(int x, int z) {
+        for (int y = 0; y < Map.zSize; y++) {
             if (getTile(x, y, z).id != SAUW.getId("block:air")) {
-                return z;
+                return y;
             }
         }
         return -1;
@@ -97,7 +94,7 @@ public class Map {
     public boolean setBlock(Tile tile) {
         if (getTile(tile.x, tile.y, tile.z) != null && getTile(tile.x, tile.y, tile.z).body != null)
             Physic.destroyBody(getTile(tile.x, tile.y, tile.z).body);
-        map0[tile.y][tile.x][tile.z] = tile;
+        getChunk(tile.x / Chunk.CHUCK_SIZE_X, tile.z / Chunk.CHUCK_SIZE_Z).setTile(tile);
         tile.setBodyAndLight();
         return true;
     }
@@ -119,10 +116,7 @@ public class Map {
     }
 
     public boolean setBlock(int x, int y, int z, int id) {
-        Block block = GameContext.getBlock(id);
-        Tile tile = new Tile();
-        tile.createTile(x, y, z, block);
-
+        Tile tile = TileFactory.createTile(id, x, y, z);
         return setBlock(tile);
     }
 

@@ -1,8 +1,9 @@
 package com.kgc.sauw.game.worlds;
 
+import com.kgc.sauw.core.utils.WorldUtils;
 import com.kgc.sauw.core.world.Map;
 import com.kgc.sauw.core.world.World;
-import com.kgc.sauw.core.utils.WorldUtils;
+import com.kgc.sauw.core.world.generator.AbstractWorldGenerator;
 
 import java.util.Random;
 
@@ -22,7 +23,7 @@ public class ChristmasWorld extends World {
 
     }
 
-    @Override
+    /*@Override
     public void createNewWorld() {
         Random r = new Random();
         for (int x = 0; x < Map.xSize; x++) {
@@ -48,5 +49,10 @@ public class ChristmasWorld extends World {
         map.setBlock(17, 5, 0, "block:furnace");
         map.setBlock(18, 5, 0, "block:chest");
         map.setBlock(19, 5, 0, "block:campfire");
+    }*/
+
+    @Override
+    public AbstractWorldGenerator getWorldGenerator() {
+        return TestWorldGenerator.INSTANCE;
     }
 }

@@ -49,7 +49,7 @@ public class Block extends RegistryObject {
         float w = getBlockConfiguration().getSize().x;
         float h = getBlockConfiguration().getSize().y;
         animationTick(tile);
-        sprite.setPosition(tile.x, tile.y);
+        sprite.setPosition(tile.x, tile.z);
         sprite.setSize(w, h);
         sprite.draw(BATCH);
     }

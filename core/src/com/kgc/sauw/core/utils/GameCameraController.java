@@ -20,9 +20,9 @@ public class GameCameraController {
         camY = (PLAYER.getPosition().y + (PLAYER.getSize().y / 2) - (GAME_CAMERA.H / 2f));
         if (camX < 1) camX = 1;
         if (camY < 1) camY = 1;
-        if (camX + GAME_CAMERA.W > Map.xSize - 1)
+        /*if (camX + GAME_CAMERA.W > Map.xSize - 1)
             camX = Map.xSize - 1 - GAME_CAMERA.W;
         if (camY + GAME_CAMERA.H > Map.ySize - 1)
-            camY = Map.ySize - 1 - GAME_CAMERA.H;
+            camY = Map.ySize - 1 - GAME_CAMERA.H;*/
     }
 }

@@ -66,19 +66,19 @@ public class WorldRenderer {
         int camY = (int) Math.floor(GAME_CAMERA.Y);
         int camYH = (int) Math.ceil(GAME_CAMERA.Y + GAME_CAMERA.H);
         for (int x = camX; x < camXW; x++) {
-            for (int y = camY; y < camYH; y++) {
-                renderBlock(x, y, highLayer, world);
+            for (int z = camY; z < camYH; z++) {
+                renderBlock(x, z, highLayer, world);
             }
         }
     }
 
-    private static void renderBlock(int x, int y, boolean highLayer, World world) {
-        int z = world.map.getHighestBlock(x, y);
-        if (z != -1)
-            if (!highLayer || z == 0) {
+    private static void renderBlock(int x, int z, boolean highLayer, World world) {
+        int y = world.map.getHighestBlock(x, z);
+        if (y != -1)
+            if (!highLayer || y == 0) {
                 BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
-                if (!highLayer && z == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
-                    z = z + 1;
+                if (!highLayer && y == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
+                    y = y + 1;
                 }
                 world.map.getTile(x, y, z).render();
                 BATCH.setColor(1, 1, 1, 1);

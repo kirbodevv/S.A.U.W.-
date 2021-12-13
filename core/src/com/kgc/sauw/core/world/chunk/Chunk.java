@@ -9,9 +9,14 @@ public class Chunk {
     public static final int CHUCK_SIZE_Y = 3;
     public static final int CHUCK_SIZE_Z = 8;
 
-    private Tile[][][] tiles = new Tile[CHUCK_SIZE_X][CHUCK_SIZE_Z][CHUCK_SIZE_Y];
+    private Tile[][][] tiles = new Tile[CHUCK_SIZE_X][CHUCK_SIZE_Y][CHUCK_SIZE_Z];
     private int x, z;
     private boolean isChanged = false;
+
+    public Chunk(int x, int z) {
+        this.x = x;
+        this.z = z;
+    }
 
     public boolean isChanged() {
         return isChanged;
@@ -23,8 +28,12 @@ public class Chunk {
     }
 
     public void setTile(Tile tile) {
-        this.tiles[tile.x][tile.z][tile.y] = tile;
+        this.tiles[tile.cx][tile.cz][tile.cy] = tile;
         isChanged = true;
+    }
+
+    public Tile getTile(int x, int y, int z) {
+        return tiles[x][y][z];
     }
 
     public void setTiles(Tile[][][] tiles) {
@@ -44,7 +53,13 @@ public class Chunk {
         return -1;
     }
 
-    public void readBytes(byte[] bytes) {
-
+    public void update() {
+        for (int x = 0; x < CHUCK_SIZE_X; x++) {
+            for (int z = 0; z < CHUCK_SIZE_Z; z++) {
+                for (int y = 0; y < CHUCK_SIZE_Y; y++) {
+                    tiles[x][y][z].update();
+                }
+            }
+        }
     }
 }

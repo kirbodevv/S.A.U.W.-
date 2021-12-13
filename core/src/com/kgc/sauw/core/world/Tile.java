@@ -36,6 +36,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     public int x, y, z;
     public int cx, cy, cz;
     public int damage;
+    public int rotation = 0;
     public BlockInterface interface_ = null;
     public Rectangle blockRectangle;
 

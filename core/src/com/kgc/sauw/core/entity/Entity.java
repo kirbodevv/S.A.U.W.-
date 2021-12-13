@@ -23,7 +23,7 @@ public abstract class Entity {
     private final AbstractEntityRenderer entityRenderer;
 
     protected float velX;
-    protected float velY;
+    protected float velZ;
     protected int currentTileX, currentTileZ;
     protected float entityBodyW;
     protected float entityBodyH;
@@ -97,19 +97,19 @@ public abstract class Entity {
         updatePosition();
 
         velX = 0;
-        velY = 0;
+        velZ = 0;
 
         tick();
 
         velocity.x = (velX * (entitySpeed));
-        velocity.y = (velY * (entitySpeed));
+        velocity.y = (velZ * (entitySpeed));
 
         body.setLinearVelocity((velocity.x * normalEntitySpeed), (velocity.y * normalEntitySpeed));
     }
 
     public void setVelocity(float velX, float velY) {
         this.velX = velX;
-        this.velY = velY;
+        this.velZ = velY;
     }
 
     public void setVelocityX(float velX) {
@@ -117,7 +117,7 @@ public abstract class Entity {
     }
 
     public void setVelocityY(float velY) {
-        this.velY = velY * 1.5f;
+        this.velZ = velY * 1.5f;
     }
 
     public Vector2 getPosition() {
@@ -147,7 +147,7 @@ public abstract class Entity {
     }
 
     public boolean isEntityMoving() {
-        return velX != 0 || velY != 0;
+        return velX != 0 || velZ != 0;
     }
 
     public void setExtraData(String key, Object value) {

@@ -23,6 +23,7 @@ public class TestWorldGenerator implements AbstractWorldGenerator {
                 tiles[bx][2][bz] = TileFactory.createTile("sauw", "block:stone", bx, 2, bz, x, z);
                 tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:snow", bx, 1, bz, x, z);
                 tiles[bx][0][bz] = TileFactory.createTile("sauw", "block:air", bx, 0, bz, x, z);
+                tiles[bx][1][bz].rotation = (int) (Math.random() * 3);
             }
         }
         chunk.setTiles(tiles);

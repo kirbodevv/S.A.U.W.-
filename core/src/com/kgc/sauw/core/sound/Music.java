@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.sound;
 
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 public class Music {
     private static com.badlogic.gdx.audio.Music currentTrack;

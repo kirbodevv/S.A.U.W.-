@@ -12,7 +12,7 @@ import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.sound.Music;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.MainGame;
 import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.achievements.Achievement;
 import com.kgc.sauw.core.achievements.Achievements;
 import com.kgc.sauw.core.achievements.JSChecker;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.StringUtils;
 
 public class AchievementsGenerated {

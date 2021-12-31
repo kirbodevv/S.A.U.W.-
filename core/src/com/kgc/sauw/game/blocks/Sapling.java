@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.item.InstrumentItem;
 import com.kgc.sauw.core.world.Tile;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 

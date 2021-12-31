@@ -12,6 +12,7 @@ import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.input.Input;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.mod.Mods;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
@@ -67,6 +68,7 @@ public class SAUW implements Screen {
         PLAYER.inventory.addItem("sauw", "item:hammer", 1);
         PLAYER.inventory.addItem("sauw", "item:iron_ingot", 1);
         PLAYER.inventory.addItem("sauw", "item:log", 1);
+        PLAYER.inventory.addItem(24, 1);
     }
 
 
@@ -132,7 +134,7 @@ public class SAUW implements Screen {
         public void run() {
             super.run();
             getWorld().map.update();
-            com.kgc.sauw.core.item.Items.tick();
+            Items.tick();
             Achievements.checkAchievements(PLAYER.achievementsData);
             getWorld().getTime().updateTime();
             try {

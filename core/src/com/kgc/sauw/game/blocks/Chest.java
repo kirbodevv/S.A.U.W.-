@@ -2,7 +2,7 @@ package com.kgc.sauw.game.blocks;
 
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.item.InstrumentItem;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 import static com.kgc.sauw.game.gui.Interfaces.CHEST_INTERFACE;
 

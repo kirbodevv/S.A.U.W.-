@@ -12,6 +12,7 @@ public class Chunk {
     private Tile[][][] tiles = new Tile[CHUCK_SIZE_X][CHUCK_SIZE_Y][CHUCK_SIZE_Z];
     private int x, z;
     private boolean isChanged = false;
+    private int biomeId;
 
     public Chunk(int x, int z) {
         this.x = x;

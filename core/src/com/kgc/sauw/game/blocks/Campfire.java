@@ -5,7 +5,7 @@ import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.block.LightBlock;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.particle.Particles;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.Tile;
 
 import java.util.Random;

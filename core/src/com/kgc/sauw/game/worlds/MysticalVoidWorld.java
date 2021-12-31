@@ -83,4 +83,9 @@ public class MysticalVoidWorld extends World {
     public AbstractWorldGenerator getWorldGenerator() {
         return null;
     }
+
+    @Override
+    public int getSkyLight() {
+        return 0xFFFFFFFF;
+    }
 }

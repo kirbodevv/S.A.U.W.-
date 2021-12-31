@@ -11,6 +11,7 @@ import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.generated.RecipesGenerated;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
+import com.kgc.sauw.modding.Mods;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -71,6 +72,7 @@ public class MainGame extends Game {
         AchievementsGenerated.init();
         RecipesGenerated.init();
         new GameBlocks();
+        Mods.loadMods();
         setScreen(getMenuScreen());
         game = this;
         UpdatesChecker.check(() -> {
@@ -92,7 +94,7 @@ public class MainGame extends Game {
 
         FileHandle userData = Gdx.files.external("S.A.U.W./User/data.json");
         FileHandle settings = Gdx.files.external("S.A.U.W./User/settings.json");
-        FileHandle modsFile = Gdx.files.external("S.A.U.W./Mods/Mods.json");
+        ;
 
         if (!mainFolder.exists())
             mainFolder.mkdirs();
@@ -111,10 +113,6 @@ public class MainGame extends Game {
         if (!userData.exists()) {
             userData.file().createNewFile();
             userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
-        }
-        if (!modsFile.exists()) {
-            modsFile.file().createNewFile();
-            modsFile.writeString("[]", false);
         }
     }
 

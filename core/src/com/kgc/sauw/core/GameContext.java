@@ -1,5 +1,6 @@
 package com.kgc.sauw.core;
 
+import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.achievements.Achievement;
 import com.kgc.sauw.core.achievements.Achievements;
 import com.kgc.sauw.core.block.Block;
@@ -21,15 +22,23 @@ public class GameContext {
     }
 
     public static GameContext registeredContext(String package_) {
-        GameContext context = new GameContext(package_);
         if (gameContexts == null) {
             gameContexts = new HashMap<>();
         }
-        gameContexts.put(package_, context);
-        return context;
+        if (!gameContexts.containsKey(package_)) {
+            GameContext context = new GameContext(package_);
+            gameContexts.put(package_, context);
+            Gdx.app.log("Game context", "Registered game context with package \"" + package_ + "\"");
+            return context;
+        }
+        return null;
     }
 
     private final String package_;
+
+    public String getPackage() {
+        return package_;
+    }
 
     public GameContext(String package_) {
         this.package_ = package_;

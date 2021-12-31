@@ -8,7 +8,7 @@ import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 import java.util.ArrayList;
 

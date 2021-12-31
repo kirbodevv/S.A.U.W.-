@@ -1,50 +1,44 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.graphics.Color;
-import com.kgc.sauw.core.gui.ElementSkin;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.skins.Skins;
-
-import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.world.generator.WorldGeneratorUtils;
+import com.kgc.utils.OpenSimplexNoise;
 
 public class TestInterface extends Interface {
+    OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
+
     public TestInterface() {
 
         actionBar.setText("TOP SECRET");
 
+        Image image = new Image();
+        image.setSizeInBlocks(8, 8);
 
-        Layout testLayout = new Layout(Layout.Orientation.HORIZONTAL);
-        testLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
-        testLayout.setGravity(Layout.Gravity.LEFT);
-
-        Button button1 = new Button("", 0, 0, 0, 0);
-        button1.setSizeInBlocks(2, 1);
-        button1.setText("А это кнопка");
-
-        TextView test = new TextView();
-        test.setSize(BLOCK_SIZE, BLOCK_SIZE);
-        test.setText("Это не кнопка");
-
-        testLayout.addElements(test, button1);
-
-        mainLayout.addElements(testLayout);
-
-        updateElementsList();
+        Pixmap p = new Pixmap(300, 300, Pixmap.Format.RGBA8888);
+        float scale = .05f;
+        Color water = new Color(0x0000FFFF);
+        Color sand = new Color(0xFFFF00FF);
+        Color plains = new Color(0x00FF00FF);
+        Color forest = new Color(0x00AA00FF);
+        for (int x = 0; x < p.getWidth(); x++) {
+            for (int y = 0; y < p.getHeight(); y++) {
+                float val = (float) WorldGeneratorUtils.sumOctave(openSimplexNoise, 16, x, y, .1, scale, 0, 1);
+                if (val < 0.4f) p.setColor(water);
+                else if (val < 0.55f) p.setColor(sand);
+                else if (val < 0.7f) p.setColor(plains);
+                else p.setColor(forest);
+                p.drawPixel(x, y);
+            }
+        }
+        Texture t = new Texture(p);
+        p.dispose();
+        image.setImg(t);
+        mainLayout.addElements(image);
     }
-
-    private ElementSkin testSkin = new ElementSkin(Skins.round_up);
-    Color[] colors = new Color[]{
-            new Color(0xFF0000FF),
-            new Color(0x0000FFFF),
-            new Color(0x00FF00FF),
-            new Color(0x00FFFFFF),
-            new Color(0x000000FF)
-    };
-    Color color = new Color(0x000000FF);
-    int counter = 0;
 
     @Override
     public void tick() {
@@ -68,7 +62,5 @@ public class TestInterface extends Interface {
 
     @Override
     public void postRender() {
-        testSkin.draw(100, 100, 400, 100, color, colors[counter], 0.01f);
-        if (testSkin.getColor().equals(colors[counter])) counter++;
     }
 }

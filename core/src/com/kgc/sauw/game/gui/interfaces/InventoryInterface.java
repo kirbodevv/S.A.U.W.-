@@ -10,7 +10,7 @@ import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 import java.text.DecimalFormat;
 

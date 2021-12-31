@@ -7,7 +7,7 @@ import com.kgc.sauw.core.entity.AbstractEntityRenderer;
 import com.kgc.sauw.core.entity.Entity;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.math.Maths;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 

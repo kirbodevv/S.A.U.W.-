@@ -5,14 +5,11 @@ import com.kgc.sauw.core.mod.ModResources;
 import com.kgc.sauw.core.register.Registry;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class Items extends Registry<Item> {
     public static final Items INSTANCE = new Items();
-    private static final ArrayList<Item> ITEMS = new ArrayList<>();
 
     public static void tick() {
-        for (Item item : ITEMS) {
+        for (Item item : INSTANCE.objects) {
             item.tick();
         }
     }
@@ -54,10 +51,6 @@ public class Items extends Registry<Item> {
         item.setItemConfiguration(itemConfiguration);
 
         defineItem(item);*/
-    }
-
-    public static void defineItem(Item item) {
-        ITEMS.add(item);
     }
 
     @Override

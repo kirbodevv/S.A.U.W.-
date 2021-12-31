@@ -8,7 +8,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 public class UpdatesInterface extends Interface {
     public UpdatesInterface() {

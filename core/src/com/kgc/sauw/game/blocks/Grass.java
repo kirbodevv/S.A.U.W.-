@@ -2,7 +2,7 @@ package com.kgc.sauw.game.blocks;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.block.Block;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.core.item.InstrumentItem;
 

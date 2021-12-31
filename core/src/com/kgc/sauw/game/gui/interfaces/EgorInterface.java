@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Image;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 public class EgorInterface extends Interface {
     public EgorInterface() {

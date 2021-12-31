@@ -55,4 +55,9 @@ public class ChristmasWorld extends World {
     public AbstractWorldGenerator getWorldGenerator() {
         return TestWorldGenerator.INSTANCE;
     }
+
+    @Override
+    public int getSkyLight() {
+        return 0xFFFFFFFF;
+    }
 }

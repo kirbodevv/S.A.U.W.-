@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.skins;
 
 import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 public class Skins {
     public static ElementSkin round_up;

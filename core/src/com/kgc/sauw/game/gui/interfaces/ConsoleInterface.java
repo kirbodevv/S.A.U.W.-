@@ -10,7 +10,7 @@ import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.mod.ModAPI;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;

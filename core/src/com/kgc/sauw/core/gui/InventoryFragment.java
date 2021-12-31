@@ -2,7 +2,7 @@ package com.kgc.sauw.core.gui;
 
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 import com.kgc.utils.Camera2D;
 

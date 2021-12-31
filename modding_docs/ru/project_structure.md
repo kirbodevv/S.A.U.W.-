@@ -60,6 +60,7 @@ P.S. с помощью `enabled`, можно включать / выключат
 ## Директории
 
 * `resources` - Ресурсы
+* `localizations` - Локализация
 * `items` - Предметы
 * `blocks` - Блоки
 * `achievements` - Достижения

@@ -7,6 +7,14 @@ java.targetCompatibility = JavaVersion.VERSION_1_8
 
 sourceSets.main.java.srcDirs = ["src/"]
 
+sourceSets {
+    test {
+        java {
+            srcDirs = ["test/"]
+        }
+    }
+}
+
 eclipse.project.name = appName + "-core"
 
 task cmd(type: Exec) {
@@ -19,6 +27,7 @@ task cmd(type: Exec) {
 dependencies {
     implementation project(path: ':utils')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'org.testng:testng:7.1.0'
 }
 compileJava.dependsOn cmd
 buildscript {

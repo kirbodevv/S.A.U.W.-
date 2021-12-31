@@ -6,7 +6,7 @@ import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.Tile;
 
 public class FurnaceInterface extends BlockInterface {

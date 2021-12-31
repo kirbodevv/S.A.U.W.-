@@ -2,7 +2,6 @@ package com.kgc.sauw.core.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
-import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.world.generator.AbstractWorldGenerator;
 
@@ -18,17 +17,11 @@ import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
 public abstract class World {
     public Map map;
 
-    private int skyLight = 0xFFFFFFFF;
-
     private boolean interfaceTouched;
     private boolean isTouched;
     private final Random random = new Random();
     private boolean worldTouched;
     public Time worldTime;
-
-    public int getSkyLight() {
-        return skyLight;
-    }
 
     public World() {
         worldTime = new Time();
@@ -73,10 +66,6 @@ public abstract class World {
         GameContext.getBlock(map.getTile(xx, yy, 0).id).randomTick(map.getTile(xx, yy, 0));*/
     }
 
-    protected void setSkyLight(int skyLight) {
-        this.skyLight = skyLight;
-    }
-
     public Time getTime() {
         return worldTime;
     }
@@ -89,13 +78,16 @@ public abstract class World {
     protected abstract void tick();
 
     public void createNewWorld() {
+        getWorldGenerator().setSeed(123456);
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 map.setChunk(getWorldGenerator().generateChunk(x, z), x, z);
+                map.getChunk(x, z).setPosition(x, z);
             }
         }
     }
 
     public abstract AbstractWorldGenerator getWorldGenerator();
 
+    public abstract int getSkyLight();
 }

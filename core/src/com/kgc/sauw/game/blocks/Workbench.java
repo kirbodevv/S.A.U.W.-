@@ -8,7 +8,7 @@ import com.kgc.sauw.core.recipes.Recipe;
 import com.kgc.sauw.core.recipes.Recipes;
 import com.kgc.sauw.core.recipes.ToolCraftRecipe;
 import com.kgc.sauw.core.utils.ID;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.GameContext.SAUW;

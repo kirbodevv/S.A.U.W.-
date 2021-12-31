@@ -9,7 +9,7 @@ import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.game.mechanics.Building;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;

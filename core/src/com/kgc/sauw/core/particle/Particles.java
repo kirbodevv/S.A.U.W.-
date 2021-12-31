@@ -2,7 +2,7 @@ package com.kgc.sauw.core.particle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 
 import java.util.HashMap;
 

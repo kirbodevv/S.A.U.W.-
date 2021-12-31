@@ -6,7 +6,7 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.game.MainGame;
 
 public class SelectWorldInterface extends Interface {

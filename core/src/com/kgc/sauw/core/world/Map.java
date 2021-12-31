@@ -12,7 +12,6 @@ public class Map {
     public static final int ySize = 40;
     public static final int zSize = 3;
 
-    public int chunksX, chunksY;
     private final Chunk[][] chunks = new Chunk[16][16];
 
     public Chunk[][] getChunks() {

@@ -105,7 +105,6 @@ project(":builders") {
         implementation 'org.json:json:20180813'
     }
 }
-
 project(":core") {
     apply plugin: "java-library"
 

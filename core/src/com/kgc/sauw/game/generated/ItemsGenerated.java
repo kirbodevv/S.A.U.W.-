@@ -81,7 +81,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
-		itemConfiguration.instrumentType = InstrumentItem.Type.AXE;
+		itemConfiguration.instrumentType = InstrumentItem.Type.PICKAXE;
 		item.setItemConfiguration(itemConfiguration);
 		Items.INSTANCE.register(item, "sauw", "stone_pickaxe");
 

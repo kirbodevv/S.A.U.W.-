@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.core.register.RegistryObject;
-import com.kgc.sauw.core.utils.Resource;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 public class Item extends RegistryObject {

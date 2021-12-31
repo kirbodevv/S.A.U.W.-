@@ -17,7 +17,7 @@ S.A.U.W. is a LibGDX Android game
 
 ## Modding docs
 
-[RU](modding/docs/ru/docs.md)
+[RU](modding_docs/ru/docs.md)
 
 ## Credits
 

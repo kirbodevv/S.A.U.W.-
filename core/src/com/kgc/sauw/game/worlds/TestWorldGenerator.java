@@ -30,7 +30,7 @@ public class TestWorldGenerator implements AbstractWorldGenerator {
                 if (val < 0.4f) {
                     tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:water", bx, 1, bz, x, z);
                 } else if (val < 0.55f) {
-                    tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:snow", bx, 1, bz, x, z);
+                    tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:sand", bx, 1, bz, x, z);
                 } else {
                     tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:grass", bx, 1, bz, x, z);
                 }

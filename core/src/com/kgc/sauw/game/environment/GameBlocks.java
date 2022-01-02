@@ -26,5 +26,6 @@ public class GameBlocks {
         Blocks.INSTANCE.register(new Table(), "sauw", "table");
         Blocks.INSTANCE.register(new ToolWall(), "sauw", "tool_wall");
         Blocks.INSTANCE.register(new Workbench(), "sauw", "workbench");
+        Blocks.INSTANCE.register(new Sand(), "sauw", "sand");
     }
 }

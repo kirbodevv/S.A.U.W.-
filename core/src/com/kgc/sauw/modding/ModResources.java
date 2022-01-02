@@ -1,7 +1,6 @@
 package com.kgc.sauw.modding;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.Variables;
 import org.json.JSONObject;
 

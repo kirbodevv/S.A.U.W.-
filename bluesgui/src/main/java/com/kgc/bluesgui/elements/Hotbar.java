@@ -16,8 +16,8 @@ public class Hotbar extends InterfaceElement {
     private final Layout slotsLayout;
     private final Slot[] slots = new Slot[8];
 
-    private final Texture inv_texture = Resource.getTexture("Interface/inventory.png");
-    private final Texture selected_slot_texture = Resource.getTexture("Interface/selected_slot.png");
+    private final Texture inv_texture = Resource.getTexture("interface/inventory.png");
+    private final Texture selected_slot_texture = Resource.getTexture("interface/selected_slot.png");
 
     public Hotbar() {
         setSizeInBlocks(8f, 1f);

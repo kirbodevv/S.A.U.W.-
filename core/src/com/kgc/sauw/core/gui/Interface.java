@@ -56,7 +56,7 @@ public class Interface {
         y = (Graphic.SCREEN_HEIGHT - height) / 2;
 
         closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0);
-        closeInterfaceButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
+        closeInterfaceButton.setIcon(Resource.getTexture("interface/closeButton.png"));
         closeInterfaceButton.setSizeInBlocks(0.75f, 0.75f);
         closeInterfaceButton.addEventListener(new OnClickListener() {
             @Override

@@ -84,9 +84,9 @@ public class InventoryFragment extends Fragment {
         optionalLayout.setId("optionalLayout");
 
         previousTabInv = new Button("PREVIOUS_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
-        previousTabInv.setIcon(Resource.getTexture("Interface/button_left_0.png"));
+        previousTabInv.setIcon(Resource.getTexture("interface/button_left_0.png"));
         nextTabInv = new Button("NEXT_INVENTORY_TAB_BUTTON", 0, 0, 0, 0);
-        nextTabInv.setIcon(Resource.getTexture("Interface/button_right_0.png"));
+        nextTabInv.setIcon(Resource.getTexture("interface/button_right_0.png"));
         previousTabInv.setSizeInBlocks(1, 1);
         nextTabInv.setSizeInBlocks(1, 1);
         TextView backpackTextView = new TextView();

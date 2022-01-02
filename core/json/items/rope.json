@@ -1,6 +1,6 @@
 {
   "id": "rope",
-  "texture": "Items/rope.png",
+  "texture": "items/rope.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.15,

@@ -9,7 +9,7 @@ public class Egor extends Npc {
 
 
     public Egor() {
-        //currentFrame = new TextureRegion(Resource.getTexture("Blocks/undefined.png"));
+        //currentFrame = new TextureRegion(Resource.getTexture("blocks/undefined.png"));
     }
 
     @Override

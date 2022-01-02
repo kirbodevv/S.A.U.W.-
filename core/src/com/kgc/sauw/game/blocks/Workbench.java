@@ -18,7 +18,7 @@ import static com.kgc.sauw.game.gui.Interfaces.WORKBENCH_INTERFACE;
 
 public class Workbench extends Block {
     public Workbench() {
-        super(Resource.getTexture("Blocks/table.png"));
+        super(Resource.getTexture("blocks/table.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);

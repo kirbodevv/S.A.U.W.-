@@ -27,8 +27,8 @@ public class CraftingInterface extends Interface {
 
         getElement("craftIconLayout_0").setSizeInBlocks(0, 2);
 
-        ((Button) getElement("prevCraftTabButton")).setIcon(Resource.getTexture("Interface/button_left_0.png"));
-        ((Button) getElement("nextCraftTabButton")).setIcon(Resource.getTexture("Interface/button_right_0.png"));
+        ((Button) getElement("prevCraftTabButton")).setIcon(Resource.getTexture("interface/button_left_0.png"));
+        ((Button) getElement("nextCraftTabButton")).setIcon(Resource.getTexture("interface/button_right_0.png"));
 
         itemIcon = (Image) getElement("craftIcon");
         craftName = (TextView) getElement("craftName");

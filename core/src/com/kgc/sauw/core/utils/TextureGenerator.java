@@ -14,7 +14,7 @@ public class TextureGenerator {
         pixmap.setColor(pixColor);
         pixmap.fillRectangle(4, 4, pixmap.getWidth() - 8, pixmap.getHeight() - 8);
         if (useGlassTexture) {
-            Pixmap glassTexture = new Pixmap(Gdx.files.internal("Interface/glass.png"));
+            Pixmap glassTexture = new Pixmap(Gdx.files.internal("interface/glass.png"));
 
             int blockSize = glassTexture.getWidth();
             int width = (int) (blockSize * w);
@@ -66,7 +66,7 @@ public class TextureGenerator {
     }
 
     public static Texture generateTexture(float w, float h, Color background, Color c1, Color c2, Color c3) {
-        Pixmap texture = new Pixmap(Gdx.files.internal("Blocks/wood.png"));
+        Pixmap texture = new Pixmap(Gdx.files.internal("blocks/wood.png"));
         int blockSize = texture.getWidth();
         texture.dispose();
         int width = (int) (blockSize * w);
@@ -91,7 +91,7 @@ public class TextureGenerator {
     }
 
     private static Pixmap generatePixmap(float w, float h, boolean c) {
-        Pixmap texture = new Pixmap(Gdx.files.internal("Blocks/stone.png"));
+        Pixmap texture = new Pixmap(Gdx.files.internal("blocks/stone.png"));
         Color pixCol = new Color();
         int blockSize = texture.getWidth();
         int width = (int) (blockSize * w);
@@ -140,7 +140,7 @@ public class TextureGenerator {
     }
 
     public static Texture generateBackground(float w, float h) {
-        Pixmap texture = new Pixmap(Gdx.files.internal("Blocks/wood.png"));
+        Pixmap texture = new Pixmap(Gdx.files.internal("blocks/wood.png"));
         int blockSize = texture.getWidth();
         int width = (int) (blockSize * w);
         int height = (int) (blockSize * h);

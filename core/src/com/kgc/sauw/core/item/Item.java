@@ -16,7 +16,7 @@ public class Item extends RegistryObject {
     private static final TextureRegion undefRegion;
 
     static {
-        undefRegion = new TextureRegion(Resource.getTexture("Blocks/undefined.png"));
+        undefRegion = new TextureRegion(Resource.getTexture("blocks/undefined.png"));
     }
 
     protected Sprite sprite = new Sprite();

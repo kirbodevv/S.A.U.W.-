@@ -38,7 +38,7 @@ public class FurnaceInterface extends BlockInterface {
             }
         });
 
-        ((Image) getElement("image.ArrowIcon")).setImg(Resource.getTexture("Interface/button_right_0.png"));
+        ((Image) getElement("image.ArrowIcon")).setImg(Resource.getTexture("interface/button_right_0.png"));
 
         updateElementsList();
     }

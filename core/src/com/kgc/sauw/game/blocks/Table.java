@@ -9,7 +9,7 @@ import static com.kgc.sauw.core.environment.Environment.getWorld;
 
 public class Table extends Block {
     public Table() {
-        super(Resource.getTexture("Blocks/table.png"));
+        super(Resource.getTexture("blocks/table.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(1, 2, 30, 7, 32);

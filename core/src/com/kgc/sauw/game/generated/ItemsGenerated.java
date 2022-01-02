@@ -11,7 +11,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Blocks/grass_1.png");
+		item.setTexture("blocks/grass_1.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
@@ -21,7 +21,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/apple.png");
+		item.setTexture("items/apple.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.2f;
 		itemConfiguration.type = Type.FOOD;
@@ -31,7 +31,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Blocks/chest.png");
+		item.setTexture("blocks/chest.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
@@ -41,7 +41,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/stick.png");
+		item.setTexture("items/stick.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.ITEM;
@@ -50,7 +50,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/log.png");
+		item.setTexture("items/log.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.25f;
 		itemConfiguration.type = Type.ITEM;
@@ -59,7 +59,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/stone.png");
+		item.setTexture("items/stone.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.15f;
 		itemConfiguration.type = Type.ITEM;
@@ -68,7 +68,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/iron_ore.png");
+		item.setTexture("items/iron_ore.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.5f;
 		itemConfiguration.type = Type.ITEM;
@@ -77,7 +77,7 @@ public class ItemsGenerated {
 
 		item = new InstrumentItem();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/stone_pickaxe.png");
+		item.setTexture("items/stone_pickaxe.png");
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
@@ -87,7 +87,7 @@ public class ItemsGenerated {
 
 		item = new InstrumentItem();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/stone_axe.png");
+		item.setTexture("items/stone_axe.png");
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
@@ -97,7 +97,7 @@ public class ItemsGenerated {
 
 		item = new InstrumentItem();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/stone_shovel.png");
+		item.setTexture("items/stone_shovel.png");
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
@@ -107,7 +107,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Blocks/furnace.png");
+		item.setTexture("blocks/furnace.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
@@ -117,7 +117,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/rope.png");
+		item.setTexture("items/rope.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.15f;
 		itemConfiguration.type = Type.ITEM;
@@ -126,7 +126,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/vegetable_fiber.png");
+		item.setTexture("items/vegetable_fiber.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.05f;
 		itemConfiguration.type = Type.ITEM;
@@ -135,7 +135,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/sapling.png");
+		item.setTexture("items/sapling.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.1f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
@@ -145,7 +145,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/iron_ingot.png");
+		item.setTexture("items/iron_ingot.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.ITEM;
@@ -154,7 +154,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Blocks/campfire.png");
+		item.setTexture("blocks/campfire.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
@@ -164,7 +164,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/hammer.png");
+		item.setTexture("items/hammer.png");
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 1.25f;
 		itemConfiguration.type = Type.ITEM;
@@ -174,7 +174,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/handsaw.png");
+		item.setTexture("items/handsaw.png");
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.ITEM;
@@ -184,7 +184,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/planks.png");
+		item.setTexture("items/planks.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.55f;
 		itemConfiguration.type = Type.ITEM;
@@ -193,7 +193,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/iron_plate.png");
+		item.setTexture("items/iron_plate.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.8f;
 		itemConfiguration.type = Type.ITEM;
@@ -202,7 +202,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/iron_ingot.png");
+		item.setTexture("items/iron_ingot.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.ITEM;
@@ -211,7 +211,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("Items/aluminium_can.png");
+		item.setTexture("items/aluminium_can.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.5f;
 		itemConfiguration.type = Type.ITEM;

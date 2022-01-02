@@ -7,7 +7,7 @@ import com.kgc.sauw.core.item.InstrumentItem;
 
 public class StoneLump extends Block {
     public StoneLump() {
-        super(Resource.getTexture("Blocks/stone_1.png"));
+        super(Resource.getTexture("blocks/stone_1.png"));
 
         blockConfiguration.setMaxDamage(5);
         blockConfiguration.setTransparent(true);

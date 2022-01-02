@@ -230,7 +230,7 @@ public class ModsScreen implements Screen {
         @Override
         public void renderTick(SpriteBatch batch, Camera2D cam) {
             batch.draw(background, cam.X + x, cam.Y + y, width, height);
-            batch.draw((modIcon == null) ? Resource.getTexture("Blocks/SAUW_icon.png") : modIcon, cam.X + x + height / 8, cam.Y + y + height / 8, ModIconHeight, ModIconHeight);
+            batch.draw((modIcon == null) ? Resource.getTexture("blocks/SAUW_icon.png") : modIcon, cam.X + x + height / 8, cam.Y + y + height / 8, ModIconHeight, ModIconHeight);
             text.draw(batch, modName, cam.X + x + ModIconHeight + height / 4, cam.Y + y + height - height / 8);
             modActiv.render(batch, cam);
         }

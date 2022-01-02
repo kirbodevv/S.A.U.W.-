@@ -33,7 +33,7 @@ public class SelectWorldInterface extends Interface {
         listView.setSizeInBlocks(5, 4);
         mainLayout.addElements(listView);*/
         Button up = (Button) getElement("button.UP");
-        up.setIcon(Resource.getTexture("Interface/button_up_0.png"));
+        up.setIcon(Resource.getTexture("interface/button_up_0.png"));
         up.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
@@ -44,7 +44,7 @@ public class SelectWorldInterface extends Interface {
             }
         });
         Button down = (Button) getElement("button.DOWN");
-        down.setIcon(Resource.getTexture("Interface/button_down_0.png"));
+        down.setIcon(Resource.getTexture("interface/button_down_0.png"));
         down.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {

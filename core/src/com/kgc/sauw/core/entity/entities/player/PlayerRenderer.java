@@ -19,7 +19,7 @@ public class PlayerRenderer implements AbstractEntityRenderer {
     private final Sprite sprite = new Sprite();
 
     public PlayerRenderer() {
-        animator.addAnimationRegion("animation_region:player", Resource.getTexture("Entity/player.png"), 4, 3);
+        animator.addAnimationRegion("animation_region:player", Resource.getTexture("entity/player.png"), 4, 3);
         animator.addAnimation("animation:player_walk_left", "animation_region:player", 0.2f, 0, 1);
         animator.addAnimation("animation:player_walk_right", "animation_region:player", 0.2f, 2, 3);
         animator.addAnimation("animation:player_walk_down", "animation_region:player", 0.2f, 4, 5);

@@ -13,7 +13,7 @@ public class Sapling extends Block {
     TextureRegion[][] saplingTextures;
 
     public Sapling() {
-        Texture texture = Resource.getTexture("Blocks/sapling.png");
+        Texture texture = Resource.getTexture("blocks/sapling.png");
         blockConfiguration.setSize(1, 2);
         blockConfiguration.setTransparent(true);
         blockConfiguration.setInstrumentType(InstrumentItem.Type.AXE);

@@ -17,16 +17,16 @@ public class WorkbenchInterface extends BlockInterface {
     public WorkbenchInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/WorkbenchInterface.xml"), this);
 
-        ((Image) getElement("image.craft_handsaw_arrow")).setImg(Resource.getTexture("Interface/button_right_0.png"));
-        ((Image) getElement("image.craft_hammer_arrow")).setImg(Resource.getTexture("Interface/button_right_0.png"));
-        ((Image) getElement("image.handsaw")).setImg(Resource.getTexture("Items/handsaw.png"));
-        ((Image) getElement("image.hammer")).setImg(Resource.getTexture("Items/hammer.png"));
+        ((Image) getElement("image.craft_handsaw_arrow")).setImg(Resource.getTexture("interface/button_right_0.png"));
+        ((Image) getElement("image.craft_hammer_arrow")).setImg(Resource.getTexture("interface/button_right_0.png"));
+        ((Image) getElement("image.handsaw")).setImg(Resource.getTexture("items/handsaw.png"));
+        ((Image) getElement("image.hammer")).setImg(Resource.getTexture("items/hammer.png"));
 
         craftHandsawNotAvailableImage = (Image) getElement("image.craft_handsaw_not_available_icon");
         craftHammerNotAvailableImage = (Image) getElement("image.craft_hammer_not_available_icon");
 
-        craftHandsawNotAvailableImage.setImg(Resource.getTexture("Interface/closeButton.png"));
-        craftHammerNotAvailableImage.setImg(Resource.getTexture("Interface/closeButton.png"));
+        craftHandsawNotAvailableImage.setImg(Resource.getTexture("interface/closeButton.png"));
+        craftHammerNotAvailableImage.setImg(Resource.getTexture("interface/closeButton.png"));
     }
 
     @Override

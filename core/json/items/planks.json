@@ -1,6 +1,6 @@
 {
   "id": "planks",
-  "texture": "Items/planks.png",
+  "texture": "items/planks.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.55,

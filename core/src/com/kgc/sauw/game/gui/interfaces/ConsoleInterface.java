@@ -44,8 +44,8 @@ public class ConsoleInterface extends Interface {
         nextCommand = (Button) getElement("button.prevCommand");
         prevCommand = (Button) getElement("button.nextCommand");
 
-        prevCommand.setIcon(Resource.getTexture("Interface/button_left_0.png"));
-        nextCommand.setIcon(Resource.getTexture("Interface/button_right_0.png"));
+        prevCommand.setIcon(Resource.getTexture("interface/button_left_0.png"));
+        nextCommand.setIcon(Resource.getTexture("interface/button_right_0.png"));
 
         nextCommand.addEventListener(new OnClickListener() {
             @Override

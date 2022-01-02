@@ -6,6 +6,6 @@ import com.kgc.sauw.core.resource.Resource;
 public class Water extends Block {
 
     public Water() {
-        super(Resource.getTexture("Blocks/water.png"));
+        super(Resource.getTexture("blocks/water.png"));
     }
 }

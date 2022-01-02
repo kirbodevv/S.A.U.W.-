@@ -1,6 +1,6 @@
 {
   "id": "stone_pickaxe",
-  "texture": "Items/stone_pickaxe.png",
+  "texture": "items/stone_pickaxe.png",
   "itemConfiguration": {
     "maxCount": 1,
     "weight": 5.75,

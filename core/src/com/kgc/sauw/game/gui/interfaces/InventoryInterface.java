@@ -39,7 +39,7 @@ public class InventoryInterface extends Interface {
         playerWeight = (TextView) getElement("text.player_weight");
         playerImg = (Image) getElement("image.player_img");
 
-        TextureRegion[][] tmp = TextureRegion.split(Resource.getTexture("Entity/player_inv.png"), Resource.getTexture("Entity/player_inv.png").getWidth() / 3, Resource.getTexture("Entity/player_inv.png").getHeight());
+        TextureRegion[][] tmp = TextureRegion.split(Resource.getTexture("entity/player_inv.png"), Resource.getTexture("entity/player_inv.png").getWidth() / 3, Resource.getTexture("entity/player_inv.png").getHeight());
         playerAnimFrames = new TextureRegion[3];
         int index = 0;
         for (int i = 0; i < 1; i++) {

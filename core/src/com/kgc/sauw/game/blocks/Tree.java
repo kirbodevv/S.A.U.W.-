@@ -8,7 +8,7 @@ import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class Tree extends Block {
     public Tree() {
-        super(Resource.getTexture("Blocks/tree.png"));
+        super(Resource.getTexture("blocks/tree.png"));
 
         blockConfiguration.setSize(1, 2);
         blockConfiguration.setMaxDamage(5);

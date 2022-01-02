@@ -8,7 +8,7 @@ import static com.kgc.sauw.core.GameContext.SAUW;
 
 public class ChristmasTree extends Block {
     public ChristmasTree() {
-        super(Resource.getTexture("Blocks/christmas_tree.png"));
+        super(Resource.getTexture("blocks/christmas_tree.png"));
 
         blockConfiguration.setSize(1, 2);
         blockConfiguration.setMaxDamage(5);

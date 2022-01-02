@@ -1,6 +1,6 @@
 {
   "id": "stone",
-  "texture": "Items/stone.png",
+  "texture": "items/stone.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.15,

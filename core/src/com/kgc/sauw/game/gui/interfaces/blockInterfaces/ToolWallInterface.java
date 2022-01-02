@@ -12,8 +12,8 @@ public class ToolWallInterface extends BlockInterface {
     public ToolWallInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/ToolWallInstruments.xml"), this);
 
-        ((Slot) getElement("slot.HammerSlot")).setIcon(Resource.getTexture("Items/hammer.png"));
-        ((Slot) getElement("slot.HandsawSlot")).setIcon(Resource.getTexture("Items/handsaw.png"));
+        ((Slot) getElement("slot.HammerSlot")).setIcon(Resource.getTexture("items/hammer.png"));
+        ((Slot) getElement("slot.HandsawSlot")).setIcon(Resource.getTexture("items/handsaw.png"));
 
         updateElementsList();
     }

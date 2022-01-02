@@ -26,13 +26,13 @@ public class Furnace extends AbstractFurnaceBlock implements LightBlock {
     };
 
     public Furnace() {
-        sprite.setRegion(Resource.getTexture("Blocks/furnace.png"));
+        sprite.setRegion(Resource.getTexture("blocks/furnace.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setInstrumentType(InstrumentItem.Type.PICKAXE);
         blockConfiguration.setCollisionsRectangleByPixels(1, 0, 30, 13, 32);
 
-        animator.addAnimationRegion("animation_region:furnace", Resource.getTexture("Blocks/furnace.png"), 4, 1);
+        animator.addAnimationRegion("animation_region:furnace", Resource.getTexture("blocks/furnace.png"), 4, 1);
         animator.addAnimation("animation:furnace", "animation_region:furnace", 0.2f, 1, 2, 3);
 
         GUI = FURNACE_INTERFACE;

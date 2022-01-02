@@ -53,10 +53,10 @@ public class MenuScreen implements Screen {
         ModsScreen = new ModsScreen(this);*/
 
         sauwLogo = new Image();
-        sauwLogo.setImg(Resource.getTexture("Interface/SAUW_Logo.png"));
+        sauwLogo.setImg(Resource.getTexture("interface/SAUW_Logo.png"));
 
         update = new Button("sauw.button.menu_screen.update", 0, 0, 0, 0);
-        update.setIcon(Resource.getTexture("Interface/update_icon.png"));
+        update.setIcon(Resource.getTexture("interface/update_icon.png"));
         update.addEventListener(UPDATES_INTERFACE::open);
         startButton = new Button("sauw.button.menu_screen.start", 0, 0, 0, 0);
         settingsButton = new Button("sauw.button.menu_screen.settings", 0, 0, 0, 0);
@@ -162,7 +162,7 @@ public class MenuScreen implements Screen {
     private void drawBackground() {
         for (int x = 0; x < WIDTH_IN_BLOCKS; x++) {
             for (int y = 0; y < HEIGHT_IN_BLOCKS; y++) {
-                BATCH.draw(Resource.getTexture("Blocks/grass_1.png"), BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE);
+                BATCH.draw(Resource.getTexture("blocks/grass_1.png"), BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
     }

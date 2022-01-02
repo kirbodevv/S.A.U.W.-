@@ -13,9 +13,9 @@ public class ToolWall extends Block {
     TextureRegion[][] instrumentsTextures;
 
     public ToolWall() {
-        super(Resource.getTexture("Blocks/tool_wall.png"));
+        super(Resource.getTexture("blocks/tool_wall.png"));
 
-        instrumentsTextures = TextureRegion.split(Resource.getTexture("Blocks/tool_wall_instruments.png"), Resource.getTexture("Blocks/tool_wall_instruments.png").getWidth() / 4, Resource.getTexture("Blocks/tool_wall_instruments.png").getHeight());
+        instrumentsTextures = TextureRegion.split(Resource.getTexture("blocks/tool_wall_instruments.png"), Resource.getTexture("blocks/tool_wall_instruments.png").getWidth() / 4, Resource.getTexture("blocks/tool_wall_instruments.png").getHeight());
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(2, 0, 30, 7, 32);

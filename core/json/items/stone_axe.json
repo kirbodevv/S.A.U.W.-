@@ -1,6 +1,6 @@
 {
   "id": "stone_axe",
-  "texture": "Items/stone_axe.png",
+  "texture": "items/stone_axe.png",
   "itemConfiguration": {
     "maxCount": 1,
     "weight": 5.75,

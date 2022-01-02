@@ -8,7 +8,7 @@ import com.kgc.sauw.core.item.InstrumentItem;
 public class IronOre extends Block {
 
     public IronOre() {
-        super(Resource.getTexture("Blocks/iron_ore.png"));
+        super(Resource.getTexture("blocks/iron_ore.png"));
 
         blockConfiguration.setMaxDamage(6);
         blockConfiguration.setTransparent(true);

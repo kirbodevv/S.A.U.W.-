@@ -5,6 +5,6 @@ import com.kgc.sauw.core.resource.Resource;
 
 public class Barrier extends Block {
     public Barrier() {
-        super(Resource.getTexture("Blocks/undefined.png"));
+        super(Resource.getTexture("blocks/undefined.png"));
     }
 }

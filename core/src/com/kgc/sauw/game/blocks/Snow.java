@@ -5,6 +5,6 @@ import com.kgc.sauw.core.resource.Resource;
 
 public class Snow extends Block {
     public Snow() {
-        super(Resource.getTexture("Blocks/snow.png"));
+        super(Resource.getTexture("blocks/snow.png"));
     }
 }

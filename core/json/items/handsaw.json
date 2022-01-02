@@ -1,6 +1,6 @@
 {
   "id": "handsaw",
-  "texture": "Items/handsaw.png",
+  "texture": "items/handsaw.png",
   "itemConfiguration": {
     "maxCount": 1,
     "weight": 1,

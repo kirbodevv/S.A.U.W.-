@@ -15,13 +15,13 @@ public class Campfire extends Block implements LightBlock {
     private final Animator animator;
 
     public Campfire() {
-        super(Resource.getTexture("Blocks/campfire.png"));
+        super(Resource.getTexture("blocks/campfire.png"));
 
         blockConfiguration.setTransparent(true);
         blockConfiguration.setCollisionsRectangleByPixels(8, 2, 18, 10, 32);
 
         animator = new Animator();
-        animator.addAnimationRegion("animation_region:campfire", Resource.getTexture("Blocks/campfire_animation.png"), 4, 1);
+        animator.addAnimationRegion("animation_region:campfire", Resource.getTexture("blocks/campfire_animation.png"), 4, 1);
         animator.addAnimation("animation:campfire", "animation_region:campfire", 0.25f, 0, 1, 2, 3);
     }
 

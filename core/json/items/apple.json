@@ -1,6 +1,6 @@
 {
   "id": "apple",
-  "texture": "Items/apple.png",
+  "texture": "items/apple.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.2,

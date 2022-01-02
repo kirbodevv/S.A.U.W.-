@@ -117,9 +117,9 @@ public class SettingsScreen implements Screen {
             }
         });
         prevLang = new Button("SETTINGS_SCREEN_PREVIOUS_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 7, width / 16, width / 16);
-        prevLang.setIcon(Resource.getTexture("Interface/button_up_0.png"));
+        prevLang.setIcon(Resource.getTexture("interface/button_up_0.png"));
         nextLang = new Button("SETTINGS_SCREEN_NEXT_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 9, width / 16, width / 16);
-        nextLang.setIcon(Resource.getTexture("Interface/button_down_0.png"));
+        nextLang.setIcon(Resource.getTexture("interface/button_down_0.png"));
         nextLang.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {

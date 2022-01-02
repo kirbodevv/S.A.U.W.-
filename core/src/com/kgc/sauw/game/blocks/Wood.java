@@ -6,7 +6,7 @@ import com.kgc.sauw.core.resource.Resource;
 
 public class Wood extends Block {
     public Wood() {
-        super(Resource.getTexture("Blocks/wood.png"));
+        super(Resource.getTexture("blocks/wood.png"));
 
         blockConfiguration.setInstrumentType(InstrumentItem.Type.AXE);
     }

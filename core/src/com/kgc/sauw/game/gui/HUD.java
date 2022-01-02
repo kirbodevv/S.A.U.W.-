@@ -61,7 +61,7 @@ public class HUD {
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         debug.getData().setScale(SCREEN_WIDTH / 64 / debug.getCapHeight());
 
-        joystick = new Joystick(Resource.getTexture("Interface/Joystick_0.png"), Resource.getTexture("Interface/Joystick_1.png"));
+        joystick = new Joystick(Resource.getTexture("interface/Joystick_0.png"), Resource.getTexture("interface/Joystick_1.png"));
         joystick.setSizeInBlocks(3f, 3f);
         joystick.setTranslationX(0.5f);
 
@@ -91,15 +91,15 @@ public class HUD {
 
         Image healthImage = new Image();
         healthImage.setSizeInBlocks(0.4f, 0.4f);
-        healthImage.setImg(Resource.getTexture("Interface/health_icon.png"));
+        healthImage.setImg(Resource.getTexture("interface/health_icon.png"));
 
         Image hungerImage = new Image();
         hungerImage.setSizeInBlocks(0.4f, 0.4f);
-        hungerImage.setImg(Resource.getTexture("Interface/hunger_icon.png"));
+        hungerImage.setImg(Resource.getTexture("interface/hunger_icon.png"));
 
         Image thirstImage = new Image();
         thirstImage.setSizeInBlocks(0.4f, 0.4f);
-        thirstImage.setImg(Resource.getTexture("Interface/thirst_icon.png"));
+        thirstImage.setImg(Resource.getTexture("interface/thirst_icon.png"));
 
         timeTextView = new TextView();
         timeTextView.setSizeInBlocks(1.25f, 0.5f);
@@ -141,22 +141,22 @@ public class HUD {
         consoleOpenButton = new Button("CONSOLE_OPEN_BUTTON", 0, 0, 0, 0);
         consoleOpenButton.setSizeInBlocks(0.75f, 0.75f);
         consoleOpenButton.setTranslationY(-0.125f);
-        consoleOpenButton.setIcon(Resource.getTexture("Interface/console_button_0.png"));
+        consoleOpenButton.setIcon(Resource.getTexture("interface/console_button_0.png"));
 
         craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
         craftingButton.setSizeInBlocks(1f, 1f);
-        craftingButton.setIcon(Resource.getTexture("Interface/crafting_button_0.png"));
+        craftingButton.setIcon(Resource.getTexture("interface/crafting_button_0.png"));
 
         buildButton = new Button("building_button", 0, 0, 0, 0);
         buildButton.setSizeInBlocks(1f, 1f);
-        buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
+        buildButton.setIcon(Resource.getTexture("items/hammer.png"));
         buildButton.addEventListener(() -> {
             if (!Building.building) {
                 Building.startBuilding();
-                buildButton.setIcon(Resource.getTexture("Interface/closeButton.png"));
+                buildButton.setIcon(Resource.getTexture("interface/closeButton.png"));
             } else {
                 Building.stopBuilding();
-                buildButton.setIcon(Resource.getTexture("Items/hammer.png"));
+                buildButton.setIcon(Resource.getTexture("items/hammer.png"));
             }
 
         });
@@ -164,11 +164,11 @@ public class HUD {
         pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
         pauseButton.setSizeInBlocks(0.75f, 0.75f);
         pauseButton.setTranslationY(-0.125f);
-        pauseButton.setIcon(Resource.getTexture("Interface/pause_icon.png"));
+        pauseButton.setIcon(Resource.getTexture("interface/pause_icon.png"));
 
         inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
         inventoryOpenButton.setSizeInBlocks(1f, 1f);
-        inventoryOpenButton.setIcon(Resource.getTexture("Interface/extraButton_0.png"));
+        inventoryOpenButton.setIcon(Resource.getTexture("interface/extraButton_0.png"));
 
         mainLayout = new Layout(Layout.Orientation.VERTICAL);
         mainLayout.setGravity(Layout.Gravity.TOP);

@@ -1,6 +1,6 @@
 {
   "id": "campfire",
-  "texture": "Blocks/campfire.png",
+  "texture": "blocks/campfire.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 1,

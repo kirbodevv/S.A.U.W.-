@@ -9,10 +9,10 @@ import com.kgc.sauw.core.item.InstrumentItem;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
 public class Grass extends Block {
-    private final Texture flowersTexture = Resource.getTexture("Blocks/flowers.png");
+    private final Texture flowersTexture = Resource.getTexture("blocks/flowers.png");
 
     public Grass() {
-        super(Resource.getTexture("Blocks/grass_1.png"));
+        super(Resource.getTexture("blocks/grass_1.png"));
 
         blockConfiguration.setInstrumentType(InstrumentItem.Type.SHOVEL);
     }

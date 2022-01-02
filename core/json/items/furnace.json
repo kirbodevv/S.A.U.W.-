@@ -1,6 +1,6 @@
 {
   "id": "furnace",
-  "texture": "Blocks/furnace.png",
+  "texture": "blocks/furnace.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.01,

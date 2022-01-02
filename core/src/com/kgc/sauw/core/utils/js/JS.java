@@ -1,12 +1,11 @@
 package com.kgc.sauw.core.utils.js;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.core.mod.Mods;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
 
-public class JSLoader {
+public class JS {
     public static final String imports = "" +
             "var ID = com.kgc.sauw.core.utils.ID;" +
             "var Player = com.kgc.sauw.core.entity.EntityManager.PLAYER;" +
@@ -20,17 +19,17 @@ public class JSLoader {
             Object fObj = scriptable.get(functionName, scriptable);
             if ((fObj instanceof Function)) {
                 Function f = (Function) fObj;
-                result = f.call(Mods.context, scriptable, scriptable, args);
+                result = f.call(context, scriptable, scriptable, args);
             }
         } catch (Exception e) {
-            Gdx.app.log("Mods error", e.toString());
+            Gdx.app.log("Script error", e.toString());
         } finally {
             Context.exit();
         }
         return result;
     }
 
-    public static Scriptable loadJs(String js, String sourceName) throws Exception {
+    public static Scriptable loadJs(String js, String sourceName) {
         Context context = Context.enter();
         Scriptable scriptable = context.initStandardObjects();
 

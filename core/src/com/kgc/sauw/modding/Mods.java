@@ -20,6 +20,7 @@ public class Mods {
     }
 
     private static void loadMod(FileHandle modDir) {
+        Gdx.app.log("Mod loader", "Mod loading...");
         Mod mod = new Mod(modDir);
         mods.add(mod);
         Gdx.app.log("Mod loader", "Mod loaded with package \"" + mod.getManifest().package_ + "\"");

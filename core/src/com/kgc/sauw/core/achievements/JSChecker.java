@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.achievements;
 
-import com.kgc.sauw.core.utils.js.JSLoader;
+import com.kgc.sauw.core.utils.js.JS;
 import org.mozilla.javascript.Scriptable;
 
 public class JSChecker implements AchievementChecker {
@@ -10,7 +10,7 @@ public class JSChecker implements AchievementChecker {
 
     public JSChecker(String js, String achievementName) {
         try {
-            this.scriptable = JSLoader.loadJs(js, achievementName);
+            this.scriptable = JS.loadJs(js, achievementName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -18,6 +18,6 @@ public class JSChecker implements AchievementChecker {
 
     @Override
     public boolean check() {
-        return (boolean) JSLoader.hookFunction("check", scriptable, objects);
+        return (boolean) JS.hookFunction("check", scriptable, objects);
     }
 }

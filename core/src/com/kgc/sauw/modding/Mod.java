@@ -5,12 +5,14 @@ import com.kgc.sauw.core.GameContext;
 import org.json.JSONObject;
 
 public class Mod {
-    private GameContext gameContext;
     private final Manifest manifest;
     private final Config config;
-    private ModItems modItems;
-    private ModResources modResources;
-    private ModLocalization modLocalization;
+    private GameContext gameContext;
+    private ModScripts scripts;
+    private ModAchievements achievements;
+    private ModItems items;
+    private ModResources resources;
+    private ModLocalization localization;
     public boolean enabled = true;
 
     public Mod(FileHandle modDir) {
@@ -18,10 +20,12 @@ public class Mod {
         config = new Config(new JSONObject(modDir.child("config.json").readString()));
         modDir.child("config.json").writeString(config.toString(), false);
         if ((boolean) config.get("enabled")) {
-            modResources = new ModResources(modDir.child("resources"));
-            modLocalization = new ModLocalization(modDir.child("localizations"));
+            resources = new ModResources(modDir.child("resources"));
+            localization = new ModLocalization(modDir.child("localizations"));
             gameContext = GameContext.registeredContext(manifest.package_);
-            modItems = new ModItems(modDir.child("items"), gameContext);
+            scripts = new ModScripts(modDir.child("scripts"));
+            items = new ModItems(modDir.child("items"), gameContext);
+            achievements = new ModAchievements(modDir.child("achievements"), scripts, gameContext);
         }
     }
 

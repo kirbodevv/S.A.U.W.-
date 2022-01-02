@@ -13,7 +13,6 @@ import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.input.Input;
 import com.kgc.sauw.core.item.Items;
-import com.kgc.sauw.core.mod.Mods;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
@@ -31,10 +30,8 @@ import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
 
 public class SAUW implements Screen {
     public static boolean isGameRunning;
-    public static final Mods MODS;
 
     static {
-        MODS = new Mods();
         isGameRunning = false;
     }
 
@@ -56,7 +53,6 @@ public class SAUW implements Screen {
         } else {
             Environment.load();
         }*/
-        MODS.load();
         Particles.init();
 
         new UpdateTick().start();

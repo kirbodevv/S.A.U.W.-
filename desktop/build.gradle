@@ -42,7 +42,7 @@ dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"
 buildscript {
-    ext.kotlin_version = '1.6.0'
+    ext.kotlin_version = '1.4.0'
     repositories {
         mavenCentral()
     }

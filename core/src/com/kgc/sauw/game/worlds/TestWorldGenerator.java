@@ -7,15 +7,19 @@ import com.kgc.sauw.core.world.generator.AbstractWorldGenerator;
 import com.kgc.sauw.core.world.generator.WorldGeneratorUtils;
 import com.kgc.utils.OpenSimplexNoise;
 
+import java.util.Random;
+
 import static com.kgc.sauw.core.world.chunk.Chunk.*;
 
 public class TestWorldGenerator implements AbstractWorldGenerator {
     public static final TestWorldGenerator INSTANCE = new TestWorldGenerator();
     OpenSimplexNoise openSimplexNoise;
+    Random random;
 
     @Override
     public void setSeed(long seed) {
         openSimplexNoise = new OpenSimplexNoise(seed);
+        random = new Random(seed);
     }
 
     @Override
@@ -33,8 +37,11 @@ public class TestWorldGenerator implements AbstractWorldGenerator {
                     tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:sand", bx, 1, bz, x, z);
                 } else {
                     tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:grass", bx, 1, bz, x, z);
+                    if (random.nextInt(10) == 0)
+                        tiles[bx][0][bz] = TileFactory.createTile("sauw", "block:tree", bx, 0, bz, x, z);
                 }
-                tiles[bx][0][bz] = TileFactory.createTile("sauw", "block:air", bx, 0, bz, x, z);
+                if (tiles[bx][0][bz] == null)
+                    tiles[bx][0][bz] = TileFactory.createTile("sauw", "block:air", bx, 0, bz, x, z);
                 tiles[bx][1][bz].rotation = (int) (Math.random() * 3);
             }
         }

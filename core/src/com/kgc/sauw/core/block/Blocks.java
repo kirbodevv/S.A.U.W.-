@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.block;
 
 import com.badlogic.gdx.Gdx;
-import com.kgc.sauw.core.register.Registry;
+import com.kgc.sauw.core.registry.Registry;
 
 public class Blocks extends Registry<Block> {
     public static final Blocks INSTANCE = new Blocks();

@@ -9,7 +9,6 @@ import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.mod.ModAPI;
 import com.kgc.sauw.core.resource.Resource;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -47,34 +46,28 @@ public class ConsoleInterface extends Interface {
         prevCommand.setIcon(Resource.getTexture("interface/button_left_0.png"));
         nextCommand.setIcon(Resource.getTexture("interface/button_right_0.png"));
 
-        nextCommand.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                currCom++;
-                if (currCom >= ModAPI.Console.inputs.size()) {
-                    currCom = ModAPI.Console.inputs.size() - 1;
-                }
-                if (currCom != -1) {
-                    input.setText(ModAPI.Console.input(currCom));
-                } else {
-                    input.setText(inputTxt);
-                }
+        /*nextCommand.addEventListener(() -> {
+            currCom++;
+            if (currCom >= ModAPI.Console.inputs.size()) {
+                currCom = ModAPI.Console.inputs.size() - 1;
+            }
+            if (currCom != -1) {
+                input.setText(ModAPI.Console.input(currCom));
+            } else {
+                input.setText(inputTxt);
             }
         });
-        prevCommand.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                currCom--;
-                if (currCom < 0) {
-                    currCom = -1;
-                }
-                if (currCom != -1) {
-                    input.setText(ModAPI.Console.input(currCom));
-                } else {
-                    input.setText(inputTxt);
-                }
+        prevCommand.addEventListener(() -> {
+            currCom--;
+            if (currCom < 0) {
+                currCom = -1;
             }
-        });
+            if (currCom != -1) {
+                input.setText(ModAPI.Console.input(currCom));
+            } else {
+                input.setText(inputTxt);
+            }
+        });*/
         HUD.log.setColor(Color.BLACK);
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
@@ -114,7 +107,7 @@ public class ConsoleInterface extends Interface {
             } finally {
                 Context.exit();
             }
-            ModAPI.Console.inputs.add(input.getText());
+            //ModAPI.Console.inputs.add(input.getText());
             input.clear();
         }
         if (input.y == 0) input.y = (int) (y + BLOCK_SIZE / 2f);

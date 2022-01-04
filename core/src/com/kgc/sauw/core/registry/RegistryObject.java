@@ -1,4 +1,4 @@
-package com.kgc.sauw.core.register;
+package com.kgc.sauw.core.registry;
 
 public abstract class RegistryObject {
     protected int id;

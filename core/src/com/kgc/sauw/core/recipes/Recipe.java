@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.recipes;
 
-import com.kgc.sauw.core.register.RegistryObject;
+import com.kgc.sauw.core.registry.RegistryObject;
 
 import java.util.ArrayList;
 

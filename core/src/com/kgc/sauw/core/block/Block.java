@@ -3,7 +3,7 @@ package com.kgc.sauw.core.block;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.kgc.sauw.core.gui.BlockInterface;
-import com.kgc.sauw.core.register.RegistryObject;
+import com.kgc.sauw.core.registry.RegistryObject;
 import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;

@@ -1,4 +1,4 @@
-package com.kgc.sauw.core.register;
+package com.kgc.sauw.core.registry;
 
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.GameContext;

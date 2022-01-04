@@ -1,6 +1,6 @@
 package com.kgc.sauw.core.achievements;
 
-import com.kgc.sauw.core.register.Registry;
+import com.kgc.sauw.core.registry.Registry;
 
 import static com.kgc.sauw.core.GameContext.SAUW;
 

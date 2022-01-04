@@ -7,10 +7,6 @@ import com.badlogic.gdx.physics.box2d.*;
 public class Physic {
     private static final World world = new World(new Vector2(0, 0), false);
 
-    public static void init() {
-
-    }
-
     public static void update() {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }

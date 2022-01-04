@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.achievements;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.kgc.sauw.core.register.RegistryObject;
+import com.kgc.sauw.core.registry.RegistryObject;
 import com.kgc.sauw.core.utils.languages.Languages;
 
 public class Achievement extends RegistryObject {

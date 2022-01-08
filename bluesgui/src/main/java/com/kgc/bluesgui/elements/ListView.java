@@ -1,15 +1,14 @@
 package com.kgc.bluesgui.elements;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.skins.Skins;
+import com.kgc.bluesgui.InterfaceElement;
 import com.kgc.utils.Camera2D;
 
-import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+/**
+ * КЛАСС НЕ РАБОТАЕТ, НЕ ЮЗАТЬ
+ */
 
 public class ListView extends InterfaceElement {
     private Layout viewLayout;
@@ -60,7 +59,7 @@ public class ListView extends InterfaceElement {
 
     @Override
     protected void renderTick(SpriteBatch batch, Camera2D cam) {
-        Skins.round_down.draw(x, y, width, height);
+        /*Skins.round_down.draw(x, y, width, height);
         slider.render(batch, cam);
 
         batch.end();
@@ -73,7 +72,7 @@ public class ListView extends InterfaceElement {
         fbo.end();
         batch.begin();
 
-        batch.draw(fbo.getColorBufferTexture(), cam.X + x, cam.Y + y);
+        batch.draw(fbo.getColorBufferTexture(), cam.X + x, cam.Y + y);*/
     }
 
     @Override

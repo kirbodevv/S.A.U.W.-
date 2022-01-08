@@ -3,17 +3,11 @@ package com.kgc.bluesgui;
 import com.kgc.bluesgui.elements.Button;
 import com.kgc.bluesgui.elements.Layout;
 import com.kgc.bluesgui.elements.TextView;
-import com.kgc.sauw.core.graphic.Graphic;
-import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.gui.elements.Layout;
-import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.Resource;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.bluesgui.Graphic.*;
+import static com.kgc.bluesgui.Interfaces.interfaces;
 
 public class Interface {
     public String id;
@@ -37,7 +31,7 @@ public class Interface {
 
         actionBar.setSize(SCREEN_WIDTH, BLOCK_SIZE);
 
-        mainLayout.setBackground(Skins.interface_background);
+        mainLayout.setBackground(Skins.getSkin("interface_background"));
         mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         mainLayout.setSizeInBlocks(16, SCREEN_HEIGHT / BLOCK_SIZE - 1);
         mainLayout.setGravity(Layout.Gravity.TOP);
@@ -47,16 +41,12 @@ public class Interface {
         y = (Graphic.SCREEN_HEIGHT - height) / 2;
 
         closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0);
-        closeInterfaceButton.setIcon(Resource.getTexture("interface/closeButton.png"));
+        closeInterfaceButton.setIcon(close_button_texture);
         closeInterfaceButton.setSizeInBlocks(0.75f, 0.75f);
-        closeInterfaceButton.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                close();
-            }
-        });
+        closeInterfaceButton.addEventListener(this::close);
 
         elements.add(closeInterfaceButton);
+        interfaces.add(this);
     }
 
     public void setController(InterfaceController controller) {
@@ -66,11 +56,6 @@ public class Interface {
     public void updateElementsList() {
         for (InterfaceElement e : mainLayout.getAllElements()) {
             if (!InterfaceUtils.isElementInInterface(e, elements)) elements.add(e);
-        }
-        for (InterfaceElement e : elements) {
-            if (e instanceof Slot) {
-                if (!InterfaceUtils.isElementInSlotsArray((Slot) e, slots)) slots.add((Slot) e);
-            }
         }
     }
 
@@ -93,15 +78,6 @@ public class Interface {
         }
     }
 
-    public Slot getSlot(String ID) {
-        for (Slot slot : slots) {
-            if (slot.id.equals(ID)) {
-                return slot;
-            }
-        }
-        return null;
-    }
-
     public InterfaceElement getElementByFullId(String fullId) {
         for (InterfaceElement element : elements) {
             if (element.id.equals(fullId)) {
@@ -117,8 +93,6 @@ public class Interface {
 
     public void update() {
         if (isOpen) {
-            for (Slot slot : slots) slot.setContainer(null);
-
             tick();
 
             mainLayout.setPosition((SCREEN_WIDTH - mainLayout.width) / 2f, (SCREEN_HEIGHT - mainLayout.height - BLOCK_SIZE) / 2f);
@@ -141,10 +115,6 @@ public class Interface {
             preRender();
 
             closeInterfaceButton.render(BATCH, INTERFACE_CAMERA);
-
-            for (Slot slot : slots) {
-                slot.itemRender();
-            }
             postRender();
         }
     }

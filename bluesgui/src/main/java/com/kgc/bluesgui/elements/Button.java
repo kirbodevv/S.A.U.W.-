@@ -3,8 +3,8 @@ package com.kgc.bluesgui.elements;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.skins.Skins;
+import com.kgc.bluesgui.ElementSkin;
+import com.kgc.bluesgui.Skins;
 import com.kgc.utils.Camera2D;
 
 public class Button extends AbstractTextView {
@@ -35,7 +35,7 @@ public class Button extends AbstractTextView {
     }
 
     private void createButton(String ID, float X, float Y, float w, float h) {
-        createButton(ID, X, Y, w, h, Skins.round_up, Skins.round_down);
+        createButton(ID, X, Y, w, h, Skins.getSkin("button_up"), Skins.getSkin("button_down"));
     }
 
     public void setSkin(ElementSkin elementSkin0, ElementSkin elementSkin1) {

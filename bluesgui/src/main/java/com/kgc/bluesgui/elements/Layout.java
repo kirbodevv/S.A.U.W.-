@@ -1,9 +1,9 @@
 package com.kgc.bluesgui.elements;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.skins.Skins;
+import com.kgc.bluesgui.ElementSkin;
+import com.kgc.bluesgui.InterfaceElement;
+import com.kgc.bluesgui.Skins;
 import com.kgc.utils.Camera2D;
 
 import java.util.ArrayList;
@@ -53,8 +53,8 @@ public class Layout extends InterfaceElement {
         this.background = background;
     }
 
-    public void setStandardBackground(boolean b) {
-        setBackground(b ? Skins.round_up : Skins.round_down_1);
+    public void setStandardBackground(int i) {
+        setBackground(Skins.getSkin("layout_background_" + i));
     }
 
     @Override

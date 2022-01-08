@@ -1,0 +1,4 @@
+interface_background:round_up.png:default:0x282828FF
+button_up:round_up.png:default:0x555555FF
+button_down:round_down.png:default:0x555555FF
+text_view_background_0:round_up.png:default:0x555555FF

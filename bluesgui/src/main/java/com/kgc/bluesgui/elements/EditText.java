@@ -2,10 +2,10 @@ package com.kgc.bluesgui.elements;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.input.InputAdapter;
-import com.kgc.sauw.core.input.TextInputProcessor;
-import com.kgc.sauw.core.skins.Skins;
+import com.kgc.bluesgui.ElementSkin;
+import com.kgc.bluesgui.InputAdapter;
+import com.kgc.bluesgui.Skins;
+import com.kgc.bluesgui.TextInputProcessor;
 import com.kgc.utils.Camera2D;
 
 public class EditText extends AbstractTextView {
@@ -27,7 +27,7 @@ public class EditText extends AbstractTextView {
                 if (text.length() > 0 && possibleToEnterText) text = text.substring(0, text.length() - 1);
             }
         });
-        backgroundTexture = Skins.round_down_1;
+        backgroundTexture = Skins.getSkin("edit_text");
     }
 
     public void clear() {

@@ -3,12 +3,12 @@ package com.kgc.bluesgui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.kgc.sauw.core.utils.GravityAdapter;
 import com.kgc.utils.Camera2D;
 
 import java.util.ArrayList;
 
-import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.bluesgui.Graphic.BLOCK_SIZE;
+
 
 public abstract class InterfaceElement {
     public enum Sides {

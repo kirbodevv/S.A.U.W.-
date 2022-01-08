@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
-import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.bluesgui.Graphic.BATCH;
 
 public class ElementSkin {
     NinePatchDrawable drawable = null;

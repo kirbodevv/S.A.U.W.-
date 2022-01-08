@@ -1,23 +1,23 @@
 package com.kgc.bluesgui.elements;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.skins.Skins;
+import com.kgc.bluesgui.ElementSkin;
+import com.kgc.bluesgui.Skins;
 import com.kgc.utils.Camera2D;
 
 public class TextView extends AbstractTextView {
     private ElementSkin background;
 
     public TextView() {
-        setStandardBackground(true);
+        setStandardBackground(0);
     }
 
     public void setBackground(ElementSkin background) {
         this.background = background;
     }
 
-    public void setStandardBackground(boolean b) {
-        setBackground(b ? Skins.round_up : Skins.round_down_1);
+    public void setStandardBackground(int i) {
+        setBackground(Skins.getSkin("text_view_background_" + i));
     }
 
     @Override

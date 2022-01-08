@@ -1,8 +1,10 @@
+import org.gradle.api.tasks.bundling.Jar
+
 plugins {
     id 'java'
 }
 
-version '0.2.7.h1-beta'
+version '0.0.1-pre-alpha'
 
 sourceSets.main.java.srcDirs = ["src/main/java/"]
 
@@ -11,9 +13,18 @@ repositories {
 }
 
 dependencies {
-    implementation project(path: ':utils')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+task dist(type: Jar) {
+    manifest {
+    }
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
 }
 
 test {

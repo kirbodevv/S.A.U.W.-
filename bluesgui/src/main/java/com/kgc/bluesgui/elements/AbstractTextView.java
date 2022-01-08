@@ -3,11 +3,10 @@ package com.kgc.bluesgui.elements;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.bluesgui.InterfaceElement;
 import com.kgc.utils.Camera2D;
 
-import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.bluesgui.Graphic.*;
 
 public abstract class AbstractTextView extends InterfaceElement {
     protected String text = "";
@@ -24,10 +23,6 @@ public abstract class AbstractTextView extends InterfaceElement {
 
     public void setTextColor(Color color) {
         this.textColor.set(color);
-    }
-
-    public void setDefaultText() {
-        setText(Languages.getString(id));
     }
 
     public void setText(String text) {

@@ -1,15 +1,14 @@
 package com.kgc.bluesgui.elements;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.utils.TextureGenerator;
+import com.kgc.bluesgui.ElementSkin;
+import com.kgc.bluesgui.InterfaceElement;
+import com.kgc.bluesgui.Skins;
 import com.kgc.utils.Camera2D;
 
 public class Slider extends InterfaceElement {
-    private Texture background, slider;
+    private ElementSkin background, slider;
     private float sliderW;
     private int maxValue = 100;
     private int value = 0;
@@ -23,13 +22,8 @@ public class Slider extends InterfaceElement {
         int ww = Gdx.graphics.getWidth();
         if (!verticalSlider) sliderW = h / 2;
         else sliderW = w / 2;
-        if (!verticalSlider) {
-            slider = TextureGenerator.generateTexture(sliderW / (ww / 16.0f), h / (ww / 16.0f), true);
-            background = TextureGenerator.generateTexture(w / (ww / 16.0f), h / 2 / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
-        } else {
-            slider = TextureGenerator.generateTexture(w / (ww / 16.0f), sliderW / (ww / 16.0f), true);
-            background = TextureGenerator.generateTexture(w / 2 / (ww / 16.0f), h / (ww / 16.0f), new Color(0x383838FF), new Color(0x000000FF), new Color(0x000000FF), new Color(0x000000FF));
-        }
+        slider = Skins.getSkin("slider_slider");
+        slider = Skins.getSkin("slider_background");
         verticalSlider = w <= h;
     }
 
@@ -64,13 +58,8 @@ public class Slider extends InterfaceElement {
 
     @Override
     public void renderTick(SpriteBatch b, Camera2D cam) {
-        if (!verticalSlider) {
-            b.draw(background, cam.X + x, cam.Y + y + height / 4, width, height / 2);
-            b.draw(slider, cam.X + x + (int) (sc * value) - sliderW / 2, cam.Y + y, sliderW, height);
-        } else {
-            b.draw(background, cam.X + x + width / 4, cam.Y + y, width / 2, height);
-            b.draw(slider, cam.X + x, cam.Y + y + (height - (int) (sc * value)) - sliderW / 2, width, sliderW);
-        }
+        background.draw(cam.X + x, cam.Y + y + height / 4, width, height / 2);
+        slider.draw(cam.X + x + (int) (sc * value) - sliderW / 2, cam.Y + y, sliderW, height);
     }
 
     @Override

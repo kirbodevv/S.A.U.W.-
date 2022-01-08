@@ -4,11 +4,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.kgc.sauw.core.gui.ElementSkin;
-import com.kgc.sauw.core.gui.InterfaceElement;
-import com.kgc.sauw.core.skins.Skins;
-import com.kgc.sauw.core.utils.TextureGenerator;
+import com.kgc.bluesgui.ElementSkin;
+import com.kgc.bluesgui.InterfaceElement;
+import com.kgc.bluesgui.Skins;
 import com.kgc.utils.Camera2D;
+
+/**
+ * КЛАСС НЕ РАБОТАЕТ, НЕ ЮЗАТЬ
+ * */
 
 public class ProgressBar extends InterfaceElement {
     private float value;
@@ -35,8 +38,8 @@ public class ProgressBar extends InterfaceElement {
 
     public ProgressBar(boolean generateTextures) {
         this.generateTextures = generateTextures;
-        setBackground(Skins.progress_bar_background_round);
-        setForeground(Skins.progress_bar_foreground_round);
+        setBackground(Skins.getSkin("progress_bar_background"));
+        setForeground(Skins.getSkin("progress_bar_foreground_round"));
     }
 
     public void setBackground(ElementSkin background) {
@@ -70,10 +73,10 @@ public class ProgressBar extends InterfaceElement {
 
     @Override
     public void setSizeInBlocks(float w, float h) {
-        super.setSizeInBlocks(w, h);
+        /*super.setSizeInBlocks(w, h);
         if (generateTextures) {
             setProgressTexture(TextureGenerator.generateProgressBarPTexture(w, h));
-        }
+        }*/
     }
 
     @Override

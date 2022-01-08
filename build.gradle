@@ -50,6 +50,8 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
+        implementation project(":utils")
+        implementation project(":bluesgui")
         implementation "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
@@ -88,13 +90,14 @@ project(":utils") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
     }
 }
-/*project(":bluesgui") {
+project(":bluesgui") {
     apply plugin: "java-library"
 
     dependencies {
+        implementation project(path: ':utils')
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
     }
-}*/
+}
 
 project(":builders") {
     apply plugin: "java-library"

@@ -2,7 +2,7 @@ package com.kgc.bluesgui.elements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.kgc.sauw.core.gui.InterfaceElement;
+import com.kgc.bluesgui.InterfaceElement;
 import com.kgc.utils.Camera2D;
 
 public class Checkbox extends InterfaceElement {

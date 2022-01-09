@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Skins {
     private static final HashMap<String, SkinPackage> skin_packages = new HashMap<>();
@@ -13,11 +14,13 @@ public class Skins {
     public static final ElementSkin transparent;
     public static final int DEFAULT_OUTLINE_SIZE = 7;
     private static SkinPackage current_skin_package;
+    private final static SkinPackage default_skin_package;
 
     static {
         transparent = new ElementSkin();
         addSkinPackage(Gdx.files.internal("default_skin_package/default_skin_package.skin"));
-        skin_packages.get("default_skin_package").skins.put("transparent", transparent);
+        default_skin_package = skin_packages.get("default_skin_package");
+        default_skin_package.skins.put("transparent", transparent);
         useSkinPackage("default_skin_package");
     }
 
@@ -26,7 +29,7 @@ public class Skins {
     }
 
     public static ElementSkin getSkin(String skinName) {
-        return current_skin_package.skins.get(skinName);
+        return current_skin_package.skins.getOrDefault(skinName, current_skin_package.skins.get(skinName));
     }
 
     public static void addSkinPackage(FileHandle packageFile) {
@@ -63,9 +66,11 @@ public class Skins {
         }
 
         public void dispose() {
-            Collection<ElementSkin> skins = this.skins.values();
-            for (ElementSkin skin : skins) {
-                skin.texture.dispose();
+            Set<String> skins = this.skins.keySet();
+            for (String skin : skins) {
+                Gdx.app.log("Skin package", "skin disposed \"" + skin + "\"");
+                Texture t = this.skins.get(skin).texture;
+                if (t != null) t.dispose();
             }
         }
     }

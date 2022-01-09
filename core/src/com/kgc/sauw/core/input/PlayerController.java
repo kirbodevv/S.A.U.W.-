@@ -93,7 +93,7 @@ public class PlayerController implements InputProcessor {
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Keys.E) {
-            Callback.executeInteractionButtonClickedCallback();
+            Callback.executeInteractionButtonClickedCallbacks();
         }
         return false;
     }

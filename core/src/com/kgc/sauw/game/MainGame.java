@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.Version;
+import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
@@ -26,7 +27,7 @@ public class MainGame extends Game {
     private static SAUW sauw;
     private static JSONObject data;
 
-    public static void loadGame(String worldName) {
+    public static void load(String worldName) {
         sauw = new SAUW(worldName);
         getGame().setScreen(sauw);
     }
@@ -82,6 +83,7 @@ public class MainGame extends Game {
                 UPDATES_INTERFACE.open();
             }
         });
+        Callback.executeGameLoadedCallbacks();
     }
 
     public void createFiles() throws IOException {

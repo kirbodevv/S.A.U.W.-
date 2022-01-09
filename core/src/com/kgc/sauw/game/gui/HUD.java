@@ -122,7 +122,7 @@ public class HUD {
         interactionButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
-                Callback.executeInteractionButtonClickedCallback();
+                Callback.executeInteractionButtonClickedCallbacks();
             }
         });
 

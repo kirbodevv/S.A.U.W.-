@@ -50,7 +50,7 @@ public abstract class World {
                 int bX = (int) Math.ceil(Gdx.input.getX() / sc + GAME_CAMERA.X) - 1;
                 int bY = (int) Math.ceil((Gdx.graphics.getHeight() - Gdx.input.getY()) / sc + GAME_CAMERA.Y) - 1;
 
-                Callback.executeTouchOnBlockCallback(new Vector3(bX, bY, map.getHighestBlock(bX, bY)));
+                Callback.executeTouchOnBlockCallbacks(new Vector3(bX, bY, map.getHighestBlock(bX, bY)));
             }
         }
         if (Gdx.input.isTouched()) {

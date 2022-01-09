@@ -11,13 +11,22 @@ public class Callback {
         InteractionButtonClicked.callbacks.add(callback);
     }
 
-    public static void executeTouchOnBlockCallback(Vector3 position) {
+    public static void addCallback(GameLoaded callback) {
+        GameLoaded.callbacks.add(callback);
+    }
+
+    public static void executeTouchOnBlockCallbacks(Vector3 position) {
         for (TouchOnBlock callback : TouchOnBlock.callbacks)
             callback.main(position);
     }
 
-    public static void executeInteractionButtonClickedCallback() {
+    public static void executeInteractionButtonClickedCallbacks() {
         for (InteractionButtonClicked callback : InteractionButtonClicked.callbacks)
+            callback.main();
+    }
+
+    public static void executeGameLoadedCallbacks() {
+        for (GameLoaded callback : GameLoaded.callbacks)
             callback.main();
     }
 }

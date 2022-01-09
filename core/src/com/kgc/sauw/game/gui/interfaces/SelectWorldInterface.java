@@ -34,26 +34,20 @@ public class SelectWorldInterface extends Interface {
         mainLayout.addElements(listView);*/
         Button up = (Button) getElement("button.UP");
         up.setIcon(Resource.getTexture("interface/button_up_0.png"));
-        up.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                worldSelIndex--;
-                if (worldSelIndex < 0) worldSelIndex = 0;
-                hideButtonsIfNeed();
-                setSelectButtonsText();
-            }
+        up.addEventListener(() -> {
+            worldSelIndex--;
+            if (worldSelIndex < 0) worldSelIndex = 0;
+            hideButtonsIfNeed();
+            setSelectButtonsText();
         });
         Button down = (Button) getElement("button.DOWN");
         down.setIcon(Resource.getTexture("interface/button_down_0.png"));
-        down.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                worldSelIndex++;
-                if (worldSelIndex >= WorldLoader.worldNames.length)
-                    worldSelIndex = WorldLoader.worldNames.length - 1;
-                hideButtonsIfNeed();
-                setSelectButtonsText();
-            }
+        down.addEventListener(() -> {
+            worldSelIndex++;
+            if (worldSelIndex >= WorldLoader.worldNames.length)
+                worldSelIndex = WorldLoader.worldNames.length - 1;
+            hideButtonsIfNeed();
+            setSelectButtonsText();
         });
         createWorldInterface = new CreateNewWorldInterface();
         createWorldInterface.create.addEventListener(new OnClickListener() {
@@ -111,7 +105,7 @@ public class SelectWorldInterface extends Interface {
     }
 
     public void loadGame(String worldName) {
-        MainGame.loadGame(worldName);
+        MainGame.load(worldName);
     }
 
     public void setSelectButtonsText() {

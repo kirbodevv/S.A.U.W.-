@@ -64,7 +64,6 @@ public class SAUW implements Screen {
         PLAYER.inventory.addItem("sauw", "item:hammer", 1);
         PLAYER.inventory.addItem("sauw", "item:iron_ingot", 1);
         PLAYER.inventory.addItem("sauw", "item:log", 1);
-        PLAYER.inventory.addItem(24, 1);
     }
 
 

@@ -1,7 +1,5 @@
-# Blue Screen GUI
+# bluesgui
 
-> It doesn't work.
+## What is bluesgui?
 
-> Why?
-
-> I don't know.
+bluesgui is a gui lib for libgdx games. bluesgui is based on sauwgui (it was written on 04/19/2020 at 2 am)

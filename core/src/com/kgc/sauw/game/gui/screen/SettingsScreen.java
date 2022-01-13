@@ -14,7 +14,7 @@ import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Slider;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
-import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.game.Game;
 import com.kgc.sauw.core.utils.TextureGenerator;
 import org.json.JSONObject;
 
@@ -113,7 +113,7 @@ public class SettingsScreen implements Screen {
         closeButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
-                MainGame.getGame().setScreen(MenuScreen);
+                Game.getGame().setScreen(MenuScreen);
             }
         });
         prevLang = new Button("SETTINGS_SCREEN_PREVIOUS_LANGUAGE_BUTTON", MENU_CAMERA.X + width / 16 * 4 + width / 64, MENU_CAMERA.Y + height - width / 32 * 7, width / 16, width / 16);

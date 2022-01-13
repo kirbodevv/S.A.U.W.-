@@ -11,8 +11,8 @@ public class Callback {
         InteractionButtonClicked.callbacks.add(callback);
     }
 
-    public static void addCallback(GameLoaded callback) {
-        GameLoaded.callbacks.add(callback);
+    public static void addCallback(Initialization callback) {
+        Initialization.callbacks.add(callback);
     }
 
     public static void executeTouchOnBlockCallbacks(Vector3 position) {
@@ -25,8 +25,8 @@ public class Callback {
             callback.main();
     }
 
-    public static void executeGameLoadedCallbacks() {
-        for (GameLoaded callback : GameLoaded.callbacks)
+    public static void executeInitializationCallbacks() {
+        for (Initialization callback : Initialization.callbacks)
             callback.main();
     }
 }

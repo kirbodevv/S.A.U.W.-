@@ -8,7 +8,6 @@ import com.kgc.sauw.core.achievements.Achievements;
 import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.entity.EntityManager;
-import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.input.Input;
@@ -18,46 +17,25 @@ import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
 import com.kgc.sauw.core.world.WorldRenderer;
-import com.kgc.sauw.game.worlds.ChristmasWorld;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 import static com.kgc.sauw.game.gui.Interfaces.HUD;
 import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
 
 public class SAUW implements Screen {
-    public static boolean isGameRunning;
+    private final Box2DDebugRenderer DR;
 
-    static {
-        isGameRunning = false;
-    }
-
-    Box2DDebugRenderer DR;
-
-    public SAUW(String worldName) {
+    public SAUW() {
         DR = new Box2DDebugRenderer();
 
         Music.setVolume(Settings.musicVolume);
-
-        setWorld(new ChristmasWorld());
-
-        Environment.setSaveName(worldName);
-
-        //if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
-        getWorld().createNewWorld();
-        PLAYER.randomSpawn();
-        /*    Environment.save();
-        } else {
-            Environment.load();
-        }*/
         Particles.init();
 
         new UpdateTick().start();
         Input.init();
-        isGameRunning = true;
 
         EntityManager.spawn("entity:egor", 10, 10);
         PLAYER.inventory.addItem("sauw", "item:handsaw", 1);
@@ -98,6 +76,7 @@ public class SAUW implements Screen {
 
     @Override
     public void dispose() {
+        DR.dispose();
         throw new RuntimeException("It works, but you shouldn't use it :moyai:");
     }
 
@@ -136,7 +115,7 @@ public class SAUW implements Screen {
                 sleep(50);
             } catch (Exception ignored) {
             }
-            if (isGameRunning)
+            if (Game.isGameRunning)
                 new UpdateTick().start();
         }
     }

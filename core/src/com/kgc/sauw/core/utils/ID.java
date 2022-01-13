@@ -57,5 +57,6 @@ public class ID {
         registeredIdGroup("particle", 1200);
         registeredIdGroup("achievement", 1200);
         registeredIdGroup("recipe", 1200);
+        registeredIdGroup("world_generator", 1200);
     }
 }

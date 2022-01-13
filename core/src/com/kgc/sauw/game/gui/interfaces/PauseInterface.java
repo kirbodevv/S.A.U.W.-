@@ -1,14 +1,11 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.game.MainGame;
-
-import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import com.kgc.sauw.game.Game;
 
 public class PauseInterface extends Interface {
     Button saveWorldButton;
@@ -30,7 +27,7 @@ public class PauseInterface extends Interface {
 
         resumeButton.addEventListener(this::close);
         saveWorldButton.addEventListener(Environment::save);
-        exitButton.addEventListener(MainGame::closeGame);
+        exitButton.addEventListener(Game::closeGame);
 
         closeButtonHidden(true);
         updateElementsList();

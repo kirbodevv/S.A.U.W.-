@@ -66,7 +66,7 @@ public class WorldRenderer {
         int camY = (int) Math.floor(GAME_CAMERA.Y);
         int camYH = (int) Math.ceil(GAME_CAMERA.Y + GAME_CAMERA.H);
         for (int x = camX; x < camXW; x++) {
-            for (int z = camY; z < camYH; z++) {
+            for (int z = camYH - 1; z >= camY; z--) {
                 renderBlock(x, z, highLayer, world);
             }
         }

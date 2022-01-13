@@ -14,7 +14,7 @@ import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.WorldLoader;
-import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.game.Game;
 import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
@@ -39,7 +39,7 @@ public class MenuScreen implements Screen {
     private final Layout mainLayout;
 
     public MenuScreen() {
-        SAUW_coins = MainGame.getData().getInt("SAUW_Coins");
+        SAUW_coins = Game.getData().getInt("SAUW_Coins");
 
         WorldLoader.updateWorldsList();
 

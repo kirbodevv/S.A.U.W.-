@@ -12,6 +12,7 @@ public class TileFactory {
         tile.cx = tile.x % Chunk.CHUCK_SIZE_X;
         tile.cz = tile.z % Chunk.CHUCK_SIZE_Z;
         tile.cy = tile.y;
+        tile.setBodyAndLight();
         return tile;
     }
 

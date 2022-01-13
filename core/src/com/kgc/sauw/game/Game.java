@@ -1,40 +1,72 @@
 package com.kgc.sauw.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.generated.RecipesGenerated;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
+import com.kgc.sauw.game.worlds.ChristmasWorld;
 import com.kgc.sauw.modding.Mods;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
+import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.core.environment.Environment.getWorld;
+import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.game.gui.Interfaces.*;
 
-public class MainGame extends Game {
-    private static MainGame game;
+public class Game extends com.badlogic.gdx.Game {
+    public static boolean isGameRunning;
+
+    static {
+        Game.isGameRunning = false;
+    }
+
+    private static Game game;
     private static MenuScreen menuScreen;
     private static SAUW sauw;
     private static JSONObject data;
 
-    public static void load(String worldName) {
-        sauw = new SAUW(worldName);
-        getGame().setScreen(sauw);
+    public static void loadInDevMode() {
+        setWorld(new ChristmasWorld());
+        getWorld().createNewWorld();
+        PLAYER.randomSpawn();
+        load();
     }
+
+    public static void load(String worldName) {
+        Environment.setSaveName(worldName);
+        //if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
+        setWorld(new ChristmasWorld());
+        getWorld().createNewWorld();
+        PLAYER.randomSpawn();
+        /*    Environment.save();
+        } else {
+            Environment.load();
+        }*/
+        load();
+    }
+
+    private static void load() {
+        sauw = new SAUW();
+        getGame().setScreen(sauw);
+        isGameRunning = true;
+    }
+
 
     public static void closeGame() {
         getGame().setScreen(getMenuScreen());
-        SAUW.isGameRunning = false;
+        isGameRunning = false;
         sauw.dispose();
         sauw = null;
     }
@@ -44,7 +76,8 @@ public class MainGame extends Game {
         return menuScreen;
     }
 
-    public static MainGame getGame() {
+    public static Game getGame() {
+        if (game == null) game = new Game();
         return game;
     }
 
@@ -75,7 +108,6 @@ public class MainGame extends Game {
         new GameBlocks();
         Mods.loadMods();
         setScreen(getMenuScreen());
-        game = this;
         UpdatesChecker.check(() -> {
             if (UpdatesChecker.newVersionAvailable(Version.CODE_VERSION)) {
                 UPDATES_INTERFACE.setVersion(UpdatesChecker.getLastVersionName());
@@ -83,7 +115,7 @@ public class MainGame extends Game {
                 UPDATES_INTERFACE.open();
             }
         });
-        Callback.executeGameLoadedCallbacks();
+        Callback.executeInitializationCallbacks();
     }
 
     public void createFiles() throws IOException {

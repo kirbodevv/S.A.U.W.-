@@ -14,7 +14,7 @@ import com.kgc.sauw.core.gui.elements.Slider;
 import com.kgc.utils.Camera2D;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.TextureGenerator;
-import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.game.Game;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -64,7 +64,7 @@ public class ModsScreen implements Screen {
         closeButton.addEventListener(new OnClickListener() {
             @Override
             public void onClick() {
-                MainGame.getGame().setScreen(ms);
+                Game.getGame().setScreen(ms);
             }
         });
         slider = new Slider();

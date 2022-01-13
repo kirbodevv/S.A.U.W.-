@@ -7,7 +7,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.game.Game;
 
 public class SelectWorldInterface extends Interface {
     private final Button sel_0;
@@ -105,7 +105,7 @@ public class SelectWorldInterface extends Interface {
     }
 
     public void loadGame(String worldName) {
-        MainGame.load(worldName);
+        Game.load(worldName);
     }
 
     public void setSelectButtonsText() {

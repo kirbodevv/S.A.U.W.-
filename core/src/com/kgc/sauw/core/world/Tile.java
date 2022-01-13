@@ -74,28 +74,27 @@ public class Tile implements com.intbyte.bdb.ExtraData {
         }
     }
 
-    public void createTile(int X, int Y, int Z, Block bl) {
-        this.x = X;
+    public void createTile(int x, int Y, int z, Block block) {
+        this.x = x;
         this.y = Y;
-        this.z = Z;
-        this.id = bl.getId();
+        this.z = z;
+        this.id = block.getId();
         this.blockRectangle = new Rectangle();
-        this.blockRectangle.setPosition(X + bl.getBlockConfiguration().getCollisionsRectangle().x, Y + bl.getBlockConfiguration().getCollisionsRectangle().y);
-        this.blockRectangle.setSize(bl.getBlockConfiguration().getCollisionsRectangle().width, bl.getBlockConfiguration().getCollisionsRectangle().height);
+        this.blockRectangle.setPosition(x + block.getBlockConfiguration().getCollisionsRectangle().x, z + block.getBlockConfiguration().getCollisionsRectangle().y);
+        this.blockRectangle.setSize(block.getBlockConfiguration().getCollisionsRectangle().width, block.getBlockConfiguration().getCollisionsRectangle().height);
+        this.block = block;
 
-        block = bl;
-
-        this.interface_ = block.GUI;
+        this.interface_ = this.block.GUI;
         if (interface_ != null)
             for (int i = 0; i < interface_.slots.size(); i++) {
                 if (!interface_.slots.get(i).isInventorySlot) {
                     containers.add(new Container(interface_.slots.get(i).id));
                 }
             }
-        block.setDefaultExtraData(this);
-        block.onPlace(this);
+        this.block.setDefaultExtraData(this);
+        this.block.onPlace(this);
 
-        damage = bl.getBlockConfiguration().getMaxDamage();
+        damage = block.getBlockConfiguration().getMaxDamage();
 
     }
 
@@ -175,8 +174,8 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     }
 
     public void setBodyAndLight() {
-        if (z == 0 && block.getBlockConfiguration().getCollisions())
+        if (y == 0 && block.getBlockConfiguration().getCollisions())
             setBody(Physic.createRectangleBody(this.blockRectangle.x, this.blockRectangle.y, this.blockRectangle.width, this.blockRectangle.height, BodyDef.BodyType.StaticBody, false));
-        if (z == 0 && block instanceof LightBlock) setLight();
+        if (y == 0 && block instanceof LightBlock) setLight();
     }
 }

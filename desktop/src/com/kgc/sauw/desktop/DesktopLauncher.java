@@ -6,8 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.kgc.sauw.core.callbacks.Callback;
-import com.kgc.sauw.core.callbacks.GameLoaded;
-import com.kgc.sauw.game.MainGame;
+import com.kgc.sauw.core.callbacks.Initialization;
+import com.kgc.sauw.game.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,6 @@ public class DesktopLauncher {
         config.addIcon("icon/icon_32.png", Files.FileType.Internal);
         config.addIcon("icon/icon_64.png", Files.FileType.Internal);
         config.addIcon("icon/icon_128.png", Files.FileType.Internal);
-        final MainGame game = new MainGame();
 
         INSTANCE = new DesktopLauncher();
 
@@ -41,13 +40,14 @@ public class DesktopLauncher {
                 .build()
                 .parse(args);
 
-        INSTANCE.run(game, config);
+        INSTANCE.run(Game.getGame(), config);
     }
 
-    public void run(MainGame game, LwjglApplicationConfiguration config) {
+    public void run(Game game, LwjglApplicationConfiguration config) {
         new LwjglApplication(game, config);
-        Callback.addCallback((GameLoaded) () -> {
-            if (defaultWorld != null) MainGame.load(defaultWorld);
+        Callback.addCallback((Initialization) () -> {
+            if (defaultWorld != null) Game.load(defaultWorld);
+            if (devmode) Game.loadInDevMode();
         });
     }
 }

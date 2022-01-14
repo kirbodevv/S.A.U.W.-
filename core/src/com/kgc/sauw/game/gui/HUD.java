@@ -45,19 +45,7 @@ public class HUD {
     private final TextView timeTextView;
     private final Layout midLayout;
 
-
-    public void setConsoleTextColor(int r, int g, int b) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        Settings.consoleTextColorRed = r;
-        Settings.consoleTextColorGreen = g;
-        Settings.consoleTextColorBlue = b;
-        Settings.saveSettings();
-    }
-
     public HUD() {
-        setConsoleTextColor(Settings.consoleTextColorRed, Settings.consoleTextColorGreen, Settings.consoleTextColorBlue);
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
         debug.getData().setScale(SCREEN_WIDTH / 64 / debug.getCapHeight());
 

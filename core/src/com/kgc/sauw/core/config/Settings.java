@@ -4,30 +4,41 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
+
 public class Settings {
-    //<settings>
+    @Parameter(jsonKey = "debug")
     public static boolean debugMode = true;
+
+    @Parameter(jsonKey = "debug_renderer")
     public static boolean debugRenderer = false;
+
+    @Parameter(jsonKey = "language")
     public static String lang = "en";
+
+    @Parameter(jsonKey = "auto_pickup")
     public static boolean autoPickup = false;
-    public static int consoleTextColorRed;
-    public static int consoleTextColorGreen;
-    public static int consoleTextColorBlue;
+
+    @Parameter(jsonKey = "music_volume")
     public static int musicVolume = 70;
+
+    @Parameter(jsonKey = "use_console")
     public static boolean useConsole = false;
-    //</settings>
+
     private static JSONObject settings;
 
     public static void saveSettings() {
-        settings.put("debug", debugMode);
-        settings.put("debugRenderer", debugRenderer);
-        settings.put("lang", lang);
-        settings.getJSONObject("console").getJSONObject("textColor").put("R", consoleTextColorRed);
-        settings.getJSONObject("console").getJSONObject("textColor").put("G", consoleTextColorGreen);
-        settings.getJSONObject("console").getJSONObject("textColor").put("B", consoleTextColorBlue);
-        settings.getJSONObject("game").put("autopickup", autoPickup);
-        settings.getJSONObject("game").put("useConsole", useConsole);
-        settings.getJSONObject("sound").put("music", musicVolume);
+        for (Field field : Settings.class.getDeclaredFields()) {
+            if (field.isAnnotationPresent(Parameter.class)) {
+                try {
+                    settings.put(field.getAnnotation(Parameter.class).jsonKey(),
+                            field.get(null));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         FileHandle settingsFile = Gdx.files.external("S.A.U.W./User/settings.json");
         settingsFile.writeString(settings.toString(), false);
     }
@@ -36,17 +47,14 @@ public class Settings {
         FileHandle settingsFile = Gdx.files.external("S.A.U.W./User/settings.json");
         String result = settingsFile.readString();
         settings = new JSONObject(result);
-
-        //<settings load>
-        debugMode = settings.getBoolean("debug");
-        debugRenderer = settings.getBoolean("debugRenderer");
-        lang = settings.getString("lang");
-        consoleTextColorRed = settings.getJSONObject("console").getJSONObject("textColor").getInt("R");
-        consoleTextColorGreen = settings.getJSONObject("console").getJSONObject("textColor").getInt("G");
-        consoleTextColorBlue = settings.getJSONObject("console").getJSONObject("textColor").getInt("B");
-        autoPickup = settings.getJSONObject("game").getBoolean("autopickup");
-        useConsole = settings.getJSONObject("game").getBoolean("useConsole");
-        musicVolume = settings.getJSONObject("sound").getInt("music");
-        //</settings load>
+        for (Field field : Settings.class.getDeclaredFields()) {
+            if (field.isAnnotationPresent(Parameter.class)) {
+                try {
+                    field.set(null, settings.get(field.getAnnotation(Parameter.class).jsonKey()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

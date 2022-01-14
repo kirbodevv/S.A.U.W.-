@@ -1,19 +1,9 @@
 {
-    "debug":true,
-    "debugRenderer":true,
-    "lang":"en",
-    "console":{
-        "textColor":{
-            "R":0,
-            "G":0,
-            "B":0
-            }
-        },
-    "game":{
-        "autopickup":false,
-        "useConsole":false
-    },
-    "sound":{
-        "music":70
-    }
+    "debug":false,
+    "debug_renderer":false,
+    "language":"ru",
+    "auto_pickup":false,
+    "useConsole":false,
+    "music_volume":0,
+    "use_console":false
 }

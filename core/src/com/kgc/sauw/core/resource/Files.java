@@ -9,4 +9,19 @@ public class Files {
     public static FileHandle worldsDir = sauwDir.child("Worlds");
     public static FileHandle screenshotsDir = sauwDir.child("Screenshots");
     public static FileHandle modsDir = sauwDir.child("Mods");
+    public static FileHandle settingFile = userDir.child("settings.json");
+    public static FileHandle userData = userDir.child("data.json");
+
+    public static void createFiles() {
+        if (!sauwDir.exists()) {
+            sauwDir.mkdirs();
+            userDir.mkdirs();
+            worldsDir.mkdirs();
+            screenshotsDir.mkdirs();
+            modsDir.mkdirs();
+            settingFile.writeString(Gdx.files.internal("json/settings.json").readString(), false);
+            //this will be removed
+            userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
+        }
+    }
 }

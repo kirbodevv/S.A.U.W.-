@@ -11,14 +11,12 @@ import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 public class Block extends RegistryObject {
     protected Sprite sprite = new Sprite();
     public BlockInterface GUI = null;
-    protected BlockConfiguration blockConfiguration;
+    protected BlockConfiguration blockConfiguration = new BlockConfiguration();
 
     public Block() {
-        blockConfiguration = new BlockConfiguration();
     }
 
     public Block(Texture t0) {
-        this();
         this.sprite.setRegion(t0);
     }
 

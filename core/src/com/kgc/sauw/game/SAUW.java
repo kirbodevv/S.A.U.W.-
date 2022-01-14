@@ -115,7 +115,7 @@ public class SAUW implements Screen {
                 sleep(50);
             } catch (Exception ignored) {
             }
-            if (Game.isGameRunning)
+            if (Game.isRunning)
                 new UpdateTick().start();
         }
     }

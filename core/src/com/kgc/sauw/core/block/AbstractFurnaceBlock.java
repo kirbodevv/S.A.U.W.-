@@ -5,8 +5,6 @@ import com.kgc.sauw.core.fuel.Fuel;
 import com.kgc.sauw.core.world.Tile;
 
 public abstract class AbstractFurnaceBlock extends Block implements HeatingBlock {
-    public abstract float getWorkTemperature();
-
     @Override
     public double heatTemperature(Tile tile) {
         return (double) tile.getExtraData("currentTemperature");
@@ -33,5 +31,5 @@ public abstract class AbstractFurnaceBlock extends Block implements HeatingBlock
         tile.setExtraData("burnTime", 0);
     }
 
-
+    public abstract float getWorkTemperature();
 }

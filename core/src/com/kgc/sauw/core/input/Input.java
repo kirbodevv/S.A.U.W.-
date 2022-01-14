@@ -47,7 +47,7 @@ public final class Input {
 
         @Override
         public boolean keyUp(int keycode) {
-            if (Game.isGameRunning) {
+            if (Game.isRunning) {
                 if (!isAnyInterfaceOpen()) {
                     if (keycode == Keys.ESCAPE) {
                         if (!PAUSE_INTERFACE.isOpen) PAUSE_INTERFACE.open();

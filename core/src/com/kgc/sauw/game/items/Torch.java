@@ -2,8 +2,8 @@ package com.kgc.sauw.game.items;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.graphic.Animator;
+import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.resource.Resource;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;

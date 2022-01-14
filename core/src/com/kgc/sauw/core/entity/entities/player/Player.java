@@ -110,31 +110,25 @@ public class Player extends LivingEntity implements ExtraData {
         pointLight = new PointLight(rayHandler, 10, new Color(0.6f, 0.6f, 0, 1f), 5, 0, 0);
         pointLight.attachToBody(body);
         setLightActive(false);
-        Callback.addCallback(new TouchOnBlock() {
-            @Override
-            public void main(Vector3 position) {
-                int bX = (int) position.x;
-                int bY = (int) position.y;
-                Item carriedItem = PLAYER.getCarriedItem();
-                if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
-                    carriedItem.onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
-                    if (carriedItem.getItemConfiguration().type == Type.BLOCK_ITEM) {
-                        if (getWorld().map.setBlock(bX, bY, carriedItem.getItemConfiguration().stringBlockId)) {
-                            PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
-                        }
+        Callback.addCallback(position -> {
+            int bX = (int) position.x;
+            int bY = (int) position.y;
+            Item carriedItem = PLAYER.getCarriedItem();
+            if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
+                carriedItem.onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
+                if (carriedItem.getItemConfiguration().type == Type.BLOCK_ITEM) {
+                    if (getWorld().map.setBlock(bX, bY, carriedItem.getItemConfiguration().stringBlockId)) {
+                        PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                     }
                 }
             }
         });
-        Callback.addCallback(new InteractionButtonClicked() {
-            @Override
-            public void main() {
-                Entity entity = EntityManager.findEntity(PLAYER, 0.6f);
-                if (entity instanceof Drop) {
-                    Drop item = (Drop) entity;
-                    inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
-                    EntityManager.delete(item);
-                }
+        Callback.addCallback((InteractionButtonClicked) () -> {
+            Entity entity = EntityManager.findEntity(PLAYER, 0.6f);
+            if (entity instanceof Drop) {
+                Drop item = (Drop) entity;
+                inventory.addItem((int) item.getExtraData("itemId"), (int) item.getExtraData("itemCount"));
+                EntityManager.delete(item);
             }
         });
     }

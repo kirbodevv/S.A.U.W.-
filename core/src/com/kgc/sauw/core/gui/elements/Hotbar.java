@@ -68,7 +68,7 @@ public class Hotbar extends InterfaceElement {
     @Override
     public void tick(Camera2D cam) {
         for (int i = 0; i < 8; i++) {
-            if (PLAYER.hotbar[i] != -1 && PLAYER.getItemFromHotbar(i).id != 0) {
+            if (PLAYER.hotbar[i] != -1 && PLAYER.getItemFromHotbar(i).getId() != 0) {
                 slots[i].setContainer(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
             }
         }

@@ -29,5 +29,8 @@ public abstract class RegistryObject {
         this.package_ = package_;
     }
 
+    /**
+     * The method is called after the object is registered
+     * */
     public abstract void init();
 }

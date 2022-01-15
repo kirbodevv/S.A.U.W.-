@@ -1,6 +1,5 @@
 package com.kgc.sauw.core.item;
 
-import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.world.Tile;
 
 public class InstrumentItem extends Item {
@@ -10,7 +9,7 @@ public class InstrumentItem extends Item {
 
     @Override
     public void onClick(Tile tile) {
-        if (GameContext.getBlock(tile.id).getBlockConfiguration().getInstrumentType() == itemConfiguration.instrumentType)
+        if (tile.getBlock().getBlockConfiguration().getInstrumentType() == itemConfiguration.instrumentType)
             tile.hit();
     }
 }

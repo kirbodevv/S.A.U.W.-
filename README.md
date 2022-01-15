@@ -2,18 +2,12 @@
 
 S.A.U.W. is a LibGDX Android game
 
-![](screenshots/SAUW_Screenshot_2.png)
-![](screenshots/SAUW_Screenshot_1.png)
+___
 
-## How to Run
+<img src="https://github.com/KirboGames/S.A.U.W.-/raw/master/screenshots/SAUW_Screenshot_2.png" width="300px"/>
+<img src="https://github.com/KirboGames/S.A.U.W.-/raw/master/screenshots/SAUW_Screenshot_1.png" width="300px"/>
 
-* Windows / Linux:
-
-  [desktop.jar](https://github.com/KirboGames/S.A.U.W.-Releases/raw/master/last/desktop.jar)
-
-* Android:
-
-  [android.apk](https://github.com/KirboGames/S.A.U.W.-Releases/raw/master/last/android.apk)
+___
 
 ## Modding docs
 

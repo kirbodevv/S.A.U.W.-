@@ -178,4 +178,8 @@ public class Tile implements com.intbyte.bdb.ExtraData {
             setBody(Physic.createRectangleBody(this.blockRectangle.x, this.blockRectangle.y, this.blockRectangle.width, this.blockRectangle.height, BodyDef.BodyType.StaticBody, false));
         if (y == 0 && block instanceof LightBlock) setLight();
     }
+
+    public Block getBlock() {
+        return block;
+    }
 }

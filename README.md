@@ -2,8 +2,8 @@
 
 S.A.U.W. is a LibGDX Android game
 
-![](screenshots/SAUW_Screenshot_1.jpg)
-![](screenshots/SAUW_Screenshot_2.jpg)
+![](screenshots/SAUW_Screenshot_2.png)
+![](screenshots/SAUW_Screenshot_1.png)
 
 ## How to Run
 

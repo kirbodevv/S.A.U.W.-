@@ -23,4 +23,4 @@ S.A.U.W. is a LibGDX Android game
 
 * Programming - by [KiRB0](https://github.com/KirboGames)
 * Artwork - by [KiRB0](https://github.com/KirboGames) & Ertzui44
-* Music - by [KiRB0](https://t.me/Kirbo_official)
+* Music - by [KiRB0](https://t.me/KiRB0_official)

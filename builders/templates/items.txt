@@ -4,7 +4,7 @@ import com.kgc.sauw.core.item.*;
 
 public class ItemsGenerated {
     public static void init() {
-		Items.INSTANCE.register(new VoidItem(), "sauw", "void");
+		Items.registry.register(new VoidItem(), "sauw", "void");
         ItemConfiguration itemConfiguration;
         Item item;
         $items$

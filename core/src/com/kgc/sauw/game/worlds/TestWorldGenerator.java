@@ -32,7 +32,7 @@ public class TestWorldGenerator implements AbstractWorldGenerator {
                 float val = (float) WorldGeneratorUtils.sumOctave(openSimplexNoise, 8, x * CHUCK_SIZE_X + bx, z * CHUCK_SIZE_Z + bz, .1, 0.05f, 0, 1);
                 tiles[bx][2][bz] = TileFactory.createTile("sauw", "block:stone", bx, 2, bz, x, z);
                 if (val < 0.4f) {
-                    tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:water", bx, 1, bz, x, z);
+                    tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:ice", bx, 1, bz, x, z);
                 } else if (val < 0.55f) {
                     tiles[bx][1][bz] = TileFactory.createTile("sauw", "block:sand", bx, 1, bz, x, z);
                 } else {

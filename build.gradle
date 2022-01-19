@@ -56,7 +56,6 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-
     }
 }
 
@@ -116,6 +115,7 @@ project(":core") {
         implementation name: 'bdb5'
         implementation 'org.mozilla.javascript:com.springsource.org.mozilla.javascript:1.7.0.R2'
         implementation 'org.json:json:20180813'
+        implementation 'org.reflections:reflections:0.10.2'
         implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"

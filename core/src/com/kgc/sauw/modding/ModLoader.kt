@@ -18,7 +18,7 @@ fun loadItems(modItemsDir: FileHandle, gameContext: GameContext) {
             val jsonItem = JSONItem()
             jsonItem.parse(JSONObject(file.readString()))
             val item = jsonItem.toObject()
-            Items.INSTANCE.register(item, gameContext.getPackage(), jsonItem.id)
+            Items.registry.register(item, gameContext.getPackage(), jsonItem.id)
         }
     }
 }
@@ -46,7 +46,7 @@ fun loadAchievements(achievementsDir: FileHandle, modScripts: ModScripts, gameCo
             jsonAchievement.parse(JSONObject(file.readString()))
             val achievement = jsonAchievement.toObject()
             achievement.achievementChecker = JSChecker(modScripts.getScript(jsonAchievement.script), jsonAchievement.id)
-            Achievements.INSTANCE.register(achievement, gameContext.getPackage(), jsonAchievement.id)
+            Achievements.registry.register(achievement, gameContext.getPackage(), jsonAchievement.id)
         }
     }
 }

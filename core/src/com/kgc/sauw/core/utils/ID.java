@@ -49,14 +49,10 @@ public class ID {
     }
 
     static {
-        registeredIdGroup("block", 1200);
-        registeredIdGroup("item", 1200);
         registeredIdGroup("entity", 1200);
         registeredIdGroup("animation", 1200);
         registeredIdGroup("animation_region", 1200);
         registeredIdGroup("particle", 1200);
-        registeredIdGroup("achievement", 1200);
-        registeredIdGroup("recipe", 1200);
         registeredIdGroup("world_generator", 1200);
     }
 }

@@ -11,11 +11,11 @@ public class RecipesGenerated {
         recipe.addIngredient("sauw", "item:handsaw", 1);
         recipe.addIngredient("sauw", "item:log", 1);
         recipe.setResult("sauw:item:planks", 2);
-        Recipes.INSTANCE.register(recipe, "sauw", "planks");
+        Recipes.registry.register(recipe, "sauw", "planks");
         recipe = new ToolCraftRecipe();
         recipe.addIngredient("sauw", "item:hammer", 1);
         recipe.addIngredient("sauw", "item:iron_ingot", 1);
         recipe.setResult("sauw:item:iron_plate", 1);
-        Recipes.INSTANCE.register(recipe, "sauw", "iron_plate");
+        Recipes.registry.register(recipe, "sauw", "iron_plate");
     }
 }

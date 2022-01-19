@@ -73,7 +73,7 @@ public class Workbench extends Block {
         tile.getContainer("craft_handsaw_result").clear();
         tile.getContainer("craft_hammer_result").clear();
         if (toolWall != null) {
-            for (Recipe r : Recipes.INSTANCE.getObjects()) {
+            for (Recipe r : Recipes.registry.getObjects()) {
                 if (r instanceof ToolCraftRecipe) {
                     if (toolWall.getContainer("HandsawSlot").getId() == SAUW.getId("item:handsaw")) {
                         if (tile.getContainer("craft_handsaw_ingredient").getId() == ID.get(r.getIngredients().get(1).fullId)) {
@@ -124,7 +124,7 @@ public class Workbench extends Block {
     }
 
     private Recipe getCraft(int id) {
-        for (Recipe r : Recipes.INSTANCE.getObjects()) {
+        for (Recipe r : Recipes.registry.getObjects()) {
             if (r instanceof ToolCraftRecipe && ID.get(r.getResult().fullId) == id) return r;
         }
         return null;

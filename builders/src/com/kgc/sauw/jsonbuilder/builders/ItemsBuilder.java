@@ -68,7 +68,7 @@ public class ItemsBuilder implements Builder {
 
             code += "\n\t\titem.setItemConfiguration(itemConfiguration);";
         }
-        code += "\n\t\tItems.INSTANCE.register(item, \"sauw\", \"" + id + "\");";
+        code += "\n\t\tItems.registry.register(item, \"sauw\", \"" + id + "\");";
         return code;
     }
 }

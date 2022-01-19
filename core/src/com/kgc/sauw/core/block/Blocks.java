@@ -3,8 +3,8 @@ package com.kgc.sauw.core.block;
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.registry.Registry;
 
-public class Blocks extends Registry<Block> {
-    public static final Blocks INSTANCE = new Blocks();
+public class Blocks {
+    public static final Registry<Block> registry = new Registry<>("block");
     private static float stateTime = 0.0f;
 
     public static void animationTick() {
@@ -12,12 +12,7 @@ public class Blocks extends Registry<Block> {
     }
 
     public static void blockTick() {
-        for (Block block : INSTANCE.objects)
+        for (Block block : registry.getObjects())
             block.tick();
-    }
-
-    @Override
-    public String getIDGroup() {
-        return "block";
     }
 }

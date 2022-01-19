@@ -53,18 +53,18 @@ public class GameContext {
     }
 
     public static Block getBlock(int id) {
-        return Blocks.INSTANCE.get(id);
+        return Blocks.registry.get(id);
     }
 
     public static Item getItem(int id) {
-        return Items.INSTANCE.get(id);
+        return Items.registry.get(id);
     }
 
     public static Achievement getAchievement(int id) {
-        return Achievements.INSTANCE.get(id);
+        return Achievements.registry.get(id);
     }
 
     public static Recipe getRecipe(int id) {
-        return Recipes.INSTANCE.get(id);
+        return Recipes.registry.get(id);
     }
 }

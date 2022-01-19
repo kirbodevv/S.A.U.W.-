@@ -1,15 +1,15 @@
 package com.kgc.sauw.core.achievements;
 
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.registry.Registry;
 
-import static com.kgc.sauw.core.GameContext.SAUW;
+public class Achievements {
 
-public class Achievements extends Registry<Achievement> {
-    public static final Achievements INSTANCE = new Achievements();
+    public static final Registry<Achievement> registry = new Registry<>("achievement");
 
     public static void checkAchievements(AchievementsData achievementsData) {
         try {
-            for (Achievement achievement : INSTANCE.objects)
+            for (Achievement achievement : registry.getObjects())
                 if (achievement.check()) {
                     giveAchievement(achievement, achievementsData);
                 }
@@ -18,18 +18,11 @@ public class Achievements extends Registry<Achievement> {
         }
     }
 
-    public static void giveAchievement(String id, AchievementsData achievementsData) {
-        for (Achievement achievement : INSTANCE.objects) {
-            if (achievement.getId() == SAUW.getId(id)) giveAchievement(achievement, achievementsData);
-        }
+    public static void giveAchievement(String package_, String id, AchievementsData achievementsData) {
+        giveAchievement(registry.get(GameContext.get(package_).getId(id)), achievementsData);
     }
 
     public static void giveAchievement(Achievement achievement, AchievementsData achievementsData) {
         achievementsData.addAchievement(achievement);
-    }
-
-    @Override
-    public String getIDGroup() {
-        return "achievement";
     }
 }

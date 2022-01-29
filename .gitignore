@@ -125,3 +125,5 @@ Thumbs.db
 /utils/build/*
 /bluesgui/build/*
 /launcher/build/*
+/android/debug/android-debug.apk
+/android/debug/output-metadata.json

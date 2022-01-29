@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kgc.sauw" >
+          package="com.kgc.sauw">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:isGame="true"
-        android:appCategory="game"
-        android:label="@string/app_name"
-        android:theme="@style/GdxTheme"
-        android:requestLegacyExternalStorage="true">
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:isGame="true"
+            android:appCategory="game"
+            android:label="@string/app_name"
+            android:theme="@style/GdxTheme"
+            android:requestLegacyExternalStorage="true">
         <activity
-            android:name="com.kgc.sauw.AndroidLauncher"
-            android:label="@string/app_name" 
-            android:screenOrientation="landscape"
-            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout">
+                android:name="com.kgc.sauw.AndroidLauncher"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="landscape"
+                android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

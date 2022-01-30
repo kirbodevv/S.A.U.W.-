@@ -3,23 +3,21 @@ package com.kgc.sauw.core.entity.entities.player;
 import box2dLight.PointLight;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.GameContext;
+import com.kgc.sauw.core.achievements.AchievementsData;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
-import com.kgc.sauw.core.callbacks.TouchOnBlock;
 import com.kgc.sauw.core.entity.AbstractEntityRenderer;
 import com.kgc.sauw.core.entity.Entity;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.entity.LivingEntity;
 import com.kgc.sauw.core.entity.entities.drop.Drop;
-import com.kgc.sauw.core.achievements.AchievementsData;
+import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.core.item.Type;
-import com.kgc.sauw.core.input.PlayerController;
 import com.kgc.sauw.core.math.Maths;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -112,12 +110,12 @@ public class Player extends LivingEntity implements ExtraData {
         setLightActive(false);
         Callback.addCallback(position -> {
             int bX = (int) position.x;
-            int bY = (int) position.y;
+            int bZ = (int) position.y;
             Item carriedItem = PLAYER.getCarriedItem();
-            if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bY) <= 2f) {
-                carriedItem.onClick(getWorld().map.getTile(bX, bY, getWorld().map.getHighestBlock(bX, bY)));
+            if (Maths.distanceD((int) PLAYER.getPosition().x, (int) PLAYER.getPosition().y, bX, bZ) <= 2f) {
+                carriedItem.onClick(getWorld().map.getTile(bX, getWorld().map.getHighestBlock(bX, bZ), bZ));
                 if (carriedItem.getItemConfiguration().type == Type.BLOCK_ITEM) {
-                    if (getWorld().map.setBlock(bX, bY, carriedItem.getItemConfiguration().stringBlockId)) {
+                    if (getWorld().map.setBlock(bX, bZ, carriedItem.getItemConfiguration().stringBlockId)) {
                         PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
                     }
                 }

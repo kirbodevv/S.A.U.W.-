@@ -30,14 +30,19 @@ public class EditText extends AbstractTextView {
             public void onCharEnter(char char_) {
                 if (possibleToEnterText) {
                     input += char_;
-                    setText(input);
-                    while (GLYPH_LAYOUT.width > width - outline * 2) setText(text.substring(1));
+                    updateText(input);
                 }
             }
 
             @Override
             public void onBackspaceClick() {
                 if (input.length() > 0 && possibleToEnterText) input = input.substring(0, input.length() - 1);
+                updateText(input);
+            }
+
+            private void updateText(String input) {
+                setText(input);
+                while (GLYPH_LAYOUT.width > width - outline * 2) setText(text.substring(1));
             }
         });
         backgroundTexture = Skins.round_down_1;

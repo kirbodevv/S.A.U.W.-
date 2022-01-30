@@ -14,6 +14,7 @@ public abstract class AbstractTextView extends InterfaceElement {
     protected String text = "";
     private boolean scalable = true;
     private final Color textColor = new Color(TEXT_COLOR);
+    private int textAlign = Align.center;
 
     public void setScalable(boolean scalable) {
         this.scalable = scalable;
@@ -40,6 +41,10 @@ public abstract class AbstractTextView extends InterfaceElement {
         }
     }
 
+    public void setTextAlign(int textAlign) {
+        this.textAlign = textAlign;
+    }
+
     public String getText() {
         return text;
     }
@@ -52,10 +57,18 @@ public abstract class AbstractTextView extends InterfaceElement {
     public abstract void preRender(SpriteBatch batch, Camera2D cam);
 
     @Override
+    public void setSize(float w, float h) {
+        super.setSize(w, h);
+        outline = height / 4f;
+    }
+
+    protected float outline;
+
+    @Override
     public void renderTick(SpriteBatch batch, Camera2D cam) {
         preRender(batch, cam);
         updateTextScale();
         Graphic.setTextColor(textColor);
-        BITMAP_FONT.draw(batch, text, cam.X + x, cam.Y + y + (height / 4 * 3), width, Align.center, false);
+        BITMAP_FONT.draw(batch, text, cam.X + x + ((textAlign == Align.left) ? outline : 0), cam.Y + y + outline * 3, width, textAlign, false);
     }
 }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
-import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
@@ -94,13 +93,13 @@ public class ConsoleInterface extends Interface {
         HUD.log.setColor(HUD.r / 255f, HUD.g / 255f, HUD.b / 255f, 1);
         input.setTextColor(HUD.r, HUD.g, HUD.b);
         if (currCom == -1) {
-            inputTxt = input.getText();
+            inputTxt = input.getInput();
         }
-        if (sendCommandButton.isTouched() && input.getText() != null && !input.getText().equals("")) {
+        if (sendCommandButton.isTouched() && input.getInput() != null && !input.getInput().equals("")) {
             cx = Context.enter();
             cx.setOptimizationLevel(-1);
             try {
-                cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.getText(), "Command", 1, null);
+                cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.getInput(), "Command", 1, null);
             } catch (Exception e) {
                 /*Починить вывод в консоль*/
                 Gdx.app.log("error", e.toString());

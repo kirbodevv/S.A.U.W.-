@@ -3,8 +3,8 @@
     <RootLayout id="MainLayout">
         <Layout orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT" translateY="-0.5bl">
             <EditText id="CommandInput" width="12bl" height="1bl"/>
-            <Button id="prevCommand" width="1bl" height="1bl"/>
             <Button id="nextCommand" width="1bl" height="1bl"/>
+            <Button id="prevCommand" width="1bl" height="1bl"/>
             <Button id="sendCommandButton" width="1bl" height="1bl"/>
         </Layout>
         <Layout id="log_bg" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" height="FIXED_SIZE"/>

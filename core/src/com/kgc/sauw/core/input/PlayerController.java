@@ -32,16 +32,16 @@ public class PlayerController implements InputProcessor {
         int playerY = PLAYER.getCurrentTileZ();
         switch (PLAYER.rotation) {
             case 0:
-                tile = getWorld().map.getTile(playerX, playerY + 1, 0);
+                tile = getWorld().map.getTile(playerX, 0, playerY + 1);
                 break;
             case 1:
-                tile = getWorld().map.getTile(playerX + 1, playerY, 0);
+                tile = getWorld().map.getTile(playerX + 1, 0, playerY);
                 break;
             case 2:
-                tile = getWorld().map.getTile(playerX, playerY - 1, 0);
+                tile = getWorld().map.getTile(playerX, 0, playerY - 1);
                 break;
             case 3:
-                tile = getWorld().map.getTile(playerX - 1, playerY, 0);
+                tile = getWorld().map.getTile(playerX - 1, 0, playerY);
                 break;
         }
 

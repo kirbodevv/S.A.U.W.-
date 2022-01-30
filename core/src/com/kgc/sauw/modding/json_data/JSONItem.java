@@ -29,7 +29,7 @@ public class JSONItem implements JSONData<Item> {
         id = json.getString("id");
         icon = json.getString("icon");
         maxCount = configuration.getInt("max_count");
-        weight = configuration.getFloat("weight");
+        weight = (float) configuration.getDouble("weight");
         type = Type.valueOf(configuration.getString("type"));
 
         if (type == Type.INSTRUMENT) {

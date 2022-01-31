@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.Image;
+import com.kgc.sauw.core.registry.Object;
 import com.kgc.sauw.core.world.generator.WorldGeneratorUtils;
 import com.kgc.utils.OpenSimplexNoise;
 
+@Object(package_ = "sauw", id = "test")
 public class TestInterface extends Interface {
     OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
 

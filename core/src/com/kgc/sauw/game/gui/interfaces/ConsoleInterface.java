@@ -8,6 +8,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.registry.Object;
 import com.kgc.sauw.core.resource.Resource;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -17,8 +18,8 @@ import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.core.graphic.Graphic.INTERFACE_CAMERA;
-import static com.kgc.sauw.game.gui.Interfaces.HUD;
-
+import static com.kgc.sauw.core.gui.Interfaces.HUD;
+@Object(package_ = "sauw", id = "console")
 public class ConsoleInterface extends Interface {
     public Button sendCommandButton;
     public Button nextCommand;

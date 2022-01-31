@@ -7,14 +7,15 @@ import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.registry.RegistryObject;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.skins.Skins;
 
 import java.util.ArrayList;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 
-public class Interface {
+public class Interface extends RegistryObject {
     public String id;
 
     public boolean isOpen = false;
@@ -193,5 +194,9 @@ public class Interface {
 
     public void postRender() {
 
+    }
+
+    @Override
+    public void init() {
     }
 }

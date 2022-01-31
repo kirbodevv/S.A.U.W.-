@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
-import static com.kgc.sauw.game.gui.Interfaces.TEST_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.TEST_INTERFACE;
 
 public class DebugController implements InputProcessor {
     @Override

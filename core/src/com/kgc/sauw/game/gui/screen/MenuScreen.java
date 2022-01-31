@@ -18,7 +18,7 @@ import com.kgc.sauw.game.Game;
 import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.game.gui.Interfaces.UPDATES_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.UPDATES_INTERFACE;
 
 public class MenuScreen implements Screen {
     private final Button startButton;

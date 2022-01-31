@@ -7,6 +7,7 @@ import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
+import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.resource.Files;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
@@ -22,7 +23,7 @@ import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
-import static com.kgc.sauw.game.gui.Interfaces.*;
+import static com.kgc.sauw.game.gui.GameInterfaces.*;
 
 public class Game extends com.badlogic.gdx.Game {
     public static boolean isRunning;
@@ -119,9 +120,9 @@ public class Game extends com.badlogic.gdx.Game {
     @Override
     public void render() {
         super.render();
-        updateInterfaces();
+        Interfaces.updateInterfaces();
         BATCH.begin();
-        renderInterfaces();
+        Interfaces.renderInterfaces();
         BATCH.end();
     }
 }

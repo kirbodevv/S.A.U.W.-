@@ -4,7 +4,7 @@ import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.item.InstrumentItem;
 import com.kgc.sauw.core.resource.Resource;
 
-import static com.kgc.sauw.game.gui.Interfaces.CHEST_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.CHEST_INTERFACE;
 
 public class Chest extends Block {
     public Chest() {

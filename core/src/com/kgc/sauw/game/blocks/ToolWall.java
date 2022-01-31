@@ -7,7 +7,7 @@ import static com.kgc.sauw.core.GameContext.SAUW;
 import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
-import static com.kgc.sauw.game.gui.Interfaces.TOOL_WALL_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.TOOL_WALL_INTERFACE;
 
 public class ToolWall extends Block {
     TextureRegion[][] instrumentsTextures;

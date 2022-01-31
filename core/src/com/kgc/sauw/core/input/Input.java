@@ -6,9 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controllers;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.game.Game;
-import com.kgc.sauw.game.gui.Interfaces;
 
-import static com.kgc.sauw.game.gui.Interfaces.*;
+import static com.kgc.sauw.game.gui.GameInterfaces.*;
 
 
 public final class Input {
@@ -48,7 +47,7 @@ public final class Input {
         @Override
         public boolean keyUp(int keycode) {
             if (Game.isRunning) {
-                if (!isAnyInterfaceOpen()) {
+                if (!com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen()) {
                     if (keycode == Keys.ESCAPE) {
                         if (!PAUSE_INTERFACE.isOpen) PAUSE_INTERFACE.open();
                     }
@@ -63,7 +62,7 @@ public final class Input {
                     }
                 } else {
                     if (keycode == Keys.ESCAPE) {
-                        Interfaces.closeInterface();
+                        com.kgc.sauw.core.gui.Interfaces.closeInterface();
                     }
                     if (keycode == Keys.TAB) {
                         if (INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.close();

@@ -10,11 +10,10 @@ import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
 import com.kgc.sauw.core.world.Tile;
-import com.kgc.sauw.game.gui.Interfaces;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.game.gui.Interfaces.HUD;
+import static com.kgc.sauw.core.gui.Interfaces.HUD;
 
 public class PlayerController implements InputProcessor {
     public PlayerController() {
@@ -69,7 +68,7 @@ public class PlayerController implements InputProcessor {
             if (velY > 0.2f || velY < -0.2f)
                 PLAYER.setVelocityY(velY);
         }
-        if (!Interfaces.isAnyInterfaceOpen()) {
+        if (!com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen()) {
             if (Gdx.input.isKeyPressed(Keys.W)) {
                 PLAYER.setVelocityY(1);
             }

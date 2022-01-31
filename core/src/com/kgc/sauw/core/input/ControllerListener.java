@@ -1,9 +1,8 @@
 package com.kgc.sauw.core.input;
 
 import com.badlogic.gdx.controllers.Controller;
-import com.kgc.sauw.game.gui.Interfaces;
 
-import static com.kgc.sauw.game.gui.Interfaces.*;
+import static com.kgc.sauw.game.gui.GameInterfaces.*;
 
 public class ControllerListener implements com.badlogic.gdx.controllers.ControllerListener {
 
@@ -24,7 +23,7 @@ public class ControllerListener implements com.badlogic.gdx.controllers.Controll
 
     @Override
     public boolean buttonUp(Controller controller, int buttonCode) {
-        if (!isAnyInterfaceOpen()) {
+        if (!com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen()) {
             if (buttonCode == controller.getMapping().buttonY) {
                 if (!INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.open();
             }
@@ -33,7 +32,7 @@ public class ControllerListener implements com.badlogic.gdx.controllers.Controll
             }
         } else {
             if (buttonCode == controller.getMapping().buttonB) {
-                Interfaces.closeInterface();
+                com.kgc.sauw.core.gui.Interfaces.closeInterface();
             }
         }
         return false;

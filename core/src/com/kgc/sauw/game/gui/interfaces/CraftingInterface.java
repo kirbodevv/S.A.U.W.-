@@ -2,7 +2,9 @@ package com.kgc.sauw.game.gui.interfaces;
 
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.registry.Object;
 
+@Object(package_ = "sauw", id = "crafting")
 public class CraftingInterface extends Interface {
     /*private final TextView craftName;
     private int currentCraft = -1;

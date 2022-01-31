@@ -3,7 +3,7 @@ package com.kgc.sauw.game.entity.egor;
 import com.kgc.sauw.core.entity.AbstractEntityRenderer;
 import com.kgc.sauw.core.entity.entities.npc.Npc;
 
-import static com.kgc.sauw.game.gui.Interfaces.EGOR_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.EGOR_INTERFACE;
 
 public class Egor extends Npc {
 

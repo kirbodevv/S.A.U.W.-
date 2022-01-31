@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.kgc.sauw.core.gui.Interface;
+import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.game.gui.Interfaces;
 import com.kgc.utils.Camera2D;
 
-import static com.kgc.sauw.game.gui.Interfaces.HUD;
+import static com.kgc.sauw.core.gui.Interfaces.HUD;
 
 public final class Graphic {
     public static final SpriteBatch BATCH;
@@ -58,7 +58,7 @@ public final class Graphic {
 
         setSize(w, h);
 
-        for (Interface interface_ : Interfaces.INTERFACES) {
+        for (Interface interface_ : Interfaces.registry.getObjects()) {
             interface_.resize();
             //interface_.resize(); да раньше этот метод вызывался 2 раза
         }

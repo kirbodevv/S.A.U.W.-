@@ -14,19 +14,16 @@ import com.kgc.sauw.game.mechanics.Building;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.game.gui.Interfaces.*;
+import static com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.game.gui.GameInterfaces.*;
 
 public class HUD {
     public Hotbar hotbar;
 
-    private Button interactionButton;
-    private Button dropButton;
-    private Button attackButton;
-    private Button consoleOpenButton;
-    private Button pauseButton;
-    private Button craftingButton;
-    private Button buildButton;
-    private Button inventoryOpenButton;
+    private final Button interactionButton;
+    private final Button dropButton;
+    private final Button attackButton;
+    private final Button consoleOpenButton;
     public Joystick joystick;
 
     private final BitmapFont debug;
@@ -36,15 +33,15 @@ public class HUD {
 
     public int r = 0, g = 0, b = 0;
 
-    private final Layout notificationLayout;
-    private final Layout mainLayout;
-    private final Layout separatorLayout0;
+    private final Layout separatorLayout1;
+    private final Layout separatorBottomBar;
     private final Layout bottomBar;
+    private final Layout midLayout;
+
     private final TextView healthTextView;
     private final TextView hungerTextView;
     private final TextView thirstTextView;
     private final TextView timeTextView;
-    private final Layout midLayout;
 
     public HUD() {
         debug = new BitmapFont(Gdx.files.internal("ttf.fnt"));
@@ -55,7 +52,6 @@ public class HUD {
         joystick.setTranslationX(0.5f);
 
         hotbar = new Hotbar();
-        hotbar.setTranslationY(0.25f);
 
         bottomBar = new Layout(Layout.Orientation.HORIZONTAL);
         bottomBar.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
@@ -63,6 +59,11 @@ public class HUD {
         bottomBar.setGravity(Layout.Gravity.LEFT);
         bottomBar.setBackground(Skins.round_up);
 
+        separatorBottomBar = new Layout(Layout.Orientation.HORIZONTAL);
+        separatorBottomBar.setGravity(Layout.Gravity.LEFT);
+        separatorBottomBar.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
+
+        /*Player params*/
         healthTextView = new TextView();
         healthTextView.setSizeInBlocks(1.25f, 0.5f);
         healthTextView.setBackground(null);
@@ -89,15 +90,11 @@ public class HUD {
         Image thirstImage = new Image();
         thirstImage.setSizeInBlocks(0.4f, 0.4f);
         thirstImage.setImg(Resource.getTexture("interface/thirst_icon.png"));
+        /*Player params end*/
 
         timeTextView = new TextView();
         timeTextView.setSizeInBlocks(1.25f, 0.5f);
         timeTextView.setBackground(null);
-
-        notificationLayout = new Layout(Layout.Orientation.HORIZONTAL);
-        notificationLayout.setGravity(Layout.Gravity.LEFT);
-        notificationLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
-        notificationLayout.setSizeInBlocks(8.3f, 0.5f);
 
         attackButton = new Button("ATTACK_BUTTON", 0, 0, 0, 0, Skins.game_button_up, Skins.game_button_down);
         attackButton.setSizeInBlocks(1.5f, 1.5f);
@@ -131,12 +128,12 @@ public class HUD {
         consoleOpenButton.setSizeInBlocks(0.75f, 0.75f);
         consoleOpenButton.setIcon(Resource.getTexture("interface/console_button_0.png"));
 
-        craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
-        craftingButton.setSizeInBlocks(1f, 1f);
+        Button craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
+        craftingButton.setSizeInBlocks(0.75f, 0.75f);
         craftingButton.setIcon(Resource.getTexture("interface/crafting_button_0.png"));
 
-        buildButton = new Button("building_button", 0, 0, 0, 0);
-        buildButton.setSizeInBlocks(1f, 1f);
+        Button buildButton = new Button("building_button", 0, 0, 0, 0);
+        buildButton.setSizeInBlocks(0.75f, 0.75f);
         buildButton.setIcon(Resource.getTexture("items/hammer.png"));
         buildButton.addEventListener(() -> {
             if (!Building.building) {
@@ -149,39 +146,31 @@ public class HUD {
 
         });
 
-        pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
+        Button pauseButton = new Button("PAUSE_BUTTON", 0, 0, 0, 0);
         pauseButton.setSizeInBlocks(0.75f, 0.75f);
         pauseButton.setIcon(Resource.getTexture("interface/pause_icon.png"));
 
-        inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
-        inventoryOpenButton.setSizeInBlocks(1f, 1f);
+        Button inventoryOpenButton = new Button("INVENTORY_OPEN_BUTTON", 0, 0, 0, 0);
+        inventoryOpenButton.setSizeInBlocks(0.75f, 0.75f);
         inventoryOpenButton.setIcon(Resource.getTexture("interface/extraButton_0.png"));
 
-        mainLayout = new Layout(Layout.Orientation.VERTICAL);
-        mainLayout.setGravity(Layout.Gravity.TOP);
-        mainLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
-        mainLayout.setSizeInBlocks(16f, SCREEN_HEIGHT / BLOCK_SIZE);
-
-        separatorLayout0 = new Layout(Layout.Orientation.VERTICAL);
-        separatorLayout0.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
-        separatorLayout0.setSizeInBlocks(16f, SCREEN_HEIGHT / BLOCK_SIZE - 6.5f);
-
         midLayout = new Layout(Layout.Orientation.HORIZONTAL);
-        midLayout.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
-        midLayout.setSizeInBlocks(16, 4.5f);
+        midLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
 
-        Layout bottomLayout = new Layout(Layout.Orientation.HORIZONTAL);
-        bottomLayout.setGravity(Layout.Gravity.LEFT);
-        bottomLayout.setSize(Layout.Size.WRAP_CONTENT, Layout.Size.WRAP_CONTENT);
-
-        Layout separatorLayout1 = new Layout(Layout.Orientation.HORIZONTAL);
+        separatorLayout1 = new Layout(Layout.Orientation.HORIZONTAL);
         separatorLayout1.setSize(Layout.Size.FIXED_SIZE, Layout.Size.FIXED_SIZE);
         separatorLayout1.setSizeInBlocks(8.875f, 1f);
 
-        bottomBar.addElements(pauseButton, consoleOpenButton, healthTextView, healthImage, hungerTextView, hungerImage, thirstTextView, thirstImage, notificationLayout, timeTextView);
+        bottomBar.addElements(
+                pauseButton, consoleOpenButton,
+                healthTextView, healthImage,
+                hungerTextView, hungerImage,
+                thirstTextView, thirstImage,
+                hotbar, inventoryOpenButton,
+                buildButton, craftingButton,
+                separatorBottomBar, timeTextView);
 
         midLayout.addElements(joystick, separatorLayout1, buttonsLayout);
-        bottomLayout.addElements(hotbar, inventoryOpenButton);
 
         craftingButton.addEventListener(new OnClickListener() {
             @Override
@@ -207,8 +196,6 @@ public class HUD {
                 INVENTORY_INTERFACE.open();
             }
         });
-
-        mainLayout.addElements(separatorLayout0, midLayout, bottomLayout);
     }
 
     public boolean isTouched() {
@@ -216,27 +203,21 @@ public class HUD {
     }
 
     public void resize() {
-        mainLayout.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS);
-        separatorLayout0.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS - 6.5f);
-        craftingButton.setPositionInBlocks(WIDTH_IN_BLOCKS - 3, 0.75f);
-        buildButton.setPositionInBlocks(WIDTH_IN_BLOCKS - 2, 0.75f);
+        separatorLayout1.setSizeInBlocks(WIDTH_IN_BLOCKS - 7f, 1);
+        midLayout.setPositionInBlocks(0, 1f);
         bottomBar.setSizeInBlocks(WIDTH_IN_BLOCKS, 0.75f);
-        notificationLayout.setSizeInBlocks(WIDTH_IN_BLOCKS - 8.2f, 0.5f);
-        craftingButton.resize();
-        buildButton.resize();
+        separatorBottomBar.setSizeInBlocks(WIDTH_IN_BLOCKS - 15.95f, 0.5f);
         bottomBar.resize();
-        mainLayout.resize();
+        midLayout.resize();
     }
 
     public void update() {
-        mainLayout.hide(isAnyInterfaceOpen());
+        midLayout.hide(isAnyInterfaceOpen());
         bottomBar.hide(isAnyInterfaceOpen());
         if (Gdx.app.getType() == Application.ApplicationType.Desktop)
             midLayout.hide(true);
-        mainLayout.update(INTERFACE_CAMERA);
-        craftingButton.update(INTERFACE_CAMERA);
+        midLayout.update(INTERFACE_CAMERA);
         bottomBar.update(INTERFACE_CAMERA);
-        buildButton.update(INTERFACE_CAMERA);
         healthTextView.setText((int) PLAYER.health + "%");
         hungerTextView.setText((int) PLAYER.hunger + "%");
         thirstTextView.setText((int) PLAYER.thirst + "%");
@@ -245,13 +226,12 @@ public class HUD {
     }
 
     public void render(boolean debug) {
+        float alpha = COLOR_ALPHA;
+        COLOR_ALPHA = 0.75f;
         INTERFACE_CAMERA.update(BATCH);
         bottomBar.render(BATCH, INTERFACE_CAMERA);
-        mainLayout.render(BATCH, INTERFACE_CAMERA);
-        if (!isAnyInterfaceOpen()) {
-            craftingButton.render(BATCH, INTERFACE_CAMERA);
-            buildButton.render(BATCH, INTERFACE_CAMERA);
-        }
+        midLayout.render(BATCH, INTERFACE_CAMERA);
+        COLOR_ALPHA = alpha;
         if (debug)
             drawDebugString();
     }

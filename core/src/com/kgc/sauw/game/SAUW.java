@@ -22,8 +22,8 @@ import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
-import static com.kgc.sauw.game.gui.Interfaces.HUD;
-import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.core.gui.Interfaces.HUD;
+import static com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen;
 
 public class SAUW implements Screen {
     private final Box2DDebugRenderer DR;

@@ -14,7 +14,7 @@ import com.kgc.sauw.core.world.Tile;
 import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
-import static com.kgc.sauw.game.gui.Interfaces.WORKBENCH_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.WORKBENCH_INTERFACE;
 
 public class Workbench extends Block {
     public Workbench() {

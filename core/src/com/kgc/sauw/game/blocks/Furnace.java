@@ -11,7 +11,7 @@ import com.kgc.sauw.core.world.Tile;
 
 import java.util.Random;
 
-import static com.kgc.sauw.game.gui.Interfaces.FURNACE_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.FURNACE_INTERFACE;
 
 public class Furnace extends AbstractFurnaceBlock implements LightBlock {
     private final Animator animator = new Animator();

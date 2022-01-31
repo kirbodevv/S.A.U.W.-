@@ -11,8 +11,8 @@ import static com.kgc.sauw.core.entity.EntityManager.ENTITY_MANAGER;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 import static com.kgc.sauw.core.graphic.Graphic.SCREEN_WIDTH;
-import static com.kgc.sauw.game.gui.Interfaces.HUD;
-import static com.kgc.sauw.game.gui.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.core.gui.Interfaces.HUD;
+import static com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen;
 
 public abstract class World {
     public Map map;

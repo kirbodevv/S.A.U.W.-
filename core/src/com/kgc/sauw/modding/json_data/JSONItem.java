@@ -54,7 +54,7 @@ public class JSONItem implements JSONData<Item> {
         itemConfiguration.maxCount = maxCount;
         itemConfiguration.weight = weight;
         itemConfiguration.type = type;
-
+        itemConfiguration.creativeCategory = creativeCategory;
         if (type == Type.INSTRUMENT) {
             itemConfiguration.instrumentType = instrumentType;
         }

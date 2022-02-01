@@ -5,6 +5,7 @@
     "maxCount": 1,
     "weight": 1,
     "maxDamage": 100,
-    "type": "ITEM"
+    "type": "ITEM",
+    "creative_category": "sauw:instruments"
   }
 }

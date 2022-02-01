@@ -16,6 +16,8 @@ import com.kgc.sauw.core.resource.Resource;
 import java.text.DecimalFormat;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
+import static com.kgc.sauw.game.gui.GameInterfaces.CREATIVE_INTERFACE;
+
 @Object(package_ = "sauw", id = "inventory")
 public class InventoryInterface extends Interface {
     Slot[] hotbarSlots = new Slot[8];
@@ -36,6 +38,11 @@ public class InventoryInterface extends Interface {
 
     public InventoryInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/InventoryInterface.xml"), this);
+
+        getElementByFullId("BackpackText").addEventListener(() -> {
+            this.close();
+            CREATIVE_INTERFACE.open();
+        });
 
         playerWeight = (TextView) getElement("text.player_weight");
         playerImg = (Image) getElement("image.player_img");
@@ -122,25 +129,5 @@ public class InventoryInterface extends Interface {
         }
         playerImg.setImg(currentFrame);
         playerWeight.setText(DF.format(PLAYER.itemsWeight) + " | " + DF.format(PLAYER.maxWeight) + " Kg");
-    }
-
-    @Override
-    public void onOpen() {
-
-    }
-
-    @Override
-    public void onClose() {
-
-    }
-
-    @Override
-    public void preRender() {
-
-    }
-
-    @Override
-    public void postRender() {
-
     }
 }

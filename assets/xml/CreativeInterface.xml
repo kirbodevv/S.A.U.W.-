@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Interface id="furnace" isBlockInterface="true" Inventory="true">
+<Interface id="creative" isBlockInterface="true" Inventory="true">
     <RootLayout id="optionalLayout">
+        <Layout id="" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT" height="WRAP_CONTENT"
+                translateY="-0.25bl">
+            <Layout id="tabs" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" height="FIXED_SIZE">
+                <Button id="left" width="1bl" height="1bl"/>
+                <Button id="category_0" width="1bl" height="1bl"/>
+                <Button id="category_1" width="1bl" height="1bl"/>
+                <Button id="category_2" width="1bl" height="1bl"/>
+                <Button id="right" width="1bl" height="1bl"/>
+            </Layout>
+            <Layout id="items" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT">
+                <Layout id="slots0" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT" translateY="-0.25bl">
+                    <Slot id="item_0" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_1" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_2" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_3" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots1" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT">
+                    <Slot id="item_4" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_5" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_6" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_7" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots2" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT">
+                    <Slot id="item_8" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_9" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_10" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_11" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots3" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT">
+                    <Slot id="item_12" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_13" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_14" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_15" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+                <Layout id="slots4" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT"
+                        height="WRAP_CONTENT">
+                    <Slot id="item_16" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_17" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_18" width="1bl" height="1bl" isInventorySlot="false"/>
+                    <Slot id="item_19" width="1bl" height="1bl" isInventorySlot="false"/>
+                </Layout>
+            </Layout>
+        </Layout>
     </RootLayout>
 </Interface>

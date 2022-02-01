@@ -3,6 +3,8 @@ package com.kgc.sauw.core.item;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.kgc.sauw.core.Container;
+import com.kgc.sauw.core.GameContext;
+import com.kgc.sauw.core.creative_categories.CreativeCategories;
 import com.kgc.sauw.core.registry.RegistryObject;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.languages.Languages;
@@ -48,6 +50,10 @@ public class Item extends RegistryObject {
     @Override
     public void init() {
         name = Languages.getString(package_ + ".items." + stringId);
+        if (itemConfiguration.creativeCategory != null) {
+            String[] keys = itemConfiguration.creativeCategory.split(":");
+            CreativeCategories.registry.get(GameContext.get(keys[0]).getId("creative_category:" + keys[1])).addItem(this);
+        }
     }
 
     public void onClick(Tile tile) {

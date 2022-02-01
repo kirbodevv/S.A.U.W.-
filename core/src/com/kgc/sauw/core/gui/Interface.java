@@ -59,12 +59,7 @@ public class Interface extends RegistryObject {
         closeInterfaceButton = new Button("CLOSE_BUTTON", 0, 0, 0, 0);
         closeInterfaceButton.setIcon(Resource.getTexture("interface/closeButton.png"));
         closeInterfaceButton.setSizeInBlocks(0.75f, 0.75f);
-        closeInterfaceButton.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                close();
-            }
-        });
+        closeInterfaceButton.addEventListener(this::close);
 
         elements.add(closeInterfaceButton);
     }

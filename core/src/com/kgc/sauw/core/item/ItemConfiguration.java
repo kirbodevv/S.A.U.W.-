@@ -8,6 +8,7 @@ public class ItemConfiguration {
     public InstrumentItem.Type instrumentType;
     public int foodScore;
     public float weight;
+    public String creativeCategory = null;
 
     public ItemConfiguration() {
         this.weight = 0.01f;

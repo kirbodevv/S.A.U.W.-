@@ -6,6 +6,7 @@ import com.kgc.sauw.core.GameContext;
 import java.util.ArrayList;
 
 import static com.kgc.sauw.core.GameContext.SAUW;
+import static com.kgc.sauw.core.environment.Environment.gameMode;
 
 public class Inventory {
     public ArrayList<Container> containers;
@@ -116,6 +117,8 @@ public class Inventory {
     }
 
     public float getItemsWeight() {
+        if (gameMode == GameMode.CREATIVE) return 0f;
+
         float itemsWeight = 0f;
         for (Container slot : containers) {
             itemsWeight += slot.count * GameContext.getItem(slot.id).getItemConfiguration().weight;

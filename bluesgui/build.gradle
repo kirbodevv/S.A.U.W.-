@@ -18,8 +18,6 @@ dependencies {
 }
 
 task dist(type: Jar) {
-    manifest {
-    }
     dependsOn configurations.runtimeClasspath
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

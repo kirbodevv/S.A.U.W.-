@@ -5,6 +5,7 @@
     "maxCount": 1,
     "weight": 5.75,
     "type": "INSTRUMENT",
-    "instrumentType": "SHOVEL"
+    "instrumentType": "SHOVEL",
+    "creative_category": "sauw:instruments"
   }
 }

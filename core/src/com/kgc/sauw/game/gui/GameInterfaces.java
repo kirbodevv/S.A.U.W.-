@@ -33,6 +33,7 @@ public final class GameInterfaces {
         CRAFTING_INTERFACE = new CraftingInterface();
         PAUSE_INTERFACE = new PauseInterface();
         DEATH_INTERFACE = new DeathInterface();
+        CREATIVE_INTERFACE = new CreativeInterface();
         INVENTORY_INTERFACE = new InventoryInterface();
         TEST_INTERFACE = new TestInterface();
         EGOR_INTERFACE = new EgorInterface();
@@ -42,12 +43,12 @@ public final class GameInterfaces {
         TOOL_WALL_INTERFACE = new ToolWallInterface();
         WORKBENCH_INTERFACE = new WorkbenchInterface();
         UPDATES_INTERFACE = new UpdatesInterface();
-        CREATIVE_INTERFACE = new CreativeInterface();
 
         Interfaces.registry.register(CONSOLE_INTERFACE);
         Interfaces.registry.register(CRAFTING_INTERFACE);
         Interfaces.registry.register(PAUSE_INTERFACE);
         Interfaces.registry.register(DEATH_INTERFACE);
+        Interfaces.registry.register(CREATIVE_INTERFACE);
         Interfaces.registry.register(INVENTORY_INTERFACE);
         Interfaces.registry.register(TEST_INTERFACE);
         Interfaces.registry.register(EGOR_INTERFACE);
@@ -57,6 +58,5 @@ public final class GameInterfaces {
         Interfaces.registry.register(FURNACE_INTERFACE);
         Interfaces.registry.register(TOOL_WALL_INTERFACE);
         Interfaces.registry.register(WORKBENCH_INTERFACE);
-        Interfaces.registry.register(CREATIVE_INTERFACE);
     }
 }

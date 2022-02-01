@@ -15,6 +15,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
+		itemConfiguration.creativeCategory = "sauw:blocks";
 		itemConfiguration.stringBlockId = "block:grass";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "grass");
@@ -25,6 +26,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.2f;
 		itemConfiguration.type = Type.FOOD;
+		itemConfiguration.creativeCategory = "sauw:items";
 		itemConfiguration.foodScore = 4;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "apple");
@@ -35,6 +37,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
+		itemConfiguration.creativeCategory = "sauw:blocks";
 		itemConfiguration.stringBlockId = "block:chest";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "chest");
@@ -45,6 +48,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "stick");
 
@@ -54,6 +58,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.25f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "log");
 
@@ -63,6 +68,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.15f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "stone");
 
@@ -72,6 +78,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.5f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "iron_ore");
 
@@ -81,6 +88,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
+		itemConfiguration.creativeCategory = "sauw:instruments";
 		itemConfiguration.instrumentType = InstrumentItem.Type.PICKAXE;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "stone_pickaxe");
@@ -91,6 +99,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
+		itemConfiguration.creativeCategory = "sauw:instruments";
 		itemConfiguration.instrumentType = InstrumentItem.Type.AXE;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "stone_axe");
@@ -101,6 +110,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 5.75f;
 		itemConfiguration.type = Type.INSTRUMENT;
+		itemConfiguration.creativeCategory = "sauw:instruments";
 		itemConfiguration.instrumentType = InstrumentItem.Type.SHOVEL;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "stone_shovel");
@@ -111,6 +121,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
+		itemConfiguration.creativeCategory = "sauw:blocks";
 		itemConfiguration.stringBlockId = "block:furnace";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "furnace");
@@ -121,6 +132,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.15f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "rope");
 
@@ -130,6 +142,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.05f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "vegetable_fiber");
 
@@ -139,6 +152,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.1f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
+		itemConfiguration.creativeCategory = "sauw:blocks";
 		itemConfiguration.stringBlockId = "block:sapling";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "sapling");
@@ -149,6 +163,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "iron_ingot");
 
@@ -158,6 +173,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.BLOCK_ITEM;
+		itemConfiguration.creativeCategory = "sauw:blocks";
 		itemConfiguration.stringBlockId = "block:campfire";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "campfire");
@@ -168,6 +184,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 1.25f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:instruments";
 		itemConfiguration.maxDamage = 100;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "hammer");
@@ -178,6 +195,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 1;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:instruments";
 		itemConfiguration.maxDamage = 100;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "handsaw");
@@ -188,6 +206,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.55f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "planks");
 
@@ -197,6 +216,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.8f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "iron_plate");
 
@@ -206,6 +226,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 1.0f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "aluminium_ingot");
 
@@ -215,6 +236,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.5f;
 		itemConfiguration.type = Type.ITEM;
+		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "aluminium_can");
 

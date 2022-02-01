@@ -5,6 +5,7 @@
     "maxCount": 64,
     "weight": 0.01,
     "type": "BLOCK_ITEM",
-    "blockId":"block:chest"
+    "blockId":"block:chest",
+    "creative_category": "sauw:blocks"
   }
 }

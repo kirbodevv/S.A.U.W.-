@@ -5,6 +5,7 @@
     "maxCount": 1,
     "weight": 5.75,
     "type": "INSTRUMENT",
-    "instrumentType": "AXE"
+    "instrumentType": "AXE",
+    "creative_category": "sauw:instruments"
   }
 }

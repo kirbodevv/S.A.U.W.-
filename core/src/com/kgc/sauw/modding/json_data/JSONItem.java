@@ -13,7 +13,7 @@ public class JSONItem implements JSONData<Item> {
     public int maxCount;
     public float weight;
     public Type type;
-
+    public String creativeCategory;
     //Instrument
     public InstrumentItem.Type instrumentType;
 
@@ -32,15 +32,17 @@ public class JSONItem implements JSONData<Item> {
         weight = (float) configuration.getDouble("weight");
         type = Type.valueOf(configuration.getString("type"));
 
-        if (type == Type.INSTRUMENT) {
+        if (type == Type.INSTRUMENT)
             instrumentType = InstrumentItem.Type.valueOf(configuration.getString("instrument_type"));
-        }
-        if (type == Type.FOOD) {
+
+        if (type == Type.FOOD)
             foodScore = configuration.getInt("food_score");
-        }
-        if (type == Type.BLOCK_ITEM) {
+
+        if (type == Type.BLOCK_ITEM)
             blockId = configuration.getString("block_id");
-        }
+
+        if (configuration.has("creative_category"))
+            creativeCategory = configuration.getString("creative_category");
     }
 
     @Override

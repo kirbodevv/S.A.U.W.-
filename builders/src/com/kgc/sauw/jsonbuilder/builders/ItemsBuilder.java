@@ -39,7 +39,9 @@ public class ItemsBuilder implements Builder {
             int maxCount = itemConfiguration.getInt("maxCount");
             float weight = itemConfiguration.getFloat("weight");
             String type = itemConfiguration.getString("type");
-
+            String creativeCategory = null;
+            if (itemConfiguration.has("creative_category"))
+                creativeCategory = itemConfiguration.getString("creative_category");
 
             if (type.equals("INSTRUMENT"))
                 code += "\n\t\titem = new InstrumentItem();";
@@ -51,7 +53,8 @@ public class ItemsBuilder implements Builder {
             code += "\n\t\titemConfiguration.maxCount = " + maxCount + ";";
             code += "\n\t\titemConfiguration.weight = " + weight + "f;";
             code += "\n\t\titemConfiguration.type = Type." + type + ";";
-
+            if (creativeCategory != null)
+                code += "\n\t\titemConfiguration.creativeCategory = \"" + creativeCategory + "\";";
             if (itemConfiguration.has("maxDamage"))
                 code += "\n\t\titemConfiguration.maxDamage = " + itemConfiguration.getInt("maxDamage") + ";";
             switch (type) {

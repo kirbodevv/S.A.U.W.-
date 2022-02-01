@@ -5,6 +5,7 @@
     "maxCount": 64,
     "weight": 0.1,
     "type": "BLOCK_ITEM",
-    "blockId": "block:sapling"
+    "blockId": "block:sapling",
+    "creative_category": "sauw:blocks"
   }
 }

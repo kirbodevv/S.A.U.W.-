@@ -4,6 +4,7 @@
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.05,
-    "type": "ITEM"
+    "type": "ITEM",
+    "creative_category": "sauw:items"
   }
 }

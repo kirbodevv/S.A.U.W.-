@@ -10,7 +10,7 @@
         "id":"stoneItems",
         "title":"ach2_title",
         "txt:":"ach2_txt",
-        "texture":"items/stone_item.png",
+        "texture":"items/stone.png",
         "giveCoins":10
     }
 ]

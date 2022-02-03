@@ -8,7 +8,7 @@ import com.kgc.sauw.core.resource.Resource;
 @Object(package_ = "sauw", id = "ice")
 public class Ice extends Block implements SlipperyBlock {
     public Ice() {
-        super(Resource.getTexture("blocks/water.png"));
+        super(Resource.getTexture("blocks/ice.png"));
     }
 
     @Override

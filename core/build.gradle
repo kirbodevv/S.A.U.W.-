@@ -19,7 +19,7 @@ eclipse.project.name = appName + "-core"
 
 task cmd(type: Exec) {
     doFirst {
-        commandLine 'sh', '-c', 'java -jar ' + project(":builders").buildDir.path + '/libs/builders-1.0.jar ' + project(":core").projectDir.path + ' ' + project(":builders").projectDir.path
+        commandLine 'sh', '-c', 'java -jar ' + project(":builders").projectDir.path + '/builders-jar/builders-1.0.jar ' + project(":core").projectDir.path + ' ' + project(":builders").projectDir.path
     }
 
 }

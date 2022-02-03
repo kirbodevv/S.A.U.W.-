@@ -16,7 +16,7 @@ task compileJson(dependsOn: classes, type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
-task dist(type: Jar) {
+task buildJar(type: Jar) {
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
@@ -26,6 +26,13 @@ task dist(type: Jar) {
     }
     with jar
 }
+
+task copyJarToBin(type: Copy) {
+    from buildJar
+    into 'builders-jar'
+}
+
+task dist (dependsOn: [copyJarToBin])
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'

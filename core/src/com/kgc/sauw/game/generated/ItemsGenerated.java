@@ -11,7 +11,7 @@ public class ItemsGenerated {
 
 		item = new Item();
 		itemConfiguration = new ItemConfiguration();
-		item.setTexture("blocks/grass_1.png");
+		item.setTexture("blocks/grass.png");
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.01f;
 		itemConfiguration.type = Type.BLOCK_ITEM;

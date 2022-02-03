@@ -162,7 +162,7 @@ public class MenuScreen implements Screen {
     private void drawBackground() {
         for (int x = 0; x < WIDTH_IN_BLOCKS; x++) {
             for (int y = 0; y < HEIGHT_IN_BLOCKS; y++) {
-                BATCH.draw(Resource.getTexture("blocks/grass_1.png"), BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE);
+                BATCH.draw(Resource.getTexture("blocks/grass.png"), BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE);
             }
         }
     }

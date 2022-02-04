@@ -11,7 +11,7 @@ ___
 
 ## Modding docs
 
-[RU](modding_docs/ru/docs.md)
+[RU](https://github.com/KirboGames/S.A.U.W.-/wiki/Home-ru)
 
 ## Credits
 

@@ -13,6 +13,10 @@ ___
 
 [RU](https://github.com/KirboGames/S.A.U.W.-/wiki/Home-ru)
 
+## Contributing
+
+If you want to add content or update textures look [CONTRIBUTING.md](docs/CONTRIBUTING.md)
+
 ## Credits
 
 * Programming - by [KiRB0](https://github.com/KirboGames)

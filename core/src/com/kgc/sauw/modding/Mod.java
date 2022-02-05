@@ -20,6 +20,7 @@ public class Mod {
             ModLoaderKt.loadLocalizations(modDir.child("localizations"));
             gameContext = GameContext.registeredContext(manifest.package_);
             scripts = new ModScripts(modDir.child("scripts"));
+            ModLoaderKt.loadCreativeTabs(modDir.child("creative_tabs"), gameContext);
             ModLoaderKt.loadItems(modDir.child("items"), gameContext);
             ModLoaderKt.loadAchievements(modDir.child("achievements"), scripts, gameContext);
         }

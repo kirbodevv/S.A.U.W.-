@@ -93,7 +93,7 @@ public class CreativeInterface extends Interface {
     }
 
     private void nextTab() {
-        if (currentTab < CreativeCategories.registry.getObjects().size() / 3 - 1) {
+        if ((currentTab + 1) * 3 < CreativeCategories.registry.getObjects().size()) {
             currentTab++;
             updateCategories();
         }

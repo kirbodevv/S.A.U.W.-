@@ -4,10 +4,12 @@ import com.badlogic.gdx.files.FileHandle
 import com.kgc.sauw.core.GameContext
 import com.kgc.sauw.core.achievements.Achievements
 import com.kgc.sauw.core.achievements.JSChecker
+import com.kgc.sauw.core.creative_categories.CreativeCategories
 import com.kgc.sauw.core.item.Items
 import com.kgc.sauw.core.utils.Variables
 import com.kgc.sauw.core.utils.languages.Languages
 import com.kgc.sauw.modding.json_data.JSONAchievement
+import com.kgc.sauw.modding.json_data.JSONCreativeTab
 import com.kgc.sauw.modding.json_data.JSONItem
 import org.json.JSONObject
 
@@ -46,7 +48,19 @@ fun loadAchievements(achievementsDir: FileHandle, modScripts: ModScripts, gameCo
             jsonAchievement.parse(JSONObject(file.readString()))
             val achievement = jsonAchievement.toObject()
             achievement.achievementChecker = JSChecker(modScripts.getScript(jsonAchievement.script), jsonAchievement.id)
-            Achievements.registry.register(achievement, gameContext.getPackage(), jsonAchievement.id)
+            Achievements.registry.register(achievement, gameContext.`package`, jsonAchievement.id)
+        }
+    }
+}
+
+fun loadCreativeTabs(creativeTabsDir: FileHandle, gameContext: GameContext) {
+    val files = creativeTabsDir.list()
+    for (file in files) {
+        if (file.name().endsWith(".creative_tab.json")) {
+            val jsonCreativeTab = JSONCreativeTab()
+            jsonCreativeTab.parse(JSONObject(file.readString()))
+            val creativeTab = jsonCreativeTab.toObject()
+            CreativeCategories.registry.register(creativeTab, gameContext.`package`, jsonCreativeTab.id)
         }
     }
 }

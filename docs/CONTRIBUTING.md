@@ -11,6 +11,8 @@ If you want to update textures:
 If you want to add content
 
 1. fork repository
+2. add content
+3. open pull request
 
 ### Items
 

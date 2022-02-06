@@ -1,16 +1,13 @@
 package com.kgc.sauw.game.worlds;
 
-import com.kgc.sauw.core.entity.EntityManager;
-import com.kgc.sauw.core.entity.entities.drop.Drop;
-import com.kgc.sauw.core.world.Map;
-import com.kgc.sauw.core.world.World;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.sound.Music;
-import com.kgc.sauw.core.utils.WorldUtils;
+import com.kgc.sauw.core.world.World;
 import com.kgc.sauw.core.world.generator.AbstractWorldGenerator;
 
-import java.util.Random;
-
 public class MysticalVoidWorld extends World {
+    private com.badlogic.gdx.audio.Music windSound;
+
     @Override
     public String getName() {
         return "MysticalVoidWorld";
@@ -18,10 +15,14 @@ public class MysticalVoidWorld extends World {
 
     @Override
     protected void init() {
+        windSound = Resource.getMusic("sound/wind.mp3");
+        windSound.setLooping(true);
+        windSound.setVolume(0.25f);
     }
 
     @Override
     protected void tick() {
+        windSound.play();
         if (worldTime.getHours() > 19 || worldTime.getHours() < 7) {
             Music.play("music/Sunset.mp3");
             Music.setLooping(true);
@@ -30,7 +31,7 @@ public class MysticalVoidWorld extends World {
         }
     }
 
-    @Override
+    /*@Override
     public void createNewWorld() {
         Random r = new Random();
         for (int x = 0; x < Map.xSize; x++) {
@@ -78,10 +79,10 @@ public class MysticalVoidWorld extends World {
 
         }
     }
-
+*/
     @Override
     public AbstractWorldGenerator getWorldGenerator() {
-        return null;
+        return TestWorldGenerator.INSTANCE;
     }
 
     @Override

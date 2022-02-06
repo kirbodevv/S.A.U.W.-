@@ -8,13 +8,18 @@ import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.gui.Interfaces;
+import com.kgc.sauw.core.item.InstrumentItem;
+import com.kgc.sauw.core.item.ItemBuilder;
+import com.kgc.sauw.core.item.Items;
+import com.kgc.sauw.core.item.Type;
 import com.kgc.sauw.core.resource.Files;
+import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.generated.RecipesGenerated;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
-import com.kgc.sauw.game.worlds.ChristmasWorld;
+import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.modding.Mods;
 import org.json.JSONObject;
 
@@ -23,7 +28,7 @@ import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
-import static com.kgc.sauw.game.gui.GameInterfaces.*;
+import static com.kgc.sauw.game.gui.GameInterfaces.UPDATES_INTERFACE;
 
 public class Game extends com.badlogic.gdx.Game {
     public static boolean isRunning;
@@ -38,7 +43,7 @@ public class Game extends com.badlogic.gdx.Game {
     private static JSONObject data;
 
     public static void loadInDevMode() {
-        setWorld(new ChristmasWorld());
+        setWorld(new MysticalVoidWorld());
         getWorld().createNewWorld();
         PLAYER.randomSpawn();
         load();
@@ -47,7 +52,7 @@ public class Game extends com.badlogic.gdx.Game {
     public static void load(String worldName) {
         Environment.setSaveName(worldName);
         //if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
-        setWorld(new ChristmasWorld());
+        setWorld(new MysticalVoidWorld());
         getWorld().createNewWorld();
         PLAYER.randomSpawn();
         /*    Environment.save();
@@ -104,6 +109,18 @@ public class Game extends com.badlogic.gdx.Game {
         AchievementsGenerated.init();
         RecipesGenerated.init();
         new GameBlocks();
+        //It will be deleted, but not now
+        Items.registry.register(
+                new ItemBuilder()
+                        .withTexture(Resource.getTexture("items/apple.png"))
+                        .withCategory("sauw:items")
+                        .withMaxCount(128)
+                        .withType(Type.INSTRUMENT)
+                        .withInstrumentType(InstrumentItem.Type.AXE)
+                        .withMaxDamage(123)
+                        .withWeight(0.12f)
+                        .build(),
+                "sauw", "test");
 
         Mods.loadMods();
         setScreen(getMenuScreen());

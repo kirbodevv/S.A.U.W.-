@@ -9,7 +9,6 @@ import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.graphic.Animator;
-import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.input.Input;
 import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.particle.Particles;
@@ -82,7 +81,6 @@ public class SAUW implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        Graphic.resize(width, height);
     }
 
     @Override
@@ -106,17 +104,21 @@ public class SAUW implements Screen {
     public static class UpdateTick extends Thread {
         @Override
         public void run() {
-            super.run();
-            getWorld().map.update();
-            Items.tick();
-            Achievements.checkAchievements(PLAYER.achievementsData);
-            getWorld().getTime().updateTime();
             try {
-                sleep(50);
+                super.run();
+                getWorld().map.update();
+                Items.tick();
+                Achievements.checkAchievements(PLAYER.achievementsData);
+                getWorld().getTime().updateTime();
+                try {
+                    sleep(50);
+                } catch (Exception ignored) {
+                }
             } catch (Exception ignored) {
             }
             if (Game.isRunning)
                 new UpdateTick().start();
+
         }
     }
 }

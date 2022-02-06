@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface id="error_interface" isBlockInterface="false" Inventory="false">
+    <RootLayout id="MainLayout">
+        <Text id="error_log_0" width="16bl" height="0.5bl"/>
+        <Text id="error_log_1" width="16bl" height="0.5bl"/>
+        <Text id="error_log_2" width="16bl" height="0.5bl"/>
+        <Text id="error_log_3" width="16bl" height="0.5bl"/>
+        <Text id="error_log_4" width="16bl" height="0.5bl"/>
+        <Text id="error_log_5" width="16bl" height="0.5bl"/>
+        <Text id="error_log_6" width="16bl" height="0.5bl"/>
+        <Text id="error_log_7" width="16bl" height="0.5bl"/>
+        <Text id="error_log_8" width="16bl" height="0.5bl"/>
+        <Text id="error_log_9" width="16bl" height="0.5bl"/>
+        <Text id="error_log_10" width="16bl" height="0.5bl"/>
+        <Text id="error_log_11" width="16bl" height="0.5bl"/>
+        <Layout id="buttons2" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+            <Button id="github_issues" width="8bl" height="1bl"/>
+            <Button id="telegram_issues" width="8bl" height="1bl"/>
+        </Layout>
+        <Layout id="buttons" orientation="HORIZONTAL" gravity="LEFT" width="WRAP_CONTENT" height="WRAP_CONTENT">
+            <Button id="exit_game" width="8bl" height="1bl"/>
+            <Button id="copy_log" width="8bl" height="1bl"/>
+        </Layout>
+    </RootLayout>
+</Interface>

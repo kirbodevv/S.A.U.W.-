@@ -7,6 +7,7 @@ import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
+import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.item.InstrumentItem;
 import com.kgc.sauw.core.item.ItemBuilder;
@@ -18,15 +19,18 @@ import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
 import com.kgc.sauw.game.generated.RecipesGenerated;
+import com.kgc.sauw.game.gui.screen.ErrorScreen;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.modding.Mods;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONObject;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
+import static com.kgc.sauw.core.graphic.Graphic.INTERFACE_CAMERA;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
 import static com.kgc.sauw.game.gui.GameInterfaces.UPDATES_INTERFACE;
 
@@ -37,6 +41,7 @@ public class Game extends com.badlogic.gdx.Game {
         Game.isRunning = false;
     }
 
+    private static ErrorScreen errorScreen;
     private static Game game;
     private static MenuScreen menuScreen;
     private static SAUW sauw;
@@ -74,6 +79,12 @@ public class Game extends com.badlogic.gdx.Game {
         isRunning = false;
         sauw.dispose();
         sauw = null;
+    }
+
+    public static void setErrorScreen(String errorMsg) {
+        if (errorScreen == null) errorScreen = new ErrorScreen();
+        errorScreen.setErrorMsg(errorMsg);
+        getGame().setScreen(errorScreen);
     }
 
     public static MenuScreen getMenuScreen() {
@@ -135,11 +146,29 @@ public class Game extends com.badlogic.gdx.Game {
     }
 
     @Override
+    public void resize(int width, int height) {
+        Graphic.resize(width, height);
+        super.resize(width, height);
+    }
+
+    @Override
     public void render() {
-        super.render();
-        Interfaces.updateInterfaces();
-        BATCH.begin();
-        Interfaces.renderInterfaces();
-        BATCH.end();
+        try {
+            super.render();
+            Interfaces.updateInterfaces();
+            BATCH.begin();
+            INTERFACE_CAMERA.update(BATCH);
+            Interfaces.renderInterfaces();
+            BATCH.end();
+        } catch (Exception e) {
+            if (!(getGame().screen instanceof ErrorScreen)) {
+                if (BATCH.isDrawing()) BATCH.end();
+                Game.isRunning = false;
+                setErrorScreen(ExceptionUtils.getStackTrace(e));
+            } else {
+                Gdx.app.error("Error", ExceptionUtils.getStackTrace(e));
+                Gdx.app.exit();
+            }
+        }
     }
 }

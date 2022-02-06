@@ -31,12 +31,12 @@ public class Interfaces {
     }
 
     public static void closeInterface() {
-        for (Interface i : registry.getObjects()) {
+        for (Interface i : registry.getObjects())
             if (i.isOpen) i.close();
-        }
     }
 
     public static void updateInterfaces() {
-        for (Interface i : registry.getObjects()) i.update();
+        for (Interface i : registry.getObjects())
+            i.update();
     }
 }

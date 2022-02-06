@@ -54,14 +54,12 @@ public final class Graphic {
         INTERFACE_CAMERA.resize(Math.max(w, h));
         MENU_CAMERA.resize(Math.max(w, h));
         GAME_CAMERA.resize(20);
-        //GameCameraController.setSize();
 
         setSize(w, h);
 
-        for (Interface interface_ : Interfaces.registry.getObjects()) {
+        for (Interface interface_ : Interfaces.registry.getObjects())
             interface_.resize();
-            //interface_.resize(); да раньше этот метод вызывался 2 раза
-        }
+
         Slot.itemDamageProgressBar.resize();
         HUD.resize();
     }

@@ -20,7 +20,7 @@ This code will create a simple item with weight `0.25kg` texture from [`assets`]
 
 Now you need to register this item. For registry, we have 2 ways
 
-1. [with `@RegistryMetadata`](#With-@RegistryMetadata)
+1. [with `@RegistryMetadata`](#with-registrymetadata)
 2. [without `@RegistryMetadata`]()
 
 ### With @RegistryMetadata

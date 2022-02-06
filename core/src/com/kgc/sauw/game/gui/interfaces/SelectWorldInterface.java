@@ -5,12 +5,12 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.Game;
 
-@Object(package_ = "sauw", id = "select_world")
+@RegistryMetadata(package_ = "sauw", id = "select_world")
 public class SelectWorldInterface extends Interface {
     private final Button sel_0;
     private final Button sel_1;

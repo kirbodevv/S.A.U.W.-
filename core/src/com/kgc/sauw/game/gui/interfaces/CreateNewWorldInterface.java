@@ -6,9 +6,9 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 
-@Object(package_ = "sauw", id = "create_new_world")
+@RegistryMetadata(package_ = "sauw", id = "create_new_world")
 public class CreateNewWorldInterface extends Interface {
     public EditText worldName;
     public Button create;

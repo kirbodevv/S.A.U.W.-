@@ -8,10 +8,10 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 
-@Object(package_ = "sauw", id = "updates")
+@RegistryMetadata(package_ = "sauw", id = "updates")
 public class UpdatesInterface extends Interface {
     public UpdatesInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/UpdatesInterface.xml"), this);

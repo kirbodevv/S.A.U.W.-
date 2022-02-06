@@ -45,14 +45,14 @@ public class Registry<I extends RegistryObject> {
 
     /**
      * A method for those who are too lazy to specify the id in the registration method.
-     * Object must have {@linkplain Object this} annotation
+     * Object must have {@linkplain RegistryMetadata this} annotation
      *
      * @param object object 🗿
      */
     public void register(I object) {
-        if (!object.getClass().isAnnotationPresent(Object.class))
+        if (!object.getClass().isAnnotationPresent(RegistryMetadata.class))
             throw new IllegalStateException("Object must have annotation");
-        Object annotation = object.getClass().getAnnotation(Object.class);
+        RegistryMetadata annotation = object.getClass().getAnnotation(RegistryMetadata.class);
         register(object, annotation.package_(), annotation.id());
     }
 
@@ -74,7 +74,7 @@ public class Registry<I extends RegistryObject> {
     }
 
     /**
-     * Registers all objects with an {@linkplain Object annotation} from the package.
+     * Registers all objects with an {@linkplain RegistryMetadata annotation} from the package.
      * <p>
      * It works but doesn't work
      *
@@ -85,7 +85,7 @@ public class Registry<I extends RegistryObject> {
         Reflections reflections = new Reflections(package_);
         Set<Class<? extends RegistryObject>> classes = reflections.getSubTypesOf(RegistryObject.class);
         for (Class<? extends RegistryObject> object : classes) {
-            if (object.isAnnotationPresent(Object.class)) {
+            if (object.isAnnotationPresent(RegistryMetadata.class)) {
                 try {
                     register((I) object.getDeclaredConstructor().newInstance());
                 } catch (Exception e) {

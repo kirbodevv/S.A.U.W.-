@@ -27,13 +27,13 @@ public class ItemsBuilder implements Builder {
     }
 
     private static String generateItem(JSONObject item) {
-        String id = item.getString("id");
-
         String code = "";
 
         if (item.has("class")) {
             code += "\n\t\titem = new " + item.get("class") + "();";
+            code += "\n\t\tItems.registry.register(item);";
         } else {
+            String id = item.getString("id");
             JSONObject itemConfiguration = item.getJSONObject("itemConfiguration");
             String texture = item.getString("texture");
             int maxCount = itemConfiguration.getInt("maxCount");
@@ -70,8 +70,8 @@ public class ItemsBuilder implements Builder {
             }
 
             code += "\n\t\titem.setItemConfiguration(itemConfiguration);";
+            code += "\n\t\tItems.registry.register(item, \"sauw\", \"" + id + "\");";
         }
-        code += "\n\t\tItems.registry.register(item, \"sauw\", \"" + id + "\");";
         return code;
     }
 }

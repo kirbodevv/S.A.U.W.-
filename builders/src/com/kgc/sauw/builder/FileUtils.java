@@ -53,7 +53,10 @@ public class FileUtils {
         File listFile = new File(folder, folder.getName() + ".list");
         String[] filesList = Objects.requireNonNull(readFile(listFile)).split("\n");
         for (String file : filesList) {
-            jsonObjects.add(new JSONObject(readFile(folder + "/" + file + ".json")));
+            if (!file.startsWith("//")) {
+                if (file.charAt(0) == '$') jsonObjects.add(new JSONObject().put("class", file.substring(1)));
+                else jsonObjects.add(new JSONObject(readFile(folder + "/" + file + ".json")));
+            }
         }
         return jsonObjects;
     }

@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Image;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
-@Object(package_ = "sauw", id = "egor")
+@RegistryMetadata(package_ = "sauw", id = "egor")
 public class EgorInterface extends Interface {
     public EgorInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/EgorInterface.xml"), this);

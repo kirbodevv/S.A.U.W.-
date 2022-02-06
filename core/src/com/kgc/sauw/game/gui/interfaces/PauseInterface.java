@@ -5,10 +5,10 @@ import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.game.Game;
 
-@Object(package_ = "sauw", id = "pause")
+@RegistryMetadata(package_ = "sauw", id = "pause")
 public class PauseInterface extends Interface {
     Button saveWorldButton;
     Button resumeButton;

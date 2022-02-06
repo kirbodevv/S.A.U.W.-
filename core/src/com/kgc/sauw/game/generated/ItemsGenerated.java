@@ -241,6 +241,6 @@ public class ItemsGenerated {
 		Items.registry.register(item, "sauw", "aluminium_can");
 
 		item = new com.kgc.sauw.game.items.Torch();
-		Items.registry.register(item, "sauw", "torch");
+		Items.registry.register(item);
     }
 }

@@ -10,7 +10,7 @@ import com.kgc.sauw.core.gui.InventoryFragment;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 
 import java.text.DecimalFormat;
@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.game.gui.GameInterfaces.CREATIVE_INTERFACE;
 
-@Object(package_ = "sauw", id = "inventory")
+@RegistryMetadata(package_ = "sauw", id = "inventory")
 public class InventoryInterface extends Interface {
     Slot[] hotbarSlots = new Slot[8];
 

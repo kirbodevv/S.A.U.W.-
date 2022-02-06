@@ -9,12 +9,12 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 
-@Object(package_ = "sauw", id = "creative")
+@RegistryMetadata(package_ = "sauw", id = "creative")
 public class CreativeInterface extends Interface {
 
     private int currentTab = 0;

@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.registry.Object;
+import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.world.Tile;
 
-@Object(package_ = "sauw", id = "chest")
+@RegistryMetadata(package_ = "sauw", id = "chest")
 public class ChestInterface extends BlockInterface {
 
     public ChestInterface() {

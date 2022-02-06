@@ -2,16 +2,8 @@
 
 ## Getting started
 
-If you want to update textures:
-
 1. fork repository
-2. upload new textures using standard GitHub method
-3. open pull request
-
-If you want to add content
-
-1. fork repository
-2. add content
+2. add content or update textures
 3. open pull request
 
 ### Items

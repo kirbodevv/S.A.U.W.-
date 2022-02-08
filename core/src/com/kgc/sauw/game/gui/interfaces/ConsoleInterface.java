@@ -2,14 +2,15 @@ package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.EditText;
-import com.kgc.sauw.core.gui.elements.Layout;
+import com.kgc.sauw.core.gui.elements.MultilineTextView;
 import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.skins.Skins;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -19,6 +20,7 @@ import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
 import static com.kgc.sauw.core.graphic.Graphic.INTERFACE_CAMERA;
 import static com.kgc.sauw.core.gui.Interfaces.HUD;
+
 @RegistryMetadata(package_ = "sauw", id = "console")
 public class ConsoleInterface extends Interface {
     public Button sendCommandButton;
@@ -26,22 +28,23 @@ public class ConsoleInterface extends Interface {
     public Button prevCommand;
     private int currCom = -1;
     public EditText input;
-    Texture log_bg;
     String inputTxt = "";
     public Context cx;
     public Scriptable sc;
+    private MultilineTextView log;
 
     public ConsoleInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/ConsoleInterface.xml"), this);
 
         input = (EditText) getElement("edittext.CommandInput");
         sendCommandButton = (Button) getElement("button.sendCommandButton");
-        Layout log = ((Layout) getElement("layout.log_bg"));
-        log.setSizeInBlocks(15f, 6f);
-        log.setStandardBackground(false);
 
         nextCommand = (Button) getElement("button.prevCommand");
         prevCommand = (Button) getElement("button.nextCommand");
+
+        log = (MultilineTextView) getElement("text.log");
+        log.setBackground(Skins.round_down);
+
 
         prevCommand.setIcon(Resource.getTexture("interface/button_left_0.png"));
         nextCommand.setIcon(Resource.getTexture("interface/button_right_0.png"));
@@ -68,7 +71,6 @@ public class ConsoleInterface extends Interface {
                 input.setText(inputTxt);
             }
         });*/
-        HUD.log.setColor(Color.BLACK);
         cx = Context.enter();
         cx.setOptimizationLevel(-1);
         try {
@@ -85,13 +87,7 @@ public class ConsoleInterface extends Interface {
     }
 
     @Override
-    public void postRender() {
-        //GAME_INTERFACE.Log.draw(BATCH, GAME_INTERFACE.logText, x + SCREEN_WIDTH / 32 + SCREEN_WIDTH / 64, log.Y + log.height - BLOCK_SIZE / 4f, SCREEN_WIDTH - SCREEN_WIDTH / 16 - SCREEN_WIDTH / 32);
-    }
-
-    @Override
     public void tick() {
-        HUD.log.setColor(HUD.r / 255f, HUD.g / 255f, HUD.b / 255f, 1);
         input.setTextColor(HUD.r, HUD.g, HUD.b);
         if (currCom == -1) {
             inputTxt = input.getInput();
@@ -102,7 +98,7 @@ public class ConsoleInterface extends Interface {
             try {
                 cx.evaluateString(sc, Gdx.files.internal("js/commands.js").readString() + input.getInput(), "Command", 1, null);
             } catch (Exception e) {
-                /*Починить вывод в консоль*/
+                log.setText(ExceptionUtils.getStackTrace(e));
                 Gdx.app.log("error", e.toString());
             } finally {
                 Context.exit();

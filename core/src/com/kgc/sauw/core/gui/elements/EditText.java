@@ -39,17 +39,18 @@ public class EditText extends AbstractTextView {
                 if (input.length() > 0 && possibleToEnterText) input = input.substring(0, input.length() - 1);
                 updateText(input);
             }
-
-            private void updateText(String input) {
-                setText(input);
-                while (GLYPH_LAYOUT.width > width - outline * 2) setText(text.substring(1));
-            }
         });
         backgroundTexture = Skins.round_down_1;
     }
 
+    private void updateText(String input) {
+        setText(input);
+        while (GLYPH_LAYOUT.width > width - outline * 2) setText(text.substring(1));
+    }
+
     public void clear() {
         input = "";
+        updateText(input);
     }
 
     @Override

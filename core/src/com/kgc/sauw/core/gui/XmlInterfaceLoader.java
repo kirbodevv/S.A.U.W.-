@@ -69,7 +69,18 @@ public class XmlInterfaceLoader {
                     interfaceElement = new Button("", 0, 0, 0, 0);
                     break;
                 case "Text":
-                    interfaceElement = new TextView();
+                    int lines = element.hasAttribute("lines") ?
+                            Integer.parseInt(element.getAttribute("lines")) : 1;
+                    int align = element.hasAttribute("align") ?
+                            1 << Integer.parseInt(element.getAttribute("align")) : 1;
+                    if (lines > 1) {
+                        interfaceElement = new MultilineTextView(Integer.parseInt(element.getAttribute("lines")));
+                        ((MultilineTextView) interfaceElement).setText(StringUtils.getString(element.getAttribute("text")));
+                        ((MultilineTextView) interfaceElement).setTextAlign(align);
+                    } else {
+                        interfaceElement = new TextView();
+                        ((TextView) interfaceElement).setTextAlign(align);
+                    }
                     break;
                 case "Image":
                     interfaceElement = new Image();

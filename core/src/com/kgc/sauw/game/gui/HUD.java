@@ -29,8 +29,6 @@ public class HUD {
     private final BitmapFont debug;
     private boolean isTouched;
 
-    public BitmapFont log = new BitmapFont(Gdx.files.internal("ttf.fnt"));
-
     public int r = 0, g = 0, b = 0;
 
     private final Layout separatorLayout1;

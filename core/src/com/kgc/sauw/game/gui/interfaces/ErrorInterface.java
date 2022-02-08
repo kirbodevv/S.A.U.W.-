@@ -1,33 +1,25 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Align;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.AbstractTextView;
-import com.kgc.sauw.core.gui.elements.TextView;
+import com.kgc.sauw.core.gui.elements.MultilineTextView;
 import com.kgc.sauw.core.registry.RegistryMetadata;
 
 @RegistryMetadata(package_ = "sauw", id = "error_interface")
 public class ErrorInterface extends Interface {
     private String msg;
-    private final TextView[] errorView = new TextView[12];
+    private final MultilineTextView errorView;
 
     public void setErrorMsg(String errorMsg) {
         msg = errorMsg;
-        String[] error = errorMsg.split("\n");
-        for (int i = 0; i < 12; i++) {
-            if (i < error.length)
-                errorView[i].setText(error[i]);
-        }
+        errorView.setText(errorMsg);
     }
 
     public ErrorInterface() {
         InterfaceUtils.createFromXml(Gdx.files.internal("xml/ErrorInterface.xml"), this);
-        for (int i = 0; i < 12; i++) {
-            errorView[i] = (TextView) getElement("text.error_log_" + i);
-            errorView[i].setTextAlign(Align.left);
-        }
+        errorView = (MultilineTextView) getElement("text.error_log");
         closeInterfaceButton.addEventListener(() -> Gdx.app.exit());
 
         ((AbstractTextView) getElement("button.exit_game")).setDefaultText();

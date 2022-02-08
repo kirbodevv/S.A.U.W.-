@@ -3,14 +3,14 @@
         "id":"SZD",
         "title":"ach1_title",
         "txt":"ach1_txt",
-        "texture":"items/log.png",
+        "texture":"item/log.png",
         "giveCoins":5
     },
     {
         "id":"stoneItems",
         "title":"ach2_title",
         "txt:":"ach2_txt",
-        "texture":"items/stone.png",
+        "texture":"item/stone.png",
         "giveCoins":10
     }
 ]

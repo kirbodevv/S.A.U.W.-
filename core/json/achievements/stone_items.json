@@ -1,6 +1,6 @@
 {
   "id":"stone_items",
-  "icon":"items/stone.png",
+  "icon":"item/stone.png",
   "giveCoins":10,
   "script": "stone_items"
 }

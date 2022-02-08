@@ -1,6 +1,6 @@
 {
   "id": "hammer",
-  "texture": "items/hammer.png",
+  "texture": "item/hammer.png",
   "itemConfiguration": {
     "maxCount": 1,
     "weight": 1.25,

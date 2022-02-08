@@ -1,6 +1,6 @@
 {
   "id": "log",
-  "texture": "items/log.png",
+  "texture": "item/log.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 1.25,

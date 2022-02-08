@@ -21,8 +21,8 @@ public class WorkbenchInterface extends BlockInterface {
 
         ((Image) getElement("image.craft_handsaw_arrow")).setImg(Resource.getTexture("interface/button_right_0.png"));
         ((Image) getElement("image.craft_hammer_arrow")).setImg(Resource.getTexture("interface/button_right_0.png"));
-        ((Image) getElement("image.handsaw")).setImg(Resource.getTexture("items/handsaw.png"));
-        ((Image) getElement("image.hammer")).setImg(Resource.getTexture("items/hammer.png"));
+        ((Image) getElement("image.handsaw")).setImg(Resource.getTexture("item/handsaw.png"));
+        ((Image) getElement("image.hammer")).setImg(Resource.getTexture("item/hammer.png"));
 
         craftHandsawNotAvailableImage = (Image) getElement("image.craft_handsaw_not_available_icon");
         craftHammerNotAvailableImage = (Image) getElement("image.craft_hammer_not_available_icon");

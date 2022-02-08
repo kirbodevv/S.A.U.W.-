@@ -1,6 +1,6 @@
 {
   "id": "vegetable_fiber",
-  "texture": "items/vegetable_fiber.png",
+  "texture": "item/vegetable_fiber.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.05,

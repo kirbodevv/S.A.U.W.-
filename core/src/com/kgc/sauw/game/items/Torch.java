@@ -14,9 +14,9 @@ public class Torch extends Item {
     Animator animator = new Animator();
 
     public Torch() {
-        setTexture(Resource.getTexture("items/torch_anim.png"));
+        setTexture(Resource.getTexture("item/torch_anim.png"));
 
-        animator.addAnimationRegion("animation_region:torch", Resource.getTexture("items/torch_anim.png"), 4, 1);
+        animator.addAnimationRegion("animation_region:torch", Resource.getTexture("item/torch_anim.png"), 4, 1);
         animator.addAnimation("animation:torch", "animation_region:torch", 0.2f, 1, 2, 3);
 
         itemConfiguration.weight = 0.25f;

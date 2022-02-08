@@ -134,14 +134,14 @@ public class HUD {
 
         Button buildButton = new Button("building_button", 0, 0, 0, 0);
         buildButton.setSizeInBlocks(0.75f, 0.75f);
-        buildButton.setIcon(Resource.getTexture("items/hammer.png"));
+        buildButton.setIcon(Resource.getTexture("item/hammer.png"));
         buildButton.addEventListener(() -> {
             if (!Building.building) {
                 Building.startBuilding();
                 buildButton.setIcon(Resource.getTexture("interface/closeButton.png"));
             } else {
                 Building.stopBuilding();
-                buildButton.setIcon(Resource.getTexture("items/hammer.png"));
+                buildButton.setIcon(Resource.getTexture("item/hammer.png"));
             }
 
         });

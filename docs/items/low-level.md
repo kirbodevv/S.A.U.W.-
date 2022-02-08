@@ -10,7 +10,7 @@ import com.kgc.sauw.core.item.Item;
 public class SomeItem extends Item {
     public SomeItem() {
         //set item texture
-        setTexture(Resource.getTexture("items/item_texture.png"));
+        setTexture(Resource.getTexture("item/item_texture.png"));
         itemConfiguration.weight = 0.25f;
     }
 }

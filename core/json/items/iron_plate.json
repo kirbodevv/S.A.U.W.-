@@ -1,6 +1,6 @@
 {
   "id": "iron_plate",
-  "texture": "items/iron_plate.png",
+  "texture": "item/iron_plate.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.8,

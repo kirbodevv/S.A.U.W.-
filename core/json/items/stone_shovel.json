@@ -1,6 +1,6 @@
 {
   "id": "stone_shovel",
-  "texture": "items/stone_shovel.png",
+  "texture": "item/stone_shovel.png",
   "itemConfiguration": {
     "maxCount": 1,
     "weight": 5.75,

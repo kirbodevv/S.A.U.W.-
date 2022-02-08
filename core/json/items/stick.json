@@ -1,6 +1,6 @@
 {
   "id": "stick",
-  "texture": "items/stick.png",
+  "texture": "item/stick.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.01,

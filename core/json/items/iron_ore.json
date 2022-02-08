@@ -1,6 +1,6 @@
 {
   "id": "iron_ore",
-  "texture": "items/iron_ore.png",
+  "texture": "item/iron_ore.png",
   "itemConfiguration": {
     "maxCount": 64,
     "weight": 0.5,

@@ -1,6 +1,6 @@
 {
   "id":"hide_behind_a_tree",
-  "icon":"items/log.png",
+  "icon":"item/log.png",
   "giveCoins":5,
   "script": "hide_behind_a_tree"
 }

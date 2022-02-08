@@ -123,7 +123,7 @@ public class Game extends com.badlogic.gdx.Game {
         //It will be deleted, but not now
         Items.registry.register(
                 new ItemBuilder()
-                        .withTexture(Resource.getTexture("items/apple.png"))
+                        .withTexture(Resource.getTexture("item/apple.png"))
                         .withCategory("sauw:items")
                         .withMaxCount(128)
                         .withType(Type.INSTRUMENT)

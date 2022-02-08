@@ -13,13 +13,13 @@ public class AchievementsGenerated {
         
 
 		achievement = new Achievement();
-		achievement.icon = Resource.getTexture("items/log.png");
+		achievement.icon = Resource.getTexture("item/log.png");
 		achievement.giveCoins = 5;
 		achievement.achievementChecker = new JSChecker(Gdx.files.internal("js/achievements/hide_behind_a_tree.js").readString(), "hide_behind_a_tree");
 		Achievements.registry.register(achievement, "sauw", "hide_behind_a_tree");
 
 		achievement = new Achievement();
-		achievement.icon = Resource.getTexture("items/stone.png");
+		achievement.icon = Resource.getTexture("item/stone.png");
 		achievement.giveCoins = 10;
 		achievement.achievementChecker = new JSChecker(Gdx.files.internal("js/achievements/stone_items.js").readString(), "stone_items");
 		Achievements.registry.register(achievement, "sauw", "stone_items");

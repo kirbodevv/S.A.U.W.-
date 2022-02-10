@@ -14,6 +14,7 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
+        exclude 'META-INF/INDEX.LIST'
     }
     defaultConfig {
         applicationId "com.kgc.sauw"

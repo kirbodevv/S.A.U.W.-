@@ -1,10 +1,12 @@
 package com.kgc.sauw.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
+import com.kgc.sauw.core.callbacks.Initialization;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Graphic;
@@ -24,6 +26,7 @@ import com.kgc.sauw.game.gui.screen.MenuScreen;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.modding.Mods;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.tools.ant.types.Commandline;
 import org.json.JSONObject;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -32,6 +35,7 @@ import static com.kgc.sauw.core.environment.Environment.setWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.INTERFACE_CAMERA;
 import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
+import static com.kgc.sauw.game.RunParameters.INSTANCE;
 import static com.kgc.sauw.game.gui.GameInterfaces.UPDATES_INTERFACE;
 
 public class Game extends com.badlogic.gdx.Game {
@@ -112,6 +116,19 @@ public class Game extends com.badlogic.gdx.Game {
     @Override
     public void create() {
         Files.createFiles();
+
+        if (Gdx.app.getType() == Application.ApplicationType.Android) {
+            String gameParams = Files.runParams.readString();
+            if (!gameParams.isEmpty()) {
+                RunParameters.set(Commandline.translateCommandline(gameParams));
+            }
+        }
+
+        Callback.addCallback((Initialization) () -> {
+            if (INSTANCE.defaultWorld != null) Game.load(INSTANCE.defaultWorld);
+            if (INSTANCE.devmode) Game.loadInDevMode();
+        });
+
         Settings.loadSettings();
         Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
 

@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraDataFactory;
-import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.block.Block;
 import com.kgc.sauw.core.block.SlipperyBlock;
 import com.kgc.sauw.core.math.Maths;
@@ -81,7 +80,9 @@ public abstract class Entity {
     }
 
     public Block stayingOn() {
-        return GameContext.getBlock(getWorld().map.getTile(currentTileX, 1, currentTileZ).id);
+        if (currentTileX > 0 && currentTileZ > 0)
+            return getWorld().map.getTile(currentTileX, 1, currentTileZ).getBlock();
+        else return null;
     }
 
     private void updatePosition() {
@@ -104,7 +105,7 @@ public abstract class Entity {
 
         velocity.x = (velX * (entitySpeed));
         velocity.y = (velZ * (entitySpeed));
-        if (stayingOn() instanceof SlipperyBlock) {
+        if (stayingOn() != null && stayingOn() instanceof SlipperyBlock) {
             body.applyForceToCenter((velocity.x * normalEntitySpeed), (velocity.y * normalEntitySpeed), true);
             body.setLinearDamping(((SlipperyBlock) stayingOn()).getFriction());
         } else {

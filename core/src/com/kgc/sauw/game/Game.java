@@ -3,6 +3,7 @@ package com.kgc.sauw.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
@@ -11,12 +12,7 @@ import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.Interfaces;
-import com.kgc.sauw.core.item.InstrumentItem;
-import com.kgc.sauw.core.item.ItemBuilder;
-import com.kgc.sauw.core.item.Items;
-import com.kgc.sauw.core.item.Type;
 import com.kgc.sauw.core.resource.Files;
-import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
@@ -50,6 +46,7 @@ public class Game extends com.badlogic.gdx.Game {
     private static MenuScreen menuScreen;
     private static SAUW sauw;
     private static JSONObject data;
+    private static Box2DDebugRenderer DR;
 
     public static void loadInDevMode() {
         setWorld(new MysticalVoidWorld());
@@ -72,9 +69,15 @@ public class Game extends com.badlogic.gdx.Game {
     }
 
     private static void load() {
+        Interfaces.closeInterface();
         sauw = new SAUW();
         getGame().setScreen(sauw);
         isRunning = true;
+    }
+
+    public static Box2DDebugRenderer getDebugRenderer() {
+        if (DR == null) DR = new Box2DDebugRenderer();
+        return DR;
     }
 
 
@@ -83,6 +86,7 @@ public class Game extends com.badlogic.gdx.Game {
         isRunning = false;
         sauw.dispose();
         sauw = null;
+        Interfaces.closeInterface();
     }
 
     public static void setErrorScreen(String errorMsg) {
@@ -137,18 +141,6 @@ public class Game extends com.badlogic.gdx.Game {
         AchievementsGenerated.init();
         RecipesGenerated.init();
         new GameBlocks();
-        //It will be deleted, but not now
-        Items.registry.register(
-                new ItemBuilder()
-                        .withTexture(Resource.getTexture("item/apple.png"))
-                        .withCategory("sauw:items")
-                        .withMaxCount(128)
-                        .withType(Type.INSTRUMENT)
-                        .withInstrumentType(InstrumentItem.Type.AXE)
-                        .withMaxDamage(123)
-                        .withWeight(0.12f)
-                        .build(),
-                "sauw", "test");
 
         Mods.loadMods();
         setScreen(getMenuScreen());
@@ -178,14 +170,21 @@ public class Game extends com.badlogic.gdx.Game {
             Interfaces.renderInterfaces();
             BATCH.end();
         } catch (Exception e) {
+            Gdx.app.error("Error", ExceptionUtils.getStackTrace(e));
             if (!(getGame().screen instanceof ErrorScreen)) {
                 if (BATCH.isDrawing()) BATCH.end();
                 Game.isRunning = false;
                 setErrorScreen(ExceptionUtils.getStackTrace(e));
             } else {
-                Gdx.app.error("Error", ExceptionUtils.getStackTrace(e));
                 Gdx.app.exit();
             }
         }
+    }
+
+    @Override
+    public void dispose() {
+        if (DR != null) DR.dispose();
+        if (sauw != null) sauw.dispose();
+        super.dispose();
     }
 }

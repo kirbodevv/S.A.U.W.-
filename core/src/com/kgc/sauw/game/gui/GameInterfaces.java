@@ -21,6 +21,8 @@ public final class GameInterfaces {
     public static final UpdatesInterface UPDATES_INTERFACE;
     public static final CreativeInterface CREATIVE_INTERFACE;
     public static final ErrorInterface ERROR_INTERFACE;
+    public static final CreateNewWorldInterface CREATE_NEW_WORLD_INTERFACE;
+    public static final SelectWorldInterface SELECT_WORLD_INTERFACE;
     /**
      * BLOCK Interfaces
      */
@@ -39,6 +41,8 @@ public final class GameInterfaces {
         TEST_INTERFACE = new TestInterface();
         EGOR_INTERFACE = new EgorInterface();
         ERROR_INTERFACE = new ErrorInterface();
+        CREATE_NEW_WORLD_INTERFACE = new CreateNewWorldInterface();
+        SELECT_WORLD_INTERFACE = new SelectWorldInterface();
 
         CHEST_INTERFACE = new ChestInterface();
         FURNACE_INTERFACE = new FurnaceInterface();
@@ -56,6 +60,8 @@ public final class GameInterfaces {
         Interfaces.registry.register(EGOR_INTERFACE);
         Interfaces.registry.register(UPDATES_INTERFACE);
         Interfaces.registry.register(ERROR_INTERFACE);
+        Interfaces.registry.register(CREATE_NEW_WORLD_INTERFACE);
+        Interfaces.registry.register(SELECT_WORLD_INTERFACE);
 
         Interfaces.registry.register(CHEST_INTERFACE);
         Interfaces.registry.register(FURNACE_INTERFACE);

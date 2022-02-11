@@ -62,9 +62,11 @@ public class CreativeInterface extends Interface {
 
                 @Override
                 public void onClick() {
-                    int id = itemSlots[finalI].getContainer().id;
-                    int count = itemSlots[finalI].getContainer().count;
-                    PLAYER.inventory.addItem(id, count);
+                    if (itemSlots[finalI].getContainer() != null) {
+                        int id = itemSlots[finalI].getContainer().id;
+                        int count = itemSlots[finalI].getContainer().count;
+                        PLAYER.inventory.addItem(id, count);
+                    }
                 }
 
                 @Override

@@ -3,19 +3,19 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
-import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.Game;
 
+import static com.kgc.sauw.game.gui.GameInterfaces.CREATE_NEW_WORLD_INTERFACE;
+
 @RegistryMetadata(package_ = "sauw", id = "select_world")
 public class SelectWorldInterface extends Interface {
     private final Button sel_0;
     private final Button sel_1;
     private final Button sel_2;
-    private final CreateNewWorldInterface createWorldInterface;
 
     private int worldSelIndex = 0;
 
@@ -51,33 +51,22 @@ public class SelectWorldInterface extends Interface {
             hideButtonsIfNeed();
             setSelectButtonsText();
         });
-        createWorldInterface = new CreateNewWorldInterface();
-        createWorldInterface.create.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                for (String name : WorldLoader.worldNames) {
-                    if (createWorldInterface.worldName.getText().equals(name)) return;
-                }
-                loadGame(createWorldInterface.worldName.getText());
+        CREATE_NEW_WORLD_INTERFACE.create.addEventListener(() -> {
+            for (String name : WorldLoader.worldNames) {
+                if (CREATE_NEW_WORLD_INTERFACE.worldName.getText().equals(name)) return;
             }
+            loadGame(CREATE_NEW_WORLD_INTERFACE.worldName.getText());
         });
 
         Button createNewWorld = (Button) getElement("button.create_new_world");
         createNewWorld.setDefaultText();
-        createNewWorld.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                createWorldInterface.open();
-            }
-        });
-        hideButtonsIfNeed();
-        setSelectButtonsText();
+        createNewWorld.addEventListener(CREATE_NEW_WORLD_INTERFACE::open);
     }
 
     @Override
     public void update() {
-        if (!createWorldInterface.isOpen) super.update();
-        createWorldInterface.update();
+        if (!CREATE_NEW_WORLD_INTERFACE.isOpen) super.update();
+        CREATE_NEW_WORLD_INTERFACE.update();
     }
 
     @Override
@@ -103,7 +92,7 @@ public class SelectWorldInterface extends Interface {
 
     @Override
     public void postRender() {
-        createWorldInterface.render();
+        CREATE_NEW_WORLD_INTERFACE.render();
     }
 
     public void loadGame(String worldName) {

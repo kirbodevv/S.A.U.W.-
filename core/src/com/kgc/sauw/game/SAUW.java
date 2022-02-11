@@ -3,14 +3,12 @@ package com.kgc.sauw.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.kgc.sauw.core.achievements.Achievements;
+import com.kgc.sauw.core.UpdateTick;
 import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.entity.EntityManager;
 import com.kgc.sauw.core.graphic.Animator;
 import com.kgc.sauw.core.input.Input;
-import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.particle.Particles;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
@@ -23,12 +21,12 @@ import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 import static com.kgc.sauw.core.gui.Interfaces.HUD;
 import static com.kgc.sauw.core.gui.Interfaces.isAnyInterfaceOpen;
+import static com.kgc.sauw.game.Game.getDebugRenderer;
 
 public class SAUW implements Screen {
-    private final Box2DDebugRenderer DR;
 
     public SAUW() {
-        DR = new Box2DDebugRenderer();
+
 
         Music.setVolume(Settings.musicVolume);
         Particles.init();
@@ -65,7 +63,7 @@ public class SAUW implements Screen {
         Particles.render();
         if (isAnyInterfaceOpen()) BATCH.setColor(1, 1, 1, 1);
         BATCH.end();
-        if (Settings.debugRenderer) DR.render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
+        if (Settings.debugRenderer) getDebugRenderer().render(Physic.getWorld(), GAME_CAMERA.CAMERA.combined);
         BATCH.begin();
         HUD.render(Settings.debugMode);
         getWorld().update();
@@ -75,8 +73,6 @@ public class SAUW implements Screen {
 
     @Override
     public void dispose() {
-        DR.dispose();
-        throw new RuntimeException("It works, but you shouldn't use it :moyai:");
     }
 
     @Override
@@ -85,12 +81,10 @@ public class SAUW implements Screen {
 
     @Override
     public void show() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
@@ -99,26 +93,5 @@ public class SAUW implements Screen {
 
     @Override
     public void resume() {
-    }
-
-    public static class UpdateTick extends Thread {
-        @Override
-        public void run() {
-            try {
-                super.run();
-                getWorld().map.update();
-                Items.tick();
-                Achievements.checkAchievements(PLAYER.achievementsData);
-                getWorld().getTime().updateTime();
-                try {
-                    sleep(50);
-                } catch (Exception ignored) {
-                }
-            } catch (Exception ignored) {
-            }
-            if (Game.isRunning)
-                new UpdateTick().start();
-
-        }
     }
 }

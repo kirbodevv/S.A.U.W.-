@@ -11,13 +11,13 @@ import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.Game;
-import com.kgc.sauw.game.gui.interfaces.SelectWorldInterface;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
+import static com.kgc.sauw.game.gui.GameInterfaces.SELECT_WORLD_INTERFACE;
 import static com.kgc.sauw.game.gui.GameInterfaces.UPDATES_INTERFACE;
 
 public class MenuScreen implements Screen {
@@ -30,8 +30,6 @@ public class MenuScreen implements Screen {
     private final Layout coinsLayout;
 
     public int SAUW_coins;
-
-    private final SelectWorldInterface selectWorldInterface;
 
     public SettingsScreen SettingsScreen;
     public ModsScreen ModsScreen;
@@ -75,12 +73,9 @@ public class MenuScreen implements Screen {
         modsButton.setMarginBottom(0.05f);
         exitButton.setMarginBottom(0.05f);
 
-        selectWorldInterface = new SelectWorldInterface();
-
-
         mainLayout.addElements(sauwLogo, startButton, settingsButton, modsButton, exitButton);
 
-        startButton.addEventListener(selectWorldInterface::open);
+        startButton.addEventListener(SELECT_WORLD_INTERFACE::open);
         /*settingsButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -144,7 +139,7 @@ public class MenuScreen implements Screen {
         mainLayout.hide(false);
         coinsLayout.hide(false);
         update.hide(!UpdatesChecker.newVersionAvailable(Version.CODE_VERSION));
-        if (!selectWorldInterface.isOpen) {
+        if (!SELECT_WORLD_INTERFACE.isOpen) {
             coinsLayout.update(MENU_CAMERA);
             mainLayout.update(MENU_CAMERA);
             update.update(MENU_CAMERA);
@@ -153,8 +148,8 @@ public class MenuScreen implements Screen {
             update.render(BATCH, MENU_CAMERA);
         }
 
-        selectWorldInterface.update();
-        selectWorldInterface.render();
+        SELECT_WORLD_INTERFACE.update();
+        SELECT_WORLD_INTERFACE.render();
 
         BATCH.end();
     }
@@ -176,7 +171,7 @@ public class MenuScreen implements Screen {
         update.resize();
         coinsLayout.setPositionInBlocks(0.25f, HEIGHT_IN_BLOCKS - 1.25f);
         update.setPositionInBlocks(WIDTH_IN_BLOCKS - 1.25f, HEIGHT_IN_BLOCKS - 1.25f);
-        selectWorldInterface.resize();
+        SELECT_WORLD_INTERFACE.resize();
     }
 
     @Override

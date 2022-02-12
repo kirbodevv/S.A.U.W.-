@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.config.Settings;
-import com.kgc.sauw.core.graphic.Graphic;
+import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
@@ -136,9 +136,11 @@ public class MenuScreen implements Screen {
         drawBackground();
         BATCH.setColor(1, 1, 1, 1);
 
-        mainLayout.hide(false);
-        coinsLayout.hide(false);
-        update.hide(!UpdatesChecker.newVersionAvailable(Version.CODE_VERSION));
+        boolean hide = !UpdatesChecker.newVersionAvailable(Version.CODE_VERSION) || Interfaces.isAnyInterfaceOpen();
+
+        mainLayout.hide(hide);
+        coinsLayout.hide(hide);
+        update.hide(hide);
         if (!SELECT_WORLD_INTERFACE.isOpen) {
             coinsLayout.update(MENU_CAMERA);
             mainLayout.update(MENU_CAMERA);
@@ -147,9 +149,6 @@ public class MenuScreen implements Screen {
             mainLayout.render(BATCH, MENU_CAMERA);
             update.render(BATCH, MENU_CAMERA);
         }
-
-        SELECT_WORLD_INTERFACE.update();
-        SELECT_WORLD_INTERFACE.render();
 
         BATCH.end();
     }
@@ -164,14 +163,12 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        Graphic.resize(width, height);
         mainLayout.setSizeInBlocks(WIDTH_IN_BLOCKS, HEIGHT_IN_BLOCKS);
         mainLayout.resize();
         coinsLayout.resize();
         update.resize();
         coinsLayout.setPositionInBlocks(0.25f, HEIGHT_IN_BLOCKS - 1.25f);
         update.setPositionInBlocks(WIDTH_IN_BLOCKS - 1.25f, HEIGHT_IN_BLOCKS - 1.25f);
-        SELECT_WORLD_INTERFACE.resize();
     }
 
     @Override

@@ -53,6 +53,10 @@ public class Button extends AbstractTextView {
         locked = b;
     }
 
+    public boolean isLocked() {
+        return locked;
+    }
+
     @Override
     public void preRender(SpriteBatch batch, Camera2D cam) {
     }
@@ -72,6 +76,12 @@ public class Button extends AbstractTextView {
             b.draw(icon, cam.X + x, cam.Y + y, width, height);
         }
         if (!text.equals("")) super.renderTick(b, cam);
+    }
+
+    @Override
+    protected void onClick() {
+        if (!locked)
+            super.onClick();
     }
 
     @Override

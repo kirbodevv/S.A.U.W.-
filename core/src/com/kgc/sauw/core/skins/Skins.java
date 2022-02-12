@@ -44,8 +44,8 @@ public class Skins {
         transparent = new ElementSkin();
 
         progress_bar_background_round = new ElementSkin(Resource.getTexture("interface/round_down.png"), DEFAULT_OUTLINE_SIZE);
-        progress_bar_background_round.setColor(0x60769DFF);
+        progress_bar_background_round.setColor(0x555555FF);
         progress_bar_foreground_round = new ElementSkin(Resource.getTexture("interface/progress_bar_foreground_round.png"), DEFAULT_OUTLINE_SIZE);
-        progress_bar_foreground_round.setColor(0x60769DFF);
+        progress_bar_foreground_round.setColor(0x555555FF);
     }
 }

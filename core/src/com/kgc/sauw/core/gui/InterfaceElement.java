@@ -76,7 +76,7 @@ public abstract class InterfaceElement {
         }
     }
 
-    private void onClick() {
+    protected void onClick() {
         for (OnClickListener e : eventListeners) {
             e.onClick();
         }

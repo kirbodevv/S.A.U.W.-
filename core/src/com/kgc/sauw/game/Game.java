@@ -119,39 +119,44 @@ public class Game extends com.badlogic.gdx.Game {
 
     @Override
     public void create() {
-        Files.createFiles();
+        try {
+            Files.createFiles();
+            Files.clearTempDir();
 
-        if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            String gameParams = Files.runParams.readString();
-            if (!gameParams.isEmpty()) {
-                RunParameters.set(Commandline.translateCommandline(gameParams));
+            if (Gdx.app.getType() == Application.ApplicationType.Android) {
+                String gameParams = Files.runParams.readString();
+                if (!gameParams.isEmpty()) {
+                    RunParameters.set(Commandline.translateCommandline(gameParams));
+                }
             }
+
+            Callback.addCallback((Initialization) () -> {
+                if (INSTANCE.defaultWorld != null) Game.load(INSTANCE.defaultWorld);
+                if (INSTANCE.devmode) Game.loadInDevMode();
+            });
+
+            Settings.loadSettings();
+            Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
+
+            //S.A.U.W. initialization
+            ItemsGenerated.init();
+            AchievementsGenerated.init();
+            RecipesGenerated.init();
+            new GameBlocks();
+
+            Mods.loadMods();
+            setScreen(getMenuScreen());
+            UpdatesChecker.check(() -> {
+                if (UpdatesChecker.newVersionAvailable(Version.CODE_VERSION)) {
+                    UPDATES_INTERFACE.setVersion(UpdatesChecker.getLastVersionName());
+                    UpdatesChecker.updateChangelog(() -> UPDATES_INTERFACE.setChangelog(UpdatesChecker.getChangelog()));
+                    UpdatesChecker.updateScreenshot(() -> UPDATES_INTERFACE.setScreenshot(UpdatesChecker.getScreenshot()));
+                }
+            });
+            Callback.executeInitializationCallbacks();
+        } catch (Exception e) {
+            onError(e);
         }
-
-        Callback.addCallback((Initialization) () -> {
-            if (INSTANCE.defaultWorld != null) Game.load(INSTANCE.defaultWorld);
-            if (INSTANCE.devmode) Game.loadInDevMode();
-        });
-
-        Settings.loadSettings();
-        Gdx.input.setInputProcessor(INPUT_MULTIPLEXER);
-
-        //S.A.U.W. initialization
-        ItemsGenerated.init();
-        AchievementsGenerated.init();
-        RecipesGenerated.init();
-        new GameBlocks();
-
-        Mods.loadMods();
-        setScreen(getMenuScreen());
-        UpdatesChecker.check(() -> {
-            if (UpdatesChecker.newVersionAvailable(Version.CODE_VERSION)) {
-                UPDATES_INTERFACE.setVersion(UpdatesChecker.getLastVersionName());
-                UpdatesChecker.getChangelog(() -> UPDATES_INTERFACE.setChangelog(UpdatesChecker.getChangelog()));
-                UPDATES_INTERFACE.open();
-            }
-        });
-        Callback.executeInitializationCallbacks();
     }
 
     @Override
@@ -170,14 +175,18 @@ public class Game extends com.badlogic.gdx.Game {
             Interfaces.renderInterfaces();
             BATCH.end();
         } catch (Exception e) {
-            Gdx.app.error("Error", ExceptionUtils.getStackTrace(e));
-            if (!(getGame().screen instanceof ErrorScreen)) {
-                if (BATCH.isDrawing()) BATCH.end();
-                Game.isRunning = false;
-                setErrorScreen(ExceptionUtils.getStackTrace(e));
-            } else {
-                Gdx.app.exit();
-            }
+            onError(e);
+        }
+    }
+
+    private static void onError(Exception e) {
+        Gdx.app.error("Error", ExceptionUtils.getStackTrace(e));
+        if (!(getGame().screen instanceof ErrorScreen)) {
+            if (BATCH.isDrawing()) BATCH.end();
+            Game.isRunning = false;
+            setErrorScreen(ExceptionUtils.getStackTrace(e));
+        } else {
+            Gdx.app.exit();
         }
     }
 

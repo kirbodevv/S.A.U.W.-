@@ -50,6 +50,7 @@ sauw.interface.crafting_table=Crafting table
 sauw.interface.dead.button.respawn=Respawn
 sauw.interface.update_interface=Update available
 sauw.interface.update_interface.button.download_update=Download update
+sauw.interface.update_interface.button.download_update.via_launcher=Download via launcher!
 sauw.interface.update_interface.button.later=Later
 sauw.interface.update_interface.button.full_changelog=Full changelog
 sauw.interface.creative=Creative inventory

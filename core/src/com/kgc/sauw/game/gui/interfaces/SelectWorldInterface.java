@@ -60,13 +60,10 @@ public class SelectWorldInterface extends Interface {
 
         Button createNewWorld = (Button) getElement("button.create_new_world");
         createNewWorld.setDefaultText();
-        createNewWorld.addEventListener(CREATE_NEW_WORLD_INTERFACE::open);
-    }
-
-    @Override
-    public void update() {
-        if (!CREATE_NEW_WORLD_INTERFACE.isOpen) super.update();
-        CREATE_NEW_WORLD_INTERFACE.update();
+        createNewWorld.addEventListener(() -> {
+            this.close();
+            CREATE_NEW_WORLD_INTERFACE.open();
+        });
     }
 
     @Override
@@ -77,22 +74,14 @@ public class SelectWorldInterface extends Interface {
 
     @Override
     public void onOpen() {
-
     }
 
     @Override
     public void onClose() {
-
     }
 
     @Override
     public void preRender() {
-
-    }
-
-    @Override
-    public void postRender() {
-        CREATE_NEW_WORLD_INTERFACE.render();
     }
 
     public void loadGame(String worldName) {

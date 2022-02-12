@@ -8,6 +8,8 @@ import com.kgc.sauw.core.gui.elements.EditText;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.registry.RegistryMetadata;
 
+import static com.kgc.sauw.game.gui.GameInterfaces.SELECT_WORLD_INTERFACE;
+
 @RegistryMetadata(package_ = "sauw", id = "create_new_world")
 public class CreateNewWorldInterface extends Interface {
     public EditText worldName;
@@ -36,7 +38,7 @@ public class CreateNewWorldInterface extends Interface {
 
     @Override
     public void onClose() {
-
+        SELECT_WORLD_INTERFACE.open();
     }
 
     @Override

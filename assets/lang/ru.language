@@ -50,6 +50,7 @@ sauw.interface.crafting_table=Верстак
 sauw.interface.dead.button.respawn=Возродиться
 sauw.interface.update_interface=Доступно обновление
 sauw.interface.update_interface.button.download_update=Загрузить обновление
+sauw.interface.update_interface.button.download_update.via_launcher=Загрузите через лаунчер!
 sauw.interface.update_interface.button.later=Позже
 sauw.interface.update_interface.button.full_changelog=Полный чейнджлог
 sauw.interface.creative=Творческий инвентарь

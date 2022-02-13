@@ -1,6 +1,7 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.core.gui.Interface;
@@ -9,10 +10,10 @@ import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Files;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.Application;
 import com.kgc.sauw.core.utils.DelayedAction;
 import com.kgc.sauw.core.utils.FileDownloader;
 import com.kgc.sauw.core.utils.languages.Languages;
-import com.kgc.sauw.game.Game;
 
 @RegistryMetadata(package_ = "sauw", id = "updates")
 public class UpdatesInterface extends Interface {
@@ -48,8 +49,8 @@ public class UpdatesInterface extends Interface {
                         downloadUpdateButton.lock(true);
                         isDownloading = true;
                         progressBar.setValue(0);
-                        Game.getFileDownloader().download(UpdatesChecker.getAndroidLink(),
-                                Files.tempDir.child(UpdatesChecker.getLastVersionName() + ".apk"),
+                        FileHandle apkFile = Files.tempDir.child(UpdatesChecker.getLastVersionName() + ".apk");
+                        Application.fileDownloader.download(UpdatesChecker.getAndroidLink(), apkFile,
                                 new FileDownloader.ProgressListener() {
                                     @Override
                                     public void update(int progress) {
@@ -60,6 +61,7 @@ public class UpdatesInterface extends Interface {
                                     public void done() {
                                         downloadUpdateButton.lock(false);
                                         isDownloading = false;
+                                        Application.apkOpener.open(apkFile);
                                     }
 
                                     @Override

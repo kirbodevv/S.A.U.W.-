@@ -3,6 +3,7 @@ package com.kgc.sauw.desktop;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.kgc.sauw.core.utils.Application;
 import com.kgc.sauw.core.utils.DesktopFileDownloader;
 import com.kgc.sauw.game.Game;
 import com.kgc.sauw.game.RunParameters;
@@ -16,7 +17,7 @@ public class DesktopLauncher {
         config.title = "S.A.U.W.";
         config.addIcon("icon/icon_128.png", Files.FileType.Internal);
         RunParameters.set(args);
-        Game.setFileDownloader(new DesktopFileDownloader());
+        Application.fileDownloader = new DesktopFileDownloader();
         new LwjglApplication(Game.getGame(), config);
     }
 }

@@ -13,6 +13,7 @@ import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.resource.Files;
+import com.kgc.sauw.core.utils.FileDownloader;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
@@ -47,6 +48,16 @@ public class Game extends com.badlogic.gdx.Game {
     private static SAUW sauw;
     private static JSONObject data;
     private static Box2DDebugRenderer DR;
+
+    private static FileDownloader fileDownloader;
+
+    public static void setFileDownloader(FileDownloader fileDownloader) {
+        Game.fileDownloader = fileDownloader;
+    }
+
+    public static FileDownloader getFileDownloader() {
+        return fileDownloader;
+    }
 
     public static void loadInDevMode() {
         setWorld(new MysticalVoidWorld());

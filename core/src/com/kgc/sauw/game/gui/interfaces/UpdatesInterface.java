@@ -9,8 +9,10 @@ import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Files;
 import com.kgc.sauw.core.resource.Resource;
+import com.kgc.sauw.core.utils.DelayedAction;
 import com.kgc.sauw.core.utils.FileDownloader;
 import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.sauw.game.Game;
 
 @RegistryMetadata(package_ = "sauw", id = "updates")
 public class UpdatesInterface extends Interface {
@@ -35,24 +37,18 @@ public class UpdatesInterface extends Interface {
             switch (Gdx.app.getType()) {
                 case Desktop:
                     downloadUpdateButton.setText(Languages.getString("sauw.interface.update_interface.button.download_update.via_launcher"));
-
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            super.run();
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            downloadUpdateButton.setDefaultText();
-                        }
-                    }.start();
+                    downloadUpdateButton.lock(true);
+                    new DelayedAction(1000, () -> {
+                        downloadUpdateButton.setDefaultText();
+                        downloadUpdateButton.lock(false);
+                    });
+                    break;
                 case Android:
                     if (!downloadUpdateButton.isLocked()) {
                         downloadUpdateButton.lock(true);
                         isDownloading = true;
-                        FileDownloader.download(UpdatesChecker.getAndroidLink(),
+                        progressBar.setValue(0);
+                        Game.getFileDownloader().download(UpdatesChecker.getAndroidLink(),
                                 Files.tempDir.child(UpdatesChecker.getLastVersionName() + ".apk"),
                                 new FileDownloader.ProgressListener() {
                                     @Override
@@ -65,8 +61,13 @@ public class UpdatesInterface extends Interface {
                                         downloadUpdateButton.lock(false);
                                         isDownloading = false;
                                     }
+
+                                    @Override
+                                    public void failed(Throwable throwable) {
+                                    }
                                 });
                     }
+                    break;
             }
         });
         getElement("button.later").addEventListener(this::close);

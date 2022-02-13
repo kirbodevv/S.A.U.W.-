@@ -13,8 +13,6 @@ import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.resource.Files;
-import com.kgc.sauw.core.utils.APKFileOpener;
-import com.kgc.sauw.core.utils.FileDownloader;
 import com.kgc.sauw.game.environment.GameBlocks;
 import com.kgc.sauw.game.generated.AchievementsGenerated;
 import com.kgc.sauw.game.generated.ItemsGenerated;
@@ -23,6 +21,7 @@ import com.kgc.sauw.game.gui.screen.ErrorScreen;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.modding.Mods;
+import com.kgc.sauw.modding.Modules;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.tools.ant.types.Commandline;
 import org.json.JSONObject;
@@ -146,6 +145,7 @@ public class Game extends com.badlogic.gdx.Game {
             RecipesGenerated.init();
             new GameBlocks();
 
+            Modules.load();
             Mods.loadMods();
             setScreen(getMenuScreen());
             UpdatesChecker.check(() -> {

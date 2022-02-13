@@ -10,6 +10,8 @@ public class Files {
     public static FileHandle screenshotsDir = sauwDir.child("Screenshots");
     public static FileHandle modsDir = sauwDir.child("Mods");
     public static FileHandle tempDir = sauwDir.child("temp");
+    public static FileHandle modulesDir = sauwDir.child("Modules");
+    public static FileHandle modulesList = modulesDir.child("modules.list");
     public static FileHandle settingFile = userDir.child("settings.json");
     public static FileHandle userData = userDir.child("data.json");
     public static FileHandle runParams = sauwDir.child("run.params");
@@ -22,8 +24,10 @@ public class Files {
             screenshotsDir.mkdirs();
             modsDir.mkdirs();
             tempDir.mkdirs();
+            modulesDir.mkdirs();
             settingFile.writeString(Gdx.files.internal("json/settings.json").readString(), false);
             runParams.writeString("", false);
+            modulesList.writeString("", false);
             //this will be removed
             userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
         }

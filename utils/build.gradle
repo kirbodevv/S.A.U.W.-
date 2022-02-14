@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm'
 }
 
-version '0.2.7.h1-beta'
+version '0.1'
 
 repositories {
     mavenCentral()

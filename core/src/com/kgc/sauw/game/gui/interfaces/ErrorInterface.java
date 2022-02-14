@@ -6,6 +6,7 @@ import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.AbstractTextView;
 import com.kgc.sauw.core.gui.elements.MultilineTextView;
 import com.kgc.sauw.core.registry.RegistryMetadata;
+import com.kgc.sauw.core.utils.Application;
 
 @RegistryMetadata(package_ = "sauw", id = "error_interface")
 public class ErrorInterface extends Interface {
@@ -29,7 +30,7 @@ public class ErrorInterface extends Interface {
 
         getElement("button.exit_game").addEventListener(() -> Gdx.app.exit());
         getElement("button.copy_log").addEventListener(() -> Gdx.app.getClipboard().setContents(msg));
-        getElement("button.github_issues").addEventListener(() -> Gdx.net.openURI("https://github.com/KirboGames/S.A.U.W.-/issues/new/choose"));
-        getElement("button.telegram_issues").addEventListener(() -> Gdx.net.openURI("https://t.me/sauw_issues"));
+        getElement("button.github_issues").addEventListener(() -> Application.openURI("https://github.com/KirboGames/S.A.U.W.-/issues/new/choose"));
+        getElement("button.telegram_issues").addEventListener(() -> Application.openURI("https://t.me/sauw_issues"));
     }
 }

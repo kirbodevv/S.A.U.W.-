@@ -2,6 +2,7 @@ package com.kgc.sauw.game.generated;
 
 import com.kgc.sauw.core.item.*;
 
+//do not delete, this file was automatically generated
 public class ItemsGenerated {
     public static void init() {
 		Items.registry.register(new VoidItem(), "sauw", "void");

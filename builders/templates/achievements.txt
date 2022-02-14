@@ -7,6 +7,7 @@ import com.kgc.sauw.core.achievements.JSChecker;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.StringUtils;
 
+//do not delete, this file was automatically generated
 public class AchievementsGenerated {
     public static void init(){
         Achievement achievement;

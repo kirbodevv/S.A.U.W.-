@@ -1,0 +1,6 @@
+package com.kgc.sauw;
+
+//do not delete, this file was automatically generated
+public class Version {
+$version$
+}

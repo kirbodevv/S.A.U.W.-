@@ -75,7 +75,7 @@ public class UpdatesInterface extends Interface {
         getElement("button.later").addEventListener(this::close);
         getElement("button.full_changelog").addEventListener(() -> {
             try {
-                Gdx.net.openURI(UpdatesChecker.getFullChangelogLink());
+                Application.openURI(UpdatesChecker.getFullChangelogLink());
             } catch (Exception ignored) {
             }
         });

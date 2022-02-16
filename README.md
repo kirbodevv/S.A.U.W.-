@@ -9,6 +9,16 @@ ___
 
 ___
 
+## How S.A.U.W. works
+```mermaid
+flowchart TD
+  A[Launch] --> B[Dark Magic];
+  B --> C{Math.random < 0.5f};
+  C --false--> E[You are lucky];
+  C --true--> D[Crash];
+  D --> F[Open issue] --> A;
+```
+
 ## Modding docs
 
 [RU](https://github.com/KirboGames/S.A.U.W.-/wiki/Home-ru)

@@ -3,7 +3,6 @@ package com.kgc.sauw.game.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.kgc.utils.UpdatesChecker;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.gui.elements.Button;
@@ -13,6 +12,7 @@ import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.Game;
+import com.kgc.utils.UpdatesChecker;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
 import static com.kgc.sauw.game.gui.GameInterfaces.SELECT_WORLD_INTERFACE;
@@ -130,11 +130,11 @@ public class MenuScreen implements Screen {
         drawBackground();
         BATCH.setColor(1, 1, 1, 1);
 
-        boolean hide = !UpdatesChecker.newVersionAvailable(Version.CODE_VERSION) || Interfaces.isAnyInterfaceOpen();
+        boolean hide = Interfaces.isAnyInterfaceOpen();
 
         mainLayout.hide(hide);
         coinsLayout.hide(hide);
-        update.hide(hide);
+        update.hide(hide || !UpdatesChecker.newVersionAvailable(Version.CODE_VERSION));
         if (!SELECT_WORLD_INTERFACE.isOpen) {
             coinsLayout.update(MENU_CAMERA);
             mainLayout.update(MENU_CAMERA);

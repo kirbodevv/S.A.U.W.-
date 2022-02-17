@@ -22,11 +22,13 @@ public class Modules {
     public static void load() {
         String[] modules = modulesList.readString().split("\\r?\\n");
         for (String module : modules) {
-            if (!isLocal(module)) {
-                if (!exist(module)) {
-                    modulesToDownload.add(module);
-                } else {
-                    loadModule(module);
+            if (!module.isEmpty() && !module.startsWith("//")) {
+                if (!isLocal(module)) {
+                    if (!exist(module)) {
+                        modulesToDownload.add(module);
+                    } else {
+                        loadModule(module);
+                    }
                 }
             }
         }

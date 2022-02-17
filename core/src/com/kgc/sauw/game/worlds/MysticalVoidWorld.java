@@ -23,12 +23,6 @@ public class MysticalVoidWorld extends World {
     @Override
     protected void tick() {
         windSound.play();
-        if (worldTime.getHours() > 19 || worldTime.getHours() < 7) {
-            Music.play("music/Sunset.mp3");
-            Music.setLooping(true);
-        } else {
-            Music.setLooping(false);
-        }
     }
 
     /*@Override

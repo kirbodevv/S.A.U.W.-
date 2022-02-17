@@ -4,7 +4,7 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.kgc.sauw.core.utils.Application;
-import com.kgc.sauw.core.utils.DesktopFileDownloader;
+import com.kgc.utils.DesktopFileDownloader;
 import com.kgc.sauw.game.Game;
 import com.kgc.sauw.game.RunParameters;
 

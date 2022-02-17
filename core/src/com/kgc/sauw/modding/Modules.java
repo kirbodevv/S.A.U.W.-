@@ -2,7 +2,7 @@ package com.kgc.sauw.modding;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.utils.Application;
-import com.kgc.sauw.core.utils.FileDownloader;
+import com.kgc.utils.FileDownloader;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

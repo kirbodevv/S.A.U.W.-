@@ -4,7 +4,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.kgc.sauw.UpdatesChecker;
 import com.kgc.sauw.Version;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.Initialization;
@@ -22,6 +21,7 @@ import com.kgc.sauw.game.gui.screen.MenuScreen;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.modding.Modules;
+import com.kgc.utils.UpdatesChecker;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.tools.ant.types.Commandline;
 import org.json.JSONObject;
@@ -151,10 +151,10 @@ public class Game extends com.badlogic.gdx.Game {
             UpdatesChecker.check(() -> {
                 if (UpdatesChecker.newVersionAvailable(Version.CODE_VERSION)) {
                     UPDATES_INTERFACE.setVersion(UpdatesChecker.getLastVersionName());
-                    UpdatesChecker.updateChangelog(() -> UPDATES_INTERFACE.setChangelog(UpdatesChecker.getChangelog()));
+                    UpdatesChecker.updateChangelog(() -> UPDATES_INTERFACE.setChangelog(UpdatesChecker.getChangelog()), Settings.lang);
                     UpdatesChecker.updateScreenshot(() -> UPDATES_INTERFACE.setScreenshot(UpdatesChecker.getScreenshot()));
                 }
-            });
+            }, Settings.lang);
             Callback.executeInitializationCallbacks();
         } catch (Exception e) {
             onError(e);
@@ -196,6 +196,7 @@ public class Game extends com.badlogic.gdx.Game {
     public void dispose() {
         if (DR != null) DR.dispose();
         if (sauw != null) sauw.dispose();
+        UpdatesChecker.disposeScreenshot();
         super.dispose();
     }
 }

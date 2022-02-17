@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import com.badlogic.gdx.files.FileHandle;
-import com.kgc.sauw.core.utils.FileDownloader;
+import com.kgc.utils.FileDownloader;
 
 public class AndroidFileDownloader implements FileDownloader {
     private DownloadManager manager;

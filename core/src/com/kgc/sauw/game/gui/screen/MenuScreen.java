@@ -3,16 +3,14 @@ package com.kgc.sauw.game.gui.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.kgc.sauw.UpdatesChecker;
+import com.kgc.utils.UpdatesChecker;
 import com.kgc.sauw.Version;
-import com.kgc.sauw.core.config.Settings;
 import com.kgc.sauw.core.gui.Interfaces;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Image;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.TextView;
 import com.kgc.sauw.core.resource.Resource;
-import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.Game;
 
@@ -122,10 +120,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Music.setVolume(Settings.musicVolume);
-        Music.play("music/main.mp3");
-        Music.setLooping(true);
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         BATCH.begin();

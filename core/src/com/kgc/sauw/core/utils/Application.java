@@ -2,6 +2,7 @@ package com.kgc.sauw.core.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
+import com.kgc.utils.FileDownloader;
 
 import java.net.URI;
 

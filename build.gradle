@@ -20,7 +20,7 @@ apply plugin: 'kotlin'
 allprojects {
     apply plugin: "eclipse"
 
-    version = '0.3.h1-beta'
+    version = '0.3.h2-beta'
     ext {
         appName = "S.A.U.W."
         sauwVersion = version

@@ -24,7 +24,7 @@ allprojects {
     ext {
         appName = "S.A.U.W."
         sauwVersion = version
-        sauwCodeVersion = 1
+        sauwCodeVersion = 2
         sauwModFormat = 0
         sauwModuleFormat = 0
 

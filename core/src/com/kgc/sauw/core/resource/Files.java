@@ -17,20 +17,22 @@ public class Files {
     public static FileHandle runParams = sauwDir.child("run.params");
 
     public static void createFiles() {
-        if (!sauwDir.exists()) {
-            sauwDir.mkdirs();
-            userDir.mkdirs();
-            worldsDir.mkdirs();
-            screenshotsDir.mkdirs();
-            modsDir.mkdirs();
-            tempDir.mkdirs();
-            modulesDir.mkdirs();
+        sauwDir.mkdirs();
+        userDir.mkdirs();
+        worldsDir.mkdirs();
+        screenshotsDir.mkdirs();
+        modsDir.mkdirs();
+        tempDir.mkdirs();
+        modulesDir.mkdirs();
+        if (!settingFile.exists())
             settingFile.writeString(Gdx.files.internal("json/settings.json").readString(), false);
+        if (!runParams.exists())
             runParams.writeString("", false);
+        if (!modulesList.exists())
             modulesList.writeString("", false);
-            //this will be removed
+        //this will be removed
+        if (!userData.exists())
             userData.writeString("{\n\"SAUW_Coins\" : 0,\n\"lastWorld\":null}", false);
-        }
     }
 
     public static FileHandle tempFile(String path) {

@@ -20,7 +20,7 @@ android {
         applicationId "com.kgc.sauw"
         minSdkVersion 16
         targetSdkVersion 32
-        versionCode 1
+        versionCode Integer.valueOf("$sauwCodeVersion")
         versionName rootProject.version
         multiDexEnabled true
     }

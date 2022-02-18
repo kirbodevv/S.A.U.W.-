@@ -45,14 +45,14 @@ public class UpdatesChecker {
                 androidLink = VERSIONS_RAW_LINK + getLastVersionName() + "/android.apk";
                 desktopLink = VERSIONS_RAW_LINK + getLastVersionName() + "/desktop.jar";
 
-                fullChangelogLink = REPOSITIRY_BLOB_LINK + version + "/full_changelogs/" + lang + ".md";
+                fullChangelogLink = REPOSITIRY_BLOB_LINK + "_version/" + version + "/full_changelogs/" + lang + ".md";
 
                 listener.updatesChecked();
             }
 
             @Override
             public void failed(Throwable t) {
-
+                Gdx.app.error("Error", "failed", t);
             }
 
             @Override
@@ -73,6 +73,7 @@ public class UpdatesChecker {
 
                     @Override
                     public void failed(Throwable t) {
+                        Gdx.app.error("Error", "failed", t);
                     }
 
                     @Override
@@ -82,24 +83,29 @@ public class UpdatesChecker {
     }
 
     public static void updateScreenshot(ScreenshotCallback screenshotCallback) {
+        System.out.println(VERSIONS_RAW_LINK + getLastVersionName() + "/img.png");
         getRequest(VERSIONS_RAW_LINK + getLastVersionName() + "/img.png", new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 final FileHandle tmpFile = Files.tempFile(getLastVersionName() + ".screenshot.png");
                 tmpFile.write(httpResponse.getResultAsStream(), false);
                 Gdx.app.postRunnable(() -> {
-                    if (screenshot != null) {
-                        screenshot.dispose();
-                        screenshot = null;
+                    try {
+                        if (screenshot != null) {
+                            screenshot.dispose();
+                            screenshot = null;
+                        }
+                        screenshot = new Texture(tmpFile);
+                        screenshotCallback.screenshotReceived();
+                    } catch (Exception e) {
+                        Gdx.app.error("error", "Screenshot downloading error", e);
                     }
-                    screenshot = new Texture(tmpFile);
-                    screenshotCallback.screenshotReceived();
                 });
             }
 
             @Override
             public void failed(Throwable t) {
-
+                Gdx.app.error("Error", "failed", t);
             }
 
             @Override

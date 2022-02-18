@@ -1,6 +1,11 @@
+<div align="center">
+
 # S.A.U.W.
 
-S.A.U.W. is a LibGDX Android game
+[![stability-beta](https://img.shields.io/badge/stability-beta-33bbff.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta)
+![Discord](https://img.shields.io/discord/944172167996780564?color=7289da&label=%D0%A1hat)
+
+<h3>A LibGDX game</h2>
 
 ___
 
@@ -8,6 +13,8 @@ ___
 <img src="https://github.com/KirboGames/S.A.U.W.-/raw/master/screenshots/SAUW_Screenshot_1.png" width="300px"/>
 
 ___
+
+</div>
 
 ## How S.A.U.W. works
 

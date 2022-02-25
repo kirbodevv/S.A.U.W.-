@@ -2,14 +2,10 @@ package com.kgc.sauw.core.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.SharedLibraryLoader;
-import com.kgc.utils.FileDownloader;
 
 import java.net.URI;
 
 public class Application {
-    public static FileDownloader fileDownloader;
-    public static APKFileOpener apkOpener;
-
     public static void openURI(String uri) {
         String baseCommand = null;
         if (SharedLibraryLoader.isWindows) {

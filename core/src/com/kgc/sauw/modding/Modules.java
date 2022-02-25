@@ -1,8 +1,9 @@
 package com.kgc.sauw.modding;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.intkgc.curve.CurveGDX;
+import com.intkgc.curve.utils.FileDownloader;
 import com.kgc.sauw.core.utils.Application;
-import com.kgc.utils.FileDownloader;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class Modules {
 
     public static void startDownloading() {
         for (String module : modulesToDownload) {
-            Application.fileDownloader.download(
+            CurveGDX.fileDownloader.download(
                     getModuleURL(module), getModulePath(module), new FileDownloader.ProgressListener() {
                         @Override
                         public void update(int progress) {

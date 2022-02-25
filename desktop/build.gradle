@@ -34,7 +34,3 @@ task dist(type: Jar) {
 
 
 dist.dependsOn classes
-
-dependencies {
-    implementation "com.beust:jcommander:1.78"
-}

@@ -17,8 +17,6 @@ buildscript {
 apply plugin: 'kotlin'
 
 allprojects {
-    apply plugin: "eclipse"
-
     version = '0.3.h3-beta'
     ext {
         appName = "S.A.U.W."
@@ -33,12 +31,13 @@ allprojects {
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         gdxControllersVersion = '2.2.0'
+
+        curvegdx = 'com.github.JVMFrog.curve-gdx'
+        curvegdxVersion = '0.5.4-beta'
     }
 
-    java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+    sourceCompatibility = 8
+    targetCompatibility = 8
 
     repositories {
         mavenLocal()
@@ -54,12 +53,8 @@ allprojects {
     }
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "11"
+            jvmTarget = "8"
         }
-    }
-
-    tasks.withType(Jar).all {
-        duplicatesStrategy 'exclude'
     }
 }
 
@@ -75,6 +70,8 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        implementation "$curvegdx:core:$curvegdxVersion"
+        implementation "$curvegdx:desktopBackend:$curvegdxVersion"
     }
 }
 
@@ -107,6 +104,8 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
         implementation "com.badlogicgames.gdx-controllers:gdx-controllers-android:$gdxControllersVersion"
+        implementation "$curvegdx:core:$curvegdxVersion"
+        implementation "$curvegdx:androidBackend:$curvegdxVersion"
     }
 }
 
@@ -145,11 +144,6 @@ project(":core") {
         implementation 'org.apache.ant:ant:1.10.9'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        implementation "$curvegdx:core:$curvegdxVersion"
     }
-}
-repositories {
-    mavenCentral()
-}
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

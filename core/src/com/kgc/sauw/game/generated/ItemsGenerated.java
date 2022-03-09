@@ -1,6 +1,7 @@
 package com.kgc.sauw.game.generated;
 
 import com.kgc.sauw.core.item.*;
+import com.kgc.sauw.game.items.*;
 
 //do not delete, this file was automatically generated
 public class ItemsGenerated {
@@ -241,7 +242,7 @@ public class ItemsGenerated {
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "aluminium_can");
 
-		item = new com.kgc.sauw.game.items.Torch();
+		item = new Torch();
 		Items.registry.register(item);
     }
 }

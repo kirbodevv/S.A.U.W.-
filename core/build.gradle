@@ -1,12 +1,5 @@
 sourceSets.main.java.srcDirs = ["src/"]
-
-sourceSets {
-    test {
-        java {
-            srcDirs = ["test/"]
-        }
-    }
-}
+sourceSets.test.java.srcDirs = ["test/"]
 
 task cmd(type: Exec) {
     doFirst {
@@ -25,6 +18,12 @@ task cmd(type: Exec) {
 dependencies {
     implementation project(path: ':utils')
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
-    implementation 'org.testng:testng:7.1.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
 }
+test {
+    useJUnitPlatform()
+    failFast true
+}
+
 compileJava.dependsOn cmd

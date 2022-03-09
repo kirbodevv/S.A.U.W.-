@@ -32,5 +32,9 @@ task dist(type: Jar) {
     with jar
 }
 
+dependencies {
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
+}
+
 
 dist.dependsOn classes

@@ -14,6 +14,7 @@ import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
 import com.kgc.sauw.core.world.WorldRenderer;
+import com.kgc.sauw.os.SAUWOS;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
@@ -25,9 +26,11 @@ import static com.kgc.sauw.game.Game.getDebugRenderer;
 
 public class SAUW implements Screen {
 
+    public SAUWOS sauwos;
+
     public SAUW() {
-
-
+        sauwos = new SAUWOS();
+        sauwos.start();
         Music.setVolume(Settings.musicVolume);
         Particles.init();
 

@@ -22,13 +22,28 @@ Now you need to register this item.
 
 ### Registration
 
-You need to use [`@RegistryMetadata`](../utils/Registry.md)
+You should use [`@RegistryMetadata`](../utils/Registry.md)
 
 Then you need to add item to end of [items.list](../../core/json/items/items.list)
 
+___
+
+if the item's class is in [`com.kgc.sauw.game.items`](../../core/src/com/kgc/sauw/game/items):
+
 ```
 //another items
-$com.kgc.sauw.game.items.MyItem
+$MyItem
 ```
 
-You should use `$` + `item_package`
+You should use `$` + `item_class_name`
+
+___
+
+if the item's class is in another package:
+
+```
+//another items
+$MyItem
+```
+
+You should use `$` + `package` + `item_class_name`

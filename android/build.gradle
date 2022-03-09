@@ -36,6 +36,7 @@ android {
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.appcompat:appcompat:1.4.1"
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
 }
 
 // called every time gradle gets executed, takes the native dependencies of

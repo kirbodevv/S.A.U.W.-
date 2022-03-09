@@ -5,4 +5,5 @@ include 'utils'
 
 include 'builders'
 include 'launcher'
+include 'sauw-os'
 

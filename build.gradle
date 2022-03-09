@@ -33,11 +33,8 @@ allprojects {
         gdxControllersVersion = '2.2.0'
 
         curvegdx = 'com.github.JVMFrog.curve-gdx'
-        curvegdxVersion = '0.5.4-beta'
+        curvegdxVersion = '0.5.5-beta'
     }
-
-    sourceCompatibility = 8
-    targetCompatibility = 8
 
     repositories {
         mavenLocal()
@@ -51,10 +48,17 @@ allprojects {
         }
         maven { url 'https://jitpack.io' }
     }
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "8"
-        }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "8"
     }
 }
 
@@ -124,7 +128,6 @@ project(":builders") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation 'org.json:json:20211205'
     }
 }
@@ -135,6 +138,7 @@ project(":core") {
 
     dependencies {
         implementation name: 'bdb5'
+        implementation project(":sauw-os")
         implementation 'org.mozilla.javascript:com.springsource.org.mozilla.javascript:1.7.0.R2'
         implementation 'org.json:json:20211205'
         implementation 'org.reflections:reflections:0.10.2'
@@ -142,8 +146,25 @@ project(":core") {
         implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'org.apache.ant:ant:1.10.9'
+        implementation 'com.beust:jcommander:1.82'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation "$curvegdx:core:$curvegdxVersion"
     }
+}
+project(":sauw-os") {
+    apply plugin: "java-library"
+    apply plugin: "java"
+
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation 'org.apache.ant:ant:1.10.9'
+        implementation "$curvegdx:core:$curvegdxVersion"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    }
+}
+
+dependencies {
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
 }

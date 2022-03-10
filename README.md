@@ -3,7 +3,7 @@
 # S.A.U.W.
 
 [![stability-beta](https://img.shields.io/badge/stability-beta-33bbff.svg)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta)
-![Discord](https://img.shields.io/discord/944172167996780564?color=7289da&label=%D0%A1hat)
+[![Discord](https://img.shields.io/discord/944172167996780564?color=7289da&label=%D0%A1hat)](https://discord.gg/CPkHRy58dX)
 
 <h3>A LibGDX game</h2>
 

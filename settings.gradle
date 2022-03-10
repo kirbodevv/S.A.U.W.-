@@ -1,3 +1,9 @@
-include 'desktop', 'android', 'core', 'builders', 'utils'
+include 'desktop'
+include 'android'
+include 'core'
+include 'utils'
+
+include 'builders'
 include 'launcher'
+include 'sauw-os'
 

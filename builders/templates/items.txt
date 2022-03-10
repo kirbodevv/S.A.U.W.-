@@ -1,6 +1,7 @@
 package com.kgc.sauw.game.generated;
 
 import com.kgc.sauw.core.item.*;
+import com.kgc.sauw.game.items.*;
 
 //do not delete, this file was automatically generated
 public class ItemsGenerated {

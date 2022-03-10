@@ -1,21 +1,5 @@
-apply plugin: "java"
-apply plugin: 'kotlin'
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-java.targetCompatibility = JavaVersion.VERSION_1_8
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-
 sourceSets.main.java.srcDirs = ["src/"]
-
-sourceSets {
-    test {
-        java {
-            srcDirs = ["test/"]
-        }
-    }
-}
-
-eclipse.project.name = appName + "-core"
+sourceSets.test.java.srcDirs = ["test/"]
 
 task cmd(type: Exec) {
     doFirst {
@@ -33,31 +17,13 @@ task cmd(type: Exec) {
 
 dependencies {
     implementation project(path: ':utils')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
-    implementation 'org.testng:testng:7.1.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
 }
-compileJava.dependsOn cmd
-buildscript {
-    ext.kotlin_version = '1.4.0'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+test {
+    useJUnitPlatform()
+    failFast true
 }
 
+compileJava.dependsOn cmd

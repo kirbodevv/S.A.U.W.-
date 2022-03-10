@@ -1,6 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.4.0'
-
+    ext.kotlin_version = '1.6.10'
 
     repositories {
         mavenLocal()
@@ -18,8 +17,6 @@ buildscript {
 apply plugin: 'kotlin'
 
 allprojects {
-    apply plugin: "eclipse"
-
     version = '0.3.h3-beta'
     ext {
         appName = "S.A.U.W."
@@ -30,10 +27,13 @@ allprojects {
 
         gdxVersion = '1.10.0'
         roboVMVersion = '2.3.8'
-        box2DLightsVersion = '1.4'
+        box2DLightsVersion = '1.5'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
         gdxControllersVersion = '2.2.0'
+
+        curvegdx = 'com.github.JVMFrog.curve-gdx'
+        curvegdxVersion = '0.5.5-beta'
     }
 
     repositories {
@@ -46,15 +46,26 @@ allprojects {
         flatDir {
             dirs '../libs'
         }
+        maven { url 'https://jitpack.io' }
     }
-    tasks.withType(Jar).all {
-        duplicatesStrategy 'exclude'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "8"
     }
 }
 
 project(":desktop") {
     apply plugin: "java-library"
-
+    apply plugin: "java"
+    apply plugin: 'kotlin'
 
     dependencies {
         implementation project(":core")
@@ -63,11 +74,14 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        implementation "$curvegdx:core:$curvegdxVersion"
+        implementation "$curvegdx:desktopBackend:$curvegdxVersion"
     }
 }
 
 project(":launcher") {
     apply plugin: "java-library"
+    apply plugin: "java"
 
     dependencies {
         implementation project(":utils")
@@ -94,12 +108,14 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
         implementation "com.badlogicgames.gdx-controllers:gdx-controllers-android:$gdxControllersVersion"
-
+        implementation "$curvegdx:core:$curvegdxVersion"
+        implementation "$curvegdx:androidBackend:$curvegdxVersion"
     }
 }
 
 project(":utils") {
     apply plugin: "java-library"
+    apply plugin: "java"
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -108,19 +124,21 @@ project(":utils") {
 
 project(":builders") {
     apply plugin: "java-library"
+    apply plugin: "java"
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation 'org.json:json:20211205'
     }
 }
 project(":core") {
     apply plugin: "java-library"
-
+    apply plugin: "java"
+    apply plugin: 'kotlin'
 
     dependencies {
         implementation name: 'bdb5'
+        implementation project(":sauw-os")
         implementation 'org.mozilla.javascript:com.springsource.org.mozilla.javascript:1.7.0.R2'
         implementation 'org.json:json:20211205'
         implementation 'org.reflections:reflections:0.10.2'
@@ -128,23 +146,25 @@ project(":core") {
         implementation "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'org.apache.ant:ant:1.10.9'
+        implementation 'com.beust:jcommander:1.82'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        implementation "$curvegdx:core:$curvegdxVersion"
     }
 }
-repositories {
-    mavenCentral()
+project(":sauw-os") {
+    apply plugin: "java-library"
+    apply plugin: "java"
+
+    dependencies {
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation 'org.apache.ant:ant:1.10.9'
+        implementation "$curvegdx:core:$curvegdxVersion"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+    }
 }
+
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.6"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.6"
-    }
+    implementation 'org.realityforge.org.jetbrains.annotations:org.jetbrains.annotations:1.7.0'
 }

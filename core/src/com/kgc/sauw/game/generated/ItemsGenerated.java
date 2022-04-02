@@ -244,5 +244,8 @@ public class ItemsGenerated {
 
 		item = new Torch();
 		Items.registry.register(item);
+
+		item = new BagOfSeeds();
+		Items.registry.register(item);
     }
 }

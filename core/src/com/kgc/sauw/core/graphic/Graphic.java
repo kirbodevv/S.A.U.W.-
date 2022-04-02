@@ -41,6 +41,7 @@ public final class Graphic {
         MENU_CAMERA = new Camera2D();
 
         BITMAP_FONT = new BitmapFont(Gdx.files.internal("ttf.fnt"));
+        BITMAP_FONT.getData().markupEnabled = true;
         GLYPH_LAYOUT = new GlyphLayout();
         BITMAP_FONT_CAP_HEIGHT = BITMAP_FONT.getCapHeight();
     }

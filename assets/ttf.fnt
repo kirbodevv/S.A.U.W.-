@@ -1,7 +1,8 @@
-info face="Minecraftia 2.0" size=32 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=-2,-2
-common lineHeight=37 base=35 scaleW=512 scaleH=512 pages=1 packed=0
+info face="Minecraftia 2.0 && Emoji" size=32 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=-2,-2
+common lineHeight=37 base=35 scaleW=512 scaleH=512 pages=2 packed=0
 page id=0 file="ttf.png"
-chars count=171
+page id=1 file="font/emoji.png"
+chars count=173
 char id=0       x=0    y=0    width=0    height=0    xoffset=-1   yoffset=0    xadvance=8    page=0    chnl=0 
 char id=10      x=0    y=0    width=0    height=0    xoffset=-1   yoffset=0    xadvance=0    page=0    chnl=0 
 char id=32      x=0    y=0    width=0    height=0    xoffset=-1   yoffset=0    xadvance=8    page=0    chnl=0 
@@ -172,5 +173,8 @@ char id=1100    x=330  y=202  width=19   height=23   xoffset=-1   yoffset=14   x
 char id=1101    x=349  y=202  width=23   height=23   xoffset=-1   yoffset=14   xadvance=24   page=0    chnl=0 
 char id=1102    x=372  y=202  width=23   height=23   xoffset=-1   yoffset=14   xadvance=24   page=0    chnl=0 
 char id=1103    x=395  y=202  width=23   height=23   xoffset=-1   yoffset=14   xadvance=24   page=0    chnl=0 
-char id=1105    x=388  y=167  width=23   height=31   xoffset=-1   yoffset=6    xadvance=24   page=0    chnl=0 
+char id=1105    x=388  y=167  width=23   height=31   xoffset=-1   yoffset=6    xadvance=24   page=0    chnl=0
+
+char id=768   x=0    y=0    width=32   height=32   xofffset=-1   yoffset=7    xadvance=31    page=1    chnl=0
+char id=769   x=32   y=0    width=32   height=32   xofffset=-1   yoffset=7    xadvance=31    page=1    chnl=0
 kernings count=0

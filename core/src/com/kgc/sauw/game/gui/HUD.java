@@ -217,7 +217,7 @@ public class HUD {
         midLayout.update(INTERFACE_CAMERA);
         bottomBar.update(INTERFACE_CAMERA);
         healthTextView.setText((int) PLAYER.health + "%");
-        hungerTextView.setText((int) PLAYER.hunger + "%");
+        hungerTextView.setText((int) PLAYER.hunger.hunger + "%");
         thirstTextView.setText((int) PLAYER.thirst + "%");
         isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
         timeTextView.setText(getWorld().getTime().getTimeString());

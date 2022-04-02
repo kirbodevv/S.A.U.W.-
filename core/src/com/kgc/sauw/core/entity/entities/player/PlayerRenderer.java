@@ -35,7 +35,7 @@ public class PlayerRenderer implements AbstractEntityRenderer {
 
         int angle = player.getMoveAngle();
 
-        if (player.isEntityMoving()) {
+        if (player.moving()) {
             if (angle < 315 && angle > 225) {
                 player.rotation = 0;
             } else if (angle < 225 && angle > 135) {
@@ -56,7 +56,7 @@ public class PlayerRenderer implements AbstractEntityRenderer {
             currentFrame = animator.getFrame("animation:player_walk_left");
         }
 
-        if (!player.isEntityMoving()) {
+        if (!player.moving()) {
             if (player.rotation == 1) {
                 currentFrame = animator.getFrames("animation_region:player")[3];
             } else if (player.rotation == 3) {

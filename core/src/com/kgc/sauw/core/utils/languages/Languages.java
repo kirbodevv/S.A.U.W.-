@@ -3,6 +3,7 @@ package com.kgc.sauw.core.utils.languages;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.kgc.sauw.core.config.Settings;
+import com.kgc.sauw.core.utils.Emoji;
 
 import java.util.HashMap;
 
@@ -35,7 +36,7 @@ public class Languages {
         String[] lang = file.readString("UTF-8").split("\\r?\\n");
         for (String string : lang) {
             String[] s = string.split("=");
-            get(langCode).putString(s[0], s[1]);
+            get(langCode).putString(s[0], Emoji.replaceEmojis(s[1]));
         }
         Gdx.app.log("Languages", "loaded language, with langcode " + langCode);
     }

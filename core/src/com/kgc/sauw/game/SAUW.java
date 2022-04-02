@@ -15,6 +15,8 @@ import com.kgc.sauw.core.sound.Music;
 import com.kgc.sauw.core.utils.GameCameraController;
 import com.kgc.sauw.core.world.WorldRenderer;
 import com.kgc.sauw.game.os.HackSAUWCommand;
+import com.kgc.sauw.game.os.SeedAnalyzerCommand;
+import com.kgc.sauw.game.os.TimeCommand;
 import com.kgc.sauw.os.SAUWOS;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -32,7 +34,10 @@ public class SAUW implements Screen {
     public SAUW() {
         sauwos = new SAUWOS();
         sauwos.commandRegistry.register(new HackSAUWCommand());
+        sauwos.commandRegistry.register(new SeedAnalyzerCommand());
+        sauwos.commandRegistry.register(new TimeCommand());
         sauwos.start();
+
         Music.setVolume(Settings.musicVolume);
         Particles.init();
 

@@ -153,7 +153,7 @@ public abstract class Entity {
         return currentTileZ;
     }
 
-    public boolean isEntityMoving() {
+    public boolean moving() {
         return velX != 0 || velZ != 0;
     }
 

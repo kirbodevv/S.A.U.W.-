@@ -33,7 +33,6 @@ public class Player extends LivingEntity implements ExtraData {
 
     public final float maxHunger = 100;
     public final float maxThirst = 100;
-    public float hunger = 100;
     public float thirst = 100;
 
     public AchievementsData achievementsData = new AchievementsData();
@@ -47,7 +46,7 @@ public class Player extends LivingEntity implements ExtraData {
     public byte[] getBytes() {
         DataBuffer buffer = new DataBuffer();
         buffer.put("health", health);
-        buffer.put("hunger", hunger);
+        buffer.put("hunger", hunger.hunger);
         buffer.put("thirst", thirst);
         buffer.put("X", getPosition().x);
         buffer.put("Y", getPosition().y);
@@ -64,7 +63,7 @@ public class Player extends LivingEntity implements ExtraData {
         buffer.readBytes(bytes);
         setPosition(buffer.getFloat("X"), buffer.getFloat("Y"));
         health = buffer.getFloat("health");
-        hunger = buffer.getFloat("hunger");
+        hunger.hunger = buffer.getFloat("hunger");
         thirst = buffer.getFloat("thirst");
         inventory = new Inventory(buffer.getInt("InvLength"));
         for (int i = 0; i < buffer.getInt("InvLength"); i++) {

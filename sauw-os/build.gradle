@@ -3,7 +3,6 @@ plugins {
 }
 
 version = '0.1-alpha'
-group = 'com.github.KirboGames.S.A.U.W.-'
 
 project.ext.mainClassName = 'com.kgc.sauw.os.Launcher'
 

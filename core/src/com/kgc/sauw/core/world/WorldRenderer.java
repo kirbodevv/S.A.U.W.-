@@ -17,7 +17,7 @@ public class WorldRenderer {
     public static RayHandler rayHandler;
 
     static {
-        rayHandler = new RayHandler(Physic.getWorld(), 1, 1);
+        rayHandler = new RayHandler(Physic.getWorld());
         rayHandler.setAmbientLight(1, 1, 1, 1);
         rayHandler.setBlur(false);
         RayHandler.useDiffuseLight(true);

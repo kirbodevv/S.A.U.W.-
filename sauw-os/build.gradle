@@ -30,15 +30,3 @@ task dist(type: Jar) {
     }
     with jar
 }
-
-publishing {
-    publications {
-        core(MavenPublication) {
-            from components.java
-
-            groupId = group
-            artifactId = 'sauw-os'
-            version = version
-        }
-    }
-}

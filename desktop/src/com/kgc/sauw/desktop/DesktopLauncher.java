@@ -16,9 +16,10 @@ public class DesktopLauncher {
         config.height = 480;
         config.title = "S.A.U.W.";
         config.addIcon("icon/icon_128.png", Files.FileType.Internal);
-        RunParameters.set(args);
 
+        RunParameters.set(args);
         CurveGDX.init(new DesktopBackend());
+
         new LwjglApplication(Game.getGame(), config);
     }
 }

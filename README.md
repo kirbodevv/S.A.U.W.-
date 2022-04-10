@@ -26,7 +26,8 @@ flowchart LR
   C --true--> D[Crash];
   D --> F[Open issue] --> G[Wait] --> H[Fixed?];
   H --true--> A;
-  H --false--> G;
+  H --false--> I[is it iteration 10?] --false--> G;
+  I --true--> J[Fix it yourself] --> A;
 ```
 
 ## Modding docs

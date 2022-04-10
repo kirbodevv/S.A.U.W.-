@@ -24,7 +24,9 @@ flowchart LR
   B --> C{Math.random < 0.5f};
   C --false--> E[You are lucky];
   C --true--> D[Crash];
-  D --> F[Open issue] --> A;
+  D --> F[Open issue] --> G[Wait] --> H[Fixed?];
+  H --true--> A;
+  H --false--> G;
 ```
 
 ## Modding docs

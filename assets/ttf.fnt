@@ -177,4 +177,5 @@ char id=1105    x=388  y=167  width=23   height=31   xoffset=-1   yoffset=6    x
 
 char id=768   x=0    y=0    width=32   height=32   xofffset=-1   yoffset=7    xadvance=31    page=1    chnl=0
 char id=769   x=32   y=0    width=32   height=32   xofffset=-1   yoffset=7    xadvance=31    page=1    chnl=0
+char id=770   x=64   y=0    width=32   height=32   xofffset=-1   yoffset=7    xadvance=31    page=1    chnl=0
 kernings count=0

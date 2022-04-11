@@ -28,7 +28,7 @@ public class ItemsGenerated {
 		itemConfiguration.maxCount = 64;
 		itemConfiguration.weight = 0.2f;
 		itemConfiguration.type = Type.FOOD;
-		itemConfiguration.creativeCategory = "sauw:items";
+		itemConfiguration.creativeCategory = "sauw:eat";
 		itemConfiguration.foodScore = 4;
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "apple");
@@ -241,6 +241,17 @@ public class ItemsGenerated {
 		itemConfiguration.creativeCategory = "sauw:items";
 		item.setItemConfiguration(itemConfiguration);
 		Items.registry.register(item, "sauw", "aluminium_can");
+
+		item = new Item();
+		itemConfiguration = new ItemConfiguration();
+		item.setTexture("item/peanut.png");
+		itemConfiguration.maxCount = 128;
+		itemConfiguration.weight = 3.0E-4f;
+		itemConfiguration.type = Type.FOOD;
+		itemConfiguration.creativeCategory = "sauw:eat";
+		itemConfiguration.foodScore = 1;
+		item.setItemConfiguration(itemConfiguration);
+		Items.registry.register(item, "sauw", "peanut");
 
 		item = new Torch();
 		Items.registry.register(item);

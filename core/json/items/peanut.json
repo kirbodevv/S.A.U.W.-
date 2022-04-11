@@ -1,0 +1,11 @@
+{
+  "id": "peanut",
+  "texture": "item/peanut.png",
+  "itemConfiguration": {
+    "maxCount": 128,
+    "weight": 0.0003,
+    "type": "FOOD",
+    "foodScore":1,
+    "creative_category": "sauw:eat"
+  }
+}

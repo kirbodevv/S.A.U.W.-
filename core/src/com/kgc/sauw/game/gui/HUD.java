@@ -9,6 +9,7 @@ import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.*;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.skins.Skins;
+import com.kgc.sauw.core.utils.DebugStringBuilder;
 import com.kgc.sauw.game.mechanics.Building;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
@@ -224,20 +225,24 @@ public class HUD {
             drawDebugString();
     }
 
+    private DebugStringBuilder debugStringBuilder = new DebugStringBuilder();
+
     public void drawDebugString() {
-        String debug = "" +
-                " [DEB_H]Game [SAUWTXT]" +
-                "\n Version : " + Version.VERSION +
-                "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
-                "\n [DEB_H]World [SAUWTXT]" +
-                "\n Dimension name : " + getWorld().getName() +
-                "\n World time : " + getWorld().getTime().getTimeString() +
-                "\n [DEB_H]Camera [SAUWTXT]" +
-                "\n X : " + GAME_CAMERA.X +
-                "\n Y : " + GAME_CAMERA.Y +
-                "\n [DEB_H]Player [SAUWTXT]" +
-                "\n X : " + PLAYER.getCurrentTileX() +
-                "\n Y : " + PLAYER.getCurrentTileZ();
+        String debug = debugStringBuilder
+                .header("Game")
+                .parameter("Version", Version.VERSION)
+                .parameter("FPS", Gdx.graphics.getFramesPerSecond())
+                .header("World")
+                .parameter("Dimension name", getWorld().getName())
+                .parameter("Time", getWorld().getTime().getTimeString())
+                .header("Camera")
+                .parameter("X", GAME_CAMERA.X)
+                .parameter("Y", GAME_CAMERA.Y)
+                .header("Player")
+                .parameter("X", PLAYER.getCurrentTileX())
+                .parameter("Z", PLAYER.getCurrentTileZ())
+                .build();
+
         BITMAP_FONT.draw(BATCH, debug, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
     }
 }

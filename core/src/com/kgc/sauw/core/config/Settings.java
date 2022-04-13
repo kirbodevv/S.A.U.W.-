@@ -22,8 +22,6 @@ public class Settings {
     @Parameter(jsonKey = "music_volume")
     public static int musicVolume = 70;
 
-    @Parameter(jsonKey = "use_console")
-    public static boolean useConsole = false;
 
     private static JSONObject settings;
 

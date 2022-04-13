@@ -66,7 +66,8 @@ public class Registry<I extends RegistryObject> {
     public void register(I object, String package_, String id) {
         object.setId(GameContext.get(package_).registerId(groupID + ":" + id));
         object.setStringId(id);
-        object.setPackage_(package_);
+        object.setNamespace(package_);
+        object.setFullId(package_ + ":" + id);
         object.init();
         objects.add(object);
         Gdx.app.log("Registry", "registered " + groupID + ", with id \"" + object.getStringId() + "\", integer id " + object.id);
@@ -121,7 +122,7 @@ public class Registry<I extends RegistryObject> {
     public ArrayList<I> getAllObjectsFromPackage(String package_) {
         ArrayList<I> arrayList = new ArrayList<>();
         for (I object : objects) {
-            if (object.package_.equals(package_)) arrayList.add(object);
+            if (object.namespace.equals(package_)) arrayList.add(object);
         }
         return arrayList;
     }

@@ -12,7 +12,7 @@ public class BlockConfiguration {
     public InstrumentItem.Type instrumentType;
     public final Rectangle collisionsRectangle;
     public int maxDamage;
-    public int blockIdAfterDestroy;
+    public String blockIdAfterDestroy;
     public boolean collisions = true;
 
     public BlockConfiguration() {
@@ -20,7 +20,7 @@ public class BlockConfiguration {
         setSize(1, 1);
         setInstrumentType(InstrumentItem.Type.NULL);
         setMaxDamage(1);
-        setBlockIdAfterDestroy(4);
+        setBlockIdAfterDestroy("sauw:air");
         collisionsRectangle = new Rectangle(0, 0, 1, 1);
     }
 
@@ -76,11 +76,11 @@ public class BlockConfiguration {
         return maxDamage;
     }
 
-    public void setBlockIdAfterDestroy(int blockIdAfterDestroy) {
+    public void setBlockIdAfterDestroy(String blockIdAfterDestroy) {
         this.blockIdAfterDestroy = blockIdAfterDestroy;
     }
 
-    public int getBlockIdAfterDestroy() {
+    public String getBlockIdAfterDestroy() {
         return blockIdAfterDestroy;
     }
 

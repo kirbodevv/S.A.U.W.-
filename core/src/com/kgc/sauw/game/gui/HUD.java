@@ -23,7 +23,6 @@ public class HUD {
     private final Button interactionButton;
     private final Button dropButton;
     private final Button attackButton;
-    private final Button consoleOpenButton;
     public Joystick joystick;
 
     private final BitmapFont debug;
@@ -122,9 +121,6 @@ public class HUD {
 
         buttonsLayout.addElements(BtnLyt1, dropButton);
 
-        consoleOpenButton = new Button("CONSOLE_OPEN_BUTTON", 0, 0, 0, 0);
-        consoleOpenButton.setSizeInBlocks(0.75f, 0.75f);
-        consoleOpenButton.setIcon(Resource.getTexture("interface/console_button_0.png"));
 
         Button craftingButton = new Button("CRAFTING_MENU_OPEN_BUTTON", 0, 0, 0, 0);
         craftingButton.setSizeInBlocks(0.75f, 0.75f);
@@ -160,7 +156,7 @@ public class HUD {
         separatorLayout1.setSizeInBlocks(8.875f, 1f);
 
         bottomBar.addElements(
-                pauseButton, consoleOpenButton,
+                pauseButton,
                 healthTextView, healthImage,
                 hungerTextView, hungerImage,
                 thirstTextView, thirstImage,
@@ -174,12 +170,6 @@ public class HUD {
             @Override
             public void onClick() {
                 CRAFTING_INTERFACE.open();
-            }
-        });
-        consoleOpenButton.addEventListener(new OnClickListener() {
-            @Override
-            public void onClick() {
-                CONSOLE_INTERFACE.open();
             }
         });
         pauseButton.addEventListener(new OnClickListener() {
@@ -219,7 +209,7 @@ public class HUD {
         healthTextView.setText((int) PLAYER.health + "%");
         hungerTextView.setText((int) PLAYER.hunger.hunger + "%");
         thirstTextView.setText((int) PLAYER.thirst + "%");
-        isTouched = consoleOpenButton.isTouched() || dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
+        isTouched = dropButton.isTouched() || attackButton.isTouched() || interactionButton.isTouched() || joystick.isTouched() || hotbar.isTouched();
         timeTextView.setText(getWorld().getTime().getTimeString());
     }
 
@@ -235,18 +225,19 @@ public class HUD {
     }
 
     public void drawDebugString() {
-        String Main = " Version : " + Version.VERSION +
+        String debug = "" +
+                " [DEB_H]Game [SAUWTXT]" +
+                "\n Version : " + Version.VERSION +
+                "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
+                "\n [DEB_H]World [SAUWTXT]" +
                 "\n Dimension name : " + getWorld().getName() +
                 "\n World time : " + getWorld().getTime().getTimeString() +
-                "\n FPS : " + Gdx.graphics.getFramesPerSecond() +
-                "\n " + (Gdx.app.getJavaHeap() + Gdx.app.getNativeHeap()) / 1024 / 1024 + " Mb" +
-                "\n Camera X : " + GAME_CAMERA.X +
-                "\n Camera Y : " + GAME_CAMERA.Y;
-        String Player = "\n Hunger:" + PLAYER.hunger + "/20" +
+                "\n [DEB_H]Camera [SAUWTXT]" +
+                "\n X : " + GAME_CAMERA.X +
+                "\n Y : " + GAME_CAMERA.Y +
+                "\n [DEB_H]Player [SAUWTXT]" +
                 "\n X : " + PLAYER.getCurrentTileX() +
                 "\n Y : " + PLAYER.getCurrentTileZ();
-        this.debug.setColor(0f, 0f, 0f, 1f);
-        this.debug.draw(BATCH, Main + "\n Player \n" + Player, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
-        this.debug.setColor(0.25f, 0.25f, 1f, 1f);
+        BITMAP_FONT.draw(BATCH, debug, INTERFACE_CAMERA.X, INTERFACE_CAMERA.H - SCREEN_WIDTH / 16 + INTERFACE_CAMERA.Y);
     }
 }

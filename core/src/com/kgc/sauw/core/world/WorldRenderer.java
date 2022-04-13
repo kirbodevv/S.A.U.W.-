@@ -19,7 +19,7 @@ public class WorldRenderer {
     static {
         rayHandler = new RayHandler(Physic.getWorld());
         rayHandler.setAmbientLight(1, 1, 1, 1);
-        rayHandler.setBlur(false);
+        rayHandler.setBlur(true);
         RayHandler.useDiffuseLight(true);
         Filter filter = new Filter();
         filter.categoryBits = 0x0001;
@@ -77,12 +77,10 @@ public class WorldRenderer {
         int y = world.map.getHighestBlock(x, z);
         if (y != -1)
             if (!highLayer || y == 0) {
-                BATCH.setColor(0.7f, 0.7f, 0.7f, 1);
                 if (!highLayer && y == 0 && GameContext.getBlock(world.map.getTile(x, y, z).id).getBlockConfiguration().isTransparent()) {
                     y = y + 1;
                 }
                 world.map.getTile(x, y, z).render();
-                BATCH.setColor(1, 1, 1, 1);
             }
     }
 }

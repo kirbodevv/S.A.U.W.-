@@ -49,7 +49,7 @@ public class Item extends RegistryObject {
 
     @Override
     public void init() {
-        name = Languages.getString(package_ + ".items." + stringId);
+        name = Languages.getString(namespace + ".items." + stringId);
         if (itemConfiguration.creativeCategory != null) {
             String[] keys = itemConfiguration.creativeCategory.split(":");
             CreativeCategories.registry.get(GameContext.get(keys[0]).getId("creative_category:" + keys[1])).addItem(this);

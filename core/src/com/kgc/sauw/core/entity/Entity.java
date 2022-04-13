@@ -14,6 +14,7 @@ import com.kgc.sauw.core.world.Map;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;
 
@@ -70,8 +71,13 @@ public abstract class Entity {
     public void randomSpawn() {
         Random r = new Random();
         int x = r.nextInt(Map.xSize - 2) + 1;
-        int y = r.nextInt(Map.ySize - 2) + 1;
-        spawn(x, y);
+        int z = r.nextInt(Map.ySize - 2) + 1;
+
+        if (getWorld().map.getTile(x, 0, z).id != SAUW.getId("block:air")) {
+            randomSpawn();
+        }
+
+        spawn(x, z);
 
     }
 

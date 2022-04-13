@@ -20,7 +20,6 @@ import com.kgc.sauw.core.utils.ExtraData;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.environment.Environment.getWorld;
 import static com.kgc.sauw.core.world.WorldRenderer.rayHandler;
 
@@ -144,8 +143,8 @@ public class Tile implements com.intbyte.bdb.ExtraData {
     }
 
     public void hit() {
+        System.out.println(damage);
         damage -= 1;
-
     }
 
     public void update() {
@@ -154,7 +153,7 @@ public class Tile implements com.intbyte.bdb.ExtraData {
                 c.clear();
             }
         }
-        if (damage <= 0 && id != SAUW.getId("block:air")) {
+        if (damage <= 0 && !block.getFullId().equals("sauw:air")) {
             getWorld().map.setBlock(x, y, z, block.getBlockConfiguration().getBlockIdAfterDestroy());
             if (block.getBlockConfiguration().getDrop() != null) {
                 for (int i = 0; i < block.getBlockConfiguration().getDrop().length; i++) {

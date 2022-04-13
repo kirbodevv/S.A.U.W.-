@@ -2,6 +2,7 @@ package com.kgc.sauw.core.graphic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Colors;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,10 +27,14 @@ public final class Graphic {
     public static final GlyphLayout GLYPH_LAYOUT;
     public static final float BITMAP_FONT_CAP_HEIGHT;
     public static final Color TEXT_COLOR;
+    public static final Color DEBUG_HEADER_COLOR;
     public static float COLOR_ALPHA = 1f;
 
     static {
         TEXT_COLOR = new Color(0xAC9262FF);
+        DEBUG_HEADER_COLOR = new Color(0xFFCB3CFF);
+        Colors.put("SAUWTXT", TEXT_COLOR);
+        Colors.put("DEB_H", DEBUG_HEADER_COLOR);
 
         setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 

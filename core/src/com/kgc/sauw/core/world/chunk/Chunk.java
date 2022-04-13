@@ -1,5 +1,6 @@
 package com.kgc.sauw.core.world.chunk;
 
+import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.world.Tile;
 
 import static com.kgc.sauw.core.GameContext.SAUW;
@@ -29,7 +30,15 @@ public class Chunk {
     }
 
     public void setTile(Tile tile) {
-        this.tiles[tile.cx][tile.cz][tile.cy] = tile;
+        Tile oldTile = tiles[tile.cx][tile.cy][tile.cz];
+        if (oldTile != null && oldTile.body != null) {
+            Physic.destroyBody(oldTile.body);
+        }
+        this.tiles[tile.cx][tile.cy][tile.cz] = tile;
+    }
+
+    public void replaceTile(Tile tile) {
+        setTile(tile);
         isChanged = true;
     }
 

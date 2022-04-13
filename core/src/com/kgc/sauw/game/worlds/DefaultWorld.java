@@ -22,9 +22,9 @@ public class DefaultWorld extends World {
 
     @Override
     public void createNewWorld() {
-        WorldUtils.fillLayer(this, 2, "block:stone");
-        WorldUtils.fillLayer(this, 1, "block:grass");
-        WorldUtils.fillLayer(this, 0, "block:air_block");
+        WorldUtils.fillLayer(this, 2, "sauw:stone");
+        WorldUtils.fillLayer(this, 1, "sauw:grass");
+        WorldUtils.fillLayer(this, 0, "sauw:air_block");
     }
 
     @Override

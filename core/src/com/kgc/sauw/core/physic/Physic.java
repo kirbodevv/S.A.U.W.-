@@ -42,7 +42,7 @@ public class Physic {
     }
 
     public static void destroyBody(Body body) {
-        world.destroyBody(body);
+        Gdx.app.postRunnable(() -> world.destroyBody(body));
     }
 
     public static World getWorld() {

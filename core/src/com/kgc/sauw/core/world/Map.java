@@ -1,5 +1,6 @@
 package com.kgc.sauw.core.world;
 
+import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.block.Blocks;
 import com.kgc.sauw.core.physic.Physic;
 import com.kgc.sauw.core.world.chunk.Chunk;
@@ -93,7 +94,7 @@ public class Map {
     public boolean setBlock(Tile tile) {
         if (getTile(tile.x, tile.y, tile.z) != null && getTile(tile.x, tile.y, tile.z).body != null)
             Physic.destroyBody(getTile(tile.x, tile.y, tile.z).body);
-        getChunk(tile.x / Chunk.CHUCK_SIZE_X, tile.z / Chunk.CHUCK_SIZE_Z).setTile(tile);
+        getChunk(tile.x / Chunk.CHUCK_SIZE_X, tile.z / Chunk.CHUCK_SIZE_Z).replaceTile(tile);
         tile.setBodyAndLight();
         return true;
     }
@@ -120,6 +121,7 @@ public class Map {
     }
 
     public void setBlock(int x, int y, int z, String id) {
-        setBlock(x, y, z, SAUW.getId(id));
+        String[] keys = id.split(":");
+        setBlock(x, y, z, GameContext.get(keys[0]).getId("block:" + keys[1]));
     }
 }

@@ -2,8 +2,9 @@ package com.kgc.sauw.core.registry;
 
 public abstract class RegistryObject {
     protected int id;
+    protected String fullId;
     protected String stringId;
-    protected String package_;
+    protected String namespace;
 
     public int getId() {
         return id;
@@ -13,8 +14,8 @@ public abstract class RegistryObject {
         return stringId;
     }
 
-    public String getPackage_() {
-        return package_;
+    public String getNamespace() {
+        return namespace;
     }
 
     protected void setId(int id) {
@@ -25,12 +26,20 @@ public abstract class RegistryObject {
         this.stringId = stringId;
     }
 
-    protected void setPackage_(String package_) {
-        this.package_ = package_;
+    protected void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    protected void setFullId(String fullId) {
+        this.fullId = fullId;
+    }
+
+    public String getFullId() {
+        return fullId;
     }
 
     /**
      * The method is called after the object is registered
-     * */
+     */
     public abstract void init();
 }

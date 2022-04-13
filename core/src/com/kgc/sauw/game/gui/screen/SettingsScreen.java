@@ -39,7 +39,6 @@ public class SettingsScreen implements Screen {
     private Checkbox debug;
     private Checkbox debugRenderer;
     private Checkbox AIPU;
-    private Checkbox useConsole;
 
     private Slider musicVolume;
 
@@ -94,21 +93,7 @@ public class SettingsScreen implements Screen {
                 Settings.saveSettings();
             }
         });
-        //useConsole = new Checkbox(TEXTURES.switch_0, TEXTURES.switch_1);
-        useConsole.setSize(width / 16, width / 16);
-        useConsole.setPosition(MENU_CAMERA.X + width / 16 * 9, MENU_CAMERA.Y + height - width / 16 * 4);
-        useConsole.setChecked(Settings.useConsole);
-        useConsole.setEventListener(new Checkbox.EventListener() {
-            @Override
-            public void onClick(boolean isChecked) {
-                Settings.useConsole = isChecked;
-                Settings.saveSettings();
-                if (isChecked) {
-						/*Notification.hideOnClick(true);
-						Notification.show(width / 16 * 4, (height - width / 16 * 4) / 2, width / 16 * 8, width / 16 * 4, LANGUAGES.getString("useConsole"), LANGUAGES.getString("useConsoleNotification"), 10);*/
-                }
-            }
-        });
+
         closeButton = new Button("SETTINGS_SCREEN_CLOSE_BUTTON", width - width / 16, height - width / 16, width / 32, width / 32);
         closeButton.addEventListener(new OnClickListener() {
             @Override
@@ -241,7 +226,6 @@ public class SettingsScreen implements Screen {
         } else if (currentSettingCot == 2) {
             gameSettings.lock(true);
             AIPU.update(MENU_CAMERA);
-            useConsole.update(MENU_CAMERA);
         } else if (currentSettingCot == 3) {
             sound.lock(true);
             musicVolume.update(MENU_CAMERA);
@@ -280,7 +264,6 @@ public class SettingsScreen implements Screen {
             bf.draw(BATCH, Languages.getString("autoitemspickup"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 7, Align.left, false);
             AIPU.render(BATCH, MENU_CAMERA);
             bf.draw(BATCH, Languages.getString("useConsole"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 3 - (width / 16 / 4), width / 16 * 7, Align.left, false);
-            useConsole.render(BATCH, MENU_CAMERA);
         } else if (currentSettingCot == 3) {
             bf.draw(BATCH, Languages.getString("music"), MENU_CAMERA.X + width / 16, MENU_CAMERA.Y + height - width / 16 * 2 - (width / 16 / 4), width / 16 * 2, Align.left, false);
             musicVolume.render(BATCH, MENU_CAMERA);

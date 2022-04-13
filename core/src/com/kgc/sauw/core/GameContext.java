@@ -28,7 +28,7 @@ public class GameContext {
         if (!gameContexts.containsKey(package_)) {
             GameContext context = new GameContext(package_);
             gameContexts.put(package_, context);
-            Gdx.app.log("Game context", "Registered game context with package \"" + package_ + "\"");
+            Gdx.app.log("Game context", "Registered game context with namespace \"" + package_ + "\"");
             return context;
         }
         return null;

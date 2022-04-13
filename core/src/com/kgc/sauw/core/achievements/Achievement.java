@@ -18,7 +18,7 @@ public class Achievement extends RegistryObject {
 
     @Override
     public void init() {
-        title = Languages.getString(package_ + ".achievements." + stringId + ".title");
-        description = Languages.getString(package_ + ".achievements." + stringId + ".description");
+        title = Languages.getString(namespace + ".achievements." + stringId + ".title");
+        description = Languages.getString(namespace + ".achievements." + stringId + ".description");
     }
 }

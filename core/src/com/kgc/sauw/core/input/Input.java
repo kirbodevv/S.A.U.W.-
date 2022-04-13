@@ -54,9 +54,6 @@ public final class Input {
                     if (keycode == Keys.TAB) {
                         if (!INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.open();
                     }
-                    if (keycode == Keys.F1) {
-                        if (Settings.useConsole) if (!CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.open();
-                    }
                     if (keycode == Keys.C) {
                         if (!CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.open();
                     }
@@ -66,10 +63,6 @@ public final class Input {
                     }
                     if (keycode == Keys.TAB) {
                         if (INVENTORY_INTERFACE.isOpen) INVENTORY_INTERFACE.close();
-                    }
-                    if (keycode == Keys.F1) {
-                        if (Settings.useConsole)
-                            if (CONSOLE_INTERFACE.isOpen) CONSOLE_INTERFACE.close();
                     }
                     if (keycode == Keys.C) {
                         if (CRAFTING_INTERFACE.isOpen) CRAFTING_INTERFACE.close();

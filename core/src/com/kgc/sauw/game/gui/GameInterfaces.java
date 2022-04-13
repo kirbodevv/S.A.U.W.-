@@ -12,7 +12,6 @@ public final class GameInterfaces {
      * S.A.U.W. Interfaces
      */
     public static final CraftingInterface CRAFTING_INTERFACE;
-    public static final ConsoleInterface CONSOLE_INTERFACE;
     public static final PauseInterface PAUSE_INTERFACE;
     public static final DeathInterface DEATH_INTERFACE;
     public static final InventoryInterface INVENTORY_INTERFACE;
@@ -32,7 +31,6 @@ public final class GameInterfaces {
     public static final WorkbenchInterface WORKBENCH_INTERFACE;
 
     static {
-        CONSOLE_INTERFACE = new ConsoleInterface();
         CRAFTING_INTERFACE = new CraftingInterface();
         PAUSE_INTERFACE = new PauseInterface();
         DEATH_INTERFACE = new DeathInterface();
@@ -50,7 +48,6 @@ public final class GameInterfaces {
         WORKBENCH_INTERFACE = new WorkbenchInterface();
         UPDATES_INTERFACE = new UpdatesInterface();
 
-        Interfaces.registry.register(CONSOLE_INTERFACE);
         Interfaces.registry.register(CRAFTING_INTERFACE);
         Interfaces.registry.register(PAUSE_INTERFACE);
         Interfaces.registry.register(DEATH_INTERFACE);

@@ -2,6 +2,8 @@
 
 Here is the complete S.A.U.W. documentation. (not yet)
 
+P.S. Actual at the time of 0.3.h3-beta
+
 ## Table of contents
 
 * Concepts

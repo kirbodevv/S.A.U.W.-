@@ -22,7 +22,7 @@ Now you need to register this item.
 
 ### Registration
 
-You should use [`@RegistryMetadata`](../utils/Registry.md)
+You should use [`@RegistryMetadata`](../concept/Registry.md)
 
 Then you need to add item to end of [items.list](../../core/json/items/items.list)
 

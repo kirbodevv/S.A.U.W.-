@@ -7,7 +7,7 @@ In each "storage" of objects there is a static `registry` field.
 To register:
 
 ```java
-Items.registry.register(new SomeItemClass(),"sauw","id");
+Items.registry.register(new SomeItemClass(), "sauw:id");
 ```
 
 Or if object has `@RegistryMetadata`:
@@ -21,7 +21,8 @@ Items.registry.register(new SomeItem());
 RegistryMetadata is annotation for the lazy :D
 
 ```java
-@RegistryMetadata(package_ = "sauw", id = "ice")
+
+@RegistryMetadata("sauw:ice")
 public class SomeItem extends Item {
     //...
 }

@@ -1,9 +1,8 @@
 package com.kgc.sauw.modding;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.intkgc.curve.CurveGDX;
-import com.intkgc.curve.utils.FileDownloader;
-import com.kgc.sauw.core.utils.Application;
+import com.jvmfrog.curve.CurveGDX;
+import com.jvmfrog.curve.utils.FileDownloader;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

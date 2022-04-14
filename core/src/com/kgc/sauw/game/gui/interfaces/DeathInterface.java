@@ -3,12 +3,12 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.OnClickListener;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.registry.RegistryMetadata;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 import static com.kgc.sauw.core.graphic.Graphic.SCREEN_HEIGHT;
 import static com.kgc.sauw.core.graphic.Graphic.SCREEN_WIDTH;
-@RegistryMetadata(package_ = "sauw", id = "death")
+@RegistryMetadata("sauw:death")
 public class DeathInterface extends Interface {
     Button respawn;
 

@@ -1,12 +1,12 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.utils.Align;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.elements.MultilineTextView;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.utils.OpenSimplexNoise;
 
-@RegistryMetadata(package_ = "sauw", id = "test")
+@RegistryMetadata("sauw:test")
 public class TestInterface extends Interface {
     OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
 

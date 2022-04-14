@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.intkgc.curve.CurveGDX;
-import com.intkgc.curvegdx.backends.AndroidBackend;
+import com.jvmfrog.curve.CurveGDX;
+import com.jvmfrog.curvegdx.backends.AndroidBackend;
 import com.kgc.sauw.game.Game;
 
 public class AndroidLauncher extends AndroidApplication {

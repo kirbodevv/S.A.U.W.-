@@ -1,6 +1,6 @@
 package com.kgc.sauw.os;
 
-import com.intkgc.curve.registry.Registry;
+import com.jvmfrog.curve.registry.Registry;
 import com.kgc.sauw.os.commands.Command;
 import com.kgc.sauw.os.commands.Echo;
 import com.kgc.sauw.os.commands.Exit;

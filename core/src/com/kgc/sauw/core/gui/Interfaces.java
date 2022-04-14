@@ -1,7 +1,7 @@
 package com.kgc.sauw.core.gui;
 
+import com.jvmfrog.curve.registry.Registry;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.registry.Registry;
 import com.kgc.sauw.game.gui.HUD;
 
 import static com.kgc.sauw.core.graphic.Graphic.BATCH;

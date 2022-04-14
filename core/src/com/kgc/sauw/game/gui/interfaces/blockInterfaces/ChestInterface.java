@@ -1,13 +1,13 @@
 package com.kgc.sauw.game.gui.interfaces.blockInterfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.world.Tile;
 
-@RegistryMetadata(package_ = "sauw", id = "chest")
+@RegistryMetadata("sauw:chest")
 public class ChestInterface extends BlockInterface {
 
     public ChestInterface() {

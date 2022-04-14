@@ -1,6 +1,7 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.creative_categories.Category;
@@ -9,12 +10,11 @@ import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 
-@RegistryMetadata(package_ = "sauw", id = "creative")
+@RegistryMetadata("sauw:creative")
 public class CreativeInterface extends Interface {
 
     private int currentTab = 0;

@@ -3,8 +3,8 @@ package com.kgc.sauw.desktop;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.intkgc.curve.CurveGDX;
-import com.intkgc.curvegdx.backends.DesktopBackend;
+import com.jvmfrog.curve.CurveGDX;
+import com.jvmfrog.curvegdx.backends.DesktopBackend;
 import com.kgc.sauw.game.Game;
 import com.kgc.sauw.game.RunParameters;
 

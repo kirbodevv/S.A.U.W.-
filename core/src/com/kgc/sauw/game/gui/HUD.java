@@ -225,7 +225,7 @@ public class HUD {
             drawDebugString();
     }
 
-    private DebugStringBuilder debugStringBuilder = new DebugStringBuilder();
+    private final DebugStringBuilder debugStringBuilder = new DebugStringBuilder();
 
     public void drawDebugString() {
         String debug = debugStringBuilder

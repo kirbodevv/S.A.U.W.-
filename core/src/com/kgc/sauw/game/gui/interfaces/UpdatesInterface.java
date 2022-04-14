@@ -3,20 +3,20 @@ package com.kgc.sauw.game.gui.interfaces;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.intkgc.curve.CurveGDX;
-import com.intkgc.curve.utils.FileDownloader;
-import com.kgc.utils.UpdatesChecker;
+import com.jvmfrog.curve.CurveGDX;
+import com.jvmfrog.curve.registry.RegistryMetadata;
+import com.jvmfrog.curve.utils.FileDownloader;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.*;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Files;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.utils.Application;
 import com.kgc.sauw.core.utils.DelayedAction;
 import com.kgc.sauw.core.utils.languages.Languages;
+import com.kgc.utils.UpdatesChecker;
 
-@RegistryMetadata(package_ = "sauw", id = "updates")
+@RegistryMetadata("sauw:updates")
 public class UpdatesInterface extends Interface {
     private final ProgressBar progressBar;
     private boolean isDownloading = false;

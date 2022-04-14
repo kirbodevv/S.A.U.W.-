@@ -1,6 +1,6 @@
 package com.kgc.sauw.os;
 
-import com.intkgc.curve.registry.IDManager;
+import com.jvmfrog.curve.registry.IDManager;
 import com.kgc.sauw.os.commands.Command;
 import org.apache.tools.ant.types.Commandline;
 

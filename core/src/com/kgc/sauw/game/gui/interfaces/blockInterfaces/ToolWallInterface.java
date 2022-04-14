@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Slot;
-import com.kgc.sauw.core.registry.RegistryMetadata;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.Tile;
 
-@RegistryMetadata(package_ = "sauw", id = "tool_wall")
+@RegistryMetadata("sauw:tool_wall")
 public class ToolWallInterface extends BlockInterface {
 
     public ToolWallInterface() {

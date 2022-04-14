@@ -1,17 +1,17 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Button;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.WorldLoader;
 import com.kgc.sauw.game.Game;
 
 import static com.kgc.sauw.game.gui.GameInterfaces.CREATE_NEW_WORLD_INTERFACE;
 
-@RegistryMetadata(package_ = "sauw", id = "select_world")
+@RegistryMetadata("sauw:select_world")
 public class SelectWorldInterface extends Interface {
     private final Button sel_0;
     private final Button sel_1;

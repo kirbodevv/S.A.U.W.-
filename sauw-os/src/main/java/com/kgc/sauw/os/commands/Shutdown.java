@@ -1,6 +1,6 @@
 package com.kgc.sauw.os.commands;
 
-import com.intkgc.curve.registry.RegistryMetadata;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.os.SAUWOS;
 
 @RegistryMetadata("shutdown")

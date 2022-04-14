@@ -1,14 +1,14 @@
 package com.kgc.sauw.game.gui.interfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.gui.Interface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.AbstractTextView;
 import com.kgc.sauw.core.gui.elements.MultilineTextView;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.utils.Application;
 
-@RegistryMetadata(package_ = "sauw", id = "error_interface")
+@RegistryMetadata("sauw:error")
 public class ErrorInterface extends Interface {
     private String msg;
     private final MultilineTextView errorView;

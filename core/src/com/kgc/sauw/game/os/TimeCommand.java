@@ -1,6 +1,6 @@
 package com.kgc.sauw.game.os;
 
-import com.intkgc.curve.registry.RegistryMetadata;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.environment.Environment;
 import com.kgc.sauw.os.SAUWOS;
 import com.kgc.sauw.os.commands.Command;

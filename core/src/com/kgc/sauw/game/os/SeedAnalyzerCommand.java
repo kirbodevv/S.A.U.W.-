@@ -1,6 +1,6 @@
 package com.kgc.sauw.game.os;
 
-import com.intkgc.curve.registry.RegistryMetadata;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.Container;
 import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.game.items.BagOfSeeds;

@@ -1,17 +1,17 @@
 package com.kgc.sauw.game.gui.interfaces.blockInterfaces;
 
 import com.badlogic.gdx.Gdx;
+import com.jvmfrog.curve.registry.RegistryMetadata;
 import com.kgc.sauw.core.gui.BlockInterface;
 import com.kgc.sauw.core.gui.InterfaceUtils;
 import com.kgc.sauw.core.gui.elements.Image;
-import com.kgc.sauw.core.registry.RegistryMetadata;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.world.Tile;
 import com.kgc.sauw.game.blocks.Workbench;
 
 import static com.kgc.sauw.core.GameContext.SAUW;
 
-@RegistryMetadata(package_ = "sauw", id = "workbench")
+@RegistryMetadata("sauw:workbench")
 public class WorkbenchInterface extends BlockInterface {
     public final Image craftHandsawNotAvailableImage;
     public final Image craftHammerNotAvailableImage;

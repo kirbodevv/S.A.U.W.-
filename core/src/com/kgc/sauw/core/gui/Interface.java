@@ -2,12 +2,12 @@ package com.kgc.sauw.core.gui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
+import com.jvmfrog.curve.registry.RegistryObject;
 import com.kgc.sauw.core.graphic.Graphic;
 import com.kgc.sauw.core.gui.elements.Button;
 import com.kgc.sauw.core.gui.elements.Layout;
 import com.kgc.sauw.core.gui.elements.Slot;
 import com.kgc.sauw.core.gui.elements.TextView;
-import com.kgc.sauw.core.registry.RegistryObject;
 import com.kgc.sauw.core.resource.Resource;
 import com.kgc.sauw.core.skins.Skins;
 

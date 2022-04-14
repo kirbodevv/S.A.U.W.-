@@ -1,6 +1,6 @@
 # Documentation
 
-Here is the complete S.A.U.W documentation. (not yet)
+Here is the complete S.A.U.W. documentation. (not yet)
 
 ## Table of contents
 

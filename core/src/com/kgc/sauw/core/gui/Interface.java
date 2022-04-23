@@ -1,5 +1,6 @@
 package com.kgc.sauw.core.gui;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.jvmfrog.curve.registry.RegistryObject;
@@ -34,6 +35,8 @@ public class Interface extends RegistryObject {
     private Color color = new Color(0xFFFFFFFF);
 
     private boolean closeButtonHidden;
+
+    public InputMultiplexer inputMultiplexer = new InputMultiplexer();
 
     public void closeButtonHidden(boolean closeButtonHidden) {
         this.closeButtonHidden = closeButtonHidden;

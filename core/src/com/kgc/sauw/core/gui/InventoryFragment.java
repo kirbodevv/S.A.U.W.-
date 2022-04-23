@@ -38,16 +38,6 @@ public class InventoryFragment extends Fragment {
                 slot.setContainer(PLAYER.inventory.containers.get(j));
             }
         }
-        if (nextTabInv.wasClicked) {
-            if (PLAYER.inventory.containers.size() > (currentTabInv + 1) * 30) {
-                currentTabInv++;
-            }
-        }
-        if (previousTabInv.wasClicked) {
-            if (currentTabInv - 1 >= 0) {
-                currentTabInv--;
-            }
-        }
         super.tick(cam);
     }
 
@@ -139,5 +129,15 @@ public class InventoryFragment extends Fragment {
             slotsLayout.addElements(l);
         }
         addElements(inventoryLayout, optionalLayout);
+        nextTabInv.addEventListener(() -> {
+            if (PLAYER.inventory.containers.size() > (currentTabInv + 1) * 30) {
+                currentTabInv++;
+            }
+        });
+        previousTabInv.addEventListener(() -> {
+            if (currentTabInv - 1 >= 0) {
+                currentTabInv--;
+            }
+        });
     }
 }

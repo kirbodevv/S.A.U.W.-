@@ -71,7 +71,7 @@ public class Button extends AbstractTextView {
 
     @Override
     public void renderTick(SpriteBatch b, Camera2D cam) {
-        (isTouched() || locked ? buttonDownSkin : buttonUpSkin).draw(cam.X + x, cam.Y + y, width, height, buttonColor, hover ? onHoverColor : defaultColor);
+        (isTouched() || locked ? buttonDownSkin : buttonUpSkin).draw(cam.X + x, cam.Y + y, width, height, buttonColor, isTouched() ? onHoverColor : defaultColor);
         if (icon != null) {
             b.draw(icon, cam.X + x, cam.Y + y, width, height);
         }

@@ -29,10 +29,7 @@ public class MenuScreen implements Screen {
 
     public int SAUW_coins;
 
-    public SettingsScreen SettingsScreen;
-    public ModsScreen ModsScreen;
-
-    private final Layout mainLayout;
+    public final Layout mainLayout;
 
     public MenuScreen() {
         SAUW_coins = Game.getData().getInt("SAUW_Coins");

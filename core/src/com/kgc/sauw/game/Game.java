@@ -73,6 +73,7 @@ public class Game extends com.badlogic.gdx.Game {
     private static void load() {
         Interfaces.closeInterface();
         sauw = new SAUW();
+        menuScreen.mainLayout.hide(true);
         getGame().setScreen(sauw);
         isRunning = true;
     }

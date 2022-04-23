@@ -1,7 +1,8 @@
 package com.kgc.sauw.core.gui;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.kgc.sauw.core.utils.GravityAdapter;
 import com.kgc.utils.Camera2D;
@@ -9,8 +10,10 @@ import com.kgc.utils.Camera2D;
 import java.util.ArrayList;
 
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.core.graphic.Graphic.SCREEN_HEIGHT;
+import static com.kgc.sauw.core.input.Input.INPUT_MULTIPLEXER;
 
-public abstract class InterfaceElement {
+public abstract class InterfaceElement implements InputProcessor {
     public enum Sides {
         LEFT,
         RIGHT,
@@ -28,11 +31,8 @@ public abstract class InterfaceElement {
     public float bx = 0f, by = 0f, bWidth = 0f, bHeight = 0f;
     protected boolean hidden;
     protected boolean isTouched;
-    protected boolean this_touched;
+    protected int touchPointer;
     public String id = "";
-    public boolean wasClicked;
-    public boolean wasUp;
-    protected boolean hover;
     public InterfaceElement attachedTo;
     protected Sides attachableSide, attachedToSide;
 
@@ -41,12 +41,15 @@ public abstract class InterfaceElement {
 
     public ArrayList<OnClickListener> eventListeners = new ArrayList<>();
 
-    public final void update(Camera2D cam) {
-        wasClicked = false;
-        wasUp = false;
+    public Rectangle elementBounds = new Rectangle();
 
+    public InterfaceElement() {
+        INPUT_MULTIPLEXER.addProcessor(this);
+    }
+
+    public final void update(Camera2D cam) {
         if (!hidden) {
-            hover = Gdx.input.getX() - cam.X > x &&
+            /*hover = Gdx.input.getX() - cam.X > x &&
                     Gdx.input.getX() - cam.X < x + width &&
                     cam.H - Gdx.input.getY() - cam.Y > y &&
                     cam.H - Gdx.input.getY() - cam.Y < y + height;
@@ -71,7 +74,7 @@ public abstract class InterfaceElement {
                 this_touched = false;
             }
             if (!Gdx.input.isTouched())
-                isTouched = false;
+                isTouched = false;*/
             tick(cam);
         }
     }
@@ -147,7 +150,7 @@ public abstract class InterfaceElement {
     }
 
     public boolean isTouched() {
-        return this_touched;
+        return isTouched;
     }
 
     public void setId(String id) {
@@ -165,11 +168,13 @@ public abstract class InterfaceElement {
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
+        elementBounds.setPosition(x, y);
     }
 
     public void setSize(float w, float h) {
         this.width = w;
         this.height = h;
+        elementBounds.setSize(w, h);
     }
 
     public void setPositionInBlocks(float x, float y) {
@@ -187,6 +192,61 @@ public abstract class InterfaceElement {
     public void resize() {
         setPositionInBlocks(bx, by);
         setSizeInBlocks(bWidth, bHeight);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        int clickY = (int) (SCREEN_HEIGHT - screenY);
+        if (!hidden && elementBounds.contains(screenX, clickY)) {
+            touchPointer = pointer;
+            isTouched = true;
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        int clickY = (int) (SCREEN_HEIGHT - screenY);
+        if (!hidden && pointer == touchPointer) {
+            touchPointer = -1;
+            isTouched = false;
+            onClick(!elementBounds.contains(screenX, clickY));
+            onClick();
+            System.out.println(id);
+            return false;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 
     protected abstract void tick(Camera2D cam);

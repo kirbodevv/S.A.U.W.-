@@ -2,12 +2,14 @@ package com.kgc.sauw.core.particle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.kgc.sauw.core.math.Maths;
 import com.kgc.sauw.core.resource.Resource;
 
 import java.util.HashMap;
 
 import static com.kgc.sauw.core.GameContext.SAUW;
 import static com.kgc.sauw.core.graphic.Graphic.BLOCK_SIZE;
+import static com.kgc.sauw.core.graphic.Graphic.GAME_CAMERA;
 
 public class Particles {
     public static class Particle {
@@ -39,7 +41,7 @@ public class Particles {
     }
 
     private static final HashMap<Integer, BaseParticle> particles = new HashMap<>();
-    private static final Particle[] particlesList = new Particle[200];
+    private static final Particle[] particlesList = new Particle[1000];
 
     public static void init() {
         for (int i = 0; i < particlesList.length; i++) {
@@ -75,11 +77,13 @@ public class Particles {
     }
 
     public static void addParticle(String id, float x, float y, float duration) {
-        for (Particle p : particlesList) {
-            if (p.id == -1) {
-                p.createParticle(SAUW.getId(id), x, y, duration);
-                particles.get(SAUW.getId(id)).createParticle(p);
-                return;
+        if (Maths.isLiesOnRect(GAME_CAMERA.X, GAME_CAMERA.Y, GAME_CAMERA.W, GAME_CAMERA.H, x, y)) {
+            for (Particle p : particlesList) {
+                if (p.id == -1) {
+                    p.createParticle(SAUW.getId(id), x, y, duration);
+                    particles.get(SAUW.getId(id)).createParticle(p);
+                    return;
+                }
             }
         }
     }

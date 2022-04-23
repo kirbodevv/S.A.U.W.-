@@ -19,6 +19,7 @@ import com.kgc.sauw.game.generated.RecipesGenerated;
 import com.kgc.sauw.game.gui.screen.ErrorScreen;
 import com.kgc.sauw.game.gui.screen.MenuScreen;
 import com.kgc.sauw.game.worlds.Cave;
+import com.kgc.sauw.game.worlds.DefaultWorld;
 import com.kgc.sauw.game.worlds.MysticalVoidWorld;
 import com.kgc.sauw.modding.Mods;
 import com.kgc.sauw.modding.Modules;
@@ -51,7 +52,7 @@ public class Game extends com.badlogic.gdx.Game {
     private static Box2DDebugRenderer DR;
 
     public static void loadInDevMode() {
-        setWorld(new Cave());
+        setWorld(new MysticalVoidWorld());
         getWorld().createNewWorld();
         PLAYER.randomSpawn();
         load();
@@ -60,7 +61,7 @@ public class Game extends com.badlogic.gdx.Game {
     public static void load(String worldName) {
         Environment.setSaveName(worldName);
         //if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
-        setWorld(new Cave());
+        setWorld(new MysticalVoidWorld());
         getWorld().createNewWorld();
         PLAYER.randomSpawn();
         /*    Environment.save();

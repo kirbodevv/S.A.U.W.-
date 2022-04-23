@@ -50,13 +50,13 @@ public class Campfire extends Block implements LightBlock {
     public void tick(Tile tile) {
         if (smokeParticles) {
             float x = tile.x + 0.5f;
-            float y = tile.y + 0.5f;
+            float y = tile.z + 0.5f;
             x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:smoke", x, y, 3);
         }
         if (flameParticles) {
             float x = tile.x + 0.5f;
-            float y = tile.y + 0.5f;
+            float y = tile.z + 0.5f;
             x += (random.nextFloat() - 0.5) / 2f;
             Particles.addParticle("particle:flame", x, y, 3);
         }

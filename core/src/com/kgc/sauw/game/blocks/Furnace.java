@@ -65,13 +65,13 @@ public class Furnace extends AbstractFurnaceBlock implements LightBlock {
         if ((int) (tile.getExtraData("burnTime")) > 0) {
             if (smokeParticles) {
                 float x = tile.x + 0.5f;
-                float y = tile.y + 1f;
+                float y = tile.z + 1f;
                 x += (random.nextFloat() - 0.5) / 4f;
                 Particles.addParticle("particle:smoke", x, y, 3);
             }
             if (flameParticles) {
                 float x = tile.x + 0.5f;
-                float y = tile.y;
+                float y = tile.z;
                 x += (random.nextFloat() - 0.5) / 2f;
                 Particles.addParticle("particle:flame", x, y, 3);
             }

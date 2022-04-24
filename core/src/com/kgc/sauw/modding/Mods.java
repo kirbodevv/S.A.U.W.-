@@ -21,8 +21,9 @@ public class Mods {
 
     private static void loadMod(FileHandle modDir) {
         Gdx.app.log("Mod loader", "Mod loading...");
+        long startTime = System.currentTimeMillis();
         Mod mod = new Mod(modDir);
         mods.add(mod);
-        Gdx.app.log("Mod loader", "Mod loaded with package \"" + mod.getManifest().package_ + "\"");
+        Gdx.app.log("Mod loader", "Mod loaded in " + (System.currentTimeMillis() - startTime) + "ms, package \"" + mod.getManifest().package_ + "\"");
     }
 }

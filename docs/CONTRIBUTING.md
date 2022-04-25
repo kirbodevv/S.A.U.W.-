@@ -6,10 +6,5 @@
 2. add content or update textures
 3. open pull request
 
-### Items
-
-There are 3 ways to create items
-
-1. [Low-level Item](items/low-level.md)
-2. [Simple item]()
-3. [JSON Item]()
+## Docs
+You can find docs [here](README.md#table-of-contents)

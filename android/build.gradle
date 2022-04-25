@@ -13,8 +13,7 @@ android {
         }
     }
     packagingOptions {
-        exclude 'META-INF/robovm/ios/robovm.xml'
-        exclude 'META-INF/INDEX.LIST'
+        resources.excludes.add("META-INF/*")
     }
     defaultConfig {
         applicationId "com.kgc.sauw"
@@ -29,6 +28,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    configurations {
+        implementation.exclude group: 'org.jetbrains', module: 'annotations'
     }
 }
 

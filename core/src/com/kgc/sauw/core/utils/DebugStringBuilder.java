@@ -17,6 +17,5 @@ public class DebugStringBuilder {
         String result = this.result.substring(1); //Without "\n" in begin
         this.result = "";
         return result;
-
     }
 }

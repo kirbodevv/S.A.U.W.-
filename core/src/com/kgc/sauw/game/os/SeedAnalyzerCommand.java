@@ -6,10 +6,12 @@ import com.kgc.sauw.core.item.Item;
 import com.kgc.sauw.game.items.BagOfSeeds;
 import com.kgc.sauw.os.SAUWOS;
 import com.kgc.sauw.os.commands.Command;
+import com.kgc.sauw.os.commands.Description;
 
 import static com.kgc.sauw.core.entity.EntityManager.PLAYER;
 
 @RegistryMetadata("analyze-seeds")
+@Description("I don't know")
 public class SeedAnalyzerCommand extends Command {
     @Override
     public void run(SAUWOS os, String[] args) {

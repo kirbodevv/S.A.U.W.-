@@ -2,17 +2,18 @@ package com.kgc.sauw.os.input;
 
 import com.badlogic.gdx.Gdx;
 import com.kgc.sauw.os.SAUWOS;
+import com.kgc.sauw.os.terminal.Terminal;
 
 import java.util.Scanner;
 
-public class CmdInputListener extends Thread {
+public class InputListener extends Thread {
     public Scanner scanner;
     private boolean closed = false;
-    private SAUWOS os;
+    private final SAUWOS os;
 
-    public CmdInputListener(SAUWOS os) {
+    public InputListener(SAUWOS os, Terminal terminal) {
         this.os = os;
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(terminal.input());
     }
 
     @Override
@@ -23,7 +24,7 @@ public class CmdInputListener extends Thread {
             if (!closed) {
                 if (scanner.hasNext()) {
                     String line = scanner.nextLine();
-                    os.console.execute(line, os);
+                    os.commandProcessor.execute(line, os);
                 }
             } else break;
         }

@@ -67,7 +67,7 @@ public class InventoryInterface extends Interface {
             s.setSF(new Slot.SlotFunctions() {
                 @Override
                 public void onClick() {
-                    PLAYER.hotbar[ii] = -1;
+                    PLAYER.hotbar[ii] = null;
                 }
 
                 @Override
@@ -85,11 +85,11 @@ public class InventoryInterface extends Interface {
                     InventoryFragment inventoryFragment = (InventoryFragment) getElementByFullId("InventoryFragment");
                     if (fromSlotWithId.contains("InventorySlot_")) {
                         for (int i = 0; i < PLAYER.hotbar.length; i++) {
-                            if (PLAYER.hotbar[i] == inventoryFragment.currentTabInv * 30 + Integer.parseInt(fromSlotWithId.substring(14))) {
-                                PLAYER.hotbar[i] = -1;
+                            if (PLAYER.hotbar[i] == container) {
+                                PLAYER.hotbar[i] = null;
                             }
                         }
-                        PLAYER.hotbar[ii] = inventoryFragment.currentTabInv * 30 + Integer.parseInt(fromSlotWithId.substring(14));
+                        PLAYER.hotbar[ii] = container;
                     }
 
                     return false;
@@ -103,8 +103,8 @@ public class InventoryInterface extends Interface {
     @Override
     public void tick() {
         for (int i = 0; i < hotbarSlots.length; i++) {
-            if (PLAYER.hotbar[i] != -1) {
-                hotbarSlots[i].setContainer(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
+            if (PLAYER.hotbar[i] != null) {
+                hotbarSlots[i].setContainer(PLAYER.hotbar[i]);
             }
         }
         timer += Gdx.graphics.getDeltaTime();

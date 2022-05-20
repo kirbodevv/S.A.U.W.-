@@ -60,14 +60,9 @@ public class Game extends com.badlogic.gdx.Game {
 
     public static void load(String worldName) {
         Environment.setSaveName(worldName);
-        //if (!Gdx.files.external("S.A.U.W./Worlds/" + worldName).exists()) {
         setWorld(new Cave());
         getWorld().createNewWorld();
         PLAYER.randomSpawn();
-        /*    Environment.save();
-        } else {
-            Environment.load();
-        }*/
         load();
     }
 

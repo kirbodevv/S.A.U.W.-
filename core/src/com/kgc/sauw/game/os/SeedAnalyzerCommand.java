@@ -17,7 +17,7 @@ public class SeedAnalyzerCommand extends Command {
     public void run(SAUWOS os, String[] args) {
         Item item = PLAYER.getCarriedItem();
         if (item instanceof BagOfSeeds) {
-            Container container = PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]);
+            Container container = PLAYER.hotbar[PLAYER.carriedSlot];
 
             System.out.println("IT WORKS???");
         }

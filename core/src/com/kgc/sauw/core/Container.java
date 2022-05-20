@@ -2,6 +2,8 @@ package com.kgc.sauw.core;
 
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
+import com.kgc.sauw.core.item.Item;
+import com.kgc.sauw.core.item.Items;
 import com.kgc.sauw.core.utils.ID;
 
 public class Container implements ExtraData {
@@ -24,6 +26,7 @@ public class Container implements ExtraData {
     }
 
     public int id, count, damage;
+    public Item item;
     public DataBuffer bdbData;
     public String containerId;
 
@@ -31,6 +34,7 @@ public class Container implements ExtraData {
         this.id = 0;
         this.count = 0;
         this.damage = 0;
+        this.item = null;
     }
 
     public Container(String containerId) {
@@ -54,6 +58,7 @@ public class Container implements ExtraData {
         this.id = id;
         this.count = count;
         this.damage = damage;
+        item = Items.registry.get(id);
         if (count <= 0 || (GameContext.getItem(id).getItemConfiguration().maxDamage != 0 &&
                 damage >= GameContext.getItem(id).getItemConfiguration().maxDamage)) {
             clear();

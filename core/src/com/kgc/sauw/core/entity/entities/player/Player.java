@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.intbyte.bdb.DataBuffer;
 import com.intbyte.bdb.ExtraData;
 import com.kgc.sauw.core.Container;
-import com.kgc.sauw.core.GameContext;
 import com.kgc.sauw.core.achievements.AchievementsData;
 import com.kgc.sauw.core.callbacks.Callback;
 import com.kgc.sauw.core.callbacks.InteractionButtonClicked;
@@ -40,7 +39,7 @@ public class Player extends LivingEntity implements ExtraData {
     private final PointLight pointLight;
 
     public int carriedSlot = 0;
-    public int[] hotbar = new int[8];
+    public Container[] hotbar = new Container[8];
 
     @Override
     public byte[] getBytes() {
@@ -82,12 +81,7 @@ public class Player extends LivingEntity implements ExtraData {
     }
 
     public Item getItemFromHotbar(int index) {
-        if (hotbar[index] != -1 && hotbar[index] < inventory.containers.size()) {
-            return GameContext.getItem(inventory.containers.get(hotbar[index]).id);
-        } else {
-            hotbar[index] = -1;
-            return GameContext.getItem(0);
-        }
+        return hotbar[index].item;
     }
 
     @Override
@@ -101,7 +95,7 @@ public class Player extends LivingEntity implements ExtraData {
         setSize(new Vector2(entityBodyW, entityBodyH));
 
         for (int i = 0; i < hotbar.length; i++) {
-            this.hotbar[i] = -1;
+            this.hotbar[i] = null;
         }
 
         pointLight = new PointLight(rayHandler, 10, new Color(0.6f, 0.6f, 0, 1f), 5, 0, 0);
@@ -115,7 +109,7 @@ public class Player extends LivingEntity implements ExtraData {
                 carriedItem.onClick(getWorld().map.getTile(bX, getWorld().map.getHighestBlock(bX, bZ), bZ));
                 if (carriedItem.getItemConfiguration().type == Type.BLOCK_ITEM) {
                     if (getWorld().map.setBlock(bX, bZ, carriedItem.getItemConfiguration().stringBlockId)) {
-                        PLAYER.inventory.containers.get(PLAYER.hotbar[PLAYER.carriedSlot]).count -= 1;
+                        PLAYER.hotbar[PLAYER.carriedSlot].count -= 1;
                     }
                 }
             }

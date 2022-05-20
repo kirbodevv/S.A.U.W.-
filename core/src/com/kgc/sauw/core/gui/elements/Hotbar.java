@@ -72,8 +72,8 @@ public class Hotbar extends InterfaceElement {
     @Override
     public void tick(Camera2D cam) {
         for (int i = 0; i < 8; i++) {
-            if (PLAYER.hotbar[i] != -1 && PLAYER.getItemFromHotbar(i).getId() != 0) {
-                slots[i].setContainer(PLAYER.inventory.containers.get(PLAYER.hotbar[i]));
+            if (PLAYER.hotbar[i] != null) {
+                slots[i].setContainer(PLAYER.hotbar[i]);
             }
         }
         slotsLayout.update(cam);
@@ -97,7 +97,7 @@ public class Hotbar extends InterfaceElement {
         BATCH.draw(selected_slot_texture, x + INTERFACE_CAMERA.X + (touchedSlot * BLOCK_SIZE * 0.75f), y + INTERFACE_CAMERA.Y, 0.75f * BLOCK_SIZE, 0.75f * BLOCK_SIZE);
         BATCH.setColor(1f, 1f, 1f, 1f);
         for (int i = 0; i < 8; i++) {
-            if (PLAYER.hotbar[i] != -1)
+            if (PLAYER.hotbar[i] != null)
                 slots[i].itemRender();
         }
         BATCH.setColor(1f, 1f, 1f, 0.7f);

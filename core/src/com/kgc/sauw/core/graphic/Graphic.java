@@ -35,6 +35,7 @@ public final class Graphic {
         DEBUG_HEADER_COLOR = new Color(0xFFCB3CFF);
         Colors.put("SAUWTXT", TEXT_COLOR);
         Colors.put("DEB_H", DEBUG_HEADER_COLOR);
+        Colors.put("LINK", new Color(0x2299FFFF));
 
         setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 

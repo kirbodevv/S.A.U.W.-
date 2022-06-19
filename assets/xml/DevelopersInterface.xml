@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Interface id="developers_interface" isBlockInterface="false">
+    <RootLayout id="MainLayout">
+        <Layout id="changelog_" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" fixed_width="14.5bl"
+                height="WRAP_CONTENT" translateY="-0.25bl">
+            <Image id="jvmfrog" width="5bl" height="5bl"/>
+            <Layout id="devs" orientation="VERTICAL" gravity="TOP" width="WRAP_CONTENT"
+                    height="WRAP_CONTENT" translateX="0.5bl">
+                <Text id="devs" lines="10" align="3" width="9bl" height="5.5bl" translateY="-0.25bl"/>
+            </Layout>
+        </Layout>
+        <Layout id="buttons" orientation="HORIZONTAL" gravity="LEFT" width="FIXED_SIZE" fixed_width="14.5bl"
+                height="WRAP_CONTENT" translateY="-1.25bl">
+            <Button id="jvmfrog_link" width="7bl" height="0.75bl"/>
+            <Button id="kirbogames_link" width="7bl" height="0.75bl" translateX="0.5bl"/>
+        </Layout>
+    </RootLayout>
+</Interface>

@@ -15,13 +15,13 @@ import com.kgc.sauw.game.Game;
 import com.kgc.utils.UpdatesChecker;
 
 import static com.kgc.sauw.core.graphic.Graphic.*;
-import static com.kgc.sauw.game.gui.GameInterfaces.SELECT_WORLD_INTERFACE;
-import static com.kgc.sauw.game.gui.GameInterfaces.UPDATES_INTERFACE;
+import static com.kgc.sauw.game.gui.GameInterfaces.*;
 
 public class MenuScreen implements Screen {
     private final Button startButton;
     private final Button settingsButton;
     private final Button modsButton;
+    private final Button developersButton;
     private final Button exitButton;
     private final Image sauwLogo;
     private final Button update;
@@ -57,23 +57,27 @@ public class MenuScreen implements Screen {
         startButton = new Button("sauw.button.menu_screen.start", 0, 0, 0, 0);
         settingsButton = new Button("sauw.button.menu_screen.settings", 0, 0, 0, 0);
         modsButton = new Button("sauw.button.menu_screen.mods", 0, 0, 0, 0);
+        developersButton = new Button("sauw.button.menu_screen.developers", 0, 0, 0, 0);
         exitButton = new Button("sauw.button.menu_screen.exit", 0, 0, 0, 0);
 
         sauwLogo.setSizeInBlocks(6, 3);
         startButton.setSizeInBlocks(6, 1);
         settingsButton.setSizeInBlocks(6, 1);
         modsButton.setSizeInBlocks(6, 1);
+        developersButton.setSizeInBlocks(6, 1);
         exitButton.setSizeInBlocks(6, 1);
         update.setSizeInBlocks(1, 1);
 
         startButton.setMarginBottom(0.05f);
         settingsButton.setMarginBottom(0.05f);
         modsButton.setMarginBottom(0.05f);
+        developersButton.setMarginBottom(0.05f);
         exitButton.setMarginBottom(0.05f);
 
-        mainLayout.addElements(sauwLogo, startButton, settingsButton, modsButton, exitButton);
+        mainLayout.addElements(sauwLogo, startButton, settingsButton, modsButton, developersButton, exitButton);
 
         startButton.addEventListener(SELECT_WORLD_INTERFACE::open);
+        developersButton.addEventListener(DEVELOPERS_INTERFACE::open);
         /*settingsButton.addEventListener(new Button.EventListener() {
             @Override
             public void onClick() {
@@ -91,6 +95,7 @@ public class MenuScreen implements Screen {
         startButton.setDefaultText();
         settingsButton.setDefaultText();
         modsButton.setDefaultText();
+        developersButton.setDefaultText();
         exitButton.setDefaultText();
 
         coinsLayout = new Layout(Layout.Orientation.HORIZONTAL);

@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 buildscript {
     ext.kotlin_version = '1.6.10'
 
@@ -12,6 +14,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath localGroovy()
     }
 }
 apply plugin: 'kotlin'
@@ -47,6 +50,29 @@ allprojects {
             dirs '../libs'
         }
         maven { url 'https://jitpack.io' }
+    }
+}
+
+task contributorsList {
+    def get = new URL("https://api.github.com/repos/KirboGames/S.A.U.W.-/contributors").openConnection();
+    def getRC = get.getResponseCode();
+    if (getRC.equals(200)) {
+        def jsonSlurper = new JsonSlurper()
+        def object = jsonSlurper.parseText(get.getInputStream().getText())
+
+        assert object instanceof List
+        File contributors = new File(rootProject.projectDir, "assets/contributors");
+        String contributorsList = "";
+        for (i in object) {
+            def get1 = new URL(i.avatar_url as String).openConnection();
+            contributorsList += "$i.login:$i.contributions\n"
+            if (get.getResponseCode() == 200) {
+                File avatar = new File(contributors.path, i.login + ".jpg" as String)
+                if (!avatar.exists()) avatar.createNewFile();
+                avatar.append(get1.getInputStream())
+            }
+        }
+        new File(contributors.path, "contributors.list").text = contributorsList
     }
 }
 
@@ -135,6 +161,8 @@ project(":core") {
     apply plugin: "java-library"
     apply plugin: "java"
     apply plugin: 'kotlin'
+
+    compileJava { dependsOn contributorsList }
 
     dependencies {
         implementation name: 'bdb5'

@@ -68,8 +68,10 @@ task contributorsList {
             contributorsList += "$i.login:$i.contributions\n"
             if (get.getResponseCode() == 200) {
                 File avatar = new File(contributors.path, i.login + ".jpg" as String)
-                if (!avatar.exists()) avatar.createNewFile();
-                avatar.append(get1.getInputStream())
+                if (!avatar.exists()) {
+                    avatar.createNewFile()
+                    avatar.append(get1.getInputStream())
+                }
             }
         }
         new File(contributors.path, "contributors.list").text = contributorsList
